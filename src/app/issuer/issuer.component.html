@@ -1,0 +1,66 @@
+<div class="main-content" style="background: white;">
+  
+    <div class="container-fluid">
+      <ngx-spinner></ngx-spinner>
+      <app-navbar></app-navbar>
+        <div class="row" style="padding-top: 5rem;">
+          <div class="col-lg-3 col-md-3 col-sm-3"></div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+  
+  
+  
+              <div class="card" style="display: flex; justify-content: center; margin-left: auto; margin-right: auto; opacity: 100%; width: 30rem; margin-bottom: 5%;">
+                <div class="card-header card-header-danger"  style="background: black;">
+                    <h4 class="card-title" style="text-align: center;">Add Issuer</h4>
+                    <p class="card-category" style="text-align: center; font-family: 'Playfair Display SC', serif; font-size: 11pt;">Add an Issuer </p>
+                </div>
+                <div class="card-body" style="width: auto; justify-content: center; align-items: center;"> 
+                  <mat-card  style="opacity:90%;">
+                    <form  #registerForm="ngForm" (ngSubmit)="register(registerForm)" novalidate>
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                        <input autofocus type="email" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
+                      </mat-form-field>
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                        <input autofocus type="email" matInput placeholder="Middle Name" id="middleName" name="middleName" [(ngModel)]="middleName" >
+                      </mat-form-field>
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                        <input autofocus type="email" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName" >
+                      </mat-form-field>
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                        <input autofocus type="number" matInput placeholder="BVN" id="bvn" name="bvn" [(ngModel)]="bvn" >
+                      </mat-form-field>
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                        <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
+                      </mat-form-field>
+                      <p *ngIf="this.error" style="font-size: smaller; margin-bottom: 5rem;"> {{this.error}} </p>
+            
+                      <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">lock_outline</mat-icon>
+                        <input type="password" autocomplete="false" matInput placeholder="Password" id="password" name="password" [(ngModel)]="password">
+                      </mat-form-field>
+                      <button (Click)="register(registerForm)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 25%;">
+                  
+                        Add new Issuer
+                    
+                    </button>
+                    </form>
+                  </mat-card>
+  
+  
+                </div>
+            </div>
+  
+              
+            </div>
+          </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+    
+    
+    

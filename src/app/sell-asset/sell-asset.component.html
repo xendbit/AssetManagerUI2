@@ -1,0 +1,41 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            
+                <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                  <mat-card class="col-lg-3 col-md-3 col-sm-6"  *ngFor="let item of this.assets | slice:0:4; let i=index"  style="margin-right: 10px;">
+                    <h4 style="text-align: center;"> Details of Art: </h4>
+                    <mat-card-subtitle style="text-align: center;">
+                      Artist: {{item.artistName}}
+                    </mat-card-subtitle>
+                    <mat-card-content  style="position: relative; margin-bottom: 60px; ">
+                      <img src="{{item.imageUrl}}" class="image">
+                      <p class="paragraph">
+                        <b> Price: </b> ${{item.price}}
+                      </p>
+                      <p class="paragraph">
+                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                      </p>
+                      
+                      
+                    </mat-card-content>
+                    <div class="col-lg-2 col-md-2 col-sm-2" style="bottom: 2%; position: absolute; margin-top: 1rem; align-items: center;">
+                      <button (click)="view(item.tokenId, 'sellPage')"  style="margin-left: 40px; align-items: center; background: green !important;" mat-raised-button type="submit" class="btn btn-danger pull-left">View Asset</button>
+                    </div>
+                   
+                  </mat-card>
+                </div>
+      
+          </div>
+        </div>
+  
+  
+        
+       
+    </div>
+  </div>
+    
+    
+    
+  

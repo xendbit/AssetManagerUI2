@@ -1,0 +1,71 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <mat-tab-group style="align-items: center;">
+              <mat-tab label="Primary"> 
+                <h4 style="text-align: center; margin-bottom: 5px; margin-top: 20px;"> PRIMARY MARKET </h4>
+                <a (click)="viewAll()"> <h4 style="text-align: right; color: black;"> View All >>> </h4> </a>
+                <div class="row" style="padding-bottom: 15px; overflow-y: scroll;">
+                  <mat-card class="col-lg-3 col-md-3 col-sm-6"  *ngFor="let item of this.primaryMarket | slice: 0:15; let i=index" style="margin-left: 20px; margin-bottom: 10px;">
+                    
+                    <mat-card-content  style="position: relative; margin-bottom: 60px; ">
+                      <img src="{{item.imageUrl}}" class="image">
+                      <mat-card-subtitle style="text-align: center;">
+                        Artist: {{item.artistName}}
+                      </mat-card-subtitle>
+                      <p class="paragraph">
+                        <b> Price: </b> ${{item.price}}
+                      </p>
+                      <p class="paragraph">
+                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                      </p>
+                      
+                      
+                    </mat-card-content>
+                    <div class="col-lg-2 col-md-2 col-sm-2" style="bottom: 2%; position: absolute; margin-top: 1rem; align-items: center;">
+                      <button (click)="view(item.tokenId, 'buyPage')" style="margin-left: 40px; align-items: center; background: green !important;" mat-raised-button type="submit" class="btn btn-danger pull-left">View Asset</button>
+                    </div>
+                   
+                  </mat-card>
+                </div>
+        
+              </mat-tab>
+  
+  
+              <mat-tab label="Secondary">
+                <h4 style="text-align: center; margin-bottom: 5px; margin-top: 20px;"> SECONDARY MARKET </h4>
+                <a (click)="viewAll()"> <h6 style="text-align: right; color: gray;"> View All >>> </h6> </a>
+                <div class="row" style="padding-bottom: 15px; overflow-y: scroll;">
+                  <mat-card class="col-lg-3 col-md-3 col-sm-6" *ngFor="let item of this.secondaryMarket | slice:0:15; let i=index" style="margin-left: 20px; margin-bottom: 10px;">
+                    <mat-card-subtitle style="text-align: center;">
+                      Artist: {{item.artistName}}
+                    </mat-card-subtitle>
+                    <mat-card-content style="position: relative; margin-bottom: 60px;">
+                      <img src="{{item.imageUrl}}" class="image">
+                      <p class="paragraph">
+                        <b> Price: </b> ${{item.price}}
+                      </p>
+                      <p class="paragraph">
+                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                      </p>
+                      
+                    </mat-card-content>
+                    <div  style="bottom: 2%; position: absolute; margin-top: 1rem;">
+                      <button (click)="view(item.tokenId, 'buyPage')" style="margin-left: 60px; background: green !important;" mat-raised-button type="submit" class="btn btn-danger pull-left">View Asset</button>
+                    </div>
+                  </mat-card>
+                </div>
+               
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+  
+  
+        
+       
+    </div>
+  </div>
+  
+  
