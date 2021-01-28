@@ -46,5 +46,4 @@ export class LoginService {
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.post(`${this.baseUrl}/admin/change-approval-status/${tokenId}/${status}`, {}, {headers});
   }
-
 }

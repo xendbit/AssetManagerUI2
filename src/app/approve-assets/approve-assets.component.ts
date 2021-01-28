@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AssetsService } from './../services/assets.service';
 import { LoginService } from './../services/login.service';
 import { AdminService } from './../services/admin.service';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AssetsService } from './../services/assets.service';
 
 @Component({
   selector: 'app-approve-assets',
   templateUrl: './approve-assets.component.html',
-  styleUrls: ['./approve-assets.component.scss']
+  styleUrls: ['./approve-assets.component.css']
 })
 export class ApproveAssetsComponent implements OnInit {
   assets: any;
@@ -20,7 +20,6 @@ export class ApproveAssetsComponent implements OnInit {
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService) { }
 
- 
   ngOnInit(): void {
     this.getAssets();
   }

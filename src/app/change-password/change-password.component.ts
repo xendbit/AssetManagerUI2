@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
   submitted: boolean;
@@ -16,7 +16,7 @@ export class ChangePasswordComponent implements OnInit {
   retypePassword: any;
   token: any;
 
-  constructor(private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
     private router: Router, public loginService: LoginService, public assetService: AssetsService) { }
 
   ngOnInit(): void {
@@ -45,5 +45,6 @@ export class ChangePasswordComponent implements OnInit {
     }
 
   }
+
 
 }

@@ -4,7 +4,7 @@ import { AssetsService } from './../services/assets.service';
 @Component({
   selector: 'app-issuer-dashboard',
   templateUrl: './issuer-dashboard.component.html',
-  styleUrls: ['./issuer-dashboard.component.scss']
+  styleUrls: ['./issuer-dashboard.component.css']
 })
 export class IssuerDashboardComponent implements OnInit {
   orders: any;
@@ -16,7 +16,7 @@ export class IssuerDashboardComponent implements OnInit {
   error: any;
 
   constructor(public assetService: AssetsService) { }
-  
+
   ngOnInit(): void {
     this.totalItems = 0;
     this.totalApproved = 0;
@@ -62,6 +62,5 @@ export class IssuerDashboardComponent implements OnInit {
       this.error = err.error.data.error;
     });
   }
-
 
 }

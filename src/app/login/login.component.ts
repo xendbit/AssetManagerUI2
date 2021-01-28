@@ -11,19 +11,19 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  email: string;
-  password: string;
 
-constructor(
-      private route: ActivatedRoute,
-      private router: Router, public loginService: LoginService, public assetService: AssetsService
-) { }
+    loading = false;
+    submitted = false;
+    returnUrl: string;
+    email: string;
+    password: string;
 
+  constructor(
+        private route: ActivatedRoute,
+        private router: Router, public loginService: LoginService, public assetService: AssetsService
+  ) { }
 
-ngOnInit() {
+  ngOnInit() {
 
   // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -46,6 +46,9 @@ ngOnInit() {
             data => {
               if (data['status'] == 'success') {
                 console.log('this is data', data);
+                localStorage.setItem('accountNumber', data['data']['ngncAccountNumber']);
+                localStorage.setItem('firstName', data['data']['firstName'])
+                localStorage.setItem('firstName', data['data']['middleName'])
                 localStorage.setItem('userId', data['data']['id'])
                 localStorage.setItem('role', data['data']['role'])
                 this.assetService.stopSpinner();

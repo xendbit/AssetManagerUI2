@@ -1,71 +1,121 @@
-<div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <mat-tab-group style="align-items: center;">
-              <mat-tab label="Primary"> 
-                <h4 style="text-align: center; margin-bottom: 5px; margin-top: 20px;"> PRIMARY MARKET </h4>
-                <a (click)="viewAll()"> <h4 style="text-align: right; color: black;"> View All >>> </h4> </a>
-                <div class="row" style="padding-bottom: 15px; overflow-y: scroll;">
-                  <mat-card class="col-lg-3 col-md-3 col-sm-6"  *ngFor="let item of this.primaryMarket | slice: 0:15; let i=index" style="margin-left: 20px; margin-bottom: 10px;">
-                    
-                    <mat-card-content  style="position: relative; margin-bottom: 60px; ">
-                      <img src="{{item.imageUrl}}" class="image">
-                      <mat-card-subtitle style="text-align: center;">
-                        Artist: {{item.artistName}}
-                      </mat-card-subtitle>
-                      <p class="paragraph">
-                        <b> Price: </b> ${{item.price}}
-                      </p>
-                      <p class="paragraph">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
-                      </p>
-                      
-                      
-                    </mat-card-content>
-                    <div class="col-lg-2 col-md-2 col-sm-2" style="bottom: 2%; position: absolute; margin-top: 1rem; align-items: center;">
-                      <button (click)="view(item.tokenId, 'buyPage')" style="margin-left: 40px; align-items: center; background: green !important;" mat-raised-button type="submit" class="btn btn-danger pull-left">View Asset</button>
-                    </div>
-                   
-                  </mat-card>
-                </div>
-        
-              </mat-tab>
-  
-  
-              <mat-tab label="Secondary">
-                <h4 style="text-align: center; margin-bottom: 5px; margin-top: 20px;"> SECONDARY MARKET </h4>
-                <a (click)="viewAll()"> <h6 style="text-align: right; color: gray;"> View All >>> </h6> </a>
-                <div class="row" style="padding-bottom: 15px; overflow-y: scroll;">
-                  <mat-card class="col-lg-3 col-md-3 col-sm-6" *ngFor="let item of this.secondaryMarket | slice:0:15; let i=index" style="margin-left: 20px; margin-bottom: 10px;">
-                    <mat-card-subtitle style="text-align: center;">
-                      Artist: {{item.artistName}}
-                    </mat-card-subtitle>
-                    <mat-card-content style="position: relative; margin-bottom: 60px;">
-                      <img src="{{item.imageUrl}}" class="image">
-                      <p class="paragraph">
-                        <b> Price: </b> ${{item.price}}
-                      </p>
-                      <p class="paragraph">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
-                      </p>
-                      
-                    </mat-card-content>
-                    <div  style="bottom: 2%; position: absolute; margin-top: 1rem;">
-                      <button (click)="view(item.tokenId, 'buyPage')" style="margin-left: 60px; background: green !important;" mat-raised-button type="submit" class="btn btn-danger pull-left">View Asset</button>
-                    </div>
-                  </mat-card>
-                </div>
-               
-              </mat-tab>
-            </mat-tab-group>
+
+<div class="mm-page mm-slideout" style="background-color: white; position: relative; min-height: 100vh; height: 100%; ">
+  <ngx-spinner></ngx-spinner>
+ <app-navbar></app-navbar>
+
+  <div id="container_home">
+
+      <div class="container-fluid container-lg container-home" style="min-height: 40vh; height: 50%;">
+          
+        <p class="text-uppercase small font-weight-medium">
+            payments
+        </p>
+        <h2 class="text-uppercase font-weight-light">
+            Kindly make Naira deposits into
+        </h2>
+        <div class="row" style="margin-top: 3rem;">
+          <div class="col-lg-4 col-md-4 col-sm-4"></div>
+          <div class=" card-body">
+            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+              <b> Account Number: </b>  {{this.accountNumber}}
+            </p>
+            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+              <b> Account Name: </b> {{this.fullName}}
+            </p>
+
+            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+              <b> Bank: </b> Providus Bank
+            </p>
+            
           </div>
+            <mat-card style="margin-left: 10px !important; margin-bottom: 5px; text-align: center;" class="col-lg-5 col-md-5 col-sm-5">
+                <mat-card-content  style="position: relative; ">
+                   
+                    
+                    
+                  </mat-card-content>
+            </mat-card>
         </div>
-  
-  
-        
-       
-    </div>
+
+      </div>
+
+    
+      <div class="container-fluid container-lg container-home" >
+              
+          <p class="text-uppercase small font-weight-medium">
+              all artworks
+          </p>
+          <h2 class="text-uppercase font-weight-light">
+              Check out these Artworks on the primary market
+          </h2>
+          <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
+              <mat-card (click)="viewBuy(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
+                  <mat-card-content  style="position: relative; ">
+                      <img src="{{item.imageUrl}}" class="image">
+                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                      <b> Price: </b> ${{item.price}}
+                      </p>
+                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                      <b> Artwork Title: </b> {{item.titleOfWork}}
+                      </p>
+                      
+                      
+                  </mat-card-content>
+              </mat-card>
+          </div>
+
+      </div>
+      
   </div>
   
   
+      <app-footer> </app-footer>
+
+</div>
+
+
+
+
+
+
+<!-- <div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12 col-lg-12 col-sm-12">
+              <div class="card card-plain">
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-hover" >
+                            <thead class="text-success">
+                                <th>Asset </th>
+                                <th> Art Title </th>
+                                <th>Artist</th>
+                                <th>Issuing Price</th>
+                                <th> Symbol</th>
+
+                                <th> Market Type </th>
+
+                            </thead>
+                            <tbody *ngFor="let item of this.approved " style="font-size: smaller;">
+                                <tr class="Table" (click)="view(item.tokenId)">
+                                    <td style="width: 20%;"> <img src={{item.imageUrl}} style="width: 40%; height: 60px;"> </td>
+                                    <td> {{item.titleOfWork}} </td>
+                                    <td> {{item.artistName}} </td>
+                                    <td> {{item.issuingPrice}} </td>
+                                    <td> {{item.symbol}} </td>
+              
+                                    <td *ngIf="item.market === 0"> Primary  </td>
+                                    <td *ngIf="item.market === 1"> Secondary </td>
+                                    
+                                    
+                                    
+                                </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->

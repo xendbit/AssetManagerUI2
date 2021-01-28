@@ -35,5 +35,4 @@ export class AdminService {
     return this.httpClient.post(`${this.baseUrl}/admin/login`, {email, password}, {headers});
   }
 
-
 }

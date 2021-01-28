@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
   firstName: any;
@@ -22,6 +22,10 @@ export class AdminComponent implements OnInit {
   constructor(public adminService: AdminService, public assetService: AssetsService) { }
 
   ngOnInit(): void {
+    this.assetService.getPassphrase().pipe(first()).subscribe(res => {
+      console.log('this is response', res);
+      this.passphrase = res['data'];
+    })
   }
 
   register(registerForm: NgForm) {
@@ -60,4 +64,5 @@ export class AdminComponent implements OnInit {
     });
     
   }
+
 }

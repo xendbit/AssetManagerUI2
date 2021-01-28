@@ -1,17 +1,17 @@
+import { AssetsService } from './../services/assets.service';
 import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
-import { AssetsService } from './../services/assets.service';
 
 @Component({
   selector: 'app-admin-assets',
   templateUrl: './admin-assets.component.html',
-  styleUrls: ['./admin-assets.component.scss']
+  styleUrls: ['./admin-assets.component.css']
 })
 export class AdminAssetsComponent implements OnInit {
   assets: any;
 
   constructor(public assetService: AssetsService, public loginService: LoginService) { }
-  
+
   ngOnInit(): void {
     this.getAssets();
   }
@@ -32,6 +32,5 @@ export class AdminAssetsComponent implements OnInit {
       }
     })
   }
-
 
 }

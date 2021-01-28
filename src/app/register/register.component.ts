@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 declare var genwallet: any;
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -70,6 +69,5 @@ export class RegisterComponent implements OnInit {
   login() {
     this.router.navigateByUrl('/login')
   }
-
 
 }

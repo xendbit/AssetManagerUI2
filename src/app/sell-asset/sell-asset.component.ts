@@ -5,9 +5,9 @@ import { NgForm } from '@angular/forms';
 declare var $: any;
 
 @Component({
-  selector: 'app-sell-asset',
+  selector: 'app-typography',
   templateUrl: './sell-asset.component.html',
-  styleUrls: ['./sell-asset.component.scss']
+  styleUrls: ['./sell-asset.component.css']
 })
 export class SellAssetComponent implements OnInit {
   error: any;
@@ -64,6 +64,5 @@ view(tokenId, page) {
 viewAll() {
   this.router.navigateByUrl('/assets', { state: {from: 'buyPage'}});;
 }
-
 
 }

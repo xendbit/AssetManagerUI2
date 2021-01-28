@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationsComponent } from './notifications.component';
 
@@ -6,12 +6,12 @@ describe('NotificationsComponent', () => {
   // let component: NotificationsComponent;
   // let fixture: ComponentFixture<NotificationsComponent>;
 
-  // beforeEach(async () => {
-  //   await TestBed.configureTestingModule({
+  // beforeEach(async(() => {
+  //   TestBed.configureTestingModule({
   //     declarations: [ NotificationsComponent ]
   //   })
   //   .compileComponents();
-  // });
+  // }));
 
   // beforeEach(() => {
   //   fixture = TestBed.createComponent(NotificationsComponent);

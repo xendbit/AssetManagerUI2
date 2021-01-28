@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-buy-orders',
   templateUrl: './buy-orders.component.html',
-  styleUrls: ['./buy-orders.component.scss']
+  styleUrls: ['./buy-orders.component.css']
 })
 export class BuyOrdersComponent implements OnInit {
-  buyOrders: any[];
-  sellOrders: any;
-userId: string;
-assets: any;
-approved: any[];
-unapproved: any[];
+    buyOrders: any[];
+    sellOrders: any;
+  userId: string;
+  assets: any;
+  approved: any[];
+  unapproved: any[];
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
@@ -66,8 +66,6 @@ unapproved: any[];
   viewBuy(tokenId, page) {
     this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
   }
-
-
 
 
 }

@@ -9,7 +9,7 @@ declare var $: any;
 @Component({
   selector: 'app-issue-assets',
   templateUrl: './issue-assets.component.html',
-  styleUrls: ['./issue-assets.component.scss']
+  styleUrls: ['./issue-assets.component.css']
 })
 export class IssueAssetsComponent implements OnInit {
   symbol: string;
@@ -41,7 +41,7 @@ export class IssueAssetsComponent implements OnInit {
   });
    }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.image = '/assets/img/nse.png';
     this.getUserAssets();
   }
@@ -153,6 +153,5 @@ export class IssueAssetsComponent implements OnInit {
       //this.assetService.showNotification('bottom', 'center', this.error, 'danger');
     });
   }
-
 
 }

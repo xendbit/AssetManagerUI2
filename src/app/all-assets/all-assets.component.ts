@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-all-assets',
   templateUrl: './all-assets.component.html',
-  styleUrls: ['./all-assets.component.scss']
+  styleUrls: ['./all-assets.component.css']
 })
 export class AllAssetsComponent implements OnInit {
   assets: any;

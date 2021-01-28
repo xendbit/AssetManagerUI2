@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-issuer',
   templateUrl: './issuer.component.html',
-  styleUrls: ['./issuer.component.scss']
+  styleUrls: ['./issuer.component.css']
 })
 export class IssuerComponent implements OnInit {
   name: any;
@@ -19,6 +19,7 @@ export class IssuerComponent implements OnInit {
   firstName: string;
   middleName: string;
   lastName: string;
+
 
   constructor(public loginService: LoginService, public assetService: AssetsService) { }
 

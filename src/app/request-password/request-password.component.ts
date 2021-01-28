@@ -5,13 +5,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-request-password',
   templateUrl: './request-password.component.html',
-  styleUrls: ['./request-password.component.scss']
+  styleUrls: ['./request-password.component.css']
 })
 export class RequestPasswordComponent implements OnInit {
-
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -67,6 +67,5 @@ export class RequestPasswordComponent implements OnInit {
   register() {
     this.router.navigateByUrl('/login')
   }
-
 
 }

@@ -7,24 +7,69 @@
 
         <div class="container-fluid mt-3 container-home" style="height: 100%; padding-left: 7rem;">
             <div class="row no-gutters">
-                <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #d8c0fa; padding-left: 15px; height: 20rem; width: 100%;">
-                    <div class="hero-content w-100">
-                        <h2 class="text-white text-uppercase text-center text-lg-left hero-title">  
-                            Easily Buy and trade art securely on the digital blockchain
-                        </h2>
-                        <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important;">
-                            170,000 Artists
-                            | 900,000 Collectors
-                        </p>
-                        
+                <div class="container mt-3">
+                    <div id="bootstrapCarousel" class="carousel slide" data-ride="carousel">
+                      <!-- Slide Indicators -->
+                    
+                      
+                  
+                      <!-- The slides to show -->
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div  class="row">
+                                <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #d8c0fa; padding-left: 15px; height: 20rem; width: 100%;">
+                                    <div class="hero-content w-100">
+                                        <h2 class="text-white text-uppercase text-center text-lg-left hero-title">  
+                                            Easily Buy and trade art securely on the digital blockchain
+                                        </h2>
+                                        <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important;">
+                                            170,000 Artists
+                                            | 900,000 Collectors
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-7" style="padding-left: 0 !important;">
+                                    <div class="overlay">
+                                        <img class="img-fluid" src="/assets/img/nse.png">
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div  class="row">
+                                <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #d8c0fa; padding-left: 15px; height: 20rem; width: 100%;">
+                                    <div class="hero-content w-100">
+                                        <h3 class="text-white text-uppercase text-center text-lg-left hero-title">  
+                                            Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud.
+                                        </h3>
+                                        <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important;">
+                                            using a unique digital blockchain signature
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-7" style="padding-left: 0 !important;">
+                                    <div class="overlay">
+                                        <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  
+                      <!--  Controls (Left and right) -->
+                      <a class="carousel-control-prev" href="#bootstrapCarousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                      </a>
+                      <a class="carousel-control-next" href="#bootstrapCarousel" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                      </a>
                     </div>
-                </div>
-                <div class="col-12 col-lg-7">
-                    <div class="overlay">
-                        <img class="img-fluid" src="/assets/img/nse.png">
-                    </div>
-            
-                </div>
+                  </div>
+               
             
             </div>
             
@@ -101,7 +146,7 @@
             <h2 class="text-uppercase font-weight-light">
                 Featured Artists
             </h2>
-            <a (click)="goToAllAssets()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
                 
                 View more
             

@@ -12,7 +12,7 @@ declare var $: any;
 @Component({
   selector: 'app-view-asset',
   templateUrl: './view-asset.component.html',
-  styleUrls: ['./view-asset.component.scss']
+  styleUrls: ['./view-asset.component.css']
 })
 export class ViewAssetComponent implements OnInit {
   tokenId: any;
@@ -27,10 +27,10 @@ export class ViewAssetComponent implements OnInit {
   assets: any;
   approved: any[];
   unapproved: any[];
-  balance: any;
+  balance: 0;
   secondaryPrice: any;
   orderId: any;
-
+  quantity: any;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
@@ -47,6 +47,7 @@ export class ViewAssetComponent implements OnInit {
                     this.tokenId = window.history.state.tokenId;
                     this.pageHistory = window.history.state.from;
                     this.secondaryPrice = window.history.state.price;
+                    this.quantity = window.history.state.quantity;
                     if (window.history.state.id) {
                       this.orderId = window.history.state.id;
                     }
@@ -100,11 +101,11 @@ export class ViewAssetComponent implements OnInit {
 
   buy(buyForm: NgForm) {
     let orderStrategy;
-    console.log('this is balance', this.balance);
-    if (this.balance == 0) {
-      this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
-      return;
-    }
+    console.log('balance is low', this.balance < this.asset.issuingPrice * this.asset.sharesAvailable);
+    // if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.asset.sharesAvailable) {
+    //   this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+    //   return;
+    // }
     
     if (this.asset.market === 0 ) {
       orderStrategy = 0;
@@ -121,11 +122,12 @@ export class ViewAssetComponent implements OnInit {
         tokenId: this.asset.tokenId,
         orderType: 0,
         orderStrategy: orderStrategy,
-        amount: this.amount,
+        amount: this.quantity,
         "price": this.secondaryPrice,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
-        "orderId": this.orderId
+        "orderId": this.orderId,
+        market: 2
       }
       console.log('this is body', body)
     } else {
@@ -136,7 +138,8 @@ export class ViewAssetComponent implements OnInit {
         amount: this.amount,
         "price": this.asset.issuingPrice,
         "goodUntil": 0,
-        "userId": parseInt(this.userId)
+        "userId": parseInt(this.userId),
+        market: 1
       }
       console.log('this is body', body)
     }
@@ -173,7 +176,8 @@ export class ViewAssetComponent implements OnInit {
         amount: this.amount,
         "price": price,
         "goodUntil": 0,
-        "userId": parseInt(this.userId)
+        "userId": parseInt(this.userId),
+        market: 1
     }
     this.assetService.showSpinner();
     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
@@ -233,5 +237,6 @@ export class ViewAssetComponent implements OnInit {
     });
   }
 
+  
 
 }

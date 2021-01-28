@@ -4,6 +4,9 @@ import { BuyOrdersComponent } from './buy-orders/buy-orders.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AllAssetsComponent } from './all-assets/all-assets.component';
 import { SellAssetComponent } from './sell-asset/sell-asset.component';
+import { BuyAssetComponent } from './buy-asset/buy-asset.component';
+import { ViewAssetComponent } from './view-asset/view-asset.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 
@@ -32,22 +35,16 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import {
   AgmCoreModule
 } from '@agm/core';
-// import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminComponent } from './admin/admin.component';
-
-import { RequestPasswordComponent } from './request-password/request-password.component';
-import { AdminAssetsComponent } from './admin-assets/admin-assets.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
-import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
-import { BuyAssetComponent } from './buy-asset/buy-asset.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerComponent } from './issuer/issuer.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminAssetsComponent } from './admin-assets/admin-assets.component';
+import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
+import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
-
-import { UpgradeComponent } from './upgrade/upgrade.component';
-import { ViewAssetComponent } from './view-asset/view-asset.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 
 
@@ -80,27 +77,9 @@ import { ViewAssetComponent } from './view-asset/view-asset.component';
   ],
   declarations: [
     AppComponent,
-    // AdminLayoutComponent,
     AdminComponent,
     AdminDashboardComponent,
     AdminAssetsComponent,
-    AdminViewComponent,
-    AllAssetsComponent,
-    ApproveAssetsComponent,
-    BuyAssetComponent,
-    BuyOrdersComponent,
-    ChangePasswordComponent,
-    DashboardComponent,
-    IssueAssetsComponent,
-    IssuerComponent,
-    IssuerDashboardComponent,
-    LoginComponent,
-    RegisterComponent,
-    NotificationsComponent,
-    RequestPasswordComponent,
-    SellAssetComponent,
-    UpgradeComponent,
-    ViewAssetComponent,
     ApproveAssetsComponent,
     IssuerComponent,
     RequestPasswordComponent,
@@ -120,7 +99,7 @@ import { ViewAssetComponent } from './view-asset/view-asset.component';
     DashboardComponent
 
   ],
-  providers: [HttpClient],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

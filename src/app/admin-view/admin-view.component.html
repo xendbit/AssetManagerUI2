@@ -1,104 +1,166 @@
 
 
 <div class="mm-page mm-slideout" style="background-color: white; ">
-    <ngx-spinner></ngx-spinner>
-    <app-navbar></app-navbar>
-  
-    <div id="container_home">
-  
-        <div class="container-fluid container-lg container-home" style="height: 100%;">
-            <p class="text-uppercase small font-weight-medium">
-                orders
-            </p>
-            <h4 class="text-uppercase font-weight-light">
-                available orders for this asset on the secondary market
-            </h4>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Playfair Display SC', serif;">
-                    <mat-tab label="Sell Orders">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover" >
-                                  <thead class="text-success">
-                                        <th> Order Type </th>
-                                        <th>Order Strategy</th>
-                                        <th>Amount remaining</th>
-                                        <th> Token ID </th>
-                                        <th>Original amount</th>
-                                        <th> Price</th>
-                                        <th> Order Date </th>
-                                  </thead>
-                                  <tbody *ngFor="let item of this.sellOrders">
-                                      <tr class="Table" (click)= "viewAsset(item.price, item.id)">
-                                          <td>Sell</td>
-                                          <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
-                                          <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>
-                                          <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
-                                          <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
-                                          <td *ngIf="item.orderStrategy === 4"> Market Order </td>
-                                          <td> {{item.amountRemaining}} </td>
-                                          <td> {{item.tokenId}} </td>
-                                          <td> {{item.originalAmount}} </td>
-                                          <td> {{item.price}} </td>
-                                          <td> {{item.orderDate  | date : 'short'}} </td>
-                                      </tr>
-                                  </tbody>
-                                </table>
-                            </div>
+  <ngx-spinner></ngx-spinner>
+  <app-navbar></app-navbar>
+
+  <div id="container_home">
+
+
+
+
+      <div class="container-fluid container-lg container-home" style="height: 100%;">
+         
+              <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Playfair Display SC', serif;">
+
+                  <mat-tab label="Sell Orders">
+          
+
+                    <p class="text-uppercase small font-weight-medium">
+                      orders
+                  </p>
+                  <h4 class="text-uppercase font-weight-light">
+                      available orders for this asset on the secondary market
+                  </h4>
+                      <div class="card-body">
+                        <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                          <div class="table-responsive">
+                            
+                              <table class="table table-hover" >
+                                <thead class="text-success">
+                                      <th> Order Type </th>
+                                      <th>Order Strategy</th>
+                                      <th>Amount remaining</th>
+                                      <th> Token ID </th>
+                                      <th>Original amount</th>
+                                      <th> Price</th>
+                                      <th> Order Date </th>
+                                </thead>
+                                <tbody *ngFor="let item of this.sellOrders">
+                                    <tr class="Table" (click)= "viewAsset(item.price, item.id, item.amountRemaining)">
+                                        <td>Sell</td>
+                                        <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
+                                        <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>
+                                        <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
+                                        <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
+                                        <td *ngIf="item.orderStrategy === 4"> Market Order </td>
+                                        <td> {{item.amountRemaining}} </td>
+                                        <td> {{item.tokenId}} </td>
+                                        <td> {{item.originalAmount}} </td>
+                                        <td> {{item.price}} </td>
+                                        <td> {{item.orderDate  | date : 'short'}} </td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
                         </div>
-    
-                    </mat-tab>
-                </mat-tab-group>
+                          
+                      </div>
+
+
+                  </mat-tab>
+
+                  <mat-tab label="Place market order">
+                    <h4 class="text-uppercase font-weight-light" style="margin-top: 5rem !important;">
+                       buy at market order
+                    </h4>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <form #buyForm="ngForm" (ngSubmit)="buy(buyForm)" novalidate>
               
-            </div>
-    
-        </div>
-  
-  
-        <div class="container-fluid container-lg container-home" style="height: 100%;" *ngIf="this.unavailable">
-          <p class="text-uppercase small font-weight-medium">
-              orders
-          </p>
-          <h2 class="text-uppercase font-weight-light">
-              This asset currently does not have any sell orders.
-          </h2>
-  
-      </div>
-  
-  
-  
-  
-        <div class="container-fluid container-lg container-home">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                            <p><b> Account Balance: </b> ${{this.balance}} </p>
+                          </div>
             
-          <p class="text-uppercase small font-weight-medium">
-              other listings
-          </p>
-          <h2 class="text-uppercase font-weight-light">
-              Also check out these artworks
-          </h2>
-          <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-              <mat-card (click)="view(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">
-                  <mat-card-content  style="position: relative; ">
-                      <img src="{{item.imageUrl}}" class="image">
-                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b> ${{item.price}}
-                      </p>
-                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
-                      </p>
+                        </div>
+              
+                          <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                                </mat-form-field>
+                              </div>
+                          </div>
+              
+                          
+                          <div style="padding-bottom: 20px; ">
+                            <button (Click)="buy(buyForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                        
+                              Place Order
+                          
+                          </button>
+                           
+                          </div>
+                      </form>
                       
+                    </div>
                       
-                    </mat-card-content>
-              </mat-card>
-          </div>
+                    </mat-tab>
+                  
+              </mat-tab-group>
+              
   
       </div>
-  
-  
-  
-  
+
+
+      <div class="container-fluid container-lg container-home" style="height: 100%;" *ngIf="this.unavailable">
+        <p class="text-uppercase small font-weight-medium">
+            orders
+        </p>
+        <h2 class="text-uppercase font-weight-light">
+            This asset currently does not have any sell orders.
+        </h2>
+
     </div>
-    
-        <app-footer></app-footer>
+
+
+
+
+      <div class="container-fluid container-lg container-home">
+          
+        <p class="text-uppercase small font-weight-medium">
+            other listings
+        </p>
+        <h2 class="text-uppercase font-weight-light">
+            Also check out these artworks
+        </h2>
+        <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
+            <mat-card (click)="view(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">
+                <mat-card-content  style="position: relative; ">
+                    <img src="{{item.imageUrl}}" class="image">
+                    <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                      <b> Price: </b> ${{item.price}}
+                    </p>
+                    <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                      <b> Artwork Title: </b> {{item.titleOfWork}}
+                    </p>
+                    
+                    
+                  </mat-card-content>
+            </mat-card>
+        </div>
+
+    </div>
+
+
+
+
+  </div>
   
-  </div>  
+      <app-footer></app-footer>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

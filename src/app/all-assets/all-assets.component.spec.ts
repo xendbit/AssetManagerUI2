@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AllAssetsComponent } from './all-assets.component';
 
@@ -6,12 +6,12 @@ describe('AllAssetsComponent', () => {
   // let component: AllAssetsComponent;
   // let fixture: ComponentFixture<AllAssetsComponent>;
 
-  // beforeEach(async () => {
-  //   await TestBed.configureTestingModule({
+  // beforeEach(async(() => {
+  //   TestBed.configureTestingModule({
   //     declarations: [ AllAssetsComponent ]
   //   })
   //   .compileComponents();
-  // });
+  // }));
 
   // beforeEach(() => {
   //   fixture = TestBed.createComponent(AllAssetsComponent);

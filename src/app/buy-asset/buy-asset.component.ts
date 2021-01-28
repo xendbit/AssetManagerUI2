@@ -6,12 +6,11 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
 @Component({
-  selector: 'app-buy-asset',
+  selector: 'app-user-profile',
   templateUrl: './buy-asset.component.html',
-  styleUrls: ['./buy-asset.component.scss']
+  styleUrls: ['./buy-asset.component.css']
 })
 export class BuyAssetComponent implements OnInit {
-
   assets: any;
   orderStrategy: any;
   assetChosen: any;
@@ -20,11 +19,15 @@ export class BuyAssetComponent implements OnInit {
   error: any;
   primaryMarket: any;
   secondaryMarket: any[];
+  accountNumber: string;
+  fullName: string;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
     //this.hideArtDetails('hidden');
+    this.accountNumber = localStorage.getItem('accountNumber');
+    this.fullName = localStorage.getItem('firstName') + localStorage.getItem('middleName');
     this.getAssets();
   }
 
@@ -104,6 +107,10 @@ showNotification(from, align, message, kind){
         '<a href="{3}" target="{4}" data-notify="url"></a>' +
       '</div>'
   });
+}
+
+viewBuy(tokenId) {
+  this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: 'buyPage'} });
 }
 
 }

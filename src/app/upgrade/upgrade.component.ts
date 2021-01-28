@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../services/assets.service';
 import { Router } from '@angular/router';
 
+
+
 declare var $: any;
 
 @Component({
   selector: 'app-upgrade',
   templateUrl: './upgrade.component.html',
-  styleUrls: ['./upgrade.component.scss']
+  styleUrls: ['./upgrade.component.css']
 })
 export class UpgradeComponent implements OnInit {
   assets: any;
@@ -19,7 +21,6 @@ export class UpgradeComponent implements OnInit {
   primaryMarket: any;
   secondaryMarket: any[];
   userId: number;
-
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
@@ -78,6 +79,5 @@ export class UpgradeComponent implements OnInit {
   goToAllAssets(page) {
     this.router.navigateByUrl('/assets', { state : { from: page} });
   }
-
 
 }

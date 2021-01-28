@@ -4,7 +4,7 @@ import { AssetsService } from './../services/assets.service';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
   orders: any;
@@ -42,6 +42,5 @@ export class AdminDashboardComponent implements OnInit {
       console.log('this is primary market', this.approved)
     })
   }
-
 
 }

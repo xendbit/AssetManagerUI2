@@ -5,20 +5,31 @@ import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
+import { IssuerSidebarComponent } from './issuer-sidebar/issuer-sidebar.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule
   ],
   declarations: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent,
+    AdminSidebarComponent,
+    IssuerSidebarComponent
   ],
   exports: [
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent,
+    AdminSidebarComponent,
+    IssuerSidebarComponent
   ]
 })
 export class ComponentsModule { }

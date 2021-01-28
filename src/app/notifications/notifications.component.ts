@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 declare var $: any;
-
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
   assets: any;
