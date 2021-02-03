@@ -92,17 +92,22 @@
                               <th> Amount Remaining </th>
                               <th>Original Amount</th>
                               <th>Price</th>
-                              <th>Order Date</th>
-                              <th> Status Date</th>
+                              <th> Order Type </th>
+                              <th>Order Strategy</th>
                           </thead>
                           <tbody *ngFor="let item of this.orders | slice:0:10; let i=index" >
                               <tr class="Table">
                                 <td> {{item.tokenId}} </td>
-                                  <td> {{item.amountRemaining}} </td>
-                                  <td> {{item.originalAmount}} </td>
-                                  <td> {{item.price}} </td>
-                                  <td> {{item.orderDate  | date : 'short' }} </td>
-                                  <td> {{item.statusDate  | date : 'short' }} </td>
+                                <td> {{item.amountRemaining}} </td>
+                                <td> {{item.originalAmount}} </td>
+                                <td> {{item.price}} </td>
+                                <td *ngIf="item.orderType === 0"> Buy </td>
+                                <td *ngIf="item.orderType === 1"> Sell </td>
+                                <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
+                                <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>
+                                <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
+                                <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
+                                <td *ngIf="item.orderStrategy === 4"> Market Order </td>
                               </tr>
                           </tbody>
                         </table>

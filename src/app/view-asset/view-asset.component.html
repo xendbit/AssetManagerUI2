@@ -13,9 +13,13 @@
               View More details:
           </h2>
           <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-            <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+            <mat-card class="col-lg-7 col-md-7 col-sm-7" style="font-family: 'Inter', serif;">
               <mat-card-header>
-                <img src="{{this.asset.imageUrl}}" style="width: 100%; max-height: 30rem; margin-bottom: 10px; margin-left: 1rem;">
+                <img src="{{this.asset.imageUrl}}" style="width: 100%; max-height: 30rem; margin-bottom: 10px; margin-left: 1rem;
+                 box-shadow: 5px 5px 5px #ccc;
+                      -moz-box-shadow: 10px 10px 5px #ccc;
+                      -webkit-box-shadow: 10px 10px 5px #ccc;
+                      -khtml-box-shadow: 10px 10px 5px #ccc;">
               </mat-card-header>
               <mat-card-subtitle style="text-align: center;">
                 Artist: {{this.asset.artistName}}
@@ -28,13 +32,13 @@
             
             <mat-card class="col-lg-3 col-md-3 col-sm-3">
                 <mat-card-content>
-                  <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Playfair Display SC', serif;">
+                  <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
                       <p>
                           <b> Title: </b> {{this.asset.titleOfWork}}
                         </p>
               
                         <p>
-                            <b> Created on: </b> {{this.asset.createdOn  | date : 'medium'}}
+                            <b> Created on: </b> {{this.asset.createdOn  | date}}
                         </p>
               
                         <p>
@@ -67,7 +71,7 @@
                 </mat-card-content>
             </mat-card>
       
-            <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Playfair Display SC', serif;">
+            <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;">
               <mat-card-content>
                 <form #buyForm="ngForm" (ngSubmit)="buy(buyForm, this.asset.tokenId)" novalidate>
                   <div class="row">
@@ -170,9 +174,13 @@
             View More details:
         </h2>
         <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-          <mat-card class="col-lg-5 col-md-5 col-sm-5" style="border-radius: 10px; font-family: 'Playfair Display SC'">
+          <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px; font-family: 'Inter'">
             <mat-card-header>
-              <img src="{{this.asset.imageUrl}}" style="width: 80%; margin-bottom: 10px; margin-left: 1rem;">
+              <img src="{{this.asset.imageUrl}}" style="width: 100%; margin-bottom: 10px; margin-left: 1rem;
+               box-shadow: 5px 5px 5px #ccc;
+                      -moz-box-shadow: 10px 10px 5px #ccc;
+                      -webkit-box-shadow: 10px 10px 5px #ccc;
+                      -khtml-box-shadow: 10px 10px 5px #ccc;">
             </mat-card-header>
             <mat-card-subtitle style="text-align: center;">
               Artist: {{this.asset.artistName}}
@@ -181,7 +189,7 @@
             </mat-card-content>
           </mat-card>
     
-          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Playfair Display SC', serif;">
+          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;">
             <mat-card-content>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <p>
@@ -189,7 +197,7 @@
                 </p>
       
                 <p>
-                    <b> Created on: </b> {{this.asset.createdOn  | date : 'medium'}}
+                    <b> Created on: </b> {{this.asset.createdOn  | date }}
                 </p>
       
                 <p>
@@ -227,7 +235,7 @@
           </mat-card>
     
     
-          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;" style="font-family: 'Playfair Display SC', serif;">
+          <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
             <mat-card-content>
               <form #sellForm="ngForm" (ngSubmit)="sell(sellForm)" novalidate>
                 <div class="row">
@@ -261,7 +269,7 @@
                 </div>
                 
                 <div style="padding-bottom: 20px; ">
-                  <button (Click)="sell(sellForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 35%;">
+                  <button (Click)="sell(sellForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset
                 
@@ -290,9 +298,13 @@
           View More details:
       </h2>
       <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-        <mat-card class="col-lg-5 col-md-5 col-sm-5" style="border-radius: 10px;" style="font-family: 'Playfair Display SC', serif;">
+        <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
           <mat-card-header>
-            <img src="{{this.asset.imageUrl}}" style="width: 80%; margin-bottom: 10px; margin-left: 1rem;">
+            <img src="{{this.asset.imageUrl}}" style="width: 80%; margin-bottom: 10px; margin-left: 1rem;
+             box-shadow: 5px 5px 5px #ccc;
+                      -moz-box-shadow: 10px 10px 5px #ccc;
+                      -webkit-box-shadow: 10px 10px 5px #ccc;
+                      -khtml-box-shadow: 10px 10px 5px #ccc;">
           </mat-card-header>
           <mat-card-subtitle style="text-align: center;">
             Artist: {{this.asset.artistName}}
@@ -301,7 +313,7 @@
           </mat-card-content>
         </mat-card>
   
-        <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Playfair Display SC', serif;">
+        <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;">
           <mat-card-content>
             <div class="col-lg-12 col-md-12 col-sm-12">
               <p>
@@ -309,7 +321,7 @@
               </p>
     
               <p>
-                  <b> Created on: </b> {{this.asset.createdOn  | date : 'medium'}}
+                  <b> Created on: </b> {{this.asset.createdOn  | date }}
               </p>
     
               <p>
@@ -346,8 +358,8 @@
         </mat-card>
   
   
-        <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;">
-          <mat-card-content style="font-family: 'Playfair Display SC', serif;">
+        <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;">
+          <mat-card-content style="font-family: 'Inter', serif;">
             <button (click)="approve(this.asset.tokenId, true)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 20%;">
                 
               Approve
@@ -378,11 +390,14 @@
         <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
             <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">
                 <mat-card-content  style="position: relative; ">
-                    <img src="{{item.imageUrl}}" class="image">
-                    <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                    <img src="{{item.imageUrl}}" class="image" style=" box-shadow: 5px 5px 5px #ccc;
+                    -moz-box-shadow: 10px 10px 5px #ccc;
+                    -webkit-box-shadow: 10px 10px 5px #ccc;
+                    -khtml-box-shadow: 10px 10px 5px #ccc;">
+                    <p class="paragraph" style="font-family: 'Inter', serif;">
                       <b> Price: </b> ${{item.price}}
                     </p>
-                    <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                    <p class="paragraph" style="font-family: 'Inter', serif;">
                       <b> Artwork Title: </b> {{item.titleOfWork}}
                     </p>
                     

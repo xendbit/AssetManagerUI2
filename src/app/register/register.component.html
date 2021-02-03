@@ -25,29 +25,29 @@
               <div class="card-body" style="width: auto; justify-content: center; align-items: center;"> 
                 <mat-card  style="opacity:90%;">
                   <form  #registerForm="ngForm" (ngSubmit)="register(registerForm)" novalidate>
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="email" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
                     </mat-form-field>
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="email" matInput placeholder="Middle Name" id="middleName" name="middleName" [(ngModel)]="middleName" >
                     </mat-form-field>
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="email" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName" >
                     </mat-form-field>
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="number" matInput placeholder="BVN" id="bvn" name="bvn" [(ngModel)]="bvn" >
                     </mat-form-field>
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
                     </mat-form-field>
                     <p *ngIf="this.error" style="font-size: smaller; margin-bottom: 5rem;"> {{this.error}} </p>
           
-                    <mat-form-field style="font-family: 'Playfair Display SC', serif; font-size: 11pt;">
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">lock_outline</mat-icon>
                       <input type="password" autocomplete="false" matInput placeholder="Password" id="password" name="password" [(ngModel)]="password">
                     </mat-form-field>

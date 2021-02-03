@@ -221,6 +221,7 @@ export class ViewAssetComponent implements OnInit {
  
 
   viewBuy(tokenId, page) {
+    this.pageHistory = 'buyPage'
     this.tokenId = tokenId;
     this.getAssetDetails()
   }

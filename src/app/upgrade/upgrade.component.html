@@ -1,5 +1,5 @@
 
-<div class="mm-page mm-slideout" style="background-color: white; ">
+<div class="mm-page mm-slideout" style="background-color: white;">
     <ngx-spinner></ngx-spinner>
    <app-navbar></app-navbar>
 
@@ -93,10 +93,10 @@
                 <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 5px;">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Price: </b> ${{item.price}}
                         </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         
@@ -124,10 +124,10 @@
                 <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Price: </b> ${{item.price}}
                         </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         
@@ -155,10 +155,10 @@
                 <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Price: </b> ${{item.price}}
                         </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         
@@ -166,10 +166,13 @@
                       </mat-card-content>
                 </mat-card>
             </div>
+           
     
         </div>
+        
 
     </div>
+   
     
         <app-footer></app-footer>
 
