@@ -16,7 +16,7 @@
     <nav data-dropdown="hover" class="container-fluid navbar-expand-lg bg-white" >
         <div class="collapse navbar-collapse justify-content-between">
             <div class="w-25">
-                <img src="/assets/img/logo.png">
+                <img style="width: 14rem; margin-left: 5rem;" src="/assets/img/art_exchange.png">
             </div>
             
             <ul class="navbar-nav align-items-end justify-content-center w-50" style="font-family: 'Playfair Display SC', serif;">
@@ -37,7 +37,7 @@
                 </li>
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
                     <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/fund" routerLinkActive="active">
-                        Fund account
+                        my account
                     </a>
                 </li>
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">

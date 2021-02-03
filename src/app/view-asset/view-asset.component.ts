@@ -1,6 +1,6 @@
 import { LoginService } from './../services/login.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AssetsService } from './../services/assets.service';
 import { NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -31,12 +31,16 @@ export class ViewAssetComponent implements OnInit {
   secondaryPrice: any;
   orderId: any;
   quantity: any;
+  showModal: boolean;
+  balanceComplete: boolean;
+  total: number;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.userId = parseInt(localStorage.getItem('userId'));
+    this.balanceComplete = false;
     this.getBalance();
     this.getAssets();
     this.activatedRoute.paramMap
@@ -98,14 +102,29 @@ export class ViewAssetComponent implements OnInit {
       //this.asset.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
+  
 
   buy(buyForm: NgForm) {
     let orderStrategy;
-    console.log('balance is low', this.balance < this.asset.issuingPrice * this.asset.sharesAvailable);
-    // if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.asset.sharesAvailable) {
-    //   this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
-    //   return;
-    // }
+    this.amount = parseInt(this.amount);
+    console.log('this is amount', this.amount > this.asset.sharesAvailable);
+    if (!this.amount || this.quantity) {
+      this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
+      return;
+    }
+    if (this.amount > this.asset.sharesAvailable || this.quantity > this.asset.sharesAvailable) {
+      this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares for this asset.', 'danger');
+      return;
+    }
+    this.total = this.amount * this.asset.issuingPrice;
+    console.log('this is total', this.total)
+    if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.amount) {
+      this.balanceComplete = false;
+      this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+      return;
+    } else if(this.balance >= this.asset.issuingPrice * this.asset.sharesAvailable) {
+      this.balanceComplete = true;
+    }
     
     if (this.asset.market === 0 ) {
       orderStrategy = 0;
@@ -127,10 +146,11 @@ export class ViewAssetComponent implements OnInit {
         "goodUntil": 0,
         "userId": parseInt(this.userId),
         "orderId": this.orderId,
-        market: 2
+        market: 1
       }
       console.log('this is body', body)
     } else {
+      console.log('this is primary market')
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
@@ -139,7 +159,7 @@ export class ViewAssetComponent implements OnInit {
         "price": this.asset.issuingPrice,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
-        market: 1
+        market: 0
       }
       console.log('this is body', body)
     }
@@ -160,7 +180,7 @@ export class ViewAssetComponent implements OnInit {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
-      this.asset.showNotification('bottom', 'center', this.error, 'danger')
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     })
   }
 

@@ -21,13 +21,16 @@ export class BuyAssetComponent implements OnInit {
   secondaryMarket: any[];
   accountNumber: string;
   fullName: string;
+  firstName: string;
+  middleName: string;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
     //this.hideArtDetails('hidden');
     this.accountNumber = localStorage.getItem('accountNumber');
-    this.fullName = localStorage.getItem('firstName') + localStorage.getItem('middleName');
+    this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
+    console.log('this is fullname', this.fullName)
     this.getAssets();
   }
 

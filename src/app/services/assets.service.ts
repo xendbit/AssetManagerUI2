@@ -39,11 +39,25 @@ declare var $: any;
       return this.httpClient.get(`${this.baseUrl}/assets?page=1&limit=100`, {headers});
     }
 
+    getOwnedShares(userId, tokenId) {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.api_key);
+      return this.httpClient.get(`${this.baseUrl}/user/owned-shares/${userId}/${tokenId}`, {headers});
+    }
+
     getAssetsByIssuerId(userId) {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.api_key);
       return this.httpClient.get(`${this.baseUrl}/assets/by-issuer/${userId}?page=${1}&limit=15`, {headers});
+    }
+
+    fetchOrderById(orderId) {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.api_key);
+      return this.httpClient.get(`${this.baseUrl}/assets/orders/${orderId}`, {headers});
     }
 
     getAssetsByOwnerId(userId) {

@@ -82,7 +82,7 @@ const routes: Routes =[
     component: ViewAssetComponent
   },
   { path: 'dashboard',      component: DashboardComponent },
-  { path: 'buy',   component: BuyAssetComponent },
+  { path: 'fund',   component: BuyAssetComponent },
   { path: 'assets',     component: AllAssetsComponent },
   { path: 'sell',     component: SellAssetComponent },
   { path: 'orders',           component: BuyOrdersComponent },
