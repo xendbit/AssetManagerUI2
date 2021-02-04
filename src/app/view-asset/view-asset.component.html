@@ -360,13 +360,13 @@
   
         <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;">
           <mat-card-content style="font-family: 'Inter', serif;">
-            <button (click)="approve(this.asset.tokenId, true)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 20%;">
+            <button (click)="approve(this.asset.tokenId, true)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; border-color: transparent; color: white;">
                 
               Approve
           </button>
   
             
-          <button (click)="approve(this.asset.tokenId, false)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 20%;">
+          <button (click)="approve(this.asset.tokenId, false)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; color: black;">
                 
             Decline
         </button>
@@ -385,7 +385,7 @@
             other listings
         </p>
         <h2 class="text-uppercase font-weight-light">
-            Also check out these artworks
+            recommendations
         </h2>
         <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
             <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">

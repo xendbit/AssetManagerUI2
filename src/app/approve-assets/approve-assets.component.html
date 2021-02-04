@@ -3,9 +3,9 @@
   <ngx-spinner></ngx-spinner>
   <app-navbar></app-navbar>
 
-  <div id="container_home">
+  <div id="container_home" style="height: 100vh;">
 
-      <div class="container-fluid container-lg container-home" style="height: 100%;">
+      <div class="container-fluid container-lg container-home" style="height: 100%;" *ngIf="this.unapproved.length !== 0">
           
         <p class="text-uppercase small font-weight-medium">
             approve
@@ -39,37 +39,11 @@
 
       </div>
 
-     
-
-      <footer class="d-md-block footer-bottom">
-          <div class=" mt-5 pt-4 footer bg-dark  " style="opacity: 0.93;">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-xs-6 col-sm-3  ">
-                          <h4 class=" d-flex text-light  justify-content-md-start font-weight-normal"> 
-                              About
-                          </h4>
-                      </div>
-                      <div class="col-xs-6 col-sm-3  ">
-                          <h4 class=" d-flex text-light  justify-content-md-start font-weight-normal"> 
-                              Terms
-                          </h4>
-                      </div>
-                      <div class="col-xs-6 col-sm-3  ">
-                          <h4 class=" d-flex text-light  justify-content-md-start font-weight-normal"> 
-                              Contact
-                          </h4>
-                      </div>
-
-                  </div>
-
-              </div>
-
-          </div>
-
-      </footer>
-
-
+      <div *ngIf="this.unapproved.length === 0" class="container-fluid container-lg container-home" style="margin-top: 10rem; text-align: center;">
+        <h2 class="text-uppercase font-weight-light">
+          There are currently no unapproved assets.
+      </h2>
+      </div>
 
 
 
@@ -77,6 +51,8 @@
 
   </div>
   
+
+  <app-footer></app-footer>
   
       
 

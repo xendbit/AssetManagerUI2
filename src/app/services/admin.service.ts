@@ -35,4 +35,12 @@ export class AdminService {
     return this.httpClient.post(`${this.baseUrl}/admin/login`, {email, password}, {headers});
   }
 
+  changemarket(tokenId, marketType) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    console.log('this is base url', this.baseUrl);
+    return this.httpClient.post(`${this.baseUrl}/admin/change-asset-market/${tokenId}/${marketType}`, {headers});
+  }
+
 }

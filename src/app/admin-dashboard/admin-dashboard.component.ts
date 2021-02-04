@@ -19,9 +19,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getAllOrders()  {
+    this.assetService.showSpinner();
     this.assetService.allOrders().subscribe(data => {
       console.log('this is all orders', data);
       this.orders = data['data']['items'];
+      this.assetService.stopSpinner();
     })
   }
 

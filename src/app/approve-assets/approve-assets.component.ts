@@ -21,11 +21,13 @@ export class ApproveAssetsComponent implements OnInit {
     public loginService: LoginService) { }
 
   ngOnInit(): void {
+    this.unapproved = null;
     this.getAssets();
   }
 
 
   getAssets() {
+    this.assetService.showSpinner()
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
@@ -40,7 +42,8 @@ export class ApproveAssetsComponent implements OnInit {
       });
       this.approved =  second ;
       this.unapproved = init;
-      console.log('this is primary market', this.approved)
+      console.log('this is unapproved', this.unapproved)
+      this.assetService.stopSpinner();
     })
   }
 

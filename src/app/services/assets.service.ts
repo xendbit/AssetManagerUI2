@@ -130,6 +130,20 @@ declare var $: any;
       return this.httpClient.get(`${this.baseUrl}/user/generate/passphrase`, {headers});
     }
 
+    getCustomHeaders(): HttpHeaders {
+      const headers = new HttpHeaders()
+        .append('Content-Type', 'application/json')
+        .append('api-Key', this.api_key);
+      return headers;
+    }
+
+    changeMarket(tokenId, marketType) {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.api_key);
+      return this.httpClient.post(`${this.baseUrl}/admin/change-approval-status/${tokenId}/${marketType}`, {}, {headers});
+    }
+
 
     showNotification(from, align, message, kind){
       const type = ['','info','success','warning','danger'];
@@ -167,6 +181,8 @@ declare var $: any;
     stopSpinner() {
       this.spinner.hide();
     }
+
+   
   
 
   }

@@ -26,7 +26,6 @@ export class BuyOrdersComponent implements OnInit {
 
 
   getBuyOrders() {
-    this.assetService.showSpinner();
       this.assetService.ordersByBuyer(this.userId).subscribe(data => {
           this.buyOrders = data['data']['items'];
           this.assetService.stopSpinner();
@@ -34,7 +33,6 @@ export class BuyOrdersComponent implements OnInit {
   }
 
   getSellOrders() {
-    this.assetService.showSpinner();
       this.assetService.ordersBySeller(this.userId).subscribe(sell => {
         this.sellOrders = sell['data']['items'];
         this.assetService.stopSpinner();
