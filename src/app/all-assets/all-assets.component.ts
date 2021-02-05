@@ -49,7 +49,7 @@ export class AllAssetsComponent implements OnInit {
       this.assets.forEach(element => {
         if (element.approved === 0 ) {
           init.push(element);
-        } else if (element.approved === 1) {
+        } else if (element.approved === 1 && element.market !== 2) {
           second.push(element);
         } 
       });
@@ -66,16 +66,23 @@ export class AllAssetsComponent implements OnInit {
       this.secondaryMarket = secondary;
       console.log('primary', primary)
       this.assetService.stopSpinner();
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
   }
 
-  view(tokenId) {
-    if (this.pageHistory === 'primary') {
-      this.pageHistory = 'buyPage';
-    } else if (this.pageHistory === 'secondary') {
-      this.pageHistory = 'sellPage';
+  view(tokenId, market) {
+    if (market === 0) {
+      this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: this.pageHistory} });
+    } else if (market === 1) {
+      this.router.navigateByUrl('/asset-order', { state : {tokenId: tokenId, from: this.pageHistory} });
     }
-    this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: this.pageHistory} });
   }
 
   viewOrder(tokenId) {

@@ -28,7 +28,13 @@ export class NotificationsComponent implements OnInit {
       this.myAssets = data['data']['items'];
       this.assetService.stopSpinner();
       console.log('this is assets, ', data['data']['items']);
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
   }
 
   view(tokenId, page) {
@@ -36,7 +42,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   getAllAssets() {
-    this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
@@ -53,7 +58,15 @@ export class NotificationsComponent implements OnInit {
       this.secondaryMarket = secondary;
       this.assetService.stopSpinner();
       console.log('primary', primary)
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
   }
 
 }

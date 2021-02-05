@@ -12,8 +12,7 @@ export class BuyOrdersComponent implements OnInit {
     sellOrders: any;
   userId: string;
   assets: any;
-  approved: any[];
-  unapproved: any[];
+  primaryMarket: any[];
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
@@ -28,8 +27,13 @@ export class BuyOrdersComponent implements OnInit {
   getBuyOrders() {
       this.assetService.ordersByBuyer(this.userId).subscribe(data => {
           this.buyOrders = data['data']['items'];
+      },
+      err => {
+          console.log(err);
           this.assetService.stopSpinner();
-      })
+      },
+      () => { }
+      );
   }
 
   getSellOrders() {
@@ -37,7 +41,15 @@ export class BuyOrdersComponent implements OnInit {
         this.sellOrders = sell['data']['items'];
         this.assetService.stopSpinner();
         console.log('this is data', this.sellOrders);
-        })
+        },
+        err => {
+            console.log(err);
+            this.assetService.stopSpinner();
+        },
+        () => {
+          this.assetService.stopSpinner();
+         }
+        );
   }
 
   getAssets() {
@@ -48,17 +60,20 @@ export class BuyOrdersComponent implements OnInit {
       let init = []
       let second = []
       this.assets.forEach(element => {
-        if (element.approved === 0 ) {
+        if (element.market === 0 && element.approved === 1 ) {
           init.push(element);
-        } else if (element.approved === 1) {
+        } else if (element.market === 1) {
           second.push(element);
         }
       });
-      this.approved =  second ;
-      console.log('this is approved', this.approved)
-      this.unapproved = init;
-      this.assetService.showSpinner();
-    })
+      this.primaryMarket =  init ;
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
   }
 
   viewBuy(tokenId, page) {

@@ -5,7 +5,7 @@
   
     <div id="container_home">
   
-        <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" *ngIf="this.pageHistory === 'buyPage'">
+        <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" >
             
           <p class="text-uppercase small font-weight-medium">
               all artworks
@@ -14,7 +14,7 @@
               All Artworks
           </h2>
           <div class="row" style="margin-top: 3rem;">
-              <mat-card (click)="view(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
+              <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
                   <mat-card-content  style="position: relative; ">
                       <img src="{{item.imageUrl}}" class="image">
                       <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
@@ -66,7 +66,7 @@
                 All Artworks
             </h2>
             <div class="row" style="margin-top: 3rem;">
-                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
+                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">

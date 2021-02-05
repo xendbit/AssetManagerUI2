@@ -46,4 +46,11 @@ export class LoginService {
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.post(`${this.baseUrl}/admin/change-approval-status/${tokenId}/${status}`, {}, {headers});
   }
+
+  underSubscribe(tokenId) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.post(`${this.baseUrl}/admin/under-subscribe/${tokenId}`, {}, {headers});
+  }
 }

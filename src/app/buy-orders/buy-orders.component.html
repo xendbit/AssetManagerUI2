@@ -97,7 +97,7 @@
              Recommendations
           </h2>
           <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-              <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">
+              <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
                   <mat-card-content  style="position: relative; ">
                       <img src="{{item.imageUrl}}" class="image">
                       <p class="paragraph" style="font-family: 'Inter', serif;">

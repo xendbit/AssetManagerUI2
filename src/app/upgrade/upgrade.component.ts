@@ -21,6 +21,24 @@ export class UpgradeComponent implements OnInit {
   primaryMarket: any;
   secondaryMarket: any[];
   userId: number;
+  demoCategories: { imageUrl: string,  type: string }[] = [
+    { "imageUrl": '/assets/img/Oil-painting.jpg',  type: "Oil Painting" },
+    { "imageUrl": '/assets/img/Casein-Painting.jpg',  type: "Casein Painting" },
+    { "imageUrl": '/assets/img/WATERCOLOUR.jpg',  type: "Water color painting" },
+    { "imageUrl": '/assets/img/Miniature.jpg',  type: "Miniature Painting" },
+    { "imageUrl": '/assets/img/Anamorphosis.jpg',  type: "Anamorphosis painting" },
+    { "imageUrl": '/assets/img/AERIAL-PERSPECTIVE.jpg',  type: "Aerial Perspective" },
+    { "imageUrl": '/assets/img/ACTION.jpg',  type: "Action" },
+    { "imageUrl": '/assets/img/Tempera.jpg',  type: "Tempera" },
+    { "imageUrl": '/assets/img/Gouache.jpg',  type: "Gouache painting" },
+    { "imageUrl": '/assets/img/Encaustic.jpg',  type: "Encuastic painting" },
+    { "imageUrl": '/assets/img/COLLAGE.jpg',  type: "Collage painting" },
+    { "imageUrl": '/assets/img/BALL-POINT.jpeg',  type: "Ballpoint painting" },
+    { "imageUrl": '/assets/img/Ink-PAinting.jpg',  type: "Ink painting" },
+    { "imageUrl": '/assets/img/CHARCOAL.jpg',  type: "Charcoal painting" },
+    { "imageUrl": '/assets/img/ACRYLIC.jpg',  type: "Acrylic painting" },
+    { "imageUrl": '/assets/img/DIGITAL.jpg',  type: "Digital painting" }
+  ];
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {

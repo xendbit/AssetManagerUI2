@@ -5,7 +5,7 @@
 
   <div id="container_home">
 
-      <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'buyPage'">
+      <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'buyPage' && this.asset.market === 0">
           <p class="text-uppercase small font-weight-medium">
               Details
           </p>
@@ -388,7 +388,7 @@
             recommendations
         </h2>
         <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-            <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index">
+            <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
                 <mat-card-content  style="position: relative; ">
                     <img src="{{item.imageUrl}}" class="image" style=" box-shadow: 5px 5px 5px #ccc;
                     -moz-box-shadow: 10px 10px 5px #ccc;

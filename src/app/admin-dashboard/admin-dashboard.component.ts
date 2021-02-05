@@ -24,7 +24,13 @@ export class AdminDashboardComponent implements OnInit {
       console.log('this is all orders', data);
       this.orders = data['data']['items'];
       this.assetService.stopSpinner();
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
   }
 
   getAssets() {
@@ -42,7 +48,15 @@ export class AdminDashboardComponent implements OnInit {
       });
       this.approved =  second ;
       console.log('this is primary market', this.approved)
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => {
+      this.assetService.stopSpinner();
+     }
+    );
   }
 
 }

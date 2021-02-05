@@ -44,7 +44,15 @@ export class ApproveAssetsComponent implements OnInit {
       this.unapproved = init;
       console.log('this is unapproved', this.unapproved)
       this.assetService.stopSpinner();
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
   }
 
   approve(tokenId, status) {

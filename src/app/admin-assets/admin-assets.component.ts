@@ -24,25 +24,50 @@ export class AdminAssetsComponent implements OnInit {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
       this.assetService.stopSpinner();
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => {
+      this.assetService.stopSpinner();
+     }
+    );
   }
 
   delete(tokenId, status) {
-    this.loginService.approve(tokenId, status).subscribe(res => {
-      console.log('this is response', res);
+    this.assetService.showSpinner();
+    this.loginService.underSubscribe(tokenId).subscribe(res => {
       if (res['status'] === 'success') {
-        this.assetService.showNotification('top', 'center', 'Asset has been deleted successfully', 'success');
-        this.getAssets();
+            this.assetService.showNotification('top', 'center', 'Asset has been deleted successfully', 'success');
+            this.getAssets();       
       }
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => {
+      this.assetService.stopSpinner();
+     }
+    );
+    
   }
 
   changeMarket(tokenId) {
     this.assetService.showSpinner();
-    this.assetService.changeMarket(tokenId, 1).pipe(first()).subscribe((res: any) => {
+    this.assetService.changeMarket(tokenId).pipe(first()).subscribe((res: any) => {
       console.log('this is response', res);
       this.assetService.stopSpinner();
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => {
+      this.assetService.stopSpinner();
+     }
+    );
   }
 
 }

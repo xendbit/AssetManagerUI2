@@ -25,8 +25,8 @@ export class ViewAssetComponent implements OnInit {
   userId: any;
   @Input() editable: boolean = false;
   assets: any;
-  approved: any[];
-  unapproved: any[];
+  primaryMarket: any[];
+
   balance: 0;
   secondaryPrice: any;
   orderId: any;
@@ -42,7 +42,6 @@ export class ViewAssetComponent implements OnInit {
     this.userId = parseInt(localStorage.getItem('userId'));
     this.balanceComplete = false;
     this.getBalance();
-    this.getAssets();
     this.activatedRoute.paramMap
         .subscribe(
             () => {
@@ -56,6 +55,7 @@ export class ViewAssetComponent implements OnInit {
                       this.orderId = window.history.state.id;
                     }
                     console.log('this is page history', this.pageHistory)
+                    this.getAssets();
                     this.getAssetDetails();
                 }
             },
@@ -67,7 +67,6 @@ export class ViewAssetComponent implements OnInit {
   }
 
   getAssetDetails() {
-    this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
@@ -77,25 +76,25 @@ export class ViewAssetComponent implements OnInit {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
       //this.asset.showNotification('bottom', 'center', this.error, 'danger')
-    })
+    });
   }
 
   getAssets() {
+    this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
       let init = []
       let second = []
       this.assets.forEach(element => {
-        if (element.approved === 0 ) {
+        if (element.market === 0 && element.approved === 1 ) {
           init.push(element);
-        } else if (element.approved === 1) {
+        } else if (element.market === 1) {
           second.push(element);
         }
       });
-      this.approved =  second ;
-      console.log('this is approved', this.approved)
-      this.unapproved = init;
+      this.primaryMarket =  init ;
+      this.assetService.stopSpinner();
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
@@ -227,6 +226,7 @@ export class ViewAssetComponent implements OnInit {
   }
 
   getBalance() {
+    this.assetService.showSpinner();
     this.userId = localStorage.getItem('userId');
     this.assetService.getWaletBalance(this.userId).subscribe(res => {
       console.log('this is balance', res);

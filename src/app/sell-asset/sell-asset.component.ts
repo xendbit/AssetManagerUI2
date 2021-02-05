@@ -28,10 +28,19 @@ export class SellAssetComponent implements OnInit {
   }
 
   getAssets() {
+    this.assetService.showSpinner();
     this.assetService.getAssetsByOwnerId(this.userId).subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
   }
 
 

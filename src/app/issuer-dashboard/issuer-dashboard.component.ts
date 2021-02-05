@@ -25,6 +25,7 @@ export class IssuerDashboardComponent implements OnInit {
   }
 
   getAllOrders()  {
+    this.assetService.showSpinner();
     this.assetService.allOrders().subscribe(data => {
       console.log('this is all orders', data);
       this.orders = data['data']['items'];
@@ -36,7 +37,6 @@ export class IssuerDashboardComponent implements OnInit {
   }
 
   getUserAssets() {
-    this.assetService.showSpinner();
     const userId = localStorage.getItem('userId');
     this.assetService.getAssetsByIssuerId(userId).subscribe(res => {
       console.log('these are my assets',res);
@@ -56,11 +56,14 @@ export class IssuerDashboardComponent implements OnInit {
       this.totalApproved = second.length;
       console.log('this is approved', this.unapproved)
       this.assetService.stopSpinner();
-    }, err => {
-      this.assetService.stopSpinner();
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-    });
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+        this.error = err.error.data.error;
+    },
+    () => { }
+    );
   }
 
 }

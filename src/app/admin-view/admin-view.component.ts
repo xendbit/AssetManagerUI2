@@ -67,7 +67,15 @@ export class AdminViewComponent implements OnInit {
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
-    })
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => {
+      this.assetService.stopSpinner();
+     }
+    );
 
 }
 
@@ -75,7 +83,13 @@ getOwnedShares() {
   this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
     console.log('this is response for shares', res);
     this.shares = res['data'];
-  })
+  },
+  err => {
+      console.log(err);
+      this.assetService.stopSpinner();
+  },
+  () => { }
+  );
 }
 
 
@@ -107,7 +121,15 @@ getAssets() {
     this.primaryMarket =  init ;
     this.secondaryMarket = second;
     console.log('this is primary market', this.primaryMarket)
-  })
+  },
+  err => {
+      console.log(err);
+      this.assetService.stopSpinner();
+  },
+  () => { 
+    this.assetService.stopSpinner();
+  }
+  );
 }
 
 
@@ -131,9 +153,14 @@ getSellOrders() {
       
       this.sellOrders = second;
       this.buyOrders = last;
-      this.assetService.stopSpinner();
       console.log('this is data', this.sellOrders);
-      })
+      },
+      err => {
+          console.log(err);
+          this.assetService.stopSpinner();
+      },
+      () => { }
+      );
 }
 
   view(tokenId) {
@@ -163,8 +190,16 @@ getSellOrders() {
       } else {
         this.quantity = res['data']['amountRemaining'];
       }
-    })
-    this.assetService.stopSpinner();
+      this.assetService.stopSpinner();
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
     //this.router.navigateByUrl('/viewAsset', { state : {tokenId: this.tokenId, from: 'secPage', price: price, id: id, quantity: amount} });
   }
 

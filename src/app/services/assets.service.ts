@@ -137,11 +137,11 @@ declare var $: any;
       return headers;
     }
 
-    changeMarket(tokenId, marketType) {
+    changeMarket(tokenId) {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.api_key);
-      return this.httpClient.post(`${this.baseUrl}/admin/change-approval-status/${tokenId}/${marketType}`, {}, {headers});
+      return this.httpClient.post(`${this.baseUrl}/admin/conclude-primary-sales/${tokenId}`, {}, {headers});
     }
 
 
