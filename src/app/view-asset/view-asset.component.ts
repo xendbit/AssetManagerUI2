@@ -128,7 +128,7 @@ export class ViewAssetComponent implements OnInit {
     if (this.asset.market === 0 ) {
       orderStrategy = 0;
     } else {
-      orderStrategy = buyForm.value.orderStrategy
+      orderStrategy = parseInt(buyForm.value.orderStrategy);
     }
     if (this.amount > this.asset.sharesAvailable){
       this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares', 'danger');
