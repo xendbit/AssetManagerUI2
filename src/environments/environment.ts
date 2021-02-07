@@ -3,7 +3,21 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  loginCredential: {
+    investor: {
+      email: "ajafik@gmail.com",
+      password: "ajafik"
+    },
+    issuer: {
+      email: "spockula@gmail.com",
+      password: "ajafik"
+    },
+    admin: {
+      email: "chinedukogu@gmail.com",
+      password: "ajafik"
+    },
+  }
 };
 
 /*
