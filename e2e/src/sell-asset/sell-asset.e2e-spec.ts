@@ -2,7 +2,7 @@ import { AppPage } from '../app.po';
 import { environment } from '../../../src/environments/environment';
 import { browser, by, element, logging, until } from 'protractor';
 
-describe('Login test', () => {
+describe('SellAsset e2e test', () => {
   let page: AppPage;
 
   beforeEach(() => {

@@ -10,7 +10,7 @@ const { SpecReporter, StacktraceOption } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 110000,
   specs: [
-    './src/**/sell-asset.e2e-spec.ts',
+    './src/**/*.e2e-spec.ts',
   ],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
