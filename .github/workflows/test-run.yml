@@ -3,9 +3,12 @@ name: Art Exchange Unit Tests Run
 on: 
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ test-script ]
-  pull_request:
-    branches: [ test-script ]
+    branches:
+      - master
+      - test-script
+    #branches: [ master, test-script ]
+  #pull_request:
+  #  branches: [ test-script ]
 
 jobs:
   test:
