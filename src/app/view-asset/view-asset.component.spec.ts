@@ -300,7 +300,7 @@ describe('ViewAssetComponent Unit Test', () => {
   
       fixture.componentInstance.viewBuy('tokenId', null)
   
-      expect(fixture.componentInstance.tokenId).toBe('tokenId')
+      expect(fixture.componentInstance.tokenId).toBe('tokenId') 
       expect(fixture.componentInstance.getAssetDetails).toHaveBeenCalled();
     }));
   })

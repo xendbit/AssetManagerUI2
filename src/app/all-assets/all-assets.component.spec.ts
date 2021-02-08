@@ -58,7 +58,7 @@ describe('AllAssetsComponent', () => {
 
     beforeEach(() => {
 
-        history.pushState({ from: 'home' }, '', '');
+        // history.pushState({ from: 'home' }, '', '');
         fixture = TestBed.createComponent(AllAssetsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -69,17 +69,41 @@ describe('AllAssetsComponent', () => {
     });
 
     it('should initialize if history is set', () => {
+        delete (window as any).history;
+        const history = {
+          state: {
+            from: "home"
+          }
+        };
+        Object.defineProperty(window, "history", {
+          configurable: true,
+          enumerable: true,
+          value: history,
+          writable: true
+        });
         component.ngOnInit();
-        expect(component.pageHistory).toEqual(history.state.from);
+        expect(component.pageHistory).toEqual(window.history.state.from);
     });
 
     it('should initialize if history is not set', () => {
-        history.state.from = null;
+        delete (window as any).history;
+        const history = {
+          state: {
+            from: null
+          }
+        };
+        Object.defineProperty(window, "history", {
+          configurable: true,
+          enumerable: true,
+          value: history,
+          writable: true
+        });
+        // window.history.pushState({ from: null }, '', '');
         component.ngOnInit();
         expect(component.pageHistory).toEqual('buyPage');
     });
 
-    it('should get all assets and check that all variables are initialized', fakeAsync(() => {
+    it('should get all assets and check that all variables are initialized', waitForAsync(() => {
         const mockAssets = { "status": "success", "data": { "items": [{ "tokenId": 86988662, "issuer": "0x63e323075454164a0e3483a50650b2f6fae7afed" }, { "tokenId": 70764050, "issuer": "0x63e323075454164a0e3483a50650b2f6fae7afed" }] } };
         spyOn(assetService, 'getAllAssets').and.returnValue(of(mockAssets));
         const showSpinnerSpy = spyOn(assetService,'showSpinner');
