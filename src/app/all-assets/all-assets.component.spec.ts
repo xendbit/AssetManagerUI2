@@ -58,7 +58,7 @@ describe('AllAssetsComponent', () => {
 
     beforeEach(waitForAsync(() => {
 
-        window.history.pushState({ from: 'home' }, '', '');
+        history.pushState({ from: 'home' }, '', '');
         fixture = TestBed.createComponent(AllAssetsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -82,7 +82,7 @@ describe('AllAssetsComponent', () => {
         //   writable: true
         // });
         component.ngOnInit();
-        expect(component.pageHistory).toEqual(window.history.state.from);
+        expect(component.pageHistory).toEqual(history.state.from);
     }));
 
     it('should initialize if history is not set', waitForAsync(() => {
@@ -98,7 +98,7 @@ describe('AllAssetsComponent', () => {
         //   value: history,
         //   writable: true
         // });
-        window.history.pushState({ from: null }, '', '');
+        history.pushState({ from: null }, '', '');
         component.ngOnInit();
         expect(component.pageHistory).toEqual('buyPage');
     }));
