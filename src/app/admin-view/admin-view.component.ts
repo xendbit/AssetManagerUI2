@@ -168,21 +168,24 @@ getSellOrders() {
     this.getSellOrders();
   }
 
-  viewAsset(price, id, amount) {
+  viewAsset(price, id, amount, orderStrategy) {
+    console.log('this is orderStrategy fro ', orderStrategy)
     this.assetService.showSpinner();
     this.quantity = amount;
     this.secondaryPrice = price;
     this.orderId = id;
     this.fromOrder = true;
+    this.orderStrategy = orderStrategy
     this.assetService.stopSpinner();
     //this.router.navigateByUrl('/viewAsset', { state : {tokenId: this.tokenId, from: 'secPage', price: price, id: id, quantity: amount} });
   }
 
-  viewAssetSell(price, id, amount) {
+  viewAssetSell(price, id, amount, orderStrategy) {
     this.assetService.showSpinner();
     this.secondaryPrice = price;
     this.orderId = id;
     this.fromSellOrder = true;
+    this.orderStrategy = orderStrategy;
     this.assetService.fetchOrderById(this.orderId).subscribe( (res: any) => {
       console.log('this is order, ', res);
       if (parseInt(res['data']['amountRemaining']) === 0) {
@@ -248,6 +251,7 @@ getSellOrders() {
       return;
     }
     if (!this.fromOrder) {
+      console.log('this is not from order')
       if (this.balance == 0 || this.balance < this.secondaryPrice * this.asset.sharesAvailable) {
         console.log('this is not from order')
         this.balanceComplete = false;
@@ -258,6 +262,7 @@ getSellOrders() {
         this.balanceComplete = true;
       }
     } else if (this.fromOrder) {
+      console.log('this is from order')
       if (this.balance == 0 || this.balance < this.secondaryPrice * this.asset.sharesAvailable) {
         console.log('this is from order')
         this.fromOrder = null;
@@ -270,24 +275,22 @@ getSellOrders() {
       }
     }
     
-    
+    console.log('this is order strategy', this.orderStrategy);
     if (this.asset.market === 0 ) {
-      orderStrategy = 0;
-    } else {
-      orderStrategy = parseInt(buyForm.value.orderStrategy);
-    }
+      this.orderStrategy = 0;
+    } 
     if (this.quantity > this.asset.sharesAvailable){
       this.assetService.showNotification('bottom', 'center', 'You cannot purchase more than the available shares', 'danger');
       this.assetService.stopSpinner();
       return;
     }
-    console.log('got here')
+    console.log('got here', this.orderStrategy)
     let body;
    
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
-        orderStrategy: orderStrategy,
+        orderStrategy: parseInt(this.orderStrategy),
         amount: this.quantity,
         "price": this.secondaryPrice,
         "goodUntil": 0,
