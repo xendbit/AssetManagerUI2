@@ -11,6 +11,8 @@ import { first } from 'rxjs/operators';
 })
 export class AdminAssetsComponent implements OnInit {
   assets: any;
+  remainingShares: any;
+  sharesRemaining: boolean;
 
   constructor(public assetService: AssetsService, public loginService: LoginService, public adminService: AdminService) { }
 
@@ -54,8 +56,18 @@ export class AdminAssetsComponent implements OnInit {
     
   }
 
+
   changeMarket(tokenId) {
-    this.assetService.showSpinner();
+    this.assetService.showSpinner();this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
+      console.log('this is remaining shares', res);
+      if (res['data'] !== null || res['data'] !== undefined) {
+        this.remainingShares = res['data'];
+        this.sharesRemaining = true;
+      }
+    },
+    err => {
+        console.log(err);
+    })
     this.assetService.changeMarket(tokenId).pipe(first()).subscribe((res: any) => {
       console.log('this is response', res);
       this.assetService.stopSpinner();

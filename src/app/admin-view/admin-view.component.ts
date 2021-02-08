@@ -36,6 +36,8 @@ export class AdminViewComponent implements OnInit {
   buyOrders: any[];
   fromSellOrder: boolean;
   shares: any;
+  myBuyOrders: any;
+  mySellOrders: any;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) { }
@@ -43,17 +45,19 @@ export class AdminViewComponent implements OnInit {
   ngOnInit(): void {
     this.balanceComplete = false;
     this.userId = parseInt(localStorage.getItem('userId'));
+    this.getMyBuyOrders();
+    this.getMySellOrders();
     this.activatedRoute.paramMap
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
                     console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
-                    this.getSellOrders();
                     this.getBalance();
                     this.getOwnedShares();
                     this.getAssetDetails();
                     this.getAssets();
+                    this.getSellOrders();
                 }
             },
             err => {
@@ -64,6 +68,7 @@ export class AdminViewComponent implements OnInit {
   }
 
   getAssetDetails() {
+    this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
@@ -73,7 +78,6 @@ export class AdminViewComponent implements OnInit {
         this.assetService.stopSpinner();
     },
     () => {
-      this.assetService.stopSpinner();
      }
     );
 
@@ -134,7 +138,6 @@ getAssets() {
 
 
 getSellOrders() {
-  this.assetService.showSpinner();
     this.assetService.ordersByTokenId(this.tokenId).subscribe(sell => {
       console.log('these are orders', sell);
       const assets = sell['data']['items'];
@@ -143,23 +146,53 @@ getSellOrders() {
       assets.forEach(element => {
         console.log('this is order type', element.orderType);
         if (element.orderType == 1 ) {
+          console.log('this is order', element);
           second.push(element);
         } else {
           last.push(element);
         }
       });
 
-      console.log('this is slast', last);
-      
-      this.sellOrders = second;
-      this.buyOrders = last;
-      console.log('this is data', this.sellOrders);
+      console.log(this.mySellOrders.length === 0);
+      let sellFinal = [];
+      let buyFinal = []
+      if (this.mySellOrders.length === 0 || this.mySellOrders === null || this.mySellOrders === undefined) {
+        this.sellOrders = second;
+      } else {
+        second.forEach(element => {
+            console.log('found one', element)
+            if (this.mySellOrders.find(chan => (chan.id === element.id))) {
+            } else if (this.mySellOrders.find(chan => (chan.id !== element.id))) {
+                  sellFinal.push(element);
+            }
+        });
+        this.sellOrders = sellFinal;
+      }
+      console.log('this is sellFinal', sellFinal);
+
+      if (this.myBuyOrders.length === 0 || this.myBuyOrders === null || this.myBuyOrders === undefined) {
+        this.buyOrders = last;
+      } else {
+        last.forEach(element => {
+            if (this.myBuyOrders.find(chan => (chan.id === element.id))) {
+            } else if (this.myBuyOrders.find(chan => (chan.id !== element.id))) {
+                  buyFinal.push(element);
+            }
+        });
+        this.buyOrders = buyFinal;
+      }
+      console.log('this is buyFinal', buyFinal);
+   
+      console.log('this are all sell orders', this.sellOrders);
+      this.assetService.showSpinner();
       },
       err => {
           console.log(err);
           this.assetService.stopSpinner();
       },
-      () => { }
+      () => { 
+        this.assetService.stopSpinner();
+      }
       );
 }
 
@@ -239,6 +272,35 @@ getSellOrders() {
   }
 
  
+  getMyBuyOrders() {
+    this.assetService.ordersByBuyer(this.userId).subscribe(data => {
+        this.myBuyOrders = data['data']['items'];
+        console.log('these are my buy orders', this.myBuyOrders)
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
+}
+
+  getMySellOrders() {
+    this.assetService.ordersBySeller(this.userId).subscribe(sell => {
+      this.mySellOrders = sell['data']['items'];
+      this.assetService.stopSpinner();
+      console.log('this is my sell order', this.mySellOrders);
+      },
+      err => {
+          console.log(err);
+          this.assetService.stopSpinner();
+      },
+      () => {
+        this.assetService.stopSpinner();
+       }
+      );
+}
+
 
 
 

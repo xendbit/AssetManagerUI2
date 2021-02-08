@@ -14,8 +14,8 @@ declare var $: any;
 export class IssueAssetsComponent implements OnInit {
   symbol: string;
   description: string;
-  totalSupply: string;
-  issuingPrice: string;
+  totalSupply: any;
+  issuingPrice: any;
   error: any;
   form: FormGroup;
   image: any;
@@ -49,12 +49,16 @@ export class IssueAssetsComponent implements OnInit {
   submit() {
     this.description = this.form.get('description').value;
     this.symbol = this.form.get('symbol').value;
-    this.issuingPrice = this.form.get('issuingPrice').value;
-    this.totalSupply = this.form.get('totalSupply').value;
+    this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
+    this.totalSupply = parseInt(this.form.get('totalSupply').value);
     this.title = this.form.get('artTitle').value
-    this.shares = this.form.get('availableShares').value;
+    this.shares = parseInt(this.form.get('availableShares').value);
     this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
+    if (this.shares > this.totalSupply) {
+      this.assetService.showNotification('bottom','center','Available shares cannot be more than quantity. Please correct and try again', 'danger')
+      return
+    }
     const issueId = localStorage.getItem('userId');
     console.log('this is issueId', issueId)
     const body = {

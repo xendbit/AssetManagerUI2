@@ -25,9 +25,16 @@ export class NotificationsComponent implements OnInit {
   getAssets() {
     this.assetService.showSpinner();
     this.assetService.getAssetsByOwnerId(this.userId).subscribe(data => {
-      this.myAssets = data['data']['items'];
+      const res = data['data']['items'];
+      let initial = [];
+      res.forEach(element => {
+        if (element.market === 0 && element.approved === 1 || element.market === 1 && element.approved ===1 ) {
+          initial.push(element);
+        } 
+      });
+      this.myAssets = initial;
       this.assetService.stopSpinner();
-      console.log('this is assets, ', data['data']['items']);
+      console.log('these are my assets, ', this.myAssets);
     },
     err => {
         console.log(err);
