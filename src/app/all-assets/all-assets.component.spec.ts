@@ -58,7 +58,7 @@ describe('AllAssetsComponent', () => {
 
     beforeEach(waitForAsync(() => {
 
-        // history.pushState({ from: 'home' }, '', '');
+        window.history.pushState({ from: 'home' }, '', '');
         fixture = TestBed.createComponent(AllAssetsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -69,36 +69,36 @@ describe('AllAssetsComponent', () => {
     }));
 
     it('should initialize if history is set', waitForAsync(() => {
-        delete (window as any).history;
-        const history = {
-          state: {
-            from: "home"
-          }
-        };
-        Object.defineProperty(window, "history", {
-          configurable: true,
-          enumerable: true,
-          value: history,
-          writable: true
-        });
+        // delete (window as any).history;
+        // const history = {
+        //   state: {
+        //     from: "home"
+        //   }
+        // };
+        // Object.defineProperty(window, "history", {
+        //   configurable: true,
+        //   enumerable: true,
+        //   value: history,
+        //   writable: true
+        // });
         component.ngOnInit();
         expect(component.pageHistory).toEqual(window.history.state.from);
     }));
 
     it('should initialize if history is not set', waitForAsync(() => {
-        delete (window as any).history;
-        const history = {
-          state: {
-            from: null
-          }
-        };
-        Object.defineProperty(window, "history", {
-          configurable: true,
-          enumerable: true,
-          value: history,
-          writable: true
-        });
-        // window.history.pushState({ from: null }, '', '');
+        // delete (window as any).history;
+        // const history = {
+        //   state: {
+        //     from: null
+        //   }
+        // };
+        // Object.defineProperty(window, "history", {
+        //   configurable: true,
+        //   enumerable: true,
+        //   value: history,
+        //   writable: true
+        // });
+        window.history.pushState({ from: null }, '', '');
         component.ngOnInit();
         expect(component.pageHistory).toEqual('buyPage');
     }));
