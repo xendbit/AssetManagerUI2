@@ -63,7 +63,7 @@ describe('IssueAssetsComponent', () => {
         })
     );
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
         // history.pushState({ from: 'home' }, '', '');
         fixture = TestBed.createComponent(IssueAssetsComponent);
         component = fixture.componentInstance;
@@ -78,13 +78,13 @@ describe('IssueAssetsComponent', () => {
             'artistName': [''],
             'availableShares': [''],
         });
-    });
+    }));
 
-    it('should create issue assets components', () => {
+    it('should create issue assets components', waitForAsync(() => {
         expect(component).toBeTruthy();
-    });
+    }));
 
-    it('should call getUserAssets() function, showspinner, set global variables and hidespinner ', () => {
+    it('should call getUserAssets() function, showspinner, set global variables and hidespinner ', waitForAsync(() => {
         const showSpinnerSpy = spyOn(assetService, 'showSpinner');
         const hideSpinnerSpy = spyOn(assetService, 'stopSpinner');
         const userId = '12';
@@ -100,7 +100,7 @@ describe('IssueAssetsComponent', () => {
         expect(component.totalItems).toBeDefined();
         expect(component.totalApproved).toBeDefined();
         expect(hideSpinnerSpy).toHaveBeenCalled();
-    });
+    }));
 
     it('should call submit() and assert the form values variables and navigate to issuer dashboard', waitForAsync(() => {
         const mockBody = {

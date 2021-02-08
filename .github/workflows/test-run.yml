@@ -1,0 +1,54 @@
+name: Art Exchange Unit Tests Run
+
+on: 
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ test-script ]
+  pull_request:
+    branches: [ test-script ]
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node: [10.x]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: https://registry.npmjs.org
+
+        # Based on: https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows#example-using-the-cache-action
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+         cache-name: cache-node-modules
+        with:
+         # npm cache files are stored in `~/.npm` on Linux/macOS
+         path: ~/.npm
+         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-build-${{ env.cache-name }}-
+           ${{ runner.os }}-build-
+           ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Setup chrome driver environment
+        run: |         
+           npm run clean-webdriver
+           npm run install-webdriver-version
+      - name: Test
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    #  - name: E2E
+    #    run: npm run e2e -- --protractor-config=e2e/protractor-ci-ga.conf.js --webdriver-update=false

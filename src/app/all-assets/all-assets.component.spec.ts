@@ -30,7 +30,7 @@ describe('AllAssetsComponent', () => {
     }
 
 
-    beforeEach(
+    beforeEach( 
         waitForAsync(() => {
             // routeSpyStub = spyOn(routerObj,'navigateByUrl');
 
@@ -56,19 +56,19 @@ describe('AllAssetsComponent', () => {
         })
     );
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
 
         // history.pushState({ from: 'home' }, '', '');
         fixture = TestBed.createComponent(AllAssetsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    });
+    }));
 
-    it('should create all assets components', () => {
+    it('should create all assets components', waitForAsync(() => {
         expect(component).toBeTruthy();
-    });
+    }));
 
-    it('should initialize if history is set', () => {
+    it('should initialize if history is set', waitForAsync(() => {
         delete (window as any).history;
         const history = {
           state: {
@@ -83,9 +83,9 @@ describe('AllAssetsComponent', () => {
         });
         component.ngOnInit();
         expect(component.pageHistory).toEqual(window.history.state.from);
-    });
+    }));
 
-    it('should initialize if history is not set', () => {
+    it('should initialize if history is not set', waitForAsync(() => {
         delete (window as any).history;
         const history = {
           state: {
@@ -101,7 +101,7 @@ describe('AllAssetsComponent', () => {
         // window.history.pushState({ from: null }, '', '');
         component.ngOnInit();
         expect(component.pageHistory).toEqual('buyPage');
-    });
+    }));
 
     it('should get all assets and check that all variables are initialized', waitForAsync(() => {
         const mockAssets = { "status": "success", "data": { "items": [{ "tokenId": 86988662, "issuer": "0x63e323075454164a0e3483a50650b2f6fae7afed" }, { "tokenId": 70764050, "issuer": "0x63e323075454164a0e3483a50650b2f6fae7afed" }] } };
