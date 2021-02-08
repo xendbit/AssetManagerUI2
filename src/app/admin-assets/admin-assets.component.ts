@@ -13,6 +13,7 @@ export class AdminAssetsComponent implements OnInit {
   assets: any;
   remainingShares: any;
   sharesRemaining: boolean;
+  assetToken: any;
 
   constructor(public assetService: AssetsService, public loginService: LoginService, public adminService: AdminService) { }
 
@@ -56,10 +57,10 @@ export class AdminAssetsComponent implements OnInit {
     
   }
 
-
-  changeMarket(tokenId) {
-    this.assetService.showSpinner();this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
+  checkShares(tokenId) {
+    this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
       console.log('this is remaining shares', res);
+      this.assetToken = tokenId;
       if (res['data'] !== null || res['data'] !== undefined) {
         this.remainingShares = res['data'];
         this.sharesRemaining = true;
@@ -68,7 +69,11 @@ export class AdminAssetsComponent implements OnInit {
     err => {
         console.log(err);
     })
-    this.assetService.changeMarket(tokenId).pipe(first()).subscribe((res: any) => {
+  }
+
+  changeMarket() {
+    this.assetService.showSpinner();
+    this.assetService.changeMarket(this.assetToken).pipe(first()).subscribe((res: any) => {
       console.log('this is response', res);
       this.assetService.stopSpinner();
     },
