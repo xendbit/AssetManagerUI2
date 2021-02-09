@@ -54,7 +54,7 @@
 
                         
 
-                  <div  class="modal fade" id="delistModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.sharesRemaining">
+                  <div  class="modal fade" id="delistModalLong" tabindex="-1" role="dialog" aria-labelledby="delistModalLongTitle" aria-hidden="true" *ngIf="this.sharesRemaining">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -67,7 +67,7 @@
                             <div>
                                 <div class="row">
                                     <p style="margin-left: 20%; margin-right: 29%;"> 
-                                      Please confirm that you intend to delist from the market even with {{this.remainingShares}} shares still left to be bought on the primary market?
+                                      Please confirm that you intend to delist this asset from the market even with {{this.remainingShares}} shares still left to be bought on the primary market?
                                     </p> 
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
 
 
                         <td *ngIf="item.market === 0 && item.approved === 1">
-                            <button (click)="checkShares(item.tokenId)" data-toggle="modal" data-target="#buyModalLong"  class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent;">
+                            <button (click)="checkShares(item.tokenId)" data-toggle="modal" data-target="#listModalLong"  class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent;">
                 
                                 list asset
                             
@@ -105,7 +105,7 @@
                             </button>
                         </td>
                         <td *ngIf="item.market === 2 && item.approved === 1">
-                            <button data-toggle="modal" data-target="#buyModalLong" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent;">
+                            <button data-toggle="modal" data-target="#listModalLong" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent;">
                 
                                 list asset
                             
@@ -115,7 +115,7 @@
                   </tbody>
                 </table>
 
-                <div  class="modal fade" id="listModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.sharesRemaining">
+                <div  class="modal fade" id="listModalLong" tabindex="-1" role="dialog" aria-labelledby="listModalLongTitle" aria-hidden="true" *ngIf="this.sharesRemaining">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
