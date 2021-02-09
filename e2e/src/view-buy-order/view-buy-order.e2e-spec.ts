@@ -10,7 +10,7 @@ describe('Admin View Buy Orders', () => {
     await browser.get("/login");
   });
 
-  it('admin should be able to log in and navigate to my orders page with tabs and a tab named buy order', async () =>
+  it('admin should be able to log in and navigate to my orders page which has a tabs element and a tab named buy order', async () =>
   {
     const getLoginButton = await buyOrders.findLoginButton();
     buyOrders.enterEmail(TestMockData.adminLogin.email);
