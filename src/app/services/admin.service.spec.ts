@@ -20,7 +20,7 @@ import { AdminService } from './admin.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { TestHelpers } from '../test-helpers';
+import { TestMockData } from '../test-mock-data';
 import { of } from 'rxjs';
 // import * as sinon from 'sinon';
 
@@ -63,22 +63,22 @@ describe('AdminService', () => {
 
     //Test case 1
     it('should make a POST API call to register an admin', () => {
-      service.registerAdmin(TestHelpers.postMockObj).subscribe((admin) => {
+      service.registerAdmin(TestMockData.postMockObj).subscribe((admin) => {
         expect(admin).toBeDefined(), fail;
       });
       const req = httpTestingController.expectOne(`${baseUrl}/user/new-user`);
       expect(req.request.method).toEqual('POST');
-      req.flush(TestHelpers.postMockObj);
+      req.flush(TestMockData.postMockObj);
     });
 
     //Test case 2
     it('should make a POST request to register an admin with an object', () => {
-      service.registerAdmin(TestHelpers.postMockObj).subscribe(
-        admin => expect(admin).toEqual(TestHelpers.postMockObj, 'should return an register object'),
+      service.registerAdmin(TestMockData.postMockObj).subscribe(
+        admin => expect(admin).toEqual(TestMockData.postMockObj, 'should return an register object'),
         fail
       );
       const req = httpTestingController.expectOne(`${baseUrl}/user/new-user`);
-      expect(req.request.body).toEqual(TestHelpers.postMockObj);
+      expect(req.request.body).toEqual(TestMockData.postMockObj);
       req.flush({});
     });
 
