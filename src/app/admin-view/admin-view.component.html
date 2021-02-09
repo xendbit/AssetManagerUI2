@@ -426,7 +426,7 @@
                    
                                
                             <div style="padding-bottom: 20px; ">
-                                <button (Click)="buy(buyForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                                <button (click)="buy(buyForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                             
                                 Place Order
                             
@@ -480,7 +480,7 @@
                                                     <th> Order Date </th>
                                                 </thead>
                                                 <tbody *ngFor="let item of this.sellOrders">
-                                                    <tr class="Table" (click)= "viewAsset(item.price, item.id, item.amountRemaining)">
+                                                    <tr class="Table" (click)= "viewAsset(item.price, item.id, item.amountRemaining, item.orderStrategy)">
                                                         <td>Sell</td>
                                                         <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
                                                         <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>

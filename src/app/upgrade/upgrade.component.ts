@@ -71,6 +71,9 @@ export class UpgradeComponent implements OnInit {
       this.assetService.stopSpinner();
       console.log(err.error.data.error);
       this.error = err.error.data.error;
+    },
+    () => { 
+      this.assetService.stopSpinner();
     });
   }
 

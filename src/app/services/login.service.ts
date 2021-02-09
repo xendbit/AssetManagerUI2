@@ -47,6 +47,13 @@ export class LoginService {
     return this.httpClient.post(`${this.baseUrl}/admin/change-approval-status/${tokenId}/${status}`, {}, {headers});
   }
 
+  checkSharesRemaining(tokenId) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.get(`${this.baseUrl}/admin/primary-shares-remaining/${tokenId}`, {headers});
+  }
+
   underSubscribe(tokenId) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');

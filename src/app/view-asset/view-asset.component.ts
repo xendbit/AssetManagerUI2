@@ -34,6 +34,7 @@ export class ViewAssetComponent implements OnInit {
   showModal: boolean;
   balanceComplete: boolean;
   total: number;
+  remainingShares: any;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
@@ -57,6 +58,7 @@ export class ViewAssetComponent implements OnInit {
                     console.log('this is page history', this.pageHistory)
                     this.getAssets();
                     this.getAssetDetails();
+                    this.getPrimarySharesRemaining(this.tokenId);
                 }
             },
             err => {
@@ -106,13 +108,14 @@ export class ViewAssetComponent implements OnInit {
   buy(buyForm: NgForm) {
     let orderStrategy;
     this.amount = parseInt(this.amount);
+    this.quantity = parseInt(this.quantity);
     console.log('this is amount', this.amount > this.asset.sharesAvailable);
     if (!this.amount || this.quantity) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
       return;
     }
-    if (this.amount > this.asset.sharesAvailable || this.quantity > this.asset.sharesAvailable) {
-      this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares for this asset.', 'danger');
+    if (this.amount > this.remainingShares || this.quantity > this.remainingShares) {
+      this.assetService.showNotification('bottom', 'center', 'You cannot purchase more than the available shares for this asset.', 'danger');
       return;
     }
     this.total = this.amount * this.asset.issuingPrice;
@@ -128,7 +131,7 @@ export class ViewAssetComponent implements OnInit {
     if (this.asset.market === 0 ) {
       orderStrategy = 0;
     } else {
-      orderStrategy = buyForm.value.orderStrategy
+      orderStrategy = parseInt(buyForm.value.orderStrategy);
     }
     if (this.amount > this.asset.sharesAvailable){
       this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares', 'danger');
@@ -184,9 +187,15 @@ export class ViewAssetComponent implements OnInit {
   }
 
   sell(sellForm: NgForm, tokenId) {
+    this.assetService.showSpinner();
     console.log('this is form', sellForm);
     const price = sellForm.value.price;
     const amount = sellForm.value.amount;
+    if (this.asset.market === 0) {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
+      return
+    }
     const orderStrategy = parseInt(sellForm.value.orderStrategy);
     const body = {
         tokenId: this.asset.tokenId,
@@ -198,6 +207,7 @@ export class ViewAssetComponent implements OnInit {
         "userId": parseInt(this.userId),
         market: 1
     }
+    this.assetService.stopSpinner();
     this.assetService.showSpinner();
     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
       if (data['status'] == 'success') {
@@ -236,6 +246,13 @@ export class ViewAssetComponent implements OnInit {
       this.error = err.error.data.error;
       this.asset.showNotification('bottom', 'center', this.error, 'danger')
     });
+  }
+
+  getPrimarySharesRemaining(tokenId) {
+    this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
+      console.log('this is remaining shares', res);
+      this.remainingShares = res['data'];
+    })
   }
 
   approve(tokenId, status) {
