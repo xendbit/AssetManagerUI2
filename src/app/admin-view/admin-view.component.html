@@ -146,14 +146,14 @@
                                             <p style="margin-left: 20%; margin-right: 24%;">
                                                 <b> Quantity: </b> 
                                             </p>
-                                            <b> ${{this.quantity}} </b>
+                                            <b> {{this.quantity}} </b>
                                         </div>
 
                                         <div class="row">
                                           <p style="margin-left: 20%; margin-right: 24%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice * this.asset.sharesAvailable}} </b>
+                                          <b> {{this.secondaryPrice * this.asset.quantity} </b>
                                       </div>
                                         
                                         
@@ -378,7 +378,7 @@
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice * this.asset.sharesAvailable}} </b>
+                                          <b> ${{this.secondaryPrice * this.quantity}} </b>
                                       </div>
                                         
                                         

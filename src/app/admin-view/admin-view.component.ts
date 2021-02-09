@@ -360,9 +360,12 @@ getSellOrders() {
     }
     if (!this.fromOrder) {
       console.log('this is not from order')
-      if (this.balance == 0 || this.balance < this.secondaryPrice * this.asset.sharesAvailable) {
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity) {
         console.log('this is not from order')
         this.balanceComplete = false;
+        if (this.orderStrategy === null ) {
+          this.orderStrategy = 0;
+        } 
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
         return;
@@ -371,27 +374,20 @@ getSellOrders() {
       }
     } else if (this.fromOrder) {
       console.log('this is from order')
-      if (this.balance == 0 || this.balance < this.secondaryPrice * this.asset.sharesAvailable) {
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity) {
         console.log('this is from order')
         this.fromOrder = null;
         this.balanceComplete = false;
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
         return;
-      } else if(this.balance >= this.asset.issuingPrice * this.asset.sharesAvailable) {
+      } else if(this.balance >= this.asset.issuingPrice * this.quantity) {
         this.balanceComplete = true;
       }
     }
     
     console.log('this is order strategy', this.orderStrategy);
-    if (this.asset.market === 0 ) {
-      this.orderStrategy = 0;
-    } 
-    if (this.quantity > this.asset.sharesAvailable){
-      this.assetService.showNotification('bottom', 'center', 'You cannot purchase more than the available shares', 'danger');
-      this.assetService.stopSpinner();
-      return;
-    }
+  
     console.log('got here', this.orderStrategy)
     let body;
    
@@ -404,7 +400,7 @@ getSellOrders() {
         "goodUntil": 0,
         "userId": parseInt(this.userId),
         "orderId": this.orderId,
-        market: 2
+        market: 1
       }
   
     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
