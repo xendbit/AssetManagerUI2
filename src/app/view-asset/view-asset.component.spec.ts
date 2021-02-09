@@ -85,6 +85,7 @@ describe('ViewAssetComponent Unit Test', () => {
       fixture.componentInstance.getBalance = jasmine.createSpy('getBalance')
       fixture.componentInstance.getAssets = jasmine.createSpy('getAssets')
       fixture.componentInstance.getAssetDetails = jasmine.createSpy('getAssetDetails')
+      fixture.componentInstance.getPrimarySharesRemaining = jasmine.createSpy('getPrimarySharesRemaining')
 
       // mock readonly window object
       delete (window as any).history;
@@ -115,6 +116,7 @@ describe('ViewAssetComponent Unit Test', () => {
       expect(fixture.componentInstance.tokenId).toBe(window.history.state.tokenId)
       expect(fixture.componentInstance.pageHistory).toBe(window.history.state.from)
       expect(fixture.componentInstance.getAssetDetails).toHaveBeenCalled();
+      expect(fixture.componentInstance.getPrimarySharesRemaining).toHaveBeenCalled();
 
 
       // AssetsServiceSpy.getWaletBalance.and.returnValue(of(genericAssetResp));
@@ -413,7 +415,12 @@ describe('ViewAssetComponent Unit Test', () => {
     it('should call sell(), show notification, stop spinner & navigate to home when response.status === success', fakeAsync(() => {
       AssetsServiceSpy.buyAsset.and.returnValue(of(genericAssetResp));
 
-      fixture.componentInstance.asset = getAssetsByTokenIdResp.data
+      const getAssetsByTokenIdRespData = {...getAssetsByTokenIdResp.data}
+
+      // change asset market not to be a pry market (ie 0)
+      getAssetsByTokenIdRespData.market = 1
+
+      fixture.componentInstance.asset = getAssetsByTokenIdRespData
       fixture.componentInstance.amount = getAssetsByTokenIdResp.data.sharesAvailable - 1
 
       let form = <NgForm><unknown>buyFormGroup
@@ -436,7 +443,12 @@ describe('ViewAssetComponent Unit Test', () => {
       resp.status = 'error'
       AssetsServiceSpy.buyAsset.and.returnValue(of(resp));
 
-      fixture.componentInstance.asset = getAssetsByTokenIdResp.data
+      const getAssetsByTokenIdRespData = {...getAssetsByTokenIdResp.data}
+
+      // change asset market not to be a pry market (ie 0)
+      getAssetsByTokenIdRespData.market = 1
+
+      fixture.componentInstance.asset = getAssetsByTokenIdRespData
       fixture.componentInstance.amount = getAssetsByTokenIdResp.data.sharesAvailable - 1
 
       let form = <NgForm><unknown>buyFormGroup
@@ -468,7 +480,12 @@ describe('ViewAssetComponent Unit Test', () => {
 
         AssetsServiceSpy.buyAsset.and.returnValue(throwError(error));
 
-        fixture.componentInstance.asset = getAssetsByTokenIdResp.data
+        const getAssetsByTokenIdRespData = {...getAssetsByTokenIdResp.data}
+
+        // change asset market not to be a pry market (ie 0)
+        getAssetsByTokenIdRespData.market = 1
+
+        fixture.componentInstance.asset = getAssetsByTokenIdRespData
         fixture.componentInstance.amount = getAssetsByTokenIdResp.data.sharesAvailable - 1
 
         let form = <NgForm><unknown>buyFormGroup
