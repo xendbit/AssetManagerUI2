@@ -51,12 +51,15 @@ export class IssueAssetsComponent implements OnInit {
     this.symbol = this.form.get('symbol').value;
     this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
     this.totalSupply = parseInt(this.form.get('totalSupply').value);
-    this.title = this.form.get('artTitle').value
     this.shares = parseInt(this.form.get('availableShares').value);
     this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
+    if (this.title === null || this.artist === null || this.symbol === null || this.description === null || this.totalSupply === null || this.shares === null) {
+      this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
+      return;
+    }
     if (this.shares > this.totalSupply) {
-      this.assetService.showNotification('bottom','center','Available shares cannot be more than quantity. Please correct and try again', 'danger')
+      this.assetService.showNotification('bottom','center','Available shares cannot be more than quantity. Please correct and try again', 'danger');
       return
     }
     const issueId = localStorage.getItem('userId');
