@@ -39,14 +39,14 @@
                           <td *ngIf="item.market === 0 && item.approved === 1 || item.market === 1 && item.approved ===1">
                             <button (click)="delete(item.tokenId, false)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent;">
                 
-                                Delete
+                                Delist
                             
                             </button>
                         </td>
                         <td *ngIf="item.market === 2 && item.approved === 1 ">
                             <button (click)="delete(item.tokenId, false)" type="submit" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent;">
                 
-                                Delete
+                                Delist
                             
                             </button>
                         </td>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button (click)="changeMarket()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          <button (click)="changeMarket()"  data-dismiss="modal" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                         </div>
                       </div>
                     </div>

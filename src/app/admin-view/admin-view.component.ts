@@ -38,12 +38,15 @@ export class AdminViewComponent implements OnInit {
   shares: any;
   myBuyOrders: any;
   mySellOrders: any;
+  remainingShares: any;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.balanceComplete = false;
+    this.fromOrder = false;
+    this.fromSellOrder = false;
     this.userId = parseInt(localStorage.getItem('userId'));
     this.getMyBuyOrders();
     this.getMySellOrders();
@@ -56,6 +59,7 @@ export class AdminViewComponent implements OnInit {
                     this.getBalance();
                     this.getOwnedShares();
                     this.getAssetDetails();
+                    this.getPrimarySharesRemaining(this.tokenId);
                     this.getAssets();
                     this.getSellOrders();
                 }
@@ -208,17 +212,19 @@ getSellOrders() {
     this.secondaryPrice = price;
     this.orderId = id;
     this.fromOrder = true;
+    this.fromSellOrder = false;
     this.orderStrategy = orderStrategy
     this.assetService.stopSpinner();
     //this.router.navigateByUrl('/viewAsset', { state : {tokenId: this.tokenId, from: 'secPage', price: price, id: id, quantity: amount} });
   }
 
-  viewAssetSell(price, id, amount, orderStrategy) {
+  viewAssetSell(price, id, amount) {
     this.assetService.showSpinner();
     this.secondaryPrice = price;
     this.orderId = id;
+    this.quantity  = amount;
+    this.fromOrder = false;
     this.fromSellOrder = true;
-    this.orderStrategy = orderStrategy;
     this.assetService.fetchOrderById(this.orderId).subscribe( (res: any) => {
       console.log('this is order, ', res);
       if (parseInt(res['data']['amountRemaining']) === 0) {
@@ -240,35 +246,75 @@ getSellOrders() {
   }
 
   sell(sellForm: NgForm, tokenId) {
-    console.log('this is form', sellForm);
-    const body = {
-        tokenId: this.asset.tokenId,
-        orderType: 1,
-        orderStrategy: 0,
-        amount: this.quantity,
-        "price": this.secondaryPrice,
-        orderId: this.orderId,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        market: 1
-    }
-    this.assetService.showSpinner();
-    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      if (data['status'] == 'success') {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'Asset has been sold successfully', 'success');
-        this.router.navigateByUrl('/home')
-      } else {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'There was an error while trying to sell this asset, please try again later', 'danger');
-      }
-      console.log('this is response', data);
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
+
+
+    if (!this.quantity) {
       this.assetService.stopSpinner();
-      this.asset.showNotification('bottom', 'center', this.error, 'danger')
-    });
+      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+      return;
+    }
+    if (!this.fromSellOrder) {
+      console.log('this is not from order')
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.asset.sharesAvailable) {
+        console.log('this is not from order')
+        this.balanceComplete = false;
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+        return;
+      } else if(this.balance >= this.secondaryPrice * this.asset.sharesAvailable) {
+        this.balanceComplete = true;
+      }
+    } else if (this.fromSellOrder) {
+      console.log('this is from order')
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity) {
+        console.log('this is from order')
+        this.fromSellOrder = null;
+        this.balanceComplete = false;
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+        return;
+      } else if(this.balance >= this.secondaryPrice * this.quantity) {
+        this.balanceComplete = true;
+        console.log('this is form', sellForm);
+        const body = {
+            tokenId: this.asset.tokenId,
+            orderType: 1,
+            orderStrategy: 0,
+            amount: parseInt(this.quantity),
+            "price": this.secondaryPrice,
+            orderId: this.orderId,
+            "goodUntil": 0,
+            "userId": parseInt(this.userId),
+            market: 1
+        }
+        this.assetService.showSpinner();
+        this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+          if (data['status'] == 'success') {
+            this.assetService.stopSpinner();
+            this.assetService.showNotification('top', 'center', 'Asset has been sold successfully', 'success');
+            this.router.navigateByUrl('/home')
+          } else {
+            this.assetService.stopSpinner();
+            this.assetService.showNotification('top', 'center', 'There was an error while trying to sell this asset, please try again later', 'danger');
+          }
+          console.log('this is response', data);
+        }, err => {
+          console.log(err.error.data.error);
+          this.error = err.error.data.error;
+          this.assetService.stopSpinner();
+          this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+        });
+      }
+    }
+
+    
+  }
+
+  getPrimarySharesRemaining(tokenId) {
+    this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
+      console.log('this is remaining shares', res);
+      this.remainingShares = res['data'];
+    })
   }
 
  

@@ -109,7 +109,6 @@ export class ViewAssetComponent implements OnInit {
     let orderStrategy;
     this.amount = parseInt(this.amount);
     this.quantity = parseInt(this.quantity);
-    console.log('this is amount', this.amount > this.asset.sharesAvailable);
     if (!this.amount || this.quantity) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
       return;
@@ -196,6 +195,9 @@ export class ViewAssetComponent implements OnInit {
       this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
       return
     }
+    if (sellForm.value.orderStrategy === null || sellForm.value.orderStrategy === undefined) {
+      sellForm.value.orderStrategy = 0;
+    }
     const orderStrategy = parseInt(sellForm.value.orderStrategy);
     const body = {
         tokenId: this.asset.tokenId,
@@ -223,7 +225,7 @@ export class ViewAssetComponent implements OnInit {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
-      this.asset.showNotification('bottom', 'center', this.error, 'danger')
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
 
@@ -244,7 +246,7 @@ export class ViewAssetComponent implements OnInit {
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
-      this.asset.showNotification('bottom', 'center', this.error, 'danger')
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
 
@@ -271,7 +273,7 @@ export class ViewAssetComponent implements OnInit {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
-      this.asset.showNotification('bottom', 'center', this.error, 'danger')
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
 

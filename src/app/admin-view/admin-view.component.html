@@ -53,11 +53,11 @@
                             <b> Total Supply: </b> {{this.asset.totalSupply}}
                           </p>
                           <p>
-                              <b>Available Shares:</b> {{this.asset.sharesAvailable}}
+                            <b>Remaining Shares:</b> {{this.remainingShares}}
                           </p>
                           <p>
                             <b> Token ID: </b> 
-                             <a href="https://blockscout.com/poa/xdai/tokens/0x7f82f44af4bb9f5467a05a5279d1dc2ac029d1e1/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
+                             <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
                              
                                 {{this.asset.tokenId}} - 
                                 Verify <span class="material-icons" style="color: orange !important;">
@@ -77,7 +77,7 @@
               
                     <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
                       <mat-card-content>
-                        <form #sellForm="ngForm" (ngSubmit)="sell(sellForm)" novalidate>
+                        <form #sellForm="ngForm" novalidate>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                               <p><b> Account Balance: </b> ${{this.balance}} </p>
@@ -122,7 +122,7 @@
 
 
 
-                          <div  class="modal fade" id="sellModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.quantity">
+                          <div  class="modal fade" id="sellModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.fromSellOrder">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -165,7 +165,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                  <button (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                  <button data-dismiss="modal"  (click)="sell(sellForm)" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                                 </div>
                               </div>
                             </div>
@@ -218,11 +218,11 @@
                                 <b> Total Supply: </b> {{this.asset.totalSupply}}
                               </p>
                               <p>
-                                  <b>Available Shares:</b> {{this.asset.sharesAvailable}}
+                                <b>Remaining Shares:</b> {{this.remainingShares}}
                               </p>
                               <p>
                                 <b> Token ID: </b>  
-                                <a href="https://blockscout.com/poa/xdai/tokens/0x7f82f44af4bb9f5467a05a5279d1dc2ac029d1e1/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                                <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
                                   {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
                                     fingerprint
                                   </span>
@@ -390,7 +390,7 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                  <button (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                  <button (ngSubmit)="buy(buyForm)" data-dismiss="modal" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                                 </div>
                               </div>
                             </div>

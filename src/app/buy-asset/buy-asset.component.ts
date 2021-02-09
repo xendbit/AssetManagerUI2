@@ -23,6 +23,8 @@ export class BuyAssetComponent implements OnInit {
   fullName: string;
   firstName: string;
   middleName: string;
+  userId: string;
+  balance: any;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
@@ -31,6 +33,7 @@ export class BuyAssetComponent implements OnInit {
     this.accountNumber = localStorage.getItem('accountNumber');
     this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
     this.getAssets();
+    this.getBalance();
   }
 
   getAssets() {
@@ -84,6 +87,19 @@ export class BuyAssetComponent implements OnInit {
 
   view(tokenId, page) {
     this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
+  }
+
+  getBalance() {
+    this.assetService.showSpinner();
+    this.userId = localStorage.getItem('userId');
+    this.assetService.getWaletBalance(this.userId).subscribe(res => {
+      console.log('this is balance', res);
+      this.balance = res['data'];
+    }, err => {
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+    });
   }
 
   viewAll() {

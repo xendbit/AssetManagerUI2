@@ -55,7 +55,7 @@
                         </p>
                         <p>
                           <b> Token ID: </b>  
-                          <a href="https://blockscout.com/poa/xdai/tokens/0x7f82f44af4bb9f5467a05a5279d1dc2ac029d1e1/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">  
+                          <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">  
                             {{this.asset.tokenId}} - 
                             Verify <span class="material-icons" style="color: orange !important;">
                               fingerprint
@@ -176,7 +176,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          <button data-dismiss="modal" (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                         </div>
                       </div>
                     </div>
@@ -244,11 +244,11 @@
                   <b> Total Supply: </b> {{this.asset.totalSupply}}
                 </p>
                 <p>
-                    <b>Available Shares:</b> {{this.asset.sharesAvailable}}
+                  <b>Remaining Shares:</b> {{this.remainingShares}}
                 </p>
                 <p>
                   <b> Token ID: </b> 
-                   <a href="https://blockscout.com/poa/xdai/tokens/0x7f82f44af4bb9f5467a05a5279d1dc2ac029d1e1/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
+                   <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
                    
                       {{this.asset.tokenId}} - 
                       Verify <span class="material-icons" style="color: orange !important;">
@@ -268,8 +268,8 @@
     
           <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
             <mat-card-content>
-              <form #sellForm="ngForm" (ngSubmit)="sell(sellForm)" novalidate>
-                <div class="row">
+              <form #sellForm="ngForm" novalidate>
+                <div class="row" *ngIf="this.asset.market !== 0">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <mat-label>Order Strategy</mat-label>
                           <mat-select id ="orderStrategy" name="orderStrategy" [(ngModel)]="orderStrategy" >
@@ -283,7 +283,7 @@
                   </div>
               </div>
     
-                <div class="row">
+                <div class="row" *ngIf="this.asset.market !== 0">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width">
                         <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
@@ -291,7 +291,7 @@
                     </div>
                 </div>
     
-                <div class="row">
+                <div class="row" *ngIf="this.asset.market !== 0">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width">
                         <input matInput placeholder="Price" type="number" id="price" name="price" [(ngModel)]="price">
@@ -299,8 +299,17 @@
                     </div>
                 </div>
                 
-                <div style="padding-bottom: 20px; ">
-                  <button (Click)="sell(sellForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market !== 0">
+                  <button (click)="sell(sellForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                
+                    Sell Asset
+                
+                </button>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0">
+                  <button (click)="sell(sellForm)" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset
                 
@@ -368,11 +377,11 @@
                     <b> Total Supply: </b> {{this.asset.totalSupply}}
               </p>
               <p>
-                  <b>Available Shares:</b> {{this.asset.sharesAvailable}}
+                <b>Remaining Shares:</b> {{this.remainingShares}}
               </p>
               <p>
                 <b> Token ID: </b>  
-                  <a href="https://blockscout.com/poa/xdai/tokens/0x7f82f44af4bb9f5467a05a5279d1dc2ac029d1e1/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                  <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
                     {{this.asset.tokenId}} - 
                     Verify <span class="material-icons" style="color: orange !important;">
                       fingerprint
