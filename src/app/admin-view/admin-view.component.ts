@@ -43,8 +43,7 @@ export class AdminViewComponent implements OnInit {
     { "name": 'Good Till Cancel',  code: 0 },
     { "name": 'All or Nothing',  code: 1 },
     { "name": 'Good Till Day',  code: 2 },
-    { "name": 'Good Till Month',  code: 3 },
-    { "name": 'Market Order',  code: 4 }
+    { "name": 'Good Till Month',  code: 3 }
   ];
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
@@ -57,6 +56,7 @@ export class AdminViewComponent implements OnInit {
     this.userId = parseInt(localStorage.getItem('userId'));
     this.getMyBuyOrders();
     this.getMySellOrders();
+    this.orderStrategy = 0;
     this.activatedRoute.paramMap
         .subscribe(
             () => {
@@ -446,13 +446,13 @@ getSellOrders() {
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
-        orderStrategy: parseInt(this.orderStrategy),
+        orderStrategy: 4,
         amount: this.amount,
         "price": 0,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
         "orderId": this.orderId,
-        market: 4
+        market: 1
       }
   
 

@@ -72,6 +72,9 @@
             </mat-card>
       
             <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;">
+
+              
+
               <mat-card-content>
                 <form #buyForm="ngForm" novalidate>
                   <div class="row">
@@ -269,9 +272,30 @@
     
     
           <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
-            <mat-card-content>
+            <div class="col-md-2" style="margin-left: 9px !important; padding-left: 0 !important;">
+
+              <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
+                <label class="btn btn-md btn-outline-secondary" 
+                      [ngClass]="{active : currentButton == 'first'}"
+                      (click) = "currentButton='first'"
+                      style="width: 77px !important; text-transform: capitalize;"
+                       >
+                  <input type="radio" name="options" autocomplete="off" checked >Limit  
+                </label>
+                <label class="btn btn-md btn-outline-secondary"
+                       [ngClass]="{active : currentButton == 'second'}"
+                      (click) = "currentButton='second'"
+                      style="width: 85px !important; text-transform: capitalize;"
+                  >
+                  <input type="radio" name="options" autocomplete="off"> Market
+                  
+                </label>
+              </div>
+          
+            </div>
+            <mat-card-content *ngIf="this.currentButton === 'first' ">
               <form #sellForm="ngForm" novalidate>
-                <div class="row" *ngIf="this.asset.market !== 0">
+                <!-- <div class="row" *ngIf="this.asset.market !== 0">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <mat-label>Order Strategy</mat-label>
                     <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
@@ -279,7 +303,7 @@
                     </mat-select>
                           
                   </div>
-              </div>
+              </div> -->
 
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -327,6 +351,52 @@
                 </div>
             </form>
             </mat-card-content>
+
+
+            <mat-card-content *ngIf="this.currentButton === 'second' ">
+              <form #buyForm="ngForm"  novalidate>
+ 
+                  <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                          <p><b> Account Balance: </b> ${{this.balance}} </p>
+                      </div>
+
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p><b> Shares owned for this asset: </b> {{this.shares}} </p>
+                      </div>
+       
+                  </div>
+         
+                  <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                          <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                          </mat-form-field>
+                      </div>
+                  </div>
+         
+                     
+                  <div style="padding-bottom: 20px; ">
+                      <button *ngIf="this.amount && this.shares !== 0" (click)="sendMarketOrder()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                  
+                      Place Order
+                  
+                      </button>
+
+                      <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                  
+                        Place Order
+                    
+                        </button>
+                  
+                  </div>
+                 </form>
+       
+
+          </mat-card-content>
+          
+
+
           </mat-card>
     
         </div>

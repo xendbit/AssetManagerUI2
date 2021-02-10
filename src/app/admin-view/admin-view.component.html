@@ -153,7 +153,7 @@
                                           <p style="margin-left: 20%; margin-right: 24%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> {{this.secondaryPrice * this.asset.quantity} </b>
+                                          <b> {{this.secondaryPrice * this.asset.quantity}} </b>
                                       </div>
                                         
                                         
@@ -265,7 +265,7 @@
 
 
                       <form #buyForm="ngForm"  novalidate>
-                        <div class="row"  style="margin-top: 5px !important;">
+                        <!-- <div class="row"  style="margin-top: 5px !important;">
 
                           <div class="col-md-9" *ngIf="!fromOrder && this.currentButton === 'first'" >
                             <mat-label>Order Strategy</mat-label>
@@ -274,7 +274,7 @@
                                   </mat-select>
                                   
                           </div>
-                      </div>
+                      </div> -->
           
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -325,13 +325,13 @@
           
                         
                         <div style="padding-bottom: 20px;" *ngIf="!this.fromOrder">
-                            <button *ngIf="!this.orderStrategy || !this.quantity || !this.secondaryPrice" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                            <button *ngIf="!this.quantity || !this.secondaryPrice" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                         
                                 Buy Asset
                             
                             </button>
 
-                            <button *ngIf="this.orderStrategy && this.quantity && this.secondaryPrice" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                            <button *ngIf="this.secondaryPrice && this.quantity" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                         
                               Buy Asset
                           
@@ -405,7 +405,7 @@
                     </mat-card-content>
 
                     <mat-card-content *ngIf="this.currentButton === 'second' ">
-                        <form #buyForm="ngForm" (ngSubmit)="buy(buyForm)" novalidate>
+                        <form #buyForm="ngForm" novalidate>
            
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -489,17 +489,17 @@
                                                 </thead>
                                                 <tbody *ngFor="let item of this.sellOrders">
                                                     <tr class="Table" (click)= "viewAsset(item.price, item.id, item.amountRemaining, item.orderStrategy)">
-                                                        <td>Sell</td>
-                                                        <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
-                                                        <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>
-                                                        <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
-                                                        <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
-                                                        <td *ngIf="item.orderStrategy === 4"> Market Order </td>
-                                                        <td > {{item.amountRemaining}} </td>
-                                                        <td> {{item.tokenId}} </td>
-                                                        <td> {{item.originalAmount}} </td>
-                                                        <td> {{item.price}} </td>
-                                                        <td> {{item.orderDate  | date }} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">Sell</td>
+                                                        <td *ngIf="item.orderStrategy === 0 && item.amountRemaining !== 0"> Good Till Cancel </td>
+                                                        <td *ngIf="item.orderStrategy === 1 && item.amountRemaining !== 0"> All Or Nothing </td>
+                                                        <td *ngIf="item.orderStrategy === 2 && item.amountRemaining !== 0"> Good Till Day </td>
+                                                        <td *ngIf="item.orderStrategy === 3 && item.amountRemaining !== 0">  Good Till Month </td>
+                                                        <td *ngIf="item.orderStrategy === 4 && item.amountRemaining !== 0"> Market Order </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.orderDate  | date }} </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -26,7 +26,7 @@ export class ViewAssetComponent implements OnInit {
   @Input() editable: boolean = false;
   assets: any;
   primaryMarket: any[];
-
+  currentButton = "first";
   balance: 0;
   secondaryPrice: any;
   orderId: any;
@@ -39,8 +39,7 @@ export class ViewAssetComponent implements OnInit {
     { "name": 'Good Till Cancel',  code: 0 },
     { "name": 'All or Nothing',  code: 1 },
     { "name": 'Good Till Day',  code: 2 },
-    { "name": 'Good Till Month',  code: 3 },
-    { "name": 'Market Order',  code: 4 }
+    { "name": 'Good Till Month',  code: 3 }
   ];
   shares: any;
 
@@ -161,7 +160,7 @@ export class ViewAssetComponent implements OnInit {
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
-        orderStrategy: orderStrategy,
+        orderStrategy: 0,
         amount: this.quantity,
         "price": this.secondaryPrice,
         "goodUntil": 0,
@@ -227,7 +226,7 @@ export class ViewAssetComponent implements OnInit {
     const body = {
         tokenId: this.asset.tokenId,
         orderType: 1,
-        orderStrategy: orderStrategy,
+        orderStrategy: 0,
         amount: this.amount,
         "price": price,
         "goodUntil": 0,
@@ -302,6 +301,50 @@ export class ViewAssetComponent implements OnInit {
     });
   }
 
+  
+  sendMarketOrder() {
+    console.log('this is amount', this.amount)
+    this.assetService.showSpinner();
+    if (!this.amount) {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+      return;
+    }
+
+    // this.orderStrategy = 0;
+    let body;
+   
+      body = {
+        tokenId: this.asset.tokenId,
+        orderType: 1,
+        orderStrategy: 4,
+        amount: this.amount,
+        "price": 0,
+        "goodUntil": 0,
+        "userId": parseInt(this.userId),
+        "orderId": this.orderId,
+        market: 1
+      }
+    
+      this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+        console.log('this is response', data);
+        if (data['status'] == 'success') {
+          this.assetService.stopSpinner();
+          this.assetService.showNotification('bottom', 'center', 'Asset has been bought successfully', 'success');
+          this.router.navigateByUrl('/home')
+        } else {
+          this.assetService.stopSpinner();
+          this.ngOnInit();
+          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
+        }
+        
+      }, err => {
+        console.log(err.error.data.error);
+        this.error = err.error.data.error;
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+      })
+    }
   
 
 }
