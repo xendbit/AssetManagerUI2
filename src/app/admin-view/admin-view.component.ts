@@ -39,6 +39,13 @@ export class AdminViewComponent implements OnInit {
   myBuyOrders: any;
   mySellOrders: any;
   remainingShares: any;
+  demoStrategy: { name: string,  code: number }[] = [
+    { "name": 'Good Till Cancel',  code: 0 },
+    { "name": 'All or Nothing',  code: 1 },
+    { "name": 'Good Till Day',  code: 2 },
+    { "name": 'Good Till Month',  code: 3 },
+    { "name": 'Market Order',  code: 4 }
+  ];
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) { }
@@ -57,11 +64,12 @@ export class AdminViewComponent implements OnInit {
                     console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
                     this.getBalance();
+                    this.getSellOrders();
                     this.getOwnedShares();
                     this.getAssetDetails();
                     this.getPrimarySharesRemaining(this.tokenId);
                     this.getAssets();
-                    this.getSellOrders();
+                   
                 }
             },
             err => {
@@ -72,7 +80,6 @@ export class AdminViewComponent implements OnInit {
   }
 
   getAssetDetails() {
-    this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
@@ -142,6 +149,7 @@ getAssets() {
 
 
 getSellOrders() {
+  this.assetService.showSpinner();
     this.assetService.ordersByTokenId(this.tokenId).subscribe(sell => {
       console.log('these are orders', sell);
       const assets = sell['data']['items'];
@@ -172,7 +180,6 @@ getSellOrders() {
         });
         this.sellOrders = sellFinal;
       }
-      console.log('this is sellFinal', sellFinal);
 
       if (this.myBuyOrders.length === 0 || this.myBuyOrders === null || this.myBuyOrders === undefined) {
         this.buyOrders = last;
@@ -185,10 +192,7 @@ getSellOrders() {
         });
         this.buyOrders = buyFinal;
       }
-      console.log('this is buyFinal', buyFinal);
-   
-      console.log('this are all sell orders', this.sellOrders);
-      this.assetService.showSpinner();
+      this.assetService.stopSpinner();
       },
       err => {
           console.log(err);
@@ -207,6 +211,10 @@ getSellOrders() {
 
   viewAsset(price, id, amount, orderStrategy) {
     console.log('this is orderStrategy fro ', orderStrategy)
+    if (amount === 0) {
+      this.assetService.showNotification('bottom', 'center', 'You cannot place this order as the amount remaining is 0!', 'danger');
+      return;
+    }
     this.assetService.showSpinner();
     this.quantity = amount;
     this.secondaryPrice = price;
@@ -421,6 +429,53 @@ getSellOrders() {
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     })
+  }
+
+  sendMarketOrder() {
+    console.log('this is amount', this.amount)
+    this.assetService.showSpinner();
+    if (!this.amount) {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+      return;
+    }
+
+    this.orderStrategy = 0;
+    let body;
+   
+      body = {
+        tokenId: this.asset.tokenId,
+        orderType: 0,
+        orderStrategy: parseInt(this.orderStrategy),
+        amount: this.amount,
+        "price": 0,
+        "goodUntil": 0,
+        "userId": parseInt(this.userId),
+        "orderId": this.orderId,
+        market: 4
+      }
+  
+
+
+    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+      console.log('this is response', data);
+      if (data['status'] == 'success') {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', 'Asset has been bought successfully', 'success');
+        this.router.navigateByUrl('/home')
+      } else {
+        this.assetService.stopSpinner();
+        this.ngOnInit();
+        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
+      }
+      
+    }, err => {
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+    })
+
   }
 
 

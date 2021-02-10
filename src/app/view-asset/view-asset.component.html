@@ -77,13 +77,9 @@
                   <div class="row">
                     <div class="col-md-9"  *ngIf="this.asset.market === 1" >
                       <mat-label>Order Strategy</mat-label>
-                            <mat-select id ="orderStrategy" name="orderStrategy" [(ngModel)]="orderStrategy" >
-                              <mat-option value='0' > Good Till Cancel </mat-option>
-                              <mat-option value='1' > All or Nothing </mat-option>
-                              <mat-option value='2' > Good Till Day </mat-option>
-                              <mat-option value='3' > Good Till Month </mat-option>
-                              <mat-option value='4' > Market Order </mat-option>
-                            </mat-select>
+                      <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
+                        <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
+                      </mat-select>
                             
                     </div>
                 </div>
@@ -123,11 +119,17 @@
                     <div class="clearfix"></div>
                   </div>
                   <div style="padding-bottom: 20px;">
-                    <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                         Buy Asset
                     
                     </button>
+
+                    <button *ngIf="this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                
+                      Buy Asset
+                  
+                  </button>
                   <div class="clearfix"></div>
                 </div>
 
@@ -272,13 +274,9 @@
                 <div class="row" *ngIf="this.asset.market !== 0">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <mat-label>Order Strategy</mat-label>
-                          <mat-select id ="orderStrategy" name="orderStrategy" [(ngModel)]="orderStrategy" >
-                            <mat-option value='0' > Good Till Cancel </mat-option>
-                            <mat-option value='1' > All or Nothing </mat-option>
-                            <mat-option value='2' > Good Till Day </mat-option>
-                            <mat-option value='3' > Good Till Month </mat-option>
-                            <mat-option value='4' > Market Order </mat-option>
-                          </mat-select>
+                    <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
+                      <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
+                    </mat-select>
                           
                   </div>
               </div>

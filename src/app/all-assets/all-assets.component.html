@@ -37,7 +37,7 @@
                 primary market
             </p>
             <h2 class="text-uppercase font-weight-light">
-                All Artworks on the primary market
+                All Artworks (primary market)
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="view(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -63,7 +63,7 @@
                 all artworks
             </p>
             <h2 class="text-uppercase font-weight-light">
-                All Artworks
+                All Artworks (Secondary Market)
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">

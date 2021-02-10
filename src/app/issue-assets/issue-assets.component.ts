@@ -84,7 +84,7 @@ export class IssueAssetsComponent implements OnInit {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', res, 'success');
+      this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
       this.form.value.reset;
       this.router.navigateByUrl('/issuer-dashboard');
     }, err => {

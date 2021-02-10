@@ -269,12 +269,8 @@
 
                           <div class="col-md-9" *ngIf="!fromOrder && this.currentButton === 'first'" >
                             <mat-label>Order Strategy</mat-label>
-                                  <mat-select id ="orderStrategy" name="orderStrategy" [(ngModel)]="orderStrategy" >
-                                    <mat-option value='0' > Good Till Cancel </mat-option>
-                                    <mat-option value='1' > All or Nothing </mat-option>
-                                    <mat-option value='2' > Good Till Day </mat-option>
-                                    <mat-option value='3' > Good Till Month </mat-option>
-                                    <mat-option value='4' > Market Order </mat-option>
+                                  <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
+                                    <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
                                   </mat-select>
                                   
                           </div>
@@ -329,11 +325,17 @@
           
                         
                         <div style="padding-bottom: 20px;" *ngIf="!this.fromOrder">
-                            <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                            <button *ngIf="!this.orderStrategy || !this.quantity || !this.secondaryPrice" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                         
                                 Buy Asset
                             
                             </button>
+
+                            <button *ngIf="this.orderStrategy && this.quantity && this.secondaryPrice" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                        
+                              Buy Asset
+                          
+                          </button>
                           <div class="clearfix"></div>
                         </div>
                         <div style="padding-bottom: 20px;" *ngIf="this.fromOrder">
@@ -426,11 +428,17 @@
                    
                                
                             <div style="padding-bottom: 20px; ">
-                                <button (click)="buy(buyForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                                <button *ngIf="this.amount" (click)="sendMarketOrder()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                             
                                 Place Order
                             
                                 </button>
+
+                                <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                            
+                                  Place Order
+                              
+                                  </button>
                             
                             </div>
                            </form>
@@ -487,7 +495,7 @@
                                                         <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
                                                         <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
                                                         <td *ngIf="item.orderStrategy === 4"> Market Order </td>
-                                                        <td> {{item.amountRemaining}} </td>
+                                                        <td > {{item.amountRemaining}} </td>
                                                         <td> {{item.tokenId}} </td>
                                                         <td> {{item.originalAmount}} </td>
                                                         <td> {{item.price}} </td>

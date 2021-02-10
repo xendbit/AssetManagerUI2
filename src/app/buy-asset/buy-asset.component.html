@@ -6,6 +6,81 @@
   <div id="container_home">
 
       <div class="container-fluid container-lg container-home" style="min-height: 40vh; height: 50%;">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="card card-stats" style="background: white;">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <i class="material-icons" style="color: black;">waves</i>
+                        </div>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Account Balance</p>
+                        <h3 class="card-title" style="color: black;"> ${{this.balance}} </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                            <i class="material-icons">date_range</i> Last 24 Hours
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
+                <div class="card card-stats" style="background: white;">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <i class="material-icons" style="color: black;">info_outline</i>
+                        </div>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Orders Made</p>
+                        <h3 class="card-title"  style="color: black;"> {{this.totalOrders}} </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                            <i class="material-icons">local_offer</i> Total Assets
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="card card-stats" style="background: white;">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <i class="material-icons" style="color: black;">info_outline</i>
+                        </div>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Value</p>
+                        <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                            <i class="material-icons">local_offer</i> Total value
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="card card-stats" style="background: white;">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <i class="material-icons" style="color: black;">call_made</i>
+                        </div>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Recent Transaction Value</p>
+                        <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                            <i class="material-icons">update</i> Just Updated
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
           
         <p class="text-uppercase small font-weight-medium">
             payments
@@ -25,10 +100,6 @@
 
             <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
               <b> Bank: </b> Providus Bank
-            </p>
-
-            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                <b> Account Balance: </b> ${{this.balance}} 
             </p>
             
           </div>

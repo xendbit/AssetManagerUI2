@@ -25,6 +25,9 @@ export class BuyAssetComponent implements OnInit {
   middleName: string;
   userId: string;
   balance: any;
+  totalSellOrders: any;
+  totalOrders: any;
+  totalBuyOrders: any;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
@@ -34,6 +37,8 @@ export class BuyAssetComponent implements OnInit {
     this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
     this.getAssets();
     this.getBalance();
+    this.getBuyOrders();
+    this.getSellOrders();
   }
 
   getAssets() {
@@ -61,6 +66,37 @@ export class BuyAssetComponent implements OnInit {
       this.assetService.stopSpinner();
      }
     );
+  }
+
+
+
+  getBuyOrders() {
+      this.assetService.ordersByBuyer(this.userId).subscribe(data => {
+          console.log('this is orders', data['data']['meta']['totalItems'])
+          this.totalBuyOrders = data['data']['meta']['totalItems'];
+      },
+      err => {
+          console.log(err);
+          this.assetService.stopSpinner();
+      },
+      () => { }
+      );
+  }
+
+  getSellOrders() {
+      this.assetService.ordersBySeller(this.userId).subscribe(sell => {
+        console.log('this is data', sell['data']['meta']['totalItems']);
+        this.totalSellOrders = sell['data']['meta']['totalItems'];
+        this.totalOrders = this.totalBuyOrders + this.totalSellOrders;
+        },
+        err => {
+            console.log(err);
+            this.assetService.stopSpinner();
+        },
+        () => {
+          this.assetService.stopSpinner();
+         }
+        );
   }
 
   buy(buyForm: NgForm) {

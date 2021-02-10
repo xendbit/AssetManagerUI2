@@ -35,6 +35,13 @@ export class ViewAssetComponent implements OnInit {
   balanceComplete: boolean;
   total: number;
   remainingShares: any;
+  demoStrategy: { name: string,  code: number }[] = [
+    { "name": 'Good Till Cancel',  code: 0 },
+    { "name": 'All or Nothing',  code: 1 },
+    { "name": 'Good Till Day',  code: 2 },
+    { "name": 'Good Till Month',  code: 3 },
+    { "name": 'Market Order',  code: 4 }
+  ];
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
@@ -107,8 +114,6 @@ export class ViewAssetComponent implements OnInit {
 
   buy(buyForm: NgForm) {
     let orderStrategy;
-    this.amount = parseInt(this.amount);
-    this.quantity = parseInt(this.quantity);
     if (!this.amount || this.quantity) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
       return;
@@ -186,6 +191,11 @@ export class ViewAssetComponent implements OnInit {
   }
 
   sell(sellForm: NgForm, tokenId) {
+    if (!this.amount) {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+      return;
+    }
     this.assetService.showSpinner();
     console.log('this is form', sellForm);
     const price = sellForm.value.price;
