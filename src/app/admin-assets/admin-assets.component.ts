@@ -75,7 +75,15 @@ export class AdminAssetsComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.changeMarket(this.assetToken).pipe(first()).subscribe((res: any) => {
       console.log('this is response', res);
-      this.assetService.stopSpinner();
+      if (res['status'] === 'success') {
+        this.assetService.showNotification('top', 'center', 'Asset has been listed successfully on the secondary market!', 'success');
+        this.assetService.stopSpinner();
+        this.getAssets();       
+      } else {
+        this.assetService.showNotification('top', 'center', 'There has been an error while trying to list asset, please try again!', 'danger');
+        this.assetService.stopSpinner();
+      }
+     
     },
     err => {
         console.log(err);
