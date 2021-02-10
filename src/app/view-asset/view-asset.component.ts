@@ -42,6 +42,7 @@ export class ViewAssetComponent implements OnInit {
     { "name": 'Good Till Month',  code: 3 },
     { "name": 'Market Order',  code: 4 }
   ];
+  shares: any;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
@@ -64,6 +65,7 @@ export class ViewAssetComponent implements OnInit {
                     }
                     console.log('this is page history', this.pageHistory)
                     this.getAssets();
+                    this.getOwnedShares();
                     this.getAssetDetails();
                     this.getPrimarySharesRemaining(this.tokenId);
                 }
@@ -109,6 +111,19 @@ export class ViewAssetComponent implements OnInit {
       this.error = err.error.data.error;
       //this.asset.showNotification('bottom', 'center', this.error, 'danger')
     });
+  }
+
+  getOwnedShares() {
+    this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
+      console.log('this is response for shares', res);
+      this.shares = res['data'];
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
   }
   
 
