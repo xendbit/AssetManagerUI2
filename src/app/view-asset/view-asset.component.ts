@@ -42,12 +42,16 @@ export class ViewAssetComponent implements OnInit {
     { "name": 'Good Till Month',  code: 3 }
   ];
   shares: any;
+  notLoggedIn: boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router) { }
 
   ngOnInit(): void { 
-    this.userId = parseInt(localStorage.getItem('userId'));
+    this.userId = localStorage.getItem('userId');
+    if (this.userId === null || this.userId === undefined) {
+      this.notLoggedIn = true;
+    }
     this.balanceComplete = false;
     this.getBalance();
     this.activatedRoute.paramMap
@@ -56,6 +60,7 @@ export class ViewAssetComponent implements OnInit {
                 if (window.history.state.tokenId) {
                     console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
+                    this.userId = parseInt(localStorage.getItem('userId'));
                     this.pageHistory = window.history.state.from;
                     this.secondaryPrice = window.history.state.price;
                     this.quantity = window.history.state.quantity;

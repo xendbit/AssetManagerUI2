@@ -126,13 +126,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div style="padding-bottom: 20px;">
-                    <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button *ngIf="!this.amount || this.notLoggedIn === true" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                         Buy Asset
                     
                     </button>
 
-                    <button *ngIf="this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button *ngIf="this.amount && this.notLoggedIn === false" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                       Buy Asset
                   
@@ -336,7 +336,7 @@
                     </div>
                 </div>
                 
-                <div style="padding-bottom: 20px; " *ngIf="this.asset.market !== 0 && this.amount && this.price">
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market !== 0 && this.amount && this.price && this.notLoggedIn === false">
                   <button data-toggle="modal" data-target="#sellModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset
@@ -345,7 +345,7 @@
                   <div class="clearfix"></div>
                 </div>
 
-                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0 || !this.amount || !this.price">
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0 && this.notLoggedIn === false || !this.amount && this.notLoggedIn === false || !this.price && this.notLoggedIn === false">
                   <button (click)="sell(sellForm)" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset

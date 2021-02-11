@@ -38,6 +38,8 @@ export class AdminViewComponent implements OnInit {
   shares: any;
   myBuyOrders: any;
   mySellOrders: any;
+  email: string;
+    password: string;
   remainingShares: any;
   demoStrategy: { name: string,  code: number }[] = [
     { "name": 'Good Till Cancel',  code: 0 },
@@ -45,12 +47,12 @@ export class AdminViewComponent implements OnInit {
     { "name": 'Good Till Day',  code: 2 },
     { "name": 'Good Till Month',  code: 3 }
   ];
+  notLoggedIn: boolean;
+  loading: boolean;
+  submitted: boolean;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
-      this.userId = parseInt(localStorage.getItem('userId'));
-      this.getMyBuyOrders();
-      this.getMySellOrders();
      }
 
   ngOnInit(): void {
@@ -58,11 +60,17 @@ export class AdminViewComponent implements OnInit {
     this.fromOrder = false;
     this.fromSellOrder = false;
     this.orderStrategy = 0;
+    this.userId = localStorage.getItem('userId');
+    this.getMyBuyOrders();
+    this.getMySellOrders();
+    if (this.userId === null || this.userId === undefined) {
+      this.notLoggedIn = true;
+    }
     this.activatedRoute.paramMap
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
-                    console.log('this is what i got', window.history.state.tokenId)
+                    this.userId = parseInt(localStorage.getItem('userId'));
                     this.tokenId = window.history.state.tokenId;
                     this.getBalance();
                     this.getSellOrders();
@@ -97,7 +105,6 @@ export class AdminViewComponent implements OnInit {
 
 getOwnedShares() {
   this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
-    console.log('this is response for shares', res);
     this.shares = res['data'];
   },
   err => {
@@ -256,6 +263,10 @@ getSellOrders() {
 
   sell(sellForm: NgForm, tokenId) {
 
+    if (!this.userId) {
+      this.notLoggedIn = true;
+      return;
+    }
 
     if (!this.quantity) {
       this.assetService.stopSpinner();
@@ -360,6 +371,10 @@ getSellOrders() {
 
 
   buy(buyForm: NgForm) {
+    if (!this.userId) {
+      this.notLoggedIn = true;
+      return;
+    }
     this.assetService.showSpinner();
     let orderStrategy;
     if (!this.quantity) {
@@ -476,6 +491,51 @@ getSellOrders() {
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     })
+
+  }
+
+  onSubmit(loginForm: NgForm) {
+    this.submitted = true;
+
+    // stop here if form is invalid
+
+    const email = loginForm.value.email;
+    const password = loginForm.value.password;
+
+    this.loading = true;
+    this.assetService.showSpinner();
+    this.loginService.login(email, password)
+        .pipe(first())
+        .subscribe(
+            data => {
+              if (data['status'] == 'success') {
+                console.log('this is data', data);
+                localStorage.setItem('accountNumber', data['data']['ngncAccountNumber']);
+                localStorage.setItem('firstName', data['data']['firstName'])
+                localStorage.setItem('firstName', data['data']['middleName'])
+                localStorage.setItem('userId', data['data']['id'])
+                localStorage.setItem('role', data['data']['role'])
+                this.assetService.stopSpinner();
+                if (data['data']['role'] === 0) {
+                  console.log('i am an investor')
+                  this.router.navigateByUrl('/home');
+                } else if (data['data']['role'] === 1)
+                {
+                  this.router.navigateByUrl('/admin-dashboard');
+                } else if ( data['data']['role'] === 2) {
+                  this.router.navigateByUrl('/issuer-dashboard');
+                }
+              } else {
+                this.assetService.stopSpinner();
+                this.assetService.showNotification('top', 'center', 'there has been an error while trying to log in, please confirm your credentials and try again', 'danger');
+              }
+             
+            },
+            error => {
+                console.log('this is error', error)
+                this.loading = false;
+                this.assetService.stopSpinner();
+            }); 
 
   }
 
