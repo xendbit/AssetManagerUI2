@@ -39,6 +39,7 @@ export class UpgradeComponent implements OnInit {
     { "imageUrl": '/assets/img/ACRYLIC.jpg',  type: "Acrylic painting" },
     { "imageUrl": '/assets/img/DIGITAL.jpg',  type: "Digital painting" }
   ];
+  shares: any;
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
@@ -100,5 +101,18 @@ export class UpgradeComponent implements OnInit {
   goToAllAssets(page) {
     this.router.navigateByUrl('/assets', { state : { from: page} });
   }
+
+  // getOwnedShares() {
+  //   this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
+  //     console.log('this is response for shares', res);
+  //     this.shares = res['data'];
+  //   },
+  //   err => {
+  //       console.log(err);
+  //       this.assetService.stopSpinner();
+  //   },
+  //   () => { }
+  //   );
+  // }
 
 }

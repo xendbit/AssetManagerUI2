@@ -47,15 +47,16 @@ export class AdminViewComponent implements OnInit {
   ];
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
-    public loginService: LoginService, public activatedRoute: ActivatedRoute) { }
+    public loginService: LoginService, public activatedRoute: ActivatedRoute) {
+      this.userId = parseInt(localStorage.getItem('userId'));
+      this.getMyBuyOrders();
+      this.getMySellOrders();
+     }
 
   ngOnInit(): void {
     this.balanceComplete = false;
     this.fromOrder = false;
     this.fromSellOrder = false;
-    this.userId = parseInt(localStorage.getItem('userId'));
-    this.getMyBuyOrders();
-    this.getMySellOrders();
     this.orderStrategy = 0;
     this.activatedRoute.paramMap
         .subscribe(

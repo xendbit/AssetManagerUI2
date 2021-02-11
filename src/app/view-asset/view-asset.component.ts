@@ -205,6 +205,7 @@ export class ViewAssetComponent implements OnInit {
   }
 
   sell(sellForm: NgForm, tokenId) {
+    console.log('this is price', this.price);
     if (!this.amount) {
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
@@ -212,8 +213,9 @@ export class ViewAssetComponent implements OnInit {
     }
     this.assetService.showSpinner();
     console.log('this is form', sellForm);
-    const price = sellForm.value.price;
+    this.price = sellForm.value.price;
     const amount = sellForm.value.amount;
+    console.log('this is from form', amount);
     if (this.asset.market === 0) {
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
@@ -228,7 +230,7 @@ export class ViewAssetComponent implements OnInit {
         orderType: 1,
         orderStrategy: 0,
         amount: this.amount,
-        "price": price,
+        "price": this.price,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
         market: 1

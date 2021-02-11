@@ -57,7 +57,7 @@
                           </p>
                           <p>
                             <b> Token ID: </b> 
-                             <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
+                             <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
                              
                                 {{this.asset.tokenId}} - 
                                 Verify <span class="material-icons" style="color: orange !important;">
@@ -222,7 +222,7 @@
                               </p>
                               <p>
                                 <b> Token ID: </b>  
-                                <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                                <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
                                   {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
                                     fingerprint
                                   </span>
@@ -534,17 +534,17 @@
                                                 </thead>
                                                 <tbody *ngFor="let item of this.buyOrders">
                                                     <tr class="Table" (click)= "viewAssetSell(item.price, item.id, item.amountRemaining)">
-                                                        <td>Buy</td>
-                                                        <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>
-                                                        <td *ngIf="item.orderStrategy === 1"> All Or Nothing </td>
-                                                        <td *ngIf="item.orderStrategy === 2"> Good Till Day </td>
-                                                        <td *ngIf="item.orderStrategy === 3">  Good Till Month </td>
-                                                        <td *ngIf="item.orderStrategy === 4"> Market Order </td>
-                                                        <td> {{item.amountRemaining}} </td>
-                                                        <td> {{item.tokenId}} </td>
-                                                        <td> {{item.originalAmount}} </td>
-                                                        <td> {{item.price}} </td>
-                                                        <td> {{item.orderDate  | date : 'short'}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">Buy</td>
+                                                        <td *ngIf="item.orderStrategy === 0 && item.amountRemaining !== 0 "> Good Till Cancel </td>
+                                                        <td *ngIf="item.orderStrategy === 1 && item.amountRemaining !== 0 "> All Or Nothing </td>
+                                                        <td *ngIf="item.orderStrategy === 2 && item.amountRemaining !== 0"> Good Till Day </td>
+                                                        <td *ngIf="item.orderStrategy === 3 && item.amountRemaining !== 0">  Good Till Month </td>
+                                                        <td *ngIf="item.orderStrategy === 4 && item.amountRemaining !== 0"> Market Order </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

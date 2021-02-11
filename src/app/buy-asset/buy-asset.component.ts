@@ -33,6 +33,9 @@ export class BuyAssetComponent implements OnInit {
 
   ngOnInit() {
     //this.hideArtDetails('hidden');
+    this.totalBuyOrders = 0;
+    this.totalSellOrders = 0;
+    this.totalOrders = 0;
     this.accountNumber = localStorage.getItem('accountNumber');
     this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
     this.getAssets();
@@ -74,6 +77,9 @@ export class BuyAssetComponent implements OnInit {
       this.assetService.ordersByBuyer(this.userId).subscribe(data => {
           console.log('this is orders', data['data']['meta']['totalItems'])
           this.totalBuyOrders = data['data']['meta']['totalItems'];
+          if (this.totalBuyOrders === null || this.totalBuyOrders === undefined ) {
+            this.totalBuyOrders = 0;
+          }
       },
       err => {
           console.log(err);
@@ -87,6 +93,9 @@ export class BuyAssetComponent implements OnInit {
       this.assetService.ordersBySeller(this.userId).subscribe(sell => {
         console.log('this is data', sell['data']['meta']['totalItems']);
         this.totalSellOrders = sell['data']['meta']['totalItems'];
+        if (this.totalSellOrders === null || this.totalSellOrders === undefined) {
+          this.totalSellOrders = 0;
+        }
         this.totalOrders = this.totalBuyOrders + this.totalSellOrders;
         },
         err => {

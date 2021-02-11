@@ -55,7 +55,7 @@
                         </p>
                         <p>
                           <b> Token ID: </b>  
-                          <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">  
+                          <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">  
                             {{this.asset.tokenId}} - 
                             Verify <span class="material-icons" style="color: orange !important;">
                               fingerprint
@@ -90,6 +90,10 @@
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <p><b> Account Balance: </b> ${{this.balance}} </p>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p> <b> Shares owned for this asset: </b> {{this.shares}} </p>
                   </div>
 
                 </div>
@@ -253,7 +257,7 @@
                 </p>
                 <p>
                   <b> Token ID: </b> 
-                   <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
+                   <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
                    
                       {{this.asset.tokenId}} - 
                       Verify <span class="material-icons" style="color: orange !important;">
@@ -332,8 +336,8 @@
                     </div>
                 </div>
                 
-                <div style="padding-bottom: 20px; " *ngIf="this.asset.market !== 0">
-                  <button (click)="sell(sellForm)" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market !== 0 && this.amount && this.price">
+                  <button data-toggle="modal" data-target="#sellModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset
                 
@@ -341,7 +345,7 @@
                   <div class="clearfix"></div>
                 </div>
 
-                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0">
+                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0 || !this.amount || !this.price">
                   <button (click)="sell(sellForm)" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                 
                     Sell Asset
@@ -349,6 +353,60 @@
                 </button>
                   <div class="clearfix"></div>
                 </div>
+
+
+
+
+
+                <div  class="modal fade" id="sellModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <div *ngIf="this.asset.market !== 0">
+                              <div class="row">
+                                  <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
+                              </div>
+                              <div class="row">
+                                  <p style="margin-left: 20%; margin-right: 29%;">
+                                      <b>Price: </b> 
+                                  </p>
+                                  <b> ${{this.price}} </b>
+                              </div>
+                              <div class="row">
+                                  <p style="margin-left: 20%; margin-right: 24%;">
+                                      <b> Quantity: </b> 
+                                  </p>
+                                  <b> {{this.amount}} </b>
+                              </div>
+
+                              <div class="row">
+                                <p style="margin-left: 20%; margin-right: 29%;">
+                                    <b> Total: </b> 
+                                </p>
+                                <b> {{this.price * this.amount}} </b>
+                            </div>
+                              
+                              
+                          </div>
+                          <div *ngIf="this.asset.market !== 0">
+                              Please confirm that you intend to sell {{this.amount}} amounts of {{this.asset.titleOfWork}} at ${{this.price}}
+                          </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                        <button data-dismiss="modal"  (click)="sell(sellForm)" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             </form>
             </mat-card-content>
 
@@ -460,7 +518,7 @@
               </p>
               <p>
                 <b> Token ID: </b>  
-                  <a href="https://blockscout.com/poa/sokol/tokens/0x813aBfe542c1ccba3A9E264ecDD1517767acFB16/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                  <a href="https://blockscout.com/poa/sokol/tokens/0x9143F12B3c1ef1CC4d814b53b2480429b3D81e0E/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
                     {{this.asset.tokenId}} - 
                     Verify <span class="material-icons" style="color: orange !important;">
                       fingerprint
