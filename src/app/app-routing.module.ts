@@ -1,3 +1,4 @@
+import { AboutComponent } from './about/about.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
@@ -37,6 +38,10 @@ const routes: Routes =[
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: 'change-password',

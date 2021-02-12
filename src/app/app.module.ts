@@ -45,6 +45,7 @@ import { ApproveAssetsComponent } from './approve-assets/approve-assets.componen
 import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -96,7 +97,8 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     BuyAssetComponent,
     BuyOrdersComponent,
     SellAssetComponent,
-    DashboardComponent
+    DashboardComponent,
+    AboutComponent
 
   ],
   providers: [],

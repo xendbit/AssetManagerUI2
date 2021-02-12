@@ -1,3 +1,4 @@
+import { AboutComponent } from './about/about.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { BuyOrdersComponent } from './buy-orders/buy-orders.component';
 import { AllAssetsComponent } from './all-assets/all-assets.component';
@@ -84,6 +85,10 @@ const routes: Routes =[
   {
     path: 'viewAsset',
     component: ViewAssetComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   { path: 'dashboard',      component: DashboardComponent },
   { path: 'fund',   component: BuyAssetComponent },

@@ -61,11 +61,15 @@ export class AdminViewComponent implements OnInit {
     this.fromSellOrder = false;
     this.orderStrategy = 0;
     this.userId = localStorage.getItem('userId');
+    console.log('this is userId', this.userId);
     this.getMyBuyOrders();
     this.getMySellOrders();
     if (this.userId === null || this.userId === undefined) {
       this.notLoggedIn = true;
+    } else {
+      this.notLoggedIn = false;
     }
+    console.log(this.notLoggedIn)
     this.activatedRoute.paramMap
         .subscribe(
             () => {

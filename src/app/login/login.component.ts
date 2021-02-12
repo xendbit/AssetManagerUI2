@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('firstName', data['data']['firstName'])
                 localStorage.setItem('firstName', data['data']['middleName'])
                 localStorage.setItem('userId', data['data']['id'])
+                console.log('set user Id')
                 localStorage.setItem('role', data['data']['role'])
                 this.assetService.stopSpinner();
                 if (data['data']['role'] === 0) {

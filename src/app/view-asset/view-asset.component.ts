@@ -51,6 +51,8 @@ export class ViewAssetComponent implements OnInit {
     this.userId = localStorage.getItem('userId');
     if (this.userId === null || this.userId === undefined) {
       this.notLoggedIn = true;
+    } else {
+      this.notLoggedIn = false;
     }
     this.balanceComplete = false;
     this.getBalance();
