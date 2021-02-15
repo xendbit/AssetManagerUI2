@@ -63,4 +63,56 @@ describe('ViewAssets e2e test', () => {
       })
     })
   });
+
+  xit('should login as an investor, navigate to /viewAsset page click on "BUY ASSET" button, and show insufficient balance notification', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.investor.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.investor.password);
+    element(by.css('.main-content button')).click().then(async ()=> {
+      browser.waitForAngular()
+      browser.get('/myAssets');
+
+      await element.all(by.css('#container_home .container-fluid')).get(1).element(by.css('mat-card')).click().then(()=> {
+        browser.waitForAngular()
+
+        element(by.css('[name="amount"]')).sendKeys(400);
+        element(by.css('form button')).click()
+        browser.sleep(1000)
+        element.all(by.css('.modal-footer button')).get(1).click()
+        // const button = browser.wait(until.elementLocated(by.css('.modal-footer button')), 10000);
+        // button.click();
+        // element.all(by.css('.modal-footer button')).get(0).click()
+        console.log('ddd :>> ');
+        expect(element.all(by.css('[data-notify="container"] span')).get(1).getText()).toContain('You currently do not have enough in your account balance to purchase this asset')
+      })
+    })
+  });
+
+  xit('should login as an investor, navigate to /viewAsset page and buy an asset with sufficient balance', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.investor.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.investor.password);
+    element(by.css('.main-content button')).click().then(async ()=> {
+      browser.waitForAngular()
+      browser.get('/myAssets');
+
+      await element.all(by.css('#container_home .container-fluid')).get(1).$$('mat-card').get(1).click().then(()=> {
+        browser.waitForAngular()
+
+        element(by.css('[name="amount"]')).sendKeys(1);
+        element(by.css('form button')).click()
+        
+        browser.sleep(1000)
+        element.all(by.css('.modal-footer button')).get(1).click().then(()=> {
+          browser.waitForAngular()
+
+          browser.getCurrentUrl().then((d)=> {
+            expect(d.split('/')[d.split('/').length-1]).toBe('home')
+            expect(element.all(by.css('[data-notify="container"] span')).get(1).getText()).toContain('Asset has been bought successfully')
+            browser.sleep(10000)
+          })
+  
+        })
+      })
+    })
+  });
+
 });
