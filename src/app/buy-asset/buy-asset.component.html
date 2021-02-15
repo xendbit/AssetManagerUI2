@@ -80,27 +80,44 @@
 
 
         </div>
-
           
-        <p class="text-uppercase small font-weight-medium">
-            payments
-        </p>
+       
         <h2 class="text-uppercase font-weight-light">
-            Kindly make Naira deposits into
+            Payments
         </h2>
+        <p class="text-uppercase small font-weight-medium">
+            Kindly fill the form below and click 'pay' to make payments
+        </p>
         <div class="row" style="margin-top: 3rem;">
           <div class="col-lg-4 col-md-4 col-sm-4"></div>
           <div class=" card-body">
-            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-              <b> Account Number: </b>  {{this.accountNumber}}
-            </p>
-            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-              <b> Account Name: </b> {{this.fullName}}
-            </p>
+            <form id="paymentForm">
+                <script src="https://js.paystack.co/v1/inline.js"></script>
+                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
+                </mat-form-field>
 
-            <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-              <b> Bank: </b> Providus Bank
-            </p>
+                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                    <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                    <input autofocus type="text" matInput placeholder="Amount" id="amount" name="amount" [(ngModel)]="amount" >
+                </mat-form-field>
+
+                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                    <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                    <input autofocus type="text" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
+                </mat-form-field>
+    
+                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                    <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                    <input type="password" autocomplete="false" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName">
+                </mat-form-field>
+              <button (click)="payWithPaystack()" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+      
+                Pay
+            
+            </button>
+            </form>
             
           </div>
         </div>
@@ -133,6 +150,7 @@
           </div>
 
       </div>
+      
       
   </div>
   

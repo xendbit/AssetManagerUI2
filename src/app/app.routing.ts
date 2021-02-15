@@ -93,7 +93,7 @@ const routes: Routes =[
   { path: 'dashboard',      component: DashboardComponent },
   { path: 'fund',   component: BuyAssetComponent },
   { path: 'assets',     component: AllAssetsComponent },
-  { path: 'sell',     component: SellAssetComponent },
+  { path: 'admin-view',     component: SellAssetComponent },
   { path: 'orders',           component: BuyOrdersComponent },
  
   { path: 'issuer', component: IssuerComponent },

@@ -3,6 +3,7 @@ import { AssetsService } from './../services/assets.service';
 import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-assets',
@@ -15,7 +16,7 @@ export class AdminAssetsComponent implements OnInit {
   sharesRemaining: boolean;
   assetToken: any;
 
-  constructor(public assetService: AssetsService, public loginService: LoginService, public adminService: AdminService) { }
+  constructor(public assetService: AssetsService, public loginService: LoginService, public adminService: AdminService, public router: Router) { }
 
   ngOnInit(): void {
     this.getAssets();
@@ -69,6 +70,10 @@ export class AdminAssetsComponent implements OnInit {
     err => {
         console.log(err);
     })
+  }
+
+  view(tokenId) {
+      this.router.navigateByUrl('/admin-view', { state : {tokenId: tokenId} });
   }
 
   changeMarket() {
