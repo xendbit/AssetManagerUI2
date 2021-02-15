@@ -9,6 +9,10 @@ export const environment = {
       email: "ajafik@gmail.com",
       password: "ajafik"
     },
+    investorZeroBal: {
+      email: "nnadoz@opushive.com",
+      password: "investor"
+    },
     issuer: {
       email: "spockula@gmail.com",
       password: "ajafik"
