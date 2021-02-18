@@ -1,3 +1,4 @@
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AboutComponent } from './about/about.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
@@ -82,6 +83,7 @@ const routes: Routes =[
     path: 'home',
     component: UpgradeComponent
   },
+  { path: 'admin-settings',     component: AdminSettingsComponent },
   {
     path: 'viewAsset',
     component: ViewAssetComponent

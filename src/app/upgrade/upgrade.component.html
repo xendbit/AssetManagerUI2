@@ -1,7 +1,8 @@
 
-<div class="mm-page mm-slideout" style="background-color: white;">
+<div class="mm-page mm-slideout" style="background-color: white; overflow: hidden;">
     <ngx-spinner></ngx-spinner>
    <app-navbar></app-navbar>
+   
 
     <div id="container_home">
 
@@ -203,6 +204,40 @@
            
     
         </div>
+
+
+        <div class="container-fluid container-lg container-home">
+          
+            <p class="text-uppercase small font-weight-medium">
+                unique orders
+            </p>
+            <h2 class="text-uppercase font-weight-light">
+                Exclusive
+            </h2>
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+                
+                View more
+            
+            </a>
+            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
+                    <mat-card-content  style="position: relative; ">
+                        <img src="{{item.imageUrl}}" class="image">
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                          <b> Price: </b> ${{item.price}}
+                        </p>
+                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                          <b> Title: </b> {{item.titleOfWork}}
+                        </p>
+                        
+                        
+                      </mat-card-content>
+                </mat-card>
+            </div>
+           
+    
+        </div>
+
 
         
 

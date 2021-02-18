@@ -14,3 +14,55 @@
 .w-25 {
     width: 5%!important;
 }
+
+.trial {
+    background-color: black;
+    color: #fff;
+    padding-left: 16.5px;
+    padding-right: 17.5px;
+    padding-top: 2px;
+    white-space: wrap;
+    display: block;
+    max-height: 30px;
+    
+  }
+  .trial .texty {
+    display: inline-block;
+    text-indent: 1;
+    overflow: hidden;
+    -webkit-transition: 25s;
+    transition: 25s;
+    -webkit-animation: marquee 60s linear infinite;
+    animation: marquee 60s linear infinite;
+  }
+  @-moz-keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    50% {
+        transform: translateX(100%);
+      }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @-webkit-keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes marquee {
+    0% {
+      -moz-transform: translateX(100%);
+      -webkit-transform: translateX(100%);
+      transform: translateX(100%)
+    }
+    100% {
+      -moz-transform: translateX(-100%);
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+  }

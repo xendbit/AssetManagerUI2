@@ -17,6 +17,8 @@ export class BuyAssetComponent implements OnInit {
   amount: any;
   price: any;
   error: any;
+  email: any;
+  lastName: any;
   primaryMarket: any;
   secondaryMarket: any[];
   accountNumber: string;
@@ -77,8 +79,9 @@ export class BuyAssetComponent implements OnInit {
   payWithPaystack(e) {
     console.log(e);
   // e.preventDefault();
+  this.assetService.showSpinner();
   let handler = PaystackPop.setup({
-    key: '', // Replace with your public key
+    key: 'pk_test_c08cca4a7676c651d37a37fa719536eb31d9db7f', // Replace with your public key
     email: 'chinedukogu@gmail.com',
     amount: 100,
     ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
@@ -91,6 +94,7 @@ export class BuyAssetComponent implements OnInit {
       alert(message);
     }
   });
+  this.assetService.stopSpinner();
   handler.openIframe();
 }
 

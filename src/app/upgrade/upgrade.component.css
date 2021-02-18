@@ -374,3 +374,13 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     width: 100%;
     padding-right: 15px;
 }
+
+/* 
+margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 0;
+    height: 16px;
+    display: block; */
+

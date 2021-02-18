@@ -1,3 +1,4 @@
+import { AssetsService } from './../../services/assets.service';
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
@@ -16,8 +17,10 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
     userId: number;
     role: number;
+  assets: any;
+  error: any;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -28,6 +31,7 @@ export class NavbarComponent implements OnInit {
             this.role = parseInt(localStorage.getItem('role'));
             console.log('this is role', this.role)
           }
+          this.getAssets();
     }
 
     logout() {
@@ -58,4 +62,31 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
+
+    getAssets() {
+      this.assetService.showSpinner();
+      this.assetService.getAllAssets().subscribe(data => {
+        this.assets = data['data']['items'];
+        console.log('this is assets, ', data['data']['items']);
+        let init = []
+        let second = []
+        this.assets.forEach(element => {
+          if (element.market === 0 && element.approved === 1 ) {
+            init.push(element);
+          } else if (element.market === 1 && element.approved === 1) {
+            second.push(element);
+          }
+        });
+        this.assetService.stopSpinner();
+     
+      }, err => {
+        this.assetService.stopSpinner();
+        console.log(err.error.data.error);
+        this.error = err.error.data.error;
+      },
+      () => { 
+        this.assetService.stopSpinner();
+      });
+    }
+  
 }

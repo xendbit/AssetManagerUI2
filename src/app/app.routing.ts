@@ -1,3 +1,4 @@
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AboutComponent } from './about/about.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { BuyOrdersComponent } from './buy-orders/buy-orders.component';
@@ -95,7 +96,7 @@ const routes: Routes =[
   { path: 'assets',     component: AllAssetsComponent },
   { path: 'admin-view',     component: SellAssetComponent },
   { path: 'orders',           component: BuyOrdersComponent },
- 
+  { path: 'admin-settings',     component: AdminSettingsComponent },
   { path: 'issuer', component: IssuerComponent },
   { path: 'myAssets',  component: NotificationsComponent }
 ];

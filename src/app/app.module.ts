@@ -29,7 +29,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxSpinnerModule } from "ngx-spinner";  
+import { NgxSpinnerModule } from "ngx-spinner"; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 import {
@@ -46,6 +48,7 @@ import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AboutComponent } from './about/about.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 
 
@@ -65,10 +68,12 @@ import { AboutComponent } from './about/about.component';
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
     MatSelectModule,
     MatTooltipModule,
     MatIconModule,
     MatCardModule,
+    MatNativeDateModule,
     MatSidenavModule,
     MatTabsModule,
     NgxSpinnerModule,
@@ -98,7 +103,8 @@ import { AboutComponent } from './about/about.component';
     BuyOrdersComponent,
     SellAssetComponent,
     DashboardComponent,
-    AboutComponent
+    AboutComponent,
+    AdminSettingsComponent
 
   ],
   providers: [],

@@ -1,0 +1,156 @@
+
+<div class="mm-page mm-slideout" style="background-color: white; position: relative; min-height: 100vh; height: 100%; overflow: hidden; ">
+    <ngx-spinner></ngx-spinner>
+   <app-navbar></app-navbar>
+  
+    <div id="container_home" style="min-height: 70vh; height: 80%;">
+  
+        <div class="container-fluid container-lg container-home" >
+  
+            
+         
+          <h2 class="text-uppercase font-weight-light">
+              Settings
+          </h2>
+          <p class="text-uppercase small font-weight-medium">
+              Change and update system-wide settings
+          </p>
+
+          <mat-tab-group style=" margin-left: 7rem; font-family: 'Playfair Display SC', serif !important">
+            
+
+            <mat-tab label="Fees">
+                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
+                    <form id="paymentForm">
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                        <input autofocus type="number" matInput placeholder="SMS Notification Fee" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
+                        </mat-form-field>
+        
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                            <input autofocus type="number" matInput placeholder="NSE Fee" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                        </mat-form-field>
+        
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Transaction Fee" id="transactionFee" name="transactionFee" [(ngModel)]="transactionFee" >
+                        </mat-form-field>
+            
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder="Blockchain Fee" id="blockchainFee" name="blockchainFee" [(ngModel)]="blockchainFee">
+                        </mat-form-field>
+                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+              
+                        Save Fee Settings
+                    
+                    </button>
+                    </form>
+                    
+                  </div>
+
+            </mat-tab>
+    
+            <mat-tab label="Market Settings">
+                <div class=" card-body" style="margin-left: 0 !important;">
+                    <form id="paymentForm">
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                        <input autofocus type="number" matInput placeholder="Minimum Buy Quantity (%)" id="quantity" name="quantity" [(ngModel)]="quantity" >
+                        </mat-form-field>
+        
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Price Change Limit (%) " id="priceLimit" name="priceLimit" [(ngModel)]="priceLimit" >
+                        </mat-form-field>
+
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Primary Market Holding Period" id="holdingPeriod" name="holdingPeriod" [(ngModel)]="holdingPeriod" >
+                        </mat-form-field>
+            
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder=" Max no. of days for Infinity orders" id="infinity" name="infinity" [(ngModel)]="infinity">
+                        </mat-form-field>
+                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+              
+                        Save Market Settings
+                    
+                    </button>
+                    </form>
+                    
+                  </div>
+
+            </mat-tab>
+            <mat-tab label="Payment Settings">
+
+                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
+                    <form id="paymentForm">
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                        <input autofocus type="number" matInput placeholder="Receiving Bank account" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
+                        </mat-form-field>
+        
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Paystack public key" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                        </mat-form-field>
+                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+              
+                        Save Payment Settings
+                    
+                    </button>
+                    </form>
+                    
+                  </div>
+
+            </mat-tab>
+            <mat-tab label="Holidays">
+
+                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
+                    <form id="paymentForm">
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                        <input autofocus type="number" matInput placeholder="Name of Holiday" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
+                        </mat-form-field>
+        
+                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Paystack public key" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                              <input matStartDate placeholder="Start date">
+                              <input matEndDate placeholder="End date">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                          </mat-form-field>
+
+                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+              
+                        Add New Holiday
+                    
+                    </button>
+                    </form>
+                    
+                  </div>
+
+
+            </mat-tab>
+          </mat-tab-group>
+          
+        </div>
+  
+        
+        
+    </div>
+    
+    
+        <app-footer> </app-footer>
+  
+  </div>

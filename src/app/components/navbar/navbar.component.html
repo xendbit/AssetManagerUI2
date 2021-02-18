@@ -123,6 +123,15 @@
                     </a>
                 </li>
             </ul>
+           
         </div>
     </nav>
+    <div class="d-flex flex-row flex-nowrap" style="width: 200rem !important; overflow: hidden !important;">
+        <div class="trial" *ngFor="let item of this.assets">
+            <div class="texty" style="width: 100% !important; margin-right: 0 !important; font-family: 'Inter', serif">
+                <b> {{item.titleOfWork}} </b>  -
+                <b> ${{item.price}} </b> 
+            </div>
+        </div>
+       </div>
 </div>

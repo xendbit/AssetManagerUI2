@@ -1,4 +1,4 @@
-<div class="mm-page mm-slideout" style="background-color: white; ">
+<div class="mm-page mm-slideout" style="background-color: white; overflow: hidden;">
   <ngx-spinner></ngx-spinner>
   <app-navbar></app-navbar>
 
@@ -50,10 +50,13 @@
                           <b> Symbol: </b> {{this.asset.symbol}}
                          </p>
                           <p>
-                            <b> Total Supply: </b> {{this.asset.totalSupply}}
+                            <b> Total Issued: </b> {{this.asset.totalSupply}}
                           </p>
                           <p>
-                            <b>Remaining Shares:</b> {{this.remainingShares}}
+                            <b> Shares Offered: </b> {{this.asset.sharesAvailable}}
+                          </p>
+                          <p>
+                            <b>Unsubscribed Shares:</b> {{this.remainingShares}}
                           </p>
                           <p>
                             <b> Token ID: </b> 
