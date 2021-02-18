@@ -93,22 +93,22 @@
           <div class=" card-body">
             <form id="paymentForm">
                 <script src="https://js.paystack.co/v1/inline.js"></script>
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 50%;">
                 <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
                 <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
                 </mat-form-field>
 
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 50%;">
                     <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
                     <input autofocus type="text" matInput placeholder="Amount" id="amount" name="amount" [(ngModel)]="amount" >
                 </mat-form-field>
 
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 50%;">
                     <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
                     <input autofocus type="text" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
                 </mat-form-field>
     
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
+                <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 50%;">
                     <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
                     <input type="password" autocomplete="false" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName">
                 </mat-form-field>
@@ -128,7 +128,7 @@
       <div class="container-fluid container-lg container-home" >
               
           <p class="text-uppercase small font-weight-medium">
-              all artworks
+              all assets
           </p>
           <h2 class="text-uppercase font-weight-light">
               Recommendations
@@ -141,7 +141,7 @@
                       <b> Price: </b> ${{item.price}}
                       </p>
                       <p class="paragraph" style="font-family: 'Inter', serif;">
-                      <b> Artwork Title: </b> {{item.titleOfWork}}
+                      <b> Property: </b> {{item.titleOfWork}}
                       </p>
                       
                       

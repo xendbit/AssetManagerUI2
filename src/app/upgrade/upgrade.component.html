@@ -21,11 +21,11 @@
                                 <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #CFB3A8; padding-left: 15px; height: 20rem; width: 100%;">
                                     <div class="hero-content w-100">
                                         <h2 class="text-white text-uppercase text-center text-lg-left hero-title">  
-                                            Easily Buy and trade art securely on the digital blockchain
+                                            Easily Buy and trade real estate assets securely on the digital blockchain
                                         </h2>
                                         <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important;">
-                                            170,000 Artists
-                                            | 900,000 Collectors
+                                            170 Developers
+                                            | 900 + Assets
                                         </p>
                                         
                                     </div>
@@ -43,7 +43,7 @@
                                 <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79; padding-left: 15px; height: 20rem; width: 100%;">
                                     <div class="hero-content w-100">
                                         <h3 class="text-white text-uppercase text-center text-lg-left hero-title">  
-                                            Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud.
+                                            Audit an asset's origin and ownership history while safe-guiding it from theft and fraud.
                                         </h3>
                                         <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important;">
                                             using a unique digital blockchain signature
@@ -75,12 +75,14 @@
             </div>
             
         </div>
+
+
         <div class="container-fluid container-lg container-home">
             <p class="text-uppercase small font-weight-medium">
                 Primary market
             </p>
                 <h2 class="text-uppercase font-weight-light">
-                    New Listings
+                    New Projects
                 </h2>
                
            
@@ -91,18 +93,35 @@
             </a>
            
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 5px;">
+                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-4 col-md-4 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 5px;">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Price: </b> ${{item.price}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;"> 
-                            <b> Owned Shares: </b> {{this.shares}} 
-                        </p>
+                        <mat-card-subtitle style="text-align: center; color: black;">
+                            Developer:  {{item.artistName}}
+                          </mat-card-subtitle>
+                        <div class="row">
+                            <div class="col">
+                               
+                                  <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Project: </b> {{item.titleOfWork}}
+                                  </p>
+
+                                  <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Symbol: </b> {{item.symbol}}
+                                  </p>
+                                  
+                            </div>
+                            <div class="col">
+                                <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Location: </b> Lagos
+                                  </p>
+                               
+                                <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Price: </b> ${{item.price}}
+                                  </p>
+                            </div>
+                        </div>
+                        
 
                         
                         
@@ -118,7 +137,7 @@
                 secondary market
             </p>
             <h2 class="text-uppercase font-weight-light">
-                Previous Listings
+                Existing Projects
             </h2>
             <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
                 
@@ -126,15 +145,34 @@
             
             </a>
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index">
+                <mat-card (click)="viewOrder(item.tokenId)" class="col-4 col-md-4 cover trend" *ngFor="let item of this.secondaryMarket  let i=index">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Price: </b> ${{item.price}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
+                        <mat-card-subtitle style="text-align: center; color: black;">
+                            Developer:  {{item.artistName}}
+                          </mat-card-subtitle>
+                        <div class="row">
+                            <div class="col">
+                               
+                                  <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Project: </b> {{item.titleOfWork}}
+                                  </p>
+
+                                  <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Symbol: </b> {{item.symbol}}
+                                  </p>
+                                  
+                            </div>
+                            <div class="col">
+                                <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Location: </b> Lagos
+                                  </p>
+                               
+                                <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
+                                    <b> Price: </b> ${{item.price}}
+                                  </p>
+                            </div>
+                        </div>
                         
                         
                       </mat-card-content>
@@ -143,43 +181,13 @@
     
         </div>
 
-
         <div class="container-fluid container-lg container-home">
           
             <p class="text-uppercase small font-weight-medium">
-                categories
+                Developers
             </p>
             <h2 class="text-uppercase font-weight-light">
-                Featured categories
-            </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
-                
-                View more
-            
-            </a>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.demoCategories  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Type: </b> {{item.type}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
-           
-    
-        </div>
-
-        <div class="container-fluid container-lg container-home">
-          
-            <p class="text-uppercase small font-weight-medium">
-                creators
-            </p>
-            <h2 class="text-uppercase font-weight-light">
-                Featured Artists
+                Featured Developers
             </h2>
             <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
                 
@@ -191,10 +199,10 @@
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Price: </b> ${{item.price}}
+                          <b> Developer: </b> ${{item.price}}
                         </p>
                         <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
+                          <b> No. of Assets: </b> {{item.titleOfWork}}
                         </p>
                         
                         
@@ -204,40 +212,6 @@
            
     
         </div>
-
-
-        <div class="container-fluid container-lg container-home">
-          
-            <p class="text-uppercase small font-weight-medium">
-                unique orders
-            </p>
-            <h2 class="text-uppercase font-weight-light">
-                Exclusive
-            </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
-                
-                View more
-            
-            </a>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Price: </b> ${{item.price}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Inter', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
-           
-    
-        </div>
-
 
         
 

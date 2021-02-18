@@ -8,10 +8,10 @@
         <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" >
             
           <p class="text-uppercase small font-weight-medium">
-              all artworks
+              all available assets
           </p>
           <h2 class="text-uppercase font-weight-light">
-              All Artworks
+              All Assets
           </h2>
           <div class="row" style="margin-top: 3rem;">
               <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -21,7 +21,7 @@
                         <b> Price: </b> ${{item.price}}
                       </p>
                       <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Property: </b> {{item.titleOfWork}}
                       </p>
                       
                       
@@ -37,7 +37,7 @@
                 primary market
             </p>
             <h2 class="text-uppercase font-weight-light">
-                All Artworks (primary market)
+                All Assets (primary market)
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="view(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -47,7 +47,7 @@
                         <b> Price: </b> ${{item.price}}
                         </p>
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Property: </b> {{item.titleOfWork}}
                         </p>
                         
                         
@@ -60,10 +60,10 @@
         <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'secondary'">
                 
             <p class="text-uppercase small font-weight-medium">
-                all artworks
+                secondary market
             </p>
             <h2 class="text-uppercase font-weight-light">
-                All Artworks (Secondary Market)
+                All Assets (Secondary Market)
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -73,7 +73,7 @@
                         <b> Price: </b> ${{item.price}}
                         </p>
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Property: </b> {{item.titleOfWork}}
                         </p>
                         
                         
