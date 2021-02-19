@@ -32,6 +32,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxSpinnerModule } from "ngx-spinner"; 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 import {
@@ -69,6 +70,7 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatCheckboxModule,
     MatSelectModule,
     MatTooltipModule,
     MatIconModule,
