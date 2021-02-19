@@ -64,6 +64,29 @@ describe('ViewAssets e2e test', () => {
     })
   });
 
+  it('should login as an investor, navigate to /viewAsset page click on "BUY ASSET" button, and subsequently cancel the order', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.investorZeroBal.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.investorZeroBal.password);
+    element(by.css('.main-content button')).click().then(async ()=> {
+      browser.waitForAngular()
+      browser.get('/myAssets');
+
+      await element.all(by.css('#container_home .container-fluid')).get(1).element(by.css('mat-card')).click().then(()=> {
+        browser.waitForAngular()
+
+        element(by.css('[name="amount"]')).sendKeys(1);
+        element(by.css('form button')).click()
+        browser.sleep(1000)
+        const button = browser.wait(until.elementLocated(by.css('.modal-footer button')), 10000);
+        button.click();
+        browser.sleep(1000)
+        element.all(by.css('.modal-header h5')).get(0).isDisplayed().then((cancelBtn)=> {
+          expect(cancelBtn).toBe(false)
+        })
+      })
+    })
+  });
+
   xit('should login as an investor, navigate to /viewAsset page click on "BUY ASSET" button, and show insufficient balance notification', async () => {
     element(by.css('[name="email"]')).sendKeys(environment.loginCredential.investorZeroBal.email);
     element(by.css('[name="password"]')).sendKeys(environment.loginCredential.investorZeroBal.password);
