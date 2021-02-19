@@ -8,10 +8,10 @@
         <div class="container-fluid container-lg container-home" style="height: 100%;">
             
           <p class="text-uppercase small font-weight-medium">
-              all artworks
+              portfolio
           </p>
           <h2 class="text-uppercase font-weight-light">
-              All My Artworks
+              My Portfolio
           </h2>
           <div class="row" style="margin-top: 3rem;">
               <mat-card (click)="view(item.tokenId, 'sellPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.myAssets  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -21,7 +21,7 @@
                         <b> Price: </b> ${{item.price}}
                       </p>
                       <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Property: </b> {{item.titleOfWork}}
                       </p>
                       
                       
@@ -47,7 +47,7 @@
                         <b> Price: </b> ${{item.price}}
                         </p>
                         <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Property: </b> {{item.titleOfWork}}
                         </p>
                         
                         

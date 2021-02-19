@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminSettingsComponent implements OnInit {
 
+  smsFee: any;
+  transactionFee: any;
+  nseFee: any;
+  blockchainFee: any;
+  quantity: any;
+  priceLimit: any;
+  holdingPeriod: any;
+  infinity: any;
+
   Holidays: { name: string,  type: string }[] = [
     { "name": "New Year's Day",  type: "Oil Painting" },
     { "name": 'Good Friday',  type: "Casein Painting" },
