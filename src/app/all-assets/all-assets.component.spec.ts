@@ -135,7 +135,7 @@ describe('AllAssetsComponent', () => {
         // flush();
     }));
 
-    it('it should assert market 0 and navigate to view assets page', waitForAsync(() => {
+    it('when view function is called with market 0 it should navigate to view assets page', waitForAsync(() => {
         const tokenId = 'tokenId';
         const market = 0;
         // component.pageHistory='primary';
@@ -149,7 +149,7 @@ describe('AllAssetsComponent', () => {
         // flush();
     }));
 
-    it('it should assert market 1 and navigate to asset order page', waitForAsync(() => {
+    it('when view function is called with market 1 it should navigate to asset order page', waitForAsync(() => {
         const tokenId = 'tokenId';
         const market = 1;
         // component.pageHistory='secondary';
@@ -163,7 +163,7 @@ describe('AllAssetsComponent', () => {
         // flush();
     }));
 
-    it('it should take in the token id as parameter and navigate to asset order page', waitForAsync(() => {
+    it('when viewOrder function is called it should take in the token id as parameter and navigate to asset order page', waitForAsync(() => {
         // routeSpyStub = spyOn(routerObj,'navigateByUrl');
         const tokenId = 'tokenId';
         const routeSpy = spyOn(router, 'navigateByUrl')
