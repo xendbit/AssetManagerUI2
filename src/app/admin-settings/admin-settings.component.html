@@ -88,10 +88,6 @@
 
                 <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
                     <form id="paymentForm">
-                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
-                        <input autofocus type="number" matInput placeholder="Receiving Bank account" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
-                        </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
@@ -112,7 +108,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 0 !important; align-items: left;">
                     <div class="col-md-2" style="margin-left: 40% !important; padding-left: 0 !important;">
 
-                        <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
+                        <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black; margin-bottom: 2rem;">
                           <label class="btn btn-md btn-outline-secondary" 
                                 [ngClass]="{active : currentButton == 'first'}"
                                 (click) = "currentButton='first'"
@@ -134,26 +130,24 @@
                       <div *ngIf="this.currentButton === 'first' ">
                         <div class="row">
 
-                          <div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 1rem; margin-top: 2rem;" *ngFor="let subtask of this.staticHolidays">
-                            {{subtask.name}} -  {{subtask.day}}
-                               <!-- <div class="row" >
-                                    
-                               </div> -->
-                            
-                          </div>
-
-                          <div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 2rem;" *ngFor="let subtask of this.dynamicHolidays">
-                            {{subtask.name}} -  {{subtask.day}}
-                            <!-- <div class="row" >
-                           
-                            </div> -->
-                          </div>
-
-                        </div>
-                      
-
+                          <div class="col-lg-6 col-md-6 col-sm-6" >
+                            <div *ngFor="let subtask of this.dynamicHolidays">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">event</mat-icon>  {{subtask.name}} -  {{subtask.day}} 
+                    
+                                <mat-icon data-toggle="modal" data-target="#loginModalLong" matPrefix style="margin-right: 2rem ;">create</mat-icon> 
+                               
+                            </div>
                         
-
+                          </div>
+                            
+                               <div class="col-lg-6 col-md-6 col-sm-6" >
+                                 <div *ngFor="let subtask of this.staticHolidays">
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">event</mat-icon>  {{subtask.name}} -  {{subtask.day}} 
+                                 </div>
+                               
+                               </div> 
+                        </div>
+                        
                       </div>
                    
                     <div *ngIf="this.currentButton === 'second' ">
@@ -190,6 +184,48 @@
 
             </mat-tab>
           </mat-tab-group>
+
+          <div  class="modal fade" id="loginModalLong" tabindex="-1" role="dialog" aria-labelledby="loginModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3>
+                    Update Holiday details
+                  </h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                      
+                        <form novalidate #loginForm="ngForm">
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 90%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                            <input autofocus type="text" matInput placeholder="Enter a name for this holiday" id="newHolidayName" name="newHolidayName" [(ngModel)]="newHolidayName" >
+                        </mat-form-field>
+                        <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 90%;" >
+                            
+                                <mat-label>choose a date range for this holiday</mat-label>
+                                <mat-date-range-input [rangePicker]="update">
+                                  <input matStartDate placeholder="Start date">
+                                  <input matEndDate placeholder="End date">
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matSuffix [for]="update"></mat-datepicker-toggle>
+                                <mat-date-range-picker #update></mat-date-range-picker>
+                        </mat-form-field>
+                        </form>
+  
+  
+                            
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button"  data-dismiss="modal" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent;">Cancel</button>
+                  <button (click)="onSubmit(loginForm)"  data-dismiss="modal" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 30%;">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
           
         </div>
   
