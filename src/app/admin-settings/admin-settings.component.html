@@ -1,9 +1,9 @@
 
-<div class="mm-page mm-slideout" style="background-color: white; position: relative;  overflow: hidden; ">
+<div class="mm-page mm-slideout" style="background-color: white; position: relative;  overflow: hidden; min-height: 100vh;">
     <ngx-spinner></ngx-spinner>
    <app-navbar></app-navbar>
   
-    <div id="container_home" style="min-height: 70vh; height: 80%;">
+    <div id="container_home" style="min-height: 100vh; height: 80%;">
   
         <div class="container-fluid container-lg container-home" >
   
@@ -109,49 +109,82 @@
             </mat-tab>
             <mat-tab label="Holidays">
 
-                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
-                    <form id="paymentForm">
-                        <mat-checkbox class="example-margin"
-                        [checked]=true
-                      
-                        >
-                            Indeterminate
-                        </mat-checkbox>
-                            <div class="row" *ngFor="let subtask of this.Holidays">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 0 !important; align-items: left;">
+                    <div class="col-md-2" style="margin-left: 40% !important; padding-left: 0 !important;">
 
-                                <div class="col">
-                                
-                                    <mat-checkbox  style="color: black !important;">
-                                        {{subtask.name}}
-                                      </mat-checkbox>
-
-                                      <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 50%;" >
-
-                                        <mat-label>choose a date range for this holiday</mat-label>
-                                        <mat-date-range-input [rangePicker]="picker" >
-                                          <input matStartDate placeholder="Start date">
-                                          <input matEndDate placeholder="End date">
-                                        </mat-date-range-input>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-date-range-picker #picker></mat-date-range-picker>
-    
-                                </mat-form-field>
-                                </div>
-                         
-
-                            </div>
+                        <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
+                          <label class="btn btn-md btn-outline-secondary" 
+                                [ngClass]="{active : currentButton == 'first'}"
+                                (click) = "currentButton='first'"
+                                style="width: 86px !important; text-transform: capitalize;"
+                                 >
+                            <input type="radio" name="options" autocomplete="off" checked >Existing 
+                          </label>
+                          <label class="btn btn-md btn-outline-secondary"
+                                 [ngClass]="{active : currentButton == 'second'}"
+                                (click) = "currentButton='second'"
+                                style="width: 90px !important; text-transform: capitalize;"
+                            >
+                            <input type="radio" name="options" autocomplete="off"> New
                             
-                           
-                         
-                         
+                          </label>
+                        </div>
+                    
+                      </div>
+                      <div *ngIf="this.currentButton === 'first' ">
+                        <div class="row">
 
-                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+                          <div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 1rem; margin-top: 2rem;" *ngFor="let subtask of this.staticHolidays">
+                            {{subtask.name}} -  {{subtask.day}}
+                               <!-- <div class="row" >
+                                    
+                               </div> -->
+                            
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 2rem;" *ngFor="let subtask of this.dynamicHolidays">
+                            {{subtask.name}} -  {{subtask.day}}
+                            <!-- <div class="row" >
+                           
+                            </div> -->
+                          </div>
+
+                        </div>
+                      
+
+                        
+
+                      </div>
+                   
+                    <div *ngIf="this.currentButton === 'second' ">
+                        <form id="paymentForm">
+                            
+
+                               
+                                    <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
+                                        <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                                        <input autofocus type="text" matInput placeholder="Enter a name for this holiday" id="newHolidayName" name="newHolidayName" [(ngModel)]="newHolidayName" >
+                                    </mat-form-field>
+                                    <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 50%;" >
+                                        
+                                            <mat-label>choose a date range for this holiday</mat-label>
+                                            <mat-date-range-input [rangePicker]="picker">
+                                              <input matStartDate placeholder="Start date">
+                                              <input matEndDate placeholder="End date">
+                                            </mat-date-range-input>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-date-range-picker #picker></mat-date-range-picker>
+                                    </mat-form-field>
+
+                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-bottom: 10%;">
               
                         Add Holiday
                     
                     </button>
                     </form>
-                    
+        
+                    </div>
+                                
                   </div>
 
 

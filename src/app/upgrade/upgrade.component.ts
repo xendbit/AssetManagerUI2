@@ -40,6 +40,7 @@ export class UpgradeComponent implements OnInit {
     { "imageUrl": '/assets/img/DIGITAL.jpg',  type: "Digital painting" }
   ];
   shares: any;
+  exclusive: any[];
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
@@ -55,19 +56,23 @@ export class UpgradeComponent implements OnInit {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
-      let init = []
-      let second = []
+      let init = [];
+      let second = [];
+      let exclu = [];
       this.assets.forEach(element => {
         if (element.market === 0 && element.approved === 1 ) {
           init.push(element);
         } else if (element.market === 1 && element.approved === 1) {
           second.push(element);
+        } else if (element.market === 0 && element.approved ===1 && element.totalSupply === 1) {
+          exclu.push(element);
         }
       });
       this.primaryMarket =  init ;
       this.secondaryMarket = second;
+      this.exclusive = exclu;
       this.assetService.stopSpinner();
-      console.log('this is primary market', this.secondaryMarket)
+      console.log('this is exclusive market', this.exclusive)
     }, err => {
       this.assetService.stopSpinner();
       console.log(err.error.data.error);

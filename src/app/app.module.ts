@@ -33,6 +33,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 import {
@@ -69,6 +70,7 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
+    MatRadioModule,
     MatDatepickerModule,
     MatCheckboxModule,
     MatSelectModule,

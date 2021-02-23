@@ -27,6 +27,7 @@ export class IssueAssetsComponent implements OnInit {
   unapproved: any[];
   totalApproved: number;
   approved: any[];
+  exclusive: any;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router) {
     this.form = fb.group({
@@ -46,7 +47,9 @@ export class IssueAssetsComponent implements OnInit {
     this.getUserAssets();
   }
 
-  submit() {
+  submit(radioGroup) {
+    console.log('this is exclusive', radioGroup.value);
+    this.exclusive = radioGroup.value;
     this.description = this.form.get('description').value;
     this.symbol = this.form.get('symbol').value;
     this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
@@ -54,11 +57,19 @@ export class IssueAssetsComponent implements OnInit {
     this.shares = parseInt(this.form.get('availableShares').value);
     this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
+    if (this.exclusive === true) {
+      this.shares = 1;
+      this.totalSupply = 1;
+      console.log('this is shares', this.shares);
+    }
     if (this.title === null || this.artist === null || this.symbol === null || this.description === null || this.totalSupply === null || this.shares === null) {
       this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
       return;
     }
-    if (this.shares > this.totalSupply) {
+    if (this.shares > this.totalSupply && this.exclusive === false) {
+      this.assetService.showNotification('bottom','center','Available shares cannot be more than quantity. Please correct and try again', 'danger');
+      return
+    } else if (this.shares > this.totalSupply && this.exclusive === true) {
       this.assetService.showNotification('bottom','center','Available shares cannot be more than quantity. Please correct and try again', 'danger');
       return
     }
