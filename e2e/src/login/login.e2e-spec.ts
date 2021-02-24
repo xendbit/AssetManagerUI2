@@ -52,6 +52,20 @@ describe('Login test', () => {
 
   });
 
+  it('should login as an investor and logout successfully', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.investor.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.investor.password);
+
+    await element(by.css('.main-content button')).click()
+
+    browser.waitForAngular()
+
+    await element.all(by.css('#sticky_nav li a')).last().click()
+
+    await expect(browser.getCurrentUrl()).toContain('/login')
+
+  });
+
   it('should login as an issuer and navigate to /issuer-dashboard', async () => {
     // browser.get('/login');
 
@@ -64,6 +78,20 @@ describe('Login test', () => {
 
   });
 
+  it('should login as an issuer and logout successfully', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.issuer.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.issuer.password);
+
+    await element(by.css('.main-content button')).click()
+
+    browser.waitForAngular()
+
+    await element.all(by.css('#sticky_nav li a')).last().click()
+
+    await expect(browser.getCurrentUrl()).toContain('/login')
+
+  });
+
   it('should login as an admin and navigate to /admin-dashboard', async () => {
     // browser.get('/login');
 
@@ -73,6 +101,20 @@ describe('Login test', () => {
     element(by.css('.main-content button')).click()
 
     await expect(browser.getCurrentUrl()).toContain('/admin-dashboard')
+
+  });
+
+  it('should login as an admin and logout successfully', async () => {
+    element(by.css('[name="email"]')).sendKeys(environment.loginCredential.admin.email);
+    element(by.css('[name="password"]')).sendKeys(environment.loginCredential.admin.password);
+
+    await element(by.css('.main-content button')).click()
+
+    browser.waitForAngular()
+
+    await element.all(by.css('#sticky_nav li a')).last().click()
+
+    await expect(browser.getCurrentUrl()).toContain('/login')
 
   });
 
