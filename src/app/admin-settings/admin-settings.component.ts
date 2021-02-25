@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from './../services/admin.service';
+import { AssetsService } from './../services/assets.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-settings',
@@ -16,29 +19,190 @@ export class AdminSettingsComponent implements OnInit {
   holdingPeriod: any;
   infinity: any;
   currentButton = "first";
+  newHolidayName: any;
+  updateHolidayStart: any;
+  updateHolidayEnd: any;
+  updateHolidayDetails: any;
 
-  staticHolidays: { name: string,  day: string }[] = [
-    { "name": "New Year's Day",  day: "1 Jan" },
-    { "name": "Workers' Day",  day: "1 May" },
-    { "name": 'Democracy Day',  day: "12 Jun" },
-    { "name": '	Independence Day',  day: "1 Oct" },
-    { "name": '	Christmas Day',  day: "25 Dec" },
-    { "name": 'Boxing Day',  day: "26 Dec" }
+  dynamicHolidays: { name: string,  day: string, id: number }[] = [
+    { "name": 'Good Friday',  day: "2 Apr", id: 7 },
+    { "name": '	Easter Monday',  day: "5 Apr", id: 8},
+    { "name": 'Id el Fitr',  day: "13  May", id: 9},
+    { "name": 'Id el Fitr holiday',  day: "14 May", id: 10},
+    { "name": '	Id el Kabir',  day: "20 Jul", id: 11 },
+    { "name": 'Id el Kabir additional holiday',  day: "21 Jul", id: 12},
+    { "name": 'Id el Maulud',  day: "19 Oct", id: 13},
   ];
 
-  dynamicHolidays: { name: string,  day: string }[] = [
-    { "name": 'Good Friday',  day: "2 Apr" },
-    { "name": '	Easter Monday',  day: "5 Apr" },
-    { "name": 'Id el Fitr',  day: "13  May" },
-    { "name": 'Id el Fitr holiday',  day: "14 May" },
-    { "name": '	Id el Kabir',  day: "20 Jul" },
-    { "name": 'Id el Kabir additional holiday',  day: "21 Jul" },
-    { "name": 'Id el Maulud',  day: "19 Oct" },
+  Month: { name: string}[] = [
+    { "name": 'Jan'},
+    { "name": '	Feb'},
+    { "name": 'Mar'},
+    { "name": 'Apr'},
+    { "name": '	May'},
+    { "name": 'Jun'},
+    { "name": 'Jul'},
+    { "name": 'Aug'},
+    { "name": 'Sep'},
+    { "name": 'Oct'},
+    { "name": 'Nov'},
+    { "name": 'Dec'},
   ];
 
-  constructor() { }
+  Day: { name: number}[] = [
+    { "name": 1},
+    { "name": 2},
+    { "name": 3},
+    { "name": 4},
+    { "name": 5},
+    { "name": 6},
+    { "name": 7},
+    { "name": 8},
+    { "name": 9},
+    { "name": 10},
+    { "name": 11},
+    { "name": 12},
+    { "name": 13},
+    { "name": 14},
+    { "name": 15},
+    { "name": 16},
+    { "name": 17},
+    { "name": 18},
+    { "name": 19},
+    { "name": 20},
+    { "name": 21},
+    { "name": 22},
+    { "name": 23},
+    { "name": 24},
+    { "name": 25},
+    { "name": 26},
+    { "name": 27},
+    { "name": 28},
+    { "name": 29},
+    { "name": 30},
+    { "name": 31}
+  ];
+  fees: any;
+  marketSettings: any;
+  paystackKey: any;
+  holidays: any;
+  error: any;
+
+  constructor(public adminService: AdminService, public assetsService: AssetsService) { }
 
   ngOnInit(): void {
+    this.getFees();
+    this.getMarketSettings();
+    this.getHolidays();
+  }
+
+  getFees() {
+    this.adminService.getFees().subscribe(res => {
+      this.fees = res['data'];
+    })
+  }
+
+  getMarketSettings() {
+    this.adminService.getMarketSettings().subscribe(res => {
+      this.marketSettings = res['data'];
+    })
+  }
+
+  getHolidays() {
+    this.adminService.getHolidays().subscribe( res => {
+      this.holidays = res['data'];
+    })
+  }
+
+  updateHoliday(updateHolidayForm: NgForm) {
+    console.log('this is it', updateHolidayForm.value);
+    console.log('this is that', this.updateHolidayEnd)
+
+  }
+
+  updateFees(feeForm: NgForm) {
+    if (feeForm.value.smsFee !== undefined && feeForm.value.nseFee === undefined ||feeForm.value.smsFee !== undefined && feeForm.value.transactionFee === undefined || feeForm.value.smsFee !== undefined && feeForm.value.blockchainFee === undefined ) {
+      this.smsFee = feeForm.value.smsFee;
+      this.nseFee = this.fees.nse;
+      this.transactionFee = this.fees.transaction;
+      this.blockchainFee = this.fees.blockchain;
+    } else if (feeForm.value.nseFee !== undefined && feeForm.value.smsFee === undefined ||feeForm.value.nseFee !== undefined && feeForm.value.transactionFee === undefined || feeForm.value.nseFee !== undefined && feeForm.value.blockchainFee === undefined ){
+      this.smsFee = this.fees.smsNotification;
+      this.transactionFee = this.fees.transaction;
+      this.blockchainFee = this.fees.blockchain;
+    } else if (feeForm.value.blockchainFee !== undefined && feeForm.value.smsFee === undefined ||feeForm.value.blockchainFee !== undefined && feeForm.value.transactionFee === undefined || feeForm.value.smsFee !== undefined && feeForm.value.nseFee === undefined ) {
+      this.smsFee = this.fees.smsNotification;
+      this.transactionFee = this.fees.transaction;
+      this.nseFee = this.fees.nse;
+    } else if (feeForm.value.transactionFee !== undefined && feeForm.value.smsFee === undefined ||feeForm.value.transactionFee !== undefined && feeForm.value.nseFee === undefined || feeForm.value.smsFee !== undefined && feeForm.value.blockchainFee === undefined ) {
+      this.smsFee = this.fees.smsNotification;
+      this.blockchainFee = this.fees.blockchain;
+      this.nseFee = this.fees.nse;
+    }
+   
+    if (this.smsFee === undefined && this.transactionFee === undefined && this.blockchainFee === undefined && this.nseFee === undefined) {
+      this.assetsService.showNotification('top', 'center','You have not updated any fee.', 'danger');
+      return;
+    }
+
+    this.assetsService.showSpinner();
+    this.adminService.updateFees(this.smsFee, this.nseFee, this.transactionFee, this.blockchainFee).subscribe(res => {
+      if (res['status'] === 'success') {
+        this.getFees();
+        this.assetsService.stopSpinner();
+        this.assetsService.showNotification('top', 'center','Fees have been updated successfully', 'success');
+      } else {
+        this.assetsService.stopSpinner();
+      }
+    }, err => {
+    console.log(err.error.data.error);
+    this.error = err.error.data.error;
+    this.assetsService.stopSpinner();
+    this.assetsService.showNotification('bottom', 'center', this.error, 'danger')
+  })
+
+  }
+
+  updateMarketSettings(marketForm: NgForm) {
+    if (marketForm.value.quantity !== undefined && marketForm.value.priceLimit === undefined ||marketForm.value.quantity !== undefined && marketForm.value.holdingPeriod === undefined || marketForm.value.quantity !== undefined && marketForm.value.infinity === undefined ) {
+      this.priceLimit = this.marketSettings.percPriceChangeLimit;
+      this.holdingPeriod = this.marketSettings.primaryMarketHoldingPeriod;
+      this.infinity = this.marketSettings.maxNoOfDaysForInfinityOrders;
+    } else if (marketForm.value.priceLimit !== undefined && marketForm.value.quantity === undefined ||marketForm.value.priceLimit !== undefined && marketForm.value.holdingPeriod === undefined || marketForm.value.priceLimit !== undefined && marketForm.value.infinity === undefined ){
+      this.quantity = this.marketSettings.percMinBuyQuantity;
+      this.holdingPeriod = this.marketSettings.primaryMarketHoldingPeriod;
+      this.infinity = this.marketSettings.maxNoOfDaysForInfinityOrders;
+    } else if (marketForm.value.holdingPeriod !== undefined && marketForm.value.quantity === undefined ||marketForm.value.holdingPeriod !== undefined && marketForm.value.priceLimit === undefined || marketForm.value.holdingPeriod !== undefined && marketForm.value.infinity === undefined ) {
+      this.quantity = this.marketSettings.percMinBuyQuantity;
+      this.priceLimit = this.marketSettings.percPriceChangeLimit;
+      this.infinity = this.marketSettings.maxNoOfDaysForInfinityOrders;
+    } else if (marketForm.value.infinity !== undefined && marketForm.value.quantity === undefined ||marketForm.value.infinity !== undefined && marketForm.value.priceLimit === undefined || marketForm.value.infinity !== undefined && marketForm.value.holdingPeriod === undefined ) {
+      this.quantity = this.marketSettings.percMinBuyQuantity;
+      this.priceLimit = this.marketSettings.percPriceChangeLimit;
+      this.holdingPeriod = this.marketSettings.primaryMarketHoldingPeriod;
+    }
+   
+    if (this.quantity === undefined && this.priceLimit === undefined && this.holdingPeriod === undefined && this.infinity === undefined) {
+      this.assetsService.showNotification('top', 'center','You have not updated the market settings.', 'danger');
+      return;
+    }
+
+    this.assetsService.showSpinner();
+    this.adminService.updateMarketSettings(this.quantity, this.priceLimit, this.holdingPeriod, this.infinity).subscribe(res => {
+      if (res['status'] === 'success') {
+        this.getMarketSettings();
+        this.assetsService.stopSpinner();
+        this.assetsService.showNotification('top', 'center','Settings have been updated successfully', 'success');
+      } else {
+        this.assetsService.stopSpinner();
+      }
+    }, err => {
+    console.log(err.error.data.error);
+    this.error = err.error.data.error;
+    this.assetsService.stopSpinner();
+    this.assetsService.showNotification('bottom', 'center', this.error, 'danger')
+  })
+
   }
 
 }

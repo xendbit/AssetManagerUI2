@@ -36,7 +36,7 @@ declare var $: any;
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.api_key);
-      return this.httpClient.get(`${this.baseUrl}/assets?page=1&limit=100`, {headers});
+      return this.httpClient.get(`${this.baseUrl}/assets?page=1&limit=200`, {headers});
     }
 
     getOwnedShares(userId, tokenId) {

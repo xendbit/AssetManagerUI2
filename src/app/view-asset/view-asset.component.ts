@@ -1,3 +1,4 @@
+import { AdminService } from './../services/admin.service';
 import { LoginService } from './../services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -5,6 +6,7 @@ import { AssetsService } from './../services/assets.service';
 import { NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 declare var $: any;
@@ -43,9 +45,18 @@ export class ViewAssetComponent implements OnInit {
   ];
   shares: any;
   notLoggedIn: boolean;
+  holidays: any;
+  marketSettings: any;
+  fees: any;
+  image: any;
+  form: FormGroup;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
-    public router: Router) { }
+    public router: Router, public adminService: AdminService, public fb: FormBuilder) { 
+      this.form = fb.group({
+        'image': this.image
+    });
+    }
 
   ngOnInit(): void { 
     this.userId = localStorage.getItem('userId');
@@ -71,6 +82,9 @@ export class ViewAssetComponent implements OnInit {
                     }
                     console.log('this is page history', this.pageHistory)
                     this.getAssets();
+                    this.getFees();
+                    this.getHolidays();
+                    this.getMarketSettings();
                     this.getOwnedShares();
                     this.getAssetDetails();
                     this.getPrimarySharesRemaining(this.tokenId);
@@ -130,6 +144,24 @@ export class ViewAssetComponent implements OnInit {
     },
     () => { }
     );
+  }
+
+  getFees() {
+    this.adminService.getFees().subscribe(res => {
+      this.fees = res['data'];
+    })
+  }
+
+  getMarketSettings() {
+    this.adminService.getMarketSettings().subscribe(res => {
+      this.marketSettings = res['data'];
+    })
+  }
+
+  getHolidays() {
+    this.adminService.getHolidays().subscribe( res => {
+      this.holidays = res['data'];
+    })
   }
   
 
@@ -353,6 +385,41 @@ export class ViewAssetComponent implements OnInit {
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', this.error, 'danger')
       })
+    }
+
+    uploadFile(event: any) {
+
+      const file = (event.target as HTMLInputElement).files[0];
+      if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
+        this.asset.showNotification('bottom', 'center', 'please choose an Image!', 'danger')
+        event.srcElement.value = null;
+      } else {
+        this.form.patchValue({
+        image: file
+      });
+      this.form.get('image').updateValueAndValidity();
+      }
+  
+      const reader = new FileReader();
+              reader.onload = (e: any) => {
+                  const image = new Image();
+                  image.src = e.target.result;
+                  image.onload = rs => {
+                      const img_height = rs.currentTarget['height'];
+                      const img_width = rs.currentTarget['width'];
+  
+                      console.log(img_height, img_width);
+  
+  
+                      
+                          const imgBase64Path = e.target.result;
+                          this.image = imgBase64Path;
+                          console.log('this is image path', imgBase64Path)
+                          // this.previewImagePath = imgBase64Path;
+                  };
+              };
+  
+              reader.readAsDataURL(event.target.files[0]);
     }
   
 

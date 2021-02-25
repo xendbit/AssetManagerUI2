@@ -47,6 +47,10 @@ body {
     padding: 3vw 2vw;
 }
 
+.cdk-overlay-container {
+    z-index: 9999 !important;
+  }
+
 .w-100 {
     width: 100%!important;
 }

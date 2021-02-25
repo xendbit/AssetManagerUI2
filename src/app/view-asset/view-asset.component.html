@@ -173,10 +173,42 @@
                                 </div>
 
                                 <div class="row">
+                                  <p style="margin-left: 20%; margin-right: 25%;">
+                                    <b>SMS Fee:</b>
+                                  </p>
+                                  <b> ${{this.fees.smsNotification}} </b>
+                                </div>
+
+                                <div class="row">
+                                  <p style="margin-left: 20%; margin-right: 25%;">
+                                    <b>
+                                      NSE Fee:
+                                    </b>
+                                  </p>
+                                  <b>
+                                    ${{this.fees.nse}}
+                                  </b>
+                                </div>
+
+                                <div class="row">
+                                  <p style="margin-left: 19%; margin-right: 16%;">
+                                    <b> Transaction Fee: </b>
+                                  </p>
+                                  <b> ${{this.fees.transaction}} </b>
+                                </div>
+
+                                <div class="row">
+                                  <p style="margin-left: 19%; margin-right: 17%;">
+                                    <b> Blockchain Fee: </b>
+                                  </p>
+                                  <b> ${{this.fees.blockchain}} </b>
+                                </div>
+
+                                <div class="row">
                                   <p style="margin-left: 20%; margin-right: 30%;">
                                       <b> Total: </b> 
                                   </p>
-                                  <b> ${{this.asset.issuingPrice * this.amount}} </b>
+                                  <b> ${{this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
                               </div>
                                 
                                 
@@ -386,6 +418,38 @@
                               </div>
 
                               <div class="row">
+                                <p style="margin-left: 20%; margin-right: 25%;">
+                                  <b>SMS Fee:</b>
+                                </p>
+                                <b> ${{this.fees.smsNotification}} </b>
+                              </div>
+
+                              <div class="row">
+                                <p style="margin-left: 20%; margin-right: 25%;">
+                                  <b>
+                                    NSE Fee:
+                                  </b>
+                                </p>
+                                <b>
+                                  ${{this.fees.nse}}
+                                </b>
+                              </div>
+
+                              <div class="row">
+                                <p style="margin-left: 19%; margin-right: 16%;">
+                                  <b> Transaction Fee: </b>
+                                </p>
+                                <b> ${{this.fees.transaction}} </b>
+                              </div>
+
+                              <div class="row">
+                                <p style="margin-left: 19%; margin-right: 17%;">
+                                  <b> Blockchain Fee: </b>
+                                </p>
+                                <b> ${{this.fees.blockchain}} </b>
+                              </div>
+
+                              <div class="row">
                                 <p style="margin-left: 20%; margin-right: 29%;">
                                     <b> Total: </b> 
                                 </p>
@@ -475,7 +539,7 @@
           View More details:
       </h2>
       <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-        <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
+        <mat-card class="col-lg-6 col-md-6 col-sm-6" style="border-radius: 10px;" style="font-family: 'Inter', serif;">
           <mat-card-header>
             <img src="{{this.asset.imageUrl}}" style="width: 80%; margin-bottom: 10px; margin-left: 1rem;
              box-shadow: 5px 5px 5px #ccc;
@@ -535,7 +599,7 @@
         </mat-card>
   
   
-        <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;">
+        <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;">
           <mat-card-content style="font-family: 'Inter', serif;">
             <button (click)="approve(this.asset.tokenId, true)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent; color: white;">
                 
@@ -547,6 +611,23 @@
                 
             Decline
         </button>
+
+        <form [formGroup]="form">
+
+          <div class="row">
+
+            <img *ngIf="this.image" src="{{this.image}}" style="width: 60%; margin-left: 15%; margin-bottom: 3rem; margin-top: 2rem;">
+           
+
+            <div  style="font-family: 'Cardo', serif; margin-bottom: 2rem;">
+              <mat-label *ngIf="!this.image">
+                <p style="margin-bottom: 1rem; margin-top: 2rem;">Please Upload an image showing the back of the artwork. </p>
+              </mat-label>
+                <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
+            </div>
+          </div>
+
+        </form>
               
               
           </mat-card-content>

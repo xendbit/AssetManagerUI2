@@ -16,11 +16,13 @@ export class BuyOrdersComponent implements OnInit {
   totalBuyOrders: any;
   totalSellOrders: any;
   totalOrders: any;
+  cancelled: boolean;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');
+    this.cancelled = false;
     this.getAssets();
     this.getBuyOrders();
     this.getSellOrders();
@@ -57,6 +59,10 @@ export class BuyOrdersComponent implements OnInit {
           this.assetService.stopSpinner();
          }
         );
+  }
+
+  imitate() {
+    this.cancelled = true;
   }
 
   getAssets() {

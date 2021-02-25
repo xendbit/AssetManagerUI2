@@ -159,6 +159,38 @@
                                         </div>
 
                                         <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 25%;">
+                                            <b>SMS Fee:</b>
+                                          </p>
+                                          <b> ${{this.fees.smsNotification}} </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 25%;">
+                                            <b>
+                                              NSE Fee:
+                                            </b>
+                                          </p>
+                                          <b>
+                                            ${{this.fees.nse}}
+                                          </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 19%; margin-right: 16%;">
+                                            <b> Transaction Fee: </b>
+                                          </p>
+                                          <b> ${{this.fees.transaction}} </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 19%; margin-right: 17%;">
+                                            <b> Blockchain Fee: </b>
+                                          </p>
+                                          <b> ${{this.fees.blockchain}} </b>
+                                        </div>
+
+                                        <div class="row">
                                           <p style="margin-left: 20%; margin-right: 28%;">
                                               <b> Total: </b> 
                                           </p>
@@ -393,6 +425,38 @@
                                         </div>
 
                                         <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 25%;">
+                                            <b>SMS Fee:</b>
+                                          </p>
+                                          <b> ${{this.fees.smsNotification}} </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 25%;">
+                                            <b>
+                                              NSE Fee:
+                                            </b>
+                                          </p>
+                                          <b>
+                                            ${{this.fees.nse}}
+                                          </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 19%; margin-right: 16%;">
+                                            <b> Transaction Fee: </b>
+                                          </p>
+                                          <b> ${{this.fees.transaction}} </b>
+                                        </div>
+        
+                                        <div class="row">
+                                          <p style="margin-left: 19%; margin-right: 17%;">
+                                            <b> Blockchain Fee: </b>
+                                          </p>
+                                          <b> ${{this.fees.blockchain}} </b>
+                                        </div>
+
+                                        <div class="row">
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b> Total: </b> 
                                           </p>
@@ -402,7 +466,7 @@
                                         
                                     </div>
                                     <div *ngIf="!this.fromOrder">
-                                        Please confirm that you intend to purchase {{this.quantity}} amount of {{this.asset.titleOfWork}} at ${{this.secondaryPrice}}
+                                        Please confirm that you intend to purchase {{this.quantity}} amount of {{this.asset.titleOfWork}} at ${{this.secondaryPrice + this.fees.blockchain + this.fees.transaction + this.fees.nse + this.fees.smsNotification}}
                                     </div>
                                   
                                 </div>

@@ -76,19 +76,21 @@ export class BuyAssetComponent implements OnInit {
   }
 
  
-  payWithPaystack(e) {
-    console.log(e);
-  // e.preventDefault();
+  payWithPaystack() {
+  if (this.amount === undefined || this.email === undefined || this.firstName === undefined || this.lastName === undefined) {
+    this.assetService.showNotification('top','center', 'Please make sure all fields are filled', 'danger');
+    return;
+  }
   this.assetService.showSpinner();
   let handler = PaystackPop.setup({
     key: 'pk_test_c08cca4a7676c651d37a37fa719536eb31d9db7f', // Replace with your public key
-    email: 'chinedukogu@gmail.com',
-    amount: 100,
+    email: this.email,
+    amount: this.amount * 100,
     ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
     // label: "Optional string that replaces customer email"
-    onClose: function(){
-      alert('Window closed.');
-    },
+    // onClose: function(){
+    //   alert('Window closed.');
+    // },
     callback: function(response){
       let message = 'Payment complete! Reference: ' + response.reference;
       alert(message);
@@ -135,31 +137,6 @@ export class BuyAssetComponent implements OnInit {
         );
   }
 
-  buy(buyForm: NgForm) {
-    console.log('this is form', buyForm);
-    const price = buyForm.value.price;
-    const amount = buyForm.value.amount;
-    const body = {
-        tokenId: 59908500,
-        orderType: 0,
-        orderStrategy: 0,
-        amount: amount,
-        "price": 150,
-        "goodUntil": 0,
-        "userId": 5
-    }
-    this.assetService.buyAsset(body).subscribe(data => {
-      console.log('this is response', data);
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    })
-  }
-
-  view(tokenId, page) {
-    this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
-  }
 
   getBalance() {
     this.assetService.showSpinner();
@@ -174,12 +151,5 @@ export class BuyAssetComponent implements OnInit {
     });
   }
 
-  viewAll() {
-    this.router.navigateByUrl('/assets', { state: {from: 'buyPage'}});;
-  }
-
-viewBuy(tokenId) {
-  this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: 'buyPage'} });
-}
 
 }

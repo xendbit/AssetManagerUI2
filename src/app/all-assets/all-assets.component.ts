@@ -15,6 +15,7 @@ export class AllAssetsComponent implements OnInit {
   unapproved: any[];
   primaryMarket: any[];
   secondaryMarket: any[];
+  exclusive: any[];
 
   constructor(public assetService: AssetsService, public router: Router, public activatedRoute: ActivatedRoute) { }
 
@@ -46,6 +47,7 @@ export class AllAssetsComponent implements OnInit {
       let second = []
       let primary = [];
       let secondary = [];
+      let exclu = [];
       this.assets.forEach(element => {
         if (element.approved === 0 ) {
           init.push(element);
@@ -53,6 +55,12 @@ export class AllAssetsComponent implements OnInit {
           second.push(element);
         } 
       });
+
+      this.assets.forEach(elem => {
+        if (elem.market === 0 && elem.approved === 1 && elem.totalSupply === 1 && elem.sharesAvailable === 1) {
+          exclu.push(elem);
+        }
+      })
       this.assets.forEach(element => {
         if (element.market === 0 && element.approved === 1 ) {
           primary.push(element);
@@ -64,6 +72,7 @@ export class AllAssetsComponent implements OnInit {
       this.unapproved = init;
       this.primaryMarket =  primary ;
       this.secondaryMarket = secondary;
+      this.exclusive = exclu;
       console.log('primary', primary)
       this.assetService.stopSpinner();
     },

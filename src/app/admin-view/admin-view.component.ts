@@ -50,6 +50,9 @@ export class AdminViewComponent implements OnInit {
   notLoggedIn: boolean;
   loading: boolean;
   submitted: boolean;
+  fees: any;
+  marketSettings: any;
+  holidays: any;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
@@ -77,6 +80,9 @@ export class AdminViewComponent implements OnInit {
                     this.tokenId = window.history.state.tokenId;
                     this.getBalance();
                     this.getSellOrders();
+                    this.getFees();
+                    this.getHolidays();
+                    this.getMarketSettings();
                     this.getOwnedShares();
                     this.getAssetDetails();
                     this.getPrimarySharesRemaining(this.tokenId);
@@ -115,6 +121,24 @@ getOwnedShares() {
   },
   () => { }
   );
+}
+
+getFees() {
+  this.adminService.getFees().subscribe(res => {
+    this.fees = res['data'];
+  })
+}
+
+getMarketSettings() {
+  this.adminService.getMarketSettings().subscribe(res => {
+    this.marketSettings = res['data'];
+  })
+}
+
+getHolidays() {
+  this.adminService.getHolidays().subscribe( res => {
+    this.holidays = res['data'];
+  })
 }
 
 

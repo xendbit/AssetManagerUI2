@@ -26,7 +26,8 @@
                                         <th> Token ID </th>
                                         <th>Original amount</th>
                                         <th> Price</th>
-                                        <th> Order Date </th>
+                                        <th> Action</th>
+                                        <!-- <th> Order Date </th> -->
                                   </thead>
                                   <tbody *ngFor="let item of this.buyOrders">
                                       <tr class="Table">
@@ -40,7 +41,26 @@
                                           <td> {{item.tokenId}} </td>
                                           <td> {{item.originalAmount}} </td>
                                           <td> {{item.price}} </td>
-                                          <td> {{item.orderDate  | date : 'short'}} </td>
+                                          <td>
+                                            <button *ngIf="!this.cancelled && item.amountRemaining > 0" (click)="imitate()" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+
+                                            <button *ngIf="item.amountRemaining === 0" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+
+                                            <button *ngIf="this.cancelled" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+                                          </td>
+                                          <!-- <td> {{item.orderDate  | date : 'short'}} </td> -->
                                       </tr>
                                   </tbody>
                                 </table>

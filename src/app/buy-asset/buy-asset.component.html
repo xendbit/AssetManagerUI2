@@ -100,7 +100,7 @@
 
                 <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
                     <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                    <input autofocus type="text" matInput placeholder="Amount" id="amount" name="amount" [(ngModel)]="amount" >
+                    <input autofocus type="number" matInput placeholder="Amount" id="amount" name="amount" [(ngModel)]="amount" >
                 </mat-form-field>
 
                 <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
@@ -110,7 +110,7 @@
     
                 <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
                     <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                    <input type="password" autocomplete="false" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName">
+                    <input type="text" autocomplete="false" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName">
                 </mat-form-field>
               <button (click)="payWithPaystack()" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
       

@@ -31,7 +31,6 @@ export class AdminService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
-    console.log('this is base url', this.baseUrl);
     return this.httpClient.post(`${this.baseUrl}/admin/login`, {email, password}, {headers});
   }
 
@@ -39,8 +38,59 @@ export class AdminService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
-    console.log('this is base url', this.baseUrl);
     return this.httpClient.post(`${this.baseUrl}/admin/change-asset-market/${tokenId}/${marketType}`, {headers});
+  }
+
+  getFees() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.get(`${this.baseUrl}/fees`, {headers});
+  }
+
+  updateFees(smsNotification, nse, transaction, blockchain) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.post(`${this.baseUrl}/fees`, {
+      "smsNotification": smsNotification,
+      "nse": nse,
+      "transaction": transaction,
+      "blockchain": blockchain 
+    }, {headers});
+  }
+
+  getMarketSettings() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.get(`${this.baseUrl}/market-settings`, {headers});
+  }
+
+  updateMarketSettings(percMinBuyQuantity, percPriceChangeLimit, primaryMarketHoldingPeriod, maxNoOfDaysForInfinityOrders) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.post(`${this.baseUrl}/market-settings`, {
+      "percMinBuyQuantity": percMinBuyQuantity,
+      "percPriceChangeLimit": percPriceChangeLimit,
+      "primaryMarketHoldingPeriod": primaryMarketHoldingPeriod,
+      "maxNoOfDaysForInfinityOrders": maxNoOfDaysForInfinityOrders
+    }, {headers});
+  }
+
+  getHolidays() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.get(`${this.baseUrl}/holidays`, {headers});
+  }
+
+  setHolidays(body) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.post(`${this.baseUrl}/holidays`, {body}, {headers});
   }
 
 }

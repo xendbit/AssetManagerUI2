@@ -18,32 +18,33 @@
 
           <mat-tab-group style=" margin-left: 7rem; font-family: 'Playfair Display SC', serif !important">
             
-
+            
             <mat-tab label="Fees">
+              <!-- <mat-icon matPrefix style="margin-right: 2rem ;">price_change</mat-icon> -->
                 <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
-                    <form id="paymentForm">
+                    <form id="feeForm" #feeForm="ngForm">
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
-                        <input autofocus type="number" matInput placeholder="SMS Notification Fee" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
+                        <mat-icon matPrefix style="margin-right: 2rem ;">chat</mat-icon>
+                        <input autofocus type="number" matInput placeholder="SMS Notification Fee - (current fee ₦{{this.fees.smsNotification}} )" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
                         </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                            <input autofocus type="number" matInput placeholder="NSE Fee" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                            <mat-icon matPrefix style="margin-right: 2rem ;">attribution</mat-icon>
+                            <input autofocus type="number" matInput placeholder="NSE Fee - (current fee ₦{{this.fees.nse}} )" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
                         </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                            <input autofocus type="number" matInput placeholder="Transaction Fee" id="transactionFee" name="transactionFee" [(ngModel)]="transactionFee" >
+                            <mat-icon matPrefix style="margin-right: 2rem ;">pattern</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Transaction Fee - (current fee ₦{{this.fees.transaction}} )" id="transactionFee" name="transactionFee" [(ngModel)]="transactionFee" >
                         </mat-form-field>
             
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                            <input type="number" autocomplete="false" matInput placeholder="Blockchain Fee" id="blockchainFee" name="blockchainFee" [(ngModel)]="blockchainFee">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder="Blockchain Fee - (current fee ₦{{this.fees.blockchain}} )" id="blockchainFee" name="blockchainFee" [(ngModel)]="blockchainFee">
                         </mat-form-field>
-                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+                      <button (click)="updateFees(feeForm)"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
               
-                        Save Fee Settings
+                        Update Fee Settings
                     
                     </button>
                     </form>
@@ -54,29 +55,29 @@
     
             <mat-tab label="Market Settings">
                 <div class=" card-body" style="margin-left: 0 !important;">
-                    <form id="paymentForm">
+                    <form  #marketForm="ngForm">
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
-                        <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
-                        <input autofocus type="number" matInput placeholder="Minimum Buy Quantity (%)" id="quantity" name="quantity" [(ngModel)]="quantity" >
+                        <mat-icon matPrefix style="margin-right: 2rem ;">mobiledata_off</mat-icon>
+                        <input autofocus type="number" matInput placeholder="Minimum Buy Quantity (%) - (current setting: {{this.marketSettings.percMinBuyQuantity}}%)" id="quantity" name="quantity" [(ngModel)]="quantity" >
                         </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                            <input autofocus type="number" matInput placeholder="Price Change Limit (%) " id="priceLimit" name="priceLimit" [(ngModel)]="priceLimit" >
+                            <mat-icon matPrefix style="margin-right: 2rem ;">align_vertical_center</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Price Change Limit (%) - (current setting: {{this.marketSettings.percPriceChangeLimit}}%) " id="priceLimit" name="priceLimit" [(ngModel)]="priceLimit" >
                         </mat-form-field>
 
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                            <input autofocus type="number" matInput placeholder="Primary Market Holding Period" id="holdingPeriod" name="holdingPeriod" [(ngModel)]="holdingPeriod" >
+                            <mat-icon matPrefix style="margin-right: 2rem ;">format_indent_increase</mat-icon>
+                            <input autofocus type="number" matInput placeholder="Primary Market Holding Period - ( current setting: {{this.marketSettings.primaryMarketHoldingPeriod}} days)" id="holdingPeriod" name="holdingPeriod" [(ngModel)]="holdingPeriod" >
                         </mat-form-field>
             
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
-                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                            <input type="number" autocomplete="false" matInput placeholder=" Max no. of days for Infinity orders" id="infinity" name="infinity" [(ngModel)]="infinity">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">padding</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder=" Max no. of days for Infinity orders - (current setting: {{this.marketSettings.maxNoOfDaysForInfinityOrders}} days)" id="infinity" name="infinity" [(ngModel)]="infinity">
                         </mat-form-field>
-                      <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+                      <button (click)="updateMarketSettings(marketForm)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
               
-                        Save Market Settings
+                        Update Market Settings
                     
                     </button>
                     </form>
@@ -87,11 +88,11 @@
             <mat-tab label="Payment Settings">
 
                 <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
-                    <form id="paymentForm">
+                    <form  #paymentForm="ngForm">
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                            <input autofocus type="number" matInput placeholder="Paystack public key" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                            <input autofocus type="text" matInput placeholder="Paystack public key" id="paystackKey" name="paystackKey" [(ngModel)]="paystackKey" >
                         </mat-form-field>
                       <button  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
               
@@ -129,38 +130,46 @@
                       </div>
                       <div *ngIf="this.currentButton === 'first' ">
                         <div class="row">
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h5>  all holidays </h5>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h5>  editable holidays </h5>
+                          </div>
+                        </div>
+                       
+                        
+                        
+
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-sm-6" >
+                            <div *ngFor="let subtask of this.holidays">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">event</mat-icon>  {{subtask.name}} -  {{subtask.day}}  {{subtask.month}}
+                            </div>
+                          </div> 
 
                           <div class="col-lg-6 col-md-6 col-sm-6" >
                             <div *ngFor="let subtask of this.dynamicHolidays">
                               <mat-icon matPrefix style="margin-right: 2rem ;">event</mat-icon>  {{subtask.name}} -  {{subtask.day}} 
-                    
-                                <mat-icon data-toggle="modal" data-target="#loginModalLong" matPrefix style="margin-right: 2rem ;">create</mat-icon> 
-                               
+                              <mat-icon data-toggle="modal" data-target="#loginModalLong" matPrefix style="margin-right: 2rem ;">create</mat-icon>    
                             </div>
-                        
-                          </div>
-                            
-                               <div class="col-lg-6 col-md-6 col-sm-6" >
-                                 <div *ngFor="let subtask of this.staticHolidays">
-                                  <mat-icon matPrefix style="margin-right: 2rem ;">event</mat-icon>  {{subtask.name}} -  {{subtask.day}} 
-                                 </div>
-                               
-                               </div> 
+                        </div>
+
                         </div>
                         
                       </div>
                    
                     <div *ngIf="this.currentButton === 'second' ">
-                        <form id="paymentForm">
+                        <form  #holidayForm="ngForm">
                             
 
                                
                                     <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
-                                        <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
+                                        <mat-icon matPrefix style="margin-right: 2rem ;">leak_add</mat-icon>
                                         <input autofocus type="text" matInput placeholder="Enter a name for this holiday" id="newHolidayName" name="newHolidayName" [(ngModel)]="newHolidayName" >
                                     </mat-form-field>
                                     <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 50%;" >
-                                        
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">date_range</mat-icon>
                                             <mat-label>choose a date range for this holiday</mat-label>
                                             <mat-date-range-input [rangePicker]="picker">
                                               <input matStartDate placeholder="Start date">
@@ -198,21 +207,24 @@
                 </div>
                 <div class="modal-body">
                       
-                        <form novalidate #loginForm="ngForm">
+                        <form novalidate #updateHolidayForm="ngForm">
                           <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 90%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                            <input autofocus type="text" matInput placeholder="Enter a name for this holiday" id="newHolidayName" name="newHolidayName" [(ngModel)]="newHolidayName" >
+                            <input autofocus type="text" matInput placeholder="Enter a name for this holiday" id="newHolidayName" name="newHolidayName" [(ngModel)]="updateHolidayDetails" >
                         </mat-form-field>
-                        <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 90%;" >
-                            
-                                <mat-label>choose a date range for this holiday</mat-label>
-                                <mat-date-range-input [rangePicker]="update">
-                                  <input matStartDate placeholder="Start date">
-                                  <input matEndDate placeholder="End date">
-                                </mat-date-range-input>
-                                <mat-datepicker-toggle matSuffix [for]="update"></mat-datepicker-toggle>
-                                <mat-date-range-picker #update></mat-date-range-picker>
-                        </mat-form-field>
+
+                        <mat-label>Select Month For this holiday</mat-label>
+                        <mat-select [(ngModel)]="updateHolidayStart">
+                          <mat-option *ngFor="let team of Month" [value]="team.name" >
+                            {{team.name}}
+                          </mat-option>
+                        </mat-select>
+
+                        <mat-select [(ngModel)]="updateHolidayEnd">
+                          <mat-option *ngFor="let day of Day" [value]="day.name" >
+                            {{day.name}}
+                          </mat-option>
+                        </mat-select>
                         </form>
   
   
@@ -221,7 +233,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button"  data-dismiss="modal" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent;">Cancel</button>
-                  <button (click)="onSubmit(loginForm)"  data-dismiss="modal" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 30%;">Update</button>
+                  <button (click)="updateHoliday(updateHolidayForm)"  data-dismiss="modal" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 30%;">Update</button>
                 </div>
               </div>
             </div>
