@@ -72,7 +72,7 @@ const routes: Routes =[
   { path: 'issue',       
     component: IssueAssetsComponent 
   },
-  { path: 'all-users',       
+  { path: 'view-users',       
   component: AllUsersComponent 
   },
   {

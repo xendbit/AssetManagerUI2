@@ -5,7 +5,7 @@
     <div id="container_home">
    
               
-              <div class="container-fluid container-lg container-home" *ngIf="this.Id" style="margin-top: 5rem;">
+              <div class="container-fluid container-lg container-home"  style="margin-top: 5rem;">
                   <p class="text-uppercase small font-weight-medium">
                       Details
                   </p>
@@ -13,823 +13,266 @@
                       View More details about this user:
                   </h2>
   
-                    <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;" >
+                    <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;" *ngIf="this.role === 0" >
                       <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px; font-family: 'Inter'">
                         <mat-card-header>
-                          <img src="{{this.asset.imageUrl}}" style="width: 100%; height: 30rem; margin-bottom: 10px; margin-left: 1rem; margin-right: 3rem !important;
+                          <img src="{{this.investor.imageUrl}}" style="width: 100%; height: 30rem; margin-bottom: 10px; margin-left: 1rem; margin-right: 3rem !important;
                            box-shadow: 5px 5px 5px #ccc;
                         -moz-box-shadow: 10px 10px 5px #ccc;
                         -webkit-box-shadow: 10px 10px 5px #ccc;
                         -khtml-box-shadow: 10px 10px 5px #ccc;">
                         </mat-card-header>
-                        <mat-card-subtitle style="text-align: center;">
-                          Artist: {{this.asset.artistName}}
-                        </mat-card-subtitle>
+                        
                         <mat-card-content>
                         </mat-card-content>
                       </mat-card>
                 
-                      <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;">
+                      <mat-card class="col-lg-4 col-md-4 col-sm-4" style="font-family: 'Inter', serif;">
                         <mat-card-content>
                           <div class="col-lg-12 col-md-12 col-sm-12">
                             <p>
-                              <b> Title: </b> {{this.asset.titleOfWork}}
+                              <b> First Name: </b> {{this.investor.firstName}}
                             </p>
                   
                             <p>
-                                <b> Created on: </b> {{this.asset.createdOn  | date}}
+                                <b> Last Name: </b> {{this.investor.lastName}}
                             </p>
                   
                             <p>
-                              <b> Issuing Price: </b> ${{this.asset.issuingPrice}}
+                              <b> Middle Name: </b> {{this.investor.middleName}}
                             </p>
                             <p>
-                              <b> Price: </b> ${{this.asset.price}}
+                              <b> Email: </b> {{this.investor.email}}
                             </p>
                            <p>
-                            <b> Symbol: </b> {{this.asset.symbol}}
+                            <b> Phone Number: </b> {{this.investor.phoneNumber}}
                            </p>
-                            <p>
-                              <b> Total Supply: </b> {{this.asset.totalSupply}}
+                            <p *ngIf="this.investor.approved === 0">
+                              <b> Approved: </b> Yes
                             </p>
-                            <p>
-                              <b>Remaining Shares:</b> {{this.remainingShares}}
+                            <p *ngIf="this.investor.approved === 1">
+                                <b> Approved: </b> No
+                              </p>
+                            <p *ngIf="this.investor.activated === 0">
+                              <b>Activated:</b> Yes
                             </p>
-                            <p>
-                              <b>Market:</b> Secondary
+                            <p *ngIf="this.investor.activated === 1">
+                              <b>Activated:</b> No
                             </p>
-                            <p>
-                              <b> Token ID: </b> 
-                               <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
-                               
-                                  {{this.asset.tokenId}} - 
-                                  Verify <span class="material-icons" style="color: orange !important;">
-                                    fingerprint
-                                  </span>
-                              </a>
-                            </p>
-                            <p>
-                              <b> Description: </b> {{this.asset.description}}
-                            </p>
+                          
                             
+                            <div style="padding-bottom: 20px; " >
+                                <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#disableModalLong">
+                            
+                                  Disable
+                              
+                              </button>
+                                <div class="clearfix"></div>
+                              </div>
+
+
+                              <div  class="modal fade" id="disableModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Admin Confirmation</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6> Please confirm that you want to disable this user.  </h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                      <button data-dismiss="modal"  class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                                      
                             
                           </div>
-                        </mat-card-content>
-                      </mat-card>
-                
-                
-                      <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.notLoggedIn !== true">
-                        <mat-card-content>
-                          <form #sellForm="ngForm" novalidate>
-                            <div class="row">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                <p><b> Account Balance: </b> ${{this.balance}} </p>
-                              </div>
-  
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                <p><b> Owned Shares: </b> {{this.shares}} </p>
-                              </div>
-                
-                            </div>
-  
-                            
-              
-                         
-                
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput [readonly]="!editable"  placeholder={{this.quantity}} type="number" id="amount" name="amount" [(ngModel)]="quantity">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input [readonly]="!editable" matInput placeholder={{this.secondaryPrice}} type="number" id="price" name="price" [(ngModel)]="secondaryPrice">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-                            
-                            <div style="padding-bottom: 20px; " *ngIf="this.notLoggedIn === true" >
-                              <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#loginModalLong">
-                          
-                                Sell Asset
-                            
-                            </button>
-                              <div class="clearfix"></div>
-                            </div>
-  
-                            <div style="padding-bottom: 20px; " *ngIf="this.fromSellOrder">
-                              <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#sellModalLong">
-                          
-                                Sell Asset
-                            
-                            </button>
-                              <div class="clearfix"></div>
-                            </div>
-  
-  
-  
-  
-  
-                            <div  class="modal fade" id="sellModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.fromSellOrder">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                      <div *ngIf="this.fromSellOrder">
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
-                                          </div>
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 30%;">
-                                                  <b>Price: </b> 
-                                              </p>
-                                              <b> ${{this.secondaryPrice}} </b>
-                                          </div>
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 24%;">
-                                                  <b> Quantity: </b> 
-                                              </p>
-                                              <b> {{this.quantity}} </b>
-                                          </div>
-  
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 25%;">
-                                              <b>SMS Fee:</b>
-                                            </p>
-                                            <b> ${{this.fees.smsNotification}} </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 25%;">
-                                              <b>
-                                                NSE Fee:
-                                              </b>
-                                            </p>
-                                            <b>
-                                              ${{this.fees.nse}}
-                                            </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 19%; margin-right: 16%;">
-                                              <b> Transaction Fee: </b>
-                                            </p>
-                                            <b> ${{this.fees.transaction}} </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 19%; margin-right: 17%;">
-                                              <b> Blockchain Fee: </b>
-                                            </p>
-                                            <b> ${{this.fees.blockchain}} </b>
-                                          </div>
-  
-                                          <div class="row">
-                                            <p style="margin-left: 19%; margin-right: 28%;">
-                                                <b> Total: </b> 
-                                            </p>
-                                            <b> {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
-                                        </div>
-                                          
-                                          
-                                      </div>
-                                      <div *ngIf="!this.fromSellOrder">
-  
-                                          Please confirm that you intend to sell {{this.quantity}} amount of {{this.asset.titleOfWork}} with the following breakdown:
-  
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
-                                        </div>
-                                        <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 30%;">
-                                                <b>Price: </b> 
-                                            </p>
-                                            <b> ${{this.secondaryPrice}} </b>
-                                        </div>
-                                        <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 24%;">
-                                                <b> Quantity: </b> 
-                                            </p>
-                                            <b> {{this.quantity}} </b>
-                                        </div>
-  
-                                        <div class="row">
-                                          <p style="margin-left: 20%; margin-right: 25%;">
-                                            <b>SMS Fee:</b>
-                                          </p>
-                                          <b> ${{this.fees.smsNotification}} </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 20%; margin-right: 25%;">
-                                            <b>
-                                              NSE Fee:
-                                            </b>
-                                          </p>
-                                          <b>
-                                            ${{this.fees.nse}}
-                                          </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 16%;">
-                                            <b> Transaction Fee: </b>
-                                          </p>
-                                          <b> ${{this.fees.transaction}} </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 17%;">
-                                            <b> Blockchain Fee: </b>
-                                          </p>
-                                          <b> ${{this.fees.blockchain}} </b>
-                                        </div>
-  
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 28%;">
-                                              <b> Total: </b> 
-                                          </p>
-                                          <b> {{this.secondaryPrice + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
-                                      </div>
-                                      </div>
-                                    
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                    <button data-dismiss="modal"  (click)="sell(sellForm)" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                                  
-  
-                        </form>
                         </mat-card-content>
                       </mat-card>
                 
                     </div>
             
             
-  
-                  <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;" *ngIf="!this.fromSellOrder">
-                    <mat-card class="col-lg-7 col-md-7 col-sm-7" style="font-family: 'Inter', serif;">
-                      <mat-card-header>
-                        <img src="{{this.asset.imageUrl}}" style="width: 100%; height: 30rem; margin-bottom: 10px; margin-left: 1rem; margin-right: 3rem;  box-shadow: 5px 5px 5px #ccc;
-                        -moz-box-shadow: 10px 10px 5px #ccc;
-                        -webkit-box-shadow: 10px 10px 5px #ccc;
-                        -khtml-box-shadow: 10px 10px 5px #ccc;">
-                      </mat-card-header>
-                      <mat-card-subtitle style="text-align: center;">
-                        Artist: {{this.asset.artistName}}
-                      </mat-card-subtitle>
-                      <mat-card-content>
-                      </mat-card-content>
-                    </mat-card>
-              
-              
-                    
-                    <mat-card class="col-lg-3 col-md-3 col-sm-3">
-                        <mat-card-content >
-                          <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
+                    <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;" *ngIf="this.role === 1">
+                        <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px; font-family: 'Inter'">
+                          <mat-card-header>
+                            <img src="{{this.admin.imageUrl}}" style="width: 100%; height: 30rem; margin-bottom: 10px; margin-left: 1rem; margin-right: 3rem !important;
+                             box-shadow: 5px 5px 5px #ccc;
+                          -moz-box-shadow: 10px 10px 5px #ccc;
+                          -webkit-box-shadow: 10px 10px 5px #ccc;
+                          -khtml-box-shadow: 10px 10px 5px #ccc;">
+                          </mat-card-header>
+                          
+                          <mat-card-content>
+                          </mat-card-content>
+                        </mat-card>
+                  
+                        <mat-card class="col-lg-4 col-md-4 col-sm-4" style="font-family: 'Inter', serif;">
+                          <mat-card-content>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
                               <p>
-                                  <b> Title: </b> {{this.asset.titleOfWork}}
-                                </p>
-                      
-                                <p>
-                                    <b> Created on: </b> {{this.asset.createdOn  | date }}
-                                </p>
-                      
-                                <p>
-                                  <b> Issuing Price: </b> ${{this.asset.issuingPrice}}
-                                </p>
-                               <p>
-                                <b> Symbol: </b> {{this.asset.symbol}}
-                               </p>
-                                <p>
-                                  <b> Total Supply: </b> {{this.asset.totalSupply}}
-                                </p>
-                                <p>
-                                  <b>Remaining Shares:</b> {{this.remainingShares}}
-                                </p>
-                                <p>
-                                  <b>Market:</b> Secondary
-                                </p>
-                                <p>
-                                  <b> Token ID: </b>  
-                                  <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
-                                    {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
-                                      fingerprint
-                                    </span>
-                                  </a>
-                                </p>
-                                <p>
-                                  <b> Description: </b> {{this.asset.description}}
-                                </p>
-                            
-                            
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-              
-                    <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;" *ngIf="this.notLoggedIn === false">
-  
-                      <div class="col-md-2" style="margin-left: 9px !important; padding-left: 0 !important;">
-  
-                        <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
-                          <label class="btn btn-md btn-outline-secondary" 
-                                [ngClass]="{active : currentButton == 'first'}"
-                                (click) = "currentButton='first'"
-                                style="width: 77px !important; text-transform: capitalize;"
-                                 >
-                            <input type="radio" name="options" autocomplete="off" checked >Limit  
-                          </label>
-                          <label class="btn btn-md btn-outline-secondary"
-                                 [ngClass]="{active : currentButton == 'second'}"
-                                (click) = "currentButton='second'"
-                                style="width: 85px !important; text-transform: capitalize;"
-                            >
-                            <input type="radio" name="options" autocomplete="off"> Market
-                            
-                          </label>
-                        </div>
+                                <b> First Name: </b> {{this.admin.firstName}}
+                              </p>
                     
+                              <p>
+                                  <b> Last Name: </b> {{this.admin.lastName}}
+                              </p>
+                    
+                              <p>
+                                <b> Middle Name: </b> {{this.admin.middleName}}
+                              </p>
+                              <p>
+                                <b> Email: </b> {{this.admin.email}}
+                              </p>
+                             <p>
+                              <b> Phone Number: </b> {{this.admin.phoneNumber}}
+                             </p>
+                              <p *ngIf="this.admin.approved === 0">
+                                <b> Approved: </b> Yes
+                              </p>
+                              <p *ngIf="this.admin.approved === 1">
+                                  <b> Approved: </b> No
+                                </p>
+                              <p *ngIf="this.admin.activated === 0">
+                                <b>Activated:</b> Yes
+                              </p>
+                              <p *ngIf="this.admin.activated === 1">
+                                <b>Activated:</b> No
+                              </p>
+                            
+                              
+                              <div style="padding-bottom: 20px; " >
+                                  <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#disableModalLong">
+                              
+                                    Disable
+                                
+                                </button>
+                                  <div class="clearfix"></div>
+                                </div>
+  
+                                <div  class="modal fade" id="disableModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Admin Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <h6> Please confirm that you want to disable this user.  </h6>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                        <button data-dismiss="modal"  class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                        
+                              
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                  
                       </div>
+
+
+                      <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;" *ngIf="this.role === 2">
+                        <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px; font-family: 'Inter'">
+                          <mat-card-header>
+                            <img src="{{this.issuer.imageUrl}}" style="width: 100%; height: 30rem; margin-bottom: 10px; margin-left: 1rem; margin-right: 3rem !important;
+                             box-shadow: 5px 5px 5px #ccc;
+                          -moz-box-shadow: 10px 10px 5px #ccc;
+                          -webkit-box-shadow: 10px 10px 5px #ccc;
+                          -khtml-box-shadow: 10px 10px 5px #ccc;">
+                          </mat-card-header>
+                          
+                          <mat-card-content>
+                          </mat-card-content>
+                        </mat-card>
+                  
+                        <mat-card class="col-lg-4 col-md-4 col-sm-4" style="font-family: 'Inter', serif;">
+                          <mat-card-content>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                              <p>
+                                <b> First Name: </b> {{this.issuer.firstName}}
+                              </p>
                     
-                      <mat-card-content *ngIf="this.currentButton === 'first' ">
-  
-  
-                        <form #buyForm="ngForm"  novalidate>
-                          <!-- <div class="row"  style="margin-top: 5px !important;">
-  
-                            <div class="col-md-9" *ngIf="!fromOrder && this.currentButton === 'first'" >
-                              <mat-label>Order Strategy</mat-label>
-                                    <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
-                                      <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
-                                    </mat-select>
-                                    
-                            </div>
-                        </div> -->
-            
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <p><b> Account Balance: </b> ${{this.balance}} </p>
-                          </div>
-  
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <p><b> Owned Shares: </b> {{this.shares}} </p>
-                          </div>
-            
-                        </div>
-              
-                          <div class="row" *ngIf="this.fromOrder">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-label> Quantity </mat-label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput [readonly]="!editable" placeholder={{this.quantity}} type="number" id="amount" name="amount" value="{{this.quantity}}" [(ngModel)]="quantity">
-                                </mat-form-field>
-                              </div>
-                          </div>
-          
-                          <div class="row" *ngIf="!this.fromOrder">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-label> Quantity </mat-label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput  placeholder="Please enter Quantity" value="{{this.quantity}}" type="number" id="amount" name="amount" [(ngModel)]="quantity">
-                                </mat-form-field>
-                              </div>
-                          </div>
-              
-                          <div class="row" *ngIf="this.fromOrder">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-label> Price </mat-label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput [readonly]="!editable" placeholder="Price: ${{this.secondaryPrice}}" type="number" value="{{this.secondaryPrice}}" id="secondaryPrice" name="secondaryPrice" [(ngModel)]="secondaryPrice">
-                                </mat-form-field>
-                              </div>
-                          </div>
-          
-                          <div class="row" *ngIf="!this.fromOrder">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-label> Price </mat-label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput  placeholder="Please Enter price" type="number" id="price" name="price" value="{{this.secondaryPrice}}" [(ngModel)]="secondaryPrice">
-                                </mat-form-field>
-                              </div>
-                          </div>
-            
-                          
-                          <div style="padding-bottom: 20px;" *ngIf="!this.fromOrder">
-                              <button *ngIf="!this.quantity || !this.secondaryPrice" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                          
-                                  Buy Asset
-                              
-                              </button>
-  
-                              <button *ngIf="this.secondaryPrice && this.quantity" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                          
-                                Buy Asset
+                              <p>
+                                  <b> Last Name: </b> {{this.issuer.lastName}}
+                              </p>
+                    
+                              <p>
+                                <b> Middle Name: </b> {{this.issuer.middleName}}
+                              </p>
+                              <p>
+                                <b> Email: </b> {{this.issuer.email}}
+                              </p>
+                             <p>
+                              <b> Phone Number: </b> {{this.issuer.phoneNumber}}
+                             </p>
+                              <p *ngIf="this.issuer.approved === 0">
+                                <b> Approved: </b> Yes
+                              </p>
+                              <p *ngIf="this.issuer.approved === 1">
+                                  <b> Approved: </b> No
+                                </p>
+                              <p *ngIf="this.issuer.activated === 0">
+                                <b>Activated:</b> Yes
+                              </p>
+                              <p *ngIf="this.issuer.activated === 1">
+                                <b>Activated:</b> No
+                              </p>
                             
-                            </button>
-                            <div class="clearfix"></div>
-                          </div>
-  
-                          <div style="padding-bottom: 20px;" *ngIf="this.fromOrder">
-                            <button *ngIf="!this.quantity || !this.secondaryPrice" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                        
-                                Buy Asset
-                            
-                            </button>
-  
-                            <button *ngIf="this.secondaryPrice && this.quantity" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                        
-                              Buy Asset
-                          
-                          </button>
-                          <div class="clearfix"></div>
-                        </div>
-  
-                          
-          
-                          <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.quantity">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                      <div *ngIf="this.fromOrder">
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
-                                          </div>
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 30%;">
-                                                  <b>Price: </b> 
-                                              </p>
-                                              <b> ${{this.secondaryPrice}} </b>
-                                          </div>
-                                          <div class="row">
-                                              <p style="margin-left: 20%; margin-right: 24%;">
-                                                  <b> Quantity: </b> 
-                                              </p>
-                                              <b> {{this.quantity}} </b>
-                                          </div>
-  
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 25%;">
-                                              <b>SMS Fee:</b>
-                                            </p>
-                                            <b> ${{this.fees.smsNotification}} </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 25%;">
-                                              <b>
-                                                NSE Fee:
-                                              </b>
-                                            </p>
-                                            <b>
-                                              ${{this.fees.nse}}
-                                            </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 19%; margin-right: 16%;">
-                                              <b> Transaction Fee: </b>
-                                            </p>
-                                            <b> ${{this.fees.transaction}} </b>
-                                          </div>
-          
-                                          <div class="row">
-                                            <p style="margin-left: 19%; margin-right: 17%;">
-                                              <b> Blockchain Fee: </b>
-                                            </p>
-                                            <b> ${{this.fees.blockchain}} </b>
-                                          </div>
-  
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 30%;">
-                                                <b> Total: </b> 
-                                            </p>
-                                            <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
-                                        </div>
-                                          
-                                          
-                                      </div>
-                                      <div *ngIf="!this.fromOrder">
-                                          Please confirm that you intend to purchase {{this.quantity}} shares of {{this.asset.titleOfWork}}:
-  
-                                          <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
-                                        </div>
-                                        <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 30%;">
-                                                <b>Price: </b> 
-                                            </p>
-                                            <b> ${{this.secondaryPrice}} </b>
-                                        </div>
-                                        <div class="row">
-                                            <p style="margin-left: 20%; margin-right: 24%;">
-                                                <b> Quantity: </b> 
-                                            </p>
-                                            <b> {{this.quantity}} </b>
-                                        </div>
-  
-                                        <div class="row">
-                                          <p style="margin-left: 20%; margin-right: 25%;">
-                                            <b>SMS Fee:</b>
-                                          </p>
-                                          <b> ${{this.fees.smsNotification}} </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 20%; margin-right: 25%;">
-                                            <b>
-                                              NSE Fee:
-                                            </b>
-                                          </p>
-                                          <b>
-                                            ${{this.fees.nse}}
-                                          </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 16%;">
-                                            <b> Transaction Fee: </b>
-                                          </p>
-                                          <b> ${{this.fees.transaction}} </b>
-                                        </div>
-        
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 17%;">
-                                            <b> Blockchain Fee: </b>
-                                          </p>
-                                          <b> ${{this.fees.blockchain}} </b>
-                                        </div>
-  
-                                        <div class="row">
-                                          <p style="margin-left: 19%; margin-right: 30%;">
-                                              <b> Total: </b> 
-                                          </p>
-                                          <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
-                                      </div>
-                                      </div>
-                                    
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                    <button (ngSubmit)="buy(buyForm)" data-dismiss="modal" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-  
-  
-                            <div  class="modal fade" id="loginModalLong" tabindex="-1" role="dialog" aria-labelledby="loginModalLongTitle" aria-hidden="true" *ngIf="this.notLoggedIn === true && this.quantity">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="card" style="display: flex; justify-content: center; margin-left: auto; margin-right: auto; opacity: 100%; width: 30rem;">
-                                      <div class="card-header card-header-danger"  style="background: black;">
-                                          <h4 class="card-title" style="text-align: center;">ArtExchange Login</h4>
-                                          <p class="card-category" style="text-align: center; font-family: 'Playfair Display SC', serif; font-size: 11pt;">Please Login With Your Credentials </p>
-                                      </div>
-                                      <div class="card-body" style="width: auto; justify-content: center; align-items: center;"> 
-                                        <mat-card  style="opacity:90%; ">
-                                          <form novalidate #loginForm="ngForm">
-                                            <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; text-transform: lowercase !important; ">
-                                              <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
-                                              <input autofocus type="text" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
-                                            </mat-form-field>
-                                  
-                                            <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; text-transform: lowercase;">
-                                              <mat-icon matPrefix style="margin-right: 2rem ;">lock_outline</mat-icon>
-                                              <input type="password" autocomplete="false" matInput placeholder="Password" id="password" name="password" [(ngModel)]="password">
-                                            </mat-form-field>
-                                          </form>
-                                        </mat-card>
-                                        <div class="text-center mt-4 font-weight-light" style="font-family: 'Playfair Display SC', serif; font-size: 11pt">
-                                          Dont have an account? <a href="/register">Register</a>
-                                        </div>
-                    
-                    
-                                      </div>
-                                  </div>                  
-                                    
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button"  data-dismiss="modal" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent;">Cancel</button>
-                                    <button (click)="onSubmit(loginForm)"  data-dismiss="modal" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 30%;">Login</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-          
-                                  
-                      </form>
-          
-          
-          
-                      </mat-card-content>
-  
-                      <mat-card-content *ngIf="this.currentButton === 'second' ">
-                          <form #buyForm="ngForm" novalidate>
-             
-                              <div class="row">
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                      <p><b> Account Balance: </b> ${{this.balance}} </p>
-                                  </div>
-  
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <p><b> Owned Shares: </b> {{this.shares}} </p>
-                                  </div>
-                   
-                              </div>
-                     
-                              <div class="row">
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                      <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                                      </mat-form-field>
-                                  </div>
-                              </div>
-                     
-                                 
-                              <div style="padding-bottom: 20px; ">
-                                  <button *ngIf="this.amount" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                               
-                                  Place Order
+                              <div style="padding-bottom: 20px; " >
+                                  <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#disableModalLong">
                               
-                                  </button>
-  
-                                  <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
-                              
-                                    Place Order
+                                    Disable
                                 
-                                    </button>
-                              
-                              </div>
-                              <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div>
-                                          Please confirm that you intend to buy {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
-                                        </div>
-                                      
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                      <button data-dismiss="modal"  (click)="sendMarketOrder()" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                </button>
+                                  <div class="clearfix"></div>
+                                </div>
+  
+                                <div  class="modal fade" id="disableModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Admin Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <h6> Please confirm that you want to disable this user.  </h6>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                        <button data-dismiss="modal"  class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                             </form>
-                   
-          
-                      </mat-card-content>
-                      
-  
-                    </mat-card>
+                                        
+                              
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                  
+                      </div>
               
-                  </div>
+                 
+                  
             
               </div>
-  
-              <div class="container-fluid container-lg container-home" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
-                  <h3 class="text-uppercase font-weight-light">
-                      order book
-                  </h3>
-                  <p class="text-uppercase small font-weight-medium">
-                      orders by type
-                  </p>
-          
-              </div>
-              
-             
-              <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Inter', serif;">
-                
-                  
-                  <mat-tab label="Sell Orders">
-                      
-                      <div class="row">
-                          <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div> -->
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                              <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
-                                
-                                  <div class="card-body">
-                                      <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                                          <div class="table-responsive">      
-                                              <table class="table table-hover" >
-                                                  <thead class="text-success">
-                                                      <th> Order Type </th>
-                                                      <th>Order Strategy</th>
-                                                      <th>Amount remaining</th>
-                                                      <th> Token ID </th>
-                                                      <th>Original amount</th>
-                                                      <th> Price</th>
-                                                      <th> Order Date </th>
-                                                  </thead>
-                                                  <tbody *ngFor="let item of this.sellOrders">
-                                                      <tr class="Table" (click)= "viewAsset(item.price, item.id, item.amountRemaining, item.orderStrategy)">
-                                                          <td *ngIf="item.amountRemaining !== 0">Sell</td>
-                                                          <td *ngIf="item.orderStrategy === 0 && item.amountRemaining !== 0"> Good Till Cancel </td>
-                                                          <td *ngIf="item.orderStrategy === 1 && item.amountRemaining !== 0"> All Or Nothing </td>
-                                                          <td *ngIf="item.orderStrategy === 2 && item.amountRemaining !== 0"> Good Till Day </td>
-                                                          <td *ngIf="item.orderStrategy === 3 && item.amountRemaining !== 0">  Good Till Month </td>
-                                                          <td *ngIf="item.orderStrategy === 4 && item.amountRemaining !== 0"> Market Order </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.orderDate  | date }} </td>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>           
-                                  </div>              
-                              </div>
-                          
-                          </div>
-                      
-                  
-                      
-                      </div >
-                  </mat-tab>
-                  <mat-tab label="Buy Orders">
-                      <div class="row">
-                          <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div> -->
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                              <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
-                                  <div class="card-body">
-                                      <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                                          <div class="table-responsive">      
-                                              <table class="table table-hover" >
-                                                  <thead class="text-success">
-                                                      <th> Order Type </th>
-                                                      <th>Order Strategy</th>
-                                                      <th>Amount remaining</th>
-                                                      <th> Token ID </th>
-                                                      <th>Original amount</th>
-                                                      <th> Price</th>
-                                                      <th> Order Date </th>
-                                                  </thead>
-                                                  <tbody *ngFor="let item of this.buyOrders">
-                                                      <tr class="Table" (click)= "viewAssetSell(item.price, item.id, item.amountRemaining)">
-                                                          <td *ngIf="item.amountRemaining !== 0">Buy</td>
-                                                          <td *ngIf="item.orderStrategy === 0 && item.amountRemaining !== 0 "> Good Till Cancel </td>
-                                                          <td *ngIf="item.orderStrategy === 1 && item.amountRemaining !== 0 "> All Or Nothing </td>
-                                                          <td *ngIf="item.orderStrategy === 2 && item.amountRemaining !== 0"> Good Till Day </td>
-                                                          <td *ngIf="item.orderStrategy === 3 && item.amountRemaining !== 0">  Good Till Month </td>
-                                                          <td *ngIf="item.orderStrategy === 4 && item.amountRemaining !== 0"> Market Order </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
-                                                          <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
-                                                      </tr>
-                                                  </tbody>
-                                              </table>
-                                          </div>
-                                      </div>           
-                                  </div>              
-                              </div>
-                          
-                          </div>
-                      
-                  
-                      
-                      </div >
-                  </mat-tab>
-              </mat-tab-group>
-        
-            
-      
-  
+
   
         <div class="container-fluid container-lg container-home" style="font-family: 'Inter', serif;">
             

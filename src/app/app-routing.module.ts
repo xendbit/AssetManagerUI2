@@ -65,7 +65,7 @@ const routes: Routes =[
     path: 'add-issuer',
     component: IssuerComponent
   },
-  { path: 'all-users',       
+  { path: 'view-users',       
   component: AllUsersComponent 
   },
   {

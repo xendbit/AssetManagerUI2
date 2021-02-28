@@ -1,3 +1,4 @@
+import { AssetsService } from './../services/assets.service';
 import { AdminService } from './../services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute } from '@angular/router'
@@ -14,12 +15,17 @@ export class AllUsersComponent implements OnInit {
   firstName: any;
   role: any;
   investor: any;
+  assets: any;
+  primaryMarket: any[];
+  admin: any;
+  issuer: any;
   
  
 
-  constructor(public activatedRoute: ActivatedRoute, public adminService: AdminService) { }
+  constructor(public activatedRoute: ActivatedRoute, public adminService: AdminService, public assetService: AssetsService) { }
 
   ngOnInit(): void {
+    this.getAssets();
     this.activatedRoute.paramMap
     .subscribe(
         () => {
@@ -30,7 +36,11 @@ export class AllUsersComponent implements OnInit {
                 this.email = window.history.state.email;
                 this.role = window.history.state.role;
                 if (this.role === 0 ) {
-
+                  this.getInvestors();
+                } else if ( this.role === 1) {
+                  this.getAdmin();
+                } else if (this.role === 2) {
+                  this.getIssuer();
                 }
                
             }
@@ -52,8 +62,65 @@ export class AllUsersComponent implements OnInit {
           init.push(element);
         } 
       })
-      console.log('this is it', init);
+      
+      this.investor = init[0];
+      console.log('this is it', this.investor);
     })
+  }
+
+  getAdmin() {
+    this.adminService.getAllUsers(1).subscribe( res => {
+      console.log('this is investor', res);
+      let investors = res['data'];
+      let init = [];
+      investors.forEach(element => {
+        if (element.id === this.Id && element.role === 1 ) {
+          init.push(element);
+        } 
+      })
+      
+      this.admin = init[0];
+    })
+  }
+
+  getIssuer() {
+    this.adminService.getAllUsers(2).subscribe( res => {
+      console.log('this is investor', res);
+      let investors = res['data'];
+      let init = [];
+      investors.forEach(element => {
+        if (element.id === this.Id && element.role === 2 ) {
+          init.push(element);
+        } 
+      })
+      
+      this.issuer = init[0];
+    })
+  }
+
+
+  getAssets() {
+    this.assetService.showSpinner();
+    this.assetService.getAllAssets().subscribe(data => {
+      this.assets = data['data']['items'];
+      let primary = [];
+      this.assets.forEach(element => {
+        if (element.market === 0 && element.approved === 1 ) {
+          primary.push(element);
+        }
+      });
+    
+      this.primaryMarket =  primary ;
+      this.assetService.stopSpinner();
+    },
+    err => {
+        console.log(err);
+        this.assetService.stopSpinner();
+    },
+    () => { 
+      this.assetService.stopSpinner();
+    }
+    );
   }
 
 

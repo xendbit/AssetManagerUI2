@@ -61,9 +61,28 @@ export class BuyOrdersComponent implements OnInit {
         );
   }
 
-  imitate(orderId) {
+  cancelOrder(orderId) {
     console.log('this is order', orderId);
-    this.orderId = orderId;
+    this.assetService.showSpinner();
+    this.assetService.cancelOrder(orderId).subscribe(res => {
+      console.log('this is order result', res);
+      if (res['status'] === 'success') {
+        this.ngOnInit();
+        this.assetService.showNotification('top', 'center', 'Order has been cancelled successfully', 'success');
+        this.assetService.stopSpinner();
+      } else {
+        this.assetService.showNotification('top', 'center', 'There has been an error while trying to cancel this order', 'danger');
+        this.assetService.stopSpinner();
+      }
+      
+    },
+    err => {
+        console.log(err);
+        this.assetService.showNotification('top', 'center', 'There has been an error while trying to cancel this order', 'danger');
+        this.assetService.stopSpinner();
+    },
+    () => { }
+    );
   }
 
   getAssets() {

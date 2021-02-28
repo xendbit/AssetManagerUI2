@@ -172,7 +172,7 @@ export class AdminSettingsComponent implements OnInit {
     this.userEmail = email;
     this.phone = phone;
 
-    this.router.navigateByUrl('/all-users', {state : {firstName: firstName, id: id, lastName: lastName, email: email, role: role}})
+    this.router.navigateByUrl('/view-users', {state : {firstName: firstName, id: id, lastName: lastName, email: email, role: role}})
   }
 
 

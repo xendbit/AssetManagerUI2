@@ -42,19 +42,19 @@
                                           <td> {{item.originalAmount}} </td>
                                           <td> {{item.price}} </td>
                                           <td>
-                                            <button (click)="imitate(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.id !== this.orderId"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button (click)="cancelOrder(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.orderIsCancelled === false"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
                                             </button>
 
-                                            <button *ngIf="item.amountRemaining === 0 " disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button *ngIf="item.amountRemaining === 0  && item.orderIsCancelled === !true" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
                                             </button>
 
-                                            <button *ngIf="item.id === this.orderId" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button *ngIf="item.orderIsCancelled === true" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
@@ -125,7 +125,7 @@
                                         <td> {{item.originalAmount}} </td>
                                         <td> {{item.price}} </td>
                                         <td>
-                                            <button (click)="imitate(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.id !== this.orderId"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button (click)="cancelOrder(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.orderIsCancelled !== true"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
@@ -137,7 +137,7 @@
                                             
                                             </button>
 
-                                            <button *ngIf="item.id === this.orderId" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button *ngIf="item.orderIsCancelled === true" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
