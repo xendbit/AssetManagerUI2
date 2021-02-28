@@ -1,3 +1,4 @@
+import { AllUsersComponent } from './all-users/all-users.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AboutComponent } from './about/about.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -70,6 +71,9 @@ const routes: Routes =[
   },
   { path: 'issue',       
     component: IssueAssetsComponent 
+  },
+  { path: 'all-users',       
+  component: AllUsersComponent 
   },
   {
     path: 'request-password',

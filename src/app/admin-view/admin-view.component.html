@@ -56,6 +56,9 @@
                             <b>Remaining Shares:</b> {{this.remainingShares}}
                           </p>
                           <p>
+                            <b>Market:</b> Secondary
+                          </p>
+                          <p>
                             <b> Token ID: </b> 
                              <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
                              
@@ -191,16 +194,72 @@
                                         </div>
 
                                         <div class="row">
-                                          <p style="margin-left: 20%; margin-right: 28%;">
+                                          <p style="margin-left: 19%; margin-right: 28%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> {{this.secondaryPrice * this.quantity}} </b>
+                                          <b> {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
                                       </div>
                                         
                                         
                                     </div>
-                                    <div *ngIf="this.fromSellOrder">
-                                        Please confirm that you intend to sell {{this.quantity}} amount of {{this.asset.titleOfWork}} at ${{this.secondaryPrice}}
+                                    <div *ngIf="!this.fromSellOrder">
+
+                                        Please confirm that you intend to sell {{this.quantity}} amount of {{this.asset.titleOfWork}} with the following breakdown:
+
+                                        <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
+                                      </div>
+                                      <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 30%;">
+                                              <b>Price: </b> 
+                                          </p>
+                                          <b> ${{this.secondaryPrice}} </b>
+                                      </div>
+                                      <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 24%;">
+                                              <b> Quantity: </b> 
+                                          </p>
+                                          <b> {{this.quantity}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 20%; margin-right: 25%;">
+                                          <b>SMS Fee:</b>
+                                        </p>
+                                        <b> ${{this.fees.smsNotification}} </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 20%; margin-right: 25%;">
+                                          <b>
+                                            NSE Fee:
+                                          </b>
+                                        </p>
+                                        <b>
+                                          ${{this.fees.nse}}
+                                        </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 16%;">
+                                          <b> Transaction Fee: </b>
+                                        </p>
+                                        <b> ${{this.fees.transaction}} </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 17%;">
+                                          <b> Blockchain Fee: </b>
+                                        </p>
+                                        <b> ${{this.fees.blockchain}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 28%;">
+                                            <b> Total: </b> 
+                                        </p>
+                                        <b> {{this.secondaryPrice + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                    </div>
                                     </div>
                                   
                                 </div>
@@ -260,6 +319,9 @@
                               </p>
                               <p>
                                 <b>Remaining Shares:</b> {{this.remainingShares}}
+                              </p>
+                              <p>
+                                <b>Market:</b> Secondary
                               </p>
                               <p>
                                 <b> Token ID: </b>  
@@ -421,7 +483,7 @@
                                             <p style="margin-left: 20%; margin-right: 24%;">
                                                 <b> Quantity: </b> 
                                             </p>
-                                            <b> ${{this.quantity}} </b>
+                                            <b> {{this.quantity}} </b>
                                         </div>
 
                                         <div class="row">
@@ -460,13 +522,68 @@
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice * this.quantity}} </b>
+                                          <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
                                       </div>
                                         
                                         
                                     </div>
                                     <div *ngIf="!this.fromOrder">
-                                        Please confirm that you intend to purchase {{this.quantity}} amount of {{this.asset.titleOfWork}} at ${{this.secondaryPrice + this.fees.blockchain + this.fees.transaction + this.fees.nse + this.fees.smsNotification}}
+                                        Please confirm that you intend to purchase {{this.quantity}} shares of {{this.asset.titleOfWork}}:
+
+                                        <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 30%;"> Title: </p> <b> {{this.asset.titleOfWork}} </b>
+                                      </div>
+                                      <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 30%;">
+                                              <b>Price: </b> 
+                                          </p>
+                                          <b> ${{this.secondaryPrice}} </b>
+                                      </div>
+                                      <div class="row">
+                                          <p style="margin-left: 20%; margin-right: 24%;">
+                                              <b> Quantity: </b> 
+                                          </p>
+                                          <b> {{this.quantity}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 20%; margin-right: 25%;">
+                                          <b>SMS Fee:</b>
+                                        </p>
+                                        <b> ${{this.fees.smsNotification}} </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 20%; margin-right: 25%;">
+                                          <b>
+                                            NSE Fee:
+                                          </b>
+                                        </p>
+                                        <b>
+                                          ${{this.fees.nse}}
+                                        </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 16%;">
+                                          <b> Transaction Fee: </b>
+                                        </p>
+                                        <b> ${{this.fees.transaction}} </b>
+                                      </div>
+      
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 17%;">
+                                          <b> Blockchain Fee: </b>
+                                        </p>
+                                        <b> ${{this.fees.blockchain}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 30%;">
+                                            <b> Total: </b> 
+                                        </p>
+                                        <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                    </div>
                                     </div>
                                   
                                 </div>
@@ -555,7 +672,7 @@
                    
                                
                             <div style="padding-bottom: 20px; ">
-                                <button *ngIf="this.amount" (click)="sendMarketOrder()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                                <button *ngIf="this.amount" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
                             
                                 Place Order
                             
@@ -567,6 +684,28 @@
                               
                                   </button>
                             
+                            </div>
+                            <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div>
+                                        Please confirm that you intend to buy {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
+                                      </div>
+                                    
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                    <button data-dismiss="modal"  (click)="sendMarketOrder()" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                            </form>
                  

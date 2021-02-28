@@ -42,29 +42,58 @@
                                           <td> {{item.originalAmount}} </td>
                                           <td> {{item.price}} </td>
                                           <td>
-                                            <button *ngIf="!this.cancelled && item.amountRemaining > 0" (click)="imitate()" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button (click)="imitate(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.id !== this.orderId"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
                                             </button>
 
-                                            <button *ngIf="item.amountRemaining === 0" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button *ngIf="item.amountRemaining === 0 " disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
                                             </button>
 
-                                            <button *ngIf="this.cancelled" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                                            <button *ngIf="item.id === this.orderId" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
                                                 Cancel
                                             
                                             </button>
+
                                           </td>
                                           <!-- <td> {{item.orderDate  | date : 'short'}} </td> -->
                                       </tr>
                                   </tbody>
+                                  
                                 </table>
+
+                                
                             </div>
+
+
+                            <!-- <div  class="modal fade" id="orderModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>
+                                          Please confirm that you intend to cancel this order even with shares remaining.  
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                      <button data-dismiss="modal"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> -->
+
                         </div>
     
                     </mat-tab>
@@ -80,7 +109,8 @@
                                       <th> Token ID </th>
                                       <th>Original amount</th>
                                       <th> Price</th>
-                                      <th> Order Date </th>
+                                      <th> Action</th>
+                                      <!-- <th> Order Date </th> -->
                                   </thead>
                                   <tbody *ngFor="let item of this.sellOrders">
                                       <tr class="Table">
@@ -94,7 +124,27 @@
                                         <td> {{item.tokenId}} </td>
                                         <td> {{item.originalAmount}} </td>
                                         <td> {{item.price}} </td>
-                                        <td> {{item.orderDate  | date : 'short'}} </td>
+                                        <td>
+                                            <button (click)="imitate(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.id !== this.orderId"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+
+                                            <button *ngIf="item.amountRemaining === 0 " disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+
+                                            <button *ngIf="item.id === this.orderId" disabled type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
+                
+                                                Cancel
+                                            
+                                            </button>
+
+                                        </td>
+                                        <!-- <td> {{item.orderDate  | date : 'short'}} </td> -->
                                       </tr>
                                   </tbody>
                                 </table>

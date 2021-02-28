@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AssetsService } from '../services/assets.service';
 import { Component, OnInit } from '@angular/core';
 
+declare var PaystackPop: any;
 declare var $: any;
 
 @Component({

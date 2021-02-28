@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 import { ComponentsModule } from './components/components.module';
@@ -51,6 +52,7 @@ import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.co
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AboutComponent } from './about/about.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { AllUsersComponent } from './all-users/all-users.component';
 
 
 
@@ -108,10 +110,13 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
     SellAssetComponent,
     DashboardComponent,
     AboutComponent,
-    AdminSettingsComponent
+    AdminSettingsComponent,
+    AllUsersComponent
 
   ],
-  providers: [],
+  providers: [
+     {provide: LocationStrategy, useClass: HashLocationStrategy},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,11 +33,11 @@
 
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
-                                <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                    <mat-label style="color: black;">
-                                        Art Title:
-                                    </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
+                                <mat-label style="color: black;">
+                                  Art Title:
+                               </mat-label>
+                                <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;"> 
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
                                   <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
                                 </mat-form-field>
                               </div>
@@ -45,11 +45,11 @@
 
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Name of Artist:
+                               </mat-label>
                                 <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Name of Artist:
-                                  </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                                   <input matInput  type="text" id="artistName" name="artistName"  formControlName="artistName">
                                 </mat-form-field>
                               </div>
@@ -57,11 +57,11 @@
 
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Asset Symbol:
+                               </mat-label>
                                 <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Asset Symbol:
-                                  </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
                                   <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
                                 </mat-form-field>
                               </div>
@@ -69,12 +69,13 @@
 
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Description:
+                                </mat-label>
                                 <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Description:
-                                  </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">dehaze</mat-icon>
-                          <textarea  matInput type="text" id="description" formControlName="description" name="description">  </textarea>
+                                 
+                                <mat-icon matPrefix style="margin-right: 2rem ;">dehaze</mat-icon>
+                                <textarea  matInput type="text" id="description" formControlName="description" name="description">  </textarea>
                                 </mat-form-field>
                               </div>
                           </div>
@@ -101,23 +102,23 @@
 
                           <div class="row" *ngIf="radioGroup.value === true">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Quantity
+                              </mat-label>
                                 <mat-form-field disabled class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Quantity:
-                                  </mat-label>
                           <mat-icon matPrefix style="margin-right: 2rem ;">hourglass_empty</mat-icon>
-                                  <input matInput type="number" id="totalSupply" formControlName="totalSupply" name="totalSupply" placeholder="1" >
+                                  <input matInput [readonly]="!editable" type="number" id="totalSupply" formControlName="totalSupply" name="totalSupply" placeholder="1" >
                                 </mat-form-field>
                               </div>
                           </div>
 
                           <div class="row" *ngIf="radioGroup.value === false">
                             <div class="col-lg-12 col-md-12 col-sm-12">
+                              <mat-label style="color: black;">
+                                Quantity:
+                            </mat-label>
                               <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                <mat-label style="color: black;">
-                                    Quantity:
-                                </mat-label>
-                        <mat-icon matPrefix style="margin-right: 2rem ;">hourglass_empty</mat-icon>
+                                <mat-icon matPrefix style="margin-right: 2rem ;">hourglass_empty</mat-icon>
                                 <input matInput  type="number" id="totalSupply" formControlName="totalSupply" name="totalSupply" >
                               </mat-form-field>
                             </div>
@@ -125,11 +126,11 @@
 
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Issuing Price:
+                                </mat-label>
                                 <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Issuing Price:
-                                  </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">swap_horiz</mat-icon>
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">swap_horiz</mat-icon>
                                   <input matInput type="number" id="issuingPrice" formControlName="issuingPrice" name="issuingPrice">
                                 </mat-form-field>
                               </div>
@@ -137,11 +138,11 @@
 
                           <div class="row" *ngIf="radioGroup.value === false">
                               <div class="col-lg-12 col-md-12 col-sm-12">
+                                <mat-label style="color: black;">
+                                  Available Shares:
+                               </mat-label>
                                 <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                  <mat-label style="color: black;">
-                                      Available Shares:
-                                  </mat-label>
-                          <mat-icon matPrefix style="margin-right: 2rem ;">trending_up</mat-icon>
+                                  <mat-icon matPrefix style="margin-right: 2rem ;">trending_up</mat-icon>
                                   <input matInput type="number" id="availableShares" formControlName="availableShares" name="availableShares">
                                 </mat-form-field>
                               </div>
@@ -149,12 +150,12 @@
 
                           <div class="row" *ngIf="radioGroup.value === true">
                             <div class="col-lg-12 col-md-12 col-sm-12">
+                              <mat-label style="color: black;">
+                                Available Shares:
+                            </mat-label>
                               <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
-                                <mat-label style="color: black;">
-                                    Available Shares:
-                                </mat-label>
-                        <mat-icon matPrefix style="margin-right: 2rem ;">trending_up</mat-icon>
-                                <input matInput type="number" id="availableShares" formControlName="availableShares" name="availableShares" placeholder="1">
+                                <mat-icon matPrefix style="margin-right: 2rem ;">trending_up</mat-icon>
+                                <input matInput [readonly]="!editable" type="number" id="availableShares" formControlName="availableShares" name="availableShares" placeholder="1">
                               </mat-form-field>
                             </div>
                         </div>

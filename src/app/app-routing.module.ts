@@ -1,3 +1,4 @@
+import { AllUsersComponent } from './all-users/all-users.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AboutComponent } from './about/about.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
@@ -63,6 +64,9 @@ const routes: Routes =[
   {
     path: 'add-issuer',
     component: IssuerComponent
+  },
+  { path: 'all-users',       
+  component: AllUsersComponent 
   },
   {
     path: 'issuer-dashboard',

@@ -17,6 +17,7 @@ export class BuyOrdersComponent implements OnInit {
   totalSellOrders: any;
   totalOrders: any;
   cancelled: boolean;
+  orderId: any;
 
   constructor(public assetService: AssetsService, public router: Router) { }
 
@@ -32,7 +33,6 @@ export class BuyOrdersComponent implements OnInit {
   getBuyOrders() {
       this.assetService.ordersByBuyer(this.userId).subscribe(data => {
           this.buyOrders = data['data']['items'];
-          console.log('this is orders', data['data']['meta']['totalItems'])
           this.totalBuyOrders = data['data']['meta']['totalItems'];
       },
       err => {
@@ -47,7 +47,7 @@ export class BuyOrdersComponent implements OnInit {
       this.assetService.ordersBySeller(this.userId).subscribe(sell => {
         this.sellOrders = sell['data']['items'];
         this.assetService.stopSpinner();
-        console.log('this is data', sell['data']['meta']['totalItems']);
+        console.log('this is data', sell['data']['items']);
         this.totalSellOrders = sell['data']['meta']['totalItems'];
         this.totalOrders = this.totalBuyOrders + this.totalSellOrders;
         },
@@ -61,8 +61,9 @@ export class BuyOrdersComponent implements OnInit {
         );
   }
 
-  imitate() {
-    this.cancelled = true;
+  imitate(orderId) {
+    console.log('this is order', orderId);
+    this.orderId = orderId;
   }
 
   getAssets() {

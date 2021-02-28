@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './../services/admin.service';
 import { AssetsService } from './../services/assets.service';
@@ -34,66 +35,83 @@ export class AdminSettingsComponent implements OnInit {
     { "name": 'Id el Maulud',  day: "19 Oct", id: 13},
   ];
 
-  Month: { name: string}[] = [
-    { "name": 'Jan'},
-    { "name": '	Feb'},
-    { "name": 'Mar'},
-    { "name": 'Apr'},
-    { "name": '	May'},
-    { "name": 'Jun'},
-    { "name": 'Jul'},
-    { "name": 'Aug'},
-    { "name": 'Sep'},
-    { "name": 'Oct'},
-    { "name": 'Nov'},
-    { "name": 'Dec'},
-  ];
+  investor: boolean;
+  firstName: any;
+  lastName: any;
+  email: any;
+  phone: any;
+  disabledId: any;
 
-  Day: { name: number}[] = [
-    { "name": 1},
-    { "name": 2},
-    { "name": 3},
-    { "name": 4},
-    { "name": 5},
-    { "name": 6},
-    { "name": 7},
-    { "name": 8},
-    { "name": 9},
-    { "name": 10},
-    { "name": 11},
-    { "name": 12},
-    { "name": 13},
-    { "name": 14},
-    { "name": 15},
-    { "name": 16},
-    { "name": 17},
-    { "name": 18},
-    { "name": 19},
-    { "name": 20},
-    { "name": 21},
-    { "name": 22},
-    { "name": 23},
-    { "name": 24},
-    { "name": 25},
-    { "name": 26},
-    { "name": 27},
-    { "name": 28},
-    { "name": 29},
-    { "name": 30},
-    { "name": 31}
-  ];
+  // Month: { name: string}[] = [
+  //   { "name": 'Jan'},
+  //   { "name": '	Feb'},
+  //   { "name": 'Mar'},
+  //   { "name": 'Apr'},
+  //   { "name": '	May'},
+  //   { "name": 'Jun'},
+  //   { "name": 'Jul'},
+  //   { "name": 'Aug'},
+  //   { "name": 'Sep'},
+  //   { "name": 'Oct'},
+  //   { "name": 'Nov'},
+  //   { "name": 'Dec'},
+  // ];
+
+  // Day: { name: number}[] = [
+  //   { "name": 1},
+  //   { "name": 2},
+  //   { "name": 3},
+  //   { "name": 4},
+  //   { "name": 5},
+  //   { "name": 6},
+  //   { "name": 7},
+  //   { "name": 8},
+  //   { "name": 9},
+  //   { "name": 10},
+  //   { "name": 11},
+  //   { "name": 12},
+  //   { "name": 13},
+  //   { "name": 14},
+  //   { "name": 15},
+  //   { "name": 16},
+  //   { "name": 17},
+  //   { "name": 18},
+  //   { "name": 19},
+  //   { "name": 20},
+  //   { "name": 21},
+  //   { "name": 22},
+  //   { "name": 23},
+  //   { "name": 24},
+  //   { "name": 25},
+  //   { "name": 26},
+  //   { "name": 27},
+  //   { "name": 28},
+  //   { "name": 29},
+  //   { "name": 30},
+  //   { "name": 31}
+  // ];
   fees: any;
   marketSettings: any;
   paystackKey: any;
   holidays: any;
   error: any;
+  initHoliday: any[];
+  initHolId: any;
+  issuers: any;
+  investors: any;
+  admins: any;
+  userEmail: any;
 
-  constructor(public adminService: AdminService, public assetsService: AssetsService) { }
+  constructor(public adminService: AdminService, public assetsService: AssetsService, public router: Router) { }
 
   ngOnInit(): void {
     this.getFees();
     this.getMarketSettings();
     this.getHolidays();
+    this.getInvestors();
+    this.getAdmins();
+    this.getIssuers();
+
   }
 
   getFees() {
@@ -102,10 +120,36 @@ export class AdminSettingsComponent implements OnInit {
     })
   }
 
+  getAdmins() {
+    this.adminService.getAllUsers(1).subscribe(res => {
+      console.log('this is admin', res);
+      this.admins = res['data'];
+    })
+  }
+
+  getInvestors() {
+    this.adminService.getAllUsers(0).subscribe( res => {
+      console.log('this is investor', res);
+      this.investors = res['data'];
+    })
+  }
+
+  getIssuers() {
+    this.adminService.getAllUsers(2).subscribe( res => {
+      console.log('this is issuer', res);
+      this.issuers = res['data'];
+    })
+  }
+
   getMarketSettings() {
     this.adminService.getMarketSettings().subscribe(res => {
       this.marketSettings = res['data'];
     })
+  }
+
+  initSetNewHolidayData(id, name) {
+   this.initHoliday = name;
+   this.initHolId = id
   }
 
   getHolidays() {
@@ -118,6 +162,23 @@ export class AdminSettingsComponent implements OnInit {
     console.log('this is it', updateHolidayForm.value);
     console.log('this is that', this.updateHolidayEnd)
 
+  }
+
+  view(id, firstName, lastName, email, phone, role) {
+    console.log('i am clicked')
+    this.investor = true;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.userEmail = email;
+    this.phone = phone;
+
+    this.router.navigateByUrl('/all-users', {state : {firstName: firstName, id: id, lastName: lastName, email: email, role: role}})
+  }
+
+
+  delete(Id) {
+    console.log('this is order', Id);
+    this.disabledId = Id;
   }
 
   updateFees(feeForm: NgForm) {

@@ -392,8 +392,14 @@ getSellOrders() {
       this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
       return;
     }
+
+    // if (!this.fromOrder && this.quantity > this.remainingShares) {
+    //   this.assetService.stopSpinner();
+    //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+    //   return;
+    // }
     if (!this.fromOrder) {
-      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity) {
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
         this.balanceComplete = false;
         if (this.orderStrategy === null ) {
           this.orderStrategy = 0;
@@ -401,22 +407,25 @@ getSellOrders() {
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
         return;
-      } else if(this.balance >= this.secondaryPrice * this.asset.sharesAvailable) {
+      } else if(this.balance >= this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
         this.balanceComplete = true;
       }
     } else if (this.fromOrder) {
       console.log('this is from order')
-      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity) {
+      if (this.balance == 0 || this.balance < this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
         console.log('this is from order')
+        console.log('this is price from order', this.secondaryPrice)
         this.fromOrder = null;
         this.balanceComplete = false;
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
         return;
-      } else if(this.balance >= this.asset.issuingPrice * this.quantity) {
+      } else if(this.balance >= this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
         this.balanceComplete = true;
       }
     }
+
+  
     
 
     let body;
@@ -453,6 +462,11 @@ getSellOrders() {
   }
 
   sendMarketOrder() {
+    // if (this.amount > this.remainingShares) {
+    //   this.assetService.stopSpinner();
+    //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+    //   return;
+    // }
     this.assetService.showSpinner();
     if (!this.amount) {
       this.assetService.stopSpinner();

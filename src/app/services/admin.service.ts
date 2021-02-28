@@ -67,6 +67,13 @@ export class AdminService {
     return this.httpClient.get(`${this.baseUrl}/market-settings`, {headers});
   }
 
+  getAllUsers(role) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.api_key);
+    return this.httpClient.get(`${this.baseUrl}/user/users-by-role/${role}`, {headers});
+  }
+
   updateMarketSettings(percMinBuyQuantity, percPriceChangeLimit, primaryMarketHoldingPeriod, maxNoOfDaysForInfinityOrders) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');

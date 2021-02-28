@@ -167,7 +167,24 @@ export class ViewAssetComponent implements OnInit {
 
   buy(buyForm: NgForm) {
     let orderStrategy;
-    if (!this.amount || this.quantity) {
+    var percentToGet = this.marketSettings.percMinBuyQuantity;
+
+    console.log('this is amount', this.amount);
+     console.log('this is amount', this.quantity);
+
+    if (this.quantity) {
+      var percent = (percentToGet / 100) * this.quantity;
+    } else if (this.amount) {
+      var percent = (percentToGet / 100) * this.amount;
+    }
+
+    console.log('this is percentage', percent);
+
+    if (percent < this.marketSettings.percMinBuyQuantity) {
+      this.assetService.showNotification('top', 'center', "The minimum buy quantity for this asset is set at " + this.marketSettings.percMinBuyQuantity + "%" + ", please update your order and try again.", 'danger');
+      return;
+    }
+    if (!this.amount) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
       return;
     }
@@ -177,11 +194,11 @@ export class ViewAssetComponent implements OnInit {
     }
     this.total = this.amount * this.asset.issuingPrice;
     console.log('this is total', this.total)
-    if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.amount) {
+    if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.balanceComplete = false;
       this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
       return;
-    } else if(this.balance >= this.asset.issuingPrice * this.asset.sharesAvailable) {
+    } else if(this.balance >= this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.balanceComplete = true;
     }
     
@@ -207,7 +224,6 @@ export class ViewAssetComponent implements OnInit {
         "orderId": this.orderId,
         market: 1
       }
-      console.log('this is body', body)
     } else {
       console.log('this is primary market')
       body = {
@@ -345,6 +361,11 @@ export class ViewAssetComponent implements OnInit {
   
   sendMarketOrder() {
     console.log('this is amount', this.amount)
+    if (this.amount > this.remainingShares) {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+      return;
+    }
     this.assetService.showSpinner();
     if (!this.amount) {
       this.assetService.stopSpinner();
@@ -371,7 +392,7 @@ export class ViewAssetComponent implements OnInit {
         console.log('this is response', data);
         if (data['status'] == 'success') {
           this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'Asset has been bought successfully', 'success');
+          this.assetService.showNotification('bottom', 'center', 'Asset has been sold successfully', 'success');
           this.router.navigateByUrl('/home')
         } else {
           this.assetService.stopSpinner();
