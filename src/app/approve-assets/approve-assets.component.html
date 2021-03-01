@@ -22,7 +22,7 @@
             <mat-card-content  style="position: relative; margin-bottom: 60px; ">
               <img src="{{item.imageUrl}}" class="image">
               <p class="paragraph">
-                <b> Price: </b> ${{item.price}}
+                <b> Price: </b> {{item.price | currency:"$"}}
               </p>
               <p class="paragraph">
                 <b> Artwork Title: </b> {{item.titleOfWork}}

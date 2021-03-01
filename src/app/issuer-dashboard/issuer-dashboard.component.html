@@ -49,7 +49,7 @@
                                 <i class="material-icons" style="color: black;">info_outline</i>
                             </div>
                             <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Value</p>
-                            <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                            <h3 class="card-title"  style="color: black;">   {{3000 | currency:"$"}} </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -67,7 +67,7 @@
                                 <i class="material-icons" style="color: black;">call_made</i>
                             </div>
                             <p class="text-uppercase small font-weight-medium" style="color: black;">Recent Transaction Value</p>
-                            <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                            <h3 class="card-title"  style="color: black;">  {{3000 | currency:"$"}} </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -105,7 +105,7 @@
                                 <td style="color: black;">{{item.artistName}}</td>
                                 <td style="color: black;"> {{item.titleOfWork}} </td>
                                 <td style="color: black;"> {{item.totalSupply}} </td>
-                                <td style="color: black;"> {{item.price }} </td>
+                                <td style="color: black;">  {{item.price | currency:"$"}} </td>
                                 <td style="color: black;">  {{item.sharesAvailable}}</td>
                                 
                                 <td style="color: black;"> {{item.symbol}} </td>
@@ -136,7 +136,7 @@
                                 <td style="color: black;"> {{item.totalSupply}} </td>
                                 <td style="color: black;"> {{item.price }} </td>
                                 <td style="color: black;">  {{item.sharesAvailable}}</td>
-                                <td style="color: black;"> {{item.issuingPrice}} </td>
+                                <td style="color: black;">  {{item.issuingPrice | currency:"$"}} </td>
                                 <td style="color: black;"> {{item.symbol}} </td>
                               </tr>
                           </tbody>

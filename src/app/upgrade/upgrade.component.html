@@ -99,7 +99,7 @@
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> ${{item.price}} 
+                            <b style="color: black !important;"> Price: </b>  {{item.price | currency:"$"}}
                         </p>
                         
                         
@@ -133,7 +133,7 @@
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> ${{item.price}} 
+                            <b style="color: black !important;"> Price: </b>  {{item.price| currency:"$"}}
                         </p>
                         <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;"> 
                             <b> Owned Shares: </b> {{this.shares}} 
@@ -168,7 +168,7 @@
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> ${{item.price}} 
+                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
                         </p>
                         
                         
@@ -229,7 +229,7 @@
                           <b> Title: </b> {{item.titleOfWork}}
                         </p>
                         <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> ${{item.price}} 
+                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
                         </p>
                         
                         

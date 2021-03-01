@@ -25,22 +25,22 @@
                     <form id="feeForm" #feeForm="ngForm">
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                         <mat-icon matPrefix style="margin-right: 2rem ;">chat</mat-icon>
-                        <input autofocus type="number" matInput placeholder="SMS Notification Fee - (current fee ₦{{this.fees.smsNotification}} )" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
+                        <input autofocus type="number" matInput placeholder="SMS Notification Fee - (current fee ₦{{this.fees.smsNotification}}.00 )" id="smsFee" name="smsFee" [(ngModel)]="smsFee" >
                         </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">attribution</mat-icon>
-                            <input autofocus type="number" matInput placeholder="NSE Fee - (current fee ₦{{this.fees.nse}} )" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
+                            <input autofocus type="number" matInput placeholder="NSE Fee - (current fee ₦{{this.fees.nse}}.00 )" id="nseFee" name="nseFee" [(ngModel)]="nseFee" >
                         </mat-form-field>
         
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">pattern</mat-icon>
-                            <input autofocus type="number" matInput placeholder="Transaction Fee - (current fee ₦{{this.fees.transaction}} )" id="transactionFee" name="transactionFee" [(ngModel)]="transactionFee" >
+                            <input autofocus type="number" matInput placeholder="Transaction Fee - (current fee ₦{{this.fees.transaction}}.00 )" id="transactionFee" name="transactionFee" [(ngModel)]="transactionFee" >
                         </mat-form-field>
             
                         <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 70%;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
-                            <input type="number" autocomplete="false" matInput placeholder="Blockchain Fee - (current fee ₦{{this.fees.blockchain}} )" id="blockchainFee" name="blockchainFee" [(ngModel)]="blockchainFee">
+                            <input type="number" autocomplete="false" matInput placeholder="Blockchain Fee - (current fee ₦{{this.fees.blockchain}}.00 )" id="blockchainFee" name="blockchainFee" [(ngModel)]="blockchainFee">
                         </mat-form-field>
                       <button (click)="updateFees(feeForm)"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
               

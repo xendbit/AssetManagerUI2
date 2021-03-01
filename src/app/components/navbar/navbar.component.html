@@ -135,7 +135,7 @@
         <div class="trial" *ngFor="let item of this.assets">
             <div class="texty" style="width: 100% !important; margin-right: 0 !important; font-family: 'Inter', serif">
                 <b> {{item.symbol}} </b>  -
-                <b> ${{item.price}} </b> 
+                <b> {{item.price | currency:"$"}}</b> 
             </div>
         </div>
        </div>

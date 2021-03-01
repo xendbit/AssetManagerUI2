@@ -16,7 +16,7 @@
                             <i class="material-icons" style="color: black;">waves</i>
                         </div>
                         <p class="text-uppercase small font-weight-medium" style="color: black;">Account Balance</p>
-                        <h3 class="card-title" style="color: black;"> ${{this.balance}} </h3>
+                        <h3 class="card-title" style="color: black; font-family: 'Cardo', serif !important;"> {{this.balance | currency:"$"}}  </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -33,7 +33,7 @@
                             <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
                         <p class="text-uppercase small font-weight-medium" style="color: black;">Total Orders Made</p>
-                        <h3 class="card-title"  style="color: black;"> {{this.totalOrders}} </h3>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -50,7 +50,7 @@
                             <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
                         <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Value</p>
-                        <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{3000 | currency:"$"}}  </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -68,7 +68,7 @@
                             <i class="material-icons" style="color: black;">call_made</i>
                         </div>
                         <p class="text-uppercase small font-weight-medium" style="color: black;">Recent Transaction Value</p>
-                        <h3 class="card-title"  style="color: black;"> $3000 </h3>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{3000 | currency:"$"}} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
@@ -138,7 +138,7 @@
                   <mat-card-content  style="position: relative; ">
                       <img src="{{item.imageUrl}}" class="image">
                       <p class="paragraph" style="font-family: 'Inter', serif;">
-                      <b> Price: </b> ${{item.price}}
+                      <b> Price: </b> {{item.price | currency:"$"}} 
                       </p>
                       <p class="paragraph" style="font-family: 'Inter', serif;">
                       <b> Artwork Title: </b> {{item.titleOfWork}}

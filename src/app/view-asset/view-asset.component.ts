@@ -163,6 +163,62 @@ export class ViewAssetComponent implements OnInit {
       this.holidays = res['data'];
     })
   }
+
+  secBuy(amount, price) {
+
+    let orderStrategy;
+    var percentToGet = this.marketSettings.percMinBuyQuantity;
+
+    console.log('this is amount', amount);
+
+    if (!amount) {
+      this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
+      return;
+    }
+    this.total = amount * this.asset.marketPrice;
+    console.log('this is total', this.total)
+    if (this.balance == 0 || this.balance < this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+      this.balanceComplete = false;
+      this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+      return;
+    } else if(this.balance >= this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+      this.balanceComplete = true;
+    }
+    
+  
+    let body;
+   
+      body = {
+        tokenId: this.asset.tokenId,
+        orderType: 0,
+        orderStrategy: 0,
+        amount: amount,
+        "price": price,
+        "goodUntil": 0,
+        "userId": parseInt(this.userId),
+        market: 1
+      }
+   
+    this.assetService.showSpinner();
+    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+      console.log('this is response', data);
+      if (data['status'] == 'success') {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('top', 'center', 'Order has been placed successfully', 'success');
+        this.router.navigateByUrl('/home')
+      } else {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('top', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
+      }
+      
+    }, err => {
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+    })
+
+  }
   
 
   buy(buyForm: NgForm) {
@@ -259,7 +315,7 @@ export class ViewAssetComponent implements OnInit {
     })
   }
 
-  sell(sellForm: NgForm, tokenId) {
+  sell(sellForm: NgForm) {
     console.log('this is price', this.price);
     if (!this.amount) {
       this.assetService.stopSpinner();
@@ -267,19 +323,13 @@ export class ViewAssetComponent implements OnInit {
       return;
     }
     this.assetService.showSpinner();
-    console.log('this is form', sellForm);
     this.price = sellForm.value.price;
-    const amount = sellForm.value.amount;
-    console.log('this is from form', amount);
     if (this.asset.market === 0) {
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
       return
     }
-    if (sellForm.value.orderStrategy === null || sellForm.value.orderStrategy === undefined) {
-      sellForm.value.orderStrategy = 0;
-    }
-    const orderStrategy = parseInt(sellForm.value.orderStrategy);
+    
     const body = {
         tokenId: this.asset.tokenId,
         orderType: 1,
@@ -359,13 +409,33 @@ export class ViewAssetComponent implements OnInit {
   }
 
   
-  sendMarketOrder() {
+  sendMarketOrder(radiogroup) {
     console.log('this is amount', this.amount)
-    if (this.amount > this.remainingShares) {
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+
+    let orderType;
+    let market;
+    if (radiogroup.value === 'buy' && this.balance < this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+      this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
+      return;
+     
+    } else if (radiogroup.value === 'buy' && this.balance >= this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
+      orderType = 0;
+      market = 1;
+    }
+
+    if (radiogroup.value === 'sell' && this.shares >= this.amount) {
+        orderType = 1;
+        market = 1;
+    } else if ( radiogroup.value === 'sell' && this.shares < this.amount ){
+      this.assetService.showNotification('bottom', 'center', 'You can not sell more than your available shares for this asset.', 'danger');
       return;
     }
+
+    // if (this.amount > this.remainingShares) {
+    //   this.assetService.stopSpinner();
+    //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+    //   return;
+    // }
     this.assetService.showSpinner();
     if (!this.amount) {
       this.assetService.stopSpinner();
@@ -378,26 +448,26 @@ export class ViewAssetComponent implements OnInit {
    
       body = {
         tokenId: this.asset.tokenId,
-        orderType: 1,
+        orderType: orderType,
         orderStrategy: 4,
         amount: this.amount,
         "price": 0,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
         "orderId": this.orderId,
-        market: 1
+        market: market
       }
     
       this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
         console.log('this is response', data);
         if (data['status'] == 'success') {
           this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'Asset has been sold successfully', 'success');
+          this.assetService.showNotification('bottom', 'center', 'Order has been placed successfully', 'success');
           this.router.navigateByUrl('/home')
         } else {
           this.assetService.stopSpinner();
           this.ngOnInit();
-          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
+          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
         }
         
       }, err => {

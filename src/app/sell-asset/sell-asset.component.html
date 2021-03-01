@@ -41,10 +41,10 @@
                           </p>
                 
                           <p>
-                            <b> Issuing Price: </b> ${{this.asset.issuingPrice}}
+                            <b> Issuing Price: </b>  {{this.asset.issuingPrice| currency:"$"}}
                           </p>
                           <p>
-                            <b> Price: </b> ${{this.asset.price}}
+                            <b> Price: </b>  {{this.asset.price | currency:"$"}}
                           </p>
                          <p>
                           <b> Symbol: </b> {{this.asset.symbol}}
@@ -245,7 +245,7 @@
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">  {{item.price | currency:"$"}}  </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.orderDate  | date }} </td>
                                                     </tr>
                                                 </tbody>
@@ -290,7 +290,7 @@
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price | currency:"$"}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
                                                     </tr>
                                                 </tbody>

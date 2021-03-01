@@ -461,12 +461,23 @@ getSellOrders() {
     })
   }
 
-  sendMarketOrder() {
-    // if (this.amount > this.remainingShares) {
-    //   this.assetService.stopSpinner();
-    //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
-    //   return;
-    // }
+  sendMarketOrder(radiogroup) {
+    console.log('this is ordertype', this.asset.marketPrice);
+    let orderType;
+    if (radiogroup.value === 'buy' && this.balance < this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+      this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
+      return;
+     
+    } else if (radiogroup.value === 'buy' && this.balance >= this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
+      orderType = 0;
+    }
+
+    if (radiogroup.value === 'sell' && this.shares >= this.amount) {
+        orderType = 1;
+    } else if ( radiogroup.value === 'sell' && this.shares < this.amount ){
+      this.assetService.showNotification('bottom', 'center', 'You can not sell more than your available shares for this asset.', 'danger');
+      return;
+    }
     this.assetService.showSpinner();
     if (!this.amount) {
       this.assetService.stopSpinner();
@@ -479,7 +490,7 @@ getSellOrders() {
    
       body = {
         tokenId: this.asset.tokenId,
-        orderType: 0,
+        orderType: orderType,
         orderStrategy: 4,
         amount: this.amount,
         "price": 0,
@@ -495,12 +506,12 @@ getSellOrders() {
       console.log('this is response', data);
       if (data['status'] == 'success') {
         this.assetService.stopSpinner();
-        this.assetService.showNotification('bottom', 'center', 'Asset has been bought successfully', 'success');
+        this.assetService.showNotification('bottom', 'center', 'Order has been placed successfully', 'success');
         this.router.navigateByUrl('/home')
       } else {
         this.assetService.stopSpinner();
         this.ngOnInit();
-        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
+        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
       }
       
     }, err => {

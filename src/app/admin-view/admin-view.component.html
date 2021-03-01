@@ -41,10 +41,7 @@
                           </p>
                 
                           <p>
-                            <b> Issuing Price: </b> ${{this.asset.issuingPrice}}
-                          </p>
-                          <p>
-                            <b> Price: </b> ${{this.asset.price}}
+                            <b> Market Price: </b>  {{this.asset.marketPrice | currency:"$"}}
                           </p>
                          <p>
                           <b> Symbol: </b> {{this.asset.symbol}}
@@ -83,7 +80,7 @@
                         <form #sellForm="ngForm" novalidate>
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                              <p><b> Account Balance: </b> ${{this.balance}} </p>
+                              <p><b> Account Balance: </b>  {{this.balance | currency:"$"}}</p>
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -152,7 +149,7 @@
                                             <p style="margin-left: 20%; margin-right: 30%;">
                                                 <b>Price: </b> 
                                             </p>
-                                            <b> ${{this.secondaryPrice}} </b>
+                                            <b>   {{this.secondaryPrice | currency:"$"}} </b>
                                         </div>
                                         <div class="row">
                                             <p style="margin-left: 20%; margin-right: 24%;">
@@ -165,7 +162,7 @@
                                           <p style="margin-left: 20%; margin-right: 25%;">
                                             <b>SMS Fee:</b>
                                           </p>
-                                          <b> ${{this.fees.smsNotification}} </b>
+                                          <b>  {{this.fees.smsNotification | currency:"$"}}</b>
                                         </div>
         
                                         <div class="row">
@@ -175,7 +172,7 @@
                                             </b>
                                           </p>
                                           <b>
-                                            ${{this.fees.nse}}
+                                              {{this.fees.nse | currency:"$"}}
                                           </b>
                                         </div>
         
@@ -183,21 +180,21 @@
                                           <p style="margin-left: 19%; margin-right: 16%;">
                                             <b> Transaction Fee: </b>
                                           </p>
-                                          <b> ${{this.fees.transaction}} </b>
+                                          <b>   {{this.fees.transaction | currency:"$"}} </b>
                                         </div>
         
                                         <div class="row">
                                           <p style="margin-left: 19%; margin-right: 17%;">
                                             <b> Blockchain Fee: </b>
                                           </p>
-                                          <b> ${{this.fees.blockchain}} </b>
+                                          <b>  {{this.fees.blockchain | currency:"$"}}</b>
                                         </div>
 
                                         <div class="row">
                                           <p style="margin-left: 19%; margin-right: 28%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                          <b>  {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}}</b>
                                       </div>
                                         
                                         
@@ -213,7 +210,7 @@
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b>Price: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice}} </b>
+                                          <b>  {{this.secondaryPrice | currency:"$"}} </b>
                                       </div>
                                       <div class="row">
                                           <p style="margin-left: 20%; margin-right: 24%;">
@@ -226,7 +223,7 @@
                                         <p style="margin-left: 20%; margin-right: 25%;">
                                           <b>SMS Fee:</b>
                                         </p>
-                                        <b> ${{this.fees.smsNotification}} </b>
+                                        <b>   {{this.fees.smsNotification | currency:"$"}}</b>
                                       </div>
       
                                       <div class="row">
@@ -236,7 +233,7 @@
                                           </b>
                                         </p>
                                         <b>
-                                          ${{this.fees.nse}}
+                                           {{this.fees.nse | currency:"$"}}
                                         </b>
                                       </div>
       
@@ -244,21 +241,21 @@
                                         <p style="margin-left: 19%; margin-right: 16%;">
                                           <b> Transaction Fee: </b>
                                         </p>
-                                        <b> ${{this.fees.transaction}} </b>
+                                        <b>  {{this.fees.transaction | currency:"$"}} </b>
                                       </div>
       
                                       <div class="row">
                                         <p style="margin-left: 19%; margin-right: 17%;">
                                           <b> Blockchain Fee: </b>
                                         </p>
-                                        <b> ${{this.fees.blockchain}} </b>
+                                        <b>   {{this.fees.blockchain | currency:"$"}}</b>
                                       </div>
 
                                       <div class="row">
                                         <p style="margin-left: 19%; margin-right: 28%;">
                                             <b> Total: </b> 
                                         </p>
-                                        <b> {{this.secondaryPrice + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                        <b> {{this.secondaryPrice + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}}</b>
                                     </div>
                                     </div>
                                   
@@ -309,7 +306,7 @@
                               </p>
                     
                               <p>
-                                <b> Issuing Price: </b> ${{this.asset.issuingPrice}}
+                                <b> Market Price: </b>  {{this.asset.marketPrice | currency:"$"}}
                               </p>
                              <p>
                               <b> Symbol: </b> {{this.asset.symbol}}
@@ -381,7 +378,7 @@
           
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                          <p><b> Account Balance: </b> ${{this.balance}} </p>
+                          <p><b> Account Balance: </b>  {{this.balance | currency:"$"}} </p>
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -477,7 +474,7 @@
                                             <p style="margin-left: 20%; margin-right: 30%;">
                                                 <b>Price: </b> 
                                             </p>
-                                            <b> ${{this.secondaryPrice}} </b>
+                                            <b>   {{this.secondaryPrice | currency:"$"}}</b>
                                         </div>
                                         <div class="row">
                                             <p style="margin-left: 20%; margin-right: 24%;">
@@ -490,7 +487,7 @@
                                           <p style="margin-left: 20%; margin-right: 25%;">
                                             <b>SMS Fee:</b>
                                           </p>
-                                          <b> ${{this.fees.smsNotification}} </b>
+                                          <b>  {{this.fees.smsNotification | currency:"$"}} </b>
                                         </div>
         
                                         <div class="row">
@@ -500,7 +497,7 @@
                                             </b>
                                           </p>
                                           <b>
-                                            ${{this.fees.nse}}
+                                            {{this.fees.nse | currency:"$"}}
                                           </b>
                                         </div>
         
@@ -508,21 +505,21 @@
                                           <p style="margin-left: 19%; margin-right: 16%;">
                                             <b> Transaction Fee: </b>
                                           </p>
-                                          <b> ${{this.fees.transaction}} </b>
+                                          <b>  {{this.fees.transaction | currency:"$"}} </b>
                                         </div>
         
                                         <div class="row">
                                           <p style="margin-left: 19%; margin-right: 17%;">
                                             <b> Blockchain Fee: </b>
                                           </p>
-                                          <b> ${{this.fees.blockchain}} </b>
+                                          <b>  {{this.fees.blockchain | currency:"$"}}</b>
                                         </div>
 
                                         <div class="row">
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b> Total: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                          <b> {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} </b>
                                       </div>
                                         
                                         
@@ -537,7 +534,7 @@
                                           <p style="margin-left: 20%; margin-right: 30%;">
                                               <b>Price: </b> 
                                           </p>
-                                          <b> ${{this.secondaryPrice}} </b>
+                                          <b>   {{this.secondaryPrice| currency:"$"}} </b>
                                       </div>
                                       <div class="row">
                                           <p style="margin-left: 20%; margin-right: 24%;">
@@ -550,7 +547,7 @@
                                         <p style="margin-left: 20%; margin-right: 25%;">
                                           <b>SMS Fee:</b>
                                         </p>
-                                        <b> ${{this.fees.smsNotification}} </b>
+                                        <b>  {{this.fees.smsNotification | currency:"$"}}</b>
                                       </div>
       
                                       <div class="row">
@@ -560,7 +557,7 @@
                                           </b>
                                         </p>
                                         <b>
-                                          ${{this.fees.nse}}
+                                           {{this.fees.nse | currency:"$"}}
                                         </b>
                                       </div>
       
@@ -568,21 +565,21 @@
                                         <p style="margin-left: 19%; margin-right: 16%;">
                                           <b> Transaction Fee: </b>
                                         </p>
-                                        <b> ${{this.fees.transaction}} </b>
+                                        <b>   {{this.fees.transaction | currency:"$"}} </b>
                                       </div>
       
                                       <div class="row">
                                         <p style="margin-left: 19%; margin-right: 17%;">
                                           <b> Blockchain Fee: </b>
                                         </p>
-                                        <b> ${{this.fees.blockchain}} </b>
+                                        <b>  {{this.fees.blockchain | currency:"$"}}</b>
                                       </div>
 
                                       <div class="row">
                                         <p style="margin-left: 19%; margin-right: 30%;">
                                             <b> Total: </b> 
                                         </p>
-                                        <b> ${{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification}} </b>
+                                        <b>  {{this.secondaryPrice * this.quantity + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} </b>
                                     </div>
                                     </div>
                                   
@@ -649,11 +646,30 @@
                     </mat-card-content>
 
                     <mat-card-content *ngIf="this.currentButton === 'second' ">
-                        <form #buyForm="ngForm" novalidate>
+                        <form #buyForm="ngForm" novalidate >
+
+                          <div class="row">
+                            <div>
+
+                              <mat-radio-group
+                                aria-labelledby="example-radio-group-label"
+                                class="example-radio-group"
+                                #radioGroup="matRadioGroup"
+                                style="color: black !important;">
+                                <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 3rem; margin-top: 1rem">
+                                  Buy Order
+                                </mat-radio-button>
+                                <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;">
+                                 Sell Order
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+
+                          </div>
            
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <p><b> Account Balance: </b> ${{this.balance}} </p>
+                                    <p><b> Account Balance: </b>   {{this.balance | currency:"$"}} </p>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -694,15 +710,79 @@
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">
+                                  <div class="modal-body" *ngIf="radioGroup.value === 'buy'">
                                       <div>
-                                        Please confirm that you intend to buy {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
+                                        Please confirm that you intend to buy {{this.asset.titleOfWork}} at market Order with the following breakdown in prices:  
+
+
+
+                                      
+                                      <div class="row" style="margin-top: 1rem;">
+                                          <p style="margin-left: 19%; margin-right: 29%;">
+                                              <b>Price: </b> 
+                                          </p>
+                                          <b>    {{this.asset.marketPrice | currency:"$"}} </b>
+                                      </div>
+                                      <div class="row">
+                                          <p style="margin-left: 19%; margin-right: 24%;">
+                                              <b> Quantity: </b> 
+                                          </p>
+                                          <b> {{this.amount}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 24%;">
+                                          <b>SMS Fee:</b>
+                                        </p>
+                                        <b>   {{this.fees.smsNotification | currency:"$"}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 24%;">
+                                          <b>
+                                            NSE Fee:
+                                          </b>
+                                        </p>
+                                        <b>
+                                         {{this.fees.nse | currency:"$"}}
+                                        </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 15%;">
+                                          <b> Transaction Fee: </b>
+                                        </p>
+                                        <b>    {{this.fees.transaction | currency:"$"}} </b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 15%;">
+                                          <b> Blockchain Fee: </b>
+                                        </p>
+                                        <b>    {{this.fees.blockchain | currency:"$"}}</b>
+                                      </div>
+
+                                      <div class="row">
+                                        <p style="margin-left: 19%; margin-right: 28%;">
+                                            <b> Total: </b> 
+                                        </p>
+                                        <b>    {{this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} </b>
+                                    </div>
+
                                       </div>
                                     
                                   </div>
+
+                                  <div class="modal-body" *ngIf="radioGroup.value === 'sell'">
+                                    <div>
+                                      Please confirm that you intend to sell {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
+                                    </div>
+                                  
+                                </div>
+
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                    <button data-dismiss="modal"  (click)="sendMarketOrder()" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                    <button data-dismiss="modal" (click)="sendMarketOrder(radioGroup)"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                                   </div>
                                 </div>
                               </div>
@@ -764,7 +844,7 @@
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">   {{item.price | currency:"$"}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.orderDate  | date }} </td>
                                                     </tr>
                                                 </tbody>
@@ -809,7 +889,7 @@
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.amountRemaining}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                        <td *ngIf="item.amountRemaining !== 0"> {{item.price}} </td>
+                                                        <td *ngIf="item.amountRemaining !== 0">   {{item.price | currency:"$"}} </td>
                                                         <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
                                                     </tr>
                                                 </tbody>
@@ -857,7 +937,7 @@
                 <mat-card-content  style="position: relative; ">
                     <img src="{{item.imageUrl}}" class="image">
                     <p class="paragraph" style="font-family: 'Inter', serif;">
-                      <b> Price: </b> ${{item.price}}
+                      <b> Price: </b> ${{item.price}}.00
                     </p>
                     <p class="paragraph" style="font-family: 'Inter', serif;">
                       <b> Artwork Title: </b> {{item.titleOfWork}}

@@ -18,7 +18,7 @@
                   <mat-card-content  style="position: relative; ">
                       <img src="{{item.imageUrl}}" class="image">
                       <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b> ${{item.price}}
+                        <b> Price: </b> {{item.price | currency:"$"}}
                       </p>
                       <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
                         <b> Artwork Title: </b> {{item.titleOfWork}}
@@ -45,7 +45,7 @@
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                          <b> Price: </b> ${{item.price}}
+                          <b> Price: </b>  {{item.price | currency:"$"}}
                         </p>
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
                           <b> Artwork Title: </b> {{item.titleOfWork}}
@@ -71,7 +71,7 @@
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b> ${{item.price}}
+                        <b> Price: </b>  {{item.price | currency:"$"}}
                         </p>
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
                         <b> Artwork Title: </b> {{item.titleOfWork}}
@@ -97,7 +97,7 @@
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b> ${{item.price}}
+                        <b> Price: </b>  {{item.price | currency:"$"}}
                         </p>
                         <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
                         <b> Artwork Title: </b> {{item.titleOfWork}}

@@ -40,7 +40,7 @@
                                           <td> {{item.amountRemaining}} </td>
                                           <td> {{item.tokenId}} </td>
                                           <td> {{item.originalAmount}} </td>
-                                          <td> {{item.price}} </td>
+                                          <td>  {{item.price | currency:"$"}} </td>
                                           <td>
                                             <button (click)="cancelOrder(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.orderIsCancelled === false"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 
@@ -123,7 +123,7 @@
                                         <td> {{item.amountRemaining}} </td>
                                         <td> {{item.tokenId}} </td>
                                         <td> {{item.originalAmount}} </td>
-                                        <td> {{item.price}} </td>
+                                        <td>   {{item.price | currency:"$"}} </td>
                                         <td>
                                             <button (click)="cancelOrder(item.id)" data-toggle="modal" data-target="#orderModalLong"  *ngIf="item.amountRemaining > 0 && item.orderIsCancelled !== true"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; border-color: transparent; width: 10rem !important;">
                 

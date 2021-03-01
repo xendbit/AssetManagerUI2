@@ -15,7 +15,7 @@
                                 <i class="material-icons" style="color: black;">waves</i>
                             </div>
                             <p class="text-uppercase small font-weight-medium" style="color: black; font-size: 13px;">Transaction Volume</p>
-                            <h3 class="card-title" style="color: black; font-size: 16px;"> $386,056 </h3>
+                            <h3 class="card-title" style="color: black; font-size: 16px;">  {{386056 | currency:"$"}} </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif; font-size: 10px;">
@@ -67,7 +67,7 @@
                                 <i class="material-icons" style="color: black;">call_made</i>
                             </div>
                             <p class="text-uppercase small font-weight-medium" style="color: black;  font-size: 13px;">Recent Transaction Value</p>
-                            <h3 class="card-title"  style="color: black; font-size: 16px;"> $3000 </h3>
+                            <h3 class="card-title"  style="color: black; font-size: 16px;">  {{3000 | currency:"$"}} </h3>
                         </div>
                         <div class="card-footer">
                             <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif; font-size: 10px;">
@@ -100,7 +100,7 @@
                                 <td> {{item.tokenId}} </td>
                                 <td> {{item.amountRemaining}} </td>
                                 <td> {{item.originalAmount}} </td>
-                                <td> {{item.price}} </td>
+                                <td> {{item.price | currency:"$"}} </td>
                                 <td *ngIf="item.orderType === 0"> Buy </td>
                                 <td *ngIf="item.orderType === 1"> Sell </td>
                                 <td *ngIf="item.orderStrategy === 0"> Good Till Cancel </td>

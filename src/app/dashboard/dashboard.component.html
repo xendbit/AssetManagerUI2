@@ -9,7 +9,7 @@
                             <i class="material-icons" style="color: white;">sensor_door</i>
                         </div>
                         <p class="card-category" style="color: rgb(255, 255, 255); font-size: 16px;">Wallet Balance</p>
-                        <h3 class="card-title" style="color: white; font-size: 18px;">${{this.balance}} </h3>
+                        <h3 class="card-title" style="color: white; font-size: 18px;"> {{this.balance | currency:"$"}} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: white;">
@@ -42,7 +42,7 @@
                             <i class="material-icons" style="color: white;">all_inclusive</i>
                         </div>
                         <p class="card-category" style="color: white; font-size: 16px;">Total Value of Assets</p>
-                        <h3 class="card-title"  style="color: white; font-size: 18px;"> $1,900 </h3>
+                        <h3 class="card-title"  style="color: white; font-size: 18px;">  {{1900 | currency:"$"}} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: white;">
@@ -59,7 +59,7 @@
                             <i class="material-icons" style="color: white;"> call_made</i>
                         </div>
                         <p class="card-category" style="color: white; font-size: 16px;">Recent Transaction Value</p>
-                        <h3 class="card-title"  style="color: white; font-size: 18px;">$200</h3>
+                        <h3 class="card-title"  style="color: white; font-size: 18px;">  {{200 | currency:"$"}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: white;">
@@ -79,7 +79,7 @@
               <mat-card-content  style="position: relative; margin-bottom: 60px; ">
                 <img src="{{item.imageUrl}}" class="image">
                 <p class="paragraph">
-                  <b> Price: </b> ${{item.price}}
+                  <b> Price: </b>  {{item.price | currency:"$"}}
                 </p>
                 <p class="paragraph">
                   <b> Artwork Title: </b> {{item.titleOfWork}}
