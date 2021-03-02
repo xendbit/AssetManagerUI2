@@ -53,7 +53,10 @@
                         <p>
                             <b>Remaining Shares:</b> {{this.remainingShares}}
                         </p>
-                        <p>
+                        <p *ngIf="this.asset.market === 1">
+                          <b>Market:</b> Secondary
+                        </p>
+                        <p *ngIf="this.asset.market === 0">
                           <b>Market:</b> Primary
                         </p>
                         <p>
@@ -111,7 +114,7 @@
                   <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 3rem; margin-top: 1rem">
                     Buy
                   </mat-radio-button>
-                  <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;" *ngIf="this.shares > 0">
+                  <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;">
                    Sell
                   </mat-radio-button>
                 </mat-radio-group>
@@ -136,7 +139,7 @@
                       </div>
                   </div>
 
-                  <div class="row" ngIf="radioGroup.value === 'sell'">
+                  <div class="row" *ngIf="radioGroup.value === 'sell'">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width">
                         <input matInput  placeholder="Enter Price" type="number"  id="price" name="price" [(ngModel)]="price">
@@ -160,7 +163,7 @@
                     
                     </button>
 
-                    <button *ngIf="this.amount && radioGroup.value === 'buy'" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button *ngIf="radioGroup.value !== 'sell'" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                       Buy Asset
                   
@@ -176,7 +179,7 @@
 
                 
 
-                <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount && radioGroup.value === 'buy' ">
+                <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount ">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -243,7 +246,7 @@
                                   <p style="margin-left: 20%; margin-right: 30%;">
                                       <b> Total: </b> 
                                   </p>
-                                  <b> {{this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} </b>
+                                  <b> {{this.asset.issuingPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}}  </b>
                               </div>
                                 
                                 
@@ -252,8 +255,8 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button data-dismiss="modal" (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                          <button data-dismiss="modal" (ngSubmit)="sell(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          <button data-dismiss="modal" *ngIf="radioGroup.value === 'buy'  " (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          <button data-dismiss="modal" *ngIf="radioGroup.value === 'sell'  " (ngSubmit)="secBuy(this.amount, this.price)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                         </div>
                       </div>
                     </div>
@@ -320,8 +323,11 @@
                 <p>
                   <b>Remaining Shares:</b> {{this.remainingShares}}
                 </p>
-                <p>
+                <p *ngIf="this.asset.market === 1">
                   <b>Market:</b> Secondary
+                </p>
+                <p *ngIf="this.asset.market === 0">
+                  <b>Market:</b> Primary
                 </p>
                 <p>
                   <b> Token ID: </b> 
@@ -395,7 +401,7 @@
                 class="example-radio-group"
                 #radioGroup="matRadioGroup"
                 style="color: black !important;">
-                <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 3rem; margin-top: 1rem">
+                <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 2rem; margin-top: 1rem"  *ngIf="this.shares > 0">
                   Buy
                 </mat-radio-button>
                 <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;" *ngIf="this.shares > 0">
@@ -430,7 +436,7 @@
                   <div class="clearfix"></div>
                 </div>
 
-                <button *ngIf="radioGroup.value === 'buy' && this.amount && this.asset.market !==0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#secBuyModalLong">
+                <button *ngIf="radioGroup.value === 'buy' && this.amount && this.asset.market !==0 || this.amount && this.asset.market !== 0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#secBuyModalLong">
                 
                   Buy Asset
               
@@ -442,7 +448,7 @@
             
             </button>
 
-            <button disabled *ngIf="radioGroup.value === null && this.asset.market !==0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+            <button disabled *ngIf="radioGroup.value === null && this.asset.market !==0 && !this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
               Buy Asset
           
@@ -461,7 +467,7 @@
 
 
 
-                <div  class="modal fade" id="secBuyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount && radioGroup.value === 'buy' ">
+                <div  class="modal fade" id="secBuyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -471,7 +477,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                          <div *ngIf="this.asset.market !== 0 && radioGroup.value === 'buy'">
+                          <div *ngIf="this.asset.market !== 0">
                             <div>
                               Please confirm that you intend to buy {{this.asset.titleOfWork}} at market Order with the following breakdown in prices:  
 
@@ -505,7 +511,7 @@
                                 </b>
                               </p>
                               <b>
-                                 {{this.fees.nse | currency:"$"}}
+                                 {{this.fees.nse}}%
                               </b>
                             </div>
 
@@ -527,7 +533,7 @@
                               <p style="margin-left: 19%; margin-right: 28%;">
                                   <b> Total: </b> 
                               </p>
-                              <b>  {{this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}}</b>
+                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
                           </div>
 
                             </div>
@@ -681,7 +687,7 @@
                             </b>
                           </p>
                           <b>
-                             {{this.fees.nse | currency:"$"}}
+                             {{this.fees.nse}}%
                           </b>
                         </div>
 
@@ -703,7 +709,7 @@
                           <p style="margin-left: 19%; margin-right: 28%;">
                               <b> Total: </b> 
                           </p>
-                          <b> {{this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} </b>
+                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
                       </div>
 
                         </div>

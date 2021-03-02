@@ -50,7 +50,13 @@
                             <b> Total Supply: </b> {{this.asset.totalSupply}}
                           </p>
                           <p>
+                            <b>Remaining Shares:</b> {{this.remainingShares}}
+                          </p>
+                          <p *ngIf="this.asset.market === 1">
                             <b>Market:</b> Secondary
+                          </p>
+                          <p *ngIf="this.asset.market === 0">
+                            <b>Market:</b> Primary
                           </p>
                           <p>
                             <b> Token ID: </b> 
@@ -311,9 +317,14 @@
                               <p>
                                 <b> Total Supply: </b> {{this.asset.totalSupply}}
                               </p>
-                           
                               <p>
+                                <b>Remaining Shares:</b> {{this.remainingShares}}
+                              </p>
+                              <p *ngIf="this.asset.market === 1">
                                 <b>Market:</b> Secondary
+                              </p>
+                              <p *ngIf="this.asset.market === 0">
+                                <b>Market:</b> Primary
                               </p>
                               <p>
                                 <b> Token ID: </b>  

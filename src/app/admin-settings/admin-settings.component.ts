@@ -117,6 +117,7 @@ export class AdminSettingsComponent implements OnInit {
   getFees() {
     this.adminService.getFees().subscribe(res => {
       this.fees = res['data'];
+      this.nseFee = this.fees.nse
     })
   }
 

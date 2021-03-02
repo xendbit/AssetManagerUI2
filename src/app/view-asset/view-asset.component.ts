@@ -166,10 +166,14 @@ export class ViewAssetComponent implements OnInit {
 
   secBuy(amount, price) {
 
-    let orderStrategy;
-    var percentToGet = this.marketSettings.percMinBuyQuantity;
-
-    console.log('this is amount', amount);
+    if (this.shares = 0 ) {
+      this.assetService.showNotification('top', 'center', 'You can not sell this asset as you currently own no shares in it', 'danger');
+      return;
+    }
+    if (this.amount > this.shares ) {
+      this.assetService.showNotification('top', 'center', 'You can not sell more than your total number of shares for this asset', 'danger');
+      return;
+    }
 
     if (!amount) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
@@ -224,6 +228,7 @@ export class ViewAssetComponent implements OnInit {
   buy(buyForm: NgForm) {
     let orderStrategy;
     var percentToGet = this.marketSettings.percMinBuyQuantity;
+    var nseFee = this.fees.nse;
 
     console.log('this is amount', this.amount);
      console.log('this is amount', this.quantity);
@@ -232,6 +237,17 @@ export class ViewAssetComponent implements OnInit {
       var percent = (percentToGet / 100) * this.quantity;
     } else if (this.amount) {
       var percent = (percentToGet / 100) * this.amount;
+    }
+
+    var percentToGet = this.marketSettings.percMinBuyQuantity;
+
+    console.log('this is amount', this.amount);
+     console.log('this is amount', this.quantity);
+
+    if (this.quantity) {
+      var percent = (nseFee / 100) * this.quantity;
+    } else if (this.amount) {
+      var percent = (nseFee / 100) * this.amount;
     }
 
     console.log('this is percentage', percent);
