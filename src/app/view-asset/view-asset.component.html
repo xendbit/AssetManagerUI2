@@ -810,6 +810,9 @@
               <p>
                 <b> Description: </b> {{this.asset.description}}
               </p>
+              <p>
+                <b>Edit</b>  <mat-icon  data-toggle="modal" data-target="#approveModalLong" matPrefix style="margin-right: 2rem ;">create</mat-icon>    
+              </p>
               
               
             </div>
@@ -829,6 +832,45 @@
                 
             Decline
         </button>
+
+        <div  class="modal fade" id="approveModalLong" tabindex="-1" role="dialog" aria-labelledby="approveModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>
+                  Update details for {{this.asset.titleOfWork}}
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                    
+                      <form novalidate #updateHolidayForm="ngForm">
+                        <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 90%;" >
+                          <mat-icon matPrefix style="margin-right: 2rem ;">date_range</mat-icon>
+                                <mat-label>choose a date range for this holiday</mat-label>
+                                <mat-date-range-input [rangePicker]="picker">
+                                  <input matStartDate placeholder="Start date">
+                                  <input matEndDate placeholder="End date">
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                      </form>
+
+
+                          
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button"  data-dismiss="modal" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #f55d45; border-color: transparent;">Cancel</button>
+                <button (click)="updateHoliday(updateHolidayForm)"  data-dismiss="modal" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #333333; margin-left: 30%;">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
 
         <form [formGroup]="form">
 
