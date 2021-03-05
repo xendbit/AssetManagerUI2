@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 declare var $: any;
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+  selector: 'app-portfolio',
+  templateUrl: './portfolio.component.html',
+  styleUrls: ['./portfolio.component.css']
 })
-export class NotificationsComponent implements OnInit {
+export class PortfolioComponent implements OnInit {
   assets: any;
   userId: string;
   primaryMarket: any[];

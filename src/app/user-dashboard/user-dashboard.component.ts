@@ -8,10 +8,10 @@ declare var $: any;
 
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './buy-asset.component.html',
-  styleUrls: ['./buy-asset.component.css']
+  templateUrl: './user-dashboard.component.html',
+  styleUrls: ['./user-dashboard.component.css']
 })
-export class BuyAssetComponent implements OnInit {
+export class UserDashboardComponent implements OnInit {
   assets: any;
   orderStrategy: any;
   assetChosen: any;

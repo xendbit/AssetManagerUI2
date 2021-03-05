@@ -1,12 +1,12 @@
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BuyOrdersComponent } from './buy-orders/buy-orders.component';
-import { NotificationsComponent } from './notifications/notifications.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { PortfolioComponent } from './my-portfolio/portfolio.component';
 import { AllAssetsComponent } from './all-assets/all-assets.component';
-import { SellAssetComponent } from './sell-asset/sell-asset.component';
-import { BuyAssetComponent } from './buy-asset/buy-asset.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MatInputModule } from '@angular/material/input';
@@ -49,7 +49,7 @@ import { AdminAssetsComponent } from './admin-assets/admin-assets.component';
 import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
 import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
+import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
 import { AboutComponent } from './about/about.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AllUsersComponent } from './all-users/all-users.component';
@@ -100,14 +100,14 @@ import { AllUsersComponent } from './all-users/all-users.component';
     IssuerDashboardComponent,
     LoginComponent,
     RegisterComponent,
-    AdminViewComponent,
-    UpgradeComponent,
+    SecondaryViewComponent,
+    HomeComponent,
     ViewAssetComponent,
     AllAssetsComponent,
-    NotificationsComponent,
-    BuyAssetComponent,
-    BuyOrdersComponent,
-    SellAssetComponent,
+    PortfolioComponent,
+    UserDashboardComponent,
+    MyOrdersComponent,
+    AdminViewComponent,
     DashboardComponent,
     AboutComponent,
     AdminSettingsComponent,

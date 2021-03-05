@@ -1,13 +1,13 @@
 import { AllUsersComponent } from './all-users/all-users.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AboutComponent } from './about/about.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { BuyOrdersComponent } from './buy-orders/buy-orders.component';
+import { PortfolioComponent } from './my-portfolio/portfolio.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AllAssetsComponent } from './all-assets/all-assets.component';
-import { BuyAssetComponent } from './buy-asset/buy-asset.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
+import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
 import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
@@ -22,13 +22,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+import { HomeComponent } from './home/home.component';
 
 
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
-import { SellAssetComponent } from './sell-asset/sell-asset.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 const routes: Routes =[
   {
@@ -81,11 +81,11 @@ const routes: Routes =[
   },
   {
     path: 'asset-order',
-    component: AdminViewComponent
+    component: SecondaryViewComponent
   },
   {
     path: 'home',
-    component: UpgradeComponent
+    component: HomeComponent
   },
   {
     path: 'viewAsset',
@@ -95,14 +95,14 @@ const routes: Routes =[
     path: 'about',
     component: AboutComponent
   },
-  { path: 'dashboard',      component: DashboardComponent },
-  { path: 'fund',   component: BuyAssetComponent },
+  // { path: 'dashboard',      component: DashboardComponent },
+  { path: 'fund',   component: UserDashboardComponent },
   { path: 'assets',     component: AllAssetsComponent },
-  { path: 'admin-view',     component: SellAssetComponent },
-  { path: 'orders',           component: BuyOrdersComponent },
+  { path: 'admin-view',     component: AdminViewComponent },
+  { path: 'orders',           component: MyOrdersComponent },
   { path: 'admin-settings',     component: AdminSettingsComponent },
   { path: 'issuer', component: IssuerComponent },
-  { path: 'myAssets',  component: NotificationsComponent }
+  { path: 'myAssets',  component: PortfolioComponent }
 ];
 
 @NgModule({

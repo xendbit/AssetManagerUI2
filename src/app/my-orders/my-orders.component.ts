@@ -3,11 +3,11 @@ import { AssetsService } from '../services/assets.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-buy-orders',
-  templateUrl: './buy-orders.component.html',
-  styleUrls: ['./buy-orders.component.css']
+  selector: 'app-my-orders',
+  templateUrl: './my-orders.component.html',
+  styleUrls: ['./my-orders.component.css']
 })
-export class BuyOrdersComponent implements OnInit {
+export class MyOrdersComponent implements OnInit {
     buyOrders: any[];
     sellOrders: any;
   userId: string;

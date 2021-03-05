@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'app-upgrade',
-  templateUrl: './upgrade.component.html',
-  styleUrls: ['./upgrade.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class UpgradeComponent implements OnInit {
+export class HomeComponent implements OnInit {
   assets: any;
   orderStrategy: any;
   assetChosen: any;

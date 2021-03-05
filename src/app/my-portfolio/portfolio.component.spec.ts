@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpgradeComponent } from './upgrade.component';
+import { PortfolioComponent } from './portfolio.component';
 
-describe('UpgradeComponent', () => {
-  // let component: UpgradeComponent;
-  // let fixture: ComponentFixture<UpgradeComponent>;
+describe('NotificationsComponent', () => {
+  // let component: NotificationsComponent;
+  // let fixture: ComponentFixture<NotificationsComponent>;
 
   // beforeEach(async(() => {
   //   TestBed.configureTestingModule({
-  //     declarations: [ UpgradeComponent ]
+  //     declarations: [ NotificationsComponent ]
   //   })
   //   .compileComponents();
   // }));
 
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(UpgradeComponent);
+  //   fixture = TestBed.createComponent(NotificationsComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

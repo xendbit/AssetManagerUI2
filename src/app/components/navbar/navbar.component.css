@@ -23,7 +23,9 @@
     padding-top: 2px;
     white-space: wrap;
     display: block;
-    max-height: 30px;
+    height: 30px;
+    width: 100vw;
+    max-width: 100%;
     
   }
   .trial .texty {
@@ -31,9 +33,9 @@
     text-indent: 1;
     overflow: hidden;
     -webkit-transition: 25s;
-    transition: 25s;
-    -webkit-animation: marquee 60s linear infinite;
-    animation: marquee 60s linear infinite;
+    transition: 10s;
+    -webkit-animation: marquee 20s linear infinite;
+    animation: marquee 50s linear infinite;
   }
   @-moz-keyframes marquee {
     0% {

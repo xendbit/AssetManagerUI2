@@ -1,4 +1,4 @@
-import { BuyOrdersComponent } from './../../buy-orders/buy-orders.component';
+import { BuyOrdersComponent } from '../../my-orders/my-orders.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { BuyAssetComponent } from '../../buy-asset/buy-asset.component';
+import { BuyAssetComponent } from '../../user-dashboard/user-dashboard.component';
 import { AllAssetsComponent } from '../../all-assets/all-assets.component';
-import { SellAssetComponent } from '../../sell-asset/sell-asset.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
+import { SellAssetComponent } from '../../admin-view/admin-view.component';
+import { NotificationsComponent } from '../../my-portfolio/portfolio.component';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';

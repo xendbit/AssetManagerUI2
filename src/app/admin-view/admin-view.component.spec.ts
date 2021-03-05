@@ -1,20 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminViewComponent } from './admin-view.component';
 
-describe('AdminViewComponent', () => {
-  // let component: AdminViewComponent;
-  // let fixture: ComponentFixture<AdminViewComponent>;
+describe('SellAssetComponent', () => {
+  // let component: SellAssetComponent;
+  // let fixture: ComponentFixture<SellAssetComponent>;
 
-  // beforeEach(async () => {
-  //   await TestBed.configureTestingModule({
-  //     declarations: [ AdminViewComponent ]
+  // beforeEach(async(() => {
+  //   TestBed.configureTestingModule({
+  //     declarations: [ SellAssetComponent ]
   //   })
   //   .compileComponents();
-  // });
+  // }));
 
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(AdminViewComponent);
+  //   fixture = TestBed.createComponent(SellAssetComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });
