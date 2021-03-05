@@ -80,7 +80,7 @@ const routes: Routes =[
     component: RequestPasswordComponent
   },
   {
-    path: 'asset-order',
+    path: 'view-sec',
     component: SecondaryViewComponent
   },
   {
@@ -96,7 +96,7 @@ const routes: Routes =[
     component: AboutComponent
   },
   // { path: 'dashboard',      component: DashboardComponent },
-  { path: 'fund',   component: UserDashboardComponent },
+  { path: 'user-dashboard',   component: UserDashboardComponent },
   { path: 'assets',     component: AllAssetsComponent },
   { path: 'admin-view',     component: AdminViewComponent },
   { path: 'orders',           component: MyOrdersComponent },

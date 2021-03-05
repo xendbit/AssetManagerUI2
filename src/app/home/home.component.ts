@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
   }
 
   viewOrder(tokenId) {
-    this.router.navigateByUrl('/asset-order', { state : {tokenId: tokenId} });
+    this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId} });
   }
 
   logout() {

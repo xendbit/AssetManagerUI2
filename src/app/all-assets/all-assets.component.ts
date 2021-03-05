@@ -90,12 +90,12 @@ export class AllAssetsComponent implements OnInit {
     if (market === 0) {
       this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: this.pageHistory} });
     } else if (market === 1) {
-      this.router.navigateByUrl('/asset-order', { state : {tokenId: tokenId, from: this.pageHistory} });
+      this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId, from: this.pageHistory} });
     }
   }
 
   viewOrder(tokenId) {
-    this.router.navigateByUrl('/asset-order', { state : {tokenId: tokenId} });
+    this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId} });
   }
 
 }
