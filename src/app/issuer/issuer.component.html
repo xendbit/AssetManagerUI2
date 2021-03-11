@@ -35,6 +35,14 @@
                     </mat-form-field>
                     <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
                       <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                      <input autofocus type="number" matInput placeholder="Phone Number" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    </mat-form-field>
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                      <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                      <input autofocus type="text" matInput placeholder="Address" id="address" name="address" [(ngModel)]="address" >
+                    </mat-form-field>
+                    <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                      <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
                       <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
                     </mat-form-field>
                     <p *ngIf="this.error" style="font-size: smaller; margin-bottom: 5rem;"> {{this.error}} </p>

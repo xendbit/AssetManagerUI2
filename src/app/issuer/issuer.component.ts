@@ -19,6 +19,8 @@ export class IssuerComponent implements OnInit {
   firstName: string;
   middleName: string;
   lastName: string;
+  phoneNumber: number;
+  address: string;
 
 
   constructor(public loginService: LoginService, public assetService: AssetsService) { }
@@ -38,6 +40,8 @@ export class IssuerComponent implements OnInit {
     const firstName = registerForm.value.firstName;
     const middleName = registerForm.value.middleName;
     const lastName = registerForm.value.lastName;
+    const phoneNumber = registerForm.value.phoneNumber;
+    const address = registerForm.value.address;
     const body = {
       email: email,
       password: password,
@@ -46,7 +50,9 @@ export class IssuerComponent implements OnInit {
       bvn: bvn,
       firstName: firstName,
       middleName: middleName,
-      lastName: lastName
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      address: address
     }
     this.assetService.showSpinner();
     this.loginService.register(body).subscribe(res => {
