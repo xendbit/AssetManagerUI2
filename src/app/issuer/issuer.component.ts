@@ -46,7 +46,9 @@ export class IssuerComponent implements OnInit {
       bvn: bvn,
       firstName: firstName,
       middleName: middleName,
-      lastName: lastName
+      lastName: lastName,
+      phoneNumber: '08164079881',
+      address: 'jsdjsdsj'
     }
     this.assetService.showSpinner();
     this.loginService.register(body).subscribe(res => {

@@ -15,8 +15,8 @@
 <div id="sticky_nav" class="bg-white sticky-top">
     <nav data-dropdown="hover" class="container-fluid navbar-expand-lg bg-white" >
         <div class="collapse navbar-collapse justify-content-between" style="font-size: smaller;">
-            <div class="w-25">
-                <img style="width: 14rem; margin-left: 3rem;" src="/assets/img/art_exchange.png">
+            <div class="w-25" style="font-size:30px !important; margin-left: 50px; color: orange; font-family: 'Inter';">
+                XendSwap
             </div>
             
             <ul class="navbar-nav align-items-end justify-content-center w-50" style="font-family: 'Playfair Display SC', serif;">
@@ -69,11 +69,11 @@
                     </a>
                 </li>
 
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
                     <a routerLink="/orders" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         orders
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.role === 0 || !this.role">
                     <a (click)="goToAllAssets('buyPage')" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         all assets
@@ -112,7 +112,7 @@
 
                     </div>
                 </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.userId">
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.userId">
                     <a routerLink="/login" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         login
                     </a>
@@ -121,11 +121,16 @@
                     <a routerLink="/register" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         register
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId">
-                    <a (click)="logout()" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
+                    <button (click)="connectAccount()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
+      
+                        Connect Wallet
+                    
+                    </button>
+                    <!-- <a (click)="logout()" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         logout
-                    </a>
+                    </a> -->
                 </li>
             </ul>
            

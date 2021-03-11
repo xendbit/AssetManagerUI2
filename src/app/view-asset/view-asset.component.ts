@@ -226,70 +226,70 @@ export class ViewAssetComponent implements OnInit {
   
 
   buy(buyForm: NgForm) {
-    let orderStrategy;
-    var percentToGet = this.marketSettings.percMinBuyQuantity;
-    var nseFee = this.fees.nse;
+    // let orderStrategy;
+    // var percentToGet = this.marketSettings.percMinBuyQuantity;
+    // var nseFee = this.fees.nse;
 
-    console.log('this is amount', this.amount);
-     console.log('this is amount', this.quantity);
+    // console.log('this is amount', this.amount);
+    //  console.log('this is amount', this.quantity);
 
-    if (this.quantity) {
-      var percent = (percentToGet / 100) * this.quantity;
-    } else if (this.amount) {
-      var percent = (percentToGet / 100) * this.amount;
-    }
+    // if (this.quantity) {
+    //   var percent = (percentToGet / 100) * this.quantity;
+    // } else if (this.amount) {
+    //   var percent = (percentToGet / 100) * this.amount;
+    // }
 
-    var percentToGet = this.marketSettings.percMinBuyQuantity;
+    // var percentToGet = this.marketSettings.percMinBuyQuantity;
 
-    console.log('this is amount', this.amount);
-     console.log('this is amount', this.quantity);
+    // console.log('this is amount', this.amount);
+    //  console.log('this is amount', this.quantity);
 
-    if (this.quantity) {
-      var percent = (nseFee / 100) * this.quantity;
-    } else if (this.amount) {
-      var percent = (nseFee / 100) * this.amount;
-    }
+    // if (this.quantity) {
+    //   var percent = (nseFee / 100) * this.quantity;
+    // } else if (this.amount) {
+    //   var percent = (nseFee / 100) * this.amount;
+    // }
 
-    console.log('this is percentage', percent);
+    // console.log('this is percentage', percent);
 
-    if (percent < this.marketSettings.percMinBuyQuantity) {
-      this.assetService.showNotification('top', 'center', "The minimum buy quantity for this asset is set at " + this.marketSettings.percMinBuyQuantity + "%" + ", please update your order and try again.", 'danger');
-      return;
-    }
-    if (!this.amount) {
-      this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
-      return;
-    }
-    if (this.amount > this.remainingShares || this.quantity > this.remainingShares) {
-      this.assetService.showNotification('bottom', 'center', 'You cannot purchase more than the available shares for this asset.', 'danger');
-      return;
-    }
-    this.total = this.amount * this.asset.issuingPrice;
-    console.log('this is total', this.total)
-    if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    // if (percent < this.marketSettings.percMinBuyQuantity) {
+    //   this.assetService.showNotification('top', 'center', "The minimum buy quantity for this asset is set at " + this.marketSettings.percMinBuyQuantity + "%" + ", please update your order and try again.", 'danger');
+    //   return;
+    // }
+    // if (!this.amount) {
+    //   this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
+    //   return;
+    // }
+    // if (this.amount > this.remainingShares || this.quantity > this.remainingShares) {
+    //   this.assetService.showNotification('bottom', 'center', 'You cannot purchase more than the available shares for this asset.', 'danger');
+    //   return;
+    // }
+    // this.total = this.amount * this.asset.issuingPrice;
+    // console.log('this is total', this.total)
+    if (this.balance == 0 || this.balance < this.asset.issuingPrice  +  this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.balanceComplete = false;
       this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
       return;
-    } else if(this.balance >= this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    } else if(this.balance >= this.asset.issuingPrice + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.balanceComplete = true;
     }
     
-    if (this.asset.market === 0 ) {
-      orderStrategy = 0;
-    } else {
-      orderStrategy = parseInt(buyForm.value.orderStrategy);
-    }
-    if (this.amount > this.asset.sharesAvailable){
-      this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares', 'danger');
-      return;
-    }
+    // if (this.asset.market === 0 ) {
+    //   orderStrategy = 0;
+    // } else {
+    //   orderStrategy = parseInt(buyForm.value.orderStrategy);
+    // }
+    // if (this.amount > this.asset.sharesAvailable){
+    //   this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares', 'danger');
+    //   return;
+    // }
     let body;
     if (this.orderId) {
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
         orderStrategy: 0,
-        amount: this.quantity,
+        amount: 1,
         "price": this.secondaryPrice,
         "goodUntil": 0,
         "userId": parseInt(this.userId),
@@ -301,8 +301,8 @@ export class ViewAssetComponent implements OnInit {
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
-        orderStrategy: orderStrategy,
-        amount: this.amount,
+        orderStrategy: 0,
+        amount: 1,
         "price": this.asset.issuingPrice,
         "goodUntil": 0,
         "userId": parseInt(this.userId),

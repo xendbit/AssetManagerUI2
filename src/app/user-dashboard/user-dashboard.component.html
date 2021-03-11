@@ -15,29 +15,12 @@
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <i class="material-icons" style="color: black;">waves</i>
                         </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Account Balance</p>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Wallet Balance</p>
                         <h3 class="card-title" style="color: black; font-family: 'Cardo', serif !important;"> {{this.balance | currency:"$"}}  </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
                             <i class="material-icons">date_range</i> Last 24 Hours
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
-                <div class="card card-stats" style="background: white;">
-                    <div class="card-header card-header-danger card-header-icon">
-                        <div class="col-lg-1 col-md-1 col-sm-1">
-                            <i class="material-icons" style="color: black;">info_outline</i>
-                        </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Orders Made</p>
-                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
-                            <i class="material-icons">local_offer</i> Total Assets
                         </div>
                     </div>
                 </div>
@@ -60,69 +43,211 @@
                 </div>
             </div>
 
-
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
                 <div class="card card-stats" style="background: white;">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="col-lg-1 col-md-1 col-sm-1">
-                            <i class="material-icons" style="color: black;">call_made</i>
+                            <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Recent Transaction Value</p>
-                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{3000 | currency:"$"}} </h3>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Bids Made</p>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">local_offer</i> Total Bids
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
+                <div class="card card-stats" style="background: white;">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <i class="material-icons" style="color: black;">info_outline</i>
+                        </div>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Owned</p>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                            <i class="material-icons">local_offer</i> Total Assets
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+
+           
 
 
         </div>
           
        
         <h2 class="text-uppercase font-weight-light">
-            Payments
+            Manage Account
         </h2>
         <p class="text-uppercase small font-weight-medium">
-            Kindly fill the form below and click 'pay' to make payments
+           Manage account from this dashboard.
         </p>
-        <div class="row" style="margin-top: 3rem;">
-          <div class="col-lg-4 col-md-4 col-sm-4"></div>
-          <div class=" card-body">
-            <form id="paymentForm">
-                <script src="https://js.paystack.co/v1/inline.js"></script>
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
-                <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
-                <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
-                </mat-form-field>
+        <mat-tab-group style=" margin-left: 7rem; font-family: 'Playfair Display SC', serif !important">
+            
+            
+            <mat-tab label="Issue Asset">
+              <!-- <mat-icon matPrefix style="margin-right: 2rem ;">price_change</mat-icon> -->
+                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
+                    <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px;">
 
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
-                    <mat-icon matPrefix style="margin-right: 2rem ;">account_balance_wallet</mat-icon>
-                    <input autofocus type="number" matInput placeholder="Amount" id="amount" name="amount" [(ngModel)]="amount" >
-                </mat-form-field>
-
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
-                    <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                    <input autofocus type="text" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
-                </mat-form-field>
+                        <mat-card *ngIf="this.image" class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+                            <mat-card-content>
+                                    
+                                        <img src="{{this.image}}" style="width: 90%;">
+                                
+                            </mat-card-content>
+                        </mat-card>
     
-                <mat-form-field style="height: 7rem; font-family: 'Cardo', serif; width: 50%;">
-                    <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
-                    <input type="text" autocomplete="false" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName">
-                </mat-form-field>
-              <button (click)="payWithPaystack()" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
-      
-                Pay
-            
-            </button>
-            </form>
-            
-          </div>
-        </div>
+    
+                        <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+                          <form [formGroup]="form">
+    
+    
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      Art Title:
+                                   </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;"> 
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
+                                      <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+    
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      Name of Artist:
+                                   </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">person_outline</mat-icon>
+                                      <input matInput  type="text" id="artistName" name="artistName"  formControlName="artistName">
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+    
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      Asset Symbol:
+                                   </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                      <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+    
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      Description:
+                                    </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                     
+                                    <mat-icon matPrefix style="margin-right: 2rem ;">dehaze</mat-icon>
+                                    <textarea  matInput type="text" id="description" formControlName="description" name="description">  </textarea>
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+    
+    
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      Issuing Price:
+                                    </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">swap_horiz</mat-icon>
+                                      <input matInput type="number" id="issuingPrice" formControlName="issuingPrice" name="issuingPrice">
+                                    </mat-form-field>
+                                  </div>
+                              </div>
 
-      </div>
+                              <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-form-field  style="height: 5rem; font-family: 'Cardo', serif; width: 70%;" >
+                                        <mat-icon matPrefix style="margin-right: 2rem ;">date_range</mat-icon>
+                                              <mat-label>choose a minimum Bid range for this asset</mat-label>
+                                              <mat-date-range-input [rangePicker]="picker">
+                                                <input matStartDate placeholder="Start date">
+                                                <input matEndDate placeholder="End date">
+                                              </mat-date-range-input>
+                                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                              <mat-date-range-picker #picker></mat-date-range-picker>
+                                      </mat-form-field>
+                                  </div>
+                                
+                              </div>
+                              
+    
+                              <div class="row">
+                                  <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                                      <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                  </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px;">
+                                  <button type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 5%; border-color: transparent;">
+                    
+                                    Issue Asset
+                                
+                                </button>
+                                <button type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent;">
+                      
+                                  Cancel
+                              
+                              </button>
+                                </div>
+                              <div class="clearfix"></div>
+                          </form>
+                      </mat-card>
+    
+                    </div>
+              
+                    
+                  </div>
+
+            </mat-tab>
+    
+            <mat-tab label="Recent Bids">
+                <div class=" card-body" style="margin-left: 0 !important;">
+                    
+                  </div>
+
+            </mat-tab>
+            <mat-tab label="Accepted Bids">
+
+                <div class=" card-body" style="margin-left: 0 !important; align-items: left;">
+                    
+                    
+                  </div>
+
+            </mat-tab>
+            <mat-tab label="Actionable Bids">
+
+                <div class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 0 !important; align-items: left;">
+                    <div class="col-md-2" style="margin-left: 40% !important; padding-left: 0 !important;">
+
+                      
+                    </div>
+                                
+                  </div>
+
+
+            </mat-tab>
+
+          </mat-tab-group>
 
     
       <div class="container-fluid container-lg container-home" >

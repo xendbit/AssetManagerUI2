@@ -59,13 +59,13 @@ export class HomeComponent implements OnInit {
       let init = [];
       let second = [];
       let exclu = [];
-      this.assets.forEach(elem => {
-        if (elem.market === 0 && elem.approved === 1 && elem.totalSupply === 1 && elem.sharesAvailable === 1) {
-          exclu.push(elem);
-        }
-      })
+      // this.assets.forEach(elem => {
+      //   if (elem.market === 0 && elem.approved === 1 && elem.totalSupply === 1 && elem.sharesAvailable === 1) {
+      //     exclu.push(elem);
+      //   }
+      // })
       this.assets.forEach(element => {
-        if (element.market === 0 && element.approved === 1 && element.totalSupply !== 1 ) {
+        if (element.market === 0 && element.approved === 1 && element.sharesAvailable === 1) {
           init.push(element);
         } else if (element.market === 1 && element.approved === 1) {
           second.push(element);

@@ -3,6 +3,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import Web3 from "web3";
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,10 @@ export class NavbarComponent implements OnInit {
     role: number;
   assets: any;
   error: any;
+  provider: any;
+  web3js: Web3;
+  accounts: string[];
+  accountStatusSource: any;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
       this.location = location;
@@ -26,6 +31,15 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
+        if ((window as any).web3)
+        {
+          (window as any).web3 = new Web3((window as any).web3.currentProvider);
+          (window as any).ethereum.enable();
+          console.log((window as any).ethereum.enable());
+    
+        }
+      
+    
         if (localStorage.getItem('userId')) {
             this.userId = parseInt(localStorage.getItem('userId'));
             this.role = parseInt(localStorage.getItem('role'));
@@ -47,6 +61,7 @@ export class NavbarComponent implements OnInit {
       goToAllAssets(page) {
         this.router.navigateByUrl('/assets', { state : { from: page} });
       }
+
      
 
     getTitle(){

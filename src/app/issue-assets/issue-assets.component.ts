@@ -74,7 +74,7 @@ export class IssueAssetsComponent implements OnInit {
       return
     }
     const issueId = localStorage.getItem('userId');
-    console.log('this is issueId', issueId)
+    console.log('this is issueId',  new Date().getFullYear())
     const body = {
       description: this.description,
       symbol: this.symbol,
@@ -88,7 +88,9 @@ export class IssueAssetsComponent implements OnInit {
       commission: 500,
       price: this.issuingPrice,
       createdOn: new Date().getTime(),
-      nameOfOwners: "null"
+      nameOfOwners: "null",
+      value: 0,
+      creationYear: new Date().getFullYear()
     }
     this.assetService.showSpinner();
     this.assetService.issue(body).subscribe( data => {

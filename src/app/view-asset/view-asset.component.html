@@ -47,12 +47,12 @@
                        <p>
                         <b> Symbol: </b> {{this.asset.symbol}}
                        </p>
-                        <p>
+                        <!-- <p>
                           <b> Total Supply: </b> {{this.asset.totalSupply}}
                         </p>
                         <p>
                             <b>Remaining Shares:</b> {{this.remainingShares}}
-                        </p>
+                        </p> -->
                         <p *ngIf="this.asset.market === 1">
                           <b>Market:</b> Secondary
                         </p>
@@ -80,7 +80,7 @@
 
               <mat-card-content >
                 <form #buyForm="ngForm" novalidate>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-md-9"  *ngIf="this.asset.market === 1" >
                       <mat-label>Order Strategy</mat-label>
                       <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
@@ -88,45 +88,26 @@
                       </mat-select>
                             
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <p><b> Account Balance: </b>{{this.balance | currency:"$"}} </p>
                   </div>
 
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <p> <b> Owned Shares: </b> {{this.shares}} </p>
-                  </div>
-
-                </div>
-
-                <div class="row">
-
-                  <mat-radio-group
-                  aria-labelledby="example-radio-group-label"
-                  class="example-radio-group"
-                  #radioGroup="matRadioGroup"
-                  style="color: black !important;">
-                  <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 3rem; margin-top: 1rem">
-                    Buy
-                  </mat-radio-button>
-                  <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;">
-                   Sell
-                  </mat-radio-button>
-                </mat-radio-group>
+                 
 
                 </div>
 
                 
       
-                  <div class="row">
+                  <!-- <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12">
                         <mat-form-field class="example-full-width">
                           <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
                         </mat-form-field>
                       </div>
-                  </div>
+                  </div> -->
       
                   <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12">
@@ -136,31 +117,31 @@
                       </div>
                   </div>
 
-                  <div class="row" *ngIf="radioGroup.value === 'sell' && this.asset.market !== 0">
+                  <!-- <div class="row" *ngIf="radioGroup.value === 'sell' && this.asset.market !== 0">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width">
                         <input matInput  placeholder="Enter Price" type="number"  id="price" name="price" [(ngModel)]="price">
                       </mat-form-field>
                     </div>
-                </div>
+                </div> -->
                   
                   <div style="padding-bottom: 20px; ">
-                  <div class="row" *ngIf="this.amount">;
+                  <div class="row">;
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                      <p><b> Total: </b>  {{this.amount * this.asset.issuingPrice | currency:"$"}} </p>
+                      <p><b> Total: </b>  {{this.asset.issuingPrice | currency:"$"}} </p>
                     </div>
                   </div>
 
                     <div class="clearfix"></div>
                   </div>
                   <div style="padding-bottom: 20px;">
-                    <button *ngIf="!this.amount || radioGroup.value === null" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <!-- <button *ngIf="!this.amount || radioGroup.value === null" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                         Buy Asset
                     
-                    </button>
+                    </button> -->
 
-                    <button *ngIf="this.amount && radioGroup.value === 'buy'" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                       Buy Asset
                   
@@ -176,7 +157,7 @@
 
                 
 
-                <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount ">
+                <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -199,12 +180,12 @@
                                     </p>
                                     <b> {{this.asset.issuingPrice | currency:"$"}} </b>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <p style="margin-left: 20%; margin-right: 25%;">
                                         <b> Quantity: </b> 
                                     </p>
                                     <b> {{this.amount}} </b>
-                                </div>
+                                </div> -->
 
                                 <div class="row">
                                   <p style="margin-left: 20%; margin-right: 25%;">
@@ -214,16 +195,6 @@
                                     {{this.fees.smsNotification | currency:"$"}} </b>
                                 </div>
 
-                                <div class="row">
-                                  <p style="margin-left: 20%; margin-right: 25%;">
-                                    <b>
-                                      NSE Fee:
-                                    </b>
-                                  </p>
-                                  <b>
-                                    {{this.fees.nse | currency:"$"}}
-                                  </b>
-                                </div>
 
                                 <div class="row">
                                   <p style="margin-left: 19%; margin-right: 16%;">
@@ -243,7 +214,7 @@
                                   <p style="margin-left: 20%; margin-right: 30%;">
                                       <b> Total: </b> 
                                   </p>
-                                  <b> {{this.asset.issuingPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}}  </b>
+                                  <b> {{this.asset.issuingPrice + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}}  </b>
                               </div>
                                 
                                 
@@ -252,8 +223,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button data-dismiss="modal" *ngIf="radioGroup.value === 'buy'  " (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                          <button data-dismiss="modal" *ngIf="radioGroup.value === 'sell'  " (ngSubmit)="secBuy(this.amount, this.price)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          <button data-dismiss="modal" (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                         </div>
                       </div>
                     </div>
@@ -277,7 +247,7 @@
           <mat-card class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
             
               <p class="text-uppercase small font-weight-medium" style=" text-align: left !important;">
-                Project Description
+                Asset Description
               </p>
            
             <mat-card-content>
@@ -545,7 +515,7 @@
                               <p style="margin-left: 19%; margin-right: 28%;">
                                   <b> Total: </b> 
                               </p>
-                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
+                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse / 100) | currency:"$"}}  </b>
                           </div>
 
                             </div>
@@ -721,7 +691,7 @@
                           <p style="margin-left: 19%; margin-right: 28%;">
                               <b> Total: </b> 
                           </p>
-                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
+                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse / 100) | currency:"$"}}  </b>
                       </div>
 
                         </div>
