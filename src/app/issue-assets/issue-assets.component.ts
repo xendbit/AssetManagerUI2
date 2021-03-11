@@ -88,7 +88,9 @@ export class IssueAssetsComponent implements OnInit {
       commission: 500,
       price: this.issuingPrice,
       createdOn: new Date().getTime(),
-      nameOfOwners: "null"
+      nameOfOwners: "null",
+      value: 0,
+      creationYear: new Date().getFullYear()
     }
     this.assetService.showSpinner();
     this.assetService.issue(body).subscribe( data => {
