@@ -71,7 +71,6 @@ export class ViewAssetComponent implements OnInit {
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
-                    console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
                     this.userId = parseInt(localStorage.getItem('userId'));
                     this.pageHistory = window.history.state.from;
@@ -80,7 +79,6 @@ export class ViewAssetComponent implements OnInit {
                     if (window.history.state.id) {
                       this.orderId = window.history.state.id;
                     }
-                    console.log('this is page history', this.pageHistory)
                     this.getAssets();
                     this.getFees();
                     this.getHolidays();
@@ -99,7 +97,6 @@ export class ViewAssetComponent implements OnInit {
 
   getAssetDetails() {
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
-      console.log('this is data for asset', data);
       this.asset = data['data'];
       this.assetService.stopSpinner()
     }, err => {
@@ -114,7 +111,6 @@ export class ViewAssetComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
       let init = []
       let second = []
       this.assets.forEach(element => {
@@ -229,10 +225,6 @@ export class ViewAssetComponent implements OnInit {
     let orderStrategy;
     var percentToGet = this.marketSettings.percMinBuyQuantity;
     var nseFee = this.fees.nse;
-
-    console.log('this is amount', this.amount);
-     console.log('this is amount', this.quantity);
-
     if (this.quantity) {
       var percent = (percentToGet / 100) * this.quantity;
     } else if (this.amount) {
@@ -241,21 +233,17 @@ export class ViewAssetComponent implements OnInit {
 
     var percentToGet = this.marketSettings.percMinBuyQuantity;
 
-    console.log('this is amount', this.amount);
-     console.log('this is amount', this.quantity);
-
     if (this.quantity) {
       var percent = (nseFee / 100) * this.quantity;
     } else if (this.amount) {
       var percent = (nseFee / 100) * this.amount;
     }
 
-    console.log('this is percentage', percent);
 
-    if (percent < this.marketSettings.percMinBuyQuantity) {
-      this.assetService.showNotification('top', 'center', "The minimum buy quantity for this asset is set at " + this.marketSettings.percMinBuyQuantity + "%" + ", please update your order and try again.", 'danger');
-      return;
-    }
+    // if (percent < this.marketSettings.percMinBuyQuantity) {
+    //   this.assetService.showNotification('top', 'center', "The minimum buy quantity for this asset is set at " + this.marketSettings.percMinBuyQuantity + "%" + ", please update your order and try again.", 'danger');
+    //   return;
+    // }
     if (!this.amount) {
       this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
       return;
@@ -265,7 +253,6 @@ export class ViewAssetComponent implements OnInit {
       return;
     }
     this.total = this.amount * this.asset.issuingPrice;
-    console.log('this is total', this.total)
     if (this.balance == 0 || this.balance < this.asset.issuingPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.balanceComplete = false;
       this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
@@ -297,7 +284,6 @@ export class ViewAssetComponent implements OnInit {
         market: 1
       }
     } else {
-      console.log('this is primary market')
       body = {
         tokenId: this.asset.tokenId,
         orderType: 0,
@@ -308,12 +294,10 @@ export class ViewAssetComponent implements OnInit {
         "userId": parseInt(this.userId),
         market: 0
       }
-      console.log('this is body', body)
     }
    
     this.assetService.showSpinner();
     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      console.log('this is response', data);
       if (data['status'] == 'success') {
         this.assetService.stopSpinner();
         this.assetService.showNotification('top', 'center', 'Asset has been bought successfully', 'success');
@@ -332,7 +316,6 @@ export class ViewAssetComponent implements OnInit {
   }
 
   sell(sellForm: NgForm) {
-    console.log('this is price', this.price);
     if (!this.amount) {
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
@@ -388,7 +371,6 @@ export class ViewAssetComponent implements OnInit {
     this.assetService.showSpinner();
     this.userId = localStorage.getItem('userId');
     this.assetService.getWaletBalance(this.userId).subscribe(res => {
-      console.log('this is balance', res);
       this.balance = res['data'];
     }, err => {
       console.log(err.error.data.error);
@@ -399,7 +381,6 @@ export class ViewAssetComponent implements OnInit {
 
   getPrimarySharesRemaining(tokenId) {
     this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
-      console.log('this is remaining shares', res);
       this.remainingShares = res['data'];
     })
   }
@@ -407,7 +388,6 @@ export class ViewAssetComponent implements OnInit {
   approve(tokenId, status) {
     this.assetService.showSpinner();
     this.loginService.approve(tokenId, status).subscribe(res => {
-      console.log('this is response', res);
       if (res['status'] === 'success') {
         this.assetService.stopSpinner();
         this.assetService.showNotification('top', 'center', 'Asset has been approved successfully', 'success');
@@ -475,7 +455,6 @@ export class ViewAssetComponent implements OnInit {
       }
     
       this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-        console.log('this is response', data);
         if (data['status'] == 'success') {
           this.assetService.stopSpinner();
           this.assetService.showNotification('bottom', 'center', 'Order has been placed successfully', 'success');

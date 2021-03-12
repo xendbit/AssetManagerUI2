@@ -243,7 +243,7 @@
                                   <p style="margin-left: 20%; margin-right: 30%;">
                                       <b> Total: </b> 
                                   </p>
-                                  <b> {{this.asset.issuingPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}}  </b>
+                                  <b> {{this.asset.issuingPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse/ 100) | currency:"$"}}   </b>
                               </div>
                                 
                                 
@@ -545,7 +545,7 @@
                               <p style="margin-left: 19%; margin-right: 28%;">
                                   <b> Total: </b> 
                               </p>
-                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
+                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse/ 100) | currency:"$"}} </b>
                           </div>
 
                             </div>
@@ -721,7 +721,7 @@
                           <p style="margin-left: 19%; margin-right: 28%;">
                               <b> Total: </b> 
                           </p>
-                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}} * {{(this.fees.nse/ 100)}} </b>
+                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse/ 100) | currency:"$"}} </b>
                       </div>
 
                         </div>
