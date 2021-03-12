@@ -44,7 +44,9 @@ export class AdminComponent implements OnInit {
       'email': email,
       'password': password,
       'passphrase': this.passphrase,
-      'role': 1
+      'role': 1,
+      'phoneNumber': '08164079881',
+      'address': 'jsdjsdsj'
     }
     this.assetService.showSpinner();
     this.adminService.registerAdmin(body).subscribe(res => {
