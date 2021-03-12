@@ -3,6 +3,7 @@ import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import * as Web3 from 'web3';
 
 
 declare let require: any;
@@ -26,16 +27,30 @@ export class NavbarComponent implements OnInit {
   provider: any;
   accounts: string[];
   accountStatusSource: any;
+  web3Provider: any;
+  account: any;
+  hasMetaMask: boolean;
+  isConnected: boolean;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
       this.location = location;
           this.sidebarVisible = false;
-          console.log('experimenting', window.ethereum)
+          console.log('experimenting', window.web3.currentProvider)
+          if (typeof window.web3 !== 'undefined') {
+            this.web3Provider = window.web3.currentProvider;
+            this.hasMetaMask = true;
+          } else {
+            this.hasMetaMask = false;
+          }
+
+       
+          window.web3 = new Web3(this.web3Provider);
+          console.log('experimenting ozo', this.web3Provider)
+        
     }
 
     async ngOnInit(){
       
-    
         if (localStorage.getItem('userId')) {
             this.userId = parseInt(localStorage.getItem('userId'));
             this.role = parseInt(localStorage.getItem('role'));
@@ -56,6 +71,18 @@ export class NavbarComponent implements OnInit {
     
       goToAllAssets(page) {
         this.router.navigateByUrl('/assets', { state : { from: page} });
+      }
+
+      async connectToMetamask() {
+        if (this.hasMetaMask = false) {
+          this.assetService.showNotification('top','center','Please install or create a metamask account to connect to your wallet', 'danger');
+          return;
+        } else {
+          const accounts = await  this.web3Provider.request({ method: 'eth_requestAccounts' });
+          this.account = accounts[0];
+          this.isConnected = true;
+        }
+  
       }
 
      
