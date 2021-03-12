@@ -18,6 +18,8 @@ export class AdminComponent implements OnInit {
   error: any;
   passphrase: any;
   bvn: any;
+  phoneNumber: number;
+  address: string;
 
   constructor(public adminService: AdminService, public assetService: AssetsService) { }
 
@@ -35,7 +37,8 @@ export class AdminComponent implements OnInit {
     const middleName = registerForm.value.middleName;
     const lastName = registerForm.value.lastName;
     const bvn = registerForm.value.bvn;
-    console.log('this is email, ', email)
+    const phoneNumber = registerForm.value.phoneNumber;
+    const address = registerForm.value.address;
     const body = {
       'firstName': firstName,
       'middleName': middleName,
@@ -44,6 +47,8 @@ export class AdminComponent implements OnInit {
       'email': email,
       'password': password,
       'passphrase': this.passphrase,
+      'phoneNumber': phoneNumber,
+      'address': address,
       'role': 1
     }
     this.assetService.showSpinner();
