@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
+import * as Web3 from 'web3';
 
 declare var $: any;
+declare let require: any;
+declare let window: any;
 
 @Injectable({
     providedIn: 'root'
   })
   export class AssetsService {
 
-    constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {  }
+    constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
+      console.log('tji', window.web3)
+      if (typeof window.web3 !== 'undefined') {
+        this.web3Provider = window.web3.currentProvider;
+      } else {
+        this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      }
+   
+      window.web3 = new Web3(this.web3Provider);
+      }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
+    private web3Provider: any;
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
 
     listing() {
@@ -73,6 +86,25 @@ declare var $: any;
       headers = headers.append('api-key', this.api_key);
       return this.httpClient.get(`${this.baseUrl}/assets/by-owner/${userId}?page=${1}&limit=15`, {headers});
     }
+
+    getAccountInfo() {
+      console.log('==>', window.web3.eth)
+      return new Promise((resolve, reject) => {
+        window.web3.eth.getCoinbase(function(err, account) {
+   
+          if(err === null) {
+            window.web3.eth.getBalance(account, function(err, balance) {
+              if(err === null) {
+                return resolve({fromAccount: account, balance:window.web3.fromWei(balance, "ether")});
+              } else {
+                return reject("error!");
+              }
+            });
+          }
+        });
+      });
+    }
+   
 
     getAssetsByTokenId(tokenId) {
       let headers: HttpHeaders = new HttpHeaders();

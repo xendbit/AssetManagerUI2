@@ -425,26 +425,18 @@ export class ViewAssetComponent implements OnInit {
   }
 
   
-  sendMarketOrder(radiogroup) {
+  sendMarketOrder() {
     console.log('this is amount', this.amount)
 
     let orderType;
     let market;
-    if (radiogroup.value === 'buy' && this.balance < this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    if (this.balance < this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
      
-    } else if (radiogroup.value === 'buy' && this.balance >= this.asset.marketPrice * this.amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
+    } else if (this.balance >= this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
       orderType = 0;
       market = 1;
-    }
-
-    if (radiogroup.value === 'sell' && this.shares >= this.amount) {
-        orderType = 1;
-        market = 1;
-    } else if ( radiogroup.value === 'sell' && this.shares < this.amount ){
-      this.assetService.showNotification('bottom', 'center', 'You can not sell more than your available shares for this asset.', 'danger');
-      return;
     }
 
     // if (this.amount > this.remainingShares) {

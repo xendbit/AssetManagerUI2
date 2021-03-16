@@ -270,7 +270,7 @@
             View More details:
         </h2>
         <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-          <mat-card class="col-lg-7 col-md-7 col-sm-7" style="border-radius: 10px; font-family: 'Inter'">
+          <mat-card class="col-lg-6 col-md-6 col-sm-6" style="border-radius: 10px; font-family: 'Inter'">
             <mat-card-header>
               <img src="{{this.asset.imageUrl}}" style="width: 100%; margin-bottom: 10px; margin-left: 1rem;
                box-shadow: 5px 5px 5px #ccc;
@@ -331,23 +331,23 @@
           </mat-card>
     
     
-          <mat-card class="col-lg-2 col-md-2 col-sm-2" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.asset.market !== 0 && this.notLoggedIn === false ">
-            <div class="col-md-2" style="margin-left: 9px !important; padding-left: 0 !important;">
+          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.asset.market !== 0 && this.notLoggedIn === false ">
+            <div class="col-md-3" style="margin-left: 9px !important; padding-left: 0 !important;">
 
               <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
                 <label class="btn btn-md btn-outline-secondary" 
                       [ngClass]="{active : currentButton == 'first'}"
                       (click) = "currentButton='first'"
-                      style="width: 77px !important; text-transform: capitalize;"
+                      style="width: 96px !important; text-transform: capitalize;"
                        >
-                  <input type="radio" name="options" autocomplete="off" checked >Limit  
+                  <input type="radio" name="options" autocomplete="off" checked >Set Price    
                 </label>
                 <label class="btn btn-md btn-outline-secondary"
                        [ngClass]="{active : currentButton == 'second'}"
                       (click) = "currentButton='second'"
-                      style="width: 85px !important; text-transform: capitalize;"
+                      style="width: 110px !important; text-transform: capitalize;"
                   >
-                  <input type="radio" name="options" autocomplete="off"> Market
+                  <input type="radio" name="options" autocomplete="off"> Make Bid
                   
                 </label>
               </div>
@@ -396,7 +396,7 @@
                 <div class="row" *ngIf="this.asset.market !== 0">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                        <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
                       </mat-form-field>
                     </div>
                 </div>
@@ -424,13 +424,13 @@
               
               </button>
 
-              <button disabled *ngIf="radioGroup.value === 'buy' && !this.amount && this.asset.market !==0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+              <button disabled *ngIf="radioGroup.value === 'buy' && !this.amount && this.asset.market !==0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;"  data-toggle="modal" data-target="#buyModalLong">
                 
                 Buy Asset
             
             </button>
 
-            <button disabled *ngIf="radioGroup.value === null && this.asset.market !==0 && !this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+            <button disabled *ngIf="radioGroup.value === null && this.asset.market !==0 && !this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;"  data-toggle="modal" data-target="#buyModalLong">
                 
               Buy Asset
           
@@ -565,25 +565,6 @@
 
             <mat-card-content *ngIf="this.currentButton === 'second' ">
               <form #buyForm="ngForm"  novalidate>
-
-                <div class="row">
-                  <div>
-
-                    <mat-radio-group
-                      aria-labelledby="example-radio-group-label"
-                      class="example-radio-group"
-                      #radioGroup="matRadioGroup"
-                      style="color: black !important;">
-                      <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 3rem; margin-top: 1rem">
-                        Buy Order
-                      </mat-radio-button>
-                      <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;">
-                       Sell Order
-                      </mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-
-                </div>
  
                   <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12">
@@ -599,22 +580,22 @@
                   <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12">
                           <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                          <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
                           </mat-form-field>
                       </div>
                   </div>
          
                      
                   <div style="padding-bottom: 20px; ">
-                      <button *ngIf="this.amount && this.shares !== 0" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                      <button *ngIf="this.amount && this.shares !== 0" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;">
                   
-                      Place Order
+                      Place Bid
                   
                       </button>
 
-                      <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
+                      <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;">
                   
-                        Place Order
+                        Place Bid
                     
                         </button>
                   
@@ -633,7 +614,7 @@
                       </div>
 
 
-                      <div class="modal-body" *ngIf="radioGroup.value === 'buy'">
+                      <div class="modal-body">
                        
 
                         <div>
@@ -699,15 +680,9 @@
                       
                     </div>
 
-                    <div class="modal-body" *ngIf="radioGroup.value === 'sell'">
-                      <div>
-                        Please confirm that you intend to sell {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
-                      </div>
-                    
-                  </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                        <button data-dismiss="modal"  (click)="sendMarketOrder(radioGroup)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                        <button data-dismiss="modal"  (click)="sendMarketOrder()" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
                       </div>
                     </div>
                   </div>

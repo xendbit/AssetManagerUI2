@@ -27,36 +27,44 @@ export class NavbarComponent implements OnInit {
   provider: any;
   accounts: string[];
   accountStatusSource: any;
-  web3Provider: any;
   account: any;
   hasMetaMask: boolean;
   isConnected: boolean;
+  metamask: any;
+  balance: any;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
       this.location = location;
           this.sidebarVisible = false;
-          console.log('experimenting', window.web3.currentProvider)
-          if (typeof window.web3 !== 'undefined') {
-            this.web3Provider = window.web3.currentProvider;
+          console.log('experimenting', window.ethereum.isMetaMask)
+          console.log('testing', window.ethereum)
+          if (window.ethereum.isMetaMask === true) {
+            this.metamask = window.ethereum;
             this.hasMetaMask = true;
           } else {
             this.hasMetaMask = false;
           }
-
-       
-          window.web3 = new Web3(this.web3Provider);
-          console.log('experimenting ozo', this.web3Provider)
+         
+          console.log('experimenting ozo', this.metamask)
         
     }
 
     async ngOnInit(){
-      
         if (localStorage.getItem('userId')) {
             this.userId = parseInt(localStorage.getItem('userId'));
             this.role = parseInt(localStorage.getItem('role'));
             console.log('this is role', this.role)
           }
           this.getAssets();
+          this.getBalance();
+    }
+
+
+    getBalance(){
+      this.assetService.getAccountInfo().then(res => {
+        console.log('res', res['balance']);
+      })
+
     }
 
     logout() {
@@ -78,8 +86,16 @@ export class NavbarComponent implements OnInit {
           this.assetService.showNotification('top','center','Please install or create a metamask account to connect to your wallet', 'danger');
           return;
         } else {
-          const accounts = await  this.web3Provider.request({ method: 'eth_requestAccounts' });
+          const accounts = await  this.metamask.request({ method: 'eth_requestAccounts' });
+          this.accounts = accounts;
           this.account = accounts[0];
+          console.log('account', this.account);
+
+          const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
+            console.log('this is what i am getting', res);
+            this.balance =  window.web3.fromWei(res, 'ether');
+          })
+          console.log('this is balance', this.balance)
           this.isConnected = true;
         }
   
