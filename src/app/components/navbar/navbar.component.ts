@@ -32,11 +32,12 @@ export class NavbarComponent implements OnInit {
   isConnected: boolean;
   metamask: any;
   balance: any;
+  displayedData: string;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
       this.location = location;
           this.sidebarVisible = false;
-          console.log('experimenting', window.ethereum.isMetaMask)
+          console.log('experimenting', window.ethereum.isConnected())
           console.log('testing', window.ethereum)
           if (window.ethereum.isMetaMask === true) {
             this.metamask = window.ethereum;
@@ -50,6 +51,23 @@ export class NavbarComponent implements OnInit {
     }
 
     async ngOnInit(){
+        if (window.ethereum.isConnected() && this.account === undefined) {
+          const accounts = await  this.metamask.request({ method: 'eth_requestAccounts' });
+          this.accounts = accounts;
+          this.account = accounts[0];
+          this.displayedData = this.account.substring(0, 8) + 'xxxxx' + this.account.slice(this.account.length - 8)
+          console.log('this is result', this.displayedData)
+
+          const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
+            this.balance =  window.web3.fromWei(res, 'ether');
+          })
+          this.isConnected = true;
+          
+        } else {
+
+          this.isConnected = false
+          
+        }
         if (localStorage.getItem('userId')) {
             this.userId = parseInt(localStorage.getItem('userId'));
             this.role = parseInt(localStorage.getItem('role'));
@@ -90,6 +108,8 @@ export class NavbarComponent implements OnInit {
           this.accounts = accounts;
           this.account = accounts[0];
           console.log('account', this.account);
+          this.displayedData = this.account.substring(0, 8) + 'xxxxx' + this.account.slice(this.account.length - 8)
+          console.log('this is result', this.displayedData)
 
           const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
             console.log('this is what i am getting', res);

@@ -16,22 +16,12 @@
     <nav data-dropdown="hover" class="container-fluid navbar-expand-lg bg-white" >
         <div class="collapse navbar-collapse justify-content-between" style="font-size: smaller;">
             <div class="w-25">
-                <img style="width: 14rem; margin-left: 3rem;" src="/assets/img/xendswap.png">
+                <img style="width: 10rem; margin-left: 3rem;" src="/assets/img/yasukepb.png">
             </div>
             
             <ul class="navbar-nav align-items-end justify-content-center w-50" style="font-family: 'Playfair Display SC', serif;">
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.role === 0 || !this.role">
                     <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/home" routerLinkActive="active">
-                        home
-                    </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 2">
-                    <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/issuer-dashboard" routerLinkActive="active">
-                        home
-                    </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/admin-dashboard" routerLinkActive="active">
                         home
                     </a>
                 </li>
@@ -46,12 +36,12 @@
                     </a>
                 </li>
 
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
                     <a routerLink="/admin-assets" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         view assets
                     </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
+                </li> -->
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
                     <a routerLink="/add-admin" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         Add admin
                     </a>
@@ -61,13 +51,13 @@
                     <a routerLink="/add-issuer" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         Add issuer
                     </a>
-                </li>
+                </li> -->
 
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
                     <a routerLink="/approve" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         Approve assets
                     </a>
-                </li>
+                </li> -->
 
                 <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
                     <a routerLink="/orders" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
@@ -116,21 +106,21 @@
                     <a routerLink="/login" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         login
                     </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.userId">
-                    <a routerLink="/register" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        register
-                    </a>
                 </li> -->
+                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.balance">
+                    <a  class="nav-link text-nowrap mr-3" data-display="static" style="color: #575B7B !important;">
+                        Balance: {{this.balance}} ETH
+                    </a>
+                </li> 
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId">
                     <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
       
                         Connect Wallet
                     
                     </button>
-                    <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
+                    <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px;">
       
-                        Connected
+                        {{this.displayedData}}
                     
                     </button>
                     <!-- <a (click)="logout()" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
