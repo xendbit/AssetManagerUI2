@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
           const accounts = await  this.metamask.request({ method: 'eth_requestAccounts' });
           this.accounts = accounts;
           this.account = accounts[0];
-          this.displayedData = this.account.substring(0, 8) + 'xxxxx' + this.account.slice(this.account.length - 8)
+          this.displayedData = this.account.substring(0, 8) + '.....' + this.account.slice(this.account.length - 8)
           console.log('this is result', this.displayedData)
 
           const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {

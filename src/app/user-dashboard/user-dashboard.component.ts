@@ -43,6 +43,8 @@ export class UserDashboardComponent implements OnInit {
   unapproved: any[];
   approved: any[];
   totalApproved: number;
+  startDate: any;
+  endDate: any;
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder) {
     this.form = fb.group({
@@ -51,7 +53,9 @@ export class UserDashboardComponent implements OnInit {
       'issuingPrice': this.issuingPrice,
       'image': this.image,
       'artTitle': this.title,
-      'artistName': this.artist
+      'artistName': this.artist,
+      'startDate': this.startDate,
+      'endDate': this.endDate
   });
    }
 
@@ -62,8 +66,8 @@ export class UserDashboardComponent implements OnInit {
     this.totalSellOrders = 0;
     this.totalOrders = 0;
     this.balance = 0;
-    this.accountNumber = localStorage.getItem('accountNumber');
-    this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
+    // this.accountNumber = localStorage.getItem('accountNumber');
+    // this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
     this.getAssets();
     this.getBalance();
     this.getBuyOrders();
@@ -176,6 +180,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   submit() {
+    console.log('this is start date', this.form.get('startDate').value);
     this.description = this.form.get('description').value;
     this.symbol = this.form.get('symbol').value;
     this.issuingPrice = parseInt(this.form.get('issuingPrice').value);

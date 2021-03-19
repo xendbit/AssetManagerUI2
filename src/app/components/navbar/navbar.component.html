@@ -16,7 +16,7 @@
     <nav data-dropdown="hover" class="container-fluid navbar-expand-lg bg-white" >
         <div class="collapse navbar-collapse justify-content-between" style="font-size: smaller;">
             <div class="w-25">
-                <img style="width: 10rem; margin-left: 3rem;" src="/assets/img/yasukepb.png">
+                <img style="width: 10rem; margin-left: 3rem;" src="/assets/img/yasukenew.png">
             </div>
             
             <ul class="navbar-nav align-items-end justify-content-center w-50" style="font-family: 'Playfair Display SC', serif;">
@@ -25,12 +25,12 @@
                         home
                     </a>
                 </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
+                <li class="nav-item position-static dropdown dropdown-delay" >
                     <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/user-dashboard" routerLinkActive="active">
                         my account
                     </a>
                 </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
+                <li class="nav-item position-static dropdown dropdown-delay" >
                     <a routerLink="/myAssets" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         my assets
                     </a>
@@ -64,7 +64,7 @@
                         orders
                     </a>
                 </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.role === 0 || !this.role">
+                <li class="nav-item position-static dropdown dropdown-delay" >
                     <a (click)="goToAllAssets('buyPage')" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         all assets
                     </a>
@@ -112,7 +112,7 @@
                         Balance: {{this.balance}} ETH
                     </a>
                 </li> 
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId">
+                <li class="nav-item position-static dropdown dropdown-delay">
                     <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
       
                         Connect Wallet

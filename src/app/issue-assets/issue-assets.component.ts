@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -28,8 +29,9 @@ export class IssueAssetsComponent implements OnInit {
   totalApproved: number;
   approved: any[];
   exclusive: any;
+  mp3: any;
 
-  constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router) {
+  constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
       'description': this.description,
       'symbol': this.symbol,
@@ -113,7 +115,7 @@ export class IssueAssetsComponent implements OnInit {
   uploadFile(event: any) {
 
     const file = (event.target as HTMLInputElement).files[0];
-    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
+    if ( /\.(jpe?g|gif|png|mp3|wav)$/i.test(file.name) === false  ) {
       this.assetService.showNotification('bottom', 'center', 'please choose an Image!', 'danger')
       event.srcElement.value = null;
     } else {
@@ -121,6 +123,20 @@ export class IssueAssetsComponent implements OnInit {
       image: file
     });
     this.form.get('image').updateValueAndValidity();
+    }
+
+    if ( /\.(mp3|wav)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      
+      const mp3 = new Audio();
+      mp3.src = e.target.result;
+      this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
+      console.log('this is mp3', this.mp3)
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+
     }
 
     const reader = new FileReader();
