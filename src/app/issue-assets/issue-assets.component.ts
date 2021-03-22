@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -28,8 +29,11 @@ export class IssueAssetsComponent implements OnInit {
   totalApproved: number;
   approved: any[];
   exclusive: any;
+  mp3: any;
+  mp4: any;
+  tempImage: string;
 
-  constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router) {
+  constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
       'description': this.description,
       'symbol': this.symbol,
@@ -43,12 +47,11 @@ export class IssueAssetsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.image = '/assets/img/nse.png';
+    this.tempImage = '/assets/img/nft.png';
     this.getUserAssets();
   }
 
   submit(radioGroup) {
-    console.log('this is exclusive', radioGroup.value);
     this.exclusive = radioGroup.value;
     this.description = this.form.get('description').value;
     this.symbol = this.form.get('symbol').value;
@@ -98,6 +101,7 @@ export class IssueAssetsComponent implements OnInit {
       const res = data['status']
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+      this.getUserAssets();
       this.form.value.reset;
       this.router.navigateByUrl('/issuer-dashboard');
     }, err => {
@@ -105,7 +109,7 @@ export class IssueAssetsComponent implements OnInit {
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', this.error, 'danger');
-      this.form.value.reset;
+      this.form.reset;
     });
   }
 
@@ -113,8 +117,8 @@ export class IssueAssetsComponent implements OnInit {
   uploadFile(event: any) {
 
     const file = (event.target as HTMLInputElement).files[0];
-    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
-      this.assetService.showNotification('bottom', 'center', 'please choose an Image!', 'danger')
+    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(file.name) === false  ) {
+      this.assetService.showNotification('bottom', 'center', 'please select an Image, an mp3 file or mp4 file!', 'danger')
       event.srcElement.value = null;
     } else {
       this.form.patchValue({
@@ -123,26 +127,48 @@ export class IssueAssetsComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     }
 
-    const reader = new FileReader();
-            reader.onload = (e: any) => {
-                const image = new Image();
-                image.src = e.target.result;
-                image.onload = rs => {
-                    const img_height = rs.currentTarget['height'];
-                    const img_width = rs.currentTarget['width'];
+    if ( /\.(mp3|wav)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      
+      const mp3 = new Audio();
+      mp3.src = e.target.result;
+      this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
+      this.image = e.target.result;
+      console.log('this is mp3', this.image)
+      }
 
-                    console.log(img_height, img_width);
+      reader.readAsDataURL(event.target.files[0]);
 
+    }
 
-                    
-                        const imgBase64Path = e.target.result;
-                        this.image = imgBase64Path;
-                        console.log('this is image path', imgBase64Path)
-                        // this.previewImagePath = imgBase64Path;
-                };
-            };
+    if ( /\.(mp4)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      
+      this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
+      this.image = e.target.result;
+      console.log('got hereeee')
+      }
 
-            reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(event.target.files[0]);
+
+    }
+
+    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          const imgBase64Path = e.target.result;
+          this.image = imgBase64Path;
+          console.log('this is image path', imgBase64Path)
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    
   }
 
   getUserAssets() {

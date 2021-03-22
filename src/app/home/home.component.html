@@ -94,6 +94,18 @@
                 <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.exclusive  let i=index">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
+
+                      
+                            <!-- <audio controls>
+                              <source  type="audio/mpeg"  [src]="this.mp3" >
+                            </audio>
+                         
+                            <video width="420" height="340" controls autoplay controlsList="nodownload">
+                              <source [src]="this.mp4" type="video/mp4">
+                              <source [src]="this.mp4" type="video/ogg">
+                            Your browser does not support the video tag.
+                            </video> -->
+                       
                         
                         <p class="paragraph" style="font-family: 'Lustria', serif; color: black;">
                           <b> Title: </b> {{item.titleOfWork}}
@@ -126,7 +138,7 @@
             </a>
            
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 5px;">
+                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket | async " style="margin-left: 5px;">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
                         <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
