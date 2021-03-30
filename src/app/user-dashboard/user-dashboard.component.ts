@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 declare var PaystackPop: any;
 declare var $: any;
+declare let window: any;
 
 @Component({
   selector: 'app-user-profile',
@@ -45,6 +46,9 @@ export class UserDashboardComponent implements OnInit {
   totalApproved: number;
   startDate: any;
   endDate: any;
+  metamask: any;
+  account: any;
+  hasMetaMask: boolean;
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder) {
     this.form = fb.group({
@@ -57,24 +61,43 @@ export class UserDashboardComponent implements OnInit {
       'startDate': this.startDate,
       'endDate': this.endDate
   });
+
+    if (window.ethereum.isMetaMask === true) {
+      this.metamask = window.ethereum;
+      this.hasMetaMask = true;
+    } else {
+      this.hasMetaMask = false;
+    }
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     //this.hideArtDetails('hidden');
+    if (window.ethereum.isConnected() && this.hasMetaMask === true) {
+      const accounts = await  this.metamask.request({ method: 'eth_requestAccounts' });
+      console.log('tjsjd')
+      this.account = accounts[0];
+
+      const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
+        this.balance =  window.web3.fromWei(res, 'ether');
+      })
+      
+    } else {
+      this.balance = 0;
+      
+    }
     this.image = '/assets/img/nse.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
     this.totalOrders = 0;
-    this.balance = 0;
     // this.accountNumber = localStorage.getItem('accountNumber');
     // this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
     this.getAssets();
-    this.getBalance();
     this.getBuyOrders();
     this.getSellOrders();
     // const paymentForm = document.getElementById('paymentForm');
     // paymentForm.addEventListener("submit", this.payWithPaystack, true);
   }
+  
 
   getAssets() {
     this.assetService.getAllAssets().subscribe(data => {
@@ -166,19 +189,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
 
-  getBalance() {
-    this.assetService.showSpinner();
-    this.userId = localStorage.getItem('userId');
-    this.assetService.getWaletBalance(this.userId).subscribe(res => {
-      console.log('this is balance', res);
-      this.balance = res['data'];
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    });
-  }
-
+ 
   submit() {
     console.log('this is start date', this.form.get('startDate').value);
     this.description = this.form.get('description').value;

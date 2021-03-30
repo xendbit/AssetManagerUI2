@@ -74,7 +74,7 @@
                 </mat-card-content>
             </mat-card>
       
-            <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;" *ngIf="this.notLoggedIn === false">
+            <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;" >
 
               
 
@@ -143,15 +143,9 @@
 
                     <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
-                      Buy Asset
+                      Place Bid
                   
                   </button>
-
-                  <button *ngIf="this.amount && radioGroup.value === 'sell' && this.asset.market !== 0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                
-                    Sell Asset
-                
-                </button>
                   <div class="clearfix"></div>
                 </div>
 
@@ -331,7 +325,7 @@
           </mat-card>
     
     
-          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.asset.market !== 0 && this.notLoggedIn === false ">
+          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.asset.market !== 0">
             <div class="col-md-3" style="margin-left: 9px !important; padding-left: 0 !important;">
 
               <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">

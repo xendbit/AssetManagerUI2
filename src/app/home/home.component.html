@@ -119,31 +119,77 @@
                 </h2>
                
            
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
+
+            <!-- <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
+                <div data-id = "1" id="wcs-app-1" class="wcs-timetable__container wcs-timetable--1 wcs-timetable--style-6 wcs-timetable--without-filters">
+
+                    <div class="wcs-timetable wcs-timetable--carousel">
+                        <div class="wcs-timetable__carousel wcs-timetable__parent owl-carousel owl-loaded owl-drag">
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2054px; padding-left: 40px; padding-right: 40px;">
+                                    <div class="owl-item active" style="width: 269px; margin-right: 60px;">
+                                        <div *ngFor="let item of this.primaryMarket  let i=index" class="wcs-class wcs-class--filterable wcs-class--not-started wcs-class--not-finished wcs-class--term-id-9 wcs-class--term-carousel wcs-class--term-id-31 wcs-class--term-landscape wcs-class--term-id-32 wcs-class--term-british-gallery-of-arts wcs-class--term-id-33 wcs-class--term-john-constable wcs-class--term-id-35 wcs-class--term-samuel-palmer wcs-class--term-id-34 wcs-class--term-thomas-girtin wcs-class--day-4 wcs-class--time-morning vue-element">
+                                            <div class="wcs-class__image">
+                                                <div class="responsive-image">
+                                                    <img src="{{item.imageUrl}}" class="wcs-modal-call">
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> -->
            
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 5px;">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b>  {{item.price| currency:"$"}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;"> 
-                            <b> Owned Shares: </b> {{this.shares}} 
-                        </p>
+                <div *ngFor="let item of this.primaryMarket  let i=index" class="col-3 col-md-3 ">
 
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
+               
+               
+                        <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                            <div >
+                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                    <b> {{item.titleOfWork}} </b> 
+                                </p>
+                                <img src="{{item.imageUrl}}" class="image">
+                            </div>
+                        </div>
+                        <div class = "row" style="margin-top: 10px;">
+                            <div class="col">
+                                <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
+
+                                    <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="paragraph" style="align: right;">
+
+                                    <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                                </p>
+                            </div>
+
+                        </div>  
+                    
+                    </div>
             </div>
+           
+         
     
         </div>
 
@@ -155,26 +201,45 @@
             <h2 class="text-uppercase font-weight-light">
                 Previous Listings
             </h2>
-            <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
-                        </p>
+
+
+                <div *ngFor="let item of this.secondaryMarket  let i=index" class="col-3 col-md-3 ">
+
+               
+               
+                    <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                        <div  style="position: relative;">
+                            <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                <b> {{item.titleOfWork}} </b> 
+                              </p>
+                            <img src="{{item.imageUrl}}" class="image">
+                        </div>
+                    </div>
+                            <div class = "row" style="margin-top: 10px;">
+                                <div class="col">
+                                    <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
+    
+                                        <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p class="paragraph" style="align: right;">
+    
+                                        <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                                    </p>
+                                </div>
+    
+                            </div>  
                         
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
+                        </div>
+                </div>
+      
     
         </div>
 
@@ -187,22 +252,27 @@
             <h2 class="text-uppercase font-weight-light">
                 Featured categories
             </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.demoCategories  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Type: </b> {{item.type}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
+
+            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
+                <div *ngFor="let item of this.demoCategories  let i=index" class="col-3 col-md-3 ">
+
+               
+               
+                        <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                            <div >
+                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                    <b> {{item.titleOfWork}} </b> 
+                                </p>
+                                <img src="{{item.imageUrl}}" class="image">
+                            </div>
+                        </div>
+                    
+                    </div>
             </div>
            
     
@@ -216,26 +286,46 @@
             <h2 class="text-uppercase font-weight-light">
                 Featured Artists
             </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
+
+
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
-                        </p>
+
+
+                <div *ngFor="let item of this.primaryMarket  let i=index" class="col-3 col-md-3 ">
+
+               
+               
+                    <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                        <div  style="position: relative;">
+                            <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                <b> {{item.titleOfWork}} </b> 
+                              </p>
+                            <img src="{{item.imageUrl}}" class="image">
+                        </div>
+                    </div>
+                            <div class = "row" style="margin-top: 10px;">
+                                <div class="col">
+                                    <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
+    
+                                        <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p class="paragraph" style="align: right;">
+    
+                                        <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                                    </p>
+                                </div>
+    
+                            </div>  
                         
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
+                        </div>
+                </div>
            
     
         </div>

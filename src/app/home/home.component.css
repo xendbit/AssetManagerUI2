@@ -275,9 +275,20 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 .image {
     width: 100%;
-    margin-bottom: 6px; 
-    height: 15rem; 
+    /* margin-bottom: 10px;  */
+    height: 16rem; 
     object-fit: cover;
+    margin: 0;
+}
+
+.col-3:hover {
+    transform: scale(1.1);
+    transition: 500ms linear;
+}
+
+.col-md-3:hover {
+    transform: scale(1.1);
+    transition: 500ms linear;
 }
 
 .w-25 {
@@ -376,12 +387,346 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     padding-right: 15px;
 }
 
-/* 
-margin: 0 auto;
-    white-space: nowrap;
-    overflow: hidden;
-    box-sizing: border-box;
-    padding: 0;
-    height: 16px;
-    display: block; */
 
+.wcs-timetable--1.wcs-timetable__container {
+    color: inherit;
+}
+.wcs-timetable__container {
+    padding: 0;
+}
+.wcs-timetable__container {
+    position: relative;
+    min-height: 12.5vh;
+    clear: both;
+    width: 100%;
+    padding: 5vh 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.wcs-timetable--1 .wcs-timetable {
+    border-color: inherit;
+}
+
+.wcs-timetable__container .wcs-timetable {
+    -webkit-flex-basis: 100%;
+    flex-basis: 100%;
+}
+.wcs-timetable--carousel {
+    min-width: 0;
+}
+.wcs-timetable {
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+.owl-carousel.owl-loaded {
+    display: block;
+}
+
+.owl-carousel.owl-loaded {
+    display: block;
+}
+.owl-carousel.owl-loaded {
+    display: block;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+.wcs-timetable__carousel {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+
+.wcs-timetable__carousel.owl-carousel .owl-stage-outer {
+    max-width: 100%;
+    min-width: 0;
+}
+.owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0,0,0);
+}
+.owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0px,0px,0px);
+}
+.owl-carousel .owl-stage-outer {
+    position: relative;
+    overflow: hidden;
+    -webkit-transform: translate3d(0px,0,0);
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+.wcs-timetable__carousel.owl-carousel.owl-carousel .owl-stage {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.owl-carousel .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+}
+.owl-carousel .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+}
+.owl-carousel .owl-stage {
+    position: relative;
+    -ms-touch-action: pan-Y;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+.wcs-timetable__carousel.owl-carousel.owl-carousel .owl-item {
+    float: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.wcs-timetable--carousel .wcs-timetable__carousel .owl-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+.wcs-timetable--1 .wcs-timetable__carousel .wcs-class {
+    background-color: #ffffff;
+}
+.wcs-timetable--carousel .wcs-timetable__carousel .wcs-class {
+    margin-top: -2rem;
+}
+
+.wcs-timetable__carousel .wcs-class.vue-element {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.wcs-timetable__carousel .wcs-class {
+    background-color: transparent!important;
+}
+.wcs-timetable__carousel .wcs-class {
+    text-align: left;
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    border-radius: 2px;
+    -webkit-align-content: space-between;
+    align-content: space-between;
+    width: 100%;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel.owl-drag .owl-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.owl-carousel .owl-item {
+    position: relative;
+    min-height: 1px;
+    float: left;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+.wcs-timetable__carousel.owl-carousel.owl-carousel .owl-stage {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+.owl-carousel {
+    display: none;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+.wcs-timetable {
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+.wcs-timetable--1.wcs-timetable__container {
+    color: inherit;
+}
+
+.wcs-timetable--carousel .wcs-timetable__carousel .wcs-class__image {
+    padding-top: 2rem;
+}
+
+.wcs-timetable__carousel .wcs-class__image {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    max-width: 100%;
+    height: auto;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    flex-grow: 0;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+
+.wcs-timetable--carousel .wcs-timetable__carousel .active .responsive-image {
+    box-shadow: 0.75rem 0.85rem 1.75rem 0 rgb(0 0 0 / 32%);
+}
+.wcs-timetable--carousel .wcs-timetable__carousel .responsive-image {
+    margin-top: 1rem;
+}
+.wcs-timetable__container * {
+    box-sizing: border-box;
+}
+
+
+.wcs-timetable__carousel .wcs-class .wcs-modal-call {
+    cursor: pointer;
+}
