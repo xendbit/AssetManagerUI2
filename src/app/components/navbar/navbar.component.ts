@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
           this.displayedData = this.account.substring(0, 8) + '.....' + this.account.slice(this.account.length - 8)
           console.log('this is result', this.displayedData)
 
-          const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
+          await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
             this.balance =  window.web3.fromWei(res, 'ether');
           })
           this.isConnected = true;
