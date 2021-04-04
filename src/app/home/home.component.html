@@ -122,137 +122,174 @@
     
         </div>
 
-        <div class="container-fluid container-lg container-home">
-            <p class="text-uppercase small font-weight-medium">
-                Fractional Offers
-            </p>
-                <h2 class="text-uppercase font-weight-light">
-                    New Listings
-                </h2>
-               
-           
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
-                
-                View more
-            
-            </a>
-           
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <mat-card (click)="viewBuy(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket | async " style="margin-left: 5px;">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b>  {{item.price| currency:"$"}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;"> 
-                            <b> Owned Shares: </b> {{this.shares}} 
-                        </p>
-
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
-    
-        </div>
-
-        <div class="container-fluid container-lg container-home">
-          
-            <p class="text-uppercase small font-weight-medium">
-                Fractional Offers
-            </p>
+    <div class="container-fluid container-lg container-home">
+        <p class="text-uppercase small font-weight-medium">
+            Fractional Offers
+        </p>
             <h2 class="text-uppercase font-weight-light">
-                Previous Listings
+                New Listings
             </h2>
-            <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
-                
-                View more
             
-            </a>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
-    
-        </div>
-
-
-        <div class="container-fluid container-lg container-home">
+        
+        <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            
+            View more
+        
+        </a>
+           
           
+         
+           
+        <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
+            <div *ngFor="let item of this.primaryMarket  let i=index" class="col-3 col-md-3 ">
+                <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                    <div >
+                      
+                        <img src="{{item.imageUrl}}" class="image">
+                    </div>
+                 </div>
+                <div class = "row" style="margin-top: 10px;">
+                    <div class="col">
+                        <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center; vertical-align: middle; margin-right: 2px;">
+                            <b> {{item.titleOfWork}} </b> 
+                        </p>
+                    </div>
+                    <div class="col">
+                       <p class="paragraph" style="align: right;">
+                            <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                        </p>
+                    </div>
+                </div>                 
+            </div>
+        </div>
+    </div>
+
+        
+    <div class="container-fluid container-lg container-home">
+      
+        <p class="text-uppercase small font-weight-medium">
+            Existing Offers
+        </p>
+        <h2 class="text-uppercase font-weight-light">
+            Previous Listings
+        </h2>
+        <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
+            
+            View more
+        
+        </a>
+        <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+
+
+            <div *ngFor="let item of this.secondaryMarket  let i=index" class="col-3 col-md-3 ">
+
+           
+           
+                <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                    <div  style="position: relative;">
+                        <img src="{{item.imageUrl}}" class="image">
+                    </div>
+                </div>
+                        <div class = "row" style="margin-top: 10px;">
+                            <div class="col">
+                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center; vertical-align: middle; margin-right: 2px;">
+                                    <b> {{item.titleOfWork}} </b> 
+                                </p>
+                            </div>
+                            <div class="col">
+                               <p class="paragraph" style="align: right;">
+                                    <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                                </p>
+                            </div>
+
+                        </div>  
+                    
+                    </div>
+            </div>
+  
+
+    </div>
+        <div class="container-fluid container-lg container-home">
+      
             <p class="text-uppercase small font-weight-medium">
                 categories
             </p>
             <h2 class="text-uppercase font-weight-light">
                 Featured categories
             </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.demoCategories  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Type: </b> {{item.type}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
+    
+            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
+                <div *ngFor="let item of this.demoCategories  let i=index" class="col-3 col-md-3 ">
+    
+               
+               
+                        <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                            <div >
+                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                    <b> {{item.titleOfWork}} </b> 
+                                </p>
+                                <img src="{{item.imageUrl}}" class="image">
+                            </div>
+                        </div>
+                    
+                    </div>
             </div>
            
     
         </div>
+    
 
         <div class="container-fluid container-lg container-home">
-          
+      
             <p class="text-uppercase small font-weight-medium">
                 creators
             </p>
             <h2 class="text-uppercase font-weight-light">
                 Featured Artists
             </h2>
-            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%;">
+            <a (click)="goToAllAssets('primary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
                 View more
             
             </a>
+    
+    
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <mat-card class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Cormorant Garamond', serif; color: black;">
-                          <b> Title: </b> {{item.titleOfWork}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-                            <b style="color: black !important;"> Price: </b> {{item.price | currency:"$"}}
-                        </p>
+    
+    
+                <div *ngFor="let item of this.primaryMarket  let i=index" class="col-3 col-md-3 ">
+    
+               
+               
+                    <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                        <div  style="position: relative;">
+                            <img src="{{item.imageUrl}}" class="image">
+                        </div>
+                    </div>
+                            <div class = "row" style="margin-top: 10px;">
+                                <div class="col">
+                                    <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center; vertical-align: middle; margin-right: 2px;">
+                                        <b> {{item.titleOfWork}} </b> 
+                                    </p>
+                                </div>
+                                <div class="col">
+                                   <p class="paragraph" style="align: right;">
+                                        <mat-icon matPrefix  style="vertical-align:middle; margin-left: 60%; color: black;">favorite_border </mat-icon> 
+                                    </p>
+                                </div>
+    
+                            </div>  
                         
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
+                        </div>
+                </div>
            
     
         </div>
-
-
         
 
     </div>
