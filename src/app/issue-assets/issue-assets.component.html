@@ -18,21 +18,31 @@
                   </div>
                   <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px;">
 
-                    <mat-card *ngIf="this.image" class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
-                        <mat-card-content>
-                                
-                                    <img src="{{this.image}}" style="width: 90%;">
-
-                                    <div class="row">
-
-                                      <audio controls *ngIf="this.mp3">
-                                        <source  type="audio/mpeg"  [src]="this.mp3" >
-                                      </audio>
-
-                                    </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
+                    
+          <mat-card  class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+            <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4">
+                    
+                        <img src="{{this.tempImage}}" style="width: 90%;">
+                
+            </mat-card-content>
+            <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4">
+                    
+              <img src="{{this.image}}" style="width: 90%;">
+      
+           </mat-card-content>
+            <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
+              <audio controls>
+                <source  type="audio/mpeg"  [src]="this.mp3" >
+              </audio>
+            </mat-card-content>
+            <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp4 && !this.mp3">
+              <video width="420" height="340" controls controlsList="nodownload">
+                <source [src]="this.mp4" type="video/mp4">
+                <source [src]="this.mp4" type="video/ogg">
+              Your browser does not support the video tag.
+              </video>
+            </mat-card-content>
+        </mat-card>
 
 
                     <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
