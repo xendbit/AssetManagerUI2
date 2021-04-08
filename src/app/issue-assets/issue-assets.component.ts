@@ -116,8 +116,8 @@ export class IssueAssetsComponent implements OnInit {
   uploadFile(event: any) {
 
     const file = (event.target as HTMLInputElement).files[0];
-    if ( /\.(jpe?g|gif|png|mp3|wav)$/i.test(file.name) === false  ) {
-      this.assetService.showNotification('bottom', 'center', 'please choose an Image!', 'danger')
+    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(file.name) === false  ) {
+      this.assetService.showNotification('bottom', 'center', 'please select an Image, an mp3 file or mp4 file!', 'danger')
       event.srcElement.value = null;
     } else {
       this.form.patchValue({
