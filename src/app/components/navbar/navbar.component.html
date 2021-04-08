@@ -69,11 +69,11 @@
                         all assets
                     </a>
                 </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 2">
+                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 2">
                     <a routerLink="/issue" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         issue assets
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
                     <a routerLink="/admin-settings" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         Settings
@@ -112,7 +112,7 @@
                         Balance: {{this.balance}} ETH
                     </a>
                 </li> 
-                <li class="nav-item position-static dropdown dropdown-delay">
+                <li class="nav-item position-static dropdown dropdown-delay" style="margin-right: 30% !important;">
                     <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
       
                         Connect Wallet
