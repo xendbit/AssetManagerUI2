@@ -31,6 +31,7 @@ export class IssueAssetsComponent implements OnInit {
   exclusive: any;
   mp3: any;
   mp4: any;
+  tempImage: string;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -46,7 +47,7 @@ export class IssueAssetsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.image = '/assets/img/nse.png';
+    this.tempImage = '/assets/img/nft.png';
     this.getUserAssets();
   }
 

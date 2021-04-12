@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AssetsService } from '../services/assets.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 declare var PaystackPop: any;
 declare var $: any;
@@ -49,8 +51,12 @@ export class UserDashboardComponent implements OnInit {
   metamask: any;
   account: any;
   hasMetaMask: boolean;
+  tempImage: string;
+  mp3: any;
+  mp4: any;
+  tokenId: number;
 
-  constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder) {
+  constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
       'description': this.description,
       'symbol': this.symbol,
@@ -72,20 +78,11 @@ export class UserDashboardComponent implements OnInit {
 
   async ngOnInit() {
     //this.hideArtDetails('hidden');
-    if (window.ethereum.isConnected() && this.hasMetaMask === true) {
-      const accounts = await  this.metamask.request({ method: 'eth_requestAccounts' });
-      console.log('tjsjd')
-      this.account = accounts[0];
-
-      const balance = await  this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
-        this.balance =  window.web3.fromWei(res, 'ether');
-      })
-      
-    } else {
-      this.balance = 0;
-      
-    }
-    this.image = '/assets/img/nse.png';
+    this.assetService.getMetamaskInfo().then( data => {
+      this.balance = data.balance;
+      this.account = data.account;
+    })
+    this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
     this.totalOrders = 0;
@@ -192,34 +189,41 @@ export class UserDashboardComponent implements OnInit {
  
   submit() {
     console.log('this is start date', this.form.get('startDate').value);
-    this.description = this.form.get('description').value;
+    
+    
+    // this.description = this.form.get('description').value;
     this.symbol = this.form.get('symbol').value;
-    this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
-    this.artist = this.form.get('artistName').value;
+    // this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
+    // this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
     
-    if (this.title === null || this.artist === null || this.symbol === null || this.description === null) {
+    if (this.title === null || this.symbol === null ) {
       this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
       return;
     }
 
     const issueId = localStorage.getItem('userId');
     console.log('this is issueId', issueId)
-    const body = {
-      description: this.description,
-      symbol: this.symbol,
-      issuingPrice: this.issuingPrice,
-      issuerId: issueId,
-      artistName: this.artist,
-      titleOfWork: this.title,
-      image: this.image,
-      commission: 500,
-      price: this.issuingPrice,
-      createdOn: new Date().getTime(),
-      nameOfOwners: "null"
-    }
+
+    var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
+    this.tokenId = rndNo;
+    console.log('this is token id', this.tokenId);
+  
+    // const body = {
+    //   description: this.description,
+    //   symbol: this.symbol,
+    //   issuingPrice: this.issuingPrice,
+    //   issuerId: issueId,
+    //   artistName: this.artist,
+    //   titleOfWork: this.title,
+    //   image: this.image,
+    //   commission: 500,
+    //   price: this.issuingPrice,
+    //   createdOn: new Date().getTime(),
+    //   nameOfOwners: "null"
+    // }
     this.assetService.showSpinner();
-    this.assetService.issue(body).subscribe( data => {
+    this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();
@@ -238,9 +242,15 @@ export class UserDashboardComponent implements OnInit {
 
   uploadFile(event: any) {
 
+   
     const file = (event.target as HTMLInputElement).files[0];
-    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
-      this.assetService.showNotification('bottom', 'center', 'please choose an Image!', 'danger')
+    const fileSize = file.size/1024/1024;
+    if (fileSize > 10) {
+      this.assetService.showNotification('top', 'center', 'You currently cannot issue an asset larger than 10MB, please select a smaller asset and try again', 'danger');
+      return;
+    }
+    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(file.name) === false  ) {
+      this.assetService.showNotification('bottom', 'center', 'please select an Image, an mp3 file or mp4 file!', 'danger')
       event.srcElement.value = null;
     } else {
       this.form.patchValue({
@@ -249,26 +259,46 @@ export class UserDashboardComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     }
 
-    const reader = new FileReader();
-            reader.onload = (e: any) => {
-                const image = new Image();
-                image.src = e.target.result;
-                image.onload = rs => {
-                    const img_height = rs.currentTarget['height'];
-                    const img_width = rs.currentTarget['width'];
+    if ( /\.(mp3|wav)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      
+      const mp3 = new Audio();
+      mp3.src = e.target.result;
+      this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
+      this.image = e.target.result;
+      console.log('this is mp3', this.image)
+      }
 
-                    console.log(img_height, img_width);
+      reader.readAsDataURL(event.target.files[0]);
 
+    }
 
-                    
-                        const imgBase64Path = e.target.result;
-                        this.image = imgBase64Path;
-                        console.log('this is image path', imgBase64Path)
-                        // this.previewImagePath = imgBase64Path;
-                };
-            };
+    if ( /\.(mp4)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+      
+      this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
+      this.image = e.target.result;
+     
+      }
 
-            reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(event.target.files[0]);
+
+    }
+
+    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          const imgBase64Path = e.target.result;
+          this.image = imgBase64Path;
+          console.log('this is image path', imgBase64Path)
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   getUserAssets() {

@@ -5,6 +5,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 import { first } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
+import * as Web3 from 'web3';
+
+
+declare let require: any;
+declare let window: any;
 
 @Component({
   selector: 'app-secondary-view',
@@ -53,12 +58,26 @@ export class SecondaryViewComponent implements OnInit {
   fees: any;
   marketSettings: any;
   holidays: any;
+  accounts: any;
+  displayedData: string;
+  account: any;
+  metamask: any;
+  hasMetaMask: boolean;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
+      if (window.ethereum.isMetaMask === true) {
+        this.metamask = window.ethereum;
+        this.hasMetaMask = true;
+      } else {
+        this.hasMetaMask = false;
+      }
      }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.assetService.getMetamaskInfo().then( data => {
+      this.balance = data.balance;
+    })
     this.balanceComplete = false;
     this.fromOrder = false;
     this.fromSellOrder = false;
@@ -78,7 +97,7 @@ export class SecondaryViewComponent implements OnInit {
                 if (window.history.state.tokenId) {
                     this.userId = parseInt(localStorage.getItem('userId'));
                     this.tokenId = window.history.state.tokenId;
-                    this.getBalance();
+                    // this.getBalance();
                     this.getSellOrders();
                     this.getFees();
                     this.getHolidays();
@@ -142,16 +161,16 @@ getHolidays() {
 }
 
 
-getBalance() {
-  this.userId = localStorage.getItem('userId');
-  this.assetService.getWaletBalance(this.userId).subscribe(res => {
-    this.balance = res['data'];
-  }, err => {
-    console.log(err.error.data.error);
-    this.error = err.error.data.error;
-    this.asset.showNotification('bottom', 'center', this.error, 'danger')
-  });
-}
+// getBalance() {
+//   this.userId = localStorage.getItem('userId');
+//   this.assetService.getWaletBalance(this.userId).subscribe(res => {
+//     this.balance = res['data'];
+//   }, err => {
+//     console.log(err.error.data.error);
+//     this.error = err.error.data.error;
+//     this.asset.showNotification('bottom', 'center', this.error, 'danger')
+//   });
+// }
 
 getAssets() {
   this.assetService.getAllAssets().subscribe(data => {

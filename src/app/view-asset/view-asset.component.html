@@ -13,7 +13,7 @@
               View More details:
           </h2>
           <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-            <mat-card class="col-lg-7 col-md-7 col-sm-7" style="font-family: 'Inter', serif;">
+            <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Inter', serif;">
               <mat-card-header>
                 <img src="{{this.asset.imageUrl}}" style="width: 100%; max-height: 30rem; margin-bottom: 10px; margin-left: 1rem;
                  box-shadow: 5px 5px 5px #ccc;
@@ -42,7 +42,7 @@
                         </p>
               
                         <p>
-                          <b> Issuing Price: </b>  {{this.asset.issuingPrice | currency:"$"}}
+                          <b> Minimum Bid Price: </b>  {{this.asset.issuingPrice}} ETH
                         </p>
                        <p>
                         <b> Symbol: </b> {{this.asset.symbol}}
@@ -74,7 +74,7 @@
                 </mat-card-content>
             </mat-card>
       
-            <mat-card class="col-lg-2 col-md-2 col-sm-2" style="font-family: 'Inter', serif;" >
+            <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;" >
 
               
 
@@ -92,7 +92,7 @@
 
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
-                    <p><b> Account Balance: </b>{{this.balance | currency:"$"}} </p>
+                    <p><b> Account Balance: </b>{{this.balance}} ETH </p>
                   </div>
 
                  
@@ -110,9 +110,9 @@
                   </div> -->
       
                   <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-9 col-md-9 col-sm-9">
                         <mat-form-field class="example-full-width">
-                          <input matInput [readonly]="!editable" placeholder="Price: {{this.asset.issuingPrice | currency:'$'}}" type="number" value="{{this.asset.issuingPrice}}" id="price" name="price" [(ngModel)]="price">
+                          <input matInput placeholder="Enter bidding price." type="number" id="price" name="price" [(ngModel)]="price">
                         </mat-form-field>
                       </div>
                   </div>
@@ -126,11 +126,11 @@
                 </div> -->
                   
                   <div style="padding-bottom: 20px; ">
-                  <div class="row">;
+                  <!-- <div class="row">;
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <p><b> Total: </b>  {{this.asset.issuingPrice | currency:"$"}} </p>
                     </div>
-                  </div>
+                  </div> -->
 
                     <div class="clearfix"></div>
                   </div>
@@ -141,11 +141,17 @@
                     
                     </button> -->
 
-                    <button class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                    <button  *ngIf="this.price" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
                 
                       Place Bid
                   
                   </button>
+
+                  <button *ngIf="!this.price" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
+                
+                    Place Bid
+                
+                </button>
                   <div class="clearfix"></div>
                 </div>
 
@@ -254,6 +260,93 @@
         </div>
   
       </div>
+
+
+      <div class="container-fluid container-lg container-home" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+        <h3 class="text-uppercase font-weight-light">
+            Bidding List
+        </h3>
+        <p class="text-uppercase small font-weight-medium">
+            Bids ordered from highest to lowest
+        </p>
+
+    </div>
+    
+   
+    <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Inter', serif;">
+      
+        
+        <mat-tab label="Bids">
+            
+            <div class="row">
+                <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div> -->
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
+                      
+                        <div class="card-body">
+                            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                                <div class="table-responsive">      
+                                    <table class="table table-hover" >
+                                        <thead class="text-success">
+                                            
+                                            <th> Wallet Address </th>
+                                            <th>Bid Price</th>
+                                            <th> Bid Date </th>
+                                        </thead>
+                                        <tbody >
+                                            <tr class="Table" >
+                                                <td > 0X138EA80AAED39YTR </td>
+                                                <td > 500 ETH </td>
+                                                <td >   21 Mar 2021 </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>           
+                        </div>              
+                    </div>
+                
+                </div>
+            
+        
+            
+            </div >
+        </mat-tab>
+        <!-- <mat-tab label="Bids (Buy)">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
+                        <div class="card-body">
+                            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                                <div class="table-responsive">      
+                                    <table class="table table-hover" >
+                                        <thead class="text-success">
+                                          <th> Bid ID </th>
+                                          <th>Original Price</th>
+                                          <th>Bid Price</th>
+                                          <th> Bid Date </th>
+                                        </thead>
+                                        <tbody *ngFor="let item of this.buyOrders">
+                                            <tr class="Table" (click)= "viewAssetSell(item.price, item.id, item.amountRemaining)">
+                                                <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
+                                                <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
+                                                <td *ngIf="item.amountRemaining !== 0">   {{item.price | currency:"$"}} </td>
+                                                <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>           
+                        </div>              
+                    </div>
+                
+                </div>
+            
+        
+            
+            </div >
+        </mat-tab> -->
+    </mat-tab-group>
 
 
       <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'sellPage'">

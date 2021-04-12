@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as Web3 from 'web3';
+import { ethers } from "ethers";
+
 
 declare var $: any;
 declare let require: any;
@@ -11,6 +13,24 @@ declare let window: any;
     providedIn: 'root'
   })
   export class AssetsService {
+    metamask: any;
+  hasMetaMask: boolean;
+  balance: any;
+  account: any;
+  displayedData: string;
+  metaInfo: { account: any; accounts: any; displayedData: string; balance: any; hasMetaMask: boolean; };
+  abi = [
+    "function issueToken(uint256,address,string,string,string)",
+    "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256)",
+    "function placeBid(uint256,uint256)",
+    "function endBid(uint256,uint256)",
+    "function withdraw(uint256,uint256)",
+    "function cancelAuction(uint256,uint256)"
+  ];
+  chainId = 77;
+  testChainId = 56;
+  contractAddress = '0x0B58e18b7EF3011Ce26B9cb2538030e2427e67Bf';
+  issuanceResponse: any;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
       console.log('tji', window.web3)
@@ -21,7 +41,32 @@ declare let window: any;
       }
    
       window.web3 = new Web3(this.web3Provider);
+      if (window.ethereum.isMetaMask === true) {
+        this.metamask = window.ethereum;
+        this.hasMetaMask = true;
+      } else {
+        this.hasMetaMask = false;
       }
+      this.getMetamaskInfo();
+    }
+
+  async getMetamaskInfo() {
+    const accounts = await this.metamask.request({ method: 'eth_requestAccounts' });
+    this.account = accounts[0];
+    this.displayedData = this.account.substring(0, 8) + 'xxxxx' + this.account.slice(this.account.length - 8)
+    const balance =  await this.metamask.request({"jsonrpc":"2.0", method: 'eth_getBalance', params:  [this.account] }).then(res => {
+      this.balance =  window.web3.fromWei(res, 'ether');
+    }) 
+    this.metaInfo = {
+      'account': this.account,
+      'accounts': accounts,
+      'displayedData': this.displayedData,
+      'balance': this.balance,
+      'hasMetaMask': this.hasMetaMask
+    } 
+  
+    return this.metaInfo;
+  }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
     private web3Provider: any;
@@ -31,11 +76,31 @@ declare let window: any;
       return this.httpClient.get(`${this.baseUrl}/assets/listings`);
     }
 
-    issue(body) {
-      let headers: HttpHeaders = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.api_key);
-      return this.httpClient.post(`${this.baseUrl}/assets/issue-asset`, body, {headers});
+    issue(tokenId, assetName, symbol) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("issueToken", [tokenId, this.account, 'empty string', assetName, symbol ]);
+      const ethValue = "0.1"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    console.log(transactionParameters);
+      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.issuanceResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.issuanceResponse = error;
+      });
+      return this.issuanceResponse;
     }
 
     transfers() {

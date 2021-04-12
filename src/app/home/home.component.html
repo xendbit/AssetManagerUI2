@@ -18,7 +18,7 @@
                       <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div  class="row">
-                                <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #CFB3A8; padding-left: 15px; height: 20rem; width: 100%;">
+                                <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #E8C847; padding-left: 15px; height: 20rem; width: 100%;">
                                     <div class="hero-content w-100">
                                         <h2 class="text-white text-uppercase text-center text-lg-left hero-title">  
                                             Easily Buy and trade art securely on the digital blockchain
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-12 col-lg-7" style="padding-left: 0 !important;">
                                     <div class="overlay">
-                                        <img class="img-fluid" src="/assets/img/nse.png">
+                                        <img class="img-fluid" src="/assets/img/nike.jpeg">
                                     </div>
                             
                                 </div>
@@ -182,17 +182,14 @@
                
                         <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                             <div >
-                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
-                                    <b> {{item.titleOfWork}} </b> 
-                                </p>
+                               
                                 <img src="{{item.imageUrl}}" class="image">
                             </div>
                         </div>
                         <div class = "row" style="margin-top: 10px;">
                             <div class="col">
-                                <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-
-                                    <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
+                                <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                    <b> {{item.titleOfWork}} </b> 
                                 </p>
                             </div>
                             <div class="col">
@@ -231,20 +228,17 @@
 
                
                
-                    <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                    <div (click)="viewSec(item.tokenId, 'sellPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                         <div  style="position: relative;">
-                            <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
-                                <b> {{item.titleOfWork}} </b> 
-                              </p>
+                            
                             <img src="{{item.imageUrl}}" class="image">
                         </div>
                     </div>
                             <div class = "row" style="margin-top: 10px;">
                                 <div class="col">
-                                    <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-    
-                                        <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
-                                    </p>
+                                    <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                        <b> {{item.titleOfWork}} </b> 
+                                      </p>
                                 </div>
                                 <div class="col">
                                     <p class="paragraph" style="align: right;">
@@ -320,18 +314,15 @@
                
                     <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                         <div  style="position: relative;">
-                            <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
-                                <b> {{item.titleOfWork}} </b> 
-                              </p>
+                            
                             <img src="{{item.imageUrl}}" class="image">
                         </div>
                     </div>
                             <div class = "row" style="margin-top: 10px;">
                                 <div class="col">
-                                    <p class="paragraph" style="font-family: 'Lustria', serif; color: #DC3B61;">
-    
-                                        <mat-icon matPrefix  style="vertical-align:middle; margin-right: 2px; color: black;">local_atm </mat-icon> <b style="color: black !important;">  {{item.price| currency:"$"}} </b> 
-                                    </p>
+                                    <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
+                                        <b> {{item.titleOfWork}} </b> 
+                                      </p>
                                 </div>
                                 <div class="col">
                                     <p class="paragraph" style="align: right;">

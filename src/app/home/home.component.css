@@ -291,19 +291,6 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     transition: 500ms linear;
 }
 
-.flex-row {
-    animation: moveToRight 2s ease-in-out;
-      animation-delay: 1000ms;
-}
-
-  @keyframes moveToRight {
-      0% {
-        transform: translateX(0px);
-      }
-      100% {
-        transform: translateX(300px);
-      }
-    }
 
 .w-25 {
     width: 25%!important;

@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
       //   }
       // })
       this.assets.forEach(element => {
-        if (element.market === 0 && element.approved === 1 && element.sharesAvailable === 1) {
+        if (element.market === 0 && element.approved === 1) {
           init.push(element);
         } else if (element.market === 1 && element.approved === 1) {
           second.push(element);
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
       this.secondaryMarket = second;
       this.exclusive = exclu;
       this.assetService.stopSpinner();
-      console.log('this is exclusive market', this.exclusive)
+      console.log('this is exclusive market', this.primaryMarket)
     }, err => {
       this.assetService.stopSpinner();
       console.log(err.error.data.error);
@@ -91,8 +91,8 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
   }
 
-  viewSell(tokenId, page) {
-    this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
+  viewSec(tokenId, page) {
+    this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId, from: page} });
   }
 
   viewOrder(tokenId) {

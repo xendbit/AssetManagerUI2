@@ -66,7 +66,9 @@ export class ViewAssetComponent implements OnInit {
       this.notLoggedIn = false;
     }
     this.balanceComplete = false;
-    this.getBalance();
+    this.assetService.getMetamaskInfo().then(data => {
+      this.balance = data.balance;
+    })
     this.activatedRoute.paramMap
         .subscribe(
             () => {
@@ -384,18 +386,18 @@ export class ViewAssetComponent implements OnInit {
     this.getAssetDetails()
   }
 
-  getBalance() {
-    this.assetService.showSpinner();
-    this.userId = localStorage.getItem('userId');
-    this.assetService.getWaletBalance(this.userId).subscribe(res => {
-      console.log('this is balance', res);
-      this.balance = res['data'];
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    });
-  }
+  // getBalance() {
+  //   this.assetService.showSpinner();
+  //   this.userId = localStorage.getItem('userId');
+  //   this.assetService.getWaletBalance(this.userId).subscribe(res => {
+  //     console.log('this is balance', res);
+  //     this.balance = res['data'];
+  //   }, err => {
+  //     console.log(err.error.data.error);
+  //     this.error = err.error.data.error;
+  //     this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+  //   });
+  // }
 
   getPrimarySharesRemaining(tokenId) {
     this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
