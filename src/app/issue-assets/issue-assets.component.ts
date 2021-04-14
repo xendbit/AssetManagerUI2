@@ -52,7 +52,7 @@ export class IssueAssetsComponent implements OnInit {
     this.getUserAssets();
   }
 
-  submit(radioGroup) {
+  async submit(radioGroup) {
     console.log('this is exclusive', radioGroup.value);
     this.exclusive = radioGroup.value;
     this.description = this.form.get('description').value;
@@ -100,7 +100,7 @@ export class IssueAssetsComponent implements OnInit {
     this.assetService.showSpinner();
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
-    this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
+    await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();
