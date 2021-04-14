@@ -32,6 +32,7 @@ export class IssueAssetsComponent implements OnInit {
   mp3: any;
   mp4: any;
   tempImage: string;
+  tokenId: number;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -97,7 +98,9 @@ export class IssueAssetsComponent implements OnInit {
       creationYear: new Date().getFullYear()
     }
     this.assetService.showSpinner();
-    this.assetService.issue(body).subscribe( data => {
+    var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
+    this.tokenId = rndNo;
+    this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();

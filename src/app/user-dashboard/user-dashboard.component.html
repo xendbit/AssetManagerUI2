@@ -139,7 +139,7 @@
                                   </div>
                               </div>
     
-                              <div class="row">
+                              <!-- <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     <mat-label style="color: black;">
                                       * Name of Artist:
@@ -149,7 +149,7 @@
                                       <input matInput  type="text" id="artistName" name="artistName"  formControlName="artistName">
                                     </mat-form-field>
                                   </div>
-                              </div>
+                              </div> -->
     
                               <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
@@ -163,7 +163,7 @@
                                   </div>
                               </div>
     
-                              <div class="row">
+                              <!-- <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     <mat-label style="color: black;">
                                       * Description:
@@ -174,10 +174,10 @@
                                     <textarea  matInput type="text" id="description" formControlName="description" name="description">  </textarea>
                                     </mat-form-field>
                                   </div>
-                              </div>
+                              </div> -->
     
     
-                              <div class="row">
+                              <!-- <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     <mat-label style="color: black;">
                                       * Starting Price (Bid):
@@ -187,9 +187,9 @@
                                       <input matInput type="number" id="issuingPrice" formControlName="issuingPrice" name="issuingPrice">
                                     </mat-form-field>
                                   </div>
-                              </div>
+                              </div> -->
 
-                              <div class="row">
+                              <!-- <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                   <mat-label style="color: black;">
                                     Sell Price (Bid):
@@ -199,9 +199,9 @@
                                     <input matInput type="number" id="issuingPrice" formControlName="issuingPrice" name="issuingPrice">
                                   </mat-form-field>
                                 </div>
-                            </div>
+                            </div> -->
 
-                              <div class="row">
+                              <!-- <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     *<mat-label>Start date</mat-label> 
                                     <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 90%;">
@@ -224,7 +224,7 @@
                                     </mat-form-field>
                                   </div>
                                 
-                              </div>
+                              </div> -->
                               
     
                               <div class="row">
@@ -238,7 +238,7 @@
                                      </p>
                                 </div>
                                 <div class="row" style="margin-top: 20px;">
-                                  <button type="submit" data-toggle="modal" data-target="#issueModalLong"   class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 5%; border-color: transparent;">
+                                  <button type="submit"  (click)="submit()"  class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 5%; border-color: transparent;">
                     
                                     Issue Asset
                                 
@@ -249,32 +249,6 @@
                               
                               </button>
                                 </div>
-
-
-                  <div  class="modal fade" id="issueModalLong" tabindex="-1" role="dialog" aria-labelledby="issueModalLongTitle" aria-hidden="true" >
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                              <div>
-                                Please confirm that you intend to sell  at market Order.  
-                              </div>
-                            </div>
-                    
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button data-dismiss="modal"  (click)="submit()" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
 
                               <div class="clearfix"></div>
                           </form>

@@ -187,7 +187,7 @@ export class UserDashboardComponent implements OnInit {
 
 
  
-  submit() {
+  async submit() {
     console.log('this is start date', this.form.get('startDate').value);
     
     
@@ -223,7 +223,7 @@ export class UserDashboardComponent implements OnInit {
     //   nameOfOwners: "null"
     // }
     this.assetService.showSpinner();
-    this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
+    await this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();

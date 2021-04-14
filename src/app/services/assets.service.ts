@@ -31,6 +31,8 @@ declare let window: any;
   testChainId = 56;
   contractAddress = '0x0B58e18b7EF3011Ce26B9cb2538030e2427e67Bf';
   issuanceResponse: any;
+  auctionResponse: string;
+  bidResponse: string;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
       console.log('tji', window.web3)
@@ -79,6 +81,32 @@ declare let window: any;
     issue(tokenId, assetName, symbol) {
       let yFace = new ethers.utils.Interface(this.abi);
       const data: string = yFace.encodeFunctionData("issueToken", [tokenId, this.account, 'empty string', assetName, symbol ]);
+      const ethValue = "0"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.issuanceResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.issuanceResponse = error;
+      });
+      return this.issuanceResponse;
+    }
+
+    startAuction(tokenId, auctionId, startBlock, endBlock, sellNowPrice, minimumBid) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, sellNowPrice, minimumBid ]);
       const ethValue = "0.1"; // 0 BNB
       const transactionParameters = {
         nonce: '0x00', // ignored by MetaMask
@@ -95,12 +123,39 @@ declare let window: any;
     console.log(transactionParameters);
       this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
         console.log(txHash);
-        this.issuanceResponse = txHash;
+        this.auctionResponse = txHash;
       }, (error: any) => {
         console.log('this is error ==>', error)
-        this.issuanceResponse = error;
+        this.auctionResponse = error;
       });
-      return this.issuanceResponse;
+      return this.auctionResponse;
+    }
+
+    placeBid(tokenId, auctionId) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId ]);
+      const ethValue = "0.1"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    console.log(transactionParameters);
+      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.bidResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.auctionResponse = error;
+      });
+      return this.bidResponse;
     }
 
     transfers() {
