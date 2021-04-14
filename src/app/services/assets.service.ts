@@ -78,7 +78,7 @@ declare let window: any;
       return this.httpClient.get(`${this.baseUrl}/assets/listings`);
     }
 
-    issue(tokenId, assetName, symbol) {
+    async issue(tokenId, assetName, symbol) {
       let yFace = new ethers.utils.Interface(this.abi);
       const data: string = yFace.encodeFunctionData("issueToken", [tokenId, this.account, 'empty string', assetName, symbol ]);
       const ethValue = "0"; // 0 BNB
@@ -94,7 +94,7 @@ declare let window: any;
       };
        // txHash is a hex string
     // As with any RPC call, it may throw an error
-      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
         console.log(txHash);
         this.issuanceResponse = txHash;
       }, (error: any) => {
@@ -104,7 +104,7 @@ declare let window: any;
       return this.issuanceResponse;
     }
 
-    startAuction(tokenId, auctionId, startBlock, endBlock, sellNowPrice, minimumBid) {
+    async startAuction(tokenId, auctionId, startBlock, endBlock, sellNowPrice, minimumBid) {
       let yFace = new ethers.utils.Interface(this.abi);
       const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, sellNowPrice, minimumBid ]);
       const ethValue = "0.1"; // 0 BNB
@@ -121,7 +121,7 @@ declare let window: any;
        // txHash is a hex string
     // As with any RPC call, it may throw an error
     console.log(transactionParameters);
-      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
         console.log(txHash);
         this.auctionResponse = txHash;
       }, (error: any) => {

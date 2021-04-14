@@ -223,13 +223,13 @@ export class UserDashboardComponent implements OnInit {
     //   nameOfOwners: "null"
     // }
     this.assetService.showSpinner();
-    await this.assetService.issue(this.tokenId, this.title, this.symbol).subscribe( data => {
+    await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
       const res = data['status']
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
       this.form.value.reset;
-      this.router.navigateByUrl('/issuer-dashboard');
+      // this.router.navigateByUrl('/issuer-dashboard');
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
