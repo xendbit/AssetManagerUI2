@@ -4,6 +4,7 @@ import { AssetsService } from '../services/assets.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { timeout } from 'rxjs/operators';
 
 
 declare var PaystackPop: any;
@@ -55,6 +56,7 @@ export class UserDashboardComponent implements OnInit {
   mp3: any;
   mp4: any;
   tokenId: number;
+  mediaType: string;
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -209,25 +211,37 @@ export class UserDashboardComponent implements OnInit {
     this.tokenId = rndNo;
     console.log('this is token id', this.tokenId);
   
-    // const body = {
-    //   description: this.description,
-    //   symbol: this.symbol,
-    //   issuingPrice: this.issuingPrice,
-    //   issuerId: issueId,
-    //   artistName: this.artist,
-    //   titleOfWork: this.title,
-    //   image: this.image,
-    //   commission: 500,
-    //   price: this.issuingPrice,
-    //   createdOn: new Date().getTime(),
-    //   nameOfOwners: "null"
-    // }
+    const body = {
+      tokenId: this.tokenId,
+      medias: this.image,
+      keys: this.mediaType
+      // issuerId: issueId,
+      // artistName: this.artist,
+      // titleOfWork: this.title,
+      // image: this.image,
+      // commission: 500,
+      // price: this.issuingPrice,
+      // createdOn: new Date().getTime(),
+      // nameOfOwners: "null"
+    }
+    let medias = [this.image]
     this.assetService.showSpinner();
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
-      const res = data['status']
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+      this.assetService.issueToken(this.tokenId, medias, this.mediaType).pipe(timeout(20000)).subscribe(data => {
+        console.log('this is response',data);
+        if (data['status'] === 'success') {
+          this.assetService.stopSpinner();
+          this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+        } else {
+          this.assetService.stopSpinner();
+          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
+        }
+      }, err => {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
+      })
+
       this.form.value.reset;
       // this.router.navigateByUrl('/issuer-dashboard');
     }, err => {
@@ -267,6 +281,7 @@ export class UserDashboardComponent implements OnInit {
       mp3.src = e.target.result;
       this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
+      this.mediaType = 'mp3';
       console.log('this is mp3', this.image)
       }
 
@@ -280,6 +295,7 @@ export class UserDashboardComponent implements OnInit {
       
       this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
+      this.mediaType = 'mp4';
      
       }
 
@@ -294,7 +310,7 @@ export class UserDashboardComponent implements OnInit {
           image.src = e.target.result;
           const imgBase64Path = e.target.result;
           this.image = imgBase64Path;
-          console.log('this is image path', imgBase64Path)
+          this.mediaType = 'image'
       };
 
       reader.readAsDataURL(event.target.files[0]);

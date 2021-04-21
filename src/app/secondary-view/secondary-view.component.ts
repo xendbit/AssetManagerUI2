@@ -482,11 +482,11 @@ getSellOrders() {
 
   sendMarketOrder() {
     let orderType;
-    if (this.balance < this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    if (this.balance < this.amount ) {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
      
-    } else if (this.balance >=  this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
+    } else if (this.balance >=  this.amount)  {
       orderType = 0;
     }
 
@@ -512,7 +512,9 @@ getSellOrders() {
         market: 1
       }
   
-
+      this.assetService.placeBid(this.asset.tokenId, this.auctionId).then(data => {
+        console.log('this is data', data);
+      })
 
     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
       console.log('this is response', data);
@@ -533,6 +535,9 @@ getSellOrders() {
       this.assetService.showNotification('bottom', 'center', this.error, 'danger')
     })
 
+  }
+  auctionId(tokenId: any, auctionId: any) {
+    throw new Error('Method not implemented.');
   }
 
   onSubmit(loginForm: NgForm) {

@@ -33,6 +33,7 @@ export class IssueAssetsComponent implements OnInit {
   mp4: any;
   tempImage: string;
   tokenId: number;
+  mediaType: string;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -81,27 +82,26 @@ export class IssueAssetsComponent implements OnInit {
     const issueId = localStorage.getItem('userId');
     console.log('this is issueId',  new Date().getFullYear())
     const body = {
-      description: this.description,
-      symbol: this.symbol,
-      totalSupply: this.totalSupply,
-      issuingPrice: this.issuingPrice,
-      issuerId: issueId,
-      artistName: this.artist,
-      titleOfWork: this.title,
-      image: this.image,
-      sharesAvailable: this.shares,
-      commission: 500,
-      price: this.issuingPrice,
-      createdOn: new Date().getTime(),
-      nameOfOwners: "null",
-      value: 0,
-      creationYear: new Date().getFullYear()
+      tokenId: this.tokenId,
+      medias: this.image,
+      keys: this.mediaType
+      // issuerId: issueId,
+      // artistName: this.artist,
+      // titleOfWork: this.title,
+      // image: this.image,
+      // commission: 500,
+      // price: this.issuingPrice,
+      // createdOn: new Date().getTime(),
+      // nameOfOwners: "null"
     }
     this.assetService.showSpinner();
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
+      this.assetService.issueToken(body).subscribe(data => {
+        console.log('this is response',data);
+      })
       const res = data['status']
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
@@ -138,6 +138,7 @@ export class IssueAssetsComponent implements OnInit {
       mp3.src = e.target.result;
       this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
+      this.mediaType = 'mp3';
       console.log('this is mp3', this.image)
       }
 
@@ -151,6 +152,7 @@ export class IssueAssetsComponent implements OnInit {
       
       this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
+      this.mediaType = 'mp4';
       console.log('got hereeee')
       }
 
@@ -165,6 +167,7 @@ export class IssueAssetsComponent implements OnInit {
           image.src = e.target.result;
           const imgBase64Path = e.target.result;
           this.image = imgBase64Path;
+          this.mediaType = 'image';
           console.log('this is image path', imgBase64Path)
       };
 

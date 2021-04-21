@@ -29,10 +29,11 @@ declare let window: any;
   ];
   chainId = 77;
   testChainId = 56;
-  contractAddress = '0x0B58e18b7EF3011Ce26B9cb2538030e2427e67Bf';
+  // contractAddress = '0x24738DAE29c0D0e26cDE5b1bC8503EB0E8D8662f';
   issuanceResponse: any;
   auctionResponse: string;
   bidResponse: string;
+  contractAddress: any;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
       console.log('tji', window.web3)
@@ -50,6 +51,12 @@ declare let window: any;
         this.hasMetaMask = false;
       }
       this.getMetamaskInfo();
+      this.getContractAddress().subscribe(data => {
+        console.log('this is it', data);
+        if (data['status'] === 'success') {
+          this.contractAddress = data['data'];
+        }
+      })
     }
 
   async getMetamaskInfo() {
@@ -71,8 +78,10 @@ declare let window: any;
   }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
+    yasuke = 'http://35.224.252.52:7071/api/yasuke';
     private web3Provider: any;
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
+    yasuke_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 
     listing() {
       return this.httpClient.get(`${this.baseUrl}/assets/listings`);
@@ -131,9 +140,9 @@ declare let window: any;
       return this.auctionResponse;
     }
 
-    placeBid(tokenId, auctionId) {
+    async placeBid(tokenId, auctionId) {
       let yFace = new ethers.utils.Interface(this.abi);
-      const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId ]);
+      const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
       const ethValue = "0.1"; // 0 BNB
       const transactionParameters = {
         nonce: '0x00', // ignored by MetaMask
@@ -148,7 +157,7 @@ declare let window: any;
        // txHash is a hex string
     // As with any RPC call, it may throw an error
     console.log(transactionParameters);
-      this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
         console.log(txHash);
         this.bidResponse = txHash;
       }, (error: any) => {
@@ -157,6 +166,95 @@ declare let window: any;
       });
       return this.bidResponse;
     }
+
+    async endBid(tokenId, auctionId) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
+      const ethValue = "0.1"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    console.log(transactionParameters);
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.bidResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.auctionResponse = error;
+      });
+      return this.bidResponse;
+    }
+     getContractAddress() {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.yasuke_api_key);
+      return this.httpClient.get(`${this.yasuke}/get-contract-address`, {headers})
+     }
+
+    async withdraw(tokenId, auctionId) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
+      const ethValue = "0.1"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    console.log(transactionParameters);
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.bidResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.auctionResponse = error;
+      });
+      return this.bidResponse;
+    }
+
+
+    async cancelAuction(tokenId, auctionId) {
+      let yFace = new ethers.utils.Interface(this.abi);
+      const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
+      const ethValue = "0.1"; // 0 BNB
+      const transactionParameters = {
+        nonce: '0x00', // ignored by MetaMask
+        //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
+        //gas: '0x12C07', // customizable by user during MetaMask confirmation.
+        to: this.contractAddress, // Required except during contract publications.
+        from: this.metamask.selectedAddress, // must match user's active address.
+        value: ethers.utils.parseEther(ethValue).toHexString(),
+        data: data,
+        chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      };
+       // txHash is a hex string
+    // As with any RPC call, it may throw an error
+    console.log(transactionParameters);
+      await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+        console.log(txHash);
+        this.bidResponse = txHash;
+      }, (error: any) => {
+        console.log('this is error ==>', error)
+        this.auctionResponse = error;
+      });
+      return this.bidResponse;
+    }
+
 
     transfers() {
       return this.httpClient.get(`${this.baseUrl}/assets/transfers`);
@@ -191,6 +289,23 @@ declare let window: any;
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.api_key);
       return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
+    }
+
+    issueToken(tokenId, medias, mediaType) {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.yasuke_api_key);
+      return this.httpClient.post(`${this.yasuke}/issue-token/`, {"tokenId": tokenId,
+        "medias": medias,
+        "keys": [mediaType]
+    },  {headers})
+    }
+
+    listToken() {
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', this.yasuke_api_key);
+      return this.httpClient.get(`${this.yasuke}/issue-token/`)
     }
 
     fetchOrderById(orderId) {
