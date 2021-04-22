@@ -59,11 +59,6 @@ export class NavbarComponent implements OnInit {
           }
         
         })
-        if (localStorage.getItem('userId')) {
-            this.userId = parseInt(localStorage.getItem('userId'));
-            this.role = parseInt(localStorage.getItem('role'));
-            console.log('this is role', this.role)
-          }
           this.getAssets();
           this.getBalance();
     }

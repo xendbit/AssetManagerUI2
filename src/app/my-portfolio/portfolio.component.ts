@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 declare var $: any;
+declare let window: any;
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
@@ -14,6 +15,8 @@ export class PortfolioComponent implements OnInit {
   secondaryMarket: any[];
   myAssets: any;
   totalItems: any;
+  balance: any;
+  isConnected: boolean;
 
   constructor(public assetService: AssetsService, public router: Router) { }
   ngOnInit() {
@@ -24,15 +27,27 @@ export class PortfolioComponent implements OnInit {
 
   getAssets() {
     this.assetService.showSpinner();
+    this.assetService.getMetamaskInfo().then(data => {
+      this.userId = data.account;
+      // this.displayedData = data.displayedData;
+      this.balance = data.balance;
+      if (window.ethereum.isConnected() && this.userId !== undefined) {
+        this.isConnected = true;
+      } else {
+        this.isConnected = false;
+      }
+    
+    })
     this.assetService.getAssetsByOwnerId(this.userId).subscribe(data => {
+      console.log('this is data gotten', data);
       const res = data['data']['items'];
       let initial = [];
-      res.forEach(element => {
-        if (element.market === 0 && element.approved === 1 || element.market === 1 && element.approved ===1 ) {
-          initial.push(element);
-        } 
-      });
-      this.myAssets = initial;
+      // res.forEach(element => {
+      //   if (element.market === 0 && element.approved === 1 || element.market === 1 && element.approved ===1 ) {
+      //     initial.push(element);
+      //   } 
+      // });
+      this.myAssets = res;
       this.assetService.stopSpinner();
       console.log('these are my assets, ', this.myAssets);
     },

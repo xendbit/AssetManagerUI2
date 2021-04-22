@@ -41,9 +41,17 @@ export class HomeComponent implements OnInit {
   ];
   shares: any;
   exclusive: any[];
+  images: any[];
+  videos: any[];
+  audios: any[];
+  mediaFiles: any[];
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
+    this.mediaFiles = [];
+    this.audios = [];
+    this.images = [];
+    this.videos = [];
     if (localStorage.getItem('userId')) {
       this.userId = parseInt(localStorage.getItem('userId'));
     }
@@ -54,6 +62,7 @@ export class HomeComponent implements OnInit {
   getAssets() {
     this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
+      console.log('this is assets', data);
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
       let init = [];
@@ -64,16 +73,68 @@ export class HomeComponent implements OnInit {
       //     exclu.push(elem);
       //   }
       // })
+      let mp3 = [];
+      let mp4 = [];
+      let images = [];
+      let media = []
       this.assets.forEach(element => {
-        if (element.market === 0 && element.approved === 1) {
-          init.push(element);
-        } else if (element.market === 1 && element.approved === 1) {
-          second.push(element);
-        } 
+        if (element.media.length > 0) {
+          media.push(element.media)
+          media.forEach(mel => {
+        
+            mel.forEach( data => {
+              this.mediaFiles.push(data)
+              console.log(data.mediaKey)
+              if (data.mediaKey === 'image') {
+                console.log('correct!', data)
+                images.push(data)
+              if (element.media.find(elem => elem === data )){
+                console.log('found it')
+                this.images.push({name: element.name, data})
+              }
+             
+              }
+              if (data.mediaKey === 'mp4') {
+                console.log('correct!')
+                mp4.push(data)
+                console.log('this is iiisds', mp4)
+                
+                if (element.media.find(elem => elem === data )){
+                  console.log('found it')
+                  this.videos.push({name: element.name, data})
+                }
+               
+              }
+              if (data.mediaKey === 'mp3' && element.mediaKey > 0) {
+                console.log('correct!', data)
+                mp3.push(data)
+                console.log('this is iii', mp3)
+                if (element.media.find(elem => elem === data )){
+                  console.log('found it')
+                  this.audios.push({name: element.name, data})
+                }
+              }
+             
+            })
+          })
+        }
+        
+        
+        console.log('this is mp4', this.videos)
+        
+      //   if (element.market === 0 && element.approved === 1) {
+      //     init.push(element);
+      //   } else if (element.market === 1 && element.approved === 1) {
+      //     second.push(element);
+      //   } 
       });
-      this.primaryMarket =  init ;
-      this.secondaryMarket = second;
-      this.exclusive = exclu;
+      console.log('this is media', media)
+      
+      
+      console.log('this is images', this.images)
+      // this.images =  images ;
+      // this.videos = mp4;
+      // this.audios = mp3;
       this.assetService.stopSpinner();
       console.log('this is exclusive market', this.primaryMarket)
     }, err => {

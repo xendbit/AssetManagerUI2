@@ -94,12 +94,15 @@ export class IssueAssetsComponent implements OnInit {
       // createdOn: new Date().getTime(),
       // nameOfOwners: "null"
     }
+
     this.assetService.showSpinner();
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
+    let medias = [this.image];
+    let dateCreated = new Date().getTime();
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
-      this.assetService.issueToken(body).subscribe(data => {
+      this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).subscribe(data => {
         console.log('this is response',data);
       })
       const res = data['status']

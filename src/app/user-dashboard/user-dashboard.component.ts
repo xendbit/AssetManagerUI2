@@ -56,7 +56,8 @@ export class UserDashboardComponent implements OnInit {
   mp3: any;
   mp4: any;
   tokenId: number;
-  mediaType: string;
+  mediaType: any[];
+  media: any[];
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -79,6 +80,8 @@ export class UserDashboardComponent implements OnInit {
    }
 
   async ngOnInit() {
+    this.media = [];
+    this.mediaType = [];
     //this.hideArtDetails('hidden');
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
@@ -213,7 +216,7 @@ export class UserDashboardComponent implements OnInit {
   
     const body = {
       tokenId: this.tokenId,
-      medias: this.image,
+      medias: this.media,
       keys: this.mediaType
       // issuerId: issueId,
       // artistName: this.artist,
@@ -224,26 +227,31 @@ export class UserDashboardComponent implements OnInit {
       // createdOn: new Date().getTime(),
       // nameOfOwners: "null"
     }
-    let medias = [this.image]
+    let dateCreated = new Date().getTime();
+    let medias = this.media
     this.assetService.showSpinner();
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
-      this.assetService.issueToken(this.tokenId, medias, this.mediaType).pipe(timeout(20000)).subscribe(data => {
-        console.log('this is response',data);
-        if (data['status'] === 'success') {
-          this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
-        } else {
-          this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
-        }
-      }, err => {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
-      })
-
-      this.form.value.reset;
-      // this.router.navigateByUrl('/issuer-dashboard');
+      if (data.status === 'success') {
+        setTimeout(() => {
+          this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).pipe(timeout(20000)).subscribe(data => {
+            console.log('this is response',data);
+            if (data['status'] === 'success') {
+              this.assetService.stopSpinner();
+              this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+            } else {
+              this.assetService.stopSpinner();
+              this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
+            }
+          }, err => {
+            this.assetService.stopSpinner();
+            this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
+          })
+    
+          this.form.value.reset;
+          // this.router.navigateByUrl('/issuer-dashboard');
+      }, 15000);
+      }
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
@@ -257,31 +265,35 @@ export class UserDashboardComponent implements OnInit {
   uploadFile(event: any) {
 
    
-    const file = (event.target as HTMLInputElement).files[0];
-    const fileSize = file.size/1024/1024;
-    if (fileSize > 10) {
+    let files = event.target.files;
+   
+    for(let newFile of files) {
+      const fileSize = newFile.size/1024/1024;
+      if (fileSize > 10) {
       this.assetService.showNotification('top', 'center', 'You currently cannot issue an asset larger than 10MB, please select a smaller asset and try again', 'danger');
       return;
     }
-    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(file.name) === false  ) {
+    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(newFile.name) === false  ) {
       this.assetService.showNotification('bottom', 'center', 'please select an Image, an mp3 file or mp4 file!', 'danger')
       event.srcElement.value = null;
     } else {
       this.form.patchValue({
-      image: file
+      image: newFile
     });
     this.form.get('image').updateValueAndValidity();
     }
 
-    if ( /\.(mp3|wav)$/i.test(file.name) === true  ) {
+    if ( /\.(mp3|wav)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
+        console.log('this is result', e.target.result)
       
       const mp3 = new Audio();
       mp3.src = e.target.result;
       this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
-      this.mediaType = 'mp3';
+      this.media.push(e.target.result);
+      this.mediaType.push('mp3') ;
       console.log('this is mp3', this.image)
       }
 
@@ -289,13 +301,14 @@ export class UserDashboardComponent implements OnInit {
 
     }
 
-    if ( /\.(mp4)$/i.test(file.name) === true  ) {
+    if ( /\.(mp4)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
       
       this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
-      this.mediaType = 'mp4';
+      this.media.push(e.target.result)
+      this.mediaType.push('mp4') ;
      
       }
 
@@ -303,18 +316,21 @@ export class UserDashboardComponent implements OnInit {
 
     }
 
-    if ( /\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+    if ( /\.(jpe?g|gif|png)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
           const image = new Image();
           image.src = e.target.result;
           const imgBase64Path = e.target.result;
           this.image = imgBase64Path;
-          this.mediaType = 'image'
+          this.media.push(e.target.result)
+          this.mediaType.push('image')
       };
 
       reader.readAsDataURL(event.target.files[0]);
     }
+    };
+    
   }
 
   getUserAssets() {

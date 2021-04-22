@@ -105,7 +105,7 @@ declare let window: any;
     // As with any RPC call, it may throw an error
       await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
         console.log(txHash);
-        this.issuanceResponse = txHash;
+        this.issuanceResponse = {status: 'success', response: txHash};
       }, (error: any) => {
         console.log('this is error ==>', error)
         this.issuanceResponse = error;
@@ -266,8 +266,8 @@ declare let window: any;
     getAllAssets() {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.api_key);
-      return this.httpClient.get(`${this.baseUrl}/assets?page=1&limit=200`, {headers});
+      headers = headers.append('api-key', this.yasuke_api_key);
+      return this.httpClient.get(`${this.yasuke}/list-tokens?page=1&limit=200`, {headers});
     }
 
     getOwnedShares(userId, tokenId) {
@@ -291,13 +291,14 @@ declare let window: any;
       return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
     }
 
-    issueToken(tokenId, medias, mediaType) {
+    issueToken(tokenId, medias, mediaType, dateCreated) {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.yasuke_api_key);
       return this.httpClient.post(`${this.yasuke}/issue-token/`, {"tokenId": tokenId,
         "medias": medias,
-        "keys": [mediaType]
+        "keys": mediaType, 
+        "dateIssued": dateCreated
     },  {headers})
     }
 
@@ -319,7 +320,7 @@ declare let window: any;
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', this.api_key);
-      return this.httpClient.get(`${this.baseUrl}/assets/by-owner/${userId}?page=${1}&limit=15`, {headers});
+      return this.httpClient.get(`${this.yasuke}/list-tokens/by-owner/${userId}?page=${1}&limit=100`, {headers});
     }
 
     getAccountInfo() {
