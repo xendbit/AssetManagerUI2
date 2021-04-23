@@ -15,13 +15,14 @@
           </h2>
           <div class="row" style="margin-top: 3rem;">
               <mat-card (click)="view(item.tokenId, 'sellPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.myAssets  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                  <mat-card-content  style="position: relative; ">
-                      <img src="{{item.imageUrl}}" class="image">
+                  <mat-card-content  style="position: relative; " >
+                      <img src="{{item.data.media}}" class="image">
+                     
                       <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Price: </b>   {{item.price | currency:"$"}}
+                        <b> Artwork Title: </b> {{item.name}}
                       </p>
                       <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
+                        <b> Symbol: </b>   {{item.symbol}}
                       </p>
                       
                       

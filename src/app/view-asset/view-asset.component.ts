@@ -75,21 +75,18 @@ export class ViewAssetComponent implements OnInit {
                 if (window.history.state.tokenId) {
                     console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
-                    this.userId = parseInt(localStorage.getItem('userId'));
                     this.pageHistory = window.history.state.from;
-                    this.secondaryPrice = window.history.state.price;
-                    this.quantity = window.history.state.quantity;
-                    if (window.history.state.id) {
-                      this.orderId = window.history.state.id;
-                    }
+                    // if (window.history.state.id) {
+                    //   this.orderId = window.history.state.id;
+                    // }
                     console.log('this is page history', this.pageHistory)
-                    this.getAssets();
-                    this.getFees();
-                    this.getHolidays();
-                    this.getMarketSettings();
-                    this.getOwnedShares();
+                    // this.getAssets();
+                    // this.getFees();
+                    // this.getHolidays();
+                    // this.getMarketSettings();
+                    // this.getOwnedShares();
                     this.getAssetDetails();
-                    this.getPrimarySharesRemaining(this.tokenId);
+                    // this.getPrimarySharesRemaining(this.tokenId);
                 }
             },
             err => {
@@ -100,7 +97,8 @@ export class ViewAssetComponent implements OnInit {
   }
 
   getAssetDetails() {
-    this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
+    this.assetService.showSpinner();
+    this.assetService.getAssetsByTokenId(this.tokenId).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
       this.assetService.stopSpinner()

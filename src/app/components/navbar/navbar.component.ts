@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit {
           }
         
         })
-          this.getAssets();
+          // this.getAssets();
           this.getBalance();
     }
 
@@ -119,30 +119,30 @@ export class NavbarComponent implements OnInit {
       return 'Dashboard';
     }
 
-    getAssets() {
-      this.assetService.showSpinner();
-      this.assetService.getAllAssets().subscribe(data => {
-        this.assets = data['data']['items'];
-        console.log('this is assets, ', data['data']['items']);
-        let init = []
-        let second = []
-        this.assets.forEach(element => {
-          if (element.market === 0 && element.approved === 1 ) {
-            init.push(element);
-          } else if (element.market === 1 && element.approved === 1) {
-            second.push(element);
-          }
-        });
-        this.assetService.stopSpinner();
+    // getAssets() {
+    //   this.assetService.showSpinner();
+    //   this.assetService.getAllAssets().subscribe(data => {
+    //     this.assets = data['data']['items'];
+    //     console.log('this is assets, ', data['data']['items']);
+    //     let init = []
+    //     let second = []
+    //     this.assets.forEach(element => {
+    //       if (element.market === 0 && element.approved === 1 ) {
+    //         init.push(element);
+    //       } else if (element.market === 1 && element.approved === 1) {
+    //         second.push(element);
+    //       }
+    //     });
+    //     this.assetService.stopSpinner();
      
-      }, err => {
-        this.assetService.stopSpinner();
-        console.log(err.error.data.error);
-        this.error = err.error.data.error;
-      },
-      () => { 
-        this.assetService.stopSpinner();
-      });
-    }
+    //   }, err => {
+    //     this.assetService.stopSpinner();
+    //     console.log(err.error.data.error);
+    //     this.error = err.error.data.error;
+    //   },
+    //   () => { 
+    //     this.assetService.stopSpinner();
+    //   });
+    // }
   
 }

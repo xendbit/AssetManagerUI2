@@ -17,10 +17,14 @@ export class PortfolioComponent implements OnInit {
   totalItems: any;
   balance: any;
   isConnected: boolean;
+  account: any;
 
   constructor(public assetService: AssetsService, public router: Router) { }
   ngOnInit() {
-    this.userId = localStorage.getItem('userId');
+    
+     
+    console.log('leke', this.account)
+    
     this.getAssets();
     this.getAllAssets();
   }
@@ -29,34 +33,48 @@ export class PortfolioComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getMetamaskInfo().then(data => {
       this.userId = data.account;
+      this.account = data.account;
+      console.log('this is user', this.userId)
       // this.displayedData = data.displayedData;
       this.balance = data.balance;
-      if (window.ethereum.isConnected() && this.userId !== undefined) {
-        this.isConnected = true;
-      } else {
-        this.isConnected = false;
+      console.log('confirmmmm', this.userId)
+      this.assetService.getAssetsByOwnerId(this.userId).subscribe(data => {
+        console.log('this is data gotten', data);
+        const res = data['data']['items'];
+        let initial = [];
+        let finalData = [];
+        res.forEach( element => {
+          if (element.media.length > 0) {
+            initial.push(element.media)
+            initial.forEach(mel => {
+              mel.forEach( data => {
+                if (data.mediaKey === 'image') {
+                if (element.media.find(elem => elem === data )){
+                  finalData.push({name: element.name, data, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+                }
+                this.myAssets = finalData;
+              }
+          })
+        })
       }
+      })
+        this.assetService.stopSpinner();
+        console.log('these are my assets, ', this.myAssets);
+      },
+      err => {
+          console.log(err);
+          this.assetService.stopSpinner();
+      },
+      () => { }
+      );
     
-    })
-    this.assetService.getAssetsByOwnerId(this.userId).subscribe(data => {
-      console.log('this is data gotten', data);
-      const res = data['data']['items'];
-      let initial = [];
-      // res.forEach(element => {
-      //   if (element.market === 0 && element.approved === 1 || element.market === 1 && element.approved ===1 ) {
-      //     initial.push(element);
-      //   } 
-      // });
-      this.myAssets = res;
-      this.assetService.stopSpinner();
-      console.log('these are my assets, ', this.myAssets);
-    },
-    err => {
+    }, err => {
         console.log(err);
         this.assetService.stopSpinner();
-    },
-    () => { }
-    );
+    })
+
+   
+   
   }
 
   view(tokenId, page) {

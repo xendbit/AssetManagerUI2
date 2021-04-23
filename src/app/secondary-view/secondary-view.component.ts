@@ -75,36 +75,20 @@ export class SecondaryViewComponent implements OnInit {
      }
 
   async ngOnInit(): Promise<void> {
-    this.assetService.getMetamaskInfo().then( data => {
-      this.balance = data.balance;
-    })
-    this.balanceComplete = false;
-    this.fromOrder = false;
-    this.fromSellOrder = false;
     this.orderStrategy = 0;
-    this.userId = localStorage.getItem('userId');
-    this.getMyBuyOrders();
-    this.getMySellOrders();
-    if (this.userId === null || this.userId === undefined) {
-      this.notLoggedIn = true;
-    } else {
-      this.notLoggedIn = false;
-    }
-    console.log(this.notLoggedIn)
     this.activatedRoute.paramMap
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
-                    this.userId = parseInt(localStorage.getItem('userId'));
                     this.tokenId = window.history.state.tokenId;
                     // this.getBalance();
-                    this.getSellOrders();
-                    this.getFees();
-                    this.getHolidays();
-                    this.getMarketSettings();
-                    this.getOwnedShares();
+                    // this.getSellOrders();
+                    // this.getFees();
+                    // this.getHolidays();
+                    // this.getMarketSettings();
+                    // this.getOwnedShares();
                     this.getAssetDetails();
-                    this.getPrimarySharesRemaining(this.tokenId);
+                    // this.getPrimarySharesRemaining(this.tokenId);
                     this.getAssets();
                    
                 }
@@ -117,8 +101,10 @@ export class SecondaryViewComponent implements OnInit {
   }
 
   getAssetDetails() {
+    this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       this.asset = data['data'];
+      console.log('this is information', this.asset.media)
     },
     err => {
         console.log(err);

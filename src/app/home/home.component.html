@@ -175,11 +175,11 @@
         </div> -->
 
         <div class="container-fluid container-lg container-home">
-            <p class="text-uppercase small font-weight-medium">
+            <!-- <p class="text-uppercase small font-weight-medium">
                 New Offers
-            </p>
+            </p> -->
                 <h2 class="text-uppercase font-weight-light">
-                    Audio Art
+                   Music Rights
                 </h2>
                
            
@@ -222,21 +222,20 @@
             </div> -->
            
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <div *ngFor="let item of this.audios  let i=index" class="col-3 col-md-3 ">
+                <div *ngFor="let item of this.videos  let i=index" class="col-3 col-md-3 ">
 
                
                
                         <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
-                            <div >
-                               
-                                
+                            
+                            
 
-                                <img src="{{item.data.media}}" class="image">
-                                <mat-card-content style="margin-left: 10%; margin-top: 10%;">
-                                    <audio controls>
+                            <div style="border-radius: 40px;">
+                                <img src="{{item.data.media}}" style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
+                                    <audio width="80%" controls controlsList="nodownload" style="border-radius: 40px;">
                                       <source  type="audio/mpeg"  [src]="item.data.media" >
                                     </audio>
-                                  </mat-card-content>
+                                 
                             </div>
                         </div>
                         <div class = "row" style="margin-top: 10px;">
@@ -263,11 +262,11 @@
 
         <div class="container-fluid container-lg container-home">
           
-            <p class="text-uppercase small font-weight-medium">
+            <!-- <p class="text-uppercase small font-weight-medium">
                 Existing Offers
-            </p>
+            </p> -->
             <h2 class="text-uppercase font-weight-light">
-                Images
+                ArtWorks
             </h2>
             <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
@@ -312,11 +311,11 @@
 
         <div class="container-fluid container-lg container-home">
           
-            <p class="text-uppercase small font-weight-medium">
+            <!-- <p class="text-uppercase small font-weight-medium">
                 Latest Issue
-            </p>
+            </p> -->
             <h2 class="text-uppercase font-weight-light">
-                Videos
+                Movie Rights
             </h2>
             <a (click)="goToAllAssets('secondary')" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 85%; margin-bottom: 40px;">
                 
@@ -326,7 +325,7 @@
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
 
 
-                <div *ngFor="let item of this.videos  let i=index" class="col-4 col-md-4 ">
+                <div *ngFor="let item of this.videos  let i=index" class="col-3 col-md-3 ">
 
                
                
@@ -335,7 +334,7 @@
                             
                             <!-- <img src="{{item.data.media}}" class="image"> -->
                           
-                                <video width="100%" height="100%" controls controlsList="nodownload">
+                                <video width="100%" height="100%" class="image" controls controlsList="nodownload">
                                     <source [src]="item.data.media" type="video/mp4">
                                     <source [src]="item.data.media" type="video/ogg">
                                   Your browser does not support the video tag.
@@ -419,20 +418,20 @@
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
 
 
-                <div *ngFor="let item of this.primaryMarket  let i=index" class="col-3 col-md-3 ">
+                <div *ngFor="let item of this.images  let i=index" class="col-3 col-md-3 ">
 
                
                
                     <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                         <div  style="position: relative;">
                             
-                            <img src="{{item.imageUrl}}" class="image">
+                            <img src="{{item.data.media}}" class="image">
                         </div>
                     </div>
                             <div class = "row" style="margin-top: 10px;">
                                 <div class="col">
                                     <p  style="font-family: 'Cormorant Garamond', serif; color: black; text-align: center;">
-                                        <b> {{item.titleOfWork}} </b> 
+                                        <b> {{item.name}} </b> 
                                       </p>
                                 </div>
                                 <div class="col">

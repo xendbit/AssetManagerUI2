@@ -317,9 +317,10 @@ declare let window: any;
     }
 
     getAssetsByOwnerId(userId) {
+      console.log('from here',userId)
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.api_key);
+      headers = headers.append('api-key', this.yasuke_api_key);
       return this.httpClient.get(`${this.yasuke}/list-tokens/by-owner/${userId}?page=${1}&limit=100`, {headers});
     }
 
@@ -345,8 +346,8 @@ declare let window: any;
     getAssetsByTokenId(tokenId) {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.api_key);
-      return this.httpClient.get(`${this.baseUrl}/assets/by-token-id/${tokenId}`, {headers});
+      headers = headers.append('api-key', this.yasuke_api_key);
+      return this.httpClient.get(`${this.yasuke}/get-token-info/${tokenId}`, {headers});
     }
 
     getWaletBalance(userId) {

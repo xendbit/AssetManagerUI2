@@ -193,7 +193,7 @@ export class UserDashboardComponent implements OnInit {
 
  
   async submit() {
-    console.log('this is start date', this.form.get('startDate').value);
+    // console.log('this is start date', this.form.get('startDate').value);
     
     
     // this.description = this.form.get('description').value;
@@ -207,58 +207,62 @@ export class UserDashboardComponent implements OnInit {
       return;
     }
 
-    const issueId = localStorage.getItem('userId');
-    console.log('this is issueId', issueId)
+    // const issueId = localStorage.getItem('userId');
+    // console.log('this is issueId', issueId)
 
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
     console.log('this is token id', this.tokenId);
   
-    const body = {
-      tokenId: this.tokenId,
-      medias: this.media,
-      keys: this.mediaType
-      // issuerId: issueId,
-      // artistName: this.artist,
-      // titleOfWork: this.title,
-      // image: this.image,
-      // commission: 500,
-      // price: this.issuingPrice,
-      // createdOn: new Date().getTime(),
-      // nameOfOwners: "null"
-    }
+    // const body = {
+    //   tokenId: this.tokenId,
+    //   medias: this.media,
+    //   keys: this.mediaType
+    //   // issuerId: issueId,
+    //   // artistName: this.artist,
+    //   // titleOfWork: this.title,
+    //   // image: this.image,
+    //   // commission: 500,
+    //   // price: this.issuingPrice,
+    //   // createdOn: new Date().getTime(),
+    //   // nameOfOwners: "null"
+    // }
     let dateCreated = new Date().getTime();
     let medias = this.media
-    this.assetService.showSpinner();
-    await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
-      console.log('this is response,',  data);
-      if (data.status === 'success') {
-        setTimeout(() => {
-          this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).pipe(timeout(20000)).subscribe(data => {
-            console.log('this is response',data);
-            if (data['status'] === 'success') {
+    if (!this.mediaType.find(elem => elem === 'image' )) {
+      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.', 'danger');
+      return;
+    } else {
+      this.assetService.showSpinner();
+      await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
+        if (data.status === 'success') {
+          setTimeout(() => {
+            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).pipe(timeout(20000)).subscribe(data => {
+              if (data['status'] === 'success') {
+                this.assetService.stopSpinner();
+                this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+              } else {
+                this.assetService.stopSpinner();
+                this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
+              }
+            }, err => {
               this.assetService.stopSpinner();
-              this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
-            } else {
-              this.assetService.stopSpinner();
-              this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
-            }
-          }, err => {
-            this.assetService.stopSpinner();
-            this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
-          })
+              this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
+            })
+      
+            this.form.value.reset;
+            // this.router.navigateByUrl('/issuer-dashboard');
+        }, 15000);
+        }
+      }, err => {
+        console.log(err.error.data.error);
+        this.error = err.error.data.error;
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', this.error, 'danger');
+        this.form.value.reset;
+      });
+    }
     
-          this.form.value.reset;
-          // this.router.navigateByUrl('/issuer-dashboard');
-      }, 15000);
-      }
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger');
-      this.form.value.reset;
-    });
   }
 
 
