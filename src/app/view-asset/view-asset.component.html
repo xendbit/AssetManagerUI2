@@ -5,349 +5,6 @@
 
   <div id="container_home">
 
-      <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'buyPage' && this.asset.market === 0">
-          <p class="text-uppercase small font-weight-medium">
-              Details
-          </p>
-          <h2 class="text-uppercase font-weight-light">
-              View More details:
-          </h2>
-          <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-            <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Inter', serif;">
-              <mat-card-header>
-                <img src="{{this.asset.imageUrl}}" style="width: 100%; max-height: 30rem; margin-bottom: 10px; margin-left: 1rem;
-                 box-shadow: 5px 5px 5px #ccc;
-                      -moz-box-shadow: 10px 10px 5px #ccc;
-                      -webkit-box-shadow: 10px 10px 5px #ccc;
-                      -khtml-box-shadow: 10px 10px 5px #ccc;">
-              </mat-card-header>
-              <mat-card-subtitle style="text-align: center;">
-                Artist: {{this.asset.artistName}}
-              </mat-card-subtitle>
-              <mat-card-content>
-              </mat-card-content>
-            </mat-card>
-      
-      
-            
-            <mat-card class="col-lg-3 col-md-3 col-sm-3">
-                <mat-card-content>
-                  <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
-                      <p>
-                          <b> Title: </b> {{this.asset.titleOfWork}}
-                        </p>
-              
-                        <p>
-                            <b> Created on: </b> {{this.asset.createdOn  | date}}
-                        </p>
-              
-                        <p>
-                          <b> Minimum Bid Price: </b>  {{this.asset.issuingPrice}} ETH
-                        </p>
-                       <p>
-                        <b> Symbol: </b> {{this.asset.symbol}}
-                       </p>
-                        <!-- <p>
-                          <b> Total Supply: </b> {{this.asset.totalSupply}}
-                        </p>
-                        <p>
-                            <b>Remaining Shares:</b> {{this.remainingShares}}
-                        </p> -->
-                        <p *ngIf="this.asset.market === 1">
-                          <b>Market:</b> Secondary
-                        </p>
-                        <p *ngIf="this.asset.market === 0">
-                          <b>Market:</b> Primary
-                        </p>
-                        <p>
-                          <b> Token ID: </b>  
-                          <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">  
-                            {{this.asset.tokenId}} - 
-                            Verify <span class="material-icons" style="color: orange !important;">
-                              fingerprint
-                            </span>
-                          </a>
-                        </p>
-                    
-                    
-                    </div>
-                </mat-card-content>
-            </mat-card>
-      
-            <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;" >
-
-              
-
-              <mat-card-content >
-                <form #buyForm="ngForm" novalidate>
-                  <!-- <div class="row">
-                    <div class="col-md-9"  *ngIf="this.asset.market === 1" >
-                      <mat-label>Order Strategy</mat-label>
-                      <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
-                        <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
-                      </mat-select>
-                            
-                    </div>
-                </div> -->
-
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <p><b> Account Balance: </b>{{this.balance}} ETH </p>
-                  </div>
-
-                 
-
-                </div>
-
-                
-      
-                  <!-- <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                        <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Quantity" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                        </mat-form-field>
-                      </div>
-                  </div> -->
-      
-                  <div class="row">
-                      <div class="col-lg-9 col-md-9 col-sm-9">
-                        <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Enter bidding price." type="number" id="price" name="price" [(ngModel)]="price">
-                        </mat-form-field>
-                      </div>
-                  </div>
-
-                  <!-- <div class="row" *ngIf="radioGroup.value === 'sell' && this.asset.market !== 0">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width">
-                        <input matInput  placeholder="Enter Price" type="number"  id="price" name="price" [(ngModel)]="price">
-                      </mat-form-field>
-                    </div>
-                </div> -->
-                  
-                  <div style="padding-bottom: 20px; ">
-                  <!-- <div class="row">;
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <p><b> Total: </b>  {{this.asset.issuingPrice | currency:"$"}} </p>
-                    </div>
-                  </div> -->
-
-                    <div class="clearfix"></div>
-                  </div>
-                  <div style="padding-bottom: 20px;">
-                    <!-- <button *ngIf="!this.amount || radioGroup.value === null" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                
-                        Buy Asset
-                    
-                    </button> -->
-
-                    <button  *ngIf="this.price" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                
-                      Place Bid
-                  
-                  </button>
-
-                  <button *ngIf="!this.price" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#buyModalLong">
-                
-                    Place Bid
-                
-                </button>
-                  <div class="clearfix"></div>
-                </div>
-
-                
-
-                <div  class="modal fade" id="buyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            <div>
-                                <div class="row">
-                                    <p style="margin-left: 20%; margin-right: 29%;"> 
-                                      <b>Title: </b> 
-                                    </p> 
-                                    <b> {{this.asset.titleOfWork}} </b>
-                                </div>
-                                <div class="row">
-                                    <p style="margin-left: 20%; margin-right: 30%;">
-                                        <b>Price: </b> 
-                                    </p>
-                                    <b> {{this.asset.issuingPrice | currency:"$"}} </b>
-                                </div>
-                                <!-- <div class="row">
-                                    <p style="margin-left: 20%; margin-right: 25%;">
-                                        <b> Quantity: </b> 
-                                    </p>
-                                    <b> {{this.amount}} </b>
-                                </div> -->
-
-                                <div class="row">
-                                  <p style="margin-left: 20%; margin-right: 25%;">
-                                    <b>SMS Fee:</b>
-                                  </p>
-                                  <b> 
-                                    {{this.fees.smsNotification | currency:"$"}} </b>
-                                </div>
-
-
-                                <div class="row">
-                                  <p style="margin-left: 19%; margin-right: 16%;">
-                                    <b> Transaction Fee: </b>
-                                  </p>
-                                  <b>  {{this.fees.transaction | currency:"$"}}</b>
-                                </div>
-
-                                <div class="row">
-                                  <p style="margin-left: 19%; margin-right: 17%;">
-                                    <b> Blockchain Fee: </b>
-                                  </p>
-                                  <b> {{this.fees.blockchain | currency:"$"}} </b>
-                                </div>
-
-                                <div class="row">
-                                  <p style="margin-left: 20%; margin-right: 30%;">
-                                      <b> Total: </b> 
-                                  </p>
-                                  <b> {{this.asset.issuingPrice + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification | currency:"$"}}  </b>
-                              </div>
-                                
-                                
-                            </div>
-                          
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                          <button data-dismiss="modal" (ngSubmit)="buy(buyForm)" (click)="buy(buyForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                        
-
-
-              </form>
-
-              <!-- Button trigger modal -->
-  
-              
-              </mat-card-content>
-            </mat-card>
-      
-          </div>
-
-
-        <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 1rem;">
-
-          <mat-card class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
-            
-              <p class="text-uppercase small font-weight-medium" style=" text-align: left !important;">
-                Asset Description
-              </p>
-           
-            <mat-card-content>
-              <p>
-                 {{this.asset.description}}
-              </p>
-            </mat-card-content>
-          </mat-card>
-  
-        </div>
-  
-      </div>
-
-
-      <div class="container-fluid container-lg container-home" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
-        <h3 class="text-uppercase font-weight-light">
-            Bidding List
-        </h3>
-        <p class="text-uppercase small font-weight-medium">
-            Bids ordered from highest to lowest
-        </p>
-
-    </div>
-    
-   
-    <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Inter', serif;">
-      
-        
-        <mat-tab label="Bids">
-            
-            <div class="row">
-                <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div> -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
-                      
-                        <div class="card-body">
-                            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                                <div class="table-responsive">      
-                                    <table class="table table-hover" >
-                                        <thead class="text-success">
-                                            
-                                            <th> Wallet Address </th>
-                                            <th>Bid Price</th>
-                                            <th> Bid Date </th>
-                                        </thead>
-                                        <tbody >
-                                            <tr class="Table" >
-                                                <td > 0X138EA80AAED39YTR </td>
-                                                <td > 500 ETH </td>
-                                                <td >   21 Mar 2021 </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>           
-                        </div>              
-                    </div>
-                
-                </div>
-            
-        
-            
-            </div >
-        </mat-tab>
-        <!-- <mat-tab label="Bids (Buy)">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
-                        <div class="card-body">
-                            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                                <div class="table-responsive">      
-                                    <table class="table table-hover" >
-                                        <thead class="text-success">
-                                          <th> Bid ID </th>
-                                          <th>Original Price</th>
-                                          <th>Bid Price</th>
-                                          <th> Bid Date </th>
-                                        </thead>
-                                        <tbody *ngFor="let item of this.buyOrders">
-                                            <tr class="Table" (click)= "viewAssetSell(item.price, item.id, item.amountRemaining)">
-                                                <td *ngIf="item.amountRemaining !== 0"> {{item.tokenId}} </td>
-                                                <td *ngIf="item.amountRemaining !== 0"> {{item.originalAmount}} </td>
-                                                <td *ngIf="item.amountRemaining !== 0">   {{item.price | currency:"$"}} </td>
-                                                <td *ngIf="item.amountRemaining !== 0">  {{item.orderDate  | date : 'short'}} </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>           
-                        </div>              
-                    </div>
-                
-                </div>
-            
-        
-            
-            </div >
-        </mat-tab> -->
-    </mat-tab-group>
-
 
       <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'sellPage'">
         <p class="text-uppercase small font-weight-medium">
@@ -357,16 +14,16 @@
             View More details:
         </h2>
         <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-          <mat-card class="col-lg-6 col-md-6 col-sm-6" style="border-radius: 10px; font-family: 'Inter'">
+          <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Inter', serif;">
             <mat-card-header>
-              <img src="{{this.asset.imageUrl}}" style="width: 100%; margin-bottom: 10px; margin-left: 1rem;
+              <img src="{{this.asset.media[0].media}}" style="width: 100%; margin-bottom: 10px; margin-left: 1rem;
                box-shadow: 5px 5px 5px #ccc;
                       -moz-box-shadow: 10px 10px 5px #ccc;
                       -webkit-box-shadow: 10px 10px 5px #ccc;
                       -khtml-box-shadow: 10px 10px 5px #ccc;">
             </mat-card-header>
             <mat-card-subtitle style="text-align: center;">
-              Artist: {{this.asset.artistName}}
+              Artist: {{this.asset.name}}
             </mat-card-subtitle>
             <mat-card-content>
             </mat-card-content>
@@ -376,31 +33,15 @@
             <mat-card-content>
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <p>
-                  <b> Title: </b> {{this.asset.titleOfWork}}
+                  <b> Title: </b> {{this.asset.name}}
                 </p>
       
                 <p>
-                    <b> Created on: </b> {{this.asset.createdOn  | date }}
-                </p>
-      
-                <p>
-                  <b> Market Price: </b>  {{this.asset.marketPrice | currency:"$"}}
+                    <b> Created on: </b> {{this.asset.dateIssued  | date }}
                 </p>
                <p>
                 <b> Symbol: </b> {{this.asset.symbol}}
                </p>
-                <p>
-                  <b> Total Supply: </b> {{this.asset.totalSupply}}
-                </p>
-                <p>
-                  <b>Remaining Shares:</b> {{this.remainingShares}}
-                </p>
-                <p *ngIf="this.asset.market === 1">
-                  <b>Market:</b> Secondary
-                </p>
-                <p *ngIf="this.asset.market === 0">
-                  <b>Market:</b> Primary
-                </p>
                 <p>
                   <b> Token ID: </b> 
                    <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;">
@@ -416,374 +57,138 @@
               </div>
             </mat-card-content>
           </mat-card>
-    
-    
-          <mat-card class="col-lg-3 col-md-3 col-sm-3" style="border-radius: 10px;" style="font-family: 'Inter', serif;" *ngIf="this.asset.market !== 0">
-            <div class="col-md-3" style="margin-left: 9px !important; padding-left: 0 !important;">
 
-              <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
-                <label class="btn btn-md btn-outline-secondary" 
-                      [ngClass]="{active : currentButton == 'first'}"
-                      (click) = "currentButton='first'"
-                      style="width: 96px !important; text-transform: capitalize;"
-                       >
-                  <input type="radio" name="options" autocomplete="off" checked >Set Price    
-                </label>
-                <label class="btn btn-md btn-outline-secondary"
-                       [ngClass]="{active : currentButton == 'second'}"
-                      (click) = "currentButton='second'"
-                      style="width: 110px !important; text-transform: capitalize;"
-                  >
-                  <input type="radio" name="options" autocomplete="off"> Make Bid
-                  
-                </label>
-              </div>
-          
-            </div>
-            <mat-card-content *ngIf="this.currentButton === 'first'">
-              <form #sellForm="ngForm" novalidate>
-                <!-- <div class="row" *ngIf="this.asset.market !== 0">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <mat-label>Order Strategy</mat-label>
-                    <mat-select id ="orderStrategy" name="orderStrategy" placeholder="Good Till Cancel" [(ngModel)]="orderStrategy" >
-                      <mat-option *ngFor="let strategy of demoStrategy" [value]="strategy.code" > {{strategy.name}} </mat-option>
-                    </mat-select>
-                          
-                  </div>
-              </div> -->
+            <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;" style="border-radius: 10px;">
 
-              <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <p><b> Account Balance: </b>  {{this.balance | currency:"$"}} </p>
+              <!-- <div class="col-md-3" style="margin-left: 9px !important; padding-left: 0 !important;">
+      
+                <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
+                  <label class="btn btn-md btn-outline-secondary" 
+                        [ngClass]="{active : currentButton == 'first'}"
+                        (click) = "currentButton='first'"
+                        style="width: 96px !important; text-transform: capitalize;"
+                         >
+                    <input type="radio" name="options" autocomplete="off" checked >BID  
+                  </label>
                 </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <p> <b> Owned Shares: </b> {{this.shares}} </p>
-                </div>
-  
-              </div>
-
-              <div class="row">
-
-                <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group"
-                #radioGroup="matRadioGroup"
-                style="color: black !important;">
-                <mat-radio-button class="example-radio-button" value="buy" style="margin-left: 1rem; margin-right: 2rem; margin-top: 1rem"  *ngIf="this.shares > 0">
-                  Buy
-                </mat-radio-button>
-                <mat-radio-button class="example-radio-button" value="sell" style="margin-left: 1rem; margin-bottom: 1rem; color: black !important;" *ngIf="this.shares > 0">
-                 Sell
-                </mat-radio-button>
-              </mat-radio-group>
-
-              </div>
-    
-                <div class="row" *ngIf="this.asset.market !== 0">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                      </mat-form-field>
-                    </div>
-                </div>
-    
-                <div class="row" *ngIf="this.asset.market !== 0">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                      <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Price" type="number" id="price" name="price" [(ngModel)]="price">
-                      </mat-form-field>
-                    </div>
-                </div>
-                
-                <div style="padding-bottom: 20px; " *ngIf=" this.asset.market !== 0 && this.amount && this.price && radioGroup.value === 'sell'">
-                  <button  data-toggle="modal" data-target="#sellModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
-                
-                    Sell Asset
-                
-                </button>
-                  <div class="clearfix"></div>
-                </div>
-
-                <button *ngIf="radioGroup.value === 'buy' && this.amount && this.asset.market !==0 || this.amount && this.asset.market !== 0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;"  data-toggle="modal" data-target="#secBuyModalLong">
-                
-                  Buy Asset
-              
-              </button>
-
-              <button disabled *ngIf="radioGroup.value === 'buy' && !this.amount && this.asset.market !==0" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;"  data-toggle="modal" data-target="#buyModalLong">
-                
-                Buy Asset
             
-            </button>
-
-            <button disabled *ngIf="radioGroup.value === null && this.asset.market !==0 && !this.amount" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;"  data-toggle="modal" data-target="#buyModalLong">
-                
-              Buy Asset
-          
-          </button>
-
-                <div style="padding-bottom: 20px; " *ngIf="this.asset.market === 0 && radioGroup.value === 'sell' || !this.amount && radioGroup.value === 'sell'|| !this.price && radioGroup.value === 'sell' ">
-                  <button (click)="sell(sellForm)" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green;">
-                
-                    Sell Asset
-                
-                </button>
-                  <div class="clearfix"></div>
-                </div>
-
-
-
-
-
-                <div  class="modal fade" id="secBuyModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                          <div *ngIf="this.asset.market !== 0">
-                            <div>
-                              Please confirm that you intend to buy {{this.asset.titleOfWork}} at market Order with the following breakdown in prices:  
-
-
-
-                            
-                            <div class="row" style="margin-top: 1rem;">
-                                <p style="margin-left: 19%; margin-right: 29%;">
-                                    <b>Price: </b> 
-                                </p>
-                                <b>  {{this.asset.marketPrice | currency:"$"}} </b>
-                            </div>
-                            <div class="row">
-                                <p style="margin-left: 19%; margin-right: 24%;">
-                                    <b> Quantity: </b> 
-                                </p>
-                                <b> {{this.amount}} </b>
-                            </div>
-
-                            <div class="row">
-                              <p style="margin-left: 19%; margin-right: 24%;">
-                                <b>SMS Fee:</b>
-                              </p>
-                              <b>    {{this.fees.smsNotification | currency:"$"}}</b>
-                            </div>
-
-                            <div class="row">
-                              <p style="margin-left: 19%; margin-right: 24%;">
-                                <b>
-                                  NSE Fee:
-                                </b>
-                              </p>
-                              <b>
-                                 {{this.fees.nse}}%
-                              </b>
-                            </div>
-
-                            <div class="row">
-                              <p style="margin-left: 19%; margin-right: 15%;">
-                                <b> Transaction Fee: </b>
-                              </p>
-                              <b> {{this.fees.transaction | currency:"$"}} </b>
-                            </div>
-
-                            <div class="row">
-                              <p style="margin-left: 19%; margin-right: 15%;">
-                                <b> Blockchain Fee: </b>
-                              </p>
-                              <b> {{this.fees.blockchain | currency:"$"}}</b>
-                            </div>
-
-                            <div class="row">
-                              <p style="margin-left: 19%; margin-right: 28%;">
-                                  <b> Total: </b> 
-                              </p>
-                              <b>  {{this.asset.marketPrice * this.amount  + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse / 100) | currency:"$"}}  </b>
+              </div> -->
+            
+              
+              <mat-card-content>
+                  <form #buyForm="ngForm" novalidate >
+      
+                      <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                              <p><b> Account Balance: </b>  {{this.balance}} ETH </p>
                           </div>
-
-                            </div>
-                              
-                              
+           
+                      </div>
+             
+                      <!-- <div class="row">
+                          <div class="col-lg-9 col-md-9 col-sm-9">
+                              <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                              </mat-form-field>
                           </div>
-                  
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                        <button data-dismiss="modal"  (click)="secBuy(this.amount, this.price)" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div  class="modal fade" id="sellModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount && radioGroup.value === 'sell' ">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                          <div *ngIf="this.asset.market !== 0 && radioGroup.value === 'sell'">
-                            <div>
-                              Please confirm that you intend to sell {{this.amount}} amounts of {{this.asset.titleOfWork}} at market Order.  
-                            </div>
-                          </div>
-                  
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                        <button data-dismiss="modal"  (click)="sell(sellForm)" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-            </form>
-            </mat-card-content>
-
-
-            <mat-card-content *ngIf="this.currentButton === 'second' ">
-              <form #buyForm="ngForm"  novalidate>
- 
-                  <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                          <p><b> Account Balance: </b>   {{this.balance | currency:"$"}} </p>
-                      </div>
-
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                        <p><b> Owned Shares: </b> {{this.shares}} </p>
-                      </div>
-       
-                  </div>
-         
-                  <div class="row">
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                          <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                          </mat-form-field>
-                      </div>
-                  </div>
-         
-                     
-                  <div style="padding-bottom: 20px; ">
-                      <button *ngIf="this.amount && this.shares !== 0" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;">
-                  
-                      Place Bid
-                  
-                      </button>
-
-                      <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 20%;">
-                  
-                        Place Bid
-                    
-                        </button>
-                  
-                  </div>
-
-
-
-                <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-
-
-                      <div class="modal-body">
-                       
-
-                        <div>
-                          Please confirm that you intend to buy {{this.asset.titleOfWork}} at market Order with the following breakdown in prices:  
-
-
-
-                        
-                        <div class="row" style="margin-top: 1rem;">
-                            <p style="margin-left: 19%; margin-right: 29%;">
-                                <b>Price: </b> 
-                            </p>
-                            <b>  {{this.fees.marketPrice | currency:"$"}} </b>
-                        </div>
-                        <div class="row">
-                            <p style="margin-left: 19%; margin-right: 24%;">
-                                <b> Quantity: </b> 
-                            </p>
-                            <b> {{this.amount}} </b>
-                        </div>
-
-                        <div class="row">
-                          <p style="margin-left: 19%; margin-right: 24%;">
-                            <b>SMS Fee:</b>
-                          </p>
-                          <b>  {{this.fees.smsNotification| currency:"$"}} </b>
-                        </div>
-
-                        <div class="row">
-                          <p style="margin-left: 19%; margin-right: 24%;">
-                            <b>
-                              NSE Fee:
-                            </b>
-                          </p>
-                          <b>
-                             {{this.fees.nse}}%
-                          </b>
-                        </div>
-
-                        <div class="row">
-                          <p style="margin-left: 19%; margin-right: 15%;">
-                            <b> Transaction Fee: </b>
-                          </p>
-                          <b>  {{this.fees.transaction | currency:"$"}} </b>
-                        </div>
-
-                        <div class="row">
-                          <p style="margin-left: 19%; margin-right: 15%;">
-                            <b> Blockchain Fee: </b>
-                          </p>
-                          <b>  {{this.fees.blockchain | currency:"$"}} </b>
-                        </div>
-
-                        <div class="row">
-                          <p style="margin-left: 19%; margin-right: 28%;">
-                              <b> Total: </b> 
-                          </p>
-                          <b> {{this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification * (this.fees.nse / 100) | currency:"$"}}  </b>
-                      </div>
-
-                        </div>
-                                                    
+                      </div> -->
+             
+                         
+                      <div style="padding-bottom: 20px; ">
+                          <button  data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
                       
-                    </div>
-
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                        <button data-dismiss="modal"  (click)="sendMarketOrder()" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                          Start Auction
+                      
+                          </button>
+                      
                       </div>
-                    </div>
-                  </div>
-                </div>
-                 </form>
-       
-
-          </mat-card-content>
+                      <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Start Auction</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                  Please Confirm the details of the English auction for this asset :
+                                  <form [formGroup]="form">
+                                    <div class="row">
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+                                        *<mat-label>Start date</mat-label> 
+                                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 90%;">
+                                            <mat-icon matPrefix style="margin-right: 2rem ;">date_range</mat-icon>
+                                            
+                                            <input matInput [ngxMatDatetimePicker]="picker"  id="startDate" formControlName="startBlock" name="startBlock" placeholder="Select starting date and time for bids on this asset"  >
+                                            
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        
+                                            <ngx-mat-datetime-picker #picker [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                        </mat-form-field>
+                                        *<mat-label>End Date</mat-label> 
+                                        <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 90%;">
+                                            <mat-icon matPrefix style="margin-right: 2rem ;">date_range</mat-icon>
+                                            <input matInput [ngxMatDatetimePicker]="pickerTo"  id="endBlock" formControlName="endBlock" name="endBlock" placeholder="Select ending date and time for bids on this asset">
+                                        
+                                            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                                        
+                                            <ngx-mat-datetime-picker #pickerTo [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
           
-
-
-          </mat-card>
-    
-        </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <mat-label style="color: black;">
+                                            * Sell Price:
+                                          </mat-label>
+                                          <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                           
+                                          <mat-icon matPrefix style="margin-right: 2rem ;">dehaze</mat-icon>
+                                          <textarea  matInput type="text" id="sellNowPrice" formControlName="sellNowPrice" name="sellNowPrice">  </textarea>
+                                          </mat-form-field>
+                                        </div>
+                                    </div>
+          
+          
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <mat-label style="color: black;">
+                                            * Minimum Price (Bid):
+                                          </mat-label>
+                                          <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                            <mat-icon matPrefix style="margin-right: 2rem ;">swap_horiz</mat-icon>
+                                            <input matInput type="number" id="minimumPrice" formControlName="minimumPrice" name="minimumPrice">
+                                          </mat-form-field>
+                                        </div>
+                                    </div>
+                                    
+      
+                                    <div class="clearfix"></div>
+                                </form>
+      
+                              </div>
+                              
+                            </div>
+      
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                              <button data-dismiss="modal" (click)="startAuction(this.asset.tokenId)"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     </form>
+           
+      
+              </mat-card-content>
+              
+      
+            </mat-card>
+      
+                  
 
         <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 1rem;">
 
@@ -802,6 +207,61 @@
         </div>
 
     </div>
+
+    <div class="container-fluid container-lg container-home" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+      <h3 class="text-uppercase font-weight-light">
+          Bidding List
+      </h3>
+      <p class="text-uppercase small font-weight-medium">
+          Bids ordered from highest to lowest
+      </p>
+
+  </div>
+  
+ 
+  <mat-tab-group style="align-items: center; margin-left: 7rem; font-family: 'Inter', serif;">
+    
+      
+      <mat-tab label="Bids">
+          
+          <div class="row">
+              <!-- <div class="col-lg-2 col-md-2 col-sm-2"></div> -->
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="container-fluid container-lg container-home" style="height: 100%; width: 100% !important;">
+                    
+                      <div class="card-body">
+                          <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                              <div class="table-responsive">      
+                                  <table class="table table-hover" >
+                                      <thead class="text-success">
+                                          
+                                          <th> Wallet Address </th>
+                                          <th>Bid Price</th>
+                                          <th> Bid Date </th>
+                                      </thead>
+                                      <tbody >
+                                          <tr class="Table" >
+                                              <td > 0X138EA80AAED39YTR </td>
+                                              <td > 500 ETH </td>
+                                              <td >   21 Mar 2021 </td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>           
+                      </div>              
+                  </div>
+              
+              </div>
+          
+      
+          
+          </div >
+      </mat-tab>
+      
+  </mat-tab-group>
+
+
 
 
 

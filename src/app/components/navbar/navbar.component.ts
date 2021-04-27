@@ -60,16 +60,8 @@ export class NavbarComponent implements OnInit {
         
         })
           // this.getAssets();
-          this.getBalance();
     }
 
-
-    getBalance(){
-      this.assetService.getAccountInfo().then(res => {
-        console.log('res', res['balance']);
-      })
-
-    }
 
     logout() {
         localStorage.removeItem('userId');

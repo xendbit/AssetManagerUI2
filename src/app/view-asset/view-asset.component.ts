@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import * as Web3 from 'web3';
 
 
 declare var $: any;
@@ -17,20 +18,16 @@ declare var $: any;
   styleUrls: ['./view-asset.component.css']
 })
 export class ViewAssetComponent implements OnInit {
-  tokenId: any;
+  tokenId: number;
   asset: any;
-  orderStrategy: any;
   amount: any;
   price: any;
   error: any;
   pageHistory: any;
-  userId: any;
   @Input() editable: boolean = false;
   assets: any;
   primaryMarket: any[];
-  currentButton = "first";
-  balance: 0;
-  secondaryPrice: any;
+  balance: number = 0;
   orderId: any;
   quantity: any;
   showModal: boolean;
@@ -43,29 +40,43 @@ export class ViewAssetComponent implements OnInit {
     { "name": 'Good Till Day',  code: 2 },
     { "name": 'Good Till Month',  code: 3 }
   ];
-  shares: any;
+  shares: number;
   notLoggedIn: boolean;
-  holidays: any;
   marketSettings: any;
   fees: any;
   image: any;
   form: FormGroup;
+  auctionId: number;
+  endBlock: number;
+  startBlock: number;
+  minimumPrice: number;
+  sellNowPrice: number;
+  currentBlock: number;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router, public adminService: AdminService, public fb: FormBuilder) { 
       this.form = fb.group({
-        'image': this.image
+        'image': this.image,
+        'endBlock': this.endBlock,
+        'startBlock': this.startBlock,
+        'minimumPrice': this.minimumPrice,
+        'sellNowPrice': this.sellNowPrice
     });
     }
 
   ngOnInit(): void { 
-    this.userId = localStorage.getItem('userId');
-    if (this.userId === null || this.userId === undefined) {
-      this.notLoggedIn = true;
-    } else {
-      this.notLoggedIn = false;
-    }
-    this.balanceComplete = false;
+    // this.userId = localStorage.getItem('userId');
+    // if (this.userId === null || this.userId === undefined) {
+    //   this.notLoggedIn = true;
+    // } else {
+    //   this.notLoggedIn = false;
+    // }
+    // this.balanceComplete = false;
+    this.assetService.getCurrentBlock().then(res => {
+      console.log('this is block', res);
+      this.currentBlock = res['block'];
+      
+    })
     this.assetService.getMetamaskInfo().then(data => {
       this.balance = data.balance;
     })
@@ -133,17 +144,44 @@ export class ViewAssetComponent implements OnInit {
     });
   }
 
-  getOwnedShares() {
-    this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
-      console.log('this is response for shares', res);
-      this.shares = res['data'];
-    },
-    err => {
-        console.log(err);
+  startAuction(tokenId) {
+    this.assetService.showSpinner();
+    let startDate = new Date(this.form.get('startBlock').value);
+    let endDate = new Date(this.form.get('endBlock').value)
+    let currentDate = Date.now();
+    let startDateValue = this.form.get('startBlock').value;
+    let endDateValue = this.form.get('endBlock').value
+
+    let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
+    let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
+    let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
+    let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
+    let sellNow: string =  this.form.get('sellNowPrice').value.toString();
+    let minimumPrice: string =  this.form.get('minimumPrice').value.toString();
+    var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
+    this.auctionId = rndNo;
+    // console.log('this is sell now', endDateValue) 
+   
+    // console.log('this is days', initialStart);
+    // console.log('this is start block', startBlock)
+    // console.log('this is minimum', minimumPrice)
+    this.assetService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+      console.log('this is res', res)
+      setTimeout(() => { 
+        this.assetService.startAuctionYasuke(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
+        console.log('this is response', data);
         this.assetService.stopSpinner();
-    },
-    () => { }
-    );
+      }, err =>  {
+        console.log('this is error:', err);
+        this.assetService.stopSpinner();
+      })
+    }, 15000)
+      
+
+    }, err => {
+      console.log('ERR =>', err);
+      this.assetService.stopSpinner();
+    })
   }
 
   getFees() {
@@ -158,74 +196,74 @@ export class ViewAssetComponent implements OnInit {
     })
   }
 
-  getHolidays() {
-    this.adminService.getHolidays().subscribe( res => {
-      this.holidays = res['data'];
-    })
-  }
+  // getHolidays() {
+  //   this.adminService.getHolidays().subscribe( res => {
+  //     this.holidays = res['data'];
+  //   })
+  // }
 
-  secBuy(amount, price) {
+  // secBuy(amount, price) {
 
-    if (this.shares = 0 ) {
-      this.assetService.showNotification('top', 'center', 'You can not sell this asset as you currently own no shares in it', 'danger');
-      return;
-    }
-    if (this.amount > this.shares ) {
-      this.assetService.showNotification('top', 'center', 'You can not sell more than your total number of shares for this asset', 'danger');
-      return;
-    }
+  //   if (this.shares = 0 ) {
+  //     this.assetService.showNotification('top', 'center', 'You can not sell this asset as you currently own no shares in it', 'danger');
+  //     return;
+  //   }
+  //   if (this.amount > this.shares ) {
+  //     this.assetService.showNotification('top', 'center', 'You can not sell more than your total number of shares for this asset', 'danger');
+  //     return;
+  //   }
 
-    if (!amount) {
-      this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
-      return;
-    }
-    this.total = amount * this.asset.marketPrice;
-    console.log('this is total', this.total)
-    if (this.balance == 0 || this.balance < this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
-      this.balanceComplete = false;
-      this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
-      return;
-    } else if(this.balance >= this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
-      this.balanceComplete = true;
-    }
+  //   if (!amount) {
+  //     this.assetService.showNotification('top', 'center', 'Please confirm that you entered the quantity of assets you want to purchase', 'danger');
+  //     return;
+  //   }
+  //   this.total = amount * this.asset.marketPrice;
+  //   console.log('this is total', this.total)
+  //   if (this.balance == 0 || this.balance < this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+  //     this.balanceComplete = false;
+  //     this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+  //     return;
+  //   } else if(this.balance >= this.asset.marketPrice * amount + this.fees.nse + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+  //     this.balanceComplete = true;
+  //   }
     
   
-    let body;
+  //   let body;
    
-      body = {
-        tokenId: this.asset.tokenId,
-        orderType: 0,
-        orderStrategy: 0,
-        amount: amount,
-        "price": price,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        market: 1
-      }
+  //     body = {
+  //       tokenId: this.asset.tokenId,
+  //       orderType: 0,
+  //       orderStrategy: 0,
+  //       amount: amount,
+  //       "price": price,
+  //       "goodUntil": 0,
+  //       "userId": parseInt(this.userId),
+  //       market: 1
+  //     }
    
-    this.assetService.showSpinner();
-    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      console.log('this is response', data);
-      if (data['status'] == 'success') {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'Order has been placed successfully', 'success');
-        this.router.navigateByUrl('/home')
-      } else {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
-      }
+  //   this.assetService.showSpinner();
+  //   this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+  //     console.log('this is response', data);
+  //     if (data['status'] == 'success') {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'Order has been placed successfully', 'success');
+  //       this.router.navigateByUrl('/home')
+  //     } else {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
+  //     }
       
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    })
+  //   }, err => {
+  //     console.log(err.error.data.error);
+  //     this.error = err.error.data.error;
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+  //   })
 
-  }
+  // }
   
 
-  buy(buyForm: NgForm) {
+  // buy(buyForm: NgForm) {
     // let orderStrategy;
     // var percentToGet = this.marketSettings.percMinBuyQuantity;
     // var nseFee = this.fees.nse;
@@ -266,13 +304,13 @@ export class ViewAssetComponent implements OnInit {
     // }
     // this.total = this.amount * this.asset.issuingPrice;
     // console.log('this is total', this.total)
-    if (this.balance == 0 || this.balance < this.asset.issuingPrice  +  this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
-      this.balanceComplete = false;
-      this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
-      return;
-    } else if(this.balance >= this.asset.issuingPrice + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
-      this.balanceComplete = true;
-    }
+    // if (this.balance == 0 || this.balance < this.asset.issuingPrice  +  this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    //   this.balanceComplete = false;
+    //   this.assetService.showNotification('top', 'center', 'You currently do not have enough in your account balance to purchase this asset', 'danger');
+    //   return;
+    // } else if(this.balance >= this.asset.issuingPrice + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+    //   this.balanceComplete = true;
+    // }
     
     // if (this.asset.market === 0 ) {
     //   orderStrategy = 0;
@@ -283,98 +321,98 @@ export class ViewAssetComponent implements OnInit {
     //   this.assetService.showNotification('top', 'center', 'You cannot purchase more than the available shares', 'danger');
     //   return;
     // }
-    let body;
-    if (this.orderId) {
-      body = {
-        tokenId: this.asset.tokenId,
-        orderType: 0,
-        orderStrategy: 0,
-        amount: 1,
-        "price": this.secondaryPrice,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        "orderId": this.orderId,
-        market: 1
-      }
-    } else {
-      console.log('this is primary market')
-      body = {
-        tokenId: this.asset.tokenId,
-        orderType: 0,
-        orderStrategy: 0,
-        amount: 1,
-        "price": this.asset.issuingPrice,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        market: 0
-      }
-      console.log('this is body', body)
-    }
+  //   let body;
+  //   if (this.orderId) {
+  //     body = {
+  //       tokenId: this.asset.tokenId,
+  //       orderType: 0,
+  //       orderStrategy: 0,
+  //       amount: 1,
+  //       "price": this.secondaryPrice,
+  //       "goodUntil": 0,
+  //       "userId": parseInt(this.userId),
+  //       "orderId": this.orderId,
+  //       market: 1
+  //     }
+  //   } else {
+  //     console.log('this is primary market')
+  //     body = {
+  //       tokenId: this.asset.tokenId,
+  //       orderType: 0,
+  //       orderStrategy: 0,
+  //       amount: 1,
+  //       "price": this.asset.issuingPrice,
+  //       "goodUntil": 0,
+  //       "userId": parseInt(this.userId),
+  //       market: 0
+  //     }
+  //     console.log('this is body', body)
+  //   }
    
-    this.assetService.showSpinner();
-    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      console.log('this is response', data);
-      if (data['status'] == 'success') {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'Asset has been bought successfully', 'success');
-        this.router.navigateByUrl('/home')
-      } else {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
-      }
+  //   this.assetService.showSpinner();
+  //   this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+  //     console.log('this is response', data);
+  //     if (data['status'] == 'success') {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'Asset has been bought successfully', 'success');
+  //       this.router.navigateByUrl('/home')
+  //     } else {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'There has been an error while trying to purchase this asset, please try again later', 'danger');
+  //     }
       
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    })
-  }
+  //   }, err => {
+  //     console.log(err.error.data.error);
+  //     this.error = err.error.data.error;
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+  //   })
+  // }
 
-  sell(sellForm: NgForm) {
-    console.log('this is price', this.price);
-    if (!this.amount) {
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
-      return;
-    }
-    this.assetService.showSpinner();
-    this.price = sellForm.value.price;
-    if (this.asset.market === 0) {
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
-      return
-    }
+  // sell(sellForm: NgForm) {
+  //   console.log('this is price', this.price);
+  //   if (!this.amount) {
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+  //     return;
+  //   }
+  //   this.assetService.showSpinner();
+  //   this.price = sellForm.value.price;
+  //   if (this.asset.market === 0) {
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('top', 'center', 'You cannot sell this asset as it is still listed on the primary market.', 'danger');
+  //     return
+  //   }
     
-    const body = {
-        tokenId: this.asset.tokenId,
-        orderType: 1,
-        orderStrategy: 0,
-        amount: this.amount,
-        "price": this.price,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        market: 1
-    }
-    this.assetService.stopSpinner();
-    this.assetService.showSpinner();
-    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      if (data['status'] == 'success') {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'Asset has been sold successfully', 'success');
-        this.router.navigateByUrl('/home')
-      } else {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('top', 'center', 'There was an error while trying to sell this asset, please try again later', 'danger');
-      }
-      console.log('this is response', data);
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    });
-  }
+  //   const body = {
+  //       tokenId: this.asset.tokenId,
+  //       orderType: 1,
+  //       orderStrategy: 0,
+  //       amount: this.amount,
+  //       "price": this.price,
+  //       "goodUntil": 0,
+  //       "userId": parseInt(this.userId),
+  //       market: 1
+  //   }
+  //   this.assetService.stopSpinner();
+  //   this.assetService.showSpinner();
+  //   this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+  //     if (data['status'] == 'success') {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'Asset has been sold successfully', 'success');
+  //       this.router.navigateByUrl('/home')
+  //     } else {
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('top', 'center', 'There was an error while trying to sell this asset, please try again later', 'danger');
+  //     }
+  //     console.log('this is response', data);
+  //   }, err => {
+  //     console.log(err.error.data.error);
+  //     this.error = err.error.data.error;
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+  //   });
+  // }
 
  
 
@@ -425,66 +463,66 @@ export class ViewAssetComponent implements OnInit {
   }
 
   
-  sendMarketOrder() {
-    console.log('this is amount', this.amount)
+  // sendMarketOrder() {
+  //   console.log('this is amount', this.amount)
 
-    let orderType;
-    let market;
-    if (this.balance < this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
-      this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
-      return;
+  //   let orderType;
+  //   let market;
+  //   if (this.balance < this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification) {
+  //     this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
+  //     return;
      
-    } else if (this.balance >= this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
-      orderType = 0;
-      market = 1;
-    }
+  //   } else if (this.balance >= this.asset.marketPrice * this.amount + this.fees.transaction + this.fees.blockchain + this.fees.smsNotification)  {
+  //     orderType = 0;
+  //     market = 1;
+  //   }
 
-    // if (this.amount > this.remainingShares) {
-    //   this.assetService.stopSpinner();
-    //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
-    //   return;
-    // }
-    this.assetService.showSpinner();
-    if (!this.amount) {
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
-      return;
-    }
+  //   // if (this.amount > this.remainingShares) {
+  //   //   this.assetService.stopSpinner();
+  //   //   this.assetService.showNotification('bottom', 'center', 'You can not buy more than the remaining shares for this asset.', 'danger');
+  //   //   return;
+  //   // }
+  //   this.assetService.showSpinner();
+  //   if (!this.amount) {
+  //     this.assetService.stopSpinner();
+  //     this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered the quantity for this purchase.', 'danger');
+  //     return;
+  //   }
 
-    // this.orderStrategy = 0;
-    let body;
+  //   // this.orderStrategy = 0;
+  //   let body;
    
-      body = {
-        tokenId: this.asset.tokenId,
-        orderType: orderType,
-        orderStrategy: 4,
-        amount: this.amount,
-        "price": 0,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        "orderId": this.orderId,
-        market: market
-      }
+  //     body = {
+  //       tokenId: this.asset.tokenId,
+  //       orderType: orderType,
+  //       orderStrategy: 4,
+  //       amount: this.amount,
+  //       "price": 0,
+  //       "goodUntil": 0,
+  //       "userId": parseInt(this.userId),
+  //       "orderId": this.orderId,
+  //       market: market
+  //     }
     
-      this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-        console.log('this is response', data);
-        if (data['status'] == 'success') {
-          this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'Order has been placed successfully', 'success');
-          this.router.navigateByUrl('/home')
-        } else {
-          this.assetService.stopSpinner();
-          this.ngOnInit();
-          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
-        }
+  //     this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
+  //       console.log('this is response', data);
+  //       if (data['status'] == 'success') {
+  //         this.assetService.stopSpinner();
+  //         this.assetService.showNotification('bottom', 'center', 'Order has been placed successfully', 'success');
+  //         this.router.navigateByUrl('/home')
+  //       } else {
+  //         this.assetService.stopSpinner();
+  //         this.ngOnInit();
+  //         this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to place an order for this asset, please try again later', 'danger');
+  //       }
         
-      }, err => {
-        console.log(err.error.data.error);
-        this.error = err.error.data.error;
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-      })
-    }
+  //     }, err => {
+  //       console.log(err.error.data.error);
+  //       this.error = err.error.data.error;
+  //       this.assetService.stopSpinner();
+  //       this.assetService.showNotification('bottom', 'center', this.error, 'danger')
+  //     })
+  //   }
 
     uploadFile(event: any) {
 

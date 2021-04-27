@@ -63,6 +63,11 @@ export class SecondaryViewComponent implements OnInit {
   account: any;
   metamask: any;
   hasMetaMask: boolean;
+  assetMedia: any;
+  auctionId: number;
+  auction: any;
+  auctionStart: Date;
+  auctionEnd: Date;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
@@ -75,20 +80,17 @@ export class SecondaryViewComponent implements OnInit {
      }
 
   async ngOnInit(): Promise<void> {
-    this.orderStrategy = 0;
+    this.assetService.getMetamaskInfo().then( data => {
+      this.balance = data.balance;
+      this.account = data.account;
+      console.log('this is wallet', this.account)
+    })
     this.activatedRoute.paramMap
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
                     this.tokenId = window.history.state.tokenId;
-                    // this.getBalance();
-                    // this.getSellOrders();
-                    // this.getFees();
-                    // this.getHolidays();
-                    // this.getMarketSettings();
-                    // this.getOwnedShares();
                     this.getAssetDetails();
-                    // this.getPrimarySharesRemaining(this.tokenId);
                     this.getAssets();
                    
                 }
@@ -104,7 +106,21 @@ export class SecondaryViewComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       this.asset = data['data'];
-      console.log('this is information', this.asset.media)
+      console.log('this is information', this.asset)
+      this.auctionId = this.asset.lastAuctionId;
+      this.getAuctionInfo();
+      console.log('this is auctionId', this.auctionId)
+      this.asset.media.forEach(elem => {
+        if (elem.mediaKey === 'mp4') {
+          console.log('found something')
+          if (this.asset.media.find(elem => elem === elem )){
+            this.assetMedia = elem.media;
+          }
+          
+        }
+      })
+      
+      
     },
     err => {
         console.log(err);
@@ -116,17 +132,34 @@ export class SecondaryViewComponent implements OnInit {
 
 }
 
-getOwnedShares() {
-  this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
-    this.shares = res['data'];
-  },
-  err => {
-      console.log(err);
-      this.assetService.stopSpinner();
-  },
-  () => { }
-  );
+getAuctionInfo() {
+  this.assetService.getAuctionInfo(this.asset.tokenId, this.auctionId).subscribe(res => {
+    // console.log('this is auction info', res)
+    this.auction = res['data'];
+    console.log('this is auction info', this.auction)
+    this.auctionStart = new Date(this.auction['startDate'])
+    this.auctionEnd = new Date(this.auction['endDate']);
+    console.log('this is bidder', this.auction['bids'][0]['bidder'])
+    console.log('is this true?', this.account == this.auction['bids'][0]['bidder'])
+  })
 }
+
+// listTokenAuctions() {
+//   this.assetService.listAuctionByTokenId(this.tokenId).subscribe(res => {
+   
+//     let info = res['data']['items'][0];
+//     // let startBlock = this.currentBlock + (x * 24 * 60 * 60)/3);
+//     // let endBlock = this.currentBlock + (y * 24 * 60 * 60)/3) ;
+//     console.log('this is response', info.startBlock)
+//     let currentBlock = parseInt(info.currentBlock)
+//     console.log('this is current block', currentBlock)
+//     let day = (24 * 60 * 60)/3
+//     console.log('this is day', day)
+//     let start = parseInt(info.startBlock);
+//     let startBlock = ( currentBlock - start)/ 3 ;
+//     console.log('this is it', startBlock);
+//   })
+// }
 
 getFees() {
   this.adminService.getFees().subscribe(res => {
@@ -467,13 +500,17 @@ getSellOrders() {
   }
 
   sendMarketOrder() {
-    let orderType;
+    let minimumBid = parseInt(this.auction.minimumBid);
     if (this.balance < this.amount ) {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
      
-    } else if (this.balance >=  this.amount)  {
-      orderType = 0;
+    } else if (this.balance < minimumBid)  {
+      this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
+      return;
+    } else if (this.amount < minimumBid) {
+      this.assetService.showNotification('bottom', 'center', 'You cannot Bid less than the minimum acceptable bid for this asset.', 'danger');
+      return;
     }
 
     this.assetService.showSpinner();
@@ -482,48 +519,20 @@ getSellOrders() {
       this.assetService.showNotification('bottom', 'center', 'Please confirm you have entered your bidding price for this asset.', 'danger');
       return;
     }
-
-    this.orderStrategy = 0;
-    let body;
-   
-      body = {
-        tokenId: this.asset.tokenId,
-        orderType: orderType,
-        orderStrategy: 4,
-        amount: this.amount,
-        "price": 0,
-        "goodUntil": 0,
-        "userId": parseInt(this.userId),
-        "orderId": this.orderId,
-        market: 1
-      }
-  
-      this.assetService.placeBid(this.asset.tokenId, this.auctionId).then(data => {
+      // var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
+      // this.auctionId = rndNo;
+      this.assetService.placeBid(this.asset.tokenId, this.auctionId, this.amount).then(data => {
         console.log('this is data', data);
+        setTimeout(() => {
+          this.assetService.stopSpinner();
+          this.ngOnInit();
+          // this.router.navigateByUrl('/issuer-dashboard');
+      }, 15000);
+       
+      }, err => {
+        console.log('this is error', err)
+        this.assetService.stopSpinner();
       })
-
-    this.assetService.buyAsset(body).pipe(first()).subscribe(data => {
-      console.log('this is response', data);
-      if (data['status'] == 'success') {
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('bottom', 'center', 'Bid has been placed successfully', 'success');
-        this.router.navigateByUrl('/home')
-      } else {
-        this.assetService.stopSpinner();
-        this.ngOnInit();
-        this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to place a bid for this asset, please try again later', 'danger');
-      }
-      
-    }, err => {
-      console.log(err.error.data.error);
-      this.error = err.error.data.error;
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    })
-
-  }
-  auctionId(tokenId: any, auctionId: any) {
-    throw new Error('Method not implemented.');
   }
 
   onSubmit(loginForm: NgForm) {

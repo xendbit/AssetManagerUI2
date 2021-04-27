@@ -47,9 +47,9 @@ export class HomeComponent implements OnInit {
     this.audios = [];
     this.images = [];
     this.videos = [];
-    if (localStorage.getItem('userId')) {
-      this.userId = parseInt(localStorage.getItem('userId'));
-    }
+    // if (localStorage.getItem('userId')) {
+    //   this.userId = parseInt(localStorage.getItem('userId'));
+    // }
     
     this.getAssets();
   }
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
       console.log('this is assets, ', data['data']['items']);
       let media = []
       this.assets.forEach(element => {
-        if (element.media.length > 0) {
+        if (element.media.length > 0 ) {
           media.push(element.media)
           media.forEach(mel => {
             mel.forEach( data => {
