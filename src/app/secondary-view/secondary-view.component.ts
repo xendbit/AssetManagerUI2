@@ -44,8 +44,9 @@ export class SecondaryViewComponent implements OnInit {
   myBuyOrders: any;
   mySellOrders: any;
   email: string;
-    password: string;
-  remainingShares: any;
+  password: string;
+  bids: any[];
+  remainingShares: number;
   demoStrategy: { name: string,  code: number }[] = [
     { "name": 'Good Till Cancel',  code: 0 },
     { "name": 'All or Nothing',  code: 1 },
@@ -68,6 +69,7 @@ export class SecondaryViewComponent implements OnInit {
   auction: any;
   auctionStart: Date;
   auctionEnd: Date;
+  sellNowPrice: number;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
@@ -134,13 +136,12 @@ export class SecondaryViewComponent implements OnInit {
 
 getAuctionInfo() {
   this.assetService.getAuctionInfo(this.asset.tokenId, this.auctionId).subscribe(res => {
-    // console.log('this is auction info', res)
     this.auction = res['data'];
     console.log('this is auction info', this.auction)
     this.auctionStart = new Date(this.auction['startDate'])
     this.auctionEnd = new Date(this.auction['endDate']);
-    console.log('this is bidder', this.auction['bids'][0]['bidder'])
-    console.log('is this true?', this.account == this.auction['bids'][0]['bidder'])
+    this.sellNowPrice = parseInt(this.auction['sellNowPrice'])
+    this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
   })
 }
 

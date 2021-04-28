@@ -365,13 +365,13 @@
                    
                                
                             <div style="padding-bottom: 20px; ">
-                                <button *ngIf="this.amount" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                <button *ngIf="this.amount &&  this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
                             
                                 Place Bid
                             
                                 </button>
 
-                                <button *ngIf="!this.amount" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                <button *ngIf="!this.amount || this.auction.isActive === false" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
                             
                                   Place Bid
                               
@@ -484,7 +484,9 @@
                                                 </thead>
                                                 <tbody >
                                                     <tr *ngFor="let item of this.auction.bids  let i=index" class="Table" >
-                                                        <td > {{item.bidder}} </td>
+                                                        <td > <span  *ngIf="item.bid >= this.sellNowPrice" class="material-icons">
+                                                          verified
+                                                          </span>  {{item.bidder}} </td>
                                                         <td > {{item.bid}} ETH </td>
                                                         <td >   {{item.auctionId}} </td>
                                                         <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 

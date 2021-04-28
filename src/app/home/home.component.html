@@ -222,7 +222,7 @@
             </div> -->
            
             <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; ">
-                <div *ngFor="let item of this.videos  let i=index" class="col-3 col-md-3 ">
+                <div *ngFor="let item of this.audios  let i=index" class="col-3 col-md-3 ">
 
                
                
@@ -231,9 +231,9 @@
                             
 
                             <div style="border-radius: 40px;">
-                                <img src="{{item.data.media}}" style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
+                                <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
                                     <audio width="80%" controls controlsList="nodownload" style="border-radius: 40px;">
-                                      <source  type="audio/mpeg"  [src]="item.data.media" >
+                                      <source  type="audio/mpeg"  [src]="item.audio.media" >
                                     </audio>
                                  
                             </div>
@@ -283,7 +283,7 @@
                     <div (click)="viewSec(item.tokenId, 'sellPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                         <div  style="position: relative;">
                             
-                            <img src="{{item.data.media}}" class="image">
+                            <img src="{{item.image.media}}" class="image">
                         </div>
                     </div>
                             <div class = "row" style="margin-top: 10px;">
@@ -335,8 +335,8 @@
                             <!-- <img src="{{item.data.media}}" class="image"> -->
                           
                                 <video width="100%" height="100%" class="image" controls controlsList="nodownload">
-                                    <source [src]="item.data.media" type="video/mp4">
-                                    <source [src]="item.data.media" type="video/ogg">
+                                    <source [src]="item.video.media" type="video/mp4">
+                                    <source [src]="item.video.media" type="video/ogg">
                                   Your browser does not support the video tag.
                                   </video>
                              

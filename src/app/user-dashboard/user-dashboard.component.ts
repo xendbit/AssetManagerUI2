@@ -58,6 +58,13 @@ export class UserDashboardComponent implements OnInit {
   tokenId: number;
   mediaType: any[];
   media: any[];
+  imageCategories: { name: string,  value: string }[] = [
+    { "name": 'Artwork',  value: "image" },
+    { "name": 'Video',  value: "mp4" },
+    { "name": 'Audio',  value: "mp3" },
+    { "name": 'PDF',  value: "pdf" }
+  ];
+  categorySelected: any;
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -68,7 +75,8 @@ export class UserDashboardComponent implements OnInit {
       'artTitle': this.title,
       'artistName': this.artist,
       'startDate': this.startDate,
-      'endDate': this.endDate
+      'endDate': this.endDate,
+      'imageCategories': this.imageCategories
   });
 
     if (window.ethereum.isMetaMask === true) {
@@ -190,10 +198,18 @@ export class UserDashboardComponent implements OnInit {
         );
   }
 
-
+  getCategory(item) {
+    console.log('this is event', item)
+    this.categorySelected =  item;
+  }
  
   async submit() {
-    // console.log('this is start date', this.form.get('startDate').value);
+    this.categorySelected =  this.form.get('imageCategories').value;
+    if (this.categorySelected === 'mp4' || this.categorySelected === 'image' || this.categorySelected === 'mp3' || this.categorySelected === 'pdf' ) {
+     } else {
+      this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
+      return;
+    }
     
     
     // this.description = this.form.get('description').value;
@@ -202,7 +218,7 @@ export class UserDashboardComponent implements OnInit {
     // this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
     
-    if (this.title === null || this.symbol === null ) {
+    if (this.title === null || this.symbol === null) {
       this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
       return;
     }
@@ -229,15 +245,21 @@ export class UserDashboardComponent implements OnInit {
     // }
     let dateCreated = new Date().getTime();
     let medias = this.media
-    if (!this.mediaType.find(elem => elem === 'image' )) {
+    if (this.categorySelected === 'image' && !this.mediaType.find(elem => elem === 'image' )) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.', 'danger');
+      return;
+    } else if (this.categorySelected === 'mp4' && !this.mediaType.find(elem => elem === 'mp4' )) {
+      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload a video representing the asset you intend to issue along-side the asset.', 'danger');
+      return;
+    } else if (this.categorySelected === 'mp3' && !this.mediaType.find(elem => elem === 'mp3' )) {
+      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an audio representing the asset you intend to issue along-side the asset.', 'danger');
       return;
     } else {
       this.assetService.showSpinner();
       await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
         if (data.status === 'success') {
           setTimeout(() => {
-            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).pipe(timeout(20000)).subscribe(data => {
+            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected).pipe(timeout(20000)).subscribe(data => {
               if (data['status'] === 'success') {
                 this.assetService.stopSpinner();
                 this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
@@ -290,15 +312,12 @@ export class UserDashboardComponent implements OnInit {
     if ( /\.(mp3|wav)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        console.log('this is result', e.target.result)
-      
       const mp3 = new Audio();
       mp3.src = e.target.result;
       this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
       this.media.push(e.target.result);
       this.mediaType.push('mp3') ;
-      console.log('this is mp3', this.image)
       }
 
       reader.readAsDataURL(event.target.files[0]);

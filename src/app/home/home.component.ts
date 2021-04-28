@@ -62,30 +62,37 @@ export class HomeComponent implements OnInit {
       let media = []
       this.assets.forEach(element => {
         if (element.media.length > 0 ) {
-          media.push(element.media)
-          media.forEach(mel => {
-            mel.forEach( data => {
-              if (data.mediaKey === 'image') {
-              if (element.media.find(elem => elem === data )){
-                this.images.push({name: element.name, data, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-              }
-             
-              }
-              if (data.mediaKey === 'mp4') {
-                if (element.media.find(elem => elem === data )){
-                  this.videos.push({name: element.name, data, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-                }
-               
-              }
-              if (data.mediaKey === 'mp3' && element.mediaKey > 0) {
-                if (element.media.find(elem => elem === data )){
-                  this.audios.push({name: element.name, data, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-                }
-              }
-             
-            })
-          })
+          if (element.category === 'image') {
+            const image = element.media.filter(x => {
+              return x.key ==='image';
+            })[0];
+            this.images.push({name: element.name, image: image, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+          }
+         
+
+          if(element.category === 'mp3') {
+            const mp3 = element.media.filter(x => {
+              console.log('this is ex', x)
+              return x.mediaKey ==='mp3';
+            })[0];
+            const image =  element.media.filter(x => {
+              return x.mediaKey ==='image';
+            })[0]; 
+            
+            this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+            console.log('this is audio', this.audios)
+          }
+          if(element.category === 'mp4') {
+            const mp4 = element.media.filter(x => {
+              return x.key ==='mp4';
+            })[0];  
+            
+            this.videos.push({name: element.name, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+          }
+       
+         
         }
+        // console.log('these are images', this.images);
       });
       this.assetService.stopSpinner();
     }, err => {

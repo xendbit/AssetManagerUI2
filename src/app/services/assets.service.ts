@@ -321,14 +321,15 @@ declare let window: any;
     return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
   }
 
-  issueToken(tokenId, medias, mediaType, dateCreated) {
+  issueToken(tokenId, medias, mediaType, dateCreated, category) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.yasuke_api_key);
     return this.httpClient.post(`${this.yasuke}/issue-token/`, {"tokenId": tokenId,
       "medias": medias,
       "keys": mediaType, 
-      "dateIssued": dateCreated
+      "dateIssued": dateCreated,
+      "category": category
     },  {headers})
   }
 
