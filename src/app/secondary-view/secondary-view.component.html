@@ -262,53 +262,49 @@
           
 
                 <div class="row" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
-                  <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Inter', serif;">
-                    <mat-card-header>
-                      <img src="{{this.asset.media[0].media}}" style="width: 100%; margin-bottom: 10px; margin-left: 1rem;
-                       box-shadow: 5px 5px 5px #ccc;
-                              -moz-box-shadow: 10px 10px 5px #ccc;
-                              -webkit-box-shadow: 10px 10px 5px #ccc;
-                              -khtml-box-shadow: 10px 10px 5px #ccc;">
-                    </mat-card-header>
-                    <mat-card-subtitle style="text-align: center;">
-                      Title: {{this.asset.name}}
-                    </mat-card-subtitle>
+                  
+                  <mat-card class="col-lg-8 col-md-8 col-sm-8" style="font-family: 'Inter', serif;">
+                    <mat-card-title style="text-align: center;"> 
+                      <b> Title: </b> {{this.asset.name}}
+                    </mat-card-title>
+                    <ng-image-slider [imageSize]="{width: '100%', height: '400' }" [images]="imageObject" #nav></ng-image-slider>
                     <mat-card-content>
                     </mat-card-content>
+                    <mat-card-subtitle style="text-align: center;">
+                      <p>
+                        <b> Symbol: </b> {{this.asset.symbol}}
+                       </p>
+                    </mat-card-subtitle>
                   </mat-card>
             
             
                   
-                  <mat-card class="col-lg-3 col-md-3 col-sm-3">
+                  <mat-card class="col-lg-4 col-md-4 col-sm-4">
                       <mat-card-content >
                         <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Inter', serif;">
-                            <p>
-                                <b> Title: </b> {{this.asset.name}}
-                              </p>
+                          <h2> Auction Details </h2>
                     
                               <p>
-                                  <b> Created on: </b> {{this.asset.dateIssued | date  }}
+                                  <b> Issue Date: </b> {{this.asset.dateIssued | date  }}
                               </p>
 
                               <p>
-                                <b> Auction starts on: </b> {{this.auctionStart | date  }}
+                                <b> Starts on: </b> {{this.auctionStart | date  }}
                               </p>
 
                               <p>
-                                <b> Auction ends on: </b> {{this.auctionEnd | date  }}
+                                <b> Ends on: </b> {{this.auctionEnd | date  }}
                               </p>
 
                               <p>
-                                <b> Sell Now Price: </b> {{this.auction.sellNowPrice  }}
+                                <b> Buy Now Price: </b> {{this.auction.sellNowPrice  }}
                               </p>
-                    
-                            
-                             <p>
-                              <b> Symbol: </b> {{this.asset.symbol}}
+                             <p *ngIf="this.asset.hasActiveAuction === true">
+                              <b> Status: </b> Active
                              </p>
 
-                             <p>
-                              <b> Active Auction: </b> {{this.asset.hasActiveAuction}}
+                             <p *ngIf="this.asset.hasActiveAuction === false">
+                              <b> Status: </b> In-Active
                              </p>
 
                               <!-- <p>
@@ -323,113 +319,85 @@
                                 </a>
                               </p>
                           
+                              <form #buyForm="ngForm" novalidate >
+                       
+                                <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                        <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                       
+                                   
+                                <div style="padding-bottom: 20px; ">
+                                    <button *ngIf="this.amount &&  this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                
+                                    Place Bid
+                                
+                                    </button>
+    
+                                    <button *ngIf="!this.amount || this.auction.isActive === false" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                
+                                      Place Bid
+                                  
+                                      </button>
+                                
+                                </div>
+                                <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <div>
+                                            Please Review the fees below, click confirm to  proceed with this bid for {{this.asset.name}} :
+                                          <div class="row" style="margin-top: 5px;">
+                                              <p style="margin-left: 19%; margin-right: 17%;">
+                                                  <b> Bidding Price: </b> 
+                                              </p>
+                                              <b> {{this.amount}}ETH </b>
+                                          </div>
+    
+                                          <!-- <div class="row">
+                                            <p style="margin-left: 19%; margin-right: 24%;">
+                                              <b> Gas Fee: </b>
+                                            </p>
+                                            <b>    {{this.fees.blockchain | currency:"$"}}</b>
+                                          </div> -->
+    
+                                          <div class="row">
+                                            <p style="margin-left: 19%; margin-right: 28%;">
+                                                <b> Total: </b> 
+                                            </p>
+                                            <b>    {{this.amount }} ETH </b>
+                                        </div>
+    
+                                          </div>
+                                        
+                                      </div>
+    
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                                        <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                               </form>
+                     
+            
+    
                           
                           </div>
                       </mat-card-content>
                   </mat-card>
             
-                  <mat-card class="col-lg-3 col-md-3 col-sm-3" style="font-family: 'Inter', serif;">
-
-                    <!-- <div class="col-md-3" style="margin-left: 9px !important; padding-left: 0 !important;">
-
-                      <div class="btn-group btn-group-toggle" id="filterCategory" data-toggle="buttons" style="border-color: black;">
-                        <label class="btn btn-md btn-outline-secondary" 
-                              [ngClass]="{active : currentButton == 'first'}"
-                              (click) = "currentButton='first'"
-                              style="width: 96px !important; text-transform: capitalize;"
-                               >
-                          <input type="radio" name="options" autocomplete="off" checked >BID  
-                        </label>
-                      </div>
-                  
-                    </div> -->
-                  
-                    
-                    <mat-card-content>
-                        <form #buyForm="ngForm" novalidate >
-           
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <p><b> Account Balance: </b>  {{this.balance}} ETH </p>
-                                </div>
                  
-                            </div>
-                   
-                            <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-9">
-                                    <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                   
-                               
-                            <div style="padding-bottom: 20px; ">
-                                <button *ngIf="this.amount &&  this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
-                            
-                                Place Bid
-                            
-                                </button>
-
-                                <button *ngIf="!this.amount || this.auction.isActive === false" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
-                            
-                                  Place Bid
-                              
-                                  </button>
-                            
-                            </div>
-                            <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                      <div>
-                                        Please Review the fees below, click confirm to  proceed with this bid for {{this.asset.name}} :
-                                      <div class="row" style="margin-top: 5px;">
-                                          <p style="margin-left: 19%; margin-right: 17%;">
-                                              <b> Bidding Price: </b> 
-                                          </p>
-                                          <b> {{this.amount}}ETH </b>
-                                      </div>
-
-                                      <!-- <div class="row">
-                                        <p style="margin-left: 19%; margin-right: 24%;">
-                                          <b> Gas Fee: </b>
-                                        </p>
-                                        <b>    {{this.fees.blockchain | currency:"$"}}</b>
-                                      </div> -->
-
-                                      <div class="row">
-                                        <p style="margin-left: 19%; margin-right: 28%;">
-                                            <b> Total: </b> 
-                                        </p>
-                                        <b>    {{this.amount }} ETH </b>
-                                    </div>
-
-                                      </div>
-                                    
-                                  </div>
-
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                                    <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                           </form>
-                 
-        
-                    </mat-card-content>
-                    
-
-                  </mat-card>
-            
                 </div>
 
 
@@ -477,20 +445,22 @@
                                         <div class="table-responsive">      
                                             <table class="table table-hover" >
                                                 <thead class="text-success">
-                                                    
+                                                    <th>  </th>
                                                     <th> Wallet Address </th>
                                                     <th>Bid Price</th>
                                                     <th> Auction ID </th>
                                                 </thead>
                                                 <tbody >
                                                     <tr *ngFor="let item of this.auction.bids  let i=index" class="Table" >
-                                                        <td > <span  *ngIf="item.bid >= this.sellNowPrice" class="material-icons">
-                                                          verified
-                                                          </span>  {{item.bidder}} </td>
+                                                        <td>  <span  *ngIf="item.bid >= this.sellNowPrice" class="material-icons">
+                                                                verified
+                                                              </span>  
+                                                        </td>
+                                                        <td >  {{item.bidder}} </td>
                                                         <td > {{item.bid}} ETH </td>
                                                         <td >   {{item.auctionId}} </td>
                                                         <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 
-                                                          <button  disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent; width: 10rem !important;" >
+                                                          <button (click)="withdraw()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent; width: 10rem !important;" >
                 
                                                             Withdraw
                                                         

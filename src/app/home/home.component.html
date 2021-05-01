@@ -7,6 +7,11 @@
     <div id="container_home">
 
         <div class="container-fluid mt-3 container-home" style="height: 100%; padding-left: 7rem;">
+            <div class="row">
+                <h1 class="nav-link text-nowrap mr-3" data-display="static" style="color: red !important; font-family: 'Cormorant Garamond'; font-size: 20px !important; text-align: center;" *ngIf="!this.isConnected">  
+                    Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
+                </h1>
+            </div>
             <div class="row no-gutters">
                 <div class="container mt-3">
                     <div id="bootstrapCarousel" class="carousel slide" data-ride="carousel">
@@ -226,12 +231,12 @@
 
                
                
-                        <div (click)="viewSec(item.tokenId, 'sellPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
+                        <div style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                             
                             
 
                             <div style="border-radius: 40px;">
-                                <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
+                                <img src="{{item.image.media}}" (click)="viewSec(item.tokenId, 'sellPage')" style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
                                     <audio width="80%" controls controlsList="nodownload" style="border-radius: 40px;">
                                       <source  type="audio/mpeg"  [src]="item.audio.media" >
                                     </audio>
@@ -334,7 +339,7 @@
                             
                             <!-- <img src="{{item.data.media}}" class="image"> -->
                           
-                                <video width="100%" height="100%" class="image" controls controlsList="nodownload">
+                                <video *ngIf="item.video.media" width="100%" height="100%" class="image" controls controlsList="nodownload">
                                     <source [src]="item.video.media" type="video/mp4">
                                     <source [src]="item.video.media" type="video/ogg">
                                   Your browser does not support the video tag.
@@ -425,7 +430,7 @@
                     <div (click)="viewBuy(item.tokenId, 'buyPage')"  style=" background: white !important;  box-shadow: 5px 5px 5px #ccc; ">
                         <div  style="position: relative;">
                             
-                            <img src="{{item.data.media}}" class="image">
+                            <img *ngIf="item.image.media" src="{{item.image.media}}" class="image">
                         </div>
                     </div>
                             <div class = "row" style="margin-top: 10px;">

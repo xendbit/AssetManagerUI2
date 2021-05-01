@@ -239,23 +239,29 @@
                               
     
                                 <div class="row">
-                                  <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                                  <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
                                     <mat-label style="color: rgb(112, 112, 112);">
-                                      * Select Audio Art:
+                                      * Select Artwork:
+                                   </mat-label>
+                                      <input multiple type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                  </div>
+                                  <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                                    <mat-label style="color: rgb(112, 112, 112);">
+                                      * Select Cover Art:
                                    </mat-label>
                                       <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
                                   </div>
                                 </div>
                                 <div style="margin-top: 5px;" class="row">
-                                  <div *ngIf="this.categorySelected === 'mp3'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                                  <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
                                     <mat-label style="color: rgb(112, 112, 112);">
-                                      * Select Audio File:
+                                      * Select Media File:
                                    </mat-label>
                                     <input  type="file" id="images" (change)="uploadFile($event)" #fileInput>
                                   </div>
                                 </div>
-                                <div class="row" style="margin-top: 10px;">
-                                    <p class="text-uppercase small font-weight-medium">
+                                <div class="row" style="margin-top: 10px; font-family: 'Cardo', serif  !important;">
+                                    <p class="small font-weight-medium" style="font-family: 'Cardo', serif  !important;">
                                        Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
                                      </p>
                                 </div>
@@ -265,15 +271,20 @@
                                     Issue Asset
                                 
                                 </button>
-                                <button type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent;">
+                                <button type="submit" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent;">
                       
                                   Cancel
                               
                               </button>
+    
+
                                 </div>
 
                               <div class="clearfix"></div>
+                              
+
                           </form>
+
 
                           
                       </mat-card>
@@ -317,6 +328,66 @@
             </mat-tab>
 
           </mat-tab-group>
+
+          <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Start Auction</h5> -->
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card" style="display: flex; justify-content: center; margin-left: auto; margin-right: auto; opacity: 100%; width: 25rem; margin-bottom: 5%;">
+                    <div class="card-header card-header-danger"  style="background: black;">
+                        <h4 class="card-title" style="text-align: center;">Register</h4>
+                        <p class="card-category" style="text-align: center; font-family: 'Playfair Display SC', serif; font-size: 11pt;">Please fill all fields </p>
+                    </div>
+                    <div class="card-body" style="width: auto; justify-content: center; align-items: center;"> 
+                        <form  #registerForm="ngForm"  novalidate>
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input autofocus type="text" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
+                          </mat-form-field>
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input autofocus type="text" matInput placeholder="Middle Name" id="middleName" name="middleName" [(ngModel)]="middleName" >
+                          </mat-form-field>
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
+                            <input autofocus type="text" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName" >
+                          </mat-form-field>
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">call</mat-icon>
+                            <input autofocus type="phone" matInput placeholder="Phone Number" id="phone" name="phone" [(ngModel)]="phone" >
+                          </mat-form-field>
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">email_outline</mat-icon>
+                            <input autofocus type="email" matInput placeholder="Email" id="email" name="email" [(ngModel)]="email" >
+                          </mat-form-field>
+                          <!-- <p *ngIf="this.error" style="font-size: smaller; margin-bottom: 5rem;"> {{this.error}} </p> -->
+                
+                          <mat-form-field style="font-family: 'Cardo', serif; font-size: 11pt;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">lock_outline</mat-icon>
+                            <input type="text" autocomplete="false" matInput placeholder="Blockchain Address" id="blockchainAddress" name="blockchainAddress" [(ngModel)]="blockchainAddress">
+                          </mat-form-field>
+                        
+                        </form>
+      
+      
+                    </div>
+                </div>
+                  
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
+                  <button data-dismiss="modal" (click)="register(registerForm)"  type="submit" class="btn btn-primary" style="background-color: black; border-color: transparent;">Register</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
     
       <div class="container-fluid container-lg container-home" >

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as Web3 from 'web3';
@@ -12,8 +12,8 @@ declare let window: any;
 @Injectable({
     providedIn: 'root'
   })
-  export class AssetsService {
-    metamask: any;
+  export class AssetsService implements OnInit {
+  metamask: any;
   hasMetaMask: boolean;
   balance: any;
   account: any;
@@ -27,7 +27,7 @@ declare let window: any;
     "function withdraw(uint256,uint256)",
     "function cancelAuction(uint256,uint256)"
   ];
-  chainId = 77;
+  chainId = 97;
   testChainId = 56;
   // contractAddress = '0x24738DAE29c0D0e26cDE5b1bC8503EB0E8D8662f';
   issuanceResponse: any;
@@ -35,32 +35,41 @@ declare let window: any;
   bidResponse: string;
   contractAddress: any;
   currentBlock: any;
+  withdrawResponse: string;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
+    
+        this.metamask = window.ethereum;
+        window.web3 = new Web3(this.web3Provider);
+        this.getContractAddress().subscribe(data => {
+          console.log('this is it', data);
+          if (data['status'] === 'success') {
+            this.contractAddress = data['data'];
+          }
+        })
+        // window.web3.eth.getBlockNumber(function(err, account) {
+        //   console.log('this is err', err);
+        //   console.log('this is account', account)
+  
+        // })
+    }
+
+    ngOnInit() {
       if (typeof window.web3 !== 'undefined') {
         this.web3Provider = window.web3.currentProvider;
       } else {
-        this.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+        this.web3Provider = new Web3.providers.HttpProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
       }
-   
       window.web3 = new Web3(this.web3Provider);
-      if (window.ethereum.isMetaMask === true) {
-        this.metamask = window.ethereum;
-        this.hasMetaMask = true;
-      } else {
-        this.hasMetaMask = false;
-      }
+      console.log('==>', window.web3.eth)
+      
+
       this.getMetamaskInfo();
-      this.getContractAddress().subscribe(data => {
-        console.log('this is it', data);
-        if (data['status'] === 'success') {
-          this.contractAddress = data['data'];
-        }
-      })
+      
     }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
-    yasuke = 'http://35.224.252.52:7071/api/yasuke';
+    yasuke = 'http://34.70.143.198:7071/api/yasuke';
     private web3Provider: any;
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
     yasuke_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
@@ -86,6 +95,22 @@ declare let window: any;
   listing() {
     return this.httpClient.get(`${this.baseUrl}/assets/listings`);
   }
+
+  saveIssuer(email: string, phone: string, firstname: string, lastname: string, middlename: string, blockchainAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.yasuke_api_key);
+    return this.httpClient.post(`${this.yasuke}/save-issuer/`, {
+      "email": email,
+      "phoneNumber": phone,
+      "firstName": firstname, 
+      "middleName": middlename,
+      "lastName": lastname,
+      "blockchainAddress": blockchainAddress
+    },  {headers})
+  }
+
+
 
   async issue(tokenId, assetName, symbol) {
     let yFace = new ethers.utils.Interface(this.abi);
@@ -113,9 +138,17 @@ declare let window: any;
     return this.issuanceResponse;
   }
 
-  async startAuction(tokenId, auctionId, startBlock, endBlock, currentBlock, sellNowPrice, minimumBid) {
+  async startAuction(tokenId: number, auctionId: number, startBlock: number, endBlock: number, currentBlock: number, sellNowPrice: string, minimumBid: string) {
+    console.log('this is token id', tokenId);
+    console.log('this is start block', startBlock);
+    console.log('this is end block', endBlock);
+    console.log('this is current block', currentBlock);
+    console.log('this is sell now', sellNowPrice);
+    console.log('this is minimum bid', minimumBid);
     let snp: string = ethers.utils.parseEther(sellNowPrice).toHexString();
     let mb: string = ethers.utils.parseEther(minimumBid).toHexString();
+    console.log('this is sell now hex', snp);
+    console.log('this is minimum bid hex', mb);
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, currentBlock, snp, mb ]);
     const ethValue = "0"; // 0 BNB
@@ -142,18 +175,11 @@ declare let window: any;
     return this.auctionResponse;
   }
 
-  async getCurrentBlock() {
-    return new Promise((resolve, reject) => {
-      window.web3.eth.getBlockNumber(function(err, account) {
-  
-        if(err === null) {
-          return resolve({status: 'success', block: account});
-        } else {
-          return reject("error!");
-        }
-      });
-    });
-    
+  getCurrentBlock()  {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.yasuke_api_key);
+    return this.httpClient.get(`${this.yasuke}/get-block`, {headers})
   }
 
   async placeBid(tokenId, auctionId, bidAmount) {
@@ -248,12 +274,12 @@ declare let window: any;
   console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       console.log(txHash);
-      this.bidResponse = txHash;
+      this.withdrawResponse = txHash;
     }, (error: any) => {
       console.log('this is error ==>', error)
       this.auctionResponse = error;
     });
-    return this.bidResponse;
+    return this.withdrawResponse;
   }
 
 

@@ -35,31 +35,34 @@ export class NavbarComponent implements OnInit {
   displayedData: string;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
-      this.location = location;
-          this.sidebarVisible = false;
-          if (window.ethereum.isMetaMask === true) {
-            this.metamask = window.ethereum;
-            this.hasMetaMask = true;
-          } else {
-            this.hasMetaMask = false;
-          }
+        
         
     }
 
     async ngOnInit(){
-        this.assetService.getMetamaskInfo().then(data => {
-          this.accounts = data.accounts;
-          this.account = data.account;
-          this.displayedData = data.displayedData;
-          this.balance = data.balance;
-          if (window.ethereum.isConnected() && this.account !== undefined) {
-            this.isConnected = true;
-          } else {
-            this.isConnected = false;
-          }
-        
-        })
+      
           // this.getAssets();
+    }
+
+    ngAfterViewInit() {
+      if (window.ethereum.isMetaMask === true) {
+        this.metamask = window.ethereum;
+        this.hasMetaMask = true;
+      } else {
+        this.hasMetaMask = false;
+      }
+      this.assetService.getMetamaskInfo().then(data => {
+        this.accounts = data.accounts;
+        this.account = data.account;
+        this.displayedData = data.displayedData;
+        this.balance = data.balance;
+        if (window.ethereum.isConnected() && this.account !== undefined) {
+          this.isConnected = true;
+        } else {
+          this.isConnected = false;
+        }
+      
+      })
     }
 
 
@@ -95,21 +98,7 @@ export class NavbarComponent implements OnInit {
   
       }
 
-     
 
-    getTitle(){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
-          titlee = titlee.slice( 1 );
-      }
-
-      for(var item = 0; item < this.listTitles.length; item++){
-          if(this.listTitles[item].path === titlee){
-              return this.listTitles[item].title;
-          }
-      }
-      return 'Dashboard';
-    }
 
     // getAssets() {
     //   this.assetService.showSpinner();

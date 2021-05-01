@@ -72,11 +72,7 @@ export class ViewAssetComponent implements OnInit {
     //   this.notLoggedIn = false;
     // }
     // this.balanceComplete = false;
-    this.assetService.getCurrentBlock().then(res => {
-      console.log('this is block', res);
-      this.currentBlock = res['block'];
-      
-    })
+   
     this.assetService.getMetamaskInfo().then(data => {
       this.balance = data.balance;
     })
@@ -144,44 +140,51 @@ export class ViewAssetComponent implements OnInit {
     });
   }
 
-  startAuction(tokenId) {
+  async startAuction(tokenId) {
     this.assetService.showSpinner();
-    let startDate = new Date(this.form.get('startBlock').value);
-    let endDate = new Date(this.form.get('endBlock').value)
-    let currentDate = Date.now();
-    let startDateValue = this.form.get('startBlock').value;
-    let endDateValue = this.form.get('endBlock').value
+    this.assetService.getCurrentBlock().subscribe(res => {
+      this.currentBlock = res['data'];
+      let startDate = new Date(this.form.get('startBlock').value);
+      let endDate = new Date(this.form.get('endBlock').value)
+      let currentDate = Date.now();
+      let startDateValue = this.form.get('startBlock').value;
+      let endDateValue = this.form.get('endBlock').value
 
-    let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
-    let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
-    let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
-    let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
-    let sellNow: string =  this.form.get('sellNowPrice').value.toString();
-    let minimumPrice: string =  this.form.get('minimumPrice').value.toString();
-    var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
-    this.auctionId = rndNo;
-    // console.log('this is sell now', endDateValue) 
-   
-    // console.log('this is days', initialStart);
-    // console.log('this is start block', startBlock)
-    // console.log('this is minimum', minimumPrice)
-    this.assetService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
-      console.log('this is res', res)
-      setTimeout(() => { 
-        this.assetService.startAuctionYasuke(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
-        console.log('this is response', data);
-        this.assetService.stopSpinner();
-      }, err =>  {
-        console.log('this is error:', err);
+      let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
+      let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
+      let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
+      let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
+      let sellNow: string =  this.form.get('sellNowPrice').value.toString();
+      let minimumPrice: string =  this.form.get('minimumPrice').value.toString();
+      var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
+      this.auctionId = rndNo;
+      // console.log('this is sell now', endDateValue) 
+    
+      // console.log('this is days', initialStart);
+      // console.log('this is start block', startBlock)
+      // console.log('this is minimum', minimumPrice)
+      this.assetService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+        setTimeout(() => { 
+          this.assetService.startAuctionYasuke(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
+          console.log('this is response', data);
+          this.assetService.showNotification('top', 'center', 'Auction has been started for this asset', 'success');
+          this.assetService.stopSpinner();
+        }, err =>  {
+          console.log('this is error:', err);
+          this.assetService.stopSpinner();
+        })
+      }, 15000)
+        
+
+      }, err => {
+        console.log('ERR =>', err);
         this.assetService.stopSpinner();
       })
-    }, 15000)
-      
-
     }, err => {
-      console.log('ERR =>', err);
       this.assetService.stopSpinner();
+      console.log('this is error', err);
     })
+    
   }
 
   getFees() {

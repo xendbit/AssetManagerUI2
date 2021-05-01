@@ -54,15 +54,17 @@ export class UserDashboardComponent implements OnInit {
   hasMetaMask: boolean;
   tempImage: string;
   mp3: any;
+  phone: number;
+  blockchainAddress: string;
   mp4: any;
   tokenId: number;
   mediaType: any[];
   media: any[];
   imageCategories: { name: string,  value: string }[] = [
-    { "name": 'Artwork',  value: "image" },
-    { "name": 'Video',  value: "mp4" },
-    { "name": 'Audio',  value: "mp3" },
-    { "name": 'PDF',  value: "pdf" }
+    { "name": 'Artwork',  value: "artwork" },
+    { "name": 'Movie Rights',  value: "movieRight" },
+    { "name": 'Music Rights',  value: "musicRight" },
+    { "name": 'Books',  value: "book" }
   ];
   categorySelected: any;
 
@@ -162,6 +164,35 @@ export class UserDashboardComponent implements OnInit {
 // }
 
 
+register(register: NgForm) {
+  
+  const email = register.value.email;
+  const firstName = register.value.firstName;
+  const middleName = register.value.middleName;
+  const lastName = register.value.lastName;
+  const phone = register.value.phone;
+  const blockchainAddress = register.value.blockchainAddress;
+  if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
+    this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
+    return;
+  }
+  this.assetService.showSpinner();
+  this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
+    console.log('==>', res);
+    if (res['status'] === 'success') {
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
+      this.router.navigateByUrl('/login')
+    }
+  }, err => {
+    console.log(err.error.data.error);
+    this.error = err.error.data.error;
+    this.assetService.stopSpinner();
+    this.assetService.showNotification('top', 'center', this.error, 'danger');
+  })
+}
+
+
 
   getBuyOrders() {
       this.assetService.ordersByBuyer(this.userId).subscribe(data => {
@@ -205,7 +236,7 @@ export class UserDashboardComponent implements OnInit {
  
   async submit() {
     this.categorySelected =  this.form.get('imageCategories').value;
-    if (this.categorySelected === 'mp4' || this.categorySelected === 'image' || this.categorySelected === 'mp3' || this.categorySelected === 'pdf' ) {
+    if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
       this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
       return;
@@ -245,13 +276,13 @@ export class UserDashboardComponent implements OnInit {
     // }
     let dateCreated = new Date().getTime();
     let medias = this.media
-    if (this.categorySelected === 'image' && !this.mediaType.find(elem => elem === 'image' )) {
+    if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.', 'danger');
       return;
-    } else if (this.categorySelected === 'mp4' && !this.mediaType.find(elem => elem === 'mp4' )) {
+    } else if (this.categorySelected === 'movieRight' && !this.mediaType.find(elem => elem === 'mp4' )) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure to upload a video representing the asset you intend to issue along-side the asset.', 'danger');
       return;
-    } else if (this.categorySelected === 'mp3' && !this.mediaType.find(elem => elem === 'mp3' )) {
+    } else if (this.categorySelected === 'audioRight' && !this.mediaType.find(elem => elem === 'mp3' )) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an audio representing the asset you intend to issue along-side the asset.', 'danger');
       return;
     } else {

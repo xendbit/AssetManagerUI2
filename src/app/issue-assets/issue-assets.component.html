@@ -49,6 +49,18 @@
                       <form [formGroup]="form"  (ngSubmit)="submit(radioGroup)">
 
 
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                            <mat-label style="color: rgb(112, 112, 112);">
+                              * Select Category:
+                           </mat-label>
+                            <mat-select  formControlName="imageCategories">
+                              <mat-option (onSelectionChange)="getCategory(item.value)" #categoryInput *ngFor="let item of this.imageCategories  let i=index" id="imageCategory" name="item.name" placeholder="select category"   [value]="item.value">{{item.name}}</mat-option>
+                            </mat-select>
+                          </div>
+
+                        </div>
+
                           <div class="row">
                               <div class="col-lg-12 col-md-12 col-sm-12">
                                 <mat-label style="color: black;">

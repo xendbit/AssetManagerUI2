@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 
 declare var $: any;
+declare let window: any;
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,8 @@ export class HomeComponent implements OnInit {
   images: any[];
   videos: any[];
   audios: any[];
+  account: any;
+  isConnected: boolean;
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
@@ -52,6 +55,15 @@ export class HomeComponent implements OnInit {
     // }
     
     this.getAssets();
+    this.assetService.getMetamaskInfo().then(data => {
+      this.account = data.account;
+      if (window.ethereum.isConnected() && this.account !== undefined) {
+        this.isConnected = true;
+      } else {
+        this.isConnected = false;
+      }
+    
+    });
   }
 
   getAssets() {
@@ -59,18 +71,22 @@ export class HomeComponent implements OnInit {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
-      let media = []
+      this.assetService.stopSpinner();
       this.assets.forEach(element => {
         if (element.media.length > 0 ) {
-          if (element.category === 'image') {
+          if (element.category === 'artwork') {
             const image = element.media.filter(x => {
-              return x.key ==='image';
+              return x.mediaKey ==='image';
             })[0];
-            this.images.push({name: element.name, image: image, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+            const mp4 = element.media.filter(x => {
+              return x.mediaKey ==='mp4';
+            })[0];
+            this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
           }
+          console.log('this is images', this.images)
          
 
-          if(element.category === 'mp3') {
+          if(element.category === 'musicRight') {
             const mp3 = element.media.filter(x => {
               console.log('this is ex', x)
               return x.mediaKey ==='mp3';
@@ -82,12 +98,16 @@ export class HomeComponent implements OnInit {
             this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
             console.log('this is audio', this.audios)
           }
-          if(element.category === 'mp4') {
+          if(element.category === 'movieRight') {
             const mp4 = element.media.filter(x => {
-              return x.key ==='mp4';
-            })[0];  
+              return x.mediaKey ==='mp4';
+            })[0];
+            const image =  element.media.filter(x => {
+              return x.mediaKey ==='image';
+            })[0];   
             
-            this.videos.push({name: element.name, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+            this.videos.push({name: element.name, image:image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+            console.log('this is videos', this.videos)
           }
        
          

@@ -6,6 +6,8 @@ import { AssetsService } from '../services/assets.service';
 import { first } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import * as Web3 from 'web3';
+import { ViewChild } from '@angular/core';
+import { NgImageSliderComponent } from 'ng-image-slider';
 
 
 declare let require: any;
@@ -70,15 +72,18 @@ export class SecondaryViewComponent implements OnInit {
   auctionStart: Date;
   auctionEnd: Date;
   sellNowPrice: number;
+  imageObject: any[] = [];
+  @ViewChild('nav') slider: NgImageSliderComponent;
+
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
-      if (window.ethereum.isMetaMask === true) {
-        this.metamask = window.ethereum;
-        this.hasMetaMask = true;
-      } else {
-        this.hasMetaMask = false;
-      }
+      // if (window.ethereum.isMetaMask === true) {
+      //   this.metamask = window.ethereum;
+      //   this.hasMetaMask = true;
+      // } else {
+      //   this.hasMetaMask = false;
+      // }
      }
 
   async ngOnInit(): Promise<void> {
@@ -112,16 +117,33 @@ export class SecondaryViewComponent implements OnInit {
       this.auctionId = this.asset.lastAuctionId;
       this.getAuctionInfo();
       console.log('this is auctionId', this.auctionId)
-      this.asset.media.forEach(elem => {
-        if (elem.mediaKey === 'mp4') {
-          console.log('found something')
-          if (this.asset.media.find(elem => elem === elem )){
-            this.assetMedia = elem.media;
-          }
-          
+      this.asset.media.filter(y => {
+        if (y.mediaKey ==='mp4'){
+         this.imageObject.push({video: y.media})
+        } else if (y.mediaKey ==='image') {
+         this.imageObject.push({image: y.media, title: this.asset.name, thumbImage: y.media, alt: this.asset.name })
         }
+     })[0];
+        
+        // console.log('this is trial', mp4)
+      this.asset.media.forEach(elem => {
+        console.log('this is elem.mediaKey', elem.media)
+        
+        // if (elem.mediaKey === 'mp4') {
+          
+        // } else if (elem.mediaKey === 'image') {
+        //   this.imageObject.push({video: elem.media, title: this.asset.name, thumbImage: elem.media, alt: this.asset.name })
+        // }
+       
+        // if (elem.mediaKey === 'mp4') {
+        //   console.log('found something')
+        //   if (this.asset.media.find(elem => elem === elem )){
+        //     this.assetMedia = elem.media;
+        //   }
+          
+        // }
       })
-      
+      console.log('this is imageObject', this.imageObject)
       
     },
     err => {
@@ -142,6 +164,15 @@ getAuctionInfo() {
     this.auctionEnd = new Date(this.auction['endDate']);
     this.sellNowPrice = parseInt(this.auction['sellNowPrice'])
     this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
+  })
+}
+
+withdraw() {
+  this.assetService.showSpinner();
+  this.assetService.withdraw(this.asset.tokenId, this.auctionId).then( res => {
+    this.assetService.stopSpinner();
+    console.log('this is response', res);
+    this.assetService.stopSpinner();
   })
 }
 

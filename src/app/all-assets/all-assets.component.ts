@@ -16,6 +16,10 @@ export class AllAssetsComponent implements OnInit {
   primaryMarket: any[];
   secondaryMarket: any[];
   exclusive: any[];
+  images: any;
+  audios: any;
+  videos: any;
+  error: any;
 
   constructor(public assetService: AssetsService, public router: Router, public activatedRoute: ActivatedRoute) { }
 
@@ -43,49 +47,61 @@ export class AllAssetsComponent implements OnInit {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
-      let init = []
-      let second = []
-      let primary = [];
-      let secondary = [];
-      let exclu = [];
-      this.assets.forEach(element => {
-        if (element.approved === 0 ) {
-          init.push(element);
-        } else if (element.approved === 1 && element.market !== 2) {
-          second.push(element);
-        } 
-      });
-
-      this.assets.forEach(elem => {
-        if (elem.market === 0 && elem.approved === 1 && elem.totalSupply === 1 && elem.sharesAvailable === 1) {
-          exclu.push(elem);
-        }
-      })
-      this.assets.forEach(element => {
-        if (element.market === 0 && element.approved === 1 ) {
-          primary.push(element);
-        } else if (element.market === 1 && element.approved === 1) {
-          secondary.push(element);
-        }
-      });
-      this.approved =  second ;
-      this.unapproved = init;
-      this.primaryMarket =  primary ;
-      this.secondaryMarket = secondary;
-      this.exclusive = exclu;
-      console.log('primary', primary)
       this.assetService.stopSpinner();
-    },
-    err => {
-        console.log(err);
-        this.assetService.stopSpinner();
+      // // // this.assets.forEach(element => {
+      // // //   console.log('this is one', element)
+      // // //   if (element.media.length > 0 ) {
+      // // //     if (element.category === 'artwork') {
+      // // //       console.log('matched')
+      // // //       const image = element.media.filter(x => {
+      // // //         return x.mediaKey ==='image';
+      // // //       })[0];
+      // // //       const mp4 = element.media.filter(x => {
+      // // //         return x.mediaKey ==='mp4';
+      // // //       })[0];
+      // // //       this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+      // // //     }
+      // // //     console.log('this is images', this.images)
+         
+
+      // // //     if(element.category === 'musicRight') {
+      // // //       const mp3 = element.media.filter(x => {
+      // // //         console.log('this is ex', x)
+      // // //         return x.mediaKey ==='mp3';
+      // // //       })[0];
+      // // //       const image =  element.media.filter(x => {
+      // // //         return x.mediaKey ==='image';
+      // // //       })[0]; 
+            
+      // // //       this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+      // // //       console.log('this is audio', this.audios)
+      // // //     }
+      // // //     if(element.category === 'movieRight') {
+      // // //       const mp4 = element.media.filter(x => {
+      // // //         return x.mediaKey ==='mp4';
+      // // //       })[0];
+      // // //       const image =  element.media.filter(x => {
+      // // //         return x.mediaKey ==='image';
+      // // //       })[0];   
+            
+      // // //       this.videos.push({name: element.name, image:image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+      // // //       console.log('this is videos', this.videos)
+      // // //     }
+       
+         
+      // //   }
+      //   // console.log('these are images', this.images);
+      // });
+    }, err => {
+      this.assetService.stopSpinner();
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
     },
     () => { 
       this.assetService.stopSpinner();
-    }
-    );
+    });
   }
-
+  
   view(tokenId, market) {
     if (market === 0) {
       this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: this.pageHistory} });

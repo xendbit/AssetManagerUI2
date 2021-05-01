@@ -14,17 +14,28 @@
               All Artworks
           </h2>
           <div class="row" style="margin-top: 3rem;">
-              <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.approved  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                  <mat-card-content  style="position: relative; ">
-                      <img src="{{item.imageUrl}}" class="image">
-                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b> {{item.price | currency:"$"}}
-                      </p>
-                      <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
-                      </p>
+              <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.assets  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
+                  <mat-card-content  style="position: relative; " *ngIf="item.category === 'movieRight'">
+                    <video  width="100%" height="100%" class="image" controls controlsList="nodownload">
+                        <source [src]="item.media[1].media" type="video/mp4">
+                        <source [src]="item.media[1].media" type="video/ogg">
+                      Your browser does not support the video tag.
+                      </video>
                       
                       
+                    </mat-card-content>
+                    <mat-card-content  style="position: relative; " *ngIf="item.category === 'artwork'">
+                        <img src="{{item.media[0].media}}" class="image">
+                          
+                          
+                    </mat-card-content>
+                    <mat-card-content  style="position: relative; " *ngIf="item.category === 'musicRight'">
+                        <img src="{{item.media[0].media}}"  style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
+                                    <audio width="80%" controls controlsList="nodownload" style="border-radius: 40px;">
+                                      <source  type="audio/mpeg"  [src]="item.media[1].media" >
+                                    </audio>
+                          
+                          
                     </mat-card-content>
               </mat-card>
           </div>
@@ -34,11 +45,9 @@
 
         <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" >
             
-            <p class="text-uppercase small font-weight-medium">
-                unique orders
-            </p>
+            
             <h2 class="text-uppercase font-weight-light">
-                All Exclusives
+                All Music Rights
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.exclusive  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -60,11 +69,9 @@
 
         <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'primary'">
                 
-            <p class="text-uppercase small font-weight-medium">
-                primary market
-            </p>
+            
             <h2 class="text-uppercase font-weight-light">
-                All Artworks (primary market)
+                All Movie Rights
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="view(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
@@ -90,7 +97,7 @@
                 all artworks
             </p>
             <h2 class="text-uppercase font-weight-light">
-                All Artworks (Secondary Market)
+                All Artworks
             </h2>
             <div class="row" style="margin-top: 3rem;">
                 <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">

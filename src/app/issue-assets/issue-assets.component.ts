@@ -34,6 +34,13 @@ export class IssueAssetsComponent implements OnInit {
   tempImage: string;
   tokenId: number;
   mediaType: string;
+  imageCategories: { name: string,  value: string }[] = [
+    { "name": 'Artwork',  value: "artwork" },
+    { "name": 'Movie Rights',  value: "movieRight" },
+    { "name": 'Music Rights',  value: "musicRight" },
+    { "name": 'Books',  value: "book" }
+  ];
+  categorySelected: any;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -51,6 +58,11 @@ export class IssueAssetsComponent implements OnInit {
   ngOnInit(): void {
     this.tempImage = '/assets/img/nft.png';
     this.getUserAssets();
+  }
+
+  getCategory(item) {
+    console.log('this is event', item)
+    this.categorySelected =  item;
   }
 
   async submit(radioGroup) {
@@ -102,7 +114,7 @@ export class IssueAssetsComponent implements OnInit {
     let dateCreated = new Date().getTime();
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
-      this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated).subscribe(data => {
+      this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected).subscribe(data => {
         console.log('this is response',data);
       })
       const res = data['status']

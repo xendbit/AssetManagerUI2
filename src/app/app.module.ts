@@ -1,10 +1,11 @@
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { PortfolioComponent } from './my-portfolio/portfolio.component';
 import { AllAssetsComponent } from './all-assets/all-assets.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 import { ComponentsModule } from './components/components.module';
@@ -54,7 +56,6 @@ import { AdminAssetsComponent } from './admin-assets/admin-assets.component';
 import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
 import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
 import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
-import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
 import { AboutComponent } from './about/about.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AllUsersComponent } from './all-users/all-users.component';
@@ -91,6 +92,7 @@ import { AllUsersComponent } from './all-users/all-users.component';
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    NgImageSliderModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -108,18 +110,19 @@ import { AllUsersComponent } from './all-users/all-users.component';
     IssuerDashboardComponent,
     LoginComponent,
     RegisterComponent,
-    SecondaryViewComponent,
     HomeComponent,
     ViewAssetComponent,
     AllAssetsComponent,
     PortfolioComponent,
-    UserDashboardComponent,
+    
     MyOrdersComponent,
     AdminViewComponent,
     DashboardComponent,
     AboutComponent,
     AdminSettingsComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    SecondaryViewComponent,
+    UserDashboardComponent,
 
   ],
   providers: [

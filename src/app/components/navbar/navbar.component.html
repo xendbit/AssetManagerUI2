@@ -28,12 +28,12 @@
                         home
                     </a>
                 </li>
-                <li class="nav-item position-static dropdown dropdown-delay" >
+                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
                     <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/user-dashboard" routerLinkActive="active">
                         my account
                     </a>
                 </li>
-                <li class="nav-item position-static dropdown dropdown-delay" >
+                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
                     <a routerLink="/myAssets" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         my assets
                     </a>
@@ -67,7 +67,7 @@
                         orders
                     </a>
                 </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" >
+                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
                     <a (click)="goToAllAssets('buyPage')" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
                         all assets
                     </a>
@@ -115,12 +115,17 @@
                         Balance: {{this.balance}} ETH
                     </a>
                 </li> 
+
+                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.isConnected">
+                    
+                </li> 
                 <li class="nav-item position-static dropdown dropdown-delay" style="margin-right: 30% !important;">
                     <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
       
                         Connect Wallet
                     
                     </button>
+                    
                     <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px;">
       
                         {{this.displayedData}}
