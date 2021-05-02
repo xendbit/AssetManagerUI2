@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import * as Web3 from 'web3';
 import { ViewChild } from '@angular/core';
-import { NgImageSliderComponent } from 'ng-image-slider';
+
 
 
 declare let require: any;
@@ -73,8 +73,6 @@ export class SecondaryViewComponent implements OnInit {
   auctionEnd: Date;
   sellNowPrice: number;
   imageObject: any[] = [];
-  @ViewChild('nav') slider: NgImageSliderComponent;
-
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
