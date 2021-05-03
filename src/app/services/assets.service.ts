@@ -69,7 +69,7 @@ declare let window: any;
     }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
-    yasuke = 'http://34.70.143.198:7071/api/yasuke';
+    yasuke = 'https://lb.xendbit.net/api/yasuke';
     private web3Provider: any;
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
     yasuke_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
