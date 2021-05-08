@@ -11,7 +11,7 @@ declare var $: any;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {  }
 
-    baseUrl = 'http://35.224.252.52:8080/v3';
+    baseUrl = 'https://lb.xendbit.net/v3';
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
 
     listing() {
