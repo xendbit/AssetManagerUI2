@@ -208,7 +208,7 @@ declare let window: any;
   async endBid(tokenId, auctionId) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
-    const ethValue = "0.1"; // 0 BNB
+    const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
@@ -258,7 +258,7 @@ declare let window: any;
   async withdraw(tokenId, auctionId) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
-    const ethValue = "0.1"; // 0 BNB
+    const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.

@@ -141,6 +141,13 @@ export class ViewAssetComponent implements OnInit {
   }
 
   async startAuction(tokenId) {
+    const minBid = this.form.get('minimumPrice').value;
+    const sell = this.form.get('sellNowPrice').value;
+    console.log('this is price', minBid)
+    if (sell < minBid) {
+      this.assetService.showNotification('top', 'center', 'Please enter a sell-now price greater than or equal to your minimum bid', 'danger');
+      return;
+    }
     this.assetService.showSpinner();
     this.assetService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];

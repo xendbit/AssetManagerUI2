@@ -63,6 +63,7 @@ export class NavbarComponent implements OnInit {
         }
       
       })
+      console.log('this is account', this.account)
     }
 
 

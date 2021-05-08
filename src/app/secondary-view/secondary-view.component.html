@@ -321,7 +321,7 @@
                           
                               <form #buyForm="ngForm" novalidate >
                        
-                                <div class="row">
+                                <div class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
                                     <div class="col-lg-9 col-md-9 col-sm-9">
                                         <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
@@ -331,17 +331,23 @@
                        
                                    
                                 <div style="padding-bottom: 20px; ">
-                                    <button *ngIf="this.amount &&  this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                    <button *ngIf="this.amount &&  this.auction.isActive === true && (this.account| lowercase) !== (this.auction.owner| lowercase )" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
                                 
                                     Place Bid
                                 
                                     </button>
     
-                                    <button *ngIf="!this.amount || this.auction.isActive === false" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                    <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
                                 
                                       Place Bid
                                   
                                       </button>
+
+                                      <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+                                
+                                        Withdraw
+                                    
+                                        </button>
                                 
                                 </div>
                                 <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">

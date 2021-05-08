@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
       console.log('this is assets, ', data['data']['items']);
       this.assetService.stopSpinner();
       this.assets.forEach(element => {
-        if (element.media.length > 0 ) {
+        if (element.media.length > 0 && element.hasActiveAuction === true ) {
           if (element.category === 'artwork') {
             const image = element.media.filter(x => {
               return x.mediaKey ==='image';
