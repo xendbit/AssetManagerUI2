@@ -1,11 +1,9 @@
-<!DOCTYPE html>
 
-<!--[if IE 7]>                  <html class="ie7 no-js" lang="en">     <![endif]-->
-<!--[if lte IE 8]>              <html class="ie8 no-js" lang="en">     <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> <html class="not-ie no-js" lang="en">  <!--<![endif]-->
+<html class="not-ie no-js" lang="en">  <!--<![endif]-->
 
 <body>
     <app-navbar> </app-navbar>
+    <ngx-spinner></ngx-spinner>
 
 <section id="content" class="container clearfix">
 
@@ -128,27 +126,30 @@
 	</section><!-- end #features-slider -->
 
 	<h6 class="section-title">Music Rights</h6>
+            <ul class="projects-carousel clearfix "  style="
+            overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 285px;">
+             <li style="overflow-x: scroll !important; margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
+                <a style="padding: 0px;">
+                    <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem;  width: 15rem;" alt="">
+                    <audio class="AudioPlayerV1" controls >
+                        <source src="{{item.audio.media}}" type="audio/mp3" />
+                        <source src=" {{item.audio.media}} " type="audio/ogg" />
+                    </audio>
+                    <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.name}} </h5>
+                    <span class="categories">illustration / design</span>
+                </a>
+            </li>
 
-    <ul class="projects-carousel clearfix" style="overflow: hidden;
-    position: relative;
-    top: 0px;
-    margin: 0px;
-    padding: 0px;
-    left: 0px;
-    width: 0;
-    height: 340px;">
-        <li style="overflow-x: scroll !important; "  *ngFor="let item of this.audios  let i=index">
-            <a>
-                <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
-                <audio class="AudioPlayerV1" controls>
-                    <source src="{{item.audio.media}}" type="audio/mp3" />
-                    <source src=" {{item.audio.media}} " type="audio/ogg" />
-                </audio>
-                <h5  (click)="viewSec(item.tokenId, 'sellPage')" class="title">Altered</h5>
-                <span class="categories">illustration / design</span>
-            </a>
-        </li>
-    </ul><!-- end artworks -->
+            </ul>
+
+   
 
 
 	<h6 class="section-title">Artworks</h6>
@@ -162,11 +163,11 @@
             padding: 0px;
             left: 0px;
             width: 0;
-            height: 300px;">
-                <li style="overflow-x: scroll !important; "  *ngFor="let item of this.images  let i=index">
-                    <a>
-                        <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
-                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">Altered</h5>
+            height: 240px;">
+                <li style="overflow-x: scroll !important; margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                    <a style="padding: 0px;">
+                        <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem;  width: 15rem;" alt="">
+                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
                         <span class="categories">illustration / design</span>
                     </a>
                 </li>
@@ -185,14 +186,17 @@
     padding: 0px;
     left: 0px;
     width: 0;
-    height: 273px;">
-        <li style="overflow-x: scroll !important; "  *ngFor="let item of this.videos  let i=index">
+    height: 257px;">
+        <li style="overflow-x: scroll !important;"  *ngFor="let item of this.videos  let i=index">
             <a>
-                <video class='video-js vjs-default-skin' poster="{{item.image.media}}" style="height: 10rem; width: 15rem;" data-aspect-ratio='1.98' data-setup="{}" controls controlsList="nodownload">
-                    <source src=" {{item.video.media}}" type="video/mp4" />
-                    <source src="{{item.video.media}}" type="video/webm" />
-                    <source src=" {{item.video.media}}" type="video/ogg" />
-                </video>
+                <div style="height: 12rem; width: 15rem;">
+                    <video class='video-js vjs-default-skin' poster="{{item.image.media}}"  data-aspect-ratio='1.98' data-setup="{}" controls controlsList="nodownload">
+                        <source src=" {{item.video.media}}" type="video/mp4" />
+                        <source src="{{item.video.media}}" type="video/webm" />
+                        <source src=" {{item.video.media}}" type="video/ogg" />
+                    </video>
+                </div>
+                
                 <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
                 <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>
                 <span class="categories">NFT / Movie-right</span>
@@ -204,73 +208,22 @@
 
 	<h6 class="section-title">Featured</h6>
 
-	<ul class="projects-carousel clearfix">
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-1.jpg" alt="">
-				<h5 class="title">Altered</h5>
-				<span class="categories">illustration / design</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-2.jpg" alt="">
-				<h5 class="title">Snow Tower</h5>
-				<span class="categories">illustration / photography</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-3.jpg" alt="">
-				<h5 class="title">Not the end</h5>
-				<span class="categories">animation / illustration</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-4.jpg" alt="">
-				<h5 class="title">Shift</h5>
-				<span class="categories">web / animation</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-1.jpg" alt="">
-				<h5 class="title">Synergy</h5>
-				<span class="categories">illustration / photography</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-2.jpg" alt="">
-				<h5 class="title">The Game</h5>
-				<span class="categories">photography</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-3.jpg" alt="">
-				<h5 class="title">Trantor</h5>
-				<span class="categories">illustration / web / animation</span>
-			</a>
-		</li>
-
-		<li>
-			<a href="single-project.html">
-				<img src="/assets/img/placeholders/portfolio-project-4th-4.jpg" alt="">
-				<h5 class="title">Futurisk</h5>
-				<span class="categories">illustration / design</span>
-			</a>
-		</li>
-
-	</ul><!-- end featured -->
+        <ul class="projects-carousel clearfix" style="overflow: hidden;
+        position: relative;
+        top: 0px;
+        margin: 0px;
+        padding: 0px;
+        left: 0px;
+        width: 0;
+        height: 300px;">
+            <li style="overflow-x: scroll !important; margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
+                <a>
+                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem; width: 18rem;" alt="">
+                    <h5 class="title">{{item.titleOfWork}}</h5>
+                    <span class="categories">NFT / featured</span>
+                </a>
+            </li>
+        </ul><!-- end featured -->
 
 	<h6 class="section-title">Latest stuff from our blog</h6>
 
@@ -475,67 +428,9 @@
 	
 </section><!-- end #content -->
 
-<footer id="footer" class="clearfix">
+<app-footer></app-footer>
 
-	<div class="container">
-
-		<div class="three-fourth">
-
-			<nav id="footer-nav" class="clearfix">
-
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="elements.html">Features</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li><a href="portfolio-4-columns.html">Portfolio</a></li>
-					<li><a href="contact-us.html">Contact</a></li>
-				</ul>
-				
-			</nav><!-- end #footer-nav -->
-
-			<ul class="contact-info">
-				<li class="address">012 Some Street. New York, NY, 12345. USA</li>
-				<li class="phone">(123) 456-7890</li>
-				<li class="email"><a href="mailto:contact@companyname.com">contact@companyname.com</a></li>
-			</ul><!-- end .contact-info -->
-			
-		</div><!-- end .three-fourth -->
-
-		<div class="one-fourth last">
-
-			<span class="title">Stay connected</span>
-
-			<ul class="social-links">
-				<li class="twitter"><a href="#">Twitter</a></li>
-				<li class="facebook"><a href="#">Facebook</a></li>
-				<li class="digg"><a href="#">Digg</a></li>
-				<li class="vimeo"><a href="#">Vimeo</a></li>
-				<li class="youtube"><a href="#">YouTube</a></li>
-				<li class="skype"><a href="#">Skype</a></li>
-			</ul><!-- end .social-links -->
-
-		</div><!-- end .one-fourth.last -->
-		
-	</div><!-- end .container -->
-
-</footer><!-- end #footer -->
-
-<footer id="footer-bottom" class="clearfix">
-
-	<div class="container">
-
-		<ul>
-			<li>SmartStart &copy; 2012</li>
-			<li><a href="#">Legal Notice</a></li>
-			<li><a href="#">Terms</a></li>
-		</ul>
-
-	</div><!-- end .container -->
-
-</footer><!-- end #footer-bottom -->
-
-<!--[if !lte IE 6]><!-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\/script>')</script>
 	<!--[if lt IE 9]> <script src="js/selectivizr-and-extra-selectors.min.js"></script> <![endif]-->
 	<script src="/assets/js/respond.min.js"></script>
@@ -550,6 +445,5 @@
 	<script src="/assets/js/jquery.gmap.min.js"></script>
 	<script src="/assets/js/jquery.touchSwipe.min.js"></script>
 	<script src="/assets/js/custom.js"></script>
-<!--<![endif]-->
 </body>
 </html>

@@ -131,6 +131,7 @@ export class HomeComponent implements OnInit {
   }
 
   viewSec(tokenId, page) {
+    console.log('clicked')
     this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId, from: page} });
   }
 

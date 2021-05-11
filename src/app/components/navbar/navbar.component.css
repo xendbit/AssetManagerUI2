@@ -52,8 +52,12 @@ body {
 .header-right label{
 	position: absolute;
 	top: -2.7em;
-	right: 0;
+	right: 17.9em;
 	cursor: pointer;
+}
+
+.hidden-desktop{
+	display: none;
 }
 .header-right span{
 	position: relative;
@@ -173,6 +177,9 @@ nav>a:hover{
 	.header-right{
 		width: 100%;
 		text-align: center;
+	}
+  .hidden-desktop{
+		display: block;
 	}
 }
 ::-moz-selection { background: #f15a23; color: #fff; text-shadow: none; }

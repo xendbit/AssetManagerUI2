@@ -44,7 +44,6 @@ export class NavbarComponent implements OnInit {
       this.assetService.getMetamaskInfo().then( data => {
         this.balance = data.balance;
         this.account = data.account;
-        console.log('this is wallet', this.balance)
         var ua = navigator.userAgent;
 
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
