@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
   metamask: any;
   balance: any;
   displayedData: string;
+  userAgent: string;
 
     constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
         
@@ -40,8 +41,44 @@ export class NavbarComponent implements OnInit {
     }
 
     async ngOnInit(){
+      this.assetService.getMetamaskInfo().then( data => {
+        this.balance = data.balance;
+        this.account = data.account;
+        console.log('this is wallet', this.balance)
+        var ua = navigator.userAgent;
+
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+          console.log('this is mobile');
+          this.userAgent = 'mobile';
+          console.log('this is account', this.account)
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+          console.log('is connected', this.isConnected)
+        } else if(/Chrome/i.test(ua)) {
+          console.log('ti is chrome')
+          this.userAgent = 'chrome';
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+        } else {
+          console.log('this is desktop')
+          this.userAgent = 'desktop';
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+        }
+
+      })
       
           // this.getAssets();
+         
     }
 
     ngAfterViewInit() {
@@ -53,17 +90,9 @@ export class NavbarComponent implements OnInit {
       }
       this.assetService.getMetamaskInfo().then(data => {
         this.accounts = data.accounts;
-        this.account = data.account;
         this.displayedData = data.displayedData;
-        this.balance = data.balance;
-        if (window.ethereum.isConnected() && this.account !== undefined) {
-          this.isConnected = true;
-        } else {
-          this.isConnected = false;
-        }
-      
       })
-      console.log('this is account', this.account)
+      
     }
 
 

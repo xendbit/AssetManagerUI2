@@ -1,153 +1,79 @@
-<div class="bg-white sticky-top d-block d-lg-none">
-    <div class="d-flex justify-content-between align-items-center py-2">
-        <div class="mburger mburger--squeeze"> 
+	<a routerLink="/home" routerLinkActive="active" id="logo">
+		<img style="width: 10rem; margin-top: 18px;" src="/assets/img/yasukenew.png" alt="Yasuke logo">
+	</a>
+	
 
-        </div>
-
-    </div>
-    
-
-</div>
-<div class="bg-white d-none d-lg-block">
-
-</div>
-
-<div id="sticky_nav" class="bg-white sticky-top" >
-    <nav data-dropdown="hover" class="container-fluid navbar-expand-lg bg-white" >
-        <div class="collapse navbar-collapse justify-content-between" style="font-size: smaller;">
-            <div class="w-25">
-               
-                <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/home" routerLinkActive="active">
-                    <img style="width: 10rem; margin-left: 3rem; margin-top: 18px;" src="/assets/img/yasukenew.png">
-                </a>
-            </div>
-            
-            <ul class="navbar-nav align-items-end justify-content-center w-50" style="font-family: 'Playfair Display SC', serif;">
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.role === 0 || !this.role">
-                    <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/home" routerLinkActive="active">
-                        home
-                    </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
-                    <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;" routerLink="/user-dashboard" routerLinkActive="active">
-                        my account
-                    </a>
-                </li>
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
-                    <a routerLink="/myAssets" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        my assets
-                    </a>
-                </li>
-
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a routerLink="/admin-assets" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        view assets
-                    </a>
-                </li> -->
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a routerLink="/add-admin" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        Add admin
-                    </a>
-                </li>
-
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a routerLink="/add-issuer" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        Add issuer
-                    </a>
-                </li> -->
-
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a routerLink="/approve" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        Approve assets
-                    </a>
-                </li> -->
-
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 0">
-                    <a routerLink="/orders" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        orders
-                    </a>
-                </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.isConnected" >
-                    <a (click)="goToAllAssets('buyPage')" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        all assets
-                    </a>
-                </li>
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 2">
-                    <a routerLink="/issue" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        issue assets
-                    </a>
-                </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.userId && this.role === 1">
-                    <a routerLink="/admin-settings" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        Settings
-                    </a>
-                </li>
-                <!-- <li class="nav-item position-static dropdown dropdown-delay">
-                    <a class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        manage account
-                    </a>
-                    <div class="shadow-sm dropdown-menu w-100 border-0 pb-5" style="display: block;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col pt-4 mr-4 border-top d-flex align-items-start flex-column">
-                                    <p class="mb-2">
-                                        My account
-                                    </p>
-                                    <a class="font-size-14 py-1">
-                                        Change Password
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </li> -->
-                <!-- <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.userId">
-                    <a routerLink="/login" routerLinkActive="active" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        login
-                    </a>
-                </li> -->
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="this.balance && this.isConnected">
-                    <a  class="nav-link text-nowrap mr-3" data-display="static" style="color: #575B7B !important;">
-                        Balance: {{this.balance}} ETH
-                    </a>
-                </li> 
-
-                <li class="nav-item position-static dropdown dropdown-delay" *ngIf="!this.isConnected">
-                    
-                </li> 
-                <li class="nav-item position-static dropdown dropdown-delay" style="margin-right: 30% !important;">
-                    <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black;">
+	<nav id="main-nav" *ngIf="this.userAgent === 'chrome' || this.userAgent ==='desktop'">
+		
+		<ul>
+			<li class="current">
+				<a routerLink="/home" routerLinkActive="active">Home</a>
+			</li>
+			<li *ngIf="this.isConnected === true">
+				<a  routerLink="/user-dashboard" routerLinkActive="active">My Dashboard</a>
+			</li>
+			<li  *ngIf="this.isConnected">
+				<a routerLink="/myAssets" routerLinkActive="active">My Assets</a>
+			</li>
+			<li *ngIf="this.isConnected">
+				<a (click)="goToAllAssets('buyPage')">All assets</a>
+			</li>
+            <li>
+                <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
       
-                        Connect Wallet
-                    
-                    </button>
-                    
-                    <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px;">
+                    Connect Wallet
+                
+                </button>
+                
+                <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px; margin-top: 20px;">
+  
+                    {{this.displayedData}}
+                
+                </button>
+			</li>
+		</ul>
+
+	</nav><!-- end #main-nav -->
+
+	<div *ngIf="this.userAgent === 'mobile'" style="margin-top: 60px; text-align: center; padding: 0px;">
+		<header class="clearfix" style= "margin-top: 20px;">
+			<div class="container">
+					<div class="header-left" style= "margin-top: 20px;">
+						<h6>Menu</h6>
+					</div>
+					<div class="header-right">
+						<label for="open">
+							<span class="hidden-desktop"></span>
+						</label>
+						<input type="checkbox" name="" id="open">
+						<nav>
+							<a  routerLink="/user-dashboard" routerLinkActive="active">My Dashboard</a>
+							<a routerLink="/myAssets" routerLinkActive="active">My Assets</a>
+							<a (click)="goToAllAssets('buyPage')">All assets</a>
+						</nav>
+					</div>
+				</div>
+			</header>
+		<div class="row" *ngIf="this.isConnected && this.balance" style="text-align: center; margin-left: 25%; margin-right: 25%">
+			<button   type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
       
-                        {{this.displayedData}}
-                    
-                    </button>
-                    <!-- <a (click)="logout()" class="nav-link text-nowrap mr-3" data-display="static" style="color: black !important;">
-                        logout
-                    </a> -->
-                </li>
-            </ul>
-           
-        </div>
-    </nav>
-    <!-- <div class="d-flex flex-row flex-nowrap" style="width: 200rem !important; overflow: hidden !important;">
-        <div class="trial" *ngFor="let item of this.assets">
-            <div class="texty" style="width: 100% !important; margin-right: 0 !important; font-family: 'Inter', serif">
-               
-                <div class="row" style="width: 15rem; padding-left: 16.5px;">
-                    {{item.symbol}}  -  {{item.price | currency:"$"}} 
-                </div>
-            </div>
-           
-        </div>
-       </div> -->
-</div>
+				Balance: {{this.balance}} ETH
+			
+			</button>
+		</div>
+		<div class="row" style="text-align: center; margin-left: 25%;">
+			<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
+      
+				Connect Wallet
+			
+			</button>
+<!-- 			
+			<button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px; margin-top: 20px;">
+	
+				{{this.displayedData}}
+			
+			</button> -->
+		</div>
+		
+	</div>
+	
