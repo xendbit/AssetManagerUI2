@@ -44,12 +44,22 @@ export class HomeComponent implements OnInit {
   audios: any[];
   account: any;
   isConnected: boolean;
+  userAgent: string;
   constructor(public assetService: AssetsService, public router: Router) { }
 
   ngOnInit() {
     this.audios = [];
     this.images = [];
     this.videos = [];
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
+
     // if (localStorage.getItem('userId')) {
     //   this.userId = parseInt(localStorage.getItem('userId'));
     // }

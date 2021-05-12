@@ -1,31 +1,42 @@
 	<a routerLink="/home" routerLinkActive="active" id="logo">
-		<img style="width: 10rem; margin-left: 2rem; margin-top: 18px;" src="/assets/img/yasukenew.png" alt="Yasuke logo">
+		<img style="width: 10rem; margin-left: 5rem; margin-top: 18px; margin-bottom: 10px;" src="/assets/img/yasukenew.png" alt="Yasuke logo">
 	</a>
 	
 
 	<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
 		
-		<ul>
-			<li>
-				<a routerLink="/home" >Home</a>
+		<ul style="font-family: 'Playfair Display SC', serif;">
+			<li >
+				<a routerLink="/home" style="font-family: 'Playfair Display SC', serif;">Home</a>
 			</li>
 			<li *ngIf="this.isConnected === true">
-				<a  routerLink="/user-dashboard" >My Dashboard</a>
+				<a  routerLink="/user-dashboard"style="font-family: 'Playfair Display SC', serif;" >My Dashboard</a>
 			</li>
 			<li  *ngIf="this.isConnected">
-				<a routerLink="/myAssets" routerLinkActive="active">My Assets</a>
+				<a routerLink="/myAssets" routerLinkActive="active" style="font-family: 'Playfair Display SC', serif;">My Assets</a>
 			</li>
 			<li *ngIf="this.isConnected">
-				<a (click)="goToAllAssets('buyPage')">All assets</a>
+				<a (click)="goToAllAssets('buyPage')" style="font-family: 'Playfair Display SC', serif;">All assets</a>
 			</li>
             <li>
-                <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
+                <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
+					background-color: orange; 
+					border-color: transparent; 
+					color: black; 
+					margin-top: 20px; 
+					font-family: 'Playfair Display SC', serif;">
       
                     Connect Wallet
                 
                 </button>
                 
-                <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px; margin-top: 20px;">
+                <button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
+				background-color: orange; 
+				border-color: transparent; 
+				color: black; 
+				margin-right: 15px; 
+				margin-top: 20px;
+				font-family: 'Playfair Display SC', serif;">
   
                     {{this.displayedData}}
                 
@@ -39,7 +50,7 @@
 		<header class="clearfix" >
 			<div class="container">
 					<div class="header-left" style= "margin-top: 35px;">
-						<h5 style="margin-bottom: 10px !important;">Menu</h5>
+						<h5 style="margin-bottom: 10px !important;" style="font-family: 'Playfair Display SC', serif;">Menu</h5>
 					</div>
 					<div class="header-right">
 						<label for="open">
