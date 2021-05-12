@@ -52,7 +52,7 @@ body {
 .header-right label{
 	position: absolute;
 	top: -2.7em;
-	right: 17.9em;
+	left: 23.9em;
 	cursor: pointer;
 }
 
