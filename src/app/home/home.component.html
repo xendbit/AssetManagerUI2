@@ -175,7 +175,7 @@
                              <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; padding-left: 0 !important; height: 20rem; width: 100%;">
                                  <div class="hero-content w-100">
                                     <div class="overlay">
-                                        <img style="height: 60%; width: 60%; margin-left: 20%;" src="/assets/img/binance.jpeg">
+                                        <img style="height: 100%; width: 60%; margin-left: 20%;" src="/assets/img/binance.jpeg">
                                     </div>
                                      
                                  </div>
@@ -250,11 +250,13 @@
             height: 285px;">
              <li style="overflow-x: scroll !important; margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                 <a style="padding: 0px;">
-                    <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem;  width: 18rem;" alt="">
-                    <audio class="AudioPlayerV1" controls >
-                        <source src="{{item.audio.media}}" type="audio/mp3" />
-                        <source src=" {{item.audio.media}} " type="audio/ogg" />
-                    </audio>
+                      
+                        <img src="{{item.image.media}}" style="object-fit: cover; margin: 0; height: 10rem; width: 18rem;" alt="">
+                        <audio class="AudioPlayerV1" controls style="width: 15rem;" controlsList="nodownload">
+                            <source src="{{item.audio.media}}" type="audio/mp3" />
+                            <source src=" {{item.audio.media}} " type="audio/ogg" />
+                        </audio>
+                   
                     <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.name}} </h5>
                     <span class="categories">illustration / design</span>
                 </a>
@@ -299,16 +301,15 @@
     padding: 0px;
     left: 0px;
     width: 0;
-    height: 216px;">
+    height: 225px;">
         <li style="overflow-x: scroll !important;"  *ngFor="let item of this.videos  let i=index">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 17rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                <source src=" {{item.video.media}}" type="video/mp4" />
+                <source src="{{item.video.media}}" type="video/webm" />
+                <source src=" {{item.video.media}}" type="video/ogg" />
+            </video>
             <a>
-                <div style="height: 10rem; width: 18rem;">
-                    <video class='video-js vjs-default-skin' poster="{{item.image.media}}"  data-aspect-ratio='1.98' data-setup="{}" controls controlsList="nodownload">
-                        <source src=" {{item.video.media}}" type="video/mp4" />
-                        <source src="{{item.video.media}}" type="video/webm" />
-                        <source src=" {{item.video.media}}" type="video/ogg" />
-                    </video>
-                </div>
+               
                 
                 <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
                 <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>

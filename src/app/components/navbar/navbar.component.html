@@ -60,8 +60,14 @@
 	<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
 		
 		<ul style="font-family: 'Playfair Display SC', serif;">
-			<li >
-				<a routerLink="/home" style="font-family: 'Playfair Display SC', serif;">Home</a>
+			<li *ngIf="this.isConnected === true">
+				<a routerLink="/home" style="
+					font-family: 'Playfair Display SC', serif;">Home</a>
+			</li>
+			<li *ngIf="this.isConnected !== true" >
+				<a routerLink="/home" style="
+				font-family: 'Playfair Display SC', serif; 
+				margin-left: 18rem;">Home</a>
 			</li>
 			<li *ngIf="this.isConnected === true">
 				<a  routerLink="/user-dashboard"style="font-family: 'Playfair Display SC', serif;" >My Dashboard</a>
@@ -69,7 +75,7 @@
 			<li  *ngIf="this.isConnected">
 				<a routerLink="/myAssets" routerLinkActive="active" style="font-family: 'Playfair Display SC', serif;">My Assets</a>
 			</li>
-			<li *ngIf="this.isConnected">
+			<li >
 				<a (click)="goToAllAssets('buyPage')" style="font-family: 'Playfair Display SC', serif;">All assets</a>
 			</li>
             <li>
@@ -78,7 +84,9 @@
 					border-color: transparent; 
 					color: black; 
 					margin-top: 20px; 
-					font-family: 'Playfair Display SC', serif;">
+					font-family: 'Playfair Display SC', serif;
+					margin-right: 10rem;
+					margin-left: 5rem;">
       
                     Connect Wallet
                 

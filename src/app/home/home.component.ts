@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       console.log('this is assets, ', data['data']['items']);
-      this.assetService.stopSpinner();
+    
       this.assets.forEach(element => {
         if (element.media.length > 0 && element.hasActiveAuction === true ) {
           if (element.category === 'artwork') {
@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
             console.log('this is videos', this.videos)
           }
        
-         
+          this.assetService.stopSpinner();
         }
         // console.log('these are images', this.images);
       });

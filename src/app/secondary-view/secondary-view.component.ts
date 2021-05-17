@@ -97,7 +97,9 @@ export class SecondaryViewComponent implements OnInit {
                     this.tokenId = window.history.state.tokenId;
                     this.getAssetDetails();
                     this.getAssets();
-                   
+                    console.log('this is asset', this.asset);
+                } else {
+                  this.router.navigateByUrl('/home');
                 }
             },
             err => {
@@ -108,6 +110,7 @@ export class SecondaryViewComponent implements OnInit {
   }
 
   getAssetDetails() {
+    console.log('this is asset', this.asset);
     this.assetService.showSpinner();
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       this.asset = data['data'];
@@ -117,9 +120,9 @@ export class SecondaryViewComponent implements OnInit {
       console.log('this is auctionId', this.auctionId)
       this.asset.media.filter(y => {
         if (y.mediaKey ==='mp4'){
-         this.imageObject.push({video: y.media})
+         this.imageObject.push({video: y.media, mediaKey: y.mediaKey})
         } else if (y.mediaKey ==='image') {
-         this.imageObject.push({image: y.media, title: this.asset.name, thumbImage: y.media, alt: this.asset.name })
+         this.imageObject.push({image: y.media, title: this.asset.name, thumbImage: y.media, alt: this.asset.name, mediaKey: y.mediaKey })
         }
      })[0];
         
