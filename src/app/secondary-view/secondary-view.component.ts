@@ -94,6 +94,7 @@ export class SecondaryViewComponent implements OnInit {
         .subscribe(
             () => {
                 if (window.history.state.tokenId) {
+                  this.assetService.showSpinner();
                     this.tokenId = window.history.state.tokenId;
                     this.getAssetDetails();
                     this.getAssets();
@@ -111,7 +112,7 @@ export class SecondaryViewComponent implements OnInit {
 
   getAssetDetails() {
     console.log('this is asset', this.asset);
-    this.assetService.showSpinner();
+  
     this.assetService.getAssetsByTokenId(this.tokenId).pipe(first()).subscribe(data => {
       this.asset = data['data'];
       console.log('this is information', this.asset)
