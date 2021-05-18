@@ -4,7 +4,7 @@
   <app-navbar></app-navbar>
   <ngx-spinner></ngx-spinner>
  
-<section id="content" class="container clearfix">
+<section id="content" class="container clearfix" style="margin-top: 10px;">
 
 	<article class="single-project">
 
@@ -109,9 +109,13 @@
                        
         <div class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
             <div class="col-lg-9 col-md-9 col-sm-9">
+              <p class="input-block">
                 <mat-form-field class="example-full-width">
-                <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount">
-                </mat-form-field>
+                  <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount" required>
+                  </mat-form-field>
+                
+              </p>
+                
             </div>
         </div>
 

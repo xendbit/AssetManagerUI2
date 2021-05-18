@@ -67,6 +67,8 @@ export class UserDashboardComponent implements OnInit {
     { "name": 'Books',  value: "book" }
   ];
   categorySelected: any;
+  userAgent: string;
+  images: any;
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -90,6 +92,14 @@ export class UserDashboardComponent implements OnInit {
    }
 
   async ngOnInit() {
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
     this.media = [];
     this.mediaType = [];
     //this.hideArtDetails('hidden');
@@ -118,15 +128,19 @@ export class UserDashboardComponent implements OnInit {
       let init = []
       let second = []
       this.assets.forEach(element => {
-        if (element.market === 0 && element.approved === 1 ) {
-          init.push(element);
-        } else if (element.market === 1 && element.approved === 1) {
-          second.push(element);
+        if (element.media.length > 0 && element.hasActiveAuction === true ) {
+          if (element.category === 'artwork') {
+            const image = element.media.filter(x => {
+              return x.mediaKey ==='image';
+            })[0];
+            const mp4 = element.media.filter(x => {
+              return x.mediaKey ==='mp4';
+            })[0];
+            this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+          }
         }
       });
-      this.primaryMarket =  init ;
-      this.secondaryMarket = second;
-      console.log('this is primary market', this.primaryMarket)
+      console.log('this is primary market', this.images)
     },
     err => {
         console.log(err);
