@@ -59,32 +59,29 @@
 
 	<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
 		
-		<ul style="font-family: 'Playfair Display SC', serif;">
+		<ul >
 			<li *ngIf="this.isConnected === true">
-				<a routerLink="/home" style="
-					font-family: 'Playfair Display SC', serif;">Home</a>
+				<a routerLink="/home">Home</a>
 			</li>
 			<li *ngIf="this.isConnected !== true" >
-				<a routerLink="/home" style="
-				font-family: 'Playfair Display SC', serif; 
+				<a routerLink="/home" style=" 
 				margin-left: 18rem;">Home</a>
 			</li>
 			<li *ngIf="this.isConnected === true">
-				<a  routerLink="/user-dashboard"style="font-family: 'Playfair Display SC', serif;" >My Dashboard</a>
+				<a  routerLink="/user-dashboard" >My Dashboard</a>
 			</li>
 			<li  *ngIf="this.isConnected">
-				<a routerLink="/myAssets" routerLinkActive="active" style="font-family: 'Playfair Display SC', serif;">My Assets</a>
+				<a routerLink="/myAssets" routerLinkActive="active" >My Assets</a>
 			</li>
 			<li >
-				<a (click)="goToAllAssets('buyPage')" style="font-family: 'Playfair Display SC', serif;">All assets</a>
+				<a (click)="goToAllAssets('buyPage')" >All assets</a>
 			</li>
             <li>
                 <button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
 					background-color: orange; 
 					border-color: transparent; 
 					color: black; 
-					margin-top: 20px; 
-					font-family: 'Playfair Display SC', serif;
+					margin-top: 20px;
 					margin-right: 10rem;
 					margin-left: 5rem;">
       
@@ -97,8 +94,7 @@
 				border-color: transparent; 
 				color: black; 
 				margin-right: 15px; 
-				margin-top: 20px;
-				font-family: 'Playfair Display SC', serif;">
+				margin-top: 20px;">
   
                     {{this.displayedData}}
                 

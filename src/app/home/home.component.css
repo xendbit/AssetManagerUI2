@@ -1317,7 +1317,20 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 			.no-js .projects-carousel img, .no-js #portfolio-items article img { margin-bottom: 0; }
             .no-js .another-carousel img { margin-bottom: 0; }
 
-			.projects-carousel img { margin: -25px auto 20px; }
+			.projects-carousel img { 
+				/* margin: -25px auto 20px;  */
+				border-radius: 10px;
+				object-fit: cover;
+				margin: 0;
+				height: 10rem;
+				width: 17rem;
+			}
+
+			.projects-carousel video { 
+				/* margin: -25px auto 20px;  */
+				border-radius: 10px;
+			}
+
             .another-carousel img { margin: -25px auto 20px; }
 
 			.projects-carousel .title, #portfolio-items > article .title {
@@ -1466,6 +1479,11 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 		margin: 45px -20px 80px 0;
 		max-width: 100%;
 		padding: 25px 0 0;
+	}
+
+	.section-title {
+		font-weight: 800;
+		text-transform: uppercase;
 	}
 
 	.section-title + .jcarousel-container { margin-top: 15px; } 

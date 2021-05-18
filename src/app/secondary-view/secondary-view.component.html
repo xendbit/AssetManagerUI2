@@ -2,7 +2,6 @@
 <body>
   <ngx-spinner></ngx-spinner>
   <app-navbar></app-navbar>
-  <ngx-spinner></ngx-spinner>
  
 <section id="content" class="container clearfix" style="margin-top: 10px;">
 
@@ -16,7 +15,7 @@
 
 			<h2 class="project-title">{{this.asset.name}} / {{this.asset.symbol}}</h2>
 
-			<ul class="portfolio-pagination">
+			<ul class="portfolio-pagination" style="margin-top: 10px; margin-bottom: 10px;">
 				<li class="prev"><a href="#" class="button medium no-bg"><span class="arrow left">&raquo;</span> Previous</a></li>
 				<li class="next"><a href="#" class="button medium no-bg">Next <span class="arrow">&raquo;</span></a></li>
 			</ul><!-- end .portfolio-pagination -->
@@ -33,15 +32,19 @@
         <a href="#slide-5">5</a> -->
       
         <div class="slides" >
-          <div *ngFor="let item of this.asset.media  let i=index" style="height: 400px; width: 800px;">
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp4'" >
+          <div *ngFor="let item of this.asset.media  let i=index" >
+            <div id="slide-1" *ngIf="item.mediaKey === 'mp4'"  style="height: 400px; ">
               <video  controls controlsList="nodownload">
                 <source src=" {{item.media}}" type="video/mp4" />
                 <source src="{{item.media}}" type="video/webm" />
                 <source src=" {{item.media}}" type="video/ogg" />
             </video>
             </div>
-            <div id="slide-1" *ngIf="item.mediaKey === 'image'" >
+            <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent !== 'mobile'"  style="height: 400px;width: 800px; ">
+              <img src="{{item.media}}">
+            </div>
+
+            <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent === 'mobile'"  style="height: 400px; ">
               <img src="{{item.media}}">
             </div>
           </div>
@@ -78,6 +81,7 @@
     <p>
       <b> Ends on: </b> {{this.auctionEnd | date  }}
     </p>
+
 
 			<h4>More Info</h4>
 
@@ -121,19 +125,20 @@
 
            
         <div style="padding-bottom: 20px; ">
-            <button *ngIf="this.amount &&  this.auction.isActive === true && (this.account| lowercase) !== (this.auction.owner| lowercase )" data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+          
+            <button *ngIf="this.amount &&  this.auction.isActive === true && (this.account| lowercase) !== (this.auction.owner| lowercase )" data-toggle="modal" data-target="#marketModalLong" class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
         
             Place Bid
         
             </button>
 
-            <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; margin-left: 10%;">
+            <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
         
               Place Bid
           
               </button>
 
-              <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="button" style="background-color: green; margin-left: 10%;">
+              <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
         
                 Withdraw
             
@@ -178,8 +183,8 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent;">Cancel</button>
-                <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent; text-transform: capitalize;">Cancel</button>
+                <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent; text-transform: capitalize;">Confirm</button>
               </div>
             </div>
           </div>
@@ -195,14 +200,11 @@
     <div class="one-fourth" style="margin-top: 4rem; ">
 
       <div >
-        <h3 class="text-uppercase font-weight-light">
-            Bidding List
-        </h3>
         <p class="text-uppercase small font-weight-medium">
             Bids ordered from highest to lowest
         </p>
   
-    </div>
+      </div>
   
       <ul class="tabs-nav">
   

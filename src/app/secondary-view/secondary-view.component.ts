@@ -73,6 +73,7 @@ export class SecondaryViewComponent implements OnInit {
   auctionEnd: Date;
   sellNowPrice: number;
   imageObject: any[] = [];
+  userAgent: string;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
@@ -85,6 +86,14 @@ export class SecondaryViewComponent implements OnInit {
      }
 
   async ngOnInit(): Promise<void> {
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
       this.account = data.account;
@@ -99,9 +108,10 @@ export class SecondaryViewComponent implements OnInit {
                     this.getAssetDetails();
                     this.getAssets();
                     console.log('this is asset', this.asset);
-                } else {
-                  this.router.navigateByUrl('/home');
-                }
+                } 
+                // else {
+                //   this.router.navigateByUrl('/home');
+                // }
             },
             err => {
                 console.log(err);
