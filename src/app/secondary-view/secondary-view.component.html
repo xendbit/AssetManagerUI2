@@ -15,10 +15,10 @@
 
 			<h2 class="project-title">{{this.asset.name}} / {{this.asset.symbol}}</h2>
 
-			<ul class="portfolio-pagination" style="margin-top: 10px; margin-bottom: 10px;">
+			<!-- <ul class="portfolio-pagination" style="margin-top: 10px; margin-bottom: 10px;">
 				<li class="prev"><a href="#" class="button medium no-bg"><span class="arrow left">&raquo;</span> Previous</a></li>
 				<li class="next"><a href="#" class="button medium no-bg">Next <span class="arrow">&raquo;</span></a></li>
-			</ul><!-- end .portfolio-pagination -->
+			</ul> -->
 			
 		</header><!-- end .page-header -->
 
@@ -49,13 +49,13 @@
             </div>
           </div>
           <!-- <div id="slide-2">
-            <video controls controlsList="nodownload">
+            <video controls controlsList="nodownload" style="height: 400px;">
               <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/mp4" />
               <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/webm" />
               <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/ogg" />
             </video>
           </div>
-          <div id="slide-5">
+          <div id="slide-5" style="height: 400px;">
             <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6" >
             5
           </div> -->
@@ -67,20 +67,20 @@
 		</div><!-- end #main -->
 
 		<div id="sidebar">
+        <h4>Overview</h4>
 
-			<h4>Overview</h4>
-
+        <p >
+          <b style="margin-top: 10px;"> Issue Date: </b> {{this.asset.dateIssued | date  }}
+      </p>
+  
       <p>
-        <b> Issue Date: </b> {{this.asset.dateIssued | date  }}
-    </p>
-
-    <p>
-      <b> Starts on: </b> {{this.auctionStart | date  }}
-    </p>
-
-    <p>
-      <b> Ends on: </b> {{this.auctionEnd | date  }}
-    </p>
+        <b> Starts on: </b> {{this.auctionStart | date  }}
+      </p>
+  
+      <p>
+        <b> Ends on: </b> {{this.auctionEnd | date  }}
+      </p>
+		
 
 
 			<h4>More Info</h4>
@@ -197,7 +197,7 @@
 
 		</div><!-- end #sidebar -->
 
-    <div class="one-fourth" style="margin-top: 4rem; ">
+    <div class="one-fourth" style="margin-top: 4rem;  ">
 
       <div >
         <p class="text-uppercase small font-weight-medium">
@@ -214,7 +214,7 @@
   
       </ul><!-- end .tabs-nav -->
   
-      <div class="tabs-container">
+      <div class="tabs-container" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
   
         <div class="tab-content" id="tab1">
           <div class="card-body">

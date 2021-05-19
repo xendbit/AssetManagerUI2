@@ -426,6 +426,13 @@ declare let window: any;
     return this.httpClient.get(`${this.baseUrl}/user/wallet-balance/${userId}`, {headers});
   }
 
+  getIssuerStatus(walletAddress) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.yasuke_api_key);
+    return this.httpClient.get(`${this.yasuke}/is-issuer/${walletAddress}`, {headers});
+  }
+
   buyAsset(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');

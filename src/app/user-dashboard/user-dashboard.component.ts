@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AssetsService } from '../services/assets.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { timeout } from 'rxjs/operators';
@@ -69,6 +69,9 @@ export class UserDashboardComponent implements OnInit {
   categorySelected: any;
   userAgent: string;
   images: any;
+  @ViewChild('marketModalLong') openModal: ElementRef;
+  response: any;
+
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
@@ -92,6 +95,7 @@ export class UserDashboardComponent implements OnInit {
    }
 
   async ngOnInit() {
+   
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -102,18 +106,19 @@ export class UserDashboardComponent implements OnInit {
     }
     this.media = [];
     this.mediaType = [];
+    
     //this.hideArtDetails('hidden');
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
-      this.account = data.account;
     })
+    this.checkIssuer();
+    
     this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
     this.totalOrders = 0;
     // this.accountNumber = localStorage.getItem('accountNumber');
     // this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
-    this.getAssets();
     this.getBuyOrders();
     this.getSellOrders();
     // const paymentForm = document.getElementById('paymentForm');
@@ -121,36 +126,6 @@ export class UserDashboardComponent implements OnInit {
   }
   
 
-  getAssets() {
-    this.assetService.getAllAssets().subscribe(data => {
-      this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
-      let init = []
-      let second = []
-      this.assets.forEach(element => {
-        if (element.media.length > 0 && element.hasActiveAuction === true ) {
-          if (element.category === 'artwork') {
-            const image = element.media.filter(x => {
-              return x.mediaKey ==='image';
-            })[0];
-            const mp4 = element.media.filter(x => {
-              return x.mediaKey ==='mp4';
-            })[0];
-            this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-          }
-        }
-      });
-      console.log('this is primary market', this.images)
-    },
-    err => {
-        console.log(err);
-        this.assetService.stopSpinner();
-    },
-    () => {
-      this.assetService.stopSpinner();
-     }
-    );
-  }
 
  
 //   payWithPaystack() {
@@ -247,8 +222,32 @@ register(register: NgForm) {
     console.log('this is event', item)
     this.categorySelected =  item;
   }
+
+  checkIssuer() {
+    this.assetService.getMetamaskInfo().then( data => {
+      this.balance = data.balance;
+      // this.account = data.account.toUpperCase();
+      this.account = data.account;
+      console.log('this is account', this.account);
+      this.assetService.getIssuerStatus(this.account).subscribe(res => {
+        console.log('this is response', res)
+        this.response = res;
+      },
+      error => {
+        this.response = error['error']['data']['error'];
+        console.log('this is error', this.response);
+      })
+    })
+    
+  }
  
   async submit() {
+    if (this.response === 'Issuer with blockchain address not found') {
+        let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
+        console.log('this is element', element);
+        element.click()
+        return;
+    }
     this.categorySelected =  this.form.get('imageCategories').value;
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {

@@ -285,6 +285,7 @@ ul.dotted + ul.dotted:before {
 		float: left;
 		margin: 0 40px 0 0;
 		width: 680px;
+		box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)
 	}
 
 	.sidebar-left #main {
@@ -578,6 +579,18 @@ ul.dotted + ul.dotted:before {
 
 	#main {
 		width: 295px;
+		box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%);
+		padding-bottom: 0;
+	}
+
+	#sidebar {
+		float: none;
+		margin-top: 40px;
+		width: 100%;
+	}
+
+	#sidebar > div {
+		margin-top: 30px;
 	}
 
 	.slides > video {
@@ -601,6 +614,7 @@ ul.dotted + ul.dotted:before {
         justify-content: center;
         align-items: center;
         font-size: 100px;
+		box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)
       }
       .slides > div:target {
         transform: scale(0.8);
@@ -610,6 +624,7 @@ ul.dotted + ul.dotted:before {
         width: 295;
 		height: 400px;
         object-fit: contain;
+		box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)
     }
     .slides #slide-2 {
         width: 295px;

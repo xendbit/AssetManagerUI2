@@ -7,14 +7,14 @@
 
 
 	
-    <div class="container-fluid mt-3 container-home" style="height: 100%;">
+    <div class="container-fluid mt-3 container-home" style="height: 100%; border-radius: 10px;">
         <!-- <div class="row">
             <h1 class="nav-link text-nowrap mr-3" data-display="static" style="color: red !important; font-family: 'Cormorant Garamond'; font-size: 20px !important; text-align: center;" *ngIf="!this.isConnected">  
                 Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
             </h1>
         </div> -->
         <div class="row no-gutters">
-            <div class="container mt-3">
+            <div class="container mt-3" style="padding-left: 0; padding-right: 0; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                 <div id="bootstrapCarousel" class="carousel" data-ride="carousel">
                   <!-- Slide Indicators -->
                 
@@ -24,23 +24,21 @@
                   <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div *ngIf="this.userAgent !== 'mobile'"  class="row">
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79; padding-left: 15px; height: 20rem; width: 100%;">
+                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79;  height: 20rem; width: 100%;">
+                                <div class="overlay">
+                                    <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
+                                </div>
                                 <div class="hero-content w-100">
                                     <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
                                         Easily Buy and trade art securely on the digital blockchain
                                     </h2>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">
+                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif; font-size:larger;">
                                         Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
                                     </p>
                                     
                                 </div>
                             </div>
-                            <div *ngIf="this.userAgent !== 'mobile'" class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style=" padding-left: 0 !important;">
-                                <div class="overlay">
-                                    <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
-                                </div>
-                        
-                            </div>
+                            
                         </div>
 
 
@@ -75,22 +73,20 @@
                     <div class="carousel-item">
                        <div *ngIf="this.userAgent !== 'mobile'" class="row">
                           
-                            <div   class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col"  style="padding-left: 0 !important;">
-                                <div class="overlay">
-                                    <img class="img-fluid" src="/assets/img/record.jpeg">
-                                </div>
-                        
-                            </div>
+                           
 
-                            <div class="col-12 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; padding-left: 15px; height: 20rem; width: 100%;">
+                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; padding-left: 15px; height: 20rem; width: 100%;">
                                 <div class="hero-content w-100">
                                     <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
                                         A platform to enable musicians issue and trade NFTs.
                                     </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">
+                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif; font-size:larger;">
                                         representing ownership rights of their creative works.
                                     </p>
                                     
+                                </div>
+                                <div class="overlay">
+                                    <img class="img-fluid" src="/assets/img/record.jpeg">
                                 </div>
                             </div>
                         </div>
@@ -106,7 +102,7 @@
                                 </div>
                             </div>
                            
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #00AAE2;">
+                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #00AAE2;">
                                <div class="hero-content w-100">
                                     <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
                                         A platform to enable musicians issue and trade NFTs.
@@ -126,23 +122,21 @@
 
                     <div class="carousel-item">
                         <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                             <div class="col-12 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB; padding-left: 15px; height: 20rem; width: 100%;">
-                                 <div class="hero-content w-100">
-                                     <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
-                                         Movie producers can also issue and trade NFTs.
-                                     </h3>
-                                     <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">
-                                         representing ownership rights of their creative works.
-                                     </p>
-                                     
-                                 </div>
-                             </div>
-                             <div *ngIf="this.userAgent !== 'mobile'" class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col"  style=" padding-left: 0 !important;">
-                                 <div class="overlay">
-                                     <img class="img-fluid" src="/assets/img/video_nft.jpeg">
-                                 </div>
-                         
-                             </div>
+
+                             <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB; padding-left: 15px; height: 20rem; width: 100%;">
+                                <div class="overlay">
+                                    <img class="img-fluid" src="/assets/img/video_nft.jpeg">
+                                </div>
+                                <div class="hero-content w-100">
+                                    <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
+                                        Movie producers can also issue and trade NFTs.
+                                    </h2>
+                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-family: 'Playfair Display SC', serif; font-size:larger;">
+                                        representing ownership rights of their creative works.
+                                    </p>
+                                    
+                                </div>
+                            </div>
                          </div>
 
                          <div *ngIf="this.userAgent === 'mobile'" class="row">
@@ -159,7 +153,7 @@
                                     <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
                                         Movie producers can also issue and trade NFTs.
                                     </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">
+                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%; font-family: 'Playfair Display SC', serif; ">
                                         representing ownership rights of their creative works.
                                     </p>
                                     
@@ -172,26 +166,24 @@
 
                     <div class="carousel-item">
                         <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                             <div class="col-12 col-lg-5 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; padding-left: 0 !important; height: 20rem; width: 100%;">
-                                 <div class="hero-content w-100">
-                                    <div class="overlay">
-                                        <img style="height: 100%; width: 60%; margin-left: 20%;" src="/assets/img/binance.jpeg">
-                                    </div>
-                                     
-                                 </div>
-                             </div>
-                             <div class="col-12 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: black;">
+                             
+                            
+
+                             <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; padding-left: 15px; height: 20rem; width: 100%;">
                                 <div class="hero-content w-100">
-                                     <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">  
+                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 10%; font-family: 'Playfair Display SC', serif;">  
                                         Powered by the Binance Smart Chain.
-                                     </h3>
-                                     <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%; font-family: 'Playfair Display SC', serif;">
+                                    </h3>
+                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 10%; font-family: 'Playfair Display SC', serif; font-size:larger;">
                                         guaranteed faster performance and lower fees.
-                                     </p>
-                                     
-                                 </div>
-                         
-                             </div>
+                                    </p>
+                                    
+                                </div>
+                                <div class="overlay">
+                                    <img class="img-fluid" style="height: 20rem;" src="/assets/img/binance.jpeg">
+                                </div>
+                            </div>
+                             
                          </div>
 
                          <div *ngIf="this.userAgent === 'mobile'" class="row">
@@ -303,7 +295,7 @@
     width: 0;
     height: 225px;">
         <li  *ngFor="let item of this.videos  let i=index">
-            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 17rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 13rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                 <source src=" {{item.video.media}}" type="video/mp4" />
                 <source src="{{item.video.media}}" type="video/webm" />
                 <source src=" {{item.video.media}}" type="video/ogg" />
@@ -333,7 +325,7 @@
             <li style=" margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
                 <a>
                     
-                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem; width: 18rem;" alt="">
+                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem; width: 13rem;" alt="">
                     <h5 class="title">{{item.type}}</h5>
                     <span class="categories">NFT / featured</span>
                 </a>
