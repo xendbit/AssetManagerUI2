@@ -1,37 +1,116 @@
+<html class="not-ie no-js" lang="en">  <!--<![endif]-->
+<body>
+  <ngx-spinner></ngx-spinner>
+  <app-navbar></app-navbar>
+ 
 
-<div class="mm-page mm-slideout" style="background-color: white; overflow: hidden;">
-    <ngx-spinner></ngx-spinner>
-    <app-navbar></app-navbar>
-  
-    <div id="container_home">
-  
-        <div class="container-fluid container-lg container-home" style="height: 100%;">
-            
-          <p class="text-uppercase small font-weight-medium">
-              all artworks
-          </p>
-          <h2 class="text-uppercase font-weight-light">
-              All My Artworks
-          </h2>
-          <div class="row" style="margin-top: 3rem;">
-              <mat-card (click)="view(item.tokenId, 'sellPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.myAssets  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                  <mat-card-content  style="position: relative; " >
-                      <img src="{{item.data.media}}" class="image">
-                     
-                      <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Artwork Title: </b> {{item.name}}
-                      </p>
-                      <p class="paragraph" style="font-family: 'Inter', serif;">
-                        <b> Symbol: </b>   {{item.symbol}}
-                      </p>
-                      
-                      
-                    </mat-card-content>
-              </mat-card>
-          </div>
-  
-        </div>
+ 
 
+<section id="content" class="container clearfix" style="margin-top: 10px;">
+
+    <div class="row">
+        <h1 class="page-title align-left" style="margin-bottom: 30px;">My Assets</h1>
+    </div>
+
+    <h6 class="section-title">Music Rights</h6>
+            <ul class="projects-carousel clearfix "  style="
+            overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 285px;">
+             <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
+                <a style="padding: 0px;">
+                      
+                        <img src="{{item.data.media}}" alt="">
+                        <audio class="AudioPlayerV1" controls style="width: 14rem;" controlsList="nodownload">
+                            <source src="{{item.audio.media}}" type="audio/mp3" />
+                            <source src=" {{item.audio.media}} " type="audio/ogg" />
+                        </audio>
+                   
+                    <h5 class="title" (click)="view(item.tokenId, 'sellPage')">  {{item.name}} </h5>
+                    <span class="categories" (click)="view(item.tokenId, 'sellPage')">illustration / design</span>
+                </a>
+
+             
+            </li>
+
+            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.audios.length === 0"> You currently do not have any Asset in this category  </h5>
+            </ul>
+
+            <h6 class="section-title">Artworks</h6>
+
+	
+        
+            <ul class="projects-carousel clearfix" style="overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 221px;">
+                <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                    <a style="padding: 0px;">
+                        <img src="{{item.image.media}}" alt="">
+                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
+                        <span class="categories"(click)="view(item.tokenId, 'sellPage')">illustration / design</span>
+                    </a>
+                </li>
+                <!-- <li style="margin-bottom: 0px; ">
+                    <a style="padding: 0px;">
+                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
+                        <h5  class="title">Ahem </h5>
+                        <span class="categories">illustration / design</span>
+                    </a>
+                </li>
+
+                <li style="margin-bottom: 0px; ">
+                    <a style="padding: 0px;">
+                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
+                        <h5  class="title">Ahem </h5>
+                        <span class="categories">illustration / design</span>
+                    </a>
+                </li> -->
+                <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> You currently do not have any Asset in this category  </h5>
+            </ul><!-- end artworks -->
+
+	
+
+
+
+	<h6 class="section-title">Movie Rights</h6>
+
+    <ul class="projects-carousel clearfix" style="overflow: hidden;
+    position: relative;
+    top: 0px;
+    margin: 0px;
+    padding: 0px;
+    left: 0px;
+    width: 0;
+    height: 280px;">
+        <li  *ngFor="let item of this.videos  let i=index">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                <source src=" {{item.video.media}}" type="video/mp4" />
+                <source src="{{item.video.media}}" type="video/webm" />
+                <source src=" {{item.video.media}}" type="video/ogg" />
+            </video>
+            <a>
+               
+                
+                <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
+                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>
+                <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
+            </a>
+            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.videos.length === 0"> You currently do not have any Asset in this category  </h5>
+        </li>
+    </ul><!-- end artworks -->
+  
+    
+<!-- 
         <div class="container-fluid container-lg container-home">
                 
             <p class="text-uppercase small font-weight-medium">
@@ -56,19 +135,13 @@
                 </mat-card>
             </div>
 
-        </div>
-
-       
-        <app-footer></app-footer>
-
-  
-  
-  
-        
-  
-    </div>
-    
+        </div> -->
     
         
-  
-  </div>
+
+
+</section>
+</body>
+</html>
+    
+<app-footer></app-footer>

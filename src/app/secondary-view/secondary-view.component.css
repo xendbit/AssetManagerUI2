@@ -26,10 +26,18 @@ dl,hr,h1,h2,h3,h4,h5,h6,ol,ul,pre,table,address,fieldset,blockquote,article,p { 
 /* ---------------------------------------------------------------------- */
 
 body {
-	background: #fff;
-	border-top: 6px solid #3a3a3a;
-	color: #909090;
-	font: 11px/1.7 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	width: 100% !important;
+    margin: 0;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #909090;
+    text-align: left;
+    background-color: #fff;
+    border-top: 6px solid #3a3a3a;
+    font: 11px/1.7 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+
 	-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 	-webkit-text-size-adjust: 100%;
 }
