@@ -108,10 +108,9 @@ export class SecondaryViewComponent implements OnInit {
                     this.getAssetDetails();
                     this.getAssets();
                     console.log('this is asset', this.asset);
-                } 
-                // else {
-                //   this.router.navigateByUrl('/home');
-                // }
+                } else {
+                  this.router.navigateByUrl('/home');
+                }
             },
             err => {
                 console.log(err);

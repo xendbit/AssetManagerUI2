@@ -853,7 +853,6 @@ ul.dotted + ul.dotted:before {
 			#main-nav a:after, #main-nav > ul { display: none; }
 			#main-nav a:after { content: ''; }
 
-		.no-js #main-nav > ul, #main-nav .responsive-nav { display: block; }
 
 		.no-js #main-nav li:hover > ul { top: 62px; }
 

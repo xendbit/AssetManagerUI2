@@ -314,10 +314,15 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			margin: 0 20px 0 0;
 			overflow: hidden;
 			position: relative;
-			box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)
 		}
+
+            audio::-webkit-media-controls-play-button,
+			audio::-webkit-media-controls-panel {
+			background-color: #FFA501;
+			color: #FFA501;
+			}
 		
-		.projects-carousel > li, .post-carousel > li { width: 220px; }
+		.projects-carousel > li, .post-carousel > li { width: 240px; }
         .another-carousel > li { width: 220px; }
 
 		.projects-carousel, .another-carousel, #portfolio-items { font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; }
@@ -368,19 +373,21 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 			.projects-carousel img { 
 				/* margin: -25px auto 20px;  */
-				border-radius: 10px;
 				object-fit: cover;
 				margin: 0;
 				height: 10rem;
-				width: 13rem;
+				width: 15rem;
 			}
 
 			.projects-carousel video { 
 				/* margin: -25px auto 20px;  */
-				border-radius: 10px;
-                width: 13rem; 
                 height: 10rem; 
                 object-fit: cover;
+			}
+
+            .projects-carousel audio { 
+				/* margin: -25px auto 20px;  */
+				width: 15rem;
 			}
 
             .another-carousel img { margin: -25px auto 20px; }
@@ -388,17 +395,20 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			.projects-carousel .title, #portfolio-items > article .title {
 				font-weight: 400;
 				margin-bottom: 0;
+                text-align: center;
 			}
 
             .another-carousel .title {
 				font-weight: 400;
 				margin-bottom: 0;
+                text-align: center;
 			}
 
 			.projects-carousel > li .categories, #portfolio-items > article .categories {
 				color: #aeaeae;
 				display: block;
 				font-style: italic;
+                text-align: center;
 				margin: -1px 0 20px;
 			}
 
@@ -466,6 +476,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			.projects-carousel a:hover .title, #portfolio-items > article:hover .title { color: #f15a23; }
             .another-carousel a:hover .title { color: #f15a23; }
 
+            
 
 
 /* All Mobile Sizes (devices and browser) */

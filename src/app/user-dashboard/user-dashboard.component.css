@@ -497,6 +497,68 @@ textarea {
 	padding: 10px;
 	resize: both;
 }
+
+
+	/* -------------------------------------------------- */
+	/*	Columns
+	/* -------------------------------------------------- */
+
+	.one-half, .one-third, .two-third, .one-fourth, .three-fourth {
+		float: left;
+		margin-right: 20px;
+	}
+
+	.one-half.last, .one-third.last, .two-third.last, .one-fourth.last, .three-fourth.last { margin-right: 0px; }
+
+	.one-half { width: 460px; }
+
+	.one-third { width: 300px; }
+
+		.two-third { width: 620px; }
+
+	.one-fourth { width: 220px; }
+
+		.three-fourth { width: 700px; }
+
+
+/* ---------------------------------------------------------------------- */
+/*	Alert Boxes
+/* ---------------------------------------------------------------------- */
+
+.error, .success, .info, .notice {
+	display: block;
+	padding: 10px 20px 10px 44px;
+}
+
+.error {
+	background: #f9e5e6 url(/assets//img/icon-box-error.png) no-repeat 10px 9px;
+	border: 1px solid #f7c7c9;
+	border-left-width: 4px;
+	color: #b3696c;
+}
+
+.success {
+	background: #e3ebc6 url(/assets/img/icon-box-success.png) no-repeat 12px 8px;
+	border: 1px solid #c2d288;
+	border-left-width: 4px;
+	color: #8fa442;
+}
+
+.info {
+	background: #d8ecf5 url(/assets//img/icon-box-info.png) no-repeat 10px 8px;
+	border: 1px solid #9ac9df;
+	border-left-width: 4px;
+	color: #528da9;
+}
+
+.notice {
+	background: #fcf7d9 url(/assets/img/icon-box-notice.png) no-repeat 10px 9px;
+	border: 1px solid #f5dc7d;
+	border-left-width: 4px;
+	color: #c4a21b;
+}
+
+
 	
 	input:hover, textarea:hover, select:hover { border-color: #dedede; }
 	

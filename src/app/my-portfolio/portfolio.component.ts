@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 declare var $: any;
 declare let window: any;
@@ -22,13 +22,25 @@ export class PortfolioComponent implements OnInit {
   videos: any[];
   audios: any[];
 
-  constructor(public assetService: AssetsService, public router: Router) { }
+  constructor(public assetService: AssetsService, public router: Router, private activeRoute: ActivatedRoute) { }
   ngOnInit() {
     this.audios = [];
     this.images = [];
     this.videos = [];
     this.getAssets();
     this.getAllAssets();
+    this.activeRoute.params.subscribe(routeParams => {
+      this.getAssets();
+    });
+ 
+  }
+
+  ngAfterViewInit() {
+    
+  }
+
+  refreshPage() {
+    document.defaultView.location.reload();
   }
 
   getAssets() {

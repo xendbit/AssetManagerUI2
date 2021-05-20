@@ -237,13 +237,13 @@
                                 <td > {{item.bid}} ETH </td>
                                 <td >   {{item.auctionId}} </td>
                                 <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 
-                                  <button (click)="withdraw()" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent; width: 10rem !important;" >
+                                  <button (click)="withdraw()" class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
 
                                     Withdraw
                                 
                                 </button>
                                 <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === false"> 
-                                  <button  disabled class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: green; border-color: transparent; width: 10rem !important;" >
+                                  <button  disabled class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
 
                                     Withdraw
                                 

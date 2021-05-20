@@ -71,6 +71,7 @@ export class UserDashboardComponent implements OnInit {
   images: any;
   @ViewChild('marketModalLong') openModal: ElementRef;
   response: any;
+  modalElement: HTMLElement;
 
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
@@ -94,8 +95,35 @@ export class UserDashboardComponent implements OnInit {
     }
    }
 
+   ngAfterContentInit() {
+    let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
+    this.modalElement = element;
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
+    this.media = [];
+    this.mediaType = [];
+    
+    //this.hideArtDetails('hidden');
+    this.assetService.getMetamaskInfo().then( data => {
+      this.balance = data.balance;
+    })
+    this.checkIssuer();
+    
+    this.tempImage = '/assets/img/nft.png';
+    this.totalBuyOrders = 0;
+    this.totalSellOrders = 0;
+    this.totalOrders = 0;
+   }
+
   async ngOnInit() {
-   
+    let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
+    this.modalElement = element;
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -163,7 +191,9 @@ register(register: NgForm) {
   const blockchainAddress = register.value.blockchainAddress;
   if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
     this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
-    return;
+    this.modalElement.click();
+    
+    return false;
   }
   this.assetService.showSpinner();
   this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
@@ -243,9 +273,7 @@ register(register: NgForm) {
  
   async submit() {
     if (this.response === 'Issuer with blockchain address not found') {
-        let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
-        console.log('this is element', element);
-        element.click()
+        this.modalElement.click()
         return;
     }
     this.categorySelected =  this.form.get('imageCategories').value;

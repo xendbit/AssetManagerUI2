@@ -1,86 +1,132 @@
+<html class="not-ie no-js" lang="en">  <!--<![endif]-->
+<body>
+  <ngx-spinner></ngx-spinner>
+  <app-navbar></app-navbar>
+ 
 
-<div class="mm-page mm-slideout" style="background-color: white; position: relative; min-height: 100vh; height: 100%; overflow-x: hidden;">
-    <ngx-spinner></ngx-spinner>
-   <app-navbar></app-navbar>
-  
-    <div id="container_home">
-  
-        <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" >
-            
-          <p class="text-uppercase small font-weight-medium">
-              all artworks
-          </p>
-          <h2 class="text-uppercase font-weight-light">
-              All Artworks
-          </h2>
-          <div class="row" style="margin-top: 3rem;">
-              <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.assets  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                  <mat-card-content  style="position: relative; " *ngIf="item.category === 'movieRight'">
-                    <video  width="100%" height="100%" class="image" controls controlsList="nodownload">
-                        <source [src]="item.media[1].media" type="video/mp4">
-                        <source [src]="item.media[1].media" type="video/ogg">
-                      Your browser does not support the video tag.
-                      </video>
+ 
+
+<section id="content" class="container clearfix" style="margin-top: 10px;">
+
+    <div class="row">
+        <h1 class="page-title align-left" style="margin-bottom: 30px;">All Assets</h1>
+    </div>
+
+    <h6 class="section-title">Music Rights</h6>
+            <ul class="projects-carousel clearfix "  style="
+            overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 285px;">
+             <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
+                <a style="padding: 0px;">
                       
-                      
-                    </mat-card-content>
-                    <mat-card-content  style="position: relative; " *ngIf="item.category === 'artwork'">
-                        <img src="{{item.media[0].media}}" class="image">
-                          
-                          
-                    </mat-card-content>
-                    <mat-card-content  style="position: relative; " *ngIf="item.category === 'musicRight'">
-                        <img src="{{item.media[0].media}}"  style="object-fit: cover; margin: 0; width: 100%; height: 12rem;">
-                                    <audio width="80%" controls controlsList="nodownload" style="border-radius: 40px;">
-                                      <source  type="audio/mpeg"  [src]="item.media[1].media" >
-                                    </audio>
-                          
-                          
-                    </mat-card-content>
-              </mat-card>
-          </div>
-  
-        </div>
+                        <img src="{{item.image.media}}" style="margin-bottom: 5px;" alt="">
+                        <audio class="AudioPlayerV1" controls controlsList="nodownload">
+                            <source src="{{item.audio.media}}" type="audio/mp3" />
+                            <source src=" {{item.audio.media}} " type="audio/ogg" />
+                        </audio>
+                   
+                    <h5 class="title" (click)="viewOrder(item.tokenId)">  {{item.name}} </h5>
+                    <span class="categories" (click)="viewOrder(item.tokenId)">illustration / design</span>
+                </a>
+
+             
+            </li>
+
+            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.audios.length === 0"> You currently do not have any Asset in this category  </h5>
+            </ul>
+
+            <h6 class="section-title">Artworks</h6>
+
+	
+        
+            <ul class="projects-carousel clearfix" style="overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 221px;">
+                <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                    <a style="padding: 0px;">
+                        <img src="{{item.image.media}}" alt="">
+                        <h5 (click)="viewOrder(item.tokenId)" class="title">{{item.name}} </h5>
+                        <span class="categories" (click)="viewOrder(item.tokenId)">illustration / design</span>
+                    </a>
+                </li>
+                <!-- <li style="margin-bottom: 0px; ">
+                    <a style="padding: 0px;">
+                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
+                        <h5  class="title">Ahem </h5>
+                        <span class="categories">illustration / design</span>
+                    </a>
+                </li>
+
+                <li style="margin-bottom: 0px; ">
+                    <a style="padding: 0px;">
+                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
+                        <h5  class="title">Ahem </h5>
+                        <span class="categories">illustration / design</span>
+                    </a>
+                </li> -->
+                <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> You currently do not have any Asset in this category  </h5>
+            </ul><!-- end artworks -->
+
+	
 
 
-        <div class="container-fluid container-lg container-home" style="min-height: 100vh; height: 100%;" >
-            
-            
-            <h2 class="text-uppercase font-weight-light">
-                All Music Rights
-            </h2>
-            <div class="row" style="margin-top: 3rem;">
-                <mat-card (click)="view(item.tokenId, item.market)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.exclusive  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                          <b> Price: </b>  {{item.price | currency:"$"}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                          <b> Artwork Title: </b> {{item.titleOfWork}}
-                        </p>
-                        
-                        
-                      </mat-card-content>
-                </mat-card>
-            </div>
-    
-          </div>
 
-        <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'primary'">
+	<h6 class="section-title">Movie Rights</h6>
+
+    <ul class="projects-carousel clearfix" style="overflow: hidden;
+    position: relative;
+    top: 0px;
+    margin: 0px;
+    padding: 0px;
+    left: 0px;
+    width: 0;
+    height: 280px;">
+        <li  *ngFor="let item of this.videos  let i=index">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                <source src=" {{item.video.media}}" type="video/mp4" />
+                <source src="{{item.video.media}}" type="video/webm" />
+                <source src=" {{item.video.media}}" type="video/ogg" />
+            </video>
+            <a>
+               
                 
-            
+                <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
+                <h5 (click)="viewOrder(item.tokenId)" class="title">{{item.name}}</h5>
+                <span class="categories" (click)="viewOrder(item.tokenId)">NFT / Movie-right</span>
+            </a>
+            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.videos.length === 0"> You currently do not have any Asset in this category  </h5>
+        </li>
+    </ul><!-- end artworks -->
+  
+    
+<!-- 
+        <div class="container-fluid container-lg container-home">
+                
+            <p class="text-uppercase small font-weight-medium">
+                other Assets (primary market)
+            </p>
             <h2 class="text-uppercase font-weight-light">
-                All Movie Rights
+                Recommendations
             </h2>
-            <div class="row" style="margin-top: 3rem;">
+            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll; margin-top: 3rem;">
                 <mat-card (click)="view(item.tokenId, 'buyPage')" class="col-3 col-md-3 cover trend" *ngFor="let item of this.primaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
                     <mat-card-content  style="position: relative; ">
                         <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b>  {{item.price | currency:"$"}}
+                        <p class="paragraph" style="font-family: 'Inter', serif;">
+                        <b> Price: </b> {{item.price | currency:"$"}}
                         </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
+                        <p class="paragraph" style="font-family: 'Inter', serif;">
                         <b> Artwork Title: </b> {{item.titleOfWork}}
                         </p>
                         
@@ -89,84 +135,13 @@
                 </mat-card>
             </div>
 
-        </div>
-
-        <div class="container-fluid container-lg container-home" *ngIf="this.pageHistory === 'secondary'">
-                
-            <p class="text-uppercase small font-weight-medium">
-                all artworks
-            </p>
-            <h2 class="text-uppercase font-weight-light">
-                All Artworks
-            </h2>
-            <div class="row" style="margin-top: 3rem;">
-                <mat-card (click)="viewOrder(item.tokenId)" class="col-3 col-md-3 cover trend" *ngFor="let item of this.secondaryMarket  let i=index" style="margin-left: 10px !important; margin-bottom: 5px;">
-                    <mat-card-content  style="position: relative; ">
-                        <img src="{{item.imageUrl}}" class="image">
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Price: </b>  {{item.price | currency:"$"}}
-                        </p>
-                        <p class="paragraph" style="font-family: 'Playfair Display SC', serif;">
-                        <b> Artwork Title: </b> {{item.titleOfWork}}
-                        </p>
-                        
-                        
-                    </mat-card-content>
-                </mat-card>
-            </div>
-
-        </div>
+        </div> -->
+    
         
-    </div>
+
+
+</section>
+</body>
+</html>
     
-    
-        <app-footer> </app-footer>
-  
-  </div>
-  
-  
-  
-
-
-
-<!-- <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-                <div class="card card-plain">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" >
-                              <thead class="text-success">
-                                  <th>Asset </th>
-                                  <th> Art Title </th>
-                                  <th>Artist</th>
-                                  <th>Issuing Price</th>
-                                  <th> Symbol</th>
-
-                                  <th> Market Type </th>
- 
-                              </thead>
-                              <tbody *ngFor="let item of this.approved " style="font-size: smaller;">
-                                  <tr class="Table" (click)="view(item.tokenId)">
-                                      <td style="width: 20%;"> <img src={{item.imageUrl}} style="width: 40%; height: 60px;"> </td>
-                                      <td> {{item.titleOfWork}} </td>
-                                      <td> {{item.artistName}} </td>
-                                      <td> {{item.issuingPrice}} </td>
-                                      <td> {{item.symbol}} </td>
-                
-                                      <td *ngIf="item.market === 0"> Primary  </td>
-                                      <td *ngIf="item.market === 1"> Secondary </td>
-                                      
-                                      
-                                      
-                                  </tr>
-                              </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div> -->
+<app-footer></app-footer>

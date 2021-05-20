@@ -109,6 +109,8 @@ export class NavbarComponent implements OnInit {
         this.router.navigateByUrl('/assets', { state : { from: page} });
       }
 
+      
+
       async connectToMetamask() {
         if (this.hasMetaMask = false) {
           this.assetService.showNotification('top','center','Please install or create a metamask account to connect to your wallet', 'danger');

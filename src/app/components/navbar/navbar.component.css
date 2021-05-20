@@ -459,42 +459,6 @@ ul.dotted + ul.dotted:before {
 
 	.dash li { background: url(/src/assets/img/list-dash.png) no-repeat 3px 8px; }
 
-/* ---------------------------------------------------------------------- */
-/*	Alert Boxes
-/* ---------------------------------------------------------------------- */
-
-.error, .success, .info, .notice {
-	display: block;
-	padding: 10px 20px 10px 44px;
-}
-
-.error {
-	background: #f9e5e6 url(/src/assets/img/icon-box-error.png) no-repeat 10px 9px;
-	border: 1px solid #f7c7c9;
-	border-left-width: 4px;
-	color: #b3696c;
-}
-
-.success {
-	background: #e3ebc6 url(/src/assets/img/icon-box-success.png) no-repeat 12px 8px;
-	border: 1px solid #c2d288;
-	border-left-width: 4px;
-	color: #8fa442;
-}
-
-.info {
-	background: #d8ecf5 url(/src/assets/img//icon-box-info.png) no-repeat 10px 8px;
-	border: 1px solid #9ac9df;
-	border-left-width: 4px;
-	color: #528da9;
-}
-
-.notice {
-	background: #fcf7d9 url(/src/assets/img/icon-box-notice.png) no-repeat 10px 9px;
-	border: 1px solid #f5dc7d;
-	border-left-width: 4px;
-	color: #c4a21b;
-}
 
 /* ---------------------------------------------------------------------- */
 /*	Forms
@@ -635,7 +599,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 					color: #3a3a3a;
 					font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 					font-size: 12px;
-					font-weight: 800;
+					font-weight: 700;
 					display: block;
 					letter-spacing: -0.08px;
 					padding: 26px 20px 40px;
@@ -739,13 +703,13 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 
 		/* Responsive Nav */
 
-		#main-nav .responsive-nav {
+		/* #main-nav .responsive-nav {
 			background-image: url(/src/assets/img/responsive-nav-bg.png);
 			background-position: center right;
 			background-repeat: no-repeat;
 			display: none;
 			width: 100%;
-		}
+		} */
 
 /* ---------------------------------------------------------------------- */
 /*	Content
@@ -1295,7 +1259,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 			#main-nav a:after, #main-nav > ul { display: none; }
 			#main-nav a:after { content: ''; }
 
-		.no-js #main-nav > ul, #main-nav .responsive-nav { display: block; }
+		/* .no-js #main-nav > ul, #main-nav .responsive-nav { display: block; } */
 
 		.no-js #main-nav li:hover > ul { top: 62px; }
 

@@ -244,7 +244,7 @@
                 <a style="padding: 0px;">
                       
                         <img src="{{item.image.media}}" alt="">
-                        <audio class="AudioPlayerV1" controls style="width: 14rem;" controlsList="nodownload">
+                        <audio class="AudioPlayerV1" style="color: orange;" controls controlsList="nodownload">
                             <source src="{{item.audio.media}}" type="audio/mp3" />
                             <source src=" {{item.audio.media}} " type="audio/ogg" />
                         </audio>
@@ -295,7 +295,7 @@
     width: 0;
     height: 225px;">
         <li  *ngFor="let item of this.videos  let i=index">
-            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 13rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                 <source src=" {{item.video.media}}" type="video/mp4" />
                 <source src="{{item.video.media}}" type="video/webm" />
                 <source src=" {{item.video.media}}" type="video/ogg" />
@@ -325,7 +325,7 @@
             <li style=" margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
                 <a>
                     
-                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem; width: 13rem;" alt="">
+                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
                     <h5 class="title">{{item.type}}</h5>
                     <span class="categories">NFT / featured</span>
                 </a>

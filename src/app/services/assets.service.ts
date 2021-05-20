@@ -17,6 +17,7 @@ declare let window: any;
   hasMetaMask: boolean;
   balance: any;
   account: any;
+  show: boolean;
   displayedData: string;
   metaInfo: { account: any; accounts: any; displayedData: string; balance: any; hasMetaMask: boolean; };
   abi = [
@@ -498,9 +499,11 @@ declare let window: any;
 
 
   showNotification(from, align, message, kind){
+    this.show = true
     const type = ['','info','success','warning','danger'];
   
     const color = Math.floor((Math.random() * 4) + 1);
+    console.log('what is this', $)
   
     $.notify({
         icon: "notifications",
@@ -513,8 +516,8 @@ declare let window: any;
             from: from,
             align: align
         },
-        template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
-          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+        template: '<div id="closeModal" data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<button  mat-button  type="button" aria-hidden="true" id="close_button" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title" style="font-family: Inter, serif;">{1}</span> ' +
           '<span data-notify="message"  style="font-family: Inter, serif;">{2}</span>' +
@@ -524,6 +527,16 @@ declare let window: any;
           '<a href="{3}" target="{4}" data-notify="url"></a>' +
         '</div>'
     });
+
+    window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+      });
+  }, 4000);
+  }
+
+  dismissModal() {
+   this.show = false;
   }
 
   showSpinner() {

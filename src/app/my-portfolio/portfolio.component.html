@@ -91,9 +91,9 @@
     padding: 0px;
     left: 0px;
     width: 0;
-    height: 280px;">
+    height: 270px;">
         <li  *ngFor="let item of this.videos  let i=index">
-            <video (click)="viewSec(item.tokenId, 'sellPage')" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+            <video (click)="viewSec(item.tokenId, 'sellPage')" poster="{{item.image.media}}" style="width: 15rem;"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                 <source src=" {{item.video.media}}" type="video/mp4" />
                 <source src="{{item.video.media}}" type="video/webm" />
                 <source src=" {{item.video.media}}" type="video/ogg" />
