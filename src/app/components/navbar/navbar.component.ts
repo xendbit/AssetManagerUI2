@@ -47,9 +47,7 @@ export class NavbarComponent implements OnInit {
         var ua = navigator.userAgent;
 
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
-          console.log('this is mobile');
           this.userAgent = 'mobile';
-          console.log('this is account', this.account)
           if (window.ethereum.isConnected() && this.account !== undefined) {
             this.isConnected = true;
           } else {
@@ -57,7 +55,7 @@ export class NavbarComponent implements OnInit {
           }
           console.log('is connected', this.isConnected)
         } else if(/Chrome/i.test(ua)) {
-          console.log('ti is chrome')
+
           this.userAgent = 'chrome';
           if (window.ethereum.isConnected() && this.account !== undefined) {
             this.isConnected = true;
@@ -65,7 +63,6 @@ export class NavbarComponent implements OnInit {
             this.isConnected = false;
           }
         } else {
-          console.log('this is desktop')
           this.userAgent = 'desktop';
           if (window.ethereum.isConnected() && this.account !== undefined) {
             this.isConnected = true;

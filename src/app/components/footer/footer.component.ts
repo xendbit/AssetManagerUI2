@@ -14,15 +14,12 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
-      console.log('this is mobile');
       this.userAgent = 'mobile';
      
     } else if(/Chrome/i.test(ua)) {
-      console.log('ti is chrome')
       this.userAgent = 'chrome';
       
     } else {
-      console.log('this is desktop')
       this.userAgent = 'desktop';
     }
 

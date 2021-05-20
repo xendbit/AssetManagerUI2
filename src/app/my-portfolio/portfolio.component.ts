@@ -35,6 +35,13 @@ export class PortfolioComponent implements OnInit {
  
   }
 
+  ngAfterContentInit() {
+    this.audios = [];
+    this.images = [];
+    this.videos = [];
+    this.getAssets();
+   }
+
   ngAfterViewInit() {
     
   }

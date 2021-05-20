@@ -71,8 +71,8 @@
 				<li *ngIf="this.isConnected === true">
 					<a  routerLink="/user-dashboard" >My Dashboard</a>
 				</li>
-				<li  *ngIf="this.isConnected">
-					<a [routerLink]="'/myAssets'" routerLinkActive="active" >My Assets</a>
+				<li  *ngIf="this.isConnected === true">
+					<a routerLink="/myAssets">My Assets</a>
 				</li>
 				<li >
 					<a (click)="goToAllAssets('buyPage')" >All assets</a>
