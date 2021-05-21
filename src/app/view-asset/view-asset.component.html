@@ -41,16 +41,26 @@
             </video>
             </div>
 
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="width: 600px; " >
-              <audio  controls controlsList="nodownload" style="width: 500px">
+            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="
+            background-image: url({{this.tempImage}});
+            width: 700px;
+            background-size: cover;
+            height: 400px;" >
+              <audio  controls controlsList="nodownload" style="
+              width: 500px; 
+              margin-top: 160px;">
                 <source src=" {{item.media}}" type="audio/mp3" />
                 <source src="{{item.media}}" type="audio/wav" />
                 <source src=" {{item.media}}" type="audio/ogg" />
               </audio>
             </div>
 
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent === 'mobile'"  style="width: 300px; " >
-              <audio  controls controlsList="nodownload" style="width: 200px">
+            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent === 'mobile'"  style="
+            width: 200px; 
+            background-image: url({{this.tempImage}});
+            background-size: cover;
+            height: 200px;" >
+              <audio  controls controlsList="nodownload" style="width: 200px; margin-top: 70px;">
                 <source src=" {{item.media}}" type="audio/mp3" />
                 <source src="{{item.media}}" type="audio/wav" />
                 <source src=" {{item.media}}" type="audio/ogg" />

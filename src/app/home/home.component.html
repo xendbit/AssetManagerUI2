@@ -246,8 +246,8 @@
                 <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                     <a style="padding: 0px;">
                         <img src="{{item.image.media}}" alt="">
-                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
-                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">illustration / design</span>
+                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
+                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
                     </a>
                 </li>
             </ul><!-- end artworks -->
@@ -276,8 +276,8 @@
                             <source src=" {{item.audio.media}} " type="audio/ogg" />
                         </audio>
                    
-                    <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.name}} </h5>
-                    <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">illustration / design</span>
+                    <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.symbol}} </h5>
+                    <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
                 </a>
             </li>
 
@@ -304,7 +304,7 @@
                
                 
                 <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
-                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>
+                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}}</h5>
                 <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
             </a>
         </li>

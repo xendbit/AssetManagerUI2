@@ -40,8 +40,14 @@
                 <source src=" {{item.media}}" type="video/ogg" />
             </video>
             </div>
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="width: 600px; " >
-              <audio  controls controlsList="nodownload" style="width: 500px">
+            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="
+            background-image: url({{this.tempImage}});
+            width: 700px;
+            background-size: cover;
+            height: 400px;" >
+              <audio  controls controlsList="nodownload" style="
+              width: 500px; 
+              margin-top: 160px;">
                 <source src=" {{item.media}}" type="audio/mp3" />
                 <source src="{{item.media}}" type="audio/wav" />
                 <source src=" {{item.media}}" type="audio/ogg" />
@@ -89,11 +95,11 @@
       </p>
   
       <p>
-        <b> Starts Date: </b> {{this.auctionStart | date  }}
+        <b> Start Date: </b> {{this.auctionStart | date  }}
       </p>
   
       <p>
-        <b> Ends Date: </b> {{this.auctionEnd | date  }}
+        <b> End Date: </b> {{this.auctionEnd | date  }}
       </p>
 		
 
@@ -106,6 +112,12 @@
           <b> Buy Now Price: </b> {{this.auction.sellNowPrice  }}
         </p>
       </li>
+
+      <li>
+        <p>
+        <b> Minimum Bid acceptable: </b> {{this.auction.minimumBid  }}
+      </p>
+    </li>
 				<li *ngIf="this.asset.hasActiveAuction === true">
           <b> Status: </b> Active
         </li>
@@ -125,18 +137,20 @@
 			</ul>
 
       <form #buyForm="ngForm" novalidate >
-                       
+        <div class="row" *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )">
+          (Enter bidding amount to place bid) 
+         </div>
         <div class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
             <div class="col-lg-9 col-md-9 col-sm-9">
               <p class="input-block">
                 <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Amount" type="number" id="amount" name="amount" [(ngModel)]="amount" required>
+                  <input matInput placeholder="Bid price (ETH)" type="number" id="amount" name="amount" [(ngModel)]="amount" required>
                   </mat-form-field>
                 
               </p>
-                
             </div>
         </div>
+        
 
            
         <div style="padding-bottom: 20px; ">
@@ -147,11 +161,13 @@
         
             </button>
 
-            <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
+           
+
+            <!-- <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
         
               Place Bid
           
-              </button>
+              </button> -->
 
               <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
         

@@ -99,6 +99,8 @@ export class ViewAssetComponent implements OnInit {
                     this.getAssetDetails();
                     this.getAuctionInfo();
                     // this.getPrimarySharesRemaining(this.tokenId);
+                } else {
+                  this.router.navigateByUrl('/home');
                 }
             },
             err => {

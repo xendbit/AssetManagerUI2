@@ -74,6 +74,7 @@ export class SecondaryViewComponent implements OnInit {
   sellNowPrice: number;
   imageObject: any[] = [];
   userAgent: string;
+  tempImage: string;
 
   constructor(public assetService: AssetsService, public router: Router, public adminService: AdminService,
     public loginService: LoginService, public activatedRoute: ActivatedRoute) {
@@ -99,6 +100,7 @@ export class SecondaryViewComponent implements OnInit {
       this.account = data.account;
       console.log('this is wallet', this.account)
     })
+    this.tempImage = '/assets/img/nft.png';
     this.activatedRoute.paramMap
         .subscribe(
             () => {
@@ -543,7 +545,8 @@ getSellOrders() {
   }
 
   sendMarketOrder() {
-    let minimumBid = parseInt(this.auction.minimumBid);
+    let minimumBid = parseFloat(this.auction.minimumBid);
+    console.log('this is minimum bid', minimumBid)
     if (this.balance < this.amount ) {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
