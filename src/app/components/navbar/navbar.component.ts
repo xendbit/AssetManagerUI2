@@ -103,8 +103,28 @@ export class NavbarComponent implements OnInit {
       }
     
       goToAllAssets(page) {
-        this.router.navigateByUrl('/assets', { state : { from: page} });
-      }
+        this.router.navigate(['/assets'], { state : { from: page} } ).then(() => {
+        window.location.reload();
+        });
+      };
+
+      goToMyAssets() {
+        this.router.navigate(['/myAssets'] ).then(() => {
+        window.location.reload();
+        });
+      };
+
+      goToUserDashboard() {
+        this.router.navigate(['/user-dashboard'] ).then(() => {
+        window.location.reload();
+        });
+      };
+
+      goToHome() {
+        this.router.navigate(['/home'] ).then(() => {
+        window.location.reload();
+        });
+      };
 
       
 

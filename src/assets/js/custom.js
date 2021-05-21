@@ -82,6 +82,7 @@ jQuery(document).ready(function($) {
 		}).on('mouseleave', 'li', function() {
 			$(this).removeClass('hover').children('ul').stop(true, true).fadeOut(50);
 		});
+
 		
 	})();
 

@@ -25,7 +25,7 @@
              <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                 <a style="padding: 0px;">
                       
-                        <img src="{{item.data.media}}" alt="">
+                        <img src="{{item.image.media}}" alt="">
                         <audio class="AudioPlayerV1" controls style="width: 14rem;" controlsList="nodownload">
                             <source src="{{item.audio.media}}" type="audio/mp3" />
                             <source src=" {{item.audio.media}} " type="audio/ogg" />
@@ -56,7 +56,7 @@
                 <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                     <a style="padding: 0px;">
                         <img src="{{item.image.media}}" alt="">
-                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
+                        <h5 (click)="view(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
                         <span class="categories"(click)="view(item.tokenId, 'sellPage')">illustration / design</span>
                     </a>
                 </li>
@@ -93,7 +93,7 @@
     width: 0;
     height: 270px;">
         <li  *ngFor="let item of this.videos  let i=index">
-            <video (click)="viewSec(item.tokenId, 'sellPage')" poster="{{item.image.media}}" style="width: 15rem;"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+            <video (click)="view(item.tokenId, 'sellPage')" poster="{{item.image.media}}" style="width: 15rem;"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                 <source src=" {{item.video.media}}" type="video/mp4" />
                 <source src="{{item.video.media}}" type="video/webm" />
                 <source src=" {{item.video.media}}" type="video/ogg" />
@@ -102,8 +102,8 @@
                
                 
                 <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
-                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>
-                <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
+                <h5 (click)="view(item.tokenId, 'sellPage')" class="title">{{item.name}}</h5>
+                <span class="categories" (click)="view(item.tokenId, 'sellPage')">NFT / Movie-right</span>
             </a>
             <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.videos.length === 0"> You currently do not have any Asset in this category  </h5>
         </li>

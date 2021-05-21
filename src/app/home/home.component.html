@@ -227,7 +227,34 @@
 
 <section id="content" class="container clearfix">
        
-		
+	
+   
+
+
+	<h6 class="section-title">Artworks</h6>
+
+	
+        
+            <ul class="projects-carousel clearfix" style="overflow: hidden;
+            position: relative;
+            top: 0px;
+            margin: 0px;
+            padding: 0px;
+            left: 0px;
+            width: 0;
+            height: 221px;">
+                <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                    <a style="padding: 0px;">
+                        <img src="{{item.image.media}}" alt="">
+                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
+                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">illustration / design</span>
+                    </a>
+                </li>
+            </ul><!-- end artworks -->
+
+	
+
+	
 
 
 	<h6 class="section-title">Music Rights</h6>
@@ -255,33 +282,6 @@
             </li>
 
             </ul>
-
-   
-
-
-	<h6 class="section-title">Artworks</h6>
-
-	
-        
-            <ul class="projects-carousel clearfix" style="overflow: hidden;
-            position: relative;
-            top: 0px;
-            margin: 0px;
-            padding: 0px;
-            left: 0px;
-            width: 0;
-            height: 221px;">
-                <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
-                    <a style="padding: 0px;">
-                        <img src="{{item.image.media}}" alt="">
-                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
-                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">illustration / design</span>
-                    </a>
-                </li>
-            </ul><!-- end artworks -->
-
-	
-
 
 
 	<h6 class="section-title">Movie Rights</h6>

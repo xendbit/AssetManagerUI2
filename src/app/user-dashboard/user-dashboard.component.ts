@@ -31,6 +31,7 @@ export class UserDashboardComponent implements OnInit {
   fullName: string;
   firstName: string;
   middleName: string;
+  endBlock: string;
   userId: string;
   balance: any;
   totalSellOrders: any;
@@ -188,6 +189,7 @@ register(register: NgForm) {
   const middleName = register.value.middleName;
   const lastName = register.value.lastName;
   const phone = register.value.phone;
+  console.log('this is it', register.value.endBlock);
   const blockchainAddress = register.value.blockchainAddress;
   if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
     this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
@@ -201,7 +203,6 @@ register(register: NgForm) {
     if (res['status'] === 'success') {
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
-      this.router.navigateByUrl('/login')
     }
   }, err => {
     console.log(err.error.data.error);
@@ -265,7 +266,7 @@ register(register: NgForm) {
       },
       error => {
         this.response = error['error']['data']['error'];
-        console.log('this is error', this.response);
+        console.log('this is error', error);
       })
     })
     

@@ -29,25 +29,7 @@ export class PortfolioComponent implements OnInit {
     this.videos = [];
     this.getAssets();
     this.getAllAssets();
-    this.activeRoute.params.subscribe(routeParams => {
-      this.getAssets();
-    });
  
-  }
-
-  ngAfterContentInit() {
-    this.audios = [];
-    this.images = [];
-    this.videos = [];
-    this.getAssets();
-   }
-
-  ngAfterViewInit() {
-    
-  }
-
-  refreshPage() {
-    document.defaultView.location.reload();
   }
 
   getAssets() {

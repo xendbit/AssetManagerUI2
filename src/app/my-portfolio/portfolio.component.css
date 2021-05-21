@@ -316,11 +316,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			position: relative;
 		}
 
-            audio::-webkit-media-controls-play-button,
-			audio::-webkit-media-controls-panel {
-			background-color: #FFA501;
-			color: #FFA501;
-			}
+          
 		
 		.projects-carousel > li, .post-carousel > li { width: 240px; }
         .another-carousel > li { width: 220px; }

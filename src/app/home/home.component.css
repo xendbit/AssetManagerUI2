@@ -1341,11 +1341,6 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 				width: 15rem;
 			}
 
-			audio::-webkit-media-controls-play-button,
-			audio::-webkit-media-controls-panel {
-			background-color: #FFA501;
-			color: #FFA501;
-			}
 
             .another-carousel img { margin: -25px auto 20px; }
 

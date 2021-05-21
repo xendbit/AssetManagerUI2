@@ -8,54 +8,56 @@
 		<div id="main" style="width: 100%;">  
       <div style="background-color: white;  min-height: 100vh; height: 100%; overflow-x: hidden;">
         <div class="container-fluid container-lg container-home" >
-          
+             <h2 class="text-uppercase font-weight-light" style="margin-top: 10px;">
+              Dashboard
+          </h2>
 
-          <div class="row" style="font-family: 'Playfair Display SC', serif !important">
-            <div class="col-lg-3 col-md-3 col-sm-3">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                     <div class="card-header card-header-success card-header-icon">
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <i class="material-icons" style="color: black;">waves</i>
                         </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Wallet Balance</p>
-                        <h3 class="card-title" style="color: black; font-family: 'Cardo', serif !important;"> {{this.balance}} ETH  </h3>
+                        <p class=" small font-weight-medium" style="color: black;">Wallet Balance</p>
+                        <h3 class="card-title" style="color: black; font-weight:300; font-family: 'Cardo', serif !important;"> {{this.balance | number : '1.0-5'}} ETH  </h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                        <div class="stats" style="color: black;">
                             <i class="material-icons">date_range</i> Last 24 Hours
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-3">
+            <div class="col-lg-6 col-md-6 col-sm-6"  style="margin-bottom: 20px;">
                 <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Value</p>
-                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{3000 | currency:"$"}}  </h3>
+                        <p class=" small font-weight-medium" style="color: black;">Total Assets Value</p>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{3000 | currency:"$"}}  </h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                        <div class="stats" style="color: black;">
                             <i class="material-icons">local_offer</i> Total value
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
+            <!-- <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
                 <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                     <div class="card-header card-header-danger card-header-icon">
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
                         <p class="text-uppercase small font-weight-medium" style="color: black;">Total Bids Made</p>
-                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{this.totalOrders}} </h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                        <div class="stats" >
                             <i class="material-icons">local_offer</i> Total Bids
                         </div>
                     </div>
@@ -68,22 +70,20 @@
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <i class="material-icons" style="color: black;">info_outline</i>
                         </div>
-                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets Owned</p>
-                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif;"> {{this.totalOrders}} </h3>
+                        <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets</p>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{this.totalOrders}} </h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats" style="color: black; font-family: 'Playfair Display SC', serif;">
+                        <div class="stats" >
                             <i class="material-icons">local_offer</i> Total Assets
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <h2 class="text-uppercase font-weight-light" style="margin-top: 10px; font-family: 'Playfair Display SC', serif !important">
-              Manage Account
-          </h2>
+         
 
-          <ul class="tabs-nav">
+          <ul class="tabs-nav" >
   
             <li class="active">
               <a href="#tab1">Issue Asset</a>
@@ -406,6 +406,7 @@
                             <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
                             <input autofocus type="text" matInput placeholder="Last Name" id="lastName" name="lastName" [(ngModel)]="lastName" >
                           </mat-form-field>
+                          
                           <mat-form-field style=" font-size: 11pt;">
                             <mat-icon matPrefix style="margin-right: 2rem ;">call</mat-icon>
                             <input autofocus type="phone" matInput placeholder="Phone Number" id="phone" name="phone" [(ngModel)]="phone" >

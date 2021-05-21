@@ -47,6 +47,9 @@ export class ViewAssetComponent implements OnInit {
   image: any;
   form: FormGroup;
   auctionId: number;
+  auction: any;
+  auctionStart: any;
+  auctionEnd: any;
   endBlock: number;
   startBlock: number;
   minimumPrice: number;
@@ -61,6 +64,7 @@ export class ViewAssetComponent implements OnInit {
         'startBlock': this.startBlock,
         'minimumPrice': this.minimumPrice,
         'sellNowPrice': this.sellNowPrice
+
     });
     }
 
@@ -93,6 +97,7 @@ export class ViewAssetComponent implements OnInit {
                     // this.getMarketSettings();
                     // this.getOwnedShares();
                     this.getAssetDetails();
+                    this.getAuctionInfo();
                     // this.getPrimarySharesRemaining(this.tokenId);
                 }
             },
@@ -140,9 +145,20 @@ export class ViewAssetComponent implements OnInit {
     });
   }
 
-  async startAuction(tokenId) {
-    const minBid = this.form.get('minimumPrice').value;
-    const sell = this.form.get('sellNowPrice').value;
+  getAuctionInfo() {
+  this.assetService.getAuctionInfo(this.asset.tokenId, this.auctionId).subscribe(res => {
+    this.auction = res['data'];
+    console.log('this is auction info', this.auction)
+    this.auctionStart = new Date(this.auction['startDate'])
+    this.auctionEnd = new Date(this.auction['endDate']);
+    this.sellNowPrice = parseInt(this.auction['sellNowPrice'])
+    this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
+  })
+}
+
+  async startAuction(auction: NgForm, tokenId) {
+    const minBid = auction.value.minimumPrice;
+    const sell =  auction.value.sellNowPrice;
     console.log('this is price', minBid)
     if (sell < minBid) {
       this.assetService.showNotification('top', 'center', 'Please enter a sell-now price greater than or equal to your minimum bid', 'danger');
@@ -151,21 +167,23 @@ export class ViewAssetComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];
-      let startDate = new Date(this.form.get('startBlock').value);
-      let endDate = new Date(this.form.get('endBlock').value)
+      let startDate = new Date(auction.value.startBlock);
+      let endDate = new Date(auction.value.endBlock)
       let currentDate = Date.now();
-      let startDateValue = this.form.get('startBlock').value;
-      let endDateValue = this.form.get('endBlock').value
+      let startDateValue = auction.value.startBlock;
+      let endDateValue = auction.value.endBlock;
+      // console.log('this is start date', auction.value.startBlock)
+      // console.log('this is endDate', this.endBlock)
 
       let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
       let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
       let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
       let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
-      let sellNow: string =  this.form.get('sellNowPrice').value.toString();
-      let minimumPrice: string =  this.form.get('minimumPrice').value.toString();
+      let sellNow: string =  sell.toString();
+      let minimumPrice: string =  minBid.toString();
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
-      // console.log('this is sell now', endDateValue) 
+      console.log('this is sell now', sellNow) 
     
       // console.log('this is days', initialStart);
       // console.log('this is start block', startBlock)

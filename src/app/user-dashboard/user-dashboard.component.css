@@ -198,7 +198,6 @@ p {
 .small, small {
     font-size: 80%;
     font-weight: 400;
-    font-family: 'Playfair Display SC', serif;
 }
 .font-weight-medium {
     font-weight: 500!important;
