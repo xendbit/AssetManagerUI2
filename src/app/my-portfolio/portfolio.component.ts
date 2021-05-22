@@ -90,7 +90,6 @@ export class PortfolioComponent implements OnInit {
           
       })
         this.assetService.stopSpinner();
-        console.log('these are my assets, ', this.myAssets);
       },
       err => {
           console.log(err);

@@ -38,7 +38,7 @@
              
             </li>
 
-            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.audios.length === 0"> You currently do not have any Asset in this category  </h5>
+            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.audios.length === 0"> There are currently no assets in this category.  </h5>
             </ul>
 
             <h6 class="section-title">Artworks</h6>
@@ -75,7 +75,7 @@
                         <span class="categories">illustration / design</span>
                     </a>
                 </li> -->
-                <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> You currently do not have any Asset in this category  </h5>
+                <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> There are currently no assets in this category.  </h5>
             </ul><!-- end artworks -->
 
 	
@@ -105,8 +105,8 @@
                 <h5 (click)="viewOrder(item.tokenId)" class="title">{{item.name}}</h5>
                 <span class="categories" (click)="viewOrder(item.tokenId)">NFT / Movie-right</span>
             </a>
-            <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.videos.length === 0"> You currently do not have any Asset in this category  </h5>
         </li>
+        <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.videos.length === 0"> There are currently no assets in this category.  </h5>
     </ul><!-- end artworks -->
   
     
