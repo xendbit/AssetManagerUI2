@@ -35,7 +35,7 @@ export class AllAssetsComponent implements OnInit {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
       this.assets.forEach(element => {
-        if (element.media.length > 0 ) {
+        if (element.media.length > 0  && element.hasActiveAuction === true) {
           if (element.category === 'artwork') {
             const image = element.media.filter(x => {
               return x.mediaKey ==='image';
