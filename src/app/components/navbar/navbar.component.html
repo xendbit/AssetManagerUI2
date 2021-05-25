@@ -2,10 +2,10 @@
 	<div  *ngIf="this.userAgent === 'mobile'" class="row">
 		<div class="col-12 col-lg-6">
 			<a (click)="goToHome()" id="logo">
-				<img style="width: 5rem;
+				<img style="width: 10rem;
 				/* margin-right: 13rem; */
 				margin-top: 18px; 
-				margin-bottom: 10px;" src="/assets/img/xendswapb.png" alt="Yasuke logo">
+				margin-bottom: 10px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 			</a>
 		</div>
 		
@@ -32,14 +32,14 @@
 		</div>
 
 		<div class="row" *ngIf="this.isConnected && this.balance" style="text-align: center; margin-left: 30%; margin-right: 20%">
-			<button   type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
+			<button   type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #77CA54; border-color: transparent; color: black; margin-top: 20px;">
 	  
 				Balance: {{this.balance}} ETH
 			
 			</button>
 		</div>
 		<div class="row" style="text-align: center; margin-left: 27%; margin-right: 25%">
-			<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-top: 20px;">
+			<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #77CA54; border-color: transparent; color: black; margin-top: 20px;">
 	  
 				Connect Wallet
 			
@@ -56,7 +56,7 @@
 	
 	<div id="header" class="container clearfix">
 		<a *ngIf="this.userAgent !== 'mobile'" (click)="goToHome()" id="logo">
-			<img style="width: 10rem; margin-top: 20px;" src="/assets/img/xendswapb.png" alt="Yasuke logo">
+			<img style="width: 12rem; margin-top: 20px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 		</a>
 		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
 		
@@ -79,7 +79,7 @@
 				</li>
 				<li>
 					<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
-						background-color: orange; 
+						background-color: #77CA54; 
 						border-color: transparent; 
 						color: black; 
 						margin-top: 20px;
@@ -91,7 +91,7 @@
 					</button>
 					
 					<button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
-					background-color: orange; 
+					background-color: #77CA54; 
 					border-color: transparent; 
 					color: black; 
 					margin-right: 15px; 

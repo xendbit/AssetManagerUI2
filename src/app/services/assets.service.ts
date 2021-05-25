@@ -70,10 +70,10 @@ declare let window: any;
     }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
-    yasuke = 'https://lb.xendbit.net/api/yasuke';
+    nifty = 'https://lb.xendbit.net/api/yasuke';
     private web3Provider: any;
     api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
-    yasuke_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
+    nifty_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 
   async getMetamaskInfo() {
     const accounts = await this.metamask.request({ method: 'eth_requestAccounts' });
@@ -100,8 +100,8 @@ declare let window: any;
   saveIssuer(email: string, phone: string, firstname: string, lastname: string, middlename: string, blockchainAddress: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.post(`${this.yasuke}/save-issuer/`, {
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.post(`${this.nifty}/save-issuer/`, {
       "email": email,
       "phoneNumber": phone,
       "firstName": firstname, 
@@ -179,8 +179,8 @@ declare let window: any;
   getCurrentBlock()  {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/get-block`, {headers})
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/get-block`, {headers})
   }
 
   async placeBid(tokenId, auctionId, bidAmount) {
@@ -236,23 +236,23 @@ declare let window: any;
   getContractAddress() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/get-contract-address`, {headers})
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/get-contract-address`, {headers})
   }
 
   listAuctionByTokenId(tokenId) {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.yasuke_api_key);
-      return this.httpClient.get(`${this.yasuke}/list-auctions/by-token-id/${tokenId}?page=1&limit=200`, {headers})
+      headers = headers.append('api-key', this.nifty_api_key);
+      return this.httpClient.get(`${this.nifty}/list-auctions/by-token-id/${tokenId}?page=1&limit=200`, {headers})
       
   }
 
   getAuctionInfo(tokenId, auctionId) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/get-auction-info/${tokenId}/${auctionId}`, {headers})
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/get-auction-info/${tokenId}/${auctionId}`, {headers})
     
 }
 
@@ -323,8 +323,8 @@ declare let window: any;
   getAllAssets() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/list-tokens?page=1&limit=200`, {headers});
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/list-tokens?page=1&limit=200`, {headers});
   }
 
   getOwnedShares(userId, tokenId) {
@@ -351,8 +351,8 @@ declare let window: any;
   issueToken(tokenId, medias, mediaType, dateCreated, category) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.post(`${this.yasuke}/issue-token/`, {"tokenId": tokenId,
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.post(`${this.nifty}/issue-token/`, {"tokenId": tokenId,
       "medias": medias,
       "keys": mediaType, 
       "dateIssued": dateCreated,
@@ -360,11 +360,11 @@ declare let window: any;
     },  {headers})
   }
 
-  startAuctionYasuke(auctionId, tokenId, startDate, endDate) {
+  startAuctionNifty(auctionId, tokenId, startDate, endDate) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.post(`${this.yasuke}/start-auction`, 
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.post(`${this.nifty}/start-auction`, 
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -375,8 +375,8 @@ declare let window: any;
   listToken() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/issue-token/`)
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/issue-token/`)
   }
 
   fetchOrderById(orderId) {
@@ -390,8 +390,8 @@ declare let window: any;
     console.log('from here',userId)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/list-tokens/by-owner/${userId}?page=${1}&limit=100`, {headers});
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/list-tokens/by-owner/${userId}?page=${1}&limit=100`, {headers});
   }
 
   getAccountInfo() {
@@ -416,8 +416,8 @@ declare let window: any;
   getAssetsByTokenId(tokenId) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/get-token-info/${tokenId}`, {headers});
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/get-token-info/${tokenId}`, {headers});
   }
 
   getWaletBalance(userId) {
@@ -430,8 +430,8 @@ declare let window: any;
   getIssuerStatus(walletAddress) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.yasuke_api_key);
-    return this.httpClient.get(`${this.yasuke}/is-issuer/${walletAddress}`, {headers});
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/is-issuer/${walletAddress}`, {headers});
   }
 
   buyAsset(body) {

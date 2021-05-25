@@ -1375,16 +1375,16 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 
 			.projects-carousel a:hover, #portfolio-items > article:hover {
 				background: #f8f8f8;
-				border-bottom: 1px solid #f15a23;
+				border-bottom: 1px solid #77CA54;
 			}
 
             .another-carousel a:hover {
 				background: #f8f8f8;
-				border-bottom: 1px solid #f15a23;
+				border-bottom: 1px solid #77CA54;
 			}
 
 			.not-ie .projects-carousel a:hover:after, .not-ie #portfolio-items > article:hover:after {
-				background: #f15a23;
+				background: #77CA54;
 				bottom: -2.5px;
 				content: '';
 				left: 50%;
@@ -1401,7 +1401,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 			}
 
             .not-ie .another-carousel a:hover:after {
-				background: #f15a23;
+				background: #77CA54;
 				bottom: -2.5px;
 				content: '';
 				left: 50%;
@@ -1427,7 +1427,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 				opacity: 1;
 			}
 
-			.projects-carousel a:hover .title, #portfolio-items > article:hover .title { color: #f15a23; }
+			.projects-carousel a:hover .title, #portfolio-items > article:hover .title { color: #77CA54; }
             .another-carousel a:hover .title { color: #f15a23; }
 
 	/* -------------------------------------------------- */
