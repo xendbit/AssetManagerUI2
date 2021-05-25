@@ -847,7 +847,7 @@ ul.dotted + ul.dotted:before {
   }
 
   .slides img {
-	width: 700px;
+	width: 800px;
 	height: 400px;
 	object-fit: cover;
 }
@@ -874,7 +874,6 @@ ul.dotted + ul.dotted:before {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
   }
   

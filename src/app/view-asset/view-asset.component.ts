@@ -192,7 +192,7 @@ export class ViewAssetComponent implements OnInit {
       // console.log('this is minimum', minimumPrice)
       this.assetService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
         setTimeout(() => { 
-          this.assetService.startAuctionnifty(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
+          this.assetService.startAuctionNifty(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
           console.log('this is response', data);
           this.assetService.showNotification('top', 'center', 'Auction has been started for this asset', 'success');
           this.assetService.stopSpinner();
