@@ -55,6 +55,8 @@ export class ViewAssetComponent implements OnInit {
   minimumPrice: number;
   sellNowPrice: number;
   currentBlock: number;
+  tempImage: string;
+  tokenAuctionId: number;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router, public adminService: AdminService, public fb: FormBuilder) { 
@@ -96,8 +98,8 @@ export class ViewAssetComponent implements OnInit {
                     // this.getHolidays();
                     // this.getMarketSettings();
                     // this.getOwnedShares();
+                    this.tempImage = '/assets/img/nft.png';
                     this.getAssetDetails();
-                    this.getAuctionInfo();
                     // this.getPrimarySharesRemaining(this.tokenId);
                 } else {
                   this.router.navigateByUrl('/home');
@@ -115,6 +117,9 @@ export class ViewAssetComponent implements OnInit {
     this.assetService.getAssetsByTokenId(this.tokenId).subscribe(data => {
       console.log('this is data for asset', data);
       this.asset = data['data'];
+      this.tokenAuctionId = this.asset.lastAuctionId;
+      console.log('this is auction id for token', this.tokenAuctionId)
+      this.getAuctionInfo();
       this.assetService.stopSpinner()
     }, err => {
       this.assetService.stopSpinner();
@@ -148,7 +153,7 @@ export class ViewAssetComponent implements OnInit {
   }
 
   getAuctionInfo() {
-  this.assetService.getAuctionInfo(this.asset.tokenId, this.auctionId).subscribe(res => {
+  this.assetService.getAuctionInfo(this.tokenId, this.tokenAuctionId).subscribe(res => {
     this.auction = res['data'];
     console.log('this is auction info', this.auction)
     this.auctionStart = new Date(this.auction['startDate'])

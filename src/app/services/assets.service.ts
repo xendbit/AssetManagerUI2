@@ -249,6 +249,7 @@ declare let window: any;
   }
 
   getAuctionInfo(tokenId, auctionId) {
+    console.log('this is what i got', auctionId)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);

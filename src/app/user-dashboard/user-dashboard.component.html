@@ -257,7 +257,7 @@
                   </mat-card>
 
 
-                  <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+                  <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
                     <form [formGroup]="form">
                           <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -275,7 +275,7 @@
                                 <mat-label style="color: rgb(112, 112, 112);">
                                   * Art Title:
                                 </mat-label>
-                                <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;"> 
+                                <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"> 
                                   <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
                                   <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
                                 </mat-form-field>
@@ -287,7 +287,7 @@
                                 <mat-label style="color: black;">
                                   * Asset Symbol:
                                 </mat-label>
-                                <mat-form-field class="example-full-width" style="font-family: 'Cardo', serif;">
+                                <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
                                   <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
                                   <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
                                 </mat-form-field>
@@ -296,13 +296,13 @@
                           
 
                             <div class="row">
-                              <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                              <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
                                 <mat-label style="color: rgb(112, 112, 112);">
                                   * Select Artwork:
                                 </mat-label>
                                   <input multiple type="file" id="images" (change)="uploadFile($event)" #fileInput>
                               </div>
-                              <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                              <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
                                 <mat-label style="color: rgb(112, 112, 112);">
                                   * Select Cover Art:
                                 </mat-label>
@@ -310,15 +310,15 @@
                               </div>
                             </div>
                             <div style="margin-top: 5px;" class="row">
-                              <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
+                              <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
                                 <mat-label style="color: rgb(112, 112, 112);">
                                   * Select Media File:
                                 </mat-label>
                                 <input  type="file" id="images" (change)="uploadFile($event)" #fileInput>
                               </div>
                             </div>
-                            <div class="row" style="margin-top: 10px; font-family: 'Cardo', serif  !important;">
-                                <p class="font-weight-medium" style="font-family: 'Cardo', serif  !important;">
+                            <div class="row" style="margin-top: 10px; font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
+                                <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
                                     Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
                                   </p>
                             </div>
@@ -388,8 +388,8 @@
                     <div class="card-body" style="width: auto; justify-content: center; align-items: center;"> 
                       
                         <form  #registerForm="ngForm"  novalidate>
-                          <div class="row" style="margin-top: 10px; font-family: 'Cardo', serif  !important;">
-                            <p class="font-weight-medium" style="font-family: 'Cardo', serif  !important; margin-left: 10%; margin-right: 6%;">
+                          <div class="row" style="margin-top: 10px; font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
+                            <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important; margin-left: 10%; margin-right: 6%;">
                                Please Fill the form below and register as issuer before you can issue assets.
                               </p>
                           </div>
