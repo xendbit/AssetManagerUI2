@@ -1,8 +1,9 @@
 <html class="not-ie no-js" lang="en">  <!--<![endif]-->
 <body>
   <ngx-spinner></ngx-spinner>
+  <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
     <div class="demo-wrap">
-        <app-navbar></app-navbar>
+        <app-navbar *ngIf="this.userAgent !== 'mobile'"></app-navbar>
         <img
               class="demo-bg"
               src="/assets/img/banner-bg.jpg"
@@ -24,7 +25,7 @@
                         height: 221px;">
                             <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                                 <a style="padding: 0px;">
-                                    <img src="{{item.image.media}}" alt="">
+                                    <img (click)="view(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
                                     <h5 (click)="view(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
                                     <span class="categories"(click)="view(item.tokenId, 'sellPage')">illustration / design</span>
                                 </a>
@@ -45,7 +46,7 @@
                          <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                             <a style="padding: 0px;">
                                   
-                                    <img src="{{item.image.media}}" alt="">
+                                    <img (click)="view(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
                                     <audio class="AudioPlayerV1" controls style="width: 14rem;" controlsList="nodownload">
                                         <source src="{{item.audio.media}}" type="audio/mp3" />
                                         <source src=" {{item.audio.media}} " type="audio/ogg" />

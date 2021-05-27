@@ -57,6 +57,7 @@ export class ViewAssetComponent implements OnInit {
   currentBlock: number;
   tempImage: string;
   tokenAuctionId: number;
+  userAgent: any;
 
   constructor(public activatedRoute: ActivatedRoute, public assetService: AssetsService, public loginService: LoginService,
     public router: Router, public adminService: AdminService, public fb: FormBuilder) { 
@@ -71,13 +72,14 @@ export class ViewAssetComponent implements OnInit {
     }
 
   ngOnInit(): void { 
-    // this.userId = localStorage.getItem('userId');
-    // if (this.userId === null || this.userId === undefined) {
-    //   this.notLoggedIn = true;
-    // } else {
-    //   this.notLoggedIn = false;
-    // }
-    // this.balanceComplete = false;
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
    
     this.assetService.getMetamaskInfo().then(data => {
       this.balance = data.balance;

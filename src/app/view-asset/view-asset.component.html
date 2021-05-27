@@ -1,8 +1,9 @@
 <html class="not-ie no-js" lang="en">
 <body>
   <ngx-spinner></ngx-spinner>
+  <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
   <div class="demo-wrap">
-    <app-navbar></app-navbar>
+    <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
     <img
           class="demo-bg"
           src="/assets/img/banner-bg.jpg"
@@ -94,7 +95,7 @@
               <li>
                 <p>
                   <b> Token ID: </b>  
-                  <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                  <a href="https://testnet.bscscan.com/token/0x6dbb11e6babd021d305145b8d92a80a41885f065?a={{this.asset.tokenId}}" target="_blank" style="color: blue;"> 
                     {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
                       fingerprint
                     </span>

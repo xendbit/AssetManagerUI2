@@ -488,18 +488,7 @@ label {
 
 input, textarea, select {
 	-webkit-appearance: none; /* Fix for Mobile Safari */
-	background-color: #f8f8f8;
-	border: 1px solid #e8e8e8;
-	-webkit-border-radius: 0;
-	   -moz-border-radius: 0;
-	        border-radius: 0;
-	-webkit-box-shadow: none;
-	   -moz-box-shadow: none;
-			box-shadow: none;
-	color: #8f8f8f;
 	font: 12px/1.5 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-	padding: 5px 10px;
-	border-radius: 0;
 }
 
 input, select {
@@ -616,6 +605,11 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 	margin: 0 auto;
 	position: relative;
 	width: 940px;
+}
+
+.mat-form-field-infix {
+    padding: .5em 0;
+    border: 0 !important;
 }
 
 
@@ -746,7 +740,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
     .modal {
         width: 100%;
         height: 90%;
-        margin-top: 30px;
+        margin-top: 10px;
     }
 
     .modal-header {
@@ -764,7 +758,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
         display: flex; 
         justify-content: center;  
         opacity: 100%;
-        margin-bottom: 5%;
+        margin-bottom: 10%;
     }
 
     .card-body {
@@ -772,7 +766,8 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
         min-height: 1px;
         padding: 0;
     }
- 	.container { width: 300px; }
+
+ 	.container { width: 370px; }
 
 
 }

@@ -2,8 +2,9 @@
 
 <body>
     <ngx-spinner></ngx-spinner>
+    <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
     <div class="demo-wrap">
-        <app-navbar> </app-navbar>
+        <app-navbar *ngIf="this.userAgent !== 'mobile'"> </app-navbar>
         <img
           class="demo-bg"
           src="/assets/img/banner-bg.jpg"
@@ -58,7 +59,7 @@
                                 <div *ngIf="this.userAgent !== 'mobile'"  class="row">
                                     <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
+                                            <img class="img-fluid" src="/assets/img/tryslide.jpg">
                                         </div>
                                     </div>
                                     <div class="col-1">
@@ -121,7 +122,7 @@
                                     </div>
                                     <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/record.jpeg">
+                                            <img class="img-fluid" src="/assets/img/musicpexel.jpg">
                                         </div>
                                     </div>
                                    
@@ -156,7 +157,7 @@
                                 <div *ngIf="this.userAgent !== 'mobile'" class="row">
                                     <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/video_nft.jpeg">
+                                            <img class="img-fluid" src="/assets/img/moviepexel.jpg">
                                         </div>
                                     </div>
                                     <div class="col-1">
@@ -218,7 +219,7 @@
                                     </div>
                                     <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/binance.jpeg">
+                                            <img class="img-fluid" src="/assets/img/binancenew.png">
                                         </div>
                                     </div>
                                     
@@ -272,7 +273,7 @@
                     height: 221px;">
                         <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                             <a style="padding: 0px;">
-                                <img src="{{item.image.media}}" alt="">
+                                <img (click)="viewSec(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
                                 <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
                                 <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
                             </a>
@@ -292,7 +293,7 @@
                     <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                         <a style="padding: 0px;">
                             
-                                <img src="{{item.image.media}}" alt="">
+                                <img (click)="viewSec(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
                                 <audio class="AudioPlayerV1" style="color: orange;" controls controlsList="nodownload">
                                     <source src="{{item.audio.media}}" type="audio/mp3" />
                                     <source src=" {{item.audio.media}} " type="audio/ogg" />

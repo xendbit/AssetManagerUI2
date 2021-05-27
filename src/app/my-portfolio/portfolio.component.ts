@@ -21,12 +21,21 @@ export class PortfolioComponent implements OnInit {
   images: any[];
   videos: any[];
   audios: any[];
+  userAgent: any;
 
   constructor(public assetService: AssetsService, public router: Router, private activeRoute: ActivatedRoute) { }
   ngOnInit() {
     this.audios = [];
     this.images = [];
     this.videos = [];
+    var ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+      this.userAgent = 'mobile';
+    } else if(/Chrome/i.test(ua)) {
+      this.userAgent = 'chrome';
+    } else {
+      this.userAgent = 'desktop';
+    }
     this.getAssets();
     this.getAllAssets();
  
