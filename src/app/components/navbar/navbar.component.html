@@ -1,5 +1,4 @@
-
-	<div  *ngIf="this.userAgent === 'mobile'" class="row">
+<div  *ngIf="this.userAgent === 'mobile'" class="row">
 		<div class="col-12 col-lg-6">
 			<a (click)="goToHome()" id="logo">
 				<img style="width: 10rem;
@@ -8,7 +7,6 @@
 				margin-bottom: 10px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 			</a>
 		</div>
-		
 		<div class="col-12 col-lg-6" id="mobile-nav" >
 			<header class="clearfix" >
 				<div class="container">
@@ -27,31 +25,18 @@
 						</div>
 					</div>
 				</header>
-			
-			
 		</div>
 
 		<div class="row" *ngIf="this.isConnected && this.balance" style="text-align: center; margin-left: 30%; margin-right: 20%">
 			<button   type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #5EBA8F; border-color: transparent; color: black; margin-top: 20px;">
-	  
 				Balance: {{this.balance}} ETH
-			
 			</button>
 		</div>
 		<div class="row" style="text-align: center; margin-left: 27%; margin-right: 25%">
 			<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: #77CA54; border-color: transparent; color: black; margin-top: 20px;">
-	  
 				Connect Wallet
-			
 			</button>
-<!-- 			
-			<button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: orange; border-color: transparent; color: black; margin-right: 15px; margin-top: 20px;">
-	
-				{{this.displayedData}}
-			
-			</button> -->
 		</div>
-		
 	</div>
 	
 	<div id="header" class="container clearfix">
@@ -59,7 +44,6 @@
 			<img style="width: 12rem; margin-top: 20px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 		</a>
 		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
-		
 			<ul >
 				<li *ngIf="this.isConnected === true" class="current">
 					<a (click)="goToHome()">Home</a>
@@ -85,28 +69,17 @@
 						margin-top: 20px;
 						margin-right: 10rem;
 						margin-left: 5rem;">
-		  
 						Connect Wallet
-					
 					</button>
-					
 					<button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
 					background-color: #5EBA8F; 
 					border-color: transparent; 
 					color: black; 
 					margin-right: 15px; 
 					margin-top: 20px;">
-	  
 						{{this.displayedData}}
-					
 					</button>
 				</li>
 			</ul>
-	
-		</nav><!-- end #main-nav -->
-	
-		
+		</nav>
 	</div>
-
-	
-	

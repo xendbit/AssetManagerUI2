@@ -1,306 +1,245 @@
 <html class="not-ie no-js" lang="en">  <!--<![endif]-->
 <body>
   <ngx-spinner></ngx-spinner>
-  <app-navbar></app-navbar>
- 
-<section id="content" class="container clearfix" style="margin-top: 10px; ">
-
-	<article class="single-project">
-
-		<header class="page-header">
-
-			<h1 class="page-title align-left">Asset Details</h1>
-
-			<hr />
-
-			<h2 class="project-title">{{this.asset.name}} / {{this.asset.symbol}}</h2>
-
-			<!-- <ul class="portfolio-pagination" style="margin-top: 10px; margin-bottom: 10px;">
-				<li class="prev"><a href="#" class="button medium no-bg"><span class="arrow left">&raquo;</span> Previous</a></li>
-				<li class="next"><a href="#" class="button medium no-bg">Next <span class="arrow">&raquo;</span></a></li>
-			</ul> -->
-			
-		</header><!-- end .page-header -->
-
-		<div id="main">
-      <div class="slider">
-  
-        <!-- <a href="#slide-1">1</a>
-        <a href="#slide-2">2</a>
-        <a href="#slide-3">3</a>
-        <a href="#slide-4">4</a>
-        <a href="#slide-5">5</a> -->
+  <div class="demo-wrap">
+    <app-navbar></app-navbar>
+    <img
+          class="demo-bg"
+          src="/assets/img/banner-bg.jpg"
+          alt=""
+        >
+    <div class="demo-content" style="position: relative">
+      <section id="content" class="container clearfix" style="margin-top: 10px; ">
+        <article class="single-project">
+          <header class="page-header">
+            <h1 class="page-title align-left">Asset Details</h1>
+            <hr />
+            <h2 class="project-title">{{this.asset.name}} / {{this.asset.symbol}}</h2>
+          </header>
       
-        <div class="slides" >
-          <div *ngFor="let item of this.asset.media  let i=index" >
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp4'"  style="height: 400px; ">
-              <video  controls controlsList="nodownload">
-                <source src=" {{item.media}}" type="video/mp4" />
-                <source src="{{item.media}}" type="video/webm" />
-                <source src=" {{item.media}}" type="video/ogg" />
-            </video>
-            </div>
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="
-            background-image: url({{this.tempImage}});
-            width: 700px;
-            background-size: cover;
-            height: 400px;" >
-              <audio  controls controlsList="nodownload" style="
-              width: 500px; 
-              margin-top: 160px;">
-                <source src=" {{item.media}}" type="audio/mp3" />
-                <source src="{{item.media}}" type="audio/wav" />
-                <source src=" {{item.media}}" type="audio/ogg" />
-              </audio>
-            </div>
-
-            <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent === 'mobile'"  style="
-            width: 200px; 
-            background-image: url({{this.tempImage}});
-            background-size: cover;
-            height: 200px;" >
-              <audio  controls controlsList="nodownload" style="width: 200px; margin-top: 70px;">
-                <source src=" {{item.media}}" type="audio/mp3" />
-                <source src="{{item.media}}" type="audio/wav" />
-                <source src=" {{item.media}}" type="audio/ogg" />
-              </audio>
-            </div>
-            <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent !== 'mobile'"  style="height: 400px;width: 800px; ">
-              <img src="{{item.media}}">
-            </div>
-
-            <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent === 'mobile'"  style="height: 400px; ">
-              <img src="{{item.media}}">
+          <div id="main">
+            <div class="slider">
+              <div class="slides" >
+                <div *ngFor="let item of this.asset.media  let i=index" >
+                  <div id="slide-1" *ngIf="item.mediaKey === 'mp4'"  style="height: 400px; ">
+                    <video  controls controlsList="nodownload">
+                      <source src=" {{item.media}}" type="video/mp4" />
+                      <source src="{{item.media}}" type="video/webm" />
+                      <source src=" {{item.media}}" type="video/ogg" />
+                  </video>
+                  </div>
+                  <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent !== 'mobile'"  style="
+                  background-image: url({{this.tempImage}});
+                  width: 700px;
+                  background-size: cover;
+                  height: 400px;" >
+                    <audio  controls controlsList="nodownload" style="
+                    width: 500px; 
+                    margin-top: 160px;">
+                      <source src=" {{item.media}}" type="audio/mp3" />
+                      <source src="{{item.media}}" type="audio/wav" />
+                      <source src=" {{item.media}}" type="audio/ogg" />
+                    </audio>
+                  </div>
+      
+                  <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent === 'mobile'"  style="
+                  width: 200px; 
+                  background-image: url({{this.tempImage}});
+                  background-size: cover;
+                  height: 200px;" >
+                    <audio  controls controlsList="nodownload" style="width: 200px; margin-top: 70px;">
+                      <source src=" {{item.media}}" type="audio/mp3" />
+                      <source src="{{item.media}}" type="audio/wav" />
+                      <source src=" {{item.media}}" type="audio/ogg" />
+                    </audio>
+                  </div>
+                  <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent !== 'mobile'"  style="height: 400px;width: 800px; ">
+                    <img src="{{item.media}}">
+                  </div>
+      
+                  <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent === 'mobile'"  style="height: 400px; ">
+                    <img src="{{item.media}}">
+                  </div>
+                </div>
+                <!-- <div id="slide-2">
+                  <video controls controlsList="nodownload" style="height: 400px;">
+                    <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/webm" />
+                    <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/ogg" />
+                  </video>
+                </div>
+                <div id="slide-5" style="height: 400px;">
+                  <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6" >
+                  5
+                </div> -->
+              </div>
+             
             </div>
           </div>
-          <!-- <div id="slide-2">
-            <video controls controlsList="nodownload" style="height: 400px;">
-              <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/mp4" />
-              <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/webm" />
-              <source src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" type="video/ogg" />
-            </video>
-          </div>
-          <div id="slide-5" style="height: 400px;">
-            <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6" >
-            5
-          </div> -->
-        </div>
-       
-      </div>
       
-		
-		</div><!-- end #main -->
-
-		<div id="sidebar">
-        <h4>Overview</h4>
-
-        <p >
-          <b style="margin-top: 10px;"> Issue Date: </b> {{this.asset.dateIssued | date  }}
-      </p>
-  
-      <p>
-        <b> Start Date: </b> {{this.auctionStart | date  }}
-      </p>
-  
-      <p>
-        <b> End Date: </b> {{this.auctionEnd | date  }}
-      </p>
-		
-
-
-			<h4>More Info</h4>
-
-			<ul class="circle">
-				<li>
-          <p>
-          <b> Buy Now Price: </b> {{this.auction.sellNowPrice  }}
-        </p>
-      </li>
-
-      <li>
-        <p>
-        <b> Minimum Bid acceptable: </b> {{this.auction.minimumBid  }}
-      </p>
-    </li>
-				<li *ngIf="this.asset.hasActiveAuction === true">
-          <b> Status: </b> Active
-        </li>
-				<li *ngIf="this.asset.hasActiveAuction === false">
-          <b> Status: </b> In-Active
-        </li>
-				<li>
-          <p>
-            <b> Token ID: </b>  
-            <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
-              {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
-                fingerprint
-              </span>
-            </a>
-          </p>
-        </li>
-			</ul>
-
-      <form #buyForm="ngForm" novalidate >
-        <div class="row" *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )">
-          (Enter bidding amount to place bid) 
-         </div>
-        <div class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
-            <div class="col-lg-9 col-md-9 col-sm-9">
-              <p class="input-block">
-                <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Bid price (ETH)" type="number" id="amount" name="amount" [(ngModel)]="amount" required>
-                  </mat-form-field>
+          <div id="sidebar">
+              <h4>Overview</h4>
+              <p >
+                <b style="margin-top: 10px;"> Issue Date: </b> {{this.asset.dateIssued | date  }}
+            </p>
+            <p>
+              <b> Start Date: </b> {{this.auctionStart | date  }}
+            </p>
+            <p>
+              <b> End Date: </b> {{this.auctionEnd | date  }}
+            </p>
+            <h4>More Info</h4>
+            <ul class="circle">
+              <li>
+                <p>
+                <b> Buy Now Price: </b> {{this.auction.sellNowPrice  }}
+              </p>
+            </li>
+            <li>
+              <p>
+              <b> Minimum Bid acceptable: </b> {{this.auction.minimumBid  }}
+            </p>
+          </li>
+              <li *ngIf="this.asset.hasActiveAuction === true">
+                <b> Status: </b> Active
+              </li>
+              <li *ngIf="this.asset.hasActiveAuction === false">
+                <b> Status: </b> In-Active
+              </li>
+              <li>
+                <p>
+                  <b> Token ID: </b>  
+                  <a href="https://blockscout.com/poa/sokol/tokens/0x0B0faDc11c1E868dD0Dbca84436BFAA08Ee2f360/instance/{{this.asset.tokenId}}/token-transfers" target="_blank" style="color: blue;"> 
+                    {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
+                      fingerprint
+                    </span>
+                  </a>
+                </p>
+              </li>
+            </ul>
+      
+            <form #buyForm="ngForm" novalidate >
+              <div class="row" *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )">
+                (Enter bidding amount to place bid) 
+               </div>
+              <div class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p class="input-block">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Bid price (ETH)" type="number" id="amount" name="amount" [(ngModel)]="amount" required>
+                        </mat-form-field>
+                      
+                    </p>
+                  </div>
+              </div>
+              <div style="padding-bottom: 20px; ">
                 
+                  <button *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase ) && this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
+              
+                  Place Bid
+              
+                  </button>
+                  <!-- <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
+              
+                    Place Bid
+                
+                    </button> -->
+      
+                    <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
+                      Withdraw
+                      </button>
+              </div>
+              <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                          Please Review the fees below, click confirm to  proceed with this bid for {{this.asset.name}} :
+                        <div class="row" style="margin-top: 5px;">
+                            <p style="margin-left: 19%; margin-right: 17%;">
+                                <b> Bidding Price: </b> 
+                            </p>
+                            <b> {{this.amount}}ETH </b>
+                        </div>
+                        <div class="row">
+                          <p style="margin-left: 19%; margin-right: 28%;">
+                              <b> Total: </b> 
+                          </p>
+                          <b>    {{this.amount }} ETH </b>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent; text-transform: capitalize;">Cancel</button>
+                      <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent; text-transform: capitalize;">Confirm</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             </form>
+          </div>
+      
+          <div class="one-fourth" style="margin-top: 4rem;  ">
+            <div >
+              <p class="text-uppercase small font-weight-medium">
+                  Bids ordered from highest to lowest
               </p>
             </div>
-        </div>
+            <ul class="tabs-nav">
+              <li class="active">
+                <a href="#tab1">Bids</a>
+              </li>
+            </ul>
         
-
-           
-        <div style="padding-bottom: 20px; ">
-          
-            <button *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase ) && this.auction.isActive === true" data-toggle="modal" data-target="#marketModalLong" class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
-        
-            Place Bid
-        
-            </button>
-
-           
-
-            <!-- <button *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )" disabled class="button" style="background-color: green; margin-left: 10%; text-transform: capitalize;">
-        
-              Place Bid
-          
-              </button> -->
-
-              <button *ngIf="(this.account| lowercase) === (this.auction.owner| lowercase ) && this.auction.isActive === true" (click)="withdraw()" class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
-        
-                Withdraw
-            
-                </button>
-        
-        </div>
-        <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" *ngIf="this.amount">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Order Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="tabs-container" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
+              <div class="tab-content" id="tab1">
+                <div class="card-body">
+                  <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                      <div class="table-responsive">      
+                          <table class="table table-hover" >
+                              <thead class="text-success">
+                                  <th>  </th>
+                                  <th> Wallet Address </th>
+                                  <th>Bid Price</th>
+                                  <th> Auction ID </th>
+                              </thead>
+                              <tbody >
+                                  <tr *ngFor="let item of this.auction.bids  let i=index" class="Table" >
+                                      <td>  <span  *ngIf="item.bid >= this.sellNowPrice" class="material-icons">
+                                              verified
+                                            </span>  
+                                      </td>
+                                      <td >  {{item.bidder}} </td>
+                                      <td > {{item.bid}} ETH </td>
+                                      <td >   {{item.auctionId}} </td>
+                                      <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 
+                                        <button (click)="withdraw()" class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
+                                          Withdraw
+                                        </button>
+                                      <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === false"> 
+                                        <button  disabled class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
+                                          Withdraw
+                                        </button>
+                                      </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>           
+                </div>              
               </div>
-              <div class="modal-body">
-                  <div>
-                    Please Review the fees below, click confirm to  proceed with this bid for {{this.asset.name}} :
-                  <div class="row" style="margin-top: 5px;">
-                      <p style="margin-left: 19%; margin-right: 17%;">
-                          <b> Bidding Price: </b> 
-                      </p>
-                      <b> {{this.amount}}ETH </b>
-                  </div>
-
-                  <!-- <div class="row">
-                    <p style="margin-left: 19%; margin-right: 24%;">
-                      <b> Gas Fee: </b>
-                    </p>
-                    <b>    {{this.fees.blockchain | currency:"$"}}</b>
-                  </div> -->
-
-                  <div class="row">
-                    <p style="margin-left: 19%; margin-right: 28%;">
-                        <b> Total: </b> 
-                    </p>
-                    <b>    {{this.amount }} ETH </b>
-                </div>
-
-                  </div>
-                
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 50%; background-color: red; border-color: transparent; text-transform: capitalize;">Cancel</button>
-                <button data-dismiss="modal" (click)="sendMarketOrder()"  type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent; text-transform: capitalize;">Confirm</button>
-              </div>
-            </div>
+            </div>   
           </div>
-        </div>
-       </form>
-
-    
-    
-   
-
-		</div><!-- end #sidebar -->
-
-    <div class="one-fourth" style="margin-top: 4rem;  ">
-
-      <div >
-        <p class="text-uppercase small font-weight-medium">
-            Bids ordered from highest to lowest
-        </p>
-  
-      </div>
-  
-      <ul class="tabs-nav">
-  
-        <li class="active">
-          <a href="#tab1">Bids</a>
-        </li>
-  
-      </ul><!-- end .tabs-nav -->
-  
-      <div class="tabs-container" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-  
-        <div class="tab-content" id="tab1">
-          <div class="card-body">
-            <div class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                <div class="table-responsive">      
-                    <table class="table table-hover" >
-                        <thead class="text-success">
-                            <th>  </th>
-                            <th> Wallet Address </th>
-                            <th>Bid Price</th>
-                            <th> Auction ID </th>
-                        </thead>
-                        <tbody >
-                            <tr *ngFor="let item of this.auction.bids  let i=index" class="Table" >
-                                <td>  <span  *ngIf="item.bid >= this.sellNowPrice" class="material-icons">
-                                        verified
-                                      </span>  
-                                </td>
-                                <td >  {{item.bidder}} </td>
-                                <td > {{item.bid}} ETH </td>
-                                <td >   {{item.auctionId}} </td>
-                                <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 
-                                  <button (click)="withdraw()" class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
-
-                                    Withdraw
-                                
-                                </button>
-                                <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === false"> 
-                                  <button  disabled class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >
-
-                                    Withdraw
-                                
-                                </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>           
-        </div>              
-        </div><!-- end #tab1 -->
-  
-      </div><!-- end .tabs-container -->
-      
-    </div><!-- end .one-fourth -->
-  
-    
-	</article><!-- end .single-project -->
-	
-</section><!-- end #content -->
-
+        </article>  
+      </section>  
+    </div>
+  </div>
 </body>
 </html>
 <app-footer></app-footer>

@@ -1,240 +1,258 @@
-
-<html class="not-ie no-js" lang="en">  <!--<![endif]-->
+<html class="not-ie no-js" lang="en">
 
 <body>
-    <app-navbar> </app-navbar>
     <ngx-spinner></ngx-spinner>
-
-
-	
-    <div class="container-fluid mt-3 container-home" style="height: 100%; border-radius: 10px;">
-        <!-- <div class="row">
-            <h1 class="nav-link text-nowrap mr-3" data-display="static" style="color: red !important; font-family: 'Cormorant Garamond'; font-size: 20px !important; text-align: center;" *ngIf="!this.isConnected">  
-                Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
-            </h1>
-        </div> -->
-        <div class="row no-gutters">
-            <div class="container mt-3" style="padding-left: 0; padding-right: 0; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                <div id="bootstrapCarousel" class="carousel" data-ride="carousel">
-                  <!-- Slide Indicators -->
-                
-                  
-              
-                  <!-- The slides to show -->
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div *ngIf="this.userAgent !== 'mobile'"  class="row">
-                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79;  height: 20rem; width: 100%;">
-                                <div class="overlay">
-                                    <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
-                                </div>
-                                <div class="hero-content w-100">
-                                    <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
-                                        Easily Buy and trade art securely on the digital blockchain
-                                    </h2>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
-                                        Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
-                                    </p>
-                                    
-                                </div>
-                            </div>
-                            
-                        </div>
-
-
-                        <div *ngIf="this.userAgent === 'mobile'" class="row">
-
-                            <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79; margin-top: 0;">
-                                <div class="hero-content w-100">
-                                   <div class="overlay">
-                                       <img style="height: 100%; width: 100%;" src="/assets/img/I_Still_Face_You.jpg">
-                                   </div>
-                                    
-                                </div>
-                            </div>
-                           
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #BCBD79;">
-                               <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
-                                        Easily Buy and trade art securely on the digital blockchain
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%;">
-                                        Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
-                                    </p>
-                                    
-                                </div>
-                        
-                            </div>
-
-                            
-                        </div>
-
-                    </div>
-                    <div class="carousel-item">
-                       <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                          
-                           
-
-                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; padding-left: 15px; height: 20rem; width: 100%;">
-                                <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
-                                        A platform to enable musicians issue and trade NFTs.
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
-                                        representing ownership rights of their creative works.
-                                    </p>
-                                    
-                                </div>
-                                <div class="overlay">
-                                    <img class="img-fluid" src="/assets/img/record.jpeg">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div *ngIf="this.userAgent === 'mobile'" class="row">
-
-                            <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; margin-top: 0;">
-                                <div class="hero-content w-100">
-                                   <div class="overlay">
-                                       <img style="height: 100%; width: 100%;" src="/assets/img/record.jpeg">
-                                   </div>
-                                    
-                                </div>
-                            </div>
-                           
-                            <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #00AAE2;">
-                               <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: black !important; margin-left: 5%;">  
-                                        A platform to enable musicians issue and trade NFTs.
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
-                                        representing ownership rights of their creative works.
-                                    </p>
-                                    
-                                </div>
-                        
-                            </div>
-
-                            
-                        </div>
-
-                    </div>
-
-                    <div class="carousel-item">
-                        <div *ngIf="this.userAgent !== 'mobile'" class="row">
-
-                             <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB; padding-left: 15px; height: 20rem; width: 100%;">
-                                <div class="overlay">
-                                    <img class="img-fluid" src="/assets/img/video_nft.jpeg">
-                                </div>
-                                <div class="hero-content w-100">
-                                    <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
-                                        Movie producers can also issue and trade NFTs.
-                                    </h2>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
-                                        representing ownership rights of their creative works.
-                                    </p>
-                                    
-                                </div>
-                            </div>
-                         </div>
-
-                         <div *ngIf="this.userAgent === 'mobile'" class="row">
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB;">
-                                <div class="hero-content w-100">
-                                   <div class="overlay">
-                                       <img style="height: 100%; width: 100%;" src="/assets/img/video_nft.jpeg">
-                                   </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #587DAB;">
-                               <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%;">  
-                                        Movie producers can also issue and trade NFTs.
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
-                                        representing ownership rights of their creative works.
-                                    </p>
-                                    
-                                </div>
-                        
-                            </div>
-                        </div>
-
-                     </div>
-
-                    <div class="carousel-item">
-                        <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                             
-                            
-
-                             <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; padding-left: 15px; height: 20rem; width: 100%;">
-                                <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 10%;">  
-                                        Powered by the Binance Smart Chain.
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 10%; font-size:larger;">
-                                        guaranteed faster performance and lower fees.
-                                    </p>
-                                    
-                                </div>
-                                <div class="overlay">
-                                    <img class="img-fluid" style="height: 20rem;" src="/assets/img/binance.jpeg">
-                                </div>
-                            </div>
-                             
-                         </div>
-
-                         <div *ngIf="this.userAgent === 'mobile'" class="row">
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; height: 17rem;">
-                                <div class="hero-content w-100">
-                                   <div class="overlay">
-                                       <img style="height: 100%; width: 100%;" src="/assets/img/binance.jpeg">
-                                   </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: black;">
-                               <div class="hero-content w-100">
-                                    <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%;">  
-                                        Powered by the Binance Smart Chain.
-                                    </h3>
-                                    <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
-                                        guaranteed faster performance and lower fees.
-                                    </p>
-                                    
-                                </div>
-                        
-                            </div>
-                        </div>
-
-                     </div>
-                  </div>                      <!--  Controls (Left and right) -->
-                  <a class="carousel-control-prev" href="#bootstrapCarousel" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                  </a>
-                  <a class="carousel-control-next" href="#bootstrapCarousel" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                  </a>
+    <div class="demo-wrap">
+        <app-navbar> </app-navbar>
+        <img
+          class="demo-bg"
+          src="/assets/img/banner-bg.jpg"
+          alt=""
+        >
+        <div class="demo-content" style="position: relative">
+            <div class="container-fluid mt-3 container-home" style="height: 100%; border-radius: 10px; ">
+                <div class="row">
+                    <h1 class="nav-link text-nowrap mr-3" data-display="static" style="color: red !important; font-family: 'Cormorant Garamond'; font-size: 20px !important; text-align: center;" *ngIf="!this.isConnected">  
+                        Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
+                    </h1>
                 </div>
-              </div>
-           
-        
-        </div>
-    </div>
-        
+                <div class="row no-gutters">
+                    <div class="container mt-3" style="padding-left: 0; padding-right: 0; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
+                        <div id="bootstrapCarousel" class="carousel" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div *ngIf="this.userAgent !== 'mobile'"  class="row">
+                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79;  height: 20rem; width: 100%;">
+                                        <div class="overlay">
+                                            <img class="img-fluid" src="/assets/img/I_Still_Face_You.jpg">
+                                        </div>
+                                        <div class="hero-content w-100">
+                                            <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
+                                                Easily Buy and trade art securely on the digital blockchain
+                                            </h2>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
+                                                Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
 
-<section id="content" class="container clearfix">
-       
-	
-   
+
+                                <div *ngIf="this.userAgent === 'mobile'" class="row">
+
+                                    <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #BCBD79; margin-top: 0;">
+                                        <div class="hero-content w-100">
+                                        <div class="overlay">
+                                            <img style="height: 100%; width: 100%;" src="/assets/img/I_Still_Face_You.jpg">
+                                        </div>
+                                            
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #BCBD79;">
+                                    <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
+                                                Easily Buy and trade art securely on the digital blockchain
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%;">
+                                                Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                            <div *ngIf="this.userAgent !== 'mobile'" class="row">
+                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; padding-left: 15px; height: 20rem; width: 100%;">
+                                        <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
+                                                A platform to enable musicians issue and trade NFTs.
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
+                                                representing ownership rights of their creative works.
+                                            </p>  
+                                        </div>
+                                        <div class="overlay">
+                                            <img class="img-fluid" src="/assets/img/record.jpeg">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="this.userAgent === 'mobile'" class="row">
+
+                                    <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #00AAE2; margin-top: 0;">
+                                        <div class="hero-content w-100">
+                                        <div class="overlay">
+                                            <img style="height: 100%; width: 100%;" src="/assets/img/record.jpeg">
+                                        </div>
+                                            
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #00AAE2;">
+                                    <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: black !important; margin-left: 5%;">  
+                                                A platform to enable musicians issue and trade NFTs.
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
+                                                representing ownership rights of their creative works.
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div *ngIf="this.userAgent !== 'mobile'" class="row">
+
+                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB; padding-left: 15px; height: 20rem; width: 100%;">
+                                        <div class="overlay">
+                                            <img class="img-fluid" src="/assets/img/video_nft.jpeg">
+                                        </div>
+                                        <div class="hero-content w-100">
+                                            <h2 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 5%;">  
+                                                Movie producers can also issue and trade NFTs.
+                                            </h2>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger;">
+                                                representing ownership rights of their creative works.
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="this.userAgent === 'mobile'" class="row">
+                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: #587DAB;">
+                                        <div class="hero-content w-100">
+                                        <div class="overlay">
+                                            <img style="height: 100%; width: 100%;" src="/assets/img/video_nft.jpeg">
+                                        </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #587DAB;">
+                                    <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%;">  
+                                                Movie producers can also issue and trade NFTs.
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
+                                                representing ownership rights of their creative works.
+                                            </p>
+                                            
+                                        </div>
+                                
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="carousel-item">
+                                <div *ngIf="this.userAgent !== 'mobile'" class="row">
+                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; padding-left: 15px; height: 20rem; width: 100%;">
+                                        <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="margin-left: 10%;">  
+                                                Powered by the Binance Smart Chain.
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 10%; font-size:larger;">
+                                                guaranteed faster performance and lower fees.
+                                            </p>
+                                            
+                                        </div>
+                                        <div class="overlay">
+                                            <img class="img-fluid" style="height: 20rem;" src="/assets/img/binance.jpeg">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div *ngIf="this.userAgent === 'mobile'" class="row">
+                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; height: 17rem;">
+                                        <div class="hero-content w-100">
+                                        <div class="overlay">
+                                            <img style="height: 100%; width: 100%;" src="/assets/img/binance.jpeg">
+                                        </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: black;">
+                                    <div class="hero-content w-100">
+                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%;">  
+                                                Powered by the Binance Smart Chain.
+                                            </h3>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
+                                                guaranteed faster performance and lower fees.
+                                            </p>
+                                            
+                                        </div>
+                                
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>                      <!--  Controls (Left and right) -->
+                        <a class="carousel-control-prev" href="#bootstrapCarousel" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#bootstrapCarousel" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+        <section id="content" class="container clearfix">
+            <h6 class="section-title">Digital and Curated</h6>
+                    <ul class="projects-carousel clearfix" style="overflow: hidden;
+                    position: relative;
+                    top: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    left: 0px;
+                    width: 0;
+                    height: 221px;">
+                        <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                            <a style="padding: 0px;">
+                                <img src="{{item.image.media}}" alt="">
+                                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
+                                <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+                            </a>
+                        </li>
+                    </ul>
+
+            <h6 class="section-title">Musical Inspirations</h6>
+                    <ul class="projects-carousel clearfix "  style="
+                    overflow: hidden;
+                    position: relative;
+                    top: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    left: 0px;
+                    width: 0;
+                    height: 285px;">
+                    <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
+                        <a style="padding: 0px;">
+                            
+                                <img src="{{item.image.media}}" alt="">
+                                <audio class="AudioPlayerV1" style="color: orange;" controls controlsList="nodownload">
+                                    <source src="{{item.audio.media}}" type="audio/mp3" />
+                                    <source src=" {{item.audio.media}} " type="audio/ogg" />
+                                </audio>
+                        
+                            <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.symbol}} </h5>
+                            <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
+                        </a>
+                    </li>
+
+                    </ul>
 
 
-	<h6 class="section-title">Artworks</h6>
+            <h6 class="section-title">Movies and Animations</h6>
 
-	
-        
             <ul class="projects-carousel clearfix" style="overflow: hidden;
             position: relative;
             top: 0px;
@@ -242,247 +260,122 @@
             padding: 0px;
             left: 0px;
             width: 0;
-            height: 221px;">
-                <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
-                    <a style="padding: 0px;">
-                        <img src="{{item.image.media}}" alt="">
-                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
-                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+            height: 225px;">
+                <li  *ngFor="let item of this.videos  let i=index">
+                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                        <source src=" {{item.video.media}}" type="video/mp4" />
+                        <source src="{{item.video.media}}" type="video/webm" />
+                        <source src=" {{item.video.media}}" type="video/ogg" />
+                    </video>
+                    <a>
+                        <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
+                        <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}}</h5>
+                        <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
                     </a>
                 </li>
-            </ul><!-- end artworks -->
-
-	
-
-	
-
-
-	<h6 class="section-title">Music Rights</h6>
-            <ul class="projects-carousel clearfix "  style="
-            overflow: hidden;
-            position: relative;
-            top: 0px;
-            margin: 0px;
-            padding: 0px;
-            left: 0px;
-            width: 0;
-            height: 285px;">
-             <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
-                <a style="padding: 0px;">
-                      
-                        <img src="{{item.image.media}}" alt="">
-                        <audio class="AudioPlayerV1" style="color: orange;" controls controlsList="nodownload">
-                            <source src="{{item.audio.media}}" type="audio/mp3" />
-                            <source src=" {{item.audio.media}} " type="audio/ogg" />
-                        </audio>
-                   
-                    <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.symbol}} </h5>
-                    <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
-                </a>
-            </li>
-
             </ul>
 
 
-	<h6 class="section-title">Movie Rights</h6>
 
-    <ul class="projects-carousel clearfix" style="overflow: hidden;
-    position: relative;
-    top: 0px;
-    margin: 0px;
-    padding: 0px;
-    left: 0px;
-    width: 0;
-    height: 225px;">
-        <li  *ngFor="let item of this.videos  let i=index">
-            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
-                <source src=" {{item.video.media}}" type="video/mp4" />
-                <source src="{{item.video.media}}" type="video/webm" />
-                <source src=" {{item.video.media}}" type="video/ogg" />
-            </video>
-            <a>
-               
-                
-                <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
-                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}}</h5>
-                <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
-            </a>
-        </li>
-    </ul><!-- end artworks -->
+            <h6 class="section-title" >Featured</h6>
+                <ul class="projects-carousel clearfix" style="overflow: hidden;
+                position: relative;
+                top: 0px;
+                margin: 0px;
+                padding: 0px;
+                left: 0px;
+                width: 0;
+                height: 300px;">
+                    <li style=" margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
+                        <a> 
+                            <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
+                            <h5 class="title">{{item.type}}</h5>
+                            <span class="categories">NFT / featured</span>
+                        </a>
+                    </li>
+                </ul>
 
+            <h6 class="section-title">Latest stuff from our blog</h6>
 
+            <ul class="post-carousel">
+                <li>
+                    <div class="image-gallery-slider">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8" alt="" class="entry-image">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
+                                </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
 
-	<h6 class="section-title" >Featured</h6>
+                    <div class="entry-meta">
 
-        <ul class="projects-carousel clearfix" style="overflow: hidden;
-        position: relative;
-        top: 0px;
-        margin: 0px;
-        padding: 0px;
-        left: 0px;
-        width: 0;
-        height: 300px;">
-            <li style=" margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
-                <a>
-                    
-                    <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
-                    <h5 class="title">{{item.type}}</h5>
-                    <span class="categories">NFT / featured</span>
-                </a>
-            </li>
-        </ul><!-- end featured -->
+                        <a href="single-post.html">
+                            <span class="post-format gallery">Permalink</span>
+                        </a>
 
-	<h6 class="section-title">Latest stuff from our blog</h6>
+                        <span class="date">March 11 2021</span>
 
-	<ul class="post-carousel">
+                    </div>
 
-		<li>
+                    <div class="entry-body">
 
-			<div class="image-gallery-slider">
+                        <a href="single-post.html">
+                            <h5 class="title">Bringing Blogging to the Blockchain</h5>
+                        </a>
 
-				<ul>
+                        <p>As part of our continued drive towards innovation, we intend to add the blogging feature to the NFT market in the nearest future.</p>
+                            
+                    </div>
 
-					<li>
-						<a href="#">
-							<img src="https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8" alt="" class="entry-image">
-						</a>
-					</li>
+                </li>
 
-					<li>
-						<a href="#">
-							<img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
-						</a>
-					</li>
+                <li>
+                    <div class="entry-meta">
+                        <a href="#">
+                            <span class="post-format quote">Permalink</span>
+                        </a>
+                        <span class="date">Sep 17 2020</span>
+                    </div>
 
-					<li>
-						<a href="#">
-							<img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
-						</a>
-					</li>
+                    <div class="entry-body">      
+                        <blockquote class="simple">
+                            <p>I’ve decided on the photos that I would like you to use on the website. They are attached to this email. Please send them back when you’re finished as they are my only copies. Thanks!</p>
+                            <small>- Seriously...</small>
+                        </blockquote>
+                            
+                    </div>
+                </li>
 
-				</ul>
-				
-			</div><!-- end .image-gallery-slider -->
+                <li>
+                    <div class="entry-meta">
+                        <a href="single-post.html">
+                            <span class="post-format aside">Permalink</span>
+                        </a>
+                        <span class="date">Jan 17 2021</span>
+                    </div>
 
-			<div class="entry-meta">
-
-				<a href="single-post.html">
-					<span class="post-format gallery">Permalink</span>
-				</a>
-
-				<span class="date">March 11 2021</span>
-
-			</div><!-- end .entry-meta -->
-
-			<div class="entry-body">
-
-				<a href="single-post.html">
-					<h5 class="title">Bringing Blogging to the Blockchain</h5>
-				</a>
-
-				<p>As part of our continued drive towards innovation, we intend to add the blogging feature to the NFT market in the nearest future.</p>
-					
-			</div><!-- end .entry-body -->
-
-		</li>
-
-		<!-- <li>
-
-			<iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619857849/bdj9pyhwx82b3ckzubrd" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe>
-
-			<div class="entry-meta">
-
-				<a href="single-post.html">
-					<span class="post-format video">Permalink</span>
-				</a>
-
-				<span class="date">May 1 2021</span>
-
-			</div>
-
-			<div class="entry-body">
-
-				<a href="single-post.html">
-					<h5 class="title">Demonstration of the video feature</h5>
-				</a>
-
-				<p>This is a brief demonstration of the video feature as part of the blog enhancement.</p>
-					
-			</div>
-
-		</li> -->
-
-		<!-- <li>
-
-			<audio class="entry-audio AudioPlayerV1" controls>
-				<source src="https://res.cloudinary.com/xendbit/raw/upload/v1619702081/lclrfxh8sy26ticrl0u4" type="audio/mp3" />
-			</audio>
-
-			<div class="entry-meta">
-
-				<a href="#">
-					<span class="post-format audio">Permalink</span>
-				</a>
-
-				<span class="date">May 18, 2021</span>
-
-			</div>
-
-			<div class="entry-body">
-
-				<p>Initial Audio NFT uploaded to the Nifty Row network for demonstration.</p>
-					
-			</div>
-
-		</li> -->
-
-		<li>
-
-			<div class="entry-meta">
-
-				<a href="#">
-					<span class="post-format quote">Permalink</span>
-				</a>
-
-				<span class="date">Sep 17 2020</span>
-
-			</div><!-- end .entry-meta -->
-
-			<div class="entry-body">
-				
-				<blockquote class="simple">
-					<p>I’ve decided on the photos that I would like you to use on the website. They are attached to this email. Please send them back when you’re finished as they are my only copies. Thanks!</p>
-					<small>- Seriously...</small>
-				</blockquote>
-					
-			</div><!-- end .entry-body -->
-
-		</li>
-
-		<li>
-
-			<div class="entry-meta">
-
-				<a href="single-post.html">
-					<span class="post-format aside">Permalink</span>
-				</a>
-
-				<span class="date">Jan 17 2021</span>
-
-			</div><!-- end .entry-meta -->
-
-			<div class="entry-body">
-
-			<p><strong>This is an aside post format.</strong>A demonstration of a futuristic feature for our blog system. </p>
-					
-			</div><!-- end .entry-body -->
-
-		</li>
-
-	</ul><!-- end .post-carousel -->
+                    <div class="entry-body">
+                        <p><strong>This is an aside post format.</strong>A demonstration of a futuristic feature for our blog system. </p>       
+                    </div>
+                </li>
+            </ul>     
+        </section>
+        </div>
+    </div>
 	
-</section><!-- end #content -->
-
 <app-footer></app-footer>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
