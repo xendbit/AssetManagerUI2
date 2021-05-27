@@ -62,10 +62,10 @@ export class UserDashboardComponent implements OnInit {
   mediaType: any[];
   media: any[];
   imageCategories: { name: string,  value: string }[] = [
-    { "name": 'Artwork',  value: "artwork" },
-    { "name": 'Movie Rights',  value: "movieRight" },
-    { "name": 'Music Rights',  value: "musicRight" },
-    { "name": 'Books',  value: "book" }
+    { "name": 'Digital and Curated',  value: "artwork" },
+    { "name": 'Musical Inspirations',  value: "musicRight" },
+    { "name": 'Movies and Animations',  value: "movieRight" }
+    // { "name": 'Books',  value: "book" }
   ];
   categorySelected: any;
   userAgent: string;
@@ -109,8 +109,7 @@ export class UserDashboardComponent implements OnInit {
     }
     this.media = [];
     this.mediaType = [];
-    
-    //this.hideArtDetails('hidden');
+
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
@@ -135,51 +134,15 @@ export class UserDashboardComponent implements OnInit {
     }
     this.media = [];
     this.mediaType = [];
-    
-    //this.hideArtDetails('hidden');
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
     this.checkIssuer();
-    
     this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
     this.totalOrders = 0;
-    // this.accountNumber = localStorage.getItem('accountNumber');
-    // this.fullName = localStorage.getItem('firstName') + '' + localStorage.getItem('middleName');
-    this.getBuyOrders();
-    this.getSellOrders();
-    // const paymentForm = document.getElementById('paymentForm');
-    // paymentForm.addEventListener("submit", this.payWithPaystack, true);
   }
-  
-
-
- 
-//   payWithPaystack() {
-//   if (this.amount === undefined || this.email === undefined || this.firstName === undefined || this.lastName === undefined) {
-//     this.assetService.showNotification('top','center', 'Please make sure all fields are filled', 'danger');
-//     return;
-//   }
-//   this.assetService.showSpinner();
-//   let handler = PaystackPop.setup({
-//     key: 'pk_test_c08cca4a7676c651d37a37fa719536eb31d9db7f', // Replace with your public key
-//     email: this.email,
-//     amount: this.amount * 100,
-//     ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-//     // label: "Optional string that replaces customer email"
-//     // onClose: function(){
-//     //   alert('Window closed.');
-//     // },
-//     callback: function(response){
-//       let message = 'Payment complete! Reference: ' + response.reference;
-//       alert(message);
-//     }
-//   });
-//   this.assetService.stopSpinner();
-//   handler.openIframe();
-// }
 
 
 register(register: NgForm) {
@@ -212,45 +175,7 @@ register(register: NgForm) {
   })
 }
 
-
-
-  getBuyOrders() {
-      this.assetService.ordersByBuyer(this.userId).subscribe(data => {
-          console.log('this is orders', data['data']['meta']['totalItems'])
-          this.totalBuyOrders = data['data']['meta']['totalItems'];
-          if (this.totalBuyOrders === null || this.totalBuyOrders === undefined ) {
-            this.totalBuyOrders = 0;
-          }
-      },
-      err => {
-          console.log(err);
-          this.assetService.stopSpinner();
-      },
-      () => { }
-      );
-  }
-
-  getSellOrders() {
-      this.assetService.ordersBySeller(this.userId).subscribe(sell => {
-        console.log('this is data', sell['data']['meta']['totalItems']);
-        this.totalSellOrders = sell['data']['meta']['totalItems'];
-        if (this.totalSellOrders === null || this.totalSellOrders === undefined) {
-          this.totalSellOrders = 0;
-        }
-        this.totalOrders = this.totalBuyOrders + this.totalSellOrders;
-        },
-        err => {
-            console.log(err);
-            this.assetService.stopSpinner();
-        },
-        () => {
-          this.assetService.stopSpinner();
-         }
-        );
-  }
-
   getCategory(item) {
-    console.log('this is event', item)
     this.categorySelected =  item;
   }
 
@@ -283,12 +208,8 @@ register(register: NgForm) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
       return;
     }
-    
-    
-    // this.description = this.form.get('description').value;
+
     this.symbol = this.form.get('symbol').value;
-    // this.issuingPrice = parseInt(this.form.get('issuingPrice').value);
-    // this.artist = this.form.get('artistName').value;
     this.title = this.form.get('artTitle').value;
     
     if (this.title === null || this.symbol === null) {
@@ -296,26 +217,9 @@ register(register: NgForm) {
       return;
     }
 
-    // const issueId = localStorage.getItem('userId');
-    // console.log('this is issueId', issueId)
-
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
     console.log('this is token id', this.tokenId);
-  
-    // const body = {
-    //   tokenId: this.tokenId,
-    //   medias: this.media,
-    //   keys: this.mediaType
-    //   // issuerId: issueId,
-    //   // artistName: this.artist,
-    //   // titleOfWork: this.title,
-    //   // image: this.image,
-    //   // commission: 500,
-    //   // price: this.issuingPrice,
-    //   // createdOn: new Date().getTime(),
-    //   // nameOfOwners: "null"
-    // }
     let dateCreated = new Date().getTime();
     let medias = this.media
     if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
@@ -336,6 +240,7 @@ register(register: NgForm) {
               if (data['status'] === 'success') {
                 this.assetService.stopSpinner();
                 this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+                this.ngOnInit();
               } else {
                 this.assetService.stopSpinner();
                 this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
@@ -348,6 +253,9 @@ register(register: NgForm) {
             this.form.value.reset;
             // this.router.navigateByUrl('/issuer-dashboard');
         }, 15000);
+        } else {
+          this.assetService.stopSpinner();
+          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
         }
       }, err => {
         console.log(err.error.data.error);

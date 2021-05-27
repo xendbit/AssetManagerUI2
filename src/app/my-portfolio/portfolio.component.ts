@@ -47,7 +47,6 @@ export class PortfolioComponent implements OnInit {
         res.forEach( element => {
           if (element.media.length > 0 ) {
             if (element.category === 'artwork') {
-              console.log('yes')
               const image = element.media.filter(x => {
                 return x.mediaKey ==='image';
               })[0];
@@ -56,15 +55,12 @@ export class PortfolioComponent implements OnInit {
               })[0];
               this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
             } else {
-              console.log('there is none')
             }
             console.log('this is images', this.images)
            
   
             if(element.category === 'musicRight') {
-              console.log('yes!')
               const mp3 = element.media.filter(x => {
-                console.log('this is ex', x)
                 return x.mediaKey ==='mp3';
               })[0];
               const image =  element.media.filter(x => {
@@ -75,7 +71,6 @@ export class PortfolioComponent implements OnInit {
               console.log('this is audio', this.audios)
             }
             if(element.category === 'movieRight') {
-              console.log('yes!!')
               const mp4 = element.media.filter(x => {
                 return x.mediaKey ==='mp4';
               })[0];
