@@ -424,6 +424,7 @@ ul.dotted + ul.dotted:before {
 			.social-links li.rss a { background-image: url(/assets/img/icon-rss.png); }
 
 			.social-links li.skype a { background-image: url(/assets/img/icon-skype.png); }
+			.social-links li.other a { background-image: url(/assets/img/icon-instagram.png); }
 
 			.social-links li.stumbleupon a {
 				background-image: url(/assets/img/icon-stumbleupon.png);
@@ -439,6 +440,13 @@ ul.dotted + ul.dotted:before {
 
 			.social-links li.twitter a {
 				background-image: url(/assets/img/icon-twitter.png);
+				background-position: 0 -15px;
+				height: 15px;
+				width: 21px;
+			}
+
+			.social-links li.instagram a {
+				background-image: url(/assets/img/instagram.png);
 				background-position: 0 -15px;
 				height: 15px;
 				width: 21px;

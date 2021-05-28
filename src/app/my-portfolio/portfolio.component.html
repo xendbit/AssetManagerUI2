@@ -12,7 +12,7 @@
         <div class="demo-content" style="position: relative">
             <section id="content" class="container clearfix" style="margin-top: 10px;">
                 <div class="row">
-                    <h1 class="page-title align-left" style="margin-bottom: 30px;">My Assets</h1>
+                    <h1 class="page-title align-left" style="margin-bottom: 30px; text-transform:uppercase;">My Assets</h1>
                 </div>
                         <h6 class="section-title">Digital and Curated</h6>
                         <ul class="projects-carousel clearfix" style="overflow: hidden;
@@ -27,7 +27,7 @@
                                 <a style="padding: 0px;">
                                     <img (click)="view(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
                                     <h5 (click)="view(item.tokenId, 'sellPage')" class="title">{{item.name}} </h5>
-                                    <span class="categories"(click)="view(item.tokenId, 'sellPage')">illustration / design</span>
+                                    <span class="categories"(click)="view(item.tokenId, 'sellPage')">NFT / artwork</span>
                                 </a>
                             </li>
                             <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> You currently do not have any Asset in this category  </h5>
@@ -53,7 +53,7 @@
                                     </audio>
                                
                                 <h5 class="title" (click)="view(item.tokenId, 'sellPage')">  {{item.name}} </h5>
-                                <span class="categories" (click)="view(item.tokenId, 'sellPage')">illustration / design</span>
+                                <span class="categories" (click)="view(item.tokenId, 'sellPage')">NFT / Music-rights</span>
                             </a>
                         </li>
                         <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.audios.length === 0"> You currently do not have any Asset in this category  </h5>

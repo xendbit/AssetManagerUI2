@@ -423,7 +423,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			}
 
             .another-carousel > li .categories {
-				color: #aeaeae;
+				color: green;
 				display: block;
 				font-style: italic;
 				margin: -1px 0 20px;

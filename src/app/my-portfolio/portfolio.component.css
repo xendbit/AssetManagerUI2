@@ -416,7 +416,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 			}
 
 			.projects-carousel > li .categories, #portfolio-items > article .categories {
-				color: #aeaeae;
+				color: green;
 				display: block;
 				font-style: italic;
                 text-align: center;

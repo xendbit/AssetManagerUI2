@@ -72,6 +72,7 @@ export class UserDashboardComponent implements OnInit {
   images: any;
   @ViewChild('marketModalLong') openModal: ElementRef;
   response: any;
+  timeNow: any;
   modalElement: HTMLElement;
 
 
@@ -124,6 +125,7 @@ export class UserDashboardComponent implements OnInit {
   async ngOnInit() {
     let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
     this.modalElement = element;
+    this.timeNow = new Date().getTime();
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';

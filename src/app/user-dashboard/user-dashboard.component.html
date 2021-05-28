@@ -2,6 +2,7 @@
 <body>
   <ngx-spinner></ngx-spinner>
   <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
+
   <div class="demo-wrap">
     <app-navbar *ngIf="this.userAgent !== 'mobile'"></app-navbar>
     <img
@@ -10,6 +11,7 @@
           alt=""
         >
     <div class="demo-content" style="position: relative">
+
       <section id="content" class="container clearfix" style="margin-top: 10px;">
         <article class="single-project">
           <div id="main" style="width: 100%;">  
@@ -30,7 +32,7 @@
                           </div>
                           <div class="card-footer">
                               <div class="stats" style="color: black;">
-                                  <i class="material-icons">date_range</i> Last 24 Hours
+                                  <i class="material-icons">date_range</i> {{this.timeNow | date}}
                               </div>
                           </div>
                       </div>
@@ -293,14 +295,15 @@
                                     </div>
                                   </div>
                                   <div class="row" style="margin-top: 10px; font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
-                                      <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
+                                      <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important; margin-left: 5%;">
                                           Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
                                         </p>
                                   </div>
                                   <div class="row" style="margin-top: 20px;">
                                     <button type="submit"  (click)="submit()" class="button"  style="
                                       background-color: green; 
-                                      margin-left: 5%; 
+                                      margin-left: 5%;
+                                      margin-right: 18%; 
                                       text-transform: capitalize;
                                       border-color: transparent;">
                       
