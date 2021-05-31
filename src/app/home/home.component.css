@@ -3,6 +3,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
 
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+
+/* html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,and,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,input,textarea,select{background:transparent;border:0;font-size:100%;margin:0;outline:0;padding:0;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}del{text-decoration:line-through}hr{background:transparent;border:0;clear:both;color:transparent;height:1px;margin:0;padding:0}mark{background-color:#ffffb3;font-style:italic}input,select{vertical-align:middle}ins{background-color:red;color:white;text-decoration:none}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0} */
+
+/* Clearfix */
+.clear{clear:both;display:block;height:0;overflow:hidden;visibility:hidden;width:0}.clearfix:after{clear:both;content:' ';display:block;font-size:0;height:0;line-height:0;visibility:hidden;width:0}* html .clearfix,:first-child+html .clearfix{zoom:1}
+
+/* Some basic settings */
+h1, h1 .button { font-size: 32px; }
+h2, h2 .button { font-size: 28px; }
+h3, h3 .button { font-size: 17px; }
+h4, h4 .button { font-size: 15px; }
+h5, h5 .button { font-size: 14px; }
+h6, h6 .button { font-size: 12px; }
+small { font-size: 10px; }
+ol { list-style: decimal; }
+ul { list-style: disc; }
+li { margin-left: 30px; }
+img { margin-bottom: 5px; }
+dl,hr,h1,h2,h3,h4,h5,h6,ol,ul,pre,table,address,fieldset,blockquote,article,p { margin-bottom: 20px; }
+
+/* ---------------------------------------------------------------------- */
+/*	Basic Elements & Classes
+/* ---------------------------------------------------------------------- */
+
+body {
+	background: #fff;
+	border-top: 6px solid #3a3a3a;
+	/* color: #909090; */
+	font: 11px/1.7 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+	-webkit-font-smoothing: antialiased; 
+	-webkit-text-size-adjust: 100%;
+	width: 100% !important;
+    margin: 0;
+}
+
+.demo-wrap {
+
+	position: relative;
+  }
+  
+  .demo-bg {
+	opacity: 0.3;
+	background-color: rgba(0,0,0,0.8); 
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+  }
+
+
+/* .container {
+	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%) 
+} */
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+	
+}
+
+
+
+
+
 .img-fluid, .img-thumbnail {
     width: 60rem;
     height: 24rem;
@@ -45,18 +121,7 @@ ul {
     padding-inline-start: 40px;
 }
 
-/* .container {
-	box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%) 
-} */
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-	
-}
 
 p {
     display: block;
@@ -113,62 +178,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 
-*, *::before, *::after {
-    box-sizing: inherit;
-}
-user agent stylesheet
-div {
-    display: block;
-}
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,and,address,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,input,textarea,select{background:transparent;border:0;font-size:100%;margin:0;outline:0;padding:0;vertical-align:baseline;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}del{text-decoration:line-through}hr{background:transparent;border:0;clear:both;color:transparent;height:1px;margin:0;padding:0}mark{background-color:#ffffb3;font-style:italic}input,select{vertical-align:middle}ins{background-color:red;color:white;text-decoration:none}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}
 
-/* Clearfix */
-.clear{clear:both;display:block;height:0;overflow:hidden;visibility:hidden;width:0}.clearfix:after{clear:both;content:' ';display:block;font-size:0;height:0;line-height:0;visibility:hidden;width:0}* html .clearfix,:first-child+html .clearfix{zoom:1}
-
-/* Some basic settings */
-h1, h1 .button { font-size: 32px; }
-h2, h2 .button { font-size: 28px; }
-h3, h3 .button { font-size: 17px; }
-h4, h4 .button { font-size: 15px; }
-h5, h5 .button { font-size: 14px; }
-h6, h6 .button { font-size: 12px; }
-small { font-size: 10px; }
-ol { list-style: decimal; }
-ul { list-style: disc; }
-li { margin-left: 30px; }
-img { margin-bottom: 5px; }
-dl,hr,h1,h2,h3,h4,h5,h6,ol,ul,pre,table,address,fieldset,blockquote,article,p { margin-bottom: 20px; }
-
-/* ---------------------------------------------------------------------- */
-/*	Basic Elements & Classes
-/* ---------------------------------------------------------------------- */
-
-body {
-	background: #fff;
-	border-top: 6px solid #3a3a3a;
-	/* color: #909090; */
-	font: 11px/1.7 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
-	-webkit-font-smoothing: antialiased; 
-	-webkit-text-size-adjust: 100%;
-	width: 100% !important;
-    margin: 0;
-}
-
-.demo-wrap {
-
-	position: relative;
-  }
-  
-  .demo-bg {
-	opacity: 0.3;
-	background-color: rgba(0,0,0,0.8); 
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-  }
 
 /* .slider-control {
 	margin: 0%;
@@ -842,7 +853,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 			
 		}
 		
-		.projects-carousel > li, .post-carousel > li { width: 240px; }
+		.projects-carousel > li, .post-carousel > li { width: 260px; }
         .another-carousel > li { width: 220px; }
 
 		.projects-carousel, .another-carousel, #portfolio-items { font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; }
@@ -895,7 +906,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 				/* margin: -25px auto 20px;  */
 				object-fit: cover;
 				margin: 0;
-				width: 15rem;
+				width: 17rem;
 				height: 10rem;
 			}
 
@@ -1334,6 +1345,23 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 	.container { 
 		width: 300px;
 	}
+
+.image-box {
+
+  /* Here's the trick */
+  box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.7);
+
+  /* Basic background styles */
+  background: var(--image-url) center center no-repeat;
+  background-size: cover;
+
+  /* Here's the same styles we applied to our content-div earlier */
+  color: white;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 	.projects-carousel video {
 		margin-left: 40px;

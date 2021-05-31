@@ -46,21 +46,19 @@
 
         <div class="demo-content" style="position: relative">
             
-            <div class="row">
-                <h1 class="nav-link text-nowrap mr-3" data-display="static" style="color: red !important; font-family: 'Cormorant Garamond'; font-size: 20px !important; text-align: center;" *ngIf="!this.isConnected">  
+                <h1 style="color: red !important; font-size: 20px !important; text-align: center !important; margin-left: 5%; " *ngIf="!this.isConnected">  
                     Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
                 </h1>
-            </div>
             
-            <div class="container-fluid mt-3 container-home" style="height: 100%; border-radius: 10px; ">
+            <div class="container-fluid mt-3 container-home" *ngIf="this.isConnected" style="height: 100%; border-radius: 10px; ">
                
                 <div class="row no-gutters">
                     <div class="container mt-3" style="padding-left: 0; padding-right: 0;">
-                        <div id="bootstrapCarousel" class="carousel" data-ride="carousel">
+                        <div id="bootstrapCarousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div *ngIf="this.userAgent !== 'mobile'"  class="row">
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
+                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                                             <img class="img-fluid" src="/assets/img/tryslide.jpg">
                                         </div>
@@ -68,13 +66,22 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%;">
+                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%;">
                                         
                                         <div class="hero-content w-100">
-                                            <h2 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C !important; text-transform: capitalize;">  
+                                            <h1 class="text-white text-center text-lg-left hero-title" style="
+                                            margin-left: 5%; 
+                                            color: #6C4C9C !important; 
+                                            text-transform: capitalize;
+                                            font-size: 40px;">  
                                                 Easily Buy and trade art securely on the digital blockchain
-                                            </h2>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger; text-transform: capitalize;">
+                                            </h1>
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
+                                            color: black !important; 
+                                            margin-left: 5%; 
+                                            font-size:larger; 
+                                            text-transform: capitalize; 
+                                            font-size: 15px;">
                                                 Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
                                             </p>
                                             
@@ -86,36 +93,39 @@
 
                                 <div *ngIf="this.userAgent === 'mobile'" class="row">
 
-                                    <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;">
-                                        <div class="hero-content w-100">
-                                        <div class="overlay">
-                                            <img style="height: 100%; width: 100%; border-radius: 30px;" src="/assets/img/I_Still_Face_You.jpg">
-                                        </div>
-                                            
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #BCBD79;">
-                                    <div class="hero-content w-100">
+                                    <div class="col-12 col-lg-12 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="
+                                    margin-top: 0; ">
+
+                                        <div class="image-box" style="--image-url: url('/assets/img/tryslide.jpg')">
                                             <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
                                                 Easily Buy and trade art securely on the digital blockchain
                                             </h3>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; text-transform: capitalize;">
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
                                                 Audit an artwork’s origin and ownership history while safe-guiding it from theft and fraud,  using a unique digital blockchain signature.
                                             </p>
-                                            
                                         </div>
+                                        
                                     </div>
+                                
                                 </div>
                             </div>
                             <div class="carousel-item">
                             <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 15px; height: 20rem; width: 100%;">
+                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 15px; width: 100%;">
                                         <div class="hero-content w-100">
-                                            <h2 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C !important; text-transform: capitalize;">  
+                                            <h2 class="text-white text-center text-lg-left hero-title" style="
+                                            margin-left: 5%; 
+                                            color: #6C4C9C !important; 
+                                            text-transform: capitalize;
+                                            font-size: 40px;">  
                                                 A platform to enable musicians issue and trade NFTs.
                                             </h2>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger; text-transform: capitalize;">
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
+                                            color: black !important; 
+                                            margin-left: 5%;
+                                            font-size:larger; 
+                                            font-size: 15px;; 
+                                            text-transform: capitalize;">
                                                 representing ownership rights of their creative works.
                                             </p>  
                                         </div>
@@ -123,7 +133,7 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
+                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                                             <img class="img-fluid" src="/assets/img/musicpexel.jpg">
                                         </div>
@@ -133,32 +143,28 @@
 
                                 <div *ngIf="this.userAgent === 'mobile'" class="row">
 
-                                    <div class="col-12 col-lg-6 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;">
-                                        <div class="hero-content w-100">
-                                        <div class="overlay">
-                                            <img style="height: 100%; width: 100%;" src="/assets/img/record.jpeg">
-                                        </div>
-                                            
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-12 col-lg-12 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important;">
-                                    <div class="hero-content w-100">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="color: #6C4C9C !important; margin-left: 5%; text-transform: capitalize;">  
+                                    <div class="col-12 col-lg-12 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="
+                                    margin-top: 0; ">
+
+                                        <div class="image-box" style="--image-url: url('/assets/img/musicpexel.jpg')">
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
                                                 A platform to enable musicians issue and trade NFTs.
                                             </h3>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; text-transform: capitalize;">
-                                                representing ownership rights of their creative works.
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
+                                                 representing ownership rights of their creative works.
                                             </p>
-                                            
                                         </div>
+                                        
                                     </div>
+
+
+                                    
                                 </div>
                             </div>
 
                             <div class="carousel-item">
                                 <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
+                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                                             <img class="img-fluid" src="/assets/img/moviepexel.jpg">
                                         </div>
@@ -166,12 +172,21 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style=" padding-left: 15px; height: 20rem; width: 100%;">
+                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style=" padding-left: 15px; width: 100%;">
                                         <div class="hero-content w-100">
-                                            <h2 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C !important; text-transform: capitalize;">  
+                                            <h2 class="text-white text-center text-lg-left hero-title" style="
+                                            margin-left: 5%; 
+                                            color: #6C4C9C !important; 
+                                            text-transform: capitalize;
+                                            font-size: 40px;">  
                                                 Movie producers can also issue and trade NFTs.
                                             </h2>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 5%; font-size:larger; text-transform: capitalize;">
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
+                                            color: black !important; 
+                                            margin-left: 5%; 
+                                            font-size:larger; 
+                                            text-transform: capitalize;
+                                            font-size: 15px;">
                                                 representing ownership rights of their creative works.
                                             </p>
                                             
@@ -180,25 +195,19 @@
                                 </div>
 
                                 <div *ngIf="this.userAgent === 'mobile'" class="row">
-                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col">
-                                        <div class="hero-content w-100">
-                                        <div class="overlay">
-                                            <img style="height: 100%; width: 100%;" src="/assets/img/video_nft.jpeg">
-                                        </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: #587DAB;">
-                                    <div class="hero-content w-100">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%; text-transform: capitalize;">  
-                                                Movie producers can also issue and trade NFTs.
+
+                                    <div class="col-12 col-lg-12 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="
+                                    margin-top: 0; ">
+
+                                        <div class="image-box" style="--image-url: url('/assets/img/moviepexel.jpg')">
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                                  Movie producers can also issue and trade NFTs.
                                             </h3>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%; text-transform: capitalize;">
-                                                representing ownership rights of their creative works.
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
+                                                 representing ownership rights of their creative works.
                                             </p>
-                                            
                                         </div>
-                                
+                                        
                                     </div>
                                 </div>
 
@@ -206,12 +215,21 @@
 
                             <div class="carousel-item">
                                 <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 15px; height: 20rem; width: 100%;">
+                                    <div class="col-4 col-lg-4 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 15px; width: 100%;">
                                         <div class="hero-content w-100">
-                                            <h2 class="text-white text-center text-lg-left hero-title" style="margin-left: 10%; color: #6C4C9C !important; text-transform: capitalize;">  
+                                            <h2 class="text-white text-center text-lg-left hero-title" style="
+                                            margin-left: 10%; 
+                                            color: #6C4C9C !important; 
+                                            text-transform: capitalize;
+                                            font-size: 40px;">  
                                                 Powered by the Binance Smart Chain.
                                             </h2>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: black !important; margin-left: 10%; font-size:larger; text-transform: capitalize;">
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
+                                            color: black !important; 
+                                            margin-left: 10%; 
+                                            font-size:larger; 
+                                            text-transform: capitalize;
+                                            font-size: 15px;">
                                                 guaranteed faster performance and lower fees.
                                             </p>
                                             
@@ -220,7 +238,7 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="height: 20rem; width: 100%; ">
+                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
                                             <img class="img-fluid" src="/assets/img/binancenew.png">
                                         </div>
@@ -229,25 +247,19 @@
                                 </div>
 
                                 <div *ngIf="this.userAgent === 'mobile'" class="row">
-                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="background-color: black; height: 17rem;">
-                                        <div class="hero-content w-100">
-                                        <div class="overlay">
-                                            <img style="height: 100%; width: 100%;" src="/assets/img/binance.jpeg">
-                                        </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="padding-left: 0 !important; background-color: black;">
-                                    <div class="hero-content w-100">
-                                            <h3 class="text-white text-uppercase text-center text-lg-left hero-title" style="color: orange !important; margin-left: 5%;">  
-                                                Powered by the Binance Smart Chain.
+
+                                     <div class="col-12 col-lg-12 d-flex align-items-center pb-5 p-sm-5 p-lg-0 hero-col" style="
+                                    margin-top: 0; ">
+
+                                        <div class="image-box" style="--image-url: url('/assets/img/binancenew.png')">
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                                 Powered by the Binance Smart Chain.
                                             </h3>
-                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: white !important; margin-left: 5%;">
-                                                guaranteed faster performance and lower fees.
+                                            <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
+                                                  guaranteed faster performance and lower fees.
                                             </p>
-                                            
                                         </div>
-                                
+                                        
                                     </div>
                                 </div>
 
@@ -265,7 +277,7 @@
             </div>
   
         <section id="content" class="container clearfix">
-            <h6 class="section-title">Digital and Curated</h6>
+            <h6 class="section-title">Digital and Curated Offers</h6>
                     <ul class="projects-carousel clearfix" style="overflow: hidden;
                     position: relative;
                     top: 0px;
@@ -283,7 +295,7 @@
                         </li>
                     </ul>
 
-            <h6 class="section-title">Musical Inspirations</h6>
+            <h6 class="section-title">Musical Inspirations Offers</h6>
                     <ul class="projects-carousel clearfix "  style="
                     overflow: hidden;
                     position: relative;
@@ -310,7 +322,7 @@
                     </ul>
 
 
-            <h6 class="section-title">Movies and Animations</h6>
+            <h6 class="section-title">Movies and Animations Offers</h6>
 
             <ul class="projects-carousel clearfix" style="overflow: hidden;
             position: relative;

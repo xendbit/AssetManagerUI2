@@ -43,7 +43,48 @@
 		<a *ngIf="this.userAgent !== 'mobile'" (click)="goToHome()" id="logo">
 			<img style="width: 12rem; margin-top: 20px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 		</a>
-		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
+
+		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile' && !this.isConnected" style="margin-top: -63px;">
+			<ul >
+				<li *ngIf="this.isConnected === true" class="current">
+					<a (click)="goToHome()">Home</a>
+				</li>
+				<li *ngIf="this.isConnected !== true" >
+					<a (click)="goToHome()" style=" 
+					margin-left: 18rem;">Home</a>
+				</li>
+				<li *ngIf="this.isConnected === true">
+					<a  (click)="goToUserDashboard()" >My Dashboard</a>
+				</li>
+				<li  *ngIf="this.isConnected === true">
+					<a (click)="goToMyAssets()">My Assets</a>
+				</li>
+				<li >
+					<a (click)="goToAllAssets('buyPage')" >All assets</a>
+				</li>
+				<li>
+					<button *ngIf="!this.isConnected" (click)="connectToMetamask()" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
+						background-color: #77CA54; 
+						border-color: transparent; 
+						color: black; 
+						margin-top: 20px;
+						margin-right: 10rem;
+						margin-left: 5rem;">
+						Connect Wallet
+					</button>
+					<button *ngIf="this.isConnected === true" type="submit" class="btn btn-dark px-2 px-sm-3 py-2 py-md-3 small font-weight-medium text-nowrap" style="
+					background-color: #5EBA8F; 
+					border-color: transparent; 
+					color: black; 
+					margin-right: 15px; 
+					margin-top: 20px;">
+						{{this.displayedData}}
+					</button>
+				</li>
+			</ul>
+		</nav>
+
+		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile' && this.isConnected">
 			<ul >
 				<li *ngIf="this.isConnected === true" class="current">
 					<a (click)="goToHome()">Home</a>
