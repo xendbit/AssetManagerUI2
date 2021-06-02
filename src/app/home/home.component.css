@@ -1192,7 +1192,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 	/* -------------------------------------------------- */
 
 	#content img {
-		height: auto;
+		/* height: auto; */
 		max-width: 100%;
 	}
 
