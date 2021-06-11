@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +22,12 @@ export class AllAssetsComponent implements OnInit {
   error: any;
   userAgent: string;
 
-  constructor(public assetService: AssetsService, public router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor(public assetService: AssetsService, public router: Router, public activatedRoute: ActivatedRoute, { nativeElement }: ElementRef<HTMLImageElement>) { 
+    const supports = 'loading' in HTMLImageElement.prototype;
+    if (supports) {
+      nativeElement.setAttribute('loading', 'lazy');
+    }
+  }
 
   ngOnInit() {
     this.audios = [];

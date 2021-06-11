@@ -44,7 +44,10 @@
 			<img style="width: 12rem; margin-top: 20px;" src="/assets/img/Niftylogo2.png" alt="Nifty Row logo">
 		</a>
 
+		
+
 		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile' && !this.isConnected" style="margin-top: -63px;">
+			
 			<ul >
 				<li *ngIf="this.isConnected === true" class="current">
 					<a (click)="goToHome()">Home</a>

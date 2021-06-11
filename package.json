@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/platform-server": "10.1.4",
     "@angular/router": "~11.0.0",
+    "@walletconnect/web3-provider": "^1.4.1",
     "ajv": "6.12.5",
     "arrive": "2.4.1",
     "bip39": "^3.0.3",

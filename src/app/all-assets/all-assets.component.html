@@ -7,6 +7,7 @@
     <img
       class="demo-bg"
       src="/assets/img/banner-bg.jpg"
+      loading="lazy"
       alt=""
     >
 
@@ -34,7 +35,7 @@
             height: 221px;">
                 <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                     <a style="padding: 0px;">
-                        <img (click)="viewOrder(item.tokenId)" src="{{item.image.media}}" alt="">
+                        <img (click)="viewOrder(item.tokenId)" loading="lazy" src="{{item.image.media}}" alt="">
                         <h5 (click)="viewOrder(item.tokenId)" class="title">{{item.name}} </h5>
                         <span class="categories" (click)="viewOrder(item.tokenId)">illustration / design</span>
                     </a>
@@ -72,7 +73,7 @@
                      <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                         <a style="padding: 0px;">
                               
-                                <img (click)="viewOrder(item.tokenId)" src="{{item.image.media}}" style="margin-bottom: 5px;" alt="">
+                                <img (click)="viewOrder(item.tokenId)" loading="lazy" src="{{item.image.media}}" style="margin-bottom: 5px;" alt="">
                                 <audio class="AudioPlayerV1" controls controlsList="nodownload">
                                     <source src="{{item.audio.media}}" type="audio/mp3" />
                                     <source src=" {{item.audio.media}} " type="audio/ogg" />
@@ -101,7 +102,7 @@
             width: 0;
             height: 280px;">
                 <li  *ngFor="let item of this.videos  let i=index">
-                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem;" poster="{{item.image.media}}" loading="lazy"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                         <source src=" {{item.video.media}}" type="video/mp4" />
                         <source src="{{item.video.media}}" type="video/webm" />
                         <source src=" {{item.video.media}}" type="video/ogg" />

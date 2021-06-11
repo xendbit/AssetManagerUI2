@@ -11,56 +11,18 @@
           alt=""
         >
 
-
-<!-- 
-        <div class="row">
-            <div class="col-md-10">
-                <div class="text-slider-wrapper">
-                    <div class="text-slider">
-                          <div class="text-slide"><h1>A blessing for <br> every skin.</h1></div>
-                          <div class="text-slide"><h1>The perfect mix of <br> old & new.</h1></div>
-                          <div class="text-slide"><h1>A journey over borders <br> & generations.</h1></div>
-                          <div class="text-slide"><h1>Your are the <br> stylist.</h1></div>
-                          <div class="text-slide"><h1>To be on the <br> forerfront.</h1></div>
-                    </div>
-              </div>
-        
-              <div class="blocks">
-                    <div class="block-1"></div>
-                    <div class="block-2"></div>
-                    <div class="block-3"></div>
-              </div>
-        
-              <div class="overlay"></div>
-        
-              <div class="image-slider">
-                    <div class="image-slide" id="one" style="background: url(https://images.unsplash.com/photo-1519011985187-444d62641929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2452&q=80) no-repeat 50% 50%; background-size: cover;"></div>
-                    <div class="image-slide" id="two" style="background: url(https://images.unsplash.com/photo-1509679708047-e0e562d21e44?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60) no-repeat 50% 50%; background-size: cover;"></div>
-                    <div class="image-slide" id="three" style="background: url(https://images.unsplash.com/photo-1508215302842-8a015a452a20?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80) no-repeat 50% 50%; background-size: cover;"></div>
-                    <div class="image-slide" id="four" style="background: url(https://images.unsplash.com/photo-1537510929030-2ffb7888f379?ixlib=rb-1.2.1&auto=format&fit=crop&w=2378&q=80) no-repeat 50% 50%; background-size: cover;"></div>
-                    <div class="image-slide" id="five" style="background: url(https://images.unsplash.com/photo-1552793084-49132af00ff1?ixlib=rb-1.2.1&auto=format&fit=crop&w=2953&q=80) no-repeat 50% 50%; background-size: cover;"></div>
-              </div>
-    
-            </div>
-        </div> -->
-
         <div class="demo-content" style="position: relative">
-            
-                <h1 style="color: red !important; font-size: 20px !important; text-align: center !important; margin-left: 5%; " *ngIf="!this.isConnected">  
-                    Metamask connection not detected. Install Metamask or click on the 'Connect Wallet' Button to connect to your wallet.
-                </h1>
-            
-            <div class="container-fluid mt-3 container-home" style="height: 100%; border-radius: 10px; ">
+            <div class="container-fluid mt-4 container-home" style="height: 100%; border-radius: 10px; ">
                
                 <div class="row no-gutters">
-                    <div class="container mt-3" style="padding-left: 0; padding-right: 0;">
+                    <div class="container mt-4">
                         <div id="bootstrapCarousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div *ngIf="this.userAgent !== 'mobile'"  class="row">
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
+                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/tryslide.jpg">
+                                            <img class="img-fluid" loading="lazy" src="/assets/img/tryslide.jpg">
                                         </div>
                                     </div>
                                     <div class="col-1">
@@ -73,7 +35,8 @@
                                             margin-left: 5%; 
                                             color: #6C4C9C !important; 
                                             text-transform: capitalize;
-                                            font-size: 40px;">  
+                                            font-size: 40px;
+                                            font-weight: bold;">  
                                                 Easily Buy and trade art securely on the digital blockchain
                                             </h1>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
@@ -97,7 +60,11 @@
                                     margin-top: 0; ">
 
                                         <div class="image-box" style="--image-url: url('/assets/img/tryslide.jpg')">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="
+                                                margin-left: 5%; 
+                                                color: #6C4C9C; 
+                                                text-transform: capitalize !important; 
+                                                font-weight: bold;">  
                                                 Easily Buy and trade art securely on the digital blockchain
                                             </h3>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
@@ -117,7 +84,8 @@
                                             margin-left: 5%; 
                                             color: #6C4C9C !important; 
                                             text-transform: capitalize;
-                                            font-size: 40px;">  
+                                            font-size: 40px;
+                                            font-weight: bold;">  
                                                 A platform to enable musicians issue and trade NFTs.
                                             </h2>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
@@ -133,9 +101,9 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
+                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/musicpexel.jpg">
+                                            <img class="img-fluid" loading="lazy" src="/assets/img/musicpexel.jpg">
                                         </div>
                                     </div>
                                    
@@ -147,7 +115,11 @@
                                     margin-top: 0; ">
 
                                         <div class="image-box" style="--image-url: url('/assets/img/musicpexel.jpg')">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="
+                                                margin-left: 5%; 
+                                                color: #6C4C9C; 
+                                                text-transform: capitalize !important;
+                                                font-weight: bold;">  
                                                 A platform to enable musicians issue and trade NFTs.
                                             </h3>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
@@ -164,9 +136,9 @@
 
                             <div class="carousel-item">
                                 <div *ngIf="this.userAgent !== 'mobile'" class="row">
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
+                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/moviepexel.jpg">
+                                            <img class="img-fluid" loading="lazy" src="/assets/img/moviepexel.jpg">
                                         </div>
                                     </div>
                                     <div class="col-1">
@@ -178,7 +150,8 @@
                                             margin-left: 5%; 
                                             color: #6C4C9C !important; 
                                             text-transform: capitalize;
-                                            font-size: 40px;">  
+                                            font-size: 40px;
+                                            font-weight: bold;">  
                                                 Movie producers can also issue and trade NFTs.
                                             </h2>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
@@ -200,7 +173,11 @@
                                     margin-top: 0; ">
 
                                         <div class="image-box" style="--image-url: url('/assets/img/moviepexel.jpg')">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="
+                                                margin-left: 5%; 
+                                                color: #6C4C9C; 
+                                                text-transform: capitalize !important;
+                                                font-weight: bold;">  
                                                   Movie producers can also issue and trade NFTs.
                                             </h3>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
@@ -221,7 +198,8 @@
                                             margin-left: 10%; 
                                             color: #6C4C9C !important; 
                                             text-transform: capitalize;
-                                            font-size: 40px;">  
+                                            font-size: 40px;
+                                            font-weight: bold;">  
                                                 Powered by the Binance Smart Chain.
                                             </h2>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="
@@ -238,9 +216,9 @@
                                     <div class="col-1">
 
                                     </div>
-                                    <div class="col-6 col-lg-6 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
+                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                                            <img class="img-fluid" src="/assets/img/binancenew.png">
+                                            <img class="img-fluid" loading="lazy" src="/assets/img/binancenew.png">
                                         </div>
                                     </div>
                                     
@@ -252,7 +230,11 @@
                                     margin-top: 0; ">
 
                                         <div class="image-box" style="--image-url: url('/assets/img/binancenew.png')">
-                                            <h3 class="text-white text-center text-lg-left hero-title" style="margin-left: 5%; color: #6C4C9C; text-transform: capitalize !important;">  
+                                            <h3 class="text-white text-center text-lg-left hero-title" style="
+                                                margin-left: 5%; 
+                                                color: #6C4C9C; 
+                                                text-transform: capitalize !important;
+                                                font-weight: bold;">  
                                                  Powered by the Binance Smart Chain.
                                             </h3>
                                             <p class="h5 text-white text-center text-lg-left hero-subtitle" style="color: #77CA54 !important; margin-left: 5%; text-transform: capitalize; font-size: 13px;">
@@ -285,10 +267,10 @@
                     padding: 0px;
                     left: 0px;
                     width: 0;
-                    height: 221px;">
+                    height: 310px;">
                         <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                             <a style="padding: 0px;">
-                                <img (click)="viewSec(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
+                                <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
                                 <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
                                 <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
                             </a>
@@ -304,12 +286,12 @@
                     padding: 0px;
                     left: 0px;
                     width: 0;
-                    height: 285px;">
+                    height: 350px;">
                     <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                         <a style="padding: 0px;">
                             
-                                <img (click)="viewSec(item.tokenId, 'sellPage')" src="{{item.image.media}}" alt="">
-                                <audio class="AudioPlayerV1" style="color: orange;" controls controlsList="nodownload">
+                                <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
+                                <audio class="AudioPlayerV1" style="background: transparent;" controls controlsList="nodownload">
                                     <source src="{{item.audio.media}}" type="audio/mp3" />
                                     <source src=" {{item.audio.media}} " type="audio/ogg" />
                                 </audio>
@@ -331,9 +313,9 @@
             padding: 0px;
             left: 0px;
             width: 0;
-            height: 225px;">
+            height: 291px;">
                 <li  *ngFor="let item of this.videos  let i=index">
-                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem; height: 10rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 20rem; height: 16rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                         <source src=" {{item.video.media}}" type="video/mp4" />
                         <source src="{{item.video.media}}" type="video/webm" />
                         <source src=" {{item.video.media}}" type="video/ogg" />
@@ -356,10 +338,10 @@
                 padding: 0px;
                 left: 0px;
                 width: 0;
-                height: 300px;">
+                height: 320px;">
                     <li style=" margin-top: 0px;"  *ngFor="let item of this.demoCategories  let i=index">
                         <a> 
-                            <img src="{{item.imageUrl}}" style="object-fit: cover; margin: 0; height: 10rem;" alt="">
+                            <img src="{{item.imageUrl}}" loading="lazy" style="object-fit: cover; margin: 0; height: 16rem;" alt="">
                             <h5 class="title">{{item.type}}</h5>
                             <span class="categories">NFT / featured</span>
                         </a>
@@ -374,17 +356,17 @@
                         <ul>
                             <li>
                                 <a href="#">
-                                    <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8" alt="" class="entry-image">
+                                    <img loading="lazy" src="https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8" alt="" class="entry-image">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
+                                    <img loading="lazy" src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
+                                    <img loading="lazy" src="/assets/img/placeholders/blog-post-2.jpg" alt="" class="entry-image">
                                 </a>
                             </li>
                         </ul>

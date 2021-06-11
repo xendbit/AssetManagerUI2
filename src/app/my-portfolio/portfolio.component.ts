@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AssetsService } from '../services/assets.service';
 declare var $: any;
@@ -23,7 +23,12 @@ export class PortfolioComponent implements OnInit {
   audios: any[];
   userAgent: any;
 
-  constructor(public assetService: AssetsService, public router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(public assetService: AssetsService, public router: Router, private activeRoute: ActivatedRoute, { nativeElement }: ElementRef<HTMLImageElement>) { 
+    const supports = 'loading' in HTMLImageElement.prototype;
+    if (supports) {
+      nativeElement.setAttribute('loading', 'lazy');
+    }
+  }
   ngOnInit() {
     this.audios = [];
     this.images = [];
@@ -45,11 +50,8 @@ export class PortfolioComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getMetamaskInfo().then(data => {
       this.account = data.account;
-      console.log('this is user', this.userId)
-      // this.displayedData = data.displayedData;
       this.balance = data.balance;
       this.assetService.getAssetsByOwnerId(this.account).subscribe(data => {
-        console.log('this is data gotten', data);
         const res = data['data']['items'];
         let initial = [];
         let finalData = [];
@@ -65,7 +67,6 @@ export class PortfolioComponent implements OnInit {
               this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
             } else {
             }
-            console.log('this is images', this.images)
            
   
             if(element.category === 'musicRight') {
@@ -77,7 +78,6 @@ export class PortfolioComponent implements OnInit {
               })[0]; 
               
               this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-              console.log('this is audio', this.audios)
             }
             if(element.category === 'movieRight') {
               const mp4 = element.media.filter(x => {
@@ -88,8 +88,8 @@ export class PortfolioComponent implements OnInit {
               })[0];   
               
               this.videos.push({name: element.name, image:image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-              console.log('this is videos', this.videos)
             }
+            console.log('this vid', this.videos)
           }
           
       })
@@ -118,7 +118,6 @@ export class PortfolioComponent implements OnInit {
   getAllAssets() {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
       let primary = [];
       let secondary = [];
       this.assets.forEach(element => {
@@ -131,7 +130,6 @@ export class PortfolioComponent implements OnInit {
       this.primaryMarket =  primary ;
       this.secondaryMarket = secondary;
       this.assetService.stopSpinner();
-      console.log('primary', primary)
     },
     err => {
         console.log(err);

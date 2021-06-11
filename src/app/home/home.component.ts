@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef  } from '@angular/core';
 import { AssetsService } from '../services/assets.service';
 import { Router } from '@angular/router';
 
@@ -7,11 +7,14 @@ import { Router } from '@angular/router';
 declare var $: any;
 declare let window: any;
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+// @Directive({ selector: 'img' })
 export class HomeComponent implements OnInit {
   assets: any;
   orderStrategy: any;
@@ -45,12 +48,18 @@ export class HomeComponent implements OnInit {
   account: any;
   isConnected: boolean;
   userAgent: string;
-  constructor(public assetService: AssetsService, public router: Router) { }
+  constructor(public assetService: AssetsService, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>) {
+    const supports = 'loading' in HTMLImageElement.prototype;
+    if (supports) {
+      nativeElement.setAttribute('loading', 'lazy');
+    }
+   }
 
   ngOnInit() {
     this.audios = [];
     this.images = [];
     this.videos = [];
+    
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -80,7 +89,6 @@ export class HomeComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
     
       this.assets.forEach(element => {
         if (element.media.length > 0 && element.hasActiveAuction === true ) {
@@ -93,12 +101,10 @@ export class HomeComponent implements OnInit {
             })[0];
             this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
           }
-          console.log('this is images', this.images)
          
 
           if(element.category === 'musicRight') {
             const mp3 = element.media.filter(x => {
-              console.log('this is ex', x)
               return x.mediaKey ==='mp3';
             })[0];
             const image =  element.media.filter(x => {
@@ -106,7 +112,6 @@ export class HomeComponent implements OnInit {
             })[0]; 
             
             this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-            console.log('this is audio', this.audios)
           }
           if(element.category === 'movieRight') {
             const mp4 = element.media.filter(x => {
@@ -117,7 +122,6 @@ export class HomeComponent implements OnInit {
             })[0];   
             
             this.videos.push({name: element.name, image:image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-            console.log('this is videos', this.videos)
           }
        
           this.assetService.stopSpinner();
@@ -160,18 +164,5 @@ export class HomeComponent implements OnInit {
   goToAllAssets(page) {
     this.router.navigateByUrl('/assets', { state : { from: page} });
   }
-
-  // getOwnedShares() {
-  //   this.assetService.getOwnedShares(this.userId, this.tokenId).subscribe((res: any) => {
-  //     console.log('this is response for shares', res);
-  //     this.shares = res['data'];
-  //   },
-  //   err => {
-  //       console.log(err);
-  //       this.assetService.stopSpinner();
-  //   },
-  //   () => { }
-  //   );
-  // }
 
 }
