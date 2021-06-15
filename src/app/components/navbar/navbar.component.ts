@@ -78,6 +78,33 @@ export class NavbarComponent implements OnInit {
     }
 
     ngAfterViewInit() {
+
+      var ua = navigator.userAgent;
+
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+          this.userAgent = 'mobile';
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+        } else if(/Chrome/i.test(ua)) {
+
+          this.userAgent = 'chrome';
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+        } else {
+          this.userAgent = 'desktop';
+          if (window.ethereum.isConnected() && this.account !== undefined) {
+            this.isConnected = true;
+          } else {
+            this.isConnected = false;
+          }
+        }
+
       if (window.ethereum.isMetaMask === true) {
         this.metamask = window.ethereum;
         this.hasMetaMask = true;

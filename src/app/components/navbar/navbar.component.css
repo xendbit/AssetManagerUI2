@@ -132,7 +132,7 @@ nav>a:hover{
 }
  
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
+@media only screen and (min-width: 480px) and (max-width: 767px) {
 	.container{
 		width: 95%;
 	}
@@ -145,7 +145,7 @@ nav>a:hover{
 	.header-left,
 	.header-right{
 		width: 100%;
-		text-align: center;
+		/* text-align: center; */
 	}
 }
  
@@ -826,7 +826,11 @@ label {
 	/*	Wrap
 	/* -------------------------------------------------- */
 
-	.container { width: 420px; }
+	.container { width: 620px; }
+	#logo[_ngcontent-cyi-c72] {
+		margin-top: 2%;
+		height: 0px;
+	}
 
 		
 }

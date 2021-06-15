@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef  } from '@angular/core';
 import { AssetsService } from '../services/assets.service';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 
 
 
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     this.audios = [];
     this.images = [];
     this.videos = [];
-    
+
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -69,9 +69,6 @@ export class HomeComponent implements OnInit {
       this.userAgent = 'desktop';
     }
 
-    // if (localStorage.getItem('userId')) {
-    //   this.userId = parseInt(localStorage.getItem('userId'));
-    // }
     
     this.getAssets();
     this.assetService.getMetamaskInfo().then(data => {
@@ -84,6 +81,15 @@ export class HomeComponent implements OnInit {
     
     });
   }
+
+
+  // reloadComponent() {
+  //   let currentUrl = this.router.url;
+  //       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  //       this.router.onSameUrlNavigation = 'reload';
+  //       this.router.navigate([currentUrl]);
+  //   }
+  
 
   getAssets() {
     this.assetService.showSpinner();
