@@ -111,7 +111,7 @@
                                   <img src="{{this.tempImage}}" style="width: 15rem; height: 10rem;">
                               </mat-card-content>
                               <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4">    
-                                <img src="{{this.image}}" style="width: 90%;">
+                                <img id="preview" src="{{this.image}}" style="width: 90%;">
                               </mat-card-content>
                               <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
                                 <audio controls>

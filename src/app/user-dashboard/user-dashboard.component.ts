@@ -221,7 +221,6 @@ register(register: NgForm) {
 
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
-    console.log('this is token id', this.tokenId);
     let dateCreated = new Date().getTime();
     let medias = this.media
     if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
@@ -272,8 +271,6 @@ register(register: NgForm) {
 
 
   uploadFile(event: any) {
-
-   
     let files = event.target.files;
    
     for(let newFile of files) {
@@ -323,18 +320,25 @@ register(register: NgForm) {
     }
 
     if ( /\.(jpe?g|gif|png)$/i.test(newFile.name) === true  ) {
+      var fileInput = document.querySelector('input[type="file"]');
+      var preview = document.getElementById('preview'); //img tag
       const reader = new FileReader();
+  
       reader.onload = (e: any) => {
-          const image = new Image();
-          image.src = e.target.result;
-          const imgBase64Path = e.target.result;
-          this.image = imgBase64Path;
-          this.media.push(e.target.result)
-          this.mediaType.push('image')
+        const image = new Image();
+        image.src = e.target.result;
+        const imgBase64Path = e.target.result;
+        this.image = imgBase64Path;
+       
+        this.media.push(e.target.result)
+        this.mediaType.push('image');
       };
+
+     
 
       reader.readAsDataURL(event.target.files[0]);
     }
+
     };
     
   }

@@ -23,7 +23,7 @@
                         padding: 0px;
                         left: 0px;
                         width: 0;
-                        height: 221px;">
+                        height: 312px;">
                             <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                                 <a style="padding: 0px;">
                                     <img (click)="view(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
@@ -43,12 +43,12 @@
                         padding: 0px;
                         left: 0px;
                         width: 0;
-                        height: 285px;">
+                        height: 360px;">
                          <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                             <a style="padding: 0px;">
                                   
                                     <img (click)="view(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
-                                    <audio class="AudioPlayerV1" controls style="width: 14rem;" controlsList="nodownload">
+                                    <audio class="AudioPlayerV1" controls controlsList="nodownload">
                                         <source src="{{item.audio.media}}" type="audio/mp3" />
                                         <source src=" {{item.audio.media}} " type="audio/ogg" />
                                     </audio>
@@ -68,9 +68,9 @@
                 padding: 0px;
                 left: 0px;
                 width: 0;
-                height: 270px;">
+                height: 300px;">
                     <li  *ngFor="let items of this.videos  let i=index">
-                         <video (click)="view(items.tokenId, 'sellPage')" poster="{{items.image.media}}" style="width: 15rem;" loading="lazy"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                         <video (click)="view(items.tokenId, 'sellPage')" poster="{{items.image.media}}" style="width: 20rem; height: 16rem; object-fit: cover;" loading="lazy"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                                 <source src=" {{items.video.media}}" type="video/mp4" />
                                 <source src="{{items.video.media}}" type="video/webm" />
                                 <source src=" {{items.video.media}}" type="video/ogg" />

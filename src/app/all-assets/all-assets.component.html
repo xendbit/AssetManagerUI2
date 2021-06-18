@@ -16,7 +16,7 @@
         <section id="content" class="container clearfix" style="margin-top: 10px;">
 
             <div class="row">
-                <h1 class="page-title align-left" style="margin-bottom: 30px; text-transform:uppercase;">All Assets</h1>
+                <h1 class="page-title align-left" style="margin-bottom: 30px; text-transform:uppercase; margin-left: 12px;">All Assets</h1>
             </div>
 
 
@@ -32,7 +32,7 @@
             padding: 0px;
             left: 0px;
             width: 0;
-            height: 221px;">
+            height: 312px;">
                 <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
                     <a style="padding: 0px;">
                         <img (click)="viewOrder(item.tokenId)" loading="lazy" src="{{item.image.media}}" alt="">
@@ -40,21 +40,7 @@
                         <span class="categories" (click)="viewOrder(item.tokenId)">illustration / design</span>
                     </a>
                 </li>
-                <!-- <li style="margin-bottom: 0px; ">
-                    <a style="padding: 0px;">
-                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
-                        <h5  class="title">Ahem </h5>
-                        <span class="categories">illustration / design</span>
-                    </a>
-                </li>
-
-                <li style="margin-bottom: 0px; ">
-                    <a style="padding: 0px;">
-                        <img src="https://res.cloudinary.com/xendbit/raw/upload/v1619857848/wol2ppp0ixrxbnmteca6">
-                        <h5  class="title">Ahem </h5>
-                        <span class="categories">illustration / design</span>
-                    </a>
-                </li> -->
+                
                 <h5 style="text-align: center; margin-top: 70px;" *ngIf="this.images.length === 0"> There are currently no assets in this category.  </h5>
             </ul><!-- end artworks -->
 
@@ -69,7 +55,7 @@
                     padding: 0px;
                     left: 0px;
                     width: 0;
-                    height: 285px;">
+                    height: 360px;">
                      <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
                         <a style="padding: 0px;">
                               
@@ -100,9 +86,9 @@
             padding: 0px;
             left: 0px;
             width: 0;
-            height: 280px;">
+            height: 300px;">
                 <li  *ngFor="let item of this.videos  let i=index">
-                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 15rem;" poster="{{item.image.media}}" loading="lazy"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                    <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 20rem; height: 16rem; object-fit: cover;" poster="{{item.image.media}}" loading="lazy"  data-aspect-ratio='1.98' controls controlsList="nodownload">
                         <source src=" {{item.video.media}}" type="video/mp4" />
                         <source src="{{item.video.media}}" type="video/webm" />
                         <source src=" {{item.video.media}}" type="video/ogg" />
@@ -120,9 +106,6 @@
         </section>
     </div>
   </div>
-
- 
-
 </body>
 </html>
     
