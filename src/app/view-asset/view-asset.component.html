@@ -1,7 +1,7 @@
 <html class="not-ie no-js" lang="en">
 <body>
   <ngx-spinner></ngx-spinner>
-  <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
+  <app-navbar *ngIf="this.userAgent !== 'mobile'"></app-navbar>
   <div class="demo-wrap">
     <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
     <img

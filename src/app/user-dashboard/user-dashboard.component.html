@@ -106,12 +106,13 @@
                       <div *ngIf="this.userAgent === 'mobile'" class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
                         <mat-card class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Playfair Display SC', serif;">
                           <div class="row">
-                            <mat-card style="font-family: 'Playfair Display SC', serif;">
-                              <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4">    
+                            <mat-card style="font-family: 'Playfair Display SC', serif;" class="uploaded">
+                              <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4" class="portrait">    
                                   <img src="{{this.tempImage}}" style="width: 15rem; height: 10rem;">
                               </mat-card-content>
                               <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4">    
-                                <img id="preview" src="{{this.image}}" style="width: 90%;">
+                                <img src="{{this.image}}" style="width: 90%;" *ngIf="this.imageOrientation === 'landscape'">
+                                <img src="{{this.image}}" style="width: 40%; height: 50%;" *ngIf="this.imageOrientation === 'portrait'">
                               </mat-card-content>
                               <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
                                 <audio controls>

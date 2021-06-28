@@ -74,6 +74,7 @@ export class UserDashboardComponent implements OnInit {
   response: any;
   timeNow: any;
   modalElement: HTMLElement;
+  imageOrientation: any;
 
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
@@ -323,13 +324,43 @@ register(register: NgForm) {
       var fileInput = document.querySelector('input[type="file"]');
       var preview = document.getElementById('preview'); //img tag
       const reader = new FileReader();
+      let imageClass;
   
       reader.onload = (e: any) => {
         const image = new Image();
         image.src = e.target.result;
         const imgBase64Path = e.target.result;
-        this.image = imgBase64Path;
        
+       
+        if (image.complete) { // was cached
+          if (image.height < image.width) {
+              $(imageClass).addClass("landscape").removeClass("portrait");
+              console.log('landscape');
+          }
+          else {
+            console.log('portrit');
+          }
+
+
+      }
+      else { // wait for decoding
+          image.onload = function () {
+              if (image.height < image.width) {
+                  console.log('landscape')
+                  imageClass = 'landscape';
+
+              }
+              else {
+                console.log('portrait');
+                imageClass = 'portrait';
+              }
+
+          }
+          
+      }
+     
+      console.log('image orientation', this.imageOrientation)
+      this.image = imgBase64Path;
         this.media.push(e.target.result)
         this.mediaType.push('image');
       };
