@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef  } from '@angular/core';
 import { AssetsService } from '../services/assets.service';
 import {  Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -48,7 +49,12 @@ export class HomeComponent implements OnInit {
   account: any;
   isConnected: boolean;
   userAgent: string;
-  constructor(public assetService: AssetsService, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>) {
+  randomArt: any;
+  randomMusic: any;
+  randomVideos: any;
+  randomAudio: any;
+  constructor(public assetService: AssetsService, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>,
+    public domSanitizer: DomSanitizer) {
     const supports = 'loading' in HTMLImageElement.prototype;
     if (supports) {
       nativeElement.setAttribute('loading', 'lazy');
@@ -106,6 +112,7 @@ export class HomeComponent implements OnInit {
               return x.mediaKey ==='mp4';
             })[0];
             this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
+            
           }
          
 
@@ -132,8 +139,14 @@ export class HomeComponent implements OnInit {
        
           this.assetService.stopSpinner();
         }
+        
         // console.log('these are images', this.images);
       });
+      this.randomArt = this.images[(Math.random() * this.images.length) | 0];
+      this.randomMusic = this.audios[(Math.random() * this.images.length) | 0];
+      this.randomAudio = this.domSanitizer.bypassSecurityTrustUrl(this.randomMusic.audio.media);
+      this.randomVideos = this.videos[(Math.random() * this.images.length) | 0];
+      console.log('this is rand', this.randomMusic.audio.media)
       this.assetService.stopSpinner();
     }, err => {
       this.assetService.stopSpinner();
