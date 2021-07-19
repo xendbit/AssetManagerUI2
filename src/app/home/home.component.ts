@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   userAgent: string;
   randomArt: any;
   randomMusic: any;
-  randomVideos: any;
+  randomVideo: any;
   randomAudio: any;
   constructor(public assetService: AssetsService, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>,
     public domSanitizer: DomSanitizer) {
@@ -142,10 +142,11 @@ export class HomeComponent implements OnInit {
         
         // console.log('these are images', this.images);
       });
+      this.randomVideo = this.videos[(Math.random() * this.images.length) | 0];
       this.randomArt = this.images[(Math.random() * this.images.length) | 0];
       this.randomMusic = this.audios[(Math.random() * this.images.length) | 0];
       this.randomAudio = this.domSanitizer.bypassSecurityTrustUrl(this.randomMusic.audio.media);
-      this.randomVideos = this.videos[(Math.random() * this.images.length) | 0];
+      
       console.log('this is rand', this.randomMusic.audio.media)
       this.assetService.stopSpinner();
     }, err => {

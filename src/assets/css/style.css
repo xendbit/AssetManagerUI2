@@ -1451,7 +1451,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 	/* -------------------------------------------------- */
 
 	.jcarousel-container {
-		border-top: 1px solid #efefef;
+		/* border-top: 1px solid #efefef; */
 		margin: 45px -20px 80px 0;
 		/* max-width: 100%;
 		padding: 25px 0 0; */

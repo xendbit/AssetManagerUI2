@@ -272,11 +272,17 @@
                     </div>
                 </div>
             </div>
-        <h4 class="section-title" style="margin-top: 50px; text-align: center;">Digital and Curated</h4>
+        <h4 class="section-title" style="margin-top: 10rem;
+        margin-bottom: 5rem; 
+        text-align: center; 
+        font-weight: bold;
+        color: #6C4C9C !important; 
+        text-transform: capitalize;
+        font-size: 30px;">Digital and Curated</h4>
         <div class="row" >
             <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0; ">
-                <div class="image-box" style="--image-url: url('/assets/img/dark-blue.jpeg'); width: 100%; margin-right: 0; min-height: 0;">
-                    <section id="content" class="container clearfix" >
+                <div class="image-box" style="--image-url: url('/assets/img/section.jpg'); width: 100%; margin-right: 0; min-height: 0;">
+                    <section id="content" class="container clearfix"  *ngIf="this.randomArt">
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-4 col-lg-4">
                                 <img (click)="viewSec(this.randomArt.tokenId, 'sellPage')" loading="lazy" src="{{this.randomArt.image.media}}" alt="" style="width: 33rem; height: 25rem;" >
@@ -316,11 +322,17 @@
             </div>
         </div>
 
-        <h4 class="section-title" style="margin-top: 50px; text-align: center;">Musical Inspirations</h4>
+        <h4 class="section-title" style="margin-top: 10rem;
+        margin-bottom: 5rem; 
+        text-align: center; 
+        font-weight: bold;
+        color: #6C4C9C !important; 
+        text-transform: capitalize;
+        font-size: 30px;">Musical Inspirations</h4>
         <div class="row" >
             <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
-                <div class="image-box" style="--image-url: url('/assets/img/blue-grunge.jpeg'); width: 100%; margin-right: 0; min-height: 30rem;">
-                    <section id="content" class="container clearfix" >
+                <div class="image-box" style="--image-url: url('/assets/img/Paper-Texture.jpg'); width: 100%; margin-right: 0; min-height: 58rem;">
+                    <section id="content" class="container clearfix" *ngIf="this.randomMusic">
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-4 col-lg-4">
                                 <a>
@@ -375,10 +387,36 @@
         </div>
 
 
-        <h4 class="section-title" style="margin-top: 50px; text-align: center;">Movies and Animations</h4>
+        <h4 class="section-title" style="margin-top: 10rem;
+        margin-bottom: 5rem; 
+        text-align: center; 
+        font-weight: bold;
+        color: #6C4C9C !important; 
+        text-transform: capitalize;
+        font-size: 30px;">Movies and Animations</h4>
         <div class="row" >
             <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
-                <div class="image-box" style="--image-url: url('/assets/img/abstract.jpg'); width: 100%; margin-right: 0; min-height: 30rem;">
+                <div class="image-box" style="--image-url: url('/assets/img/abstract.jpg'); width: 100%; margin-right: 0; min-height: 52rem;">
+                    <section id="content" class="container clearfix" *ngIf="this.randomVideo">
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-4 col-lg-4">
+                                    <video (click)="viewSec(this.randomVideo.tokenId, 'sellPage')" style="width: 33rem; height: 25rem; object-fit: cover;" poster="{{this.randomVideo.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                                        <source src=" {{this.randomVideo.video.media}}" type="video/mp4" />
+                                        <source src="{{this.randomVideo.video.media}}" type="video/webm" />
+                                        <source src=" {{this.randomVideo.video.media}}" type="video/ogg" />
+                                    </video>
+                            </div>
+                            <div class="col-2 col-lg-2">
+                            </div>
+                            <div class="col-6 col-lg-6" style="color: white;">
+                                <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomMusic.symbol}} </h2>
+                                <b style="margin-top: 10px; color: white;"> Issue Date: </b> {{this.randomMusic.dateIssued | date  }}
+                                <p>
+                                    <b  style="margin-top: 10px; color: white;"> Symbol: </b> {{this.randomMusic.name }}
+                                </p>
+                            </div>
+                        </div>
+                    </section>
                     <section id="content" class="container clearfix">
                         <ul class="projects-carousel clearfix" style="overflow: hidden;
                         position: relative;
@@ -407,11 +445,16 @@
             </div>
         </div>
 
-
-        <h4 class="section-title" style="margin-top: 50px; text-align: center;">Featured</h4>
+        <h4 class="section-title" style="margin-top: 10rem;
+        margin-bottom: 5rem; 
+        text-align: center; 
+        font-weight: bold;
+        color: #6C4C9C !important; 
+        text-transform: capitalize;
+        font-size: 30px;">Featured</h4>
         <div class="row" >
             <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
-                <div class="image-box" style="--image-url: url('/assets/img/firstbackground.jpeg'); width: 100%; margin-right: 0; min-height: 30rem;">
+                <div class="image-box" style="--image-url: url('/assets/img/firstbackground.jpeg'); width: 100%; margin-right: 0; min-height: 0;">
                     <section id="content" class="container clearfix">
                         <ul class="projects-carousel clearfix" style="overflow: hidden;
                         position: relative;

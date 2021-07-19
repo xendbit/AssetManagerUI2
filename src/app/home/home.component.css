@@ -320,7 +320,7 @@ h1, h2, h3, h4, h5, h6 {
 h3, h4, h5 { font-weight: 600; }
 
 a, a > * {
-	color: #3a3a3a;
+	color: white;
 	text-decoration: none;
 	-webkit-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
 	   -moz-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
@@ -945,7 +945,7 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 			.image-box {
 
 				/* Here's the trick */
-				box-shadow: inset 0 0 0 100vw rgb(0 0 0 / 83%);
+				box-shadow: inset 0 0 0 100vw rgb(0 0 0 / 53%);
 			  
 				/* Basic background styles */
 				background: var(--image-url) center center no-repeat;
