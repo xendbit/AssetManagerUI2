@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class MyOrdersComponent implements OnInit {
     buyOrders: any[];
     sellOrders: any;
-  userId: string;
+  userId: any;
   assets: any;
   primaryMarket: any[];
   totalBuyOrders: any;

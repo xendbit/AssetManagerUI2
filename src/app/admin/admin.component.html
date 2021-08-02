@@ -1,14 +1,10 @@
 <div  class="mm-page mm-slideout" style="background: white; overflow: hidden;">
-  
   <div class="container-home">
     <ngx-spinner></ngx-spinner>
     <app-navbar></app-navbar>
       <div class="row" style="padding-top: 5rem;">
         <div class="col-lg-3 col-md-3 col-sm-3"></div>
           <div class="col-lg-6 col-md-6 col-sm-6">
-
-
-
             <div class="card" style="display: flex; justify-content: center; margin-left: auto; margin-right: auto; opacity: 100%; width: 30rem; margin-bottom: 5%;">
               <div class="card-header card-header-danger"  style="background: black;">
                   <h4 class="card-title" style="text-align: center;">Add Admin</h4>
@@ -44,21 +40,15 @@
                       <input type="password" autocomplete="false" matInput placeholder="Password" id="password" name="password" [(ngModel)]="password">
                     </mat-form-field>
                     <button (Click)="register(registerForm)" type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black; margin-left: 25%;">
-                
                       Add new admin
-                  
                   </button>
                   </form>
                 </mat-card>
-
-
               </div>
-          </div>
-
-            
           </div>
         </div>
       </div>
-      <app-footer></app-footer>
-  </div>
+    </div>
+  <app-footer></app-footer>
+</div>
 

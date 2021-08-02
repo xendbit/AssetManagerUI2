@@ -26,7 +26,6 @@ export class AdminAssetsComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
       this.assetService.stopSpinner();
     },
     err => {
@@ -43,8 +42,8 @@ export class AdminAssetsComponent implements OnInit {
     this.assetService.showSpinner();
     this.loginService.underSubscribe(tokenId).subscribe(res => {
       if (res['status'] === 'success') {
-            this.assetService.showNotification('top', 'center', 'Asset has been deleted successfully', 'success');
-            this.getAssets();       
+        this.assetService.showNotification('top', 'center', 'Asset has been deleted successfully', 'success');
+        this.getAssets();       
       }
     },
     err => {
@@ -53,14 +52,11 @@ export class AdminAssetsComponent implements OnInit {
     },
     () => {
       this.assetService.stopSpinner();
-     }
-    );
-    
+     });
   }
 
   checkShares(tokenId) {
     this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
-      console.log('this is remaining shares', res);
       this.assetToken = tokenId;
       if (res['data'] !== null || res['data'] !== undefined) {
         this.remainingShares = res['data'];
@@ -79,7 +75,6 @@ export class AdminAssetsComponent implements OnInit {
   changeMarket() {
     this.assetService.showSpinner();
     this.assetService.changeMarket(this.assetToken).pipe(first()).subscribe((res: any) => {
-      console.log('this is response', res);
       if (res['status'] === 'success') {
         this.assetService.showNotification('top', 'center', 'Asset has been listed successfully on the secondary market!', 'success');
         this.assetService.stopSpinner();

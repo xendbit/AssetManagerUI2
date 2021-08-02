@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   balance: any;
   totalItems: any;
   userAssets: any;
-  userId: string;
+  userId: any;
 
   constructor(public assetService: AssetsService, public router: Router) { }
   

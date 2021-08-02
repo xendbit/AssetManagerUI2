@@ -123,13 +123,11 @@ export class AdminSettingsComponent implements OnInit {
     this.lastName = lastName;
     this.userEmail = email;
     this.phone = phone;
-
     this.router.navigateByUrl('/view-users', {state : {firstName: firstName, id: id, lastName: lastName, email: email, role: role}})
   }
 
 
   delete(Id) {
-    console.log('this is order', Id);
     this.disabledId = Id;
   }
 
@@ -210,12 +208,11 @@ export class AdminSettingsComponent implements OnInit {
         this.assetsService.stopSpinner();
       }
     }, err => {
-    console.log(err.error.data.error);
-    this.error = err.error.data.error;
-    this.assetsService.stopSpinner();
-    this.assetsService.showNotification('bottom', 'center', this.error, 'danger')
-  })
-
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetsService.stopSpinner();
+      this.assetsService.showNotification('bottom', 'center', this.error, 'danger')
+    })
   }
 
 }

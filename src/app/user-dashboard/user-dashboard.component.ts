@@ -32,7 +32,7 @@ export class UserDashboardComponent implements OnInit {
   firstName: string;
   middleName: string;
   endBlock: string;
-  userId: string;
+  userId: any;
   balance: any;
   totalSellOrders: any;
   totalOrders: any;
@@ -67,6 +67,12 @@ export class UserDashboardComponent implements OnInit {
     { "name": 'Movies and Animations',  value: "movieRight" }
     // { "name": 'Books',  value: "book" }
   ];
+
+  assetType: { name: string,  value: string }[] = [
+    { "name": 'Digital',  value: "digital" },
+    { "name": 'Physical',  value: "physical" }
+    // { "name": 'Books',  value: "book" }
+  ];
   categorySelected: any;
   userAgent: string;
   images: any;
@@ -75,6 +81,7 @@ export class UserDashboardComponent implements OnInit {
   timeNow: any;
   modalElement: HTMLElement;
   imageOrientation: any;
+  typeSelected: any;
 
 
   constructor(public assetService: AssetsService, public router: Router, public fb: FormBuilder, private domSanitizer: DomSanitizer) {
@@ -87,7 +94,7 @@ export class UserDashboardComponent implements OnInit {
       'artistName': this.artist,
       'startDate': this.startDate,
       'endDate': this.endDate,
-      'imageCategories': this.imageCategories
+      'imageCategories': this.imageCategories,
   });
 
     if (window.ethereum.isMetaMask === true) {
@@ -111,12 +118,10 @@ export class UserDashboardComponent implements OnInit {
     }
     this.media = [];
     this.mediaType = [];
-
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
     this.checkIssuer();
-    
     this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
@@ -155,17 +160,14 @@ register(register: NgForm) {
   const middleName = register.value.middleName;
   const lastName = register.value.lastName;
   const phone = register.value.phone;
-  console.log('this is it', register.value.endBlock);
   const blockchainAddress = register.value.blockchainAddress;
   if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
     this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
     this.modalElement.click();
-    
     return false;
   }
   this.assetService.showSpinner();
   this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
-    console.log('==>', res);
     if (res['status'] === 'success') {
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
@@ -182,18 +184,19 @@ register(register: NgForm) {
     this.categorySelected =  item;
   }
 
+  getAssetType(item) {
+    this.typeSelected =  item;
+  }
+
   checkIssuer() {
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
-      // this.account = data.account.toUpperCase();
       this.account = data.account;
-      console.log('this is account', this.account);
       this.assetService.getIssuerStatus(this.account).subscribe(res => {
-        console.log('this is response', res)
         this.response = res;
       },
       error => {
-        this.response = error['error']['data']['error'];
+        this.response = error['error'];
         console.log('this is error', error);
       })
     })
@@ -211,10 +214,8 @@ register(register: NgForm) {
       this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
       return;
     }
-
     this.symbol = this.form.get('symbol').value;
     this.title = this.form.get('artTitle').value;
-    
     if (this.title === null || this.symbol === null) {
       this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
       return;
@@ -251,9 +252,7 @@ register(register: NgForm) {
               this.assetService.stopSpinner();
               this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
             })
-      
             this.form.value.reset;
-            // this.router.navigateByUrl('/issuer-dashboard');
         }, 15000);
         } else {
           this.assetService.stopSpinner();
@@ -273,7 +272,6 @@ register(register: NgForm) {
 
   uploadFile(event: any) {
     let files = event.target.files;
-   
     for(let newFile of files) {
       const fileSize = newFile.size/1024/1024;
       if (fileSize > 10) {
@@ -289,7 +287,6 @@ register(register: NgForm) {
     });
     this.form.get('image').updateValueAndValidity();
     }
-
     if ( /\.(mp3|wav)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -300,22 +297,17 @@ register(register: NgForm) {
       this.media.push(e.target.result);
       this.mediaType.push('mp3') ;
       }
-
       reader.readAsDataURL(event.target.files[0]);
-
     }
 
     if ( /\.(mp4)$/i.test(newFile.name) === true  ) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-      
       this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
       this.image = e.target.result;
       this.media.push(e.target.result)
       this.mediaType.push('mp4') ;
-     
       }
-
       reader.readAsDataURL(event.target.files[0]);
 
     }
@@ -325,48 +317,36 @@ register(register: NgForm) {
       var preview = document.getElementById('preview'); //img tag
       const reader = new FileReader();
       let imageClass;
-  
       reader.onload = (e: any) => {
         const image = new Image();
         image.src = e.target.result;
         const imgBase64Path = e.target.result;
-       
-       
         if (image.complete) { // was cached
           if (image.height < image.width) {
               $(imageClass).addClass("landscape").removeClass("portrait");
               console.log('landscape');
           }
           else {
-            console.log('portrit');
+            console.log('portrait');
           }
-
-
       }
       else { // wait for decoding
           image.onload = function () {
               if (image.height < image.width) {
                   console.log('landscape')
                   imageClass = 'landscape';
-
               }
               else {
                 console.log('portrait');
                 imageClass = 'portrait';
               }
-
           }
           
       }
-     
-      console.log('image orientation', this.imageOrientation)
       this.image = imgBase64Path;
         this.media.push(e.target.result)
         this.mediaType.push('image');
       };
-
-     
-
       reader.readAsDataURL(event.target.files[0]);
     }
 
@@ -378,7 +358,6 @@ register(register: NgForm) {
     this.assetService.showSpinner();
     const userId = localStorage.getItem('userId');
     this.assetService.getAssetsByIssuerId(userId).subscribe(res => {
-      console.log('these are my assets',res);
       this.assets = res['data']['items'];
       this.totalItems = res['data']['meta']['totalItems'];
       const init = [];
@@ -394,15 +373,11 @@ register(register: NgForm) {
       this.approved = second;
       this.totalApproved = second.length;
       this.assetService.stopSpinner();
-      console.log('this is approved', this.totalApproved)
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
-      //this.assetService.showNotification('bottom', 'center', this.error, 'danger');
     });
   }
-
-
 
 }

@@ -88,20 +88,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-  // reloadComponent() {
-  //   let currentUrl = this.router.url;
-  //       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  //       this.router.onSameUrlNavigation = 'reload';
-  //       this.router.navigate([currentUrl]);
-  //   }
-  
-
   getAssets() {
     this.assetService.showSpinner();
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-    
       this.assets.forEach(element => {
         if (element.media.length > 0 && element.hasActiveAuction === true ) {
           if (element.category === 'artwork') {
@@ -112,10 +102,7 @@ export class HomeComponent implements OnInit {
               return x.mediaKey ==='mp4';
             })[0];
             this.images.push({name: element.name, image: image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
-            
           }
-         
-
           if(element.category === 'musicRight') {
             const mp3 = element.media.filter(x => {
               return x.mediaKey ==='mp3';
@@ -123,7 +110,6 @@ export class HomeComponent implements OnInit {
             const image =  element.media.filter(x => {
               return x.mediaKey ==='image';
             })[0]; 
-            
             this.audios.push({name: element.name, image: image, audio: mp3, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
           }
           if(element.category === 'movieRight') {
@@ -136,18 +122,13 @@ export class HomeComponent implements OnInit {
             
             this.videos.push({name: element.name, image:image, video: mp4, tokenId: element.tokenId, symbol: element.symbol, owner: element.owner, issuer: element.issuer, id: element.id, dateIssued: element.dateIssued})
           }
-       
           this.assetService.stopSpinner();
         }
-        
-        // console.log('these are images', this.images);
       });
       this.randomVideo = this.videos[(Math.random() * this.images.length) | 0];
       this.randomArt = this.images[(Math.random() * this.images.length) | 0];
       this.randomMusic = this.audios[(Math.random() * this.images.length) | 0];
       this.randomAudio = this.domSanitizer.bypassSecurityTrustUrl(this.randomMusic.audio.media);
-      
-      console.log('this is rand', this.randomMusic.audio.media)
       this.assetService.stopSpinner();
     }, err => {
       this.assetService.stopSpinner();

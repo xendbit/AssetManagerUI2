@@ -44,16 +44,10 @@ declare let window: any;
         this.metamask = window.ethereum;
         window.web3 = new Web3(this.web3Provider);
         this.getContractAddress().subscribe(data => {
-          console.log('this is it', data);
           if (data['status'] === 'success') {
             this.contractAddress = data['data'];
           }
         })
-        // window.web3.eth.getBlockNumber(function(err, account) {
-        //   console.log('this is err', err);
-        //   console.log('this is account', account)
-  
-        // })
     }
 
     ngOnInit() {
@@ -63,11 +57,7 @@ declare let window: any;
         this.web3Provider = new Web3.providers.HttpProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
       }
       window.web3 = new Web3(this.web3Provider);
-      console.log('==>', window.web3.eth)
-      
-
       this.getMetamaskInfo();
-      
     }
 
     baseUrl = 'http://35.224.252.52:8080/v3';
@@ -98,7 +88,7 @@ declare let window: any;
     return this.httpClient.get(`${this.baseUrl}/assets/listings`);
   }
 
-  saveIssuer(email: string, phone: string, firstname: string, lastname: string, middlename: string, blockchainAddress: string) {
+  saveIssuer(email: string, phone: any, firstname: string, lastname: string, middlename: string, blockchainAddress: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
@@ -112,9 +102,31 @@ declare let window: any;
     },  {headers})
   }
 
+  saveBuyer(email: string, phone: any, firstname: string, lastname: string,
+    middlename: string, blockchainAddress: any, country: string, zipCode: any, state: string,
+    city: string, street: string, houseNumber: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.post(`${this.nifty}/save-buyer/`, {
+      "email": email,
+      "phoneNumber": phone,
+      "firstName": firstname, 
+      "middleName": middlename,
+      "lastName": lastname,
+      "blockchainAddress": blockchainAddress,
+      "country": country,
+      "zipCode": zipCode,
+      "state": state,
+      "city": city,
+      "street": street,
+      "houseNumber": houseNumber
+    },  {headers})
+  }
 
 
-  async issue(tokenId, assetName, symbol) {
+
+  async issue(tokenId: number, assetName: any, symbol: any) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, this.account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
@@ -131,7 +143,6 @@ declare let window: any;
       // txHash is a hex string
   // As with any RPC call, it may throw an error
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.issuanceResponse = {status: 'success', response: txHash};
     }, (error: any) => {
       console.log('this is error ==>', error)
@@ -141,16 +152,8 @@ declare let window: any;
   }
 
   async startAuction(tokenId: number, auctionId: number, startBlock: number, endBlock: number, currentBlock: number, sellNowPrice: string, minimumBid: string) {
-    console.log('this is token id', tokenId);
-    console.log('this is start block', startBlock);
-    console.log('this is end block', endBlock);
-    console.log('this is current block', currentBlock);
-    console.log('this is sell now', sellNowPrice);
-    console.log('this is minimum bid', minimumBid);
     let snp: string = ethers.utils.parseEther(sellNowPrice).toHexString();
     let mb: string = ethers.utils.parseEther(minimumBid).toHexString();
-    console.log('this is sell now hex', snp);
-    console.log('this is minimum bid hex', mb);
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, currentBlock, snp, mb ]);
     const ethValue = "0"; // 0 BNB
@@ -168,7 +171,6 @@ declare let window: any;
   // As with any RPC call, it may throw an error
   console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.auctionResponse = txHash;
     }, (error: any) => {
       console.log('this is error ==>', error)
@@ -184,7 +186,7 @@ declare let window: any;
     return this.httpClient.get(`${this.nifty}/get-block`, {headers})
   }
 
-  async placeBid(tokenId, auctionId, bidAmount) {
+  async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     console.log('this is amount', String(bidAmount))
@@ -198,16 +200,14 @@ declare let window: any;
       chainId: this.chainId,
     };
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.bidResponse = txHash;
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.bidResponse = error;
     });
     return this.bidResponse;
   }
 
-  async endBid(tokenId, auctionId) {
+  async endBid(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
@@ -225,10 +225,8 @@ declare let window: any;
   // As with any RPC call, it may throw an error
   console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.bidResponse = txHash;
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.auctionResponse = error;
     });
     return this.bidResponse;
@@ -241,24 +239,21 @@ declare let window: any;
     return this.httpClient.get(`${this.nifty}/get-contract-address`, {headers})
   }
 
-  listAuctionByTokenId(tokenId) {
-      let headers: HttpHeaders = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('api-key', this.nifty_api_key);
-      return this.httpClient.get(`${this.nifty}/list-auctions/by-token-id/${tokenId}?page=1&limit=200`, {headers})
-      
-  }
-
-  getAuctionInfo(tokenId, auctionId) {
-    console.log('this is what i got', auctionId)
+  listAuctionByTokenId(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
-    return this.httpClient.get(`${this.nifty}/get-auction-info/${tokenId}/${auctionId}`, {headers})
-    
-}
+    return this.httpClient.get(`${this.nifty}/list-auctions/by-token-id/${tokenId}?page=1&limit=200`, {headers}) 
+  }
 
-  async withdraw(tokenId, auctionId) {
+  getAuctionInfo(tokenId: number, auctionId: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/get-auction-info/${tokenId}/${auctionId}`, {headers})    
+  }
+
+  async withdraw(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
@@ -276,17 +271,15 @@ declare let window: any;
   // As with any RPC call, it may throw an error
   console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.withdrawResponse = txHash;
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.auctionResponse = error;
     });
     return this.withdrawResponse;
   }
 
 
-  async cancelAuction(tokenId, auctionId) {
+  async cancelAuction(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(this.abi);
     const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
     const ethValue = "0.1"; // 0 BNB
@@ -304,10 +297,8 @@ declare let window: any;
   // As with any RPC call, it may throw an error
   console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      console.log(txHash);
       this.bidResponse = txHash;
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.auctionResponse = error;
     });
     return this.bidResponse;
@@ -319,7 +310,7 @@ declare let window: any;
   }
 
   getUsers() {
-      return this.httpClient.get(`${this.baseUrl}/assets/users`);
+    return this.httpClient.get(`${this.baseUrl}/assets/users`);
   }
 
   getAllAssets() {
@@ -329,28 +320,28 @@ declare let window: any;
     return this.httpClient.get(`${this.nifty}/list-tokens?page=1&limit=200`, {headers});
   }
 
-  getOwnedShares(userId, tokenId) {
+  getOwnedShares(userId: number, tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/user/owned-shares/${userId}/${tokenId}`, {headers});
   }
 
-  getAssetsByIssuerId(userId) {
+  getAssetsByIssuerId(userId: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/by-issuer/${userId}?page=${1}&limit=15`, {headers});
   }
 
-  cancelOrder(id) {
+  cancelOrder(id: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
   }
 
-  issueToken(tokenId, medias, mediaType, dateCreated, category) {
+  issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
@@ -362,7 +353,7 @@ declare let window: any;
     },  {headers})
   }
 
-  startAuctionNifty(auctionId, tokenId, startDate, endDate) {
+  startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
@@ -381,15 +372,14 @@ declare let window: any;
     return this.httpClient.get(`${this.nifty}/issue-token/`)
   }
 
-  fetchOrderById(orderId) {
+  fetchOrderById(orderId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/${orderId}`, {headers});
   }
 
-  getAssetsByOwnerId(userId) {
-    console.log('from here',userId)
+  getAssetsByOwnerId(userId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
@@ -397,10 +387,8 @@ declare let window: any;
   }
 
   getAccountInfo() {
-    console.log('==>', window.web3.eth)
     return new Promise((resolve, reject) => {
       window.web3.eth.getCoinbase(function(err, account) {
-  
         if(err === null) {
           window.web3.eth.getBalance(account, function(err, balance) {
             if(err === null) {
@@ -415,25 +403,32 @@ declare let window: any;
   }
    
 
-  getAssetsByTokenId(tokenId) {
+  getAssetsByTokenId(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.nifty}/get-token-info/${tokenId}`, {headers});
   }
 
-  getWaletBalance(userId) {
+  getWaletBalance(userId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/user/wallet-balance/${userId}`, {headers});
   }
 
-  getIssuerStatus(walletAddress) {
+  getIssuerStatus(walletAddress: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.nifty}/is-issuer/${walletAddress}`, {headers});
+  }
+
+  getBuyerStatus(walletAddress: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', this.nifty_api_key);
+    return this.httpClient.get(`${this.nifty}/buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
 
   buyAsset(body) {
@@ -457,21 +452,21 @@ declare let window: any;
     return this.httpClient.get(`${this.baseUrl}/assets/orders?page=1&limit=50`, {headers});
   }
 
-  ordersByBuyer(buyerId) {
+  ordersByBuyer(buyerId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/by-buyer/${buyerId}?page=1&limit=50`, {headers});
   }
 
-  ordersBySeller(sellerId) {
+  ordersBySeller(sellerId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/by-seller/${sellerId}?page=1&limit=50`, {headers});
   }
 
-  ordersByTokenId(tokenId) {
+  ordersByTokenId(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
@@ -492,7 +487,7 @@ declare let window: any;
     return headers;
   }
 
-  changeMarket(tokenId) {
+  changeMarket(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
@@ -503,14 +498,10 @@ declare let window: any;
   showNotification(from, align, message, kind){
     this.show = true
     const type = ['','info','success','warning','danger'];
-  
     const color = Math.floor((Math.random() * 4) + 1);
-    console.log('what is this', $)
-  
     $.notify({
         icon: "notifications",
         message: message
-  
     },{
         type: kind,
         timer: 4000,
@@ -529,7 +520,6 @@ declare let window: any;
           '<a href="{3}" target="{4}" data-notify="url"></a>' +
         '</div>'
     });
-
     window.setTimeout(function() {
       $(".alert").fadeTo(500, 0).slideUp(500, function(){
           $(this).remove(); 
@@ -548,8 +538,4 @@ declare let window: any;
   stopSpinner() {
     this.spinner.hide();
   }
-
-   
-  
-
-  }
+}

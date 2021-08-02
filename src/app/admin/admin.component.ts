@@ -22,10 +22,7 @@ export class AdminComponent implements OnInit {
   constructor(public adminService: AdminService, public assetService: AssetsService) { }
 
   ngOnInit(): void {
-    this.assetService.getPassphrase().pipe(first()).subscribe(res => {
-      console.log('this is response', res);
-      this.passphrase = res['data'];
-    })
+  
   }
 
   register(registerForm: NgForm) {
@@ -45,8 +42,8 @@ export class AdminComponent implements OnInit {
       'password': password,
       'passphrase': this.passphrase,
       'role': 1,
-      'phoneNumber': '08164079881',
-      'address': 'jsdjsdsj'
+      'phoneNumber': '',
+      'address': ''
     }
     this.assetService.showSpinner();
     this.adminService.registerAdmin(body).subscribe(res => {
@@ -63,8 +60,6 @@ export class AdminComponent implements OnInit {
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
       this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-    });
-    
+    }); 
   }
-
 }

@@ -248,6 +248,18 @@
                                     </mat-select>
                                   </div>
                                 </div>
+
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: rgb(112, 112, 112);">
+                                      * Select Asset Type:
+                                    </mat-label>
+                                    <mat-select  formControlName="assetType">
+                                      <mat-option (onSelectionChange)="getAssetType(item.value)" #categoryInput *ngFor="let item of this.assetType  let i=index" id="assetType" name="item.name" placeholder="select asset type"   [value]="item.value">{{item.name}}</mat-option>
+                                    </mat-select>
+                                  </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                       <mat-label style="color: rgb(112, 112, 112);">
@@ -271,6 +283,18 @@
                                       </mat-form-field>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      * Description:
+                                    </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                      <input matInput  type="text" id="description" name="symbol"  formControlName="description">
+                                    </mat-form-field>
+                                  </div>
+                              </div>
                                 
       
                                   <div class="row">

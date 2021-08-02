@@ -36,7 +36,6 @@ export class AdminDashboardComponent implements OnInit {
   getAssets() {
     this.assetService.getAllAssets().subscribe(data => {
       this.assets = data['data']['items'];
-      console.log('this is assets, ', data['data']['items']);
       let init = []
       let second = []
       this.assets.forEach(element => {
@@ -47,7 +46,6 @@ export class AdminDashboardComponent implements OnInit {
         }
       });
       this.approved =  second ;
-      console.log('this is primary market', this.approved)
     },
     err => {
         console.log(err);

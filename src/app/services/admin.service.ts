@@ -15,8 +15,6 @@ export class AdminService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.api_key);
-    console.log('this is headers', headers);
-    console.log('this is body', body);
     return this.httpClient.post(`${this.baseUrl}/user/new-user`, body, {headers});
   }
 
