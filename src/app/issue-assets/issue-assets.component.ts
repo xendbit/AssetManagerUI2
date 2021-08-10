@@ -29,6 +29,8 @@ export class IssueAssetsComponent implements OnInit {
   totalApproved: number;
   approved: any[];
   exclusive: any;
+  startDate: any;
+  endDate: any;
   mp3: any;
   mp4: any;
   tempImage: string;
@@ -41,17 +43,20 @@ export class IssueAssetsComponent implements OnInit {
     { "name": 'Books',  value: "book" }
   ];
   categorySelected: any;
+   typeSelected: any;
 
   constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, private domSanitizer: DomSanitizer) {
     this.form = fb.group({
-      'description': this.description,
+       'description': this.description,
       'symbol': this.symbol,
+      'assetType': this.typeSelected,
       'issuingPrice': this.issuingPrice,
       'image': this.image,
-      'totalSupply': this.totalSupply,
       'artTitle': this.title,
       'artistName': this.artist,
-      'availableShares': this.shares
+      'startDate': this.startDate,
+      'endDate': this.endDate,
+      'imageCategories': this.imageCategories,
   });
    }
 
@@ -63,6 +68,10 @@ export class IssueAssetsComponent implements OnInit {
   getCategory(item) {
     console.log('this is event', item)
     this.categorySelected =  item;
+  }
+
+  getAssetType(item) {
+    this.typeSelected =  item;
   }
 
   async submit(radioGroup) {
@@ -114,7 +123,7 @@ export class IssueAssetsComponent implements OnInit {
     let dateCreated = new Date().getTime();
     await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
       console.log('this is response,',  data);
-      this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected).subscribe(data => {
+      this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).subscribe(data => {
         console.log('this is response',data);
       })
       const res = data['status']

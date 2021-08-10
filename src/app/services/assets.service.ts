@@ -341,14 +341,18 @@ declare let window: any;
     return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
   }
 
-  issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string) {
+  issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
     let headers: HttpHeaders = new HttpHeaders();
+    console.log('this is description', description)
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
-    return this.httpClient.post(`${this.nifty}/issue-token/`, {"tokenId": tokenId,
+    return this.httpClient.post(`${this.nifty}/issue-token/`, {
+      "tokenId": tokenId,
       "medias": medias,
       "keys": mediaType, 
       "dateIssued": dateCreated,
+      "assetType": assetType,
+      "description": description,
       "category": category
     },  {headers})
   }

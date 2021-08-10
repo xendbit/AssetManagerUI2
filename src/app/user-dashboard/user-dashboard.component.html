@@ -2,146 +2,118 @@
 <body>
   <ngx-spinner></ngx-spinner>
   <app-navbar *ngIf="this.userAgent === 'mobile'"></app-navbar>
-
   <div class="demo-wrap">
     <app-navbar *ngIf="this.userAgent !== 'mobile'"></app-navbar>
-    <img
-          class="demo-bg"
-          src="/assets/img/banner-bg.jpg"
-          alt=""
-        >
+    <img class="demo-bg" src="/assets/img/banner-bg.jpg" alt="Nifty Row">
     <div class="demo-content" style="position: relative">
-
       <section id="content" class="container clearfix" style="margin-top: 10px;">
         <article class="single-project">
           <div id="main" style="width: 100%;">  
             <div style=" min-height: 100vh; height: 100%; overflow-x: hidden;">
               <div class="container-fluid container-lg container-home" >
-                   <h2 class="text-uppercase font-weight-light" style="margin-top: 10px;">
-                    Dashboard
+                <h2 class="text-uppercase font-weight-light" style="margin-top: 10px;">
+                  Dashboard
                 </h2>
                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                      <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                          <div class="card-header card-header-success card-header-icon">
-                              <div class="col-lg-1 col-md-1 col-sm-1">
-                                  <i class="material-icons" style="color: black;">waves</i>
-                              </div>
-                              <p class=" small font-weight-medium" style="color: black;">Wallet Balance</p>
-                              <h3 class="card-title" style="color: black; font-weight:300; font-family: 'Cardo', serif !important;"> {{this.balance | number : '1.0-5'}} ETH  </h3>
-                          </div>
-                          <div class="card-footer">
-                              <div class="stats" style="color: black;">
-                                  <i class="material-icons">date_range</i> {{this.timeNow | date}}
-                              </div>
-                          </div>
+                  <div class="col-lg-6 col-md-6 col-sm-3">
+                    <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
+                      <div class="card-header card-header-success card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                          <i class="material-icons" style="color: black;">waves</i>
+                        </div>
+                        <p class=" small font-weight-medium" style="color: black;">Wallet Balance</p>
+                        <h3 class="card-title" style="color: black; font-weight:300; font-family: 'Cardo', serif !important;"> {{this.balance | number : '1.0-5'}} BNB  </h3>
                       </div>
+                      <div class="card-footer">
+                        <div class="stats" style="color: black;">
+                          <i class="material-icons">date_range</i> {{this.timeNow | date}}
+                        </div>
+                      </div>
+                    </div>
                   </div>
       
                   <div class="col-lg-6 col-md-6 col-sm-6"  style="margin-bottom: 20px;">
-                      <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                          <div class="card-header card-header-danger card-header-icon">
-                              <div class="col-lg-1 col-md-1 col-sm-1">
-                                  <i class="material-icons" style="color: black;">info_outline</i>
-                              </div>
-                              <p class=" small font-weight-medium" style="color: black;">Total Assets Value</p>
-                              <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{3000 | currency:"$"}}  </h3>
-                          </div>
-                          <div class="card-footer">
-                              <div class="stats" style="color: black;">
-                                  <i class="material-icons">local_offer</i> Total value
-                              </div>
+                    <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
+                      <div class="card-header card-header-danger card-header-icon">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                          <i class="material-icons" style="color: black;">info_outline</i>
+                        </div>
+                        <p class=" small font-weight-medium" style="color: black;">Total Assets Value</p>
+                        <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{3000 | currency:"$"}}  </h3>
+                      </div>
+                      <div class="card-footer">
+                          <div class="stats" style="color: black;">
+                            <i class="material-icons">local_offer</i> Total value
                           </div>
                       </div>
+                    </div>
                   </div>
       
-                  <!-- <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
-                      <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                          <div class="card-header card-header-danger card-header-icon">
-                              <div class="col-lg-1 col-md-1 col-sm-1">
-                                  <i class="material-icons" style="color: black;">info_outline</i>
-                              </div>
-                              <p class="text-uppercase small font-weight-medium" style="color: black;">Total Bids Made</p>
-                              <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{this.totalOrders}} </h3>
-                          </div>
-                          <div class="card-footer">
-                              <div class="stats" >
-                                  <i class="material-icons">local_offer</i> Total Bids
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-      
-                  <div class="col-lg-3 col-md-3 col-sm-3" style="margin-bottom: 20px;">
-                      <div class="card card-stats" style="background: white; box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                          <div class="card-header card-header-danger card-header-icon">
-                              <div class="col-lg-1 col-md-1 col-sm-1">
-                                  <i class="material-icons" style="color: black;">info_outline</i>
-                              </div>
-                              <p class="text-uppercase small font-weight-medium" style="color: black;">Total Assets</p>
-                              <h3 class="card-title"  style="color: black; font-family: 'Cardo', serif; font-weight:300;"> {{this.totalOrders}} </h3>
-                          </div>
-                          <div class="card-footer">
-                              <div class="stats" >
-                                  <i class="material-icons">local_offer</i> Total Assets
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
+                 
 
-                <ul class="tabs-nav" >
-                  <li class="active">
-                    <a href="#tab1">Issue Asset</a>
-                  </li>
-                  <!-- <li class="active">
-                    <a href="#tab1">Recent Bids</a>
-                  </li>
-                  <li class="active">
-                    <a href="#tab1">Accepted Bids</a>
-                  </li> -->
-                </ul>
-                <div class="tabs-container" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
-                  <div class="tab-content" id="tab1">
-                    <div class="card-body">
-                      <div *ngIf="this.userAgent === 'mobile'" class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                        <mat-card class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Playfair Display SC', serif;">
-                          <div class="row">
-                            <mat-card style="font-family: 'Playfair Display SC', serif;" class="uploaded">
-                              <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4" class="portrait">    
+                  <ul class="tabs-nav" id="tabs">
+                    <li class="active">
+                      <a href="#tab1" >Mint NFT</a>
+                    </li>
+                    <li >
+                      <a href="#tab2">Bio Data</a>
+                    </li>
+                    <li>
+                      <a href="#tab3">Shipping Details</a>
+                    </li>
+                  </ul>
+                  <div class="tabs-container" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%)">
+                    <div class="tab-content" id="tab1">
+                      <div class="card-body">
+                        <div *ngIf="this.userAgent === 'mobile'" class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                          <mat-card class="col-lg-12 col-md-12 col-sm-12" style="font-family: 'Playfair Display SC', serif;">
+                            <div class="row">
+                              <mat-card style="font-family: 'Playfair Display SC', serif;" class="uploaded">
+                                <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4" class="portrait">    
                                   <img src="{{this.tempImage}}" style="width: 15rem; height: 10rem;">
-                              </mat-card-content>
-                              <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4">    
-                                <img src="{{this.image}}" style="width: 90%;" *ngIf="this.imageOrientation === 'landscape'">
-                                <img src="{{this.image}}" style="width: 40%; height: 50%;" *ngIf="this.imageOrientation === 'portrait'">
-                              </mat-card-content>
-                              <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
-                                <audio controls>
-                                  <source  type="audio/mpeg"  [src]="this.mp3" >
-                                </audio>
-                              </mat-card-content>
-                              <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp4 && !this.mp3">
-                                <video width="420" height="340" controls controlsList="nodownload">
-                                  <source [src]="this.mp4" type="video/mp4">
-                                  <source [src]="this.mp4" type="video/ogg">
-                                Your browser does not support the video tag.
-                                </video>
-                              </mat-card-content>
-                            </mat-card>
-                          </div>
+                                </mat-card-content>
+                                <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4">    
+                                  <img src="{{this.image}}" style="width: 90%;" *ngIf="this.imageOrientation === 'landscape'">
+                                  <img src="{{this.image}}" style="width: 40%; height: 50%;" *ngIf="this.imageOrientation === 'portrait'">
+                                </mat-card-content>
+                                <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
+                                  <audio controls>
+                                    <source  type="audio/mpeg"  [src]="this.mp3" >
+                                  </audio>
+                                </mat-card-content>
+                                <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp4 && !this.mp3">
+                                  <video width="420" height="340" controls controlsList="nodownload">
+                                    <source [src]="this.mp4" type="video/mp4">
+                                    <source [src]="this.mp4" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                  </video>
+                                </mat-card-content>
+                              </mat-card>
+                            </div>
       
-                          <div class="row" style="margin-top: 10px;">
-                            <form [formGroup]="form">
-                              <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                  <mat-label style="color: rgb(112, 112, 112);">
-                                    * Select Category:
-                                  </mat-label>
-                                  <mat-select  formControlName="imageCategories">
-                                    <mat-option (onSelectionChange)="getCategory(item.value)" #categoryInput *ngFor="let item of this.imageCategories  let i=index" id="imageCategory" name="item.name" placeholder="select category"   [value]="item.value">{{item.name}}</mat-option>
-                                  </mat-select>
+                            <div class="row" style="margin-top: 10px;">
+                              <form [formGroup]="form">
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: rgb(112, 112, 112);">
+                                      * Select Category:
+                                    </mat-label>
+                                    <mat-select  formControlName="imageCategories">
+                                      <mat-option (onSelectionChange)="getCategory(item.value)" #categoryInput *ngFor="let item of this.imageCategories  let i=index" id="imageCategory" name="item.name" placeholder="select category"   [value]="item.value">{{item.name}}</mat-option>
+                                    </mat-select>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="row">
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: rgb(112, 112, 112);">
+                                      * Select Asset Type:
+                                    </mat-label>
+                                    <mat-select  formControlName="assetType">
+                                      <mat-option (onSelectionChange)="getAssetType(item.value)" #categoryInput *ngFor="let item of this.assetType  let i=index" id="assetType" name="item.name" placeholder="select asset type"   [value]="item.value">{{item.name}}</mat-option>
+                                    </mat-select>
+                                  </div>
+                                </div>
+                                <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     <mat-label style="color: rgb(112, 112, 112);">
                                       * Art Title:
@@ -151,9 +123,9 @@
                                       <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
                                     </mat-form-field>
                                   </div>
-                              </div>
+                                </div>
       
-                              <div class="row">
+                                <div class="row">
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                     <mat-label style="color: black;">
                                       * Asset Symbol:
@@ -163,7 +135,27 @@
                                       <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
                                     </mat-form-field>
                                   </div>
-                              </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <mat-label style="color: black;">
+                                      * Description:
+                                    </mat-label>
+                                    <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                      <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                      <textarea
+                                        matInput
+                                        cdkTextareaAutosize
+                                        cdkAutosizeMinRows="3"
+                                        cdkAutosizeMaxRows="7" 
+                                        id="description" 
+                                        name="symbol"  
+                                        formControlName="description">
+                                      </textarea>
+                                    </mat-form-field>
+                                  </div>
+                                </div>
                               
                                 <div class="row">
                                   <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Cardo', serif;">
@@ -188,9 +180,9 @@
                                   </div>
                                 </div>
                                 <div class="row" style="margin-top: 10px; font-family: 'Cardo', serif  !important;">
-                                    <p class="small font-weight-medium" style="font-family: 'Cardo', serif  !important;">
-                                        Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
-                                      </p>
+                                  <p class="small font-weight-medium" style="font-family: 'Cardo', serif  !important;">
+                                    Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
+                                  </p>
                                 </div>
                                 <div class="row" style="margin-top: 20px;">
                                   <button type="submit"  (click)="submit()" class="button" style="
@@ -199,180 +191,235 @@
                                     margin-left: 5%; 
                                     border-color: transparent;">
                                     Issue Asset
-                                </button>
-                                <button type="submit" data-toggle="modal" data-target="#marketModalLong" class="button" style="
-                                background-color: red; 
-                                text-transform: capitalize; 
-                                margin-left: 25%; 
-                                border-color: transparent;">
-                                  Cancel       
-                                </button>
-                              </div>
-                              <div class="clearfix"></div>    
-                          </form>
-                          </div>   
-                        </mat-card>
-                      </div>
-                      <div *ngIf="this.userAgent !== 'mobile'" class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
-                        <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
-                          <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4">   
+                                  </button>
+                                  <button type="submit" data-toggle="modal" data-target="#marketModalLong" class="button" style="
+                                    background-color: red; 
+                                    text-transform: capitalize; 
+                                    margin-left: 25%; 
+                                    border-color: transparent;">
+                                    Cancel       
+                                  </button>
+                                </div>
+                                <div class="clearfix"></div>    
+                              </form>
+                            </div>   
+                          </mat-card>
+                        </div>
+                        <div *ngIf="this.userAgent !== 'mobile'" class="d-flex flex-row flex-nowrap" style=" padding-bottom: 15px; overflow-x: scroll;">
+                          <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Playfair Display SC', serif;">
+                            <mat-card-content *ngIf="!this.image && !this.mp3 && !this.mp4">   
                               <img src="{{this.tempImage}}" style="width: 90%;">
-                          </mat-card-content>
-                          <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4"> 
-                            <img src="{{this.image}}" style="width: 90%;">
-                          </mat-card-content>
-                          <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
-                            <audio controls>
-                              <source  type="audio/mpeg"  [src]="this.mp3" >
-                            </audio>
-                          </mat-card-content>
-                          <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp4 && !this.mp3">
-                            <video width="420" height="340" controls controlsList="nodownload">
-                              <source [src]="this.mp4" type="video/mp4">
-                              <source [src]="this.mp4" type="video/ogg">
-                            Your browser does not support the video tag.
-                            </video>
-                          </mat-card-content>
-                        </mat-card>
-      
-      
-                        <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                          <form [formGroup]="form">
-                                <div class="row">
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <mat-label style="color: rgb(112, 112, 112);">
-                                      * Select Category:
-                                    </mat-label>
-                                    <mat-select  formControlName="imageCategories">
-                                      <mat-option (onSelectionChange)="getCategory(item.value)" #categoryInput *ngFor="let item of this.imageCategories  let i=index" id="imageCategory" name="item.name" placeholder="select category"   [value]="item.value">{{item.name}}</mat-option>
-                                    </mat-select>
-                                  </div>
+                            </mat-card-content>
+                            <mat-card-content *ngIf="this.image && !this.mp3 && !this.mp4"> 
+                              <img src="{{this.image}}" style="width: 90%;">
+                            </mat-card-content>
+                            <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp3 && !this.mp4">
+                              <audio controls>
+                                <source  type="audio/mpeg"  [src]="this.mp3" >
+                              </audio>
+                            </mat-card-content>
+                            <mat-card-content style="margin-left: 10%; margin-top: 10%;" *ngIf="this.mp4 && !this.mp3">
+                              <video width="420" height="340" controls controlsList="nodownload">
+                                <source [src]="this.mp4" type="video/mp4">
+                                <source [src]="this.mp4" type="video/ogg">
+                                Your browser does not support the video tag.
+                              </video>
+                            </mat-card-content>
+                          </mat-card>
+                          <mat-card class="col-lg-6 col-md-6 col-sm-6" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                            <form [formGroup]="form">
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Select Category:
+                                  </mat-label>
+                                  <mat-select  formControlName="imageCategories">
+                                    <mat-option (onSelectionChange)="getCategory(item.value)" #categoryInput *ngFor="let item of this.imageCategories  let i=index" id="imageCategory" name="item.name" placeholder="select category"   [value]="item.value">{{item.name}}</mat-option>
+                                  </mat-select>
                                 </div>
+                              </div>
 
-                                <div class="row">
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <mat-label style="color: rgb(112, 112, 112);">
-                                      * Select Asset Type:
-                                    </mat-label>
-                                    <mat-select  formControlName="assetType">
-                                      <mat-option (onSelectionChange)="getAssetType(item.value)" #categoryInput *ngFor="let item of this.assetType  let i=index" id="assetType" name="item.name" placeholder="select asset type"   [value]="item.value">{{item.name}}</mat-option>
-                                    </mat-select>
-                                  </div>
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Select Asset Type:
+                                  </mat-label>
+                                  <mat-select  formControlName="assetType">
+                                    <mat-option (onSelectionChange)="getAssetType(item.value)" #categoryInput *ngFor="let item of this.assetType  let i=index" id="assetType" name="item.name" placeholder="select asset type"   [value]="item.value">{{item.name}}</mat-option>
+                                  </mat-select>
                                 </div>
+                              </div>
 
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                      <mat-label style="color: rgb(112, 112, 112);">
-                                        * Art Title:
-                                      </mat-label>
-                                      <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"> 
-                                        <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
-                                        <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
-                                      </mat-form-field>
-                                    </div>
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Art Title:
+                                  </mat-label>
+                                  <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"> 
+                                    <mat-icon matPrefix style="margin-right: 2rem ;">blur_linear</mat-icon>
+                                    <input matInput type="text" id="artTitle" name="artTitle"  formControlName="artTitle">
+                                  </mat-form-field>
                                 </div>
+                              </div>
       
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                      <mat-label style="color: black;">
-                                        * Asset Symbol:
-                                      </mat-label>
-                                      <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                                        <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
-                                        <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
-                                      </mat-form-field>
-                                    </div>
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <mat-label style="color: black;">
+                                    * Asset Symbol:
+                                  </mat-label>
+                                  <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                    <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                    <input matInput  type="text" id="symbol" name="symbol"  formControlName="symbol">
+                                  </mat-form-field>
                                 </div>
+                              </div>
 
-                                <div class="row">
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <mat-label style="color: black;">
-                                      * Description:
-                                    </mat-label>
-                                    <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                                      <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
-                                      <input matInput  type="text" id="description" name="symbol"  formControlName="description">
-                                    </mat-form-field>
-                                  </div>
+                              <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                  <mat-label style="color: black;">
+                                    * Description:
+                                  </mat-label>
+                                  <mat-form-field class="example-full-width" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                    <mat-icon matPrefix style="margin-right: 2rem ;">center_focus_weak</mat-icon>
+                                    <textarea
+                                    matInput
+                                    cdkTextareaAutosize
+                                    cdkAutosizeMinRows="3"
+                                    cdkAutosizeMaxRows="7" 
+                                    id="description" 
+                                    name="description"  
+                                    formControlName="description">
+                                </textarea>
+                                  </mat-form-field>
+                                </div>
                               </div>
                                 
-      
-                                  <div class="row">
-                                    <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                                      <mat-label style="color: rgb(112, 112, 112);">
-                                        * Select Artwork:
-                                      </mat-label>
-                                        <input multiple type="file" id="images" (change)="uploadFile($event)" #fileInput>
-                                    </div>
-                                    <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                                      <mat-label style="color: rgb(112, 112, 112);">
-                                        * Select Cover Art:
-                                      </mat-label>
-                                        <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
-                                    </div>
-                                  </div>
-                                  <div style="margin-top: 5px;" class="row">
-                                    <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-                                      <mat-label style="color: rgb(112, 112, 112);">
-                                        * Select Media File:
-                                      </mat-label>
-                                      <input  type="file" id="images" (change)="uploadFile($event)" #fileInput>
-                                    </div>
-                                  </div>
-                                  <div class="row" style="margin-top: 10px; font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
-                                      <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important; margin-left: 5%;">
-                                          Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
-                                        </p>
-                                  </div>
-                                  <div class="row" style="margin-top: 20px;">
-                                    <button type="submit"  (click)="submit()" class="button"  style="
-                                      background-color: green; 
-                                      margin-left: 5%;
-                                      margin-right: 18%; 
-                                      text-transform: capitalize;
-                                      border-color: transparent;">
-                      
-                                      Issue Asset
-                                  
-                                  </button>
-                                  <button type="submit" data-toggle="modal" class="button" data-target="#marketModalLong" style="
+                              <div class="row">
+                                <div *ngIf="this.categorySelected === 'artwork'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Select Artwork:
+                                  </mat-label>
+                                  <input multiple type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                </div>
+                                <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'" class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Select Cover Art:
+                                  </mat-label>
+                                  <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                </div>
+                              </div>
+                              <div style="margin-top: 5px;" class="row">
+                                <div *ngIf="this.categorySelected === 'musicRight' || this.categorySelected === 'movieRight'"  class="col-lg-5 col-md-5 col-sm-5" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+                                  <mat-label style="color: rgb(112, 112, 112);">
+                                    * Select Media File:
+                                  </mat-label>
+                                  <input  type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                </div>
+                              </div>
+                              <div class="row" style="margin-top: 10px; font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
+                                <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important; margin-left: 5%;">
+                                  Note that asset issuance does not equate to listing for bids. To Activate the auction process for an asset, please visit <a routerLink="/myAssets" routerLinkActive="active"  data-display="static" style="color: blue !important;"> My assets </a> and start auction.
+                                </p>
+                              </div>
+                              <div class="row" style="margin-top: 20px;">
+                                <button type="submit"  (click)="submit()" class="button"  style="
+                                  background-color: green; 
+                                  margin-left: 5%;
+                                  margin-right: 18%; 
+                                  text-transform: capitalize;
+                                  border-color: transparent;">  
+                                  Issue Asset
+                                </button>
+                                <button type="submit" data-toggle="modal" class="button" data-target="#marketModalLong" style="
                                   background-color: red; 
                                   margin-left: 25%; 
                                   text-transform: capitalize;
                                   border-color: transparent;">
                                     Cancel
-                                  </button>
-                                </div>
-      
-                                <div class="clearfix"></div>
+                                </button>
+                              </div>
+                              <div class="clearfix"></div>
                             </form>
-                        </mat-card>
-                      </div>           
-                  </div>              
+                          </mat-card>
+                        </div>           
+                      </div>              
+                    </div>
+                    <div class="tab-content" id="tab2" >
+                      <div class="card-body">
+                        <form id="bioForm" #bioForm="ngForm">
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                          <mat-icon matPrefix style="margin-right: 2rem ;">chat</mat-icon>
+                          <input autofocus type="text" matInput placeholder="First Name: Ogu" id="firstName" name="firstName" [(ngModel)]="firstName" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">attribution</mat-icon>
+                              <input autofocus type="text" matInput placeholder="Last Name: Chinedu " id="lastName" name="lastName" [(ngModel)]="lastName" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">pattern</mat-icon>
+                              <input autofocus type="email" matInput placeholder="Email: admin@xendbit.com" id="email" name="email" [(ngModel)]="email" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
+                              <input type="phone" autocomplete="false" matInput placeholder="Phone" id="phone" name="phone" [(ngModel)]="phone">
+                          </mat-form-field>
+                          <button (click)="updateBio(bioForm)"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+                          Update Bio Data
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="tab-content" id="tab3">
+                      <div class="card-body">
+                        <form id="shippingForm" #shippingForm="ngForm">
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                          <mat-icon matPrefix style="margin-right: 2rem ;">chat</mat-icon>
+                          <input autofocus type="text" matInput placeholder="Country: Nigeria" id="country" name="country" [(ngModel)]="country" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">attribution</mat-icon>
+                              <input autofocus type="number" matInput placeholder="Zip Code: 234637 " id="zipCode" name="zipCode" [(ngModel)]="zipCode" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">pattern</mat-icon>
+                              <input autofocus type="text" matInput placeholder="State: Lagos" id="state" name="state" [(ngModel)]="state" >
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                              <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
+                              <input type="text" autocomplete="false" matInput placeholder="city: Lagos" id="city" name="city" [(ngModel)]="city">
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
+                            <input type="text" autocomplete="false" matInput placeholder="street: Brightben" id="street" name="street" [(ngModel)]="street">
+                          </mat-form-field>
+                          <mat-form-field style="height: 5rem; font-family: 'Cardo', serif; width: 100%;">
+                            <mat-icon matPrefix style="margin-right: 2rem ;">graphic_eq</mat-icon>
+                            <input type="number" autocomplete="false" matInput placeholder="houseNumber: 17" id="houseNumber" name="houseNumber" [(ngModel)]="houseNumber">
+                          </mat-form-field>
+                          <button (click)="updateShipping(shippingForm)"  type="submit" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: black;">
+                          Update Shipping Details
+                          </button>
+                        </form>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div #content class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <div class="card-header card-header-danger"  style="background: black; width: 100%;">
-                          <h4 class="card-title" style="text-align: center; color: white;">Register</h4>
-                          <p class="card-category" style="text-align: center; font-size: 11pt; font: 12px/1.5 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; color: white;">Please fill all fields </p>
-                      </div>
+                  <div #content class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <div class="card-header card-header-danger"  style="background: black; width: 100%;">
+                            <h4 class="card-title" style="text-align: center; color: white;">Register</h4>
+                            <p class="card-category" style="text-align: center; font-size: 11pt; font: 12px/1.5 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; color: white;">Please fill all fields </p>
+                          </div>
                           <!-- <h5 class="modal-title" id="exampleModalLabel" style="text-align: center !important;">Register</h5> -->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
                           <div>
                             <form  #registerForm="ngForm"  novalidate>
-                              <!-- <div class="row" style=" font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important;">
-                                <p class="font-weight-medium" style="font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif !important; ">
-                                   Please Fill the form below and register as issuer before you can issue assets.
-                                  </p>
-                              </div> -->
                               <mat-form-field style="font-size: 11pt;">
                                 <mat-icon matPrefix style="margin-right: 2rem ;">face</mat-icon>
                                 <input autofocus type="text" matInput placeholder="First Name" id="firstName" name="firstName" [(ngModel)]="firstName" >
@@ -399,29 +446,22 @@
                                 <input type="text" autocomplete="false" matInput placeholder="Blockchain Address" id="blockchainAddress" name="blockchainAddress" [(ngModel)]="blockchainAddress">
                               </mat-form-field>
                             </form>
+                          </div>
                         </div>
-                      </div>
             
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25%; background-color: red; border-color: transparent;">Cancel</button>
-                        <button data-dismiss="modal" (click)="register(registerForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Register</button>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: 25%; background-color: red; border-color: transparent;">Cancel</button>
+                          <button data-dismiss="modal" (click)="register(registerForm)" type="submit" class="btn btn-primary" style="background-color: green; border-color: transparent;">Register</button>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <button id='openModal'  data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent; visibility: hidden;">      
+                    open modal
+                  </button>
                 </div>
-
-      
-                <button id='openModal'  data-toggle="modal" data-target="#marketModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent; visibility: hidden;">      
-                  open modal
-                </button>
-      
-                
-                </div>
-                
               </div> 
-              
             </div>
-            
           </div>
         </article>
       </section>

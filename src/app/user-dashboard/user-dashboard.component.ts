@@ -31,6 +31,12 @@ export class UserDashboardComponent implements OnInit {
   fullName: string;
   firstName: string;
   middleName: string;
+  country: string;
+  houseNumber: number;
+  street: string;
+  city: string;
+  zipCode: number;
+  state: string;
   endBlock: string;
   userId: any;
   balance: any;
@@ -88,6 +94,7 @@ export class UserDashboardComponent implements OnInit {
     this.form = fb.group({
       'description': this.description,
       'symbol': this.symbol,
+      'assetType': this.typeSelected,
       'issuingPrice': this.issuingPrice,
       'image': this.image,
       'artTitle': this.title,
@@ -142,6 +149,10 @@ export class UserDashboardComponent implements OnInit {
     }
     this.media = [];
     this.mediaType = [];
+    var link = document.getElementById('tab2');
+    link.style.display = 'none';
+    var link2 = document.getElementById('tab3');
+    link2.style.display = 'none';
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
@@ -152,33 +163,41 @@ export class UserDashboardComponent implements OnInit {
     this.totalOrders = 0;
   }
 
+  updateBio(bioForm: NgForm) {
 
-register(register: NgForm) {
-  
-  const email = register.value.email;
-  const firstName = register.value.firstName;
-  const middleName = register.value.middleName;
-  const lastName = register.value.lastName;
-  const phone = register.value.phone;
-  const blockchainAddress = register.value.blockchainAddress;
-  if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
-    this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
-    this.modalElement.click();
-    return false;
   }
-  this.assetService.showSpinner();
-  this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
-    if (res['status'] === 'success') {
-      this.assetService.stopSpinner();
-      this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
+
+  updateShipping(shippingForm: NgForm) {
+    
+  }
+
+
+  register(register: NgForm) {
+    
+    const email = register.value.email;
+    const firstName = register.value.firstName;
+    const middleName = register.value.middleName;
+    const lastName = register.value.lastName;
+    const phone = register.value.phone;
+    const blockchainAddress = register.value.blockchainAddress;
+    if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
+      this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
+      this.modalElement.click();
+      return false;
     }
-  }, err => {
-    console.log(err.error.data.error);
-    this.error = err.error.data.error;
-    this.assetService.stopSpinner();
-    this.assetService.showNotification('top', 'center', this.error, 'danger');
-  })
-}
+    this.assetService.showSpinner();
+    this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
+      if (res['status'] === 'success') {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
+      }
+    }, err => {
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('top', 'center', this.error, 'danger');
+    })
+  }
 
   getCategory(item) {
     this.categorySelected =  item;
@@ -215,6 +234,7 @@ register(register: NgForm) {
       return;
     }
     this.symbol = this.form.get('symbol').value;
+    this.description = this.form.get('description').value;
     this.title = this.form.get('artTitle').value;
     if (this.title === null || this.symbol === null) {
       this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
@@ -239,11 +259,11 @@ register(register: NgForm) {
       await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
         if (data.status === 'success') {
           setTimeout(() => {
-            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected).pipe(timeout(20000)).subscribe(data => {
+            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
               if (data['status'] === 'success') {
                 this.assetService.stopSpinner();
                 this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
-                this.ngOnInit();
+                return this.ngOnInit();
               } else {
                 this.assetService.stopSpinner();
                 this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');

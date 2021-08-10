@@ -99,6 +99,7 @@ export class SecondaryViewComponent implements OnInit {
     } else {
       this.userAgent = 'desktop';
     }
+  
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
       this.account = data.account;
@@ -169,29 +170,30 @@ export class SecondaryViewComponent implements OnInit {
     const city = register.value.city;
     const street = register.value.street;
     const houseNumber = register.value.houseNumber;
-    const blockchainAddress = register.value.blockchainAddress;
+    const blockchainAddress = this.account;
     if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || 
-      lastName === undefined  || blockchainAddress === undefined || country === undefined ||
+      lastName === undefined || country === undefined ||
       zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
       this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
       this.modalElement.click();
       
       return false;
     }
-    // this.assetService.showSpinner();
-    // this.assetService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
-    //   country, zipCode, state, city, street, houseNumber).subscribe(res => {
-    //   console.log('==>', res);
-    //   if (res['status'] === 'success') {
-    //     this.assetService.stopSpinner();
-    //     this.assetService.showNotification('top', 'center', 'Buyer has been successfully registered', 'success');
-    //   }
-    // }, err => {
-    //   console.log(err.error.data.error);
-    //   this.error = err.error.data.error;
-    //   this.assetService.stopSpinner();
-    //   this.assetService.showNotification('top', 'center', this.error, 'danger');
-    // })
+    this.assetService.showSpinner();
+    this.assetService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
+      country, zipCode, state, city, street, houseNumber).subscribe(res => {
+      console.log('==>', res);
+      if (res['status'] === 'success') {
+        this.assetService.stopSpinner();
+        this.assetService.showNotification('top', 'center', 'Buyer has been successfully registered', 'success');
+        this.ngOnInit;
+      }
+    }, err => {
+      console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.assetService.stopSpinner();
+      this.assetService.showNotification('top', 'center', this.error, 'danger');
+    })
   }
 
   withdraw() {
@@ -245,31 +247,34 @@ export class SecondaryViewComponent implements OnInit {
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
       this.account = data.account;
-      this.assetService.getIssuerStatus(this.account).subscribe(res => {
+      this.assetService.getBuyerStatus(this.account).subscribe(res => {
         console.log('this is response from check buyer', res)
         this.response = res;
       },
       error => {
         this.response = error['error'];
         console.log('this is error', error);
+        this.response = error['error']['data']['statusCode'];
+        console.log('this is response', this.response);
       })
     })
     
   }
 
   sendMarketOrder() {
-    if (this.response === 'Buyer with blockchain address not found, please register.') {
+    console.log('this is response', this.response)
+    if (this.response === 404) {
       this.modalElement.click()
       return;
     }
-    let minimumBid = parseFloat(this.auction.minimumBid);
+    let currentBid = parseFloat(this.auction.highestBid);
     if (this.balance < this.amount ) {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
-    } else if (this.balance < minimumBid)  {
+    } else if (this.balance < currentBid)  {
       this.assetService.showNotification('bottom', 'center', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.', 'danger');
       return;
-    } else if (this.amount < minimumBid) {
+    } else if (this.amount < currentBid) {
       this.assetService.showNotification('bottom', 'center', 'You cannot Bid less than the minimum acceptable bid for this asset.', 'danger');
       return;
     }

@@ -981,30 +981,16 @@ jQuery(document).ready(function($) {
 
 	(function() {
 
-		var $tabsNav    = $('.tabs-nav'),
-			$tabsNavLis = $tabsNav.children('li'),
-			$tabContent = $('.tab-content');
-
-		$tabsNav.each(function() {
-			var $this = $(this);
-
-			$this.next().children('.tab-content').stop(true,true).hide()
-												 .first().show();
-
-			$this.children('li').first().addClass('active').stop(true,true).show();
-		});
-
-		$tabsNavLis.on('click', function(e) {
-			var $this = $(this);
-
-			$this.siblings().removeClass('active').end()
-				 .addClass('active');
-			
-			$this.parent().next().children('.tab-content').stop(true,true).hide()
-														  .siblings( $this.find('a').attr('href') ).fadeIn();
-
-			e.preventDefault();
-		});
+	$('a').on({
+  click: function(e) {
+    e.preventDefault();  // stops it from default action
+    var showTab = $(this).attr("href"); // gets the href as identifier
+    $('.active').removeClass("active"); // removed previous active link
+    $(this).addClass("active"); // adds .active to clicked <a>
+    $('.tab-content:visible').hide();  // hides visible tab
+    $(showTab).show();  // shows active tab
+  }
+});
 
 	})();
 

@@ -32,9 +32,9 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div *ngIf="this.userAgent !== 'mobile'"  class="row">
-                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
-                                        <div style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 34%)">
-                                            <img class="img-fluid" loading="lazy" src="/assets/img/tryslide.jpg">
+                                    <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; border-radius: 10px;">
+                                        <div style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 34%); border-radius: 10px;">
+                                            <img class="img-fluid" loading="lazy" style="border-radius: 10px;" src="/assets/img/tryslide.jpg">
                                         </div>
                                     </div>
                                     <div class="col-1">
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 34%)">
-                                            <img class="img-fluid" loading="lazy" src="/assets/img/musicpexel.jpg">
+                                            <img class="img-fluid" loading="lazy" style="border-radius: 10px;" src="/assets/img/musicpexel.jpg">
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                 <div *ngIf="this.userAgent !== 'mobile'" class="row">
                                     <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 34%)">
-                                            <img class="img-fluid" loading="lazy" src="/assets/img/moviespexel.jpg">                                        </div>
+                                            <img class="img-fluid" loading="lazy" style="border-radius: 10px;" src="/assets/img/moviespexel.jpg">                                        </div>
                                     </div>
                                     <div class="col-1">
                                     </div>
@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="col-7 col-lg-7 d-flex align-items-center p-2 pb-5 p-sm-5 p-lg-0 hero-col" style="width: 100%; ">
                                         <div class="overlay" style="box-shadow: 0 4px 20px 0px rgb(0 0 0 / 34%)">
-                                            <img class="img-fluid" loading="lazy" src="/assets/img/binancenew.png">
+                                            <img class="img-fluid" loading="lazy" style="border-radius: 10px;" src="/assets/img/binancenew.png">
                                         </div>
                                     </div>
                                 </div>
@@ -245,34 +245,46 @@
                     <section id="content" class="container clearfix"  *ngIf="this.randomArt">
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-4 col-lg-4">
-                                <img (click)="viewSec(this.randomArt.tokenId, 'sellPage')" loading="lazy" src="{{this.randomArt.image.media}}" alt="" style="width: 33rem; height: 25rem;" >
+                                <mat-card class="randomCard">
+                                    <mat-card-header style=" background-color: transparent;">
+                                        <img (click)="viewSec(this.randomArt.tokenId, 'sellPage')" loading="lazy" src="{{this.randomArt.image.media}}" alt="" class="randomImage" >
+                                    </mat-card-header>
+                                    
+                                </mat-card>
                             </div>
                             <div class="col-2 col-lg-2">
                             </div>
                             <div class="col-6 col-lg-6" style="color: white;">
                                 <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomArt.symbol}} </h2>
-                                <b style="margin-top: 10px; color: white;"> Issue Date: </b> {{this.randomArt.dateIssued | date  }}
-                                <p>
-                                    <b  style="margin-top: 10px; color: white;"> Symbol: </b> {{this.randomArt.name }}
-                                </p>
+                                <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomArt.dateIssued | date  }} </h5> 
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomArt.name }} </h5>
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;">
+                                    An old bluewooden rowboat and its reflection on the coast. 
+                                    The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
+                                    painted with watercolors and acrylics by Hailey E. Herrera.
+                                </h5>
                             </div>
                         </div>
                     </section>
                     <section id="content" class="container clearfix">
-                    <ul class="projects-carousel clearfix" style="overflow: hidden;
-                        position: relative;
-                        top: 0px;
-                        margin: 0px;
-                        padding: 0px;
-                        left: 0px;
-                        width: 0;
-                        height: 310px;">
+                    <ul class="projects-carousel clearfix" id="artSection">
                         <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
-                            <a style="padding: 0px;">
-                                <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
-                                <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}} </h5>
-                                <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
-                            </a>
+                            <mat-card style="border-radius: 10px; padding: 0px !important;"  *ngIf="this.images">
+                                <mat-card-header style="background-color: transparent;">
+                                    <a style="padding: 0px;">
+                                        <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="" style="border-radius: 5px 5px 0px 0px;">
+                                    </a>
+                                </mat-card-header>
+                                <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                                    <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                                    <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                                    <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
+                                    <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+                                </mat-card-content>
+                               
+                            </mat-card>
+                           
                         </li>
                     </ul>
                     </section>
@@ -288,50 +300,74 @@
         font-size: 30px;">Musical Inspirations</h4>
         <div class="row" >
             <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
-                <div class="image-box" style="--image-url: url('/assets/img/tringle.png'); width: 100%; margin-right: 0; min-height: 58rem;">
+                <div class="image-box" style="--image-url: url('/assets/img/tringle.png'); width: 100%; margin-right: 0; min-height: 60rem;">
                     <section id="content" class="container clearfix" *ngIf="this.randomMusic">
                         <div class="row" style="margin-top: 20px;">
-                            <div class="col-4 col-lg-4">
-                                <a>
-                                    <img (click)="viewSec(this.randomMusic.tokenId, 'sellPage')" loading="lazy" src="{{this.randomMusic.image.media}}" alt="" style="width: 33rem; height: 25rem;" >
-                                    <audio style="background: transparent;" controls controlsList="nodownload" style="width: 33rem;">
-                                        <source src="{{this.randomAudio}}" type="audio/mp3" />
-                                        <source src=" {{this.randomAudio}} " type="audio/ogg" />
-                                    </audio>
-                                </a>
+                            <div class="col-4 col-lg-4" style="margin-bottom: 30px;">
+                                <mat-card class="randomCard">
+                                    <mat-card-header style=" background-color: transparent;">
+                                        <img (click)="viewSec(this.randomMusic.tokenId, 'sellPage')" loading="lazy" src="{{this.randomMusic.image.media}}" alt="" class="randomImage" >
+                                      
+                                    </mat-card-header>
+                                    <div class="row" >
+                                        <a>
+                                            <audio  controls controlsList="nodownload" class="audioStyle">
+                                                <source src="{{this.randomAudio}}" type="audio/mp3" />
+                                                <source src=" {{this.randomAudio}} " type="audio/ogg" />
+                                            </audio>
+                                        </a>
+                                    </div>
+                                    
+                                </mat-card>
+                               
                             </div>
                             <div class="col-2 col-lg-2">
                             </div>
                             <div class="col-6 col-lg-6" style="color: #ffffff;">
                                 <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomMusic.symbol}} </h2>
-                                <b style="margin-top: 10px; color: white;"> Issue Date: </b> {{this.randomMusic.dateIssued | date  }}
-                                <p>
-                                    <b  style="margin-top: 10px; color: white;"> Symbol: </b> {{this.randomMusic.name }}
-                                </p>
+                                <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomMusic.dateIssued | date  }} </h5> 
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomMusic.name }} </h5>
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;">
+                                    An old bluewooden rowboat and its reflection on the coast. 
+                                    The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
+                                    painted with watercolors and acrylics by Hailey E. Herrera.
+                                </h5>
                             </div>
                         </div>
                     </section>
-                    <section id="content" class="container clearfix">
-                        <ul class="projects-carousel clearfix "  style="
-                        overflow: hidden;
-                        position: relative;
-                        top: 0px;
-                        margin: 0px;
-                        padding: 0px;
-                        left: 0px;
-                        width: 0;
-                        height: 350px;">
+                    <section id="content" class="container clearfix" *ngIf="this.audios">
+                        <ul class="projects-carousel clearfix " id="audioSection">
                         <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
-                            <a style="padding: 0px;">
+                            <mat-card style="border-radius: 10px; padding: 0px !important;"  *ngIf="this.images">
+                                <mat-card-header style="background-color: transparent;">
+                                    <a style="padding: 0px;">
+                                        <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="" style="border-radius: 5px 5px 0px 0px;">
+                                    </a>
+                                   
+                                </mat-card-header>
+                              
+                                <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                                    <div class="row">
+                                        <audio class="AudioPlayerV1" style="background: transparent;" controls controlsList="nodownload">
+                                            <source src="{{item.audio.media}}" type="audio/mp3" />
+                                            <source src=" {{item.audio.media}} " type="audio/ogg" />
+                                        </audio>
+                                    </div>
+                                    <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                                    <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                                    <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
+                                    <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
+                                </mat-card-content>
+                               
+                            </mat-card>
+                            <!-- <a style="padding: 0px;">
                                 
                                     <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
-                                    <audio class="AudioPlayerV1" style="background: transparent;" controls controlsList="nodownload">
-                                        <source src="{{item.audio.media}}" type="audio/mp3" />
-                                        <source src=" {{item.audio.media}} " type="audio/ogg" />
-                                    </audio>
+                                    
                                 <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.symbol}} </h5>
                                 <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
-                            </a>
+                            </a> -->
                         </li>
                         </ul>    
                     </section>
@@ -351,43 +387,56 @@
                     <section id="content" class="container clearfix" *ngIf="this.randomVideo">
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-4 col-lg-4">
-                                <video (click)="viewSec(this.randomVideo.tokenId, 'sellPage')" style="width: 33rem; height: 25rem; object-fit: cover;" poster="{{this.randomVideo.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
-                                    <source src=" {{this.randomVideo.video.media}}" type="video/mp4" />
-                                    <source src="{{this.randomVideo.video.media}}" type="video/webm" />
-                                    <source src=" {{this.randomVideo.video.media}}" type="video/ogg" />
-                                </video>
+                                <mat-card class="randomCard">
+                                    <mat-card-header style=" background-color: transparent;">
+                                        <video (click)="viewSec(this.randomVideo.tokenId, 'sellPage')" class="randomCard-video" poster="{{this.randomVideo.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                                            <source src=" {{this.randomVideo.video.media}}" type="video/mp4" />
+                                            <source src="{{this.randomVideo.video.media}}" type="video/webm" />
+                                            <source src=" {{this.randomVideo.video.media}}" type="video/ogg" />
+                                        </video>
+                                    </mat-card-header>
+                                    
+                                </mat-card>
+                               
                             </div>
                             <div class="col-2 col-lg-2">
                             </div>
                             <div class="col-6 col-lg-6" style="color: white;">
-                                <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomMusic.symbol}} </h2>
-                                <b style="margin-top: 10px; color: white;"> Issue Date: </b> {{this.randomMusic.dateIssued | date  }}
-                                <p>
-                                    <b  style="margin-top: 10px; color: white;"> Symbol: </b> {{this.randomMusic.name }}
-                                </p>
+                                <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomVideo.symbol}} </h2>
+                                <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomVideo.dateIssued | date  }} </h5> 
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomVideo.name }} </h5>
+                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;">
+                                    An old bluewooden rowboat and its reflection on the coast. 
+                                    The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
+                                    painted with watercolors and acrylics by Hailey E. Herrera.
+                                </h5>
                             </div>
                         </div>
                     </section>
                     <section id="content" class="container clearfix">
-                        <ul class="projects-carousel clearfix" style="overflow: hidden;
-                        position: relative;
-                        top: 0px;
-                        margin: 0px;
-                        padding: 0px;
-                        left: 0px;
-                        width: 0;
-                        height: 291px;">
+                        <ul class="projects-carousel clearfix" id="vidSection">
                             <li  *ngFor="let item of this.videos  let i=index">
-                                <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 20rem; height: 16rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
-                                    <source src=" {{item.video.media}}" type="video/mp4" />
-                                    <source src="{{item.video.media}}" type="video/webm" />
-                                    <source src=" {{item.video.media}}" type="video/ogg" />
-                                </video>
-                                <a>
-                                    <!-- <iframe src="https://res.cloudinary.com/xendbit/raw/upload/v1619785832/gurmp1b0sqaaulsluoel" width="220" height="125" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen class="entry-video"></iframe> -->
-                                    <h5 (click)="viewSec(item.tokenId, 'sellPage')" class="title">{{item.symbol}}</h5>
-                                    <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
-                                </a>
+                                <mat-card class="vid-card" *ngIf="this.videos">
+                                    <mat-card-header style="background-color: transparent;">
+                                        <a style="padding: 0px;">
+                                            <video (click)="viewSec(item.tokenId, 'sellPage')" style="width: 20rem; height: 16rem; object-fit: cover;" poster="{{item.image.media}}"  data-aspect-ratio='1.98' controls controlsList="nodownload">
+                                                <source src=" {{item.video.media}}" type="video/mp4" />
+                                                <source src="{{item.video.media}}" type="video/webm" />
+                                                <source src=" {{item.video.media}}" type="video/ogg" />
+                                            </video>
+                                        </a>
+                                       
+                                    </mat-card-header>
+                                  
+                                    <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                                        <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                                        <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                                        <h5 class="title"> Current Bid: {{item.highestBid}} BNB </h5>
+                                        <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / Movie-right</span>
+                                    </mat-card-content>
+                                   
+                                </mat-card>
                             </li>
                         </ul>
                     </section>
