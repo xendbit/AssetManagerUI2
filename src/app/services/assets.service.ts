@@ -88,7 +88,9 @@ declare let window: any;
     return this.httpClient.get(`${this.baseUrl}/assets/listings`);
   }
 
-  saveIssuer(email: string, phone: any, firstname: string, lastname: string, middlename: string, blockchainAddress: any) {
+  saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
+    middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
+    accountName: string, accountNumber: number, bankCode: any, IBAN: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', this.nifty_api_key);
@@ -98,7 +100,13 @@ declare let window: any;
       "firstName": firstname, 
       "middleName": middlename,
       "lastName": lastname,
-      "blockchainAddress": blockchainAddress
+      "blockchainAddress": blockchainAddress,
+      "bankName": bankName,
+      "bankAddress": bankAddress,
+      "accountName": accountName,
+      "accountNumber": accountNumber,
+      "bankCode": bankCode,
+      "IBAN": IBAN
     },  {headers})
   }
 

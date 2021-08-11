@@ -27,7 +27,6 @@ export class UserDashboardComponent implements OnInit {
   lastName: any;
   primaryMarket: any;
   secondaryMarket: any[];
-  accountNumber: string;
   fullName: string;
   firstName: string;
   middleName: string;
@@ -67,6 +66,12 @@ export class UserDashboardComponent implements OnInit {
   tokenId: number;
   mediaType: any[];
   media: any[];
+  iban: any;
+  bankCode: any;
+  bankName: string;
+  bankAddress: string;
+  accountName: string;
+  accountNumber: number;
   imageCategories: { name: string,  value: string }[] = [
     { "name": 'Digital and Curated',  value: "artwork" },
     { "name": 'Musical Inspirations',  value: "musicRight" },
@@ -179,6 +184,12 @@ export class UserDashboardComponent implements OnInit {
     const middleName = register.value.middleName;
     const lastName = register.value.lastName;
     const phone = register.value.phone;
+    const iban = register.value.iban;
+    const bankCode = register.value.bankCode;
+    const bankAddress = register.value.bankAddress;
+    const accountName = register.value.accountName;
+    const accountNumber = register.value.accountNumber;
+    const bankName = register.value.bankName;
     const blockchainAddress = register.value.blockchainAddress;
     if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined  || blockchainAddress === undefined) {
       this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
@@ -186,7 +197,10 @@ export class UserDashboardComponent implements OnInit {
       return false;
     }
     this.assetService.showSpinner();
-    this.assetService.saveIssuer(email, phone, firstName, lastName, middleName, blockchainAddress).subscribe(res => {
+    this.assetService.saveIssuer(
+      email, phone, firstName, lastName, middleName,
+      blockchainAddress, bankName, bankAddress, accountName,
+      accountNumber, bankCode, iban).subscribe(res => {
       if (res['status'] === 'success') {
         this.assetService.stopSpinner();
         this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
