@@ -258,8 +258,8 @@
                                 <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomArt.symbol}} </h2>
                                 <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomArt.dateIssued | date  }} </h5> 
                                 <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomArt.name }} </h5>
-                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
-                                <h5 style=" color: white; font-size: large;">
+                                <b  style="margin-top: 10px; color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'">
                                     An old bluewooden rowboat and its reflection on the coast. 
                                     The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
                                     painted with watercolors and acrylics by Hailey E. Herrera.
@@ -327,8 +327,8 @@
                                 <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomMusic.symbol}} </h2>
                                 <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomMusic.dateIssued | date  }} </h5> 
                                 <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomMusic.name }} </h5>
-                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
-                                <h5 style=" color: white; font-size: large;">
+                                <b  style="margin-top: 10px; color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'">
                                     An old bluewooden rowboat and its reflection on the coast. 
                                     The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
                                     painted with watercolors and acrylics by Hailey E. Herrera.
@@ -405,8 +405,8 @@
                                 <h2 class="section-title" style="color: white;"> Top Pick: {{this.randomVideo.symbol}} </h2>
                                 <b style="margin-top: 10px; color: white; font-size: large;"> Issue Date: </b> <h5 style=" color: white; font-size: large;"> {{this.randomVideo.dateIssued | date  }} </h5> 
                                 <b  style="margin-top: 10px; color: white; font-size: large;"> Symbol: </b>  <h5 style="color: white; font-size: large;">{{this.randomVideo.name }} </h5>
-                                <b  style="margin-top: 10px; color: white; font-size: large;"> Description: </b> 
-                                <h5 style=" color: white; font-size: large;">
+                                <b  style="margin-top: 10px; color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'"> Description: </b> 
+                                <h5 style=" color: white; font-size: large;" *ngIf="this.userAgent !== 'mobile'">
                                     An old bluewooden rowboat and its reflection on the coast. 
                                     The wooden boat gently rocks in the waves and makes relaxing water sound like a lullaby, 
                                     painted with watercolors and acrylics by Hailey E. Herrera.

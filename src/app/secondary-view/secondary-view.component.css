@@ -613,9 +613,17 @@ ul.dotted + ul.dotted:before {
 @media only screen and (max-width: 767px) {
 
 	#main {
+		float: initial;
 		width: 295px;
 		box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%);
 		padding-bottom: 0;
+	}
+
+	.detailsSidebar {
+		box-shadow: inset 0 0 0 100vw rgb(255 255 255 / 75%);
+		width: 18rem;
+		/* Basic background styles */
+		background: transparent;
 	}
 
 	#sidebar {
@@ -676,7 +684,7 @@ ul.dotted + ul.dotted:before {
 	.slides #slide-1 img {
 		width: 300px; 
 		height: 400px;
-		object-fit: cover;
+		object-fit: contain;
     }
 
 	.slides #slide-2 video {

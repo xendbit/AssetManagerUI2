@@ -479,27 +479,27 @@ jQuery(document).ready(function($) {
 			initCarousel( $carousel );
 
 			// Detect swipe gestures support
-			if( Modernizr.touch ) {
+			// if( Modernizr.touch ) {
 				
-				function swipeFunc( e, dir ) {
+			// 	function swipeFunc( e, dir ) {
 				
-					var $carousel = $(e.currentTarget);
+			// 		var $carousel = $(e.currentTarget);
 					
-					if( dir === 'left' )
-						$carousel.parent('.jcarousel-clip').siblings('.jcarousel-next').trigger('click');
+			// 		if( dir === 'left' )
+			// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-next').trigger('click');
 					
-					if( dir === 'right' )
-						$carousel.parent('.jcarousel-clip').siblings('.jcarousel-prev').trigger('click');
+			// 		if( dir === 'right' )
+			// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-prev').trigger('click');
 					
-				}
+			// 	}
 			
-				$carousel.swipe({
-					swipeLeft       : swipeFunc,
-					swipeRight      : swipeFunc,
-					allowPageScroll : 'auto'
-				});
+			// 	$carousel.swipe({
+			// 		swipeLeft       : swipeFunc,
+			// 		swipeRight      : swipeFunc,
+			// 		allowPageScroll : 'auto'
+			// 	});
 				
-			}
+			// }
 
 			// Window resize
 			$(window).on('resize', function() {

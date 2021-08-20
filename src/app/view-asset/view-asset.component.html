@@ -78,87 +78,44 @@
               </div>
             </div>
           </div>
-          <div id="sidebar">
-            <mat-card class="detailsSidebar">
-              <h4 class="project-title" style="text-align: center;">Overview</h4>
       
-              <div class="row" style="margin-left: 10%;">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;">  Buy Now Price:  </h5> 
-                  <h6 class="project-title" style="margin-left: 5px; font-size: large;"> {{this.auction.sellNowPrice  }} BNB </h6>
-                </div>
+          <div id="sidebar">
+              <h4>Overview</h4>
+              <p >
+                <b style="margin-top: 10px;"> Issue Date: </b> {{this.asset.dateIssued | date  }}
+            </p>
+            <h4>More Info</h4>
+            <ul class="circle">
+              <li *ngIf="this.asset.hasActiveAuction === true">
+                <b> Status: </b> Active
+              </li>
+              <li *ngIf="this.asset.hasActiveAuction === false">
+                <b> Status: </b> In-Active
+              </li>
+              <li>
+                <p>
+                  <b> Token ID: </b>  
+                  <a href="https://testnet.bscscan.com/token/0x6dbb11e6babd021d305145b8d92a80a41885f065?a={{this.asset.tokenId}}" target="_blank" style="color: blue;"> 
+                    {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important;">
+                      fingerprint
+                    </span>
+                  </a>
+                </p>
+              </li>
+            </ul>
+      
+            <form #buyForm="ngForm" novalidate >         
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                          <p><b> Account Balance: </b>  {{this.balance}} ETH </p>
+                      </div>
+                    </div>
+              <div style="padding-bottom: 20px; ">
+                    <button *ngIf="this.asset.hasActiveAuction === false" data-toggle="modal" data-target="#marketModalLong"  class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
+                      Start Auction
+                      </button>       
               </div>
-          
-    
-              <!-- <div class="row" style="margin-left: 10%;">
-                <div class="row" >
-                  <h5 class="project-title" style="font-size: large;"> <b> Minimum Bid: </b> </h5> 
-                  <h5 style=" font-family: 'Playfair Display SC', serif; margin-left: 5px;"> {{this.auction.minimumBid  }} BNB </h5>
-                </div>
-              </div> -->
-        
-        
-              <!-- <div class="row" style="margin-left: 10%;" *ngIf="this.asset.hasActiveAuction === true">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;"><b>Status: </b> </h5> 
-                  <h5 style="font-family: 'Playfair Display SC', serif; margin-left: 5px;">  Active </h5>
-                </div>
-              </div> -->
-          
-            
-              <!-- <div class="row" style="margin-left: 10%;" *ngIf="this.asset.hasActiveAuction === false">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;"><b> Status: </b> </h5> 
-                  <h5 style=" font-family: 'Playfair Display SC', serif; margin-left: 5px;"> In-Active </h5>
-                </div>
-              </div> -->
-            
-             
-              <div class="row" style="margin-left: 10%;">
-                <div class="row" >
-                  <h5 class="project-title" style="font-size: large;"> NFT ID: </h5> 
-                  <h6 class="project-title" style=" margin-left: 5px; font-size: large; margin-top: -6px;;"> 
-                    <a href="https://testnet.bscscan.com/token/0x6dbb11e6babd021d305145b8d92a80a41885f065?a={{this.asset.tokenId}}" target="_blank" style="color: blue;"> 
-                      {{this.asset.tokenId}} - Verify <span class="material-icons" style="color: orange !important; font-size: 1.5rem;">
-                        saved_search
-                      </span>
-                    </a>
-                  </h6>
-                </div>
-              </div>
-
-              <!-- <div class="row" style="margin-left: 10%;">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;"> <b> Issued On: </b> </h5> 
-                  <h5 style=" font-family: 'Playfair Display SC', serif; margin-left: 5px;"> {{this.asset.dateIssued | date  }} </h5>
-                </div>
-              </div> -->
-              <div class="row" style="margin-left: 10%;">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;">  Bid Starts:  </h5> 
-                  <h6 class="project-title" style="  margin-left: 5px; font-size: large;">  {{this.auctionStart | date  }} </h6>
-                </div>
-              </div>
-
-              <div class="row" style="margin-left: 10%;">
-                <div class="row">
-                  <h5 class="project-title" style="font-size: large;"> Bid Ends: </h5> 
-                  <h6 class="project-title" style="  margin-left: 5px; font-size: large;">  {{this.auctionEnd | date  }} </h6>
-                </div>
-              </div>
-              <form #buyForm="ngForm" novalidate >         
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                      <p><b> Account Balance: </b>  {{this.balance}} BNB </p>
-                  </div>
-                </div>
-                <div style="padding-bottom: 20px; ">
-                      <button *ngIf="this.asset.hasActiveAuction === false" data-toggle="modal" data-target="#marketModalLong"  class="button" style="background-color: #5EBA8F; margin-left: 10%; text-transform: capitalize;">
-                        Start Auction
-                        </button>       
-                </div>
-              </form>
-            </mat-card>
+             </form>
           </div>
           <div  class="modal fade" id="marketModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -257,7 +214,7 @@
                                             </span>  
                                       </td>
                                       <td >  {{item.bidder}} </td>
-                                      <td > {{item.bid}} BNB </td>
+                                      <td > {{item.bid}} ETH </td>
                                       <td >   {{item.auctionId}} </td>
                                       <td *ngIf="(this.account| lowercase) === (item.bidder| lowercase ) && this.auction.isActive === true"> 
                                         <button (click)="withdraw()" class="button" style="background-color: green; border-color: transparent; width: 10rem !important;" >

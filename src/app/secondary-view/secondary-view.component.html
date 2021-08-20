@@ -44,7 +44,7 @@
                   </div>
       
                   <div id="slide-1" *ngIf="item.mediaKey === 'mp3' && this.userAgent === 'mobile'"  style="
-                  width: 200px; 
+                  width: 300px; 
                   background-image: url({{this.tempImage}});
                   background-size: cover;
                   height: 200px;" >
@@ -58,7 +58,9 @@
                     <img src="{{item.media}}">
                   </div>
       
-                  <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent === 'mobile'"  style="height: 400px; ">
+                  <div id="slide-1" *ngIf="item.mediaKey === 'image' && this.userAgent === 'mobile'"  style="width: 300px; 
+                  object-fit: cover;
+                  height: 400px;">
                     <img src="{{item.media}}">
                   </div>
                 </div>
@@ -149,7 +151,7 @@
                 <!-- <div style="margin-left: 10%;" class="row" *ngIf="!this.amount && (this.account| lowercase) !== (this.auction.owner| lowercase ) || !this.amount && this.auction.isActive === false && (this.account| lowercase) !== (this.auction.owner| lowercase )">
                   (Place a bid) 
                 </div> -->
-                <div style="margin-left: 10%;" class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
+                <div  class="row"  *ngIf="(this.account| lowercase) !== (this.auction.owner| lowercase )">
                   <div class="col-lg-9 col-md-9 col-sm-9">
                     <p class="input-block">
                       <mat-form-field class="example-full-width" style="font-size: large;">
@@ -301,7 +303,7 @@
           <button id='openModal'  data-toggle="modal" data-target="#registerModalLong" class="btn btn-dark px-3 px-sm-5 py-2 py-md-3 small font-weight-medium text-nowrap" style="background-color: red; margin-left: 25%; border-color: transparent; visibility: hidden;">      
             open modal
           </button>
-          <div class="one-fourth" style="margin-top: 4rem;  ">
+          <div class="one-fourth" style="margin-top: 1rem;  ">
             <div class="row">
               <div class="card-body">
                 <h4 class="project-title" style="text-align: left;">Description</h4>
