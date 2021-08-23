@@ -41,20 +41,20 @@ declare let window: any;
 
     constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
     
-        this.metamask = window.ethereum;
-        window.web3 = new Web3(this.web3Provider);
-        this.getContractAddress().subscribe(data => {
-          if (data['status'] === 'success') {
-            this.contractAddress = data['data'];
-          }
-        })
+      this.metamask = window.ethereum;
+      window.web3 = new Web3(this.web3Provider);
+      this.getContractAddress().subscribe(data => {
+        if (data['status'] === 'success') {
+          this.contractAddress = data['data'];
+        }
+      })
     }
 
     ngOnInit() {
       if (typeof window.web3 !== 'undefined') {
         this.web3Provider = window.web3.currentProvider;
       } else {
-        this.web3Provider = new Web3.providers.HttpProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
+        this.web3Provider = new Web3.providers.HttpProvider('https://data-seed-prebsc-2-s3.binance.org:8545/');
       }
       window.web3 = new Web3(this.web3Provider);
       this.getMetamaskInfo();
@@ -63,7 +63,7 @@ declare let window: any;
     baseUrl = 'http://35.224.252.52:8080/v3';
     nifty = 'https://lb.xendbit.net/api/yasuke';
     private web3Provider: any;
-    api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
+    // api_key = 'U2FsdGVkX1+vWiwDTm34FGo/7oGjQm8i9DyJaJLiLRymoXyJczo8iOqriHWOMiSCZN2hSBBkr5V5R0BG2lMDLojEh0bvJcZzg3uiQKeve5E=';
     nifty_api_key = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 
   async getMetamaskInfo() {
@@ -140,8 +140,6 @@ declare let window: any;
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
-      //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
-      //gas: '0x12C07', // customizable by user during MetaMask confirmation.
       to: this.contractAddress, // Required except during contract publications.
       from: this.metamask.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
@@ -167,17 +165,12 @@ declare let window: any;
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
-      //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
-      //gas: '0x12C07', // customizable by user during MetaMask confirmation.
       to: this.contractAddress, // Required except during contract publications.
       from: this.metamask.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
-      // txHash is a hex string
-  // As with any RPC call, it may throw an error
-  console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.auctionResponse = txHash;
     }, (error: any) => {
@@ -221,17 +214,12 @@ declare let window: any;
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
-      //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
-      //gas: '0x12C07', // customizable by user during MetaMask confirmation.
       to: this.contractAddress, // Required except during contract publications.
       from: this.metamask.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
-      // txHash is a hex string
-  // As with any RPC call, it may throw an error
-  console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.bidResponse = txHash;
     }, (error: any) => {
@@ -267,17 +255,12 @@ declare let window: any;
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
-      //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
-      //gas: '0x12C07', // customizable by user during MetaMask confirmation.
       to: this.contractAddress, // Required except during contract publications.
       from: this.metamask.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
-      // txHash is a hex string
-  // As with any RPC call, it may throw an error
-  console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.withdrawResponse = txHash;
     }, (error: any) => {
@@ -293,17 +276,12 @@ declare let window: any;
     const ethValue = "0.1"; // 0 BNB
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
-      //gasPrice: '0x37E11D600', // customizable by user during MetaMask confirmation.
-      //gas: '0x12C07', // customizable by user during MetaMask confirmation.
       to: this.contractAddress, // Required except during contract publications.
       from: this.metamask.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
-      // txHash is a hex string
-  // As with any RPC call, it may throw an error
-  console.log(transactionParameters);
     await this.metamask.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.bidResponse = txHash;
     }, (error: any) => {
@@ -331,21 +309,21 @@ declare let window: any;
   getOwnedShares(userId: number, tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/user/owned-shares/${userId}/${tokenId}`, {headers});
   }
 
   getAssetsByIssuerId(userId: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/by-issuer/${userId}?page=${1}&limit=15`, {headers});
   }
 
   cancelOrder(id: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.post(`${this.baseUrl}/assets/cancel-order/${id}`, {},  {headers})
   }
 
@@ -387,7 +365,7 @@ declare let window: any;
   fetchOrderById(orderId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/${orderId}`, {headers});
   }
 
@@ -425,7 +403,7 @@ declare let window: any;
   getWaletBalance(userId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/user/wallet-balance/${userId}`, {headers});
   }
 
@@ -446,63 +424,63 @@ declare let window: any;
   buyAsset(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.post(`${this.baseUrl}/assets/new-order`, body, {headers})
   }
 
   sellAsset(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.post(`${this.baseUrl}/assets/new-order`, body, {headers})
   }
 
   allOrders() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders?page=1&limit=50`, {headers});
   }
 
   ordersByBuyer(buyerId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/by-buyer/${buyerId}?page=1&limit=50`, {headers});
   }
 
   ordersBySeller(sellerId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/by-seller/${sellerId}?page=1&limit=50`, {headers});
   }
 
   ordersByTokenId(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/assets/orders/by-token-id/${tokenId}?page=1&limit=50`, {headers});
   }
 
   getPassphrase() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.get(`${this.baseUrl}/user/generate/passphrase`, {headers});
   }
 
   getCustomHeaders(): HttpHeaders {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
-      .append('api-Key', this.api_key);
+      .append('api-Key', this.nifty_api_key);
     return headers;
   }
 
   changeMarket(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', this.api_key);
+    headers = headers.append('api-key', this.nifty_api_key);
     return this.httpClient.post(`${this.baseUrl}/admin/conclude-primary-sales/${tokenId}`, {}, {headers});
   }
 

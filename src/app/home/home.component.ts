@@ -95,7 +95,6 @@ export class HomeComponent implements OnInit {
       this.assets.forEach(element => {
         if (element.media.length > 0 && element.hasActiveAuction === true ) {
           this.assetService.getAuctionInfo(element.tokenId, element.lastAuctionId).subscribe(res => {
-            console.log('this is auction info', res);
             if (element.category === 'artwork') {
               const image = element.media.filter(x => {
                 return x.mediaKey ==='image';
@@ -142,7 +141,6 @@ export class HomeComponent implements OnInit {
       this.assetService.stopSpinner();
     }, err => {
       this.assetService.stopSpinner();
-      console.log(err.error.data.error);
       this.error = err.error.data.error;
     },
     () => { 
@@ -156,7 +154,6 @@ export class HomeComponent implements OnInit {
   }
 
   viewSec(tokenId, page) {
-    console.log('clicked')
     this.router.navigateByUrl('/view-sec', { state : {tokenId: tokenId, from: page} });
   }
 

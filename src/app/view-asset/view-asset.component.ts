@@ -91,18 +91,9 @@ export class ViewAssetComponent implements OnInit {
                     console.log('this is what i got', window.history.state.tokenId)
                     this.tokenId = window.history.state.tokenId;
                     this.pageHistory = window.history.state.from;
-                    // if (window.history.state.id) {
-                    //   this.orderId = window.history.state.id;
-                    // }
                     console.log('this is page history', this.pageHistory)
-                    // this.getAssets();
-                    // this.getFees();
-                    // this.getHolidays();
-                    // this.getMarketSettings();
-                    // this.getOwnedShares();
                     this.tempImage = '/assets/img/nft.png';
                     this.getAssetDetails();
-                    // this.getPrimarySharesRemaining(this.tokenId);
                 } else {
                   this.router.navigateByUrl('/home');
                 }
@@ -127,7 +118,6 @@ export class ViewAssetComponent implements OnInit {
       this.assetService.stopSpinner();
       console.log(err.error.data.error);
       this.error = err.error.data.error;
-      //this.asset.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
 
@@ -150,7 +140,6 @@ export class ViewAssetComponent implements OnInit {
     }, err => {
       console.log(err.error.data.error);
       this.error = err.error.data.error;
-      //this.asset.showNotification('bottom', 'center', this.error, 'danger')
     });
   }
 
@@ -181,8 +170,6 @@ export class ViewAssetComponent implements OnInit {
       let currentDate = Date.now();
       let startDateValue = auction.value.startBlock;
       let endDateValue = auction.value.endBlock;
-      // console.log('this is start date', auction.value.startBlock)
-      // console.log('this is endDate', this.endBlock)
 
       let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
       let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
@@ -192,11 +179,7 @@ export class ViewAssetComponent implements OnInit {
       let minimumPrice: string =  minBid.toString();
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
-      console.log('this is sell now', sellNow) 
-    
-      // console.log('this is days', initialStart);
-      // console.log('this is start block', startBlock)
-      // console.log('this is minimum', minimumPrice)
+
       this.assetService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
         setTimeout(() => { 
           this.assetService.startAuctionNifty(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
@@ -457,26 +440,6 @@ export class ViewAssetComponent implements OnInit {
     this.pageHistory = 'buyPage'
     this.tokenId = tokenId;
     this.getAssetDetails()
-  }
-
-  // getBalance() {
-  //   this.assetService.showSpinner();
-  //   this.userId = localStorage.getItem('userId');
-  //   this.assetService.getWaletBalance(this.userId).subscribe(res => {
-  //     console.log('this is balance', res);
-  //     this.balance = res['data'];
-  //   }, err => {
-  //     console.log(err.error.data.error);
-  //     this.error = err.error.data.error;
-  //     this.assetService.showNotification('bottom', 'center', this.error, 'danger')
-  //   });
-  // }
-
-  getPrimarySharesRemaining(tokenId) {
-    this.loginService.checkSharesRemaining(tokenId).pipe(first()).subscribe(res => {
-      console.log('this is remaining shares', res);
-      this.remainingShares = res['data'];
-    })
   }
 
   approve(tokenId, status) {
