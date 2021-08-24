@@ -269,7 +269,7 @@
                     </section>
                     <section id="content" class="container clearfix">
                     <ul class="projects-carousel clearfix" id="artSection">
-                        <li style="margin-bottom: 0px; "  *ngFor="let item of this.images  let i=index">
+                        <li style="margin-bottom: 0px; "  *ngFor="let item of this.images | slice: -10;  let i=index">
                             <mat-card style="border-radius: 10px; padding: 0px !important;"  *ngIf="this.images">
                                 <mat-card-header style="background-color: transparent;">
                                     <a style="padding: 0px;">
@@ -338,7 +338,7 @@
                     </section>
                     <section id="content" class="container clearfix" *ngIf="this.audios">
                         <ul class="projects-carousel clearfix " id="audioSection">
-                        <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios  let i=index">
+                        <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios | slice: -10;  let i=index"> <!-- get last 10 in array, can just do slice: 0: 10, to get first 10 -->
                             <mat-card style="border-radius: 10px; padding: 0px !important;"  *ngIf="this.images">
                                 <mat-card-header style="background-color: transparent;">
                                     <a style="padding: 0px;">
@@ -416,7 +416,7 @@
                     </section>
                     <section id="content" class="container clearfix">
                         <ul class="projects-carousel clearfix" id="vidSection">
-                            <li  *ngFor="let item of this.videos  let i=index">
+                            <li  *ngFor="let item of this.videos slice: -10;  let i=index">
                                 <mat-card class="vid-card" *ngIf="this.videos">
                                     <mat-card-header style="background-color: transparent;">
                                         <a style="padding: 0px;">
