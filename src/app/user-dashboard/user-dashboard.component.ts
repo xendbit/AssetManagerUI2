@@ -121,6 +121,7 @@ export class UserDashboardComponent implements OnInit {
     let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
     this.modalElement = element;
     var ua = navigator.userAgent;
+    this.checkIssuer();
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
     } else if(/Chrome/i.test(ua)) {
@@ -133,7 +134,6 @@ export class UserDashboardComponent implements OnInit {
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
-    this.checkIssuer();
     this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
@@ -144,6 +144,7 @@ export class UserDashboardComponent implements OnInit {
     let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
     this.modalElement = element;
     this.timeNow = new Date().getTime();
+    this.checkIssuer();
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -161,7 +162,6 @@ export class UserDashboardComponent implements OnInit {
     this.assetService.getMetamaskInfo().then( data => {
       this.balance = data.balance;
     })
-    this.checkIssuer();
     this.tempImage = '/assets/img/nft.png';
     this.totalBuyOrders = 0;
     this.totalSellOrders = 0;
@@ -237,69 +237,70 @@ export class UserDashboardComponent implements OnInit {
   }
  
   async submit() {
+    console.log('this is response', this.response)
     if (this.response === 'Issuer with blockchain address not found') {
         this.modalElement.click()
         return;
     }
-    this.categorySelected =  this.form.get('imageCategories').value;
-    if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
-     } else {
-      this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
-      return;
-    }
-    this.symbol = this.form.get('symbol').value;
-    this.description = this.form.get('description').value;
-    this.title = this.form.get('artTitle').value;
-    if (this.title === null || this.symbol === null) {
-      this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
-      return;
-    }
+    // this.categorySelected =  this.form.get('imageCategories').value;
+    // if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
+    //  } else {
+    //   this.assetService.showNotification('bottom', 'center', 'Please make sure you select a category from the dropdown.', 'danger');
+    //   return;
+    // }
+    // this.symbol = this.form.get('symbol').value;
+    // this.description = this.form.get('description').value;
+    // this.title = this.form.get('artTitle').value;
+    // if (this.title === null || this.symbol === null) {
+    //   this.assetService.showNotification('bottom','center','Please fill all fields before submission.', 'danger');
+    //   return;
+    // }
 
-    var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
-    this.tokenId = rndNo;
-    let dateCreated = new Date().getTime();
-    let medias = this.media
-    if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
-      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.', 'danger');
-      return;
-    } else if (this.categorySelected === 'movieRight' && !this.mediaType.find(elem => elem === 'mp4' )) {
-      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload a video representing the asset you intend to issue along-side the asset.', 'danger');
-      return;
-    } else if (this.categorySelected === 'audioRight' && !this.mediaType.find(elem => elem === 'mp3' )) {
-      this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an audio representing the asset you intend to issue along-side the asset.', 'danger');
-      return;
-    } else {
-      this.assetService.showSpinner();
-      await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
-        if (data.status === 'success') {
-          setTimeout(() => {
-            this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
-              if (data['status'] === 'success') {
-                this.assetService.stopSpinner();
-                this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
-                return this.ngOnInit();
-              } else {
-                this.assetService.stopSpinner();
-                this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
-              }
-            }, err => {
-              this.assetService.stopSpinner();
-              this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
-            })
-            this.form.value.reset;
-        }, 15000);
-        } else {
-          this.assetService.stopSpinner();
-          this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
-        }
-      }, err => {
-        console.log(err.error.data.error);
-        this.error = err.error.data.error;
-        this.assetService.stopSpinner();
-        this.assetService.showNotification('bottom', 'center', this.error, 'danger');
-        this.form.value.reset;
-      });
-    }
+    // var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
+    // this.tokenId = rndNo;
+    // let dateCreated = new Date().getTime();
+    // let medias = this.media
+    // if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
+    //   this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.', 'danger');
+    //   return;
+    // } else if (this.categorySelected === 'movieRight' && !this.mediaType.find(elem => elem === 'mp4' )) {
+    //   this.assetService.showNotification('bottom', 'center', 'Please make sure to upload a video representing the asset you intend to issue along-side the asset.', 'danger');
+    //   return;
+    // } else if (this.categorySelected === 'audioRight' && !this.mediaType.find(elem => elem === 'mp3' )) {
+    //   this.assetService.showNotification('bottom', 'center', 'Please make sure to upload an audio representing the asset you intend to issue along-side the asset.', 'danger');
+    //   return;
+    // } else {
+    //   this.assetService.showSpinner();
+    //   await this.assetService.issue(this.tokenId, this.title, this.symbol).then( data => {
+    //     if (data.status === 'success') {
+    //       setTimeout(() => {
+    //         this.assetService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
+    //           if (data['status'] === 'success') {
+    //             this.assetService.stopSpinner();
+    //             this.assetService.showNotification('bottom', 'center', 'Asset has been issued successfully', 'success');
+    //             return this.ngOnInit();
+    //           } else {
+    //             this.assetService.stopSpinner();
+    //             this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
+    //           }
+    //         }, err => {
+    //           this.assetService.stopSpinner();
+    //           this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again', 'danger');
+    //         })
+    //         this.form.value.reset;
+    //     }, 15000);
+    //     } else {
+    //       this.assetService.stopSpinner();
+    //       this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
+    //     }
+    //   }, err => {
+    //     console.log(err.error.data.error);
+    //     this.error = err.error.data.error;
+    //     this.assetService.stopSpinner();
+    //     this.assetService.showNotification('bottom', 'center', this.error, 'danger');
+    //     this.form.value.reset;
+    //   });
+    // }
     
   }
 
