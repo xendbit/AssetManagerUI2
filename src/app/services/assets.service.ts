@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
+import { categories } from './../interfaces';
 import * as Web3 from 'web3';
 
 import { ethers } from "ethers";
@@ -86,6 +87,11 @@ declare let window: any;
 
   listing() {
     return this.httpClient.get(`${this.baseUrl}/assets/listings`);
+  }
+
+  tryInterfaces(cat) {
+    console.log('yes!', cat)
+    return cat;
   }
 
   saveIssuer(email: string, phone: any, firstname: string, lastname: string, 

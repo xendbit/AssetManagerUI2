@@ -5,6 +5,7 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { timeout } from 'rxjs/operators';
+import { categories } from 'src/app/interfaces';
 
 
 declare var PaystackPop: any;
@@ -237,6 +238,14 @@ export class UserDashboardComponent implements OnInit {
   }
  
   async submit() {
+    let cat: categories = {
+      name: 'chinedu',
+      price: 30,
+      description: ''
+    }
+    this.assetService.tryInterfaces(cat).subscribe( data => {
+      console.log('this is data', data)
+    })
     console.log('this is response', this.response)
     if (this.response === 'Issuer with blockchain address not found') {
         this.modalElement.click()
