@@ -8,8 +8,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetComponent } from './view-asset/view-asset.component';
 import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
-import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
-import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
+import { IssueAssetsComponent } from './pages/issue-assets/issue-assets.component';
+import { IssuerDashboardComponent } from './pages/issuer-dashboard/issuer-dashboard.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { IssuerComponent } from './issuer/issuer.component';
 import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
@@ -27,7 +27,7 @@ import { HomeComponent } from './home/home.component';
 
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 
 const routes: Routes =[

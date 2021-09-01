@@ -1,15 +1,13 @@
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
-import { SecondaryViewComponent } from './secondary-view/secondary-view.component';
+import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { SecondaryViewComponent } from './pages/secondary-view/secondary-view.component';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { PortfolioComponent } from './my-portfolio/portfolio.component';
-import { AllAssetsComponent } from './all-assets/all-assets.component';
-import { AdminViewComponent } from './admin-view/admin-view.component';
-import { ViewAssetComponent } from './view-asset/view-asset.component';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
+import { PortfolioComponent } from './pages/my-portfolio/portfolio.component';
+import { AllAssetsComponent } from './pages/all-assets/all-assets.component';
+import { AdminViewComponent } from './pages/admin-view/admin-view.component';
+import { ViewAssetComponent } from './pages/view-asset/view-asset.component';
+import { HomeComponent } from './pages/home/home.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,18 +45,13 @@ import {
 import {
   AgmCoreModule
 } from '@agm/core';
-import { AdminComponent } from './admin/admin.component';
-import { IssuerComponent } from './issuer/issuer.component';
-import { RequestPasswordComponent } from './request-password/request-password.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminAssetsComponent } from './admin-assets/admin-assets.component';
-import { ApproveAssetsComponent } from './approve-assets/approve-assets.component';
-import { IssueAssetsComponent } from './issue-assets/issue-assets.component';
-import { IssuerDashboardComponent } from './issuer-dashboard/issuer-dashboard.component';
-import { AboutComponent } from './about/about.component';
-import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
-import { AllUsersComponent } from './all-users/all-users.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { IssuerComponent } from './pages/issuer/issuer.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { IssueAssetsComponent } from './pages/issue-assets/issue-assets.component';
+import { IssuerDashboardComponent } from './pages/issuer-dashboard/issuer-dashboard.component';
+import { AboutComponent } from './pages/about/about.component';
+import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 
 
 
@@ -101,28 +94,20 @@ import { AllUsersComponent } from './all-users/all-users.component';
     AppComponent,
     AdminComponent,
     AdminDashboardComponent,
-    AdminAssetsComponent,
-    ApproveAssetsComponent,
     IssuerComponent,
-    RequestPasswordComponent,
-    ChangePasswordComponent,
     IssueAssetsComponent,
     IssuerDashboardComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent,
     ViewAssetComponent,
     AllAssetsComponent,
     PortfolioComponent,
-    
     MyOrdersComponent,
     AdminViewComponent,
     DashboardComponent,
     AboutComponent,
-    AdminSettingsComponent,
-    AllUsersComponent,
     SecondaryViewComponent,
     UserDashboardComponent,
+    AdminSettingsComponent
 
   ],
   providers: [
