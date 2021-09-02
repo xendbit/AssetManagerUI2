@@ -2,7 +2,7 @@ import { AssetsService } from './../../services/assets.service';
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import * as Web3 from 'web3';
 
 
@@ -35,7 +35,8 @@ export class NavbarComponent implements OnInit {
   displayedData: string;
   userAgent: string;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router, public assetService: AssetsService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router, 
+      public assetService: AssetsService) {
         
         
     }

@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { IssuerSidebarComponent } from './issuer-sidebar/issuer-sidebar.component';
+import { FeaturedCategoriesComponent } from './featured-categories/featured-categories.component';
 
 @NgModule({
   imports: [
@@ -22,14 +23,16 @@ import { IssuerSidebarComponent } from './issuer-sidebar/issuer-sidebar.componen
     NavbarComponent,
     SidebarComponent,
     AdminSidebarComponent,
-    IssuerSidebarComponent
+    IssuerSidebarComponent,
+    FeaturedCategoriesComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     AdminSidebarComponent,
-    IssuerSidebarComponent
+    IssuerSidebarComponent,
+    FeaturedCategoriesComponent
   ]
 })
 export class ComponentsModule { }

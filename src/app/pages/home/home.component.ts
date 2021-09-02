@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef  } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
 import {  Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   price: any;
   error: any;
   userId: number;
+  currentMsgToChild: any;
   demoCategories: { imageUrl: string,  type: string }[] = [
     { "imageUrl": '/assets/img/Oil-painting.jpg',  type: "Oil Painting" },
     { "imageUrl": '/assets/img/Casein-Painting.jpg',  type: "Casein Painting" },
@@ -42,6 +44,11 @@ export class HomeComponent implements OnInit {
     { "imageUrl": '/assets/img/ACRYLIC.jpg',  type: "Acrylic painting" },
     { "imageUrl": '/assets/img/DIGITAL.jpg',  type: "Digital painting" }
   ];
+  mainCategories: {id: number, type: string}[] = [
+    {id: 1, type: 'images'},
+    {id: 2, type: 'audios'},
+    {id: 3, type: 'videos'}
+  ]
   shares: any;
   images: any[];
   videos: any[];
@@ -53,12 +60,16 @@ export class HomeComponent implements OnInit {
   randomMusic: any;
   randomVideo: any;
   randomAudio: any;
-  constructor(public assetService: AssetsService, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>,
+  form: FormGroup;
+  constructor(public assetService: AssetsService, public fb: FormBuilder, public router: Router, { nativeElement }: ElementRef<HTMLImageElement>,
     public domSanitizer: DomSanitizer) {
     const supports = 'loading' in HTMLImageElement.prototype;
     if (supports) {
       nativeElement.setAttribute('loading', 'lazy');
     }
+    this.form = fb.group({
+      'mainCategories': this.mainCategories,
+  });
    }
 
   ngOnInit() {
@@ -146,6 +157,11 @@ export class HomeComponent implements OnInit {
     () => { 
       this.assetService.stopSpinner();
     });
+  }
+
+  getCategory(item) {
+    console.log('this is item', item);
+    this.currentMsgToChild = item;
   }
   
 

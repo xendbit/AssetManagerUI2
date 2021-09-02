@@ -108,10 +108,10 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     SecondaryViewComponent,
     UserDashboardComponent,
     AdminSettingsComponent
-
   ],
   providers: [
      {provide: LocationStrategy, useClass: HashLocationStrategy},
+     {provide: 'googleTagManagerId', useValue: 'GTM-T774GH6'}
   ],
   bootstrap: [AppComponent]
 })

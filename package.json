@@ -27,6 +27,7 @@
     "@angular/router": "~11.0.0",
     "@walletconnect/web3-provider": "^1.4.1",
     "ajv": "6.12.5",
+    "angular-google-tag-manager": "^1.4.2",
     "arrive": "2.4.1",
     "bip39": "^3.0.3",
     "bootstrap": "^4.5.2",
