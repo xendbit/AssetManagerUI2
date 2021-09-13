@@ -1,6 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 
 name: TypeScript Error Reporter
+description: 'TypeScript Error Reporter - Report type check result on PR diff view.'
 
 # Controls when the workflow will run
 on:
@@ -35,3 +36,10 @@ jobs:
             ${{ runner.os }}-node-niftyrow-build
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Typecheck
+        runs:
+          using: 'node12'
+          main: './ext-scripts/index.js'
+        branding:
+          icon: 'check-circle'
+          color: 'blue'
