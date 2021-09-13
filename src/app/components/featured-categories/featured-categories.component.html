@@ -1,58 +1,93 @@
-<section id="content" class="container clearfix" *ngIf="this.msgFromParent == 'images'">
-    <ul class="projects-carousel clearfix" id="artSection">
-        <li style="margin-bottom: 0px; "  *ngFor="let item of this.demoItems | slice: -10;  let i=index">
-            <mat-card style="border-radius: 10px; padding: 0px !important;" >
+<owl-carousel-o [options]="customOptions" [hidden]="this.msgFromParent === 'audios' || this.msgFromParent === 'videos' ">
+    <ng-container *ngFor="let item of this.demoItems | slice: -10;  let i=index">
+        <ng-template carouselSlide >
+            <img [src]="item.image"  style="height: 18rem;" [title]="item.symbol">
+            <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
+                <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+            </mat-card-content>
+            
+        </ng-template>
+    </ng-container>
+  
+</owl-carousel-o>
+
+<div *ngIf="this.msgFromParent === 'audios' ">
+    mcx;cxc
+    <owl-carousel-o [options]="customOptions" >
+   
+        <ng-container class="projects-carousel clearfix" id="artSection" *ngFor="let item of this.demoItems | slice: -10;  let i=index">
+            <ng-template carouselSlide >
+              <img [src]="item.image"  style="height: 18rem;" [title]="item.symbol">
+              <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                  <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                  <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                  <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
+                  <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+              </mat-card-content>
+              
+            </ng-template>
+          </ng-container>
+    
+    </owl-carousel-o>
+</div>
+
+<!-- 
+<div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
+    <div class="image-box" id="imgStyle">
+        <section id="content" class="container clearfix" style="min-height: 25rem !important;" >
+            <ul class="projects-carousel clearfix" id="artSection" >
+                <li style="margin-bottom: 0px; "   *ngFor="let item of this.demoItems | slice: -10;  let i=index">
+                    <mat-card style="border-radius: 10px; padding: 0px !important;" >
+                        <mat-card-header style="background-color: transparent;">
+                            <a style="padding: 0px;">
+                                <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image}}" alt="" style="border-radius: 5px 5px 0px 0px;">
+                            </a>
+                        </mat-card-header>
+                        <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                            <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
+                            <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
+                            <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
+                            <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+                        </mat-card-content>
+                       
+                    </mat-card>
+                   
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+
+<section id="content" class="container clearfix" *ngIf="this.msgFromParent === 'audios'">
+    <ul class="projects-carousel clearfix " id="audioSection">
+        <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.demoItem | slice: -10;  let i=index"> 
+            <mat-card style="border-radius: 10px; padding: 0px !important;">
                 <mat-card-header style="background-color: transparent;">
                     <a style="padding: 0px;">
                         <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image}}" alt="" style="border-radius: 5px 5px 0px 0px;">
                     </a>
+                
                 </mat-card-header>
+            
                 <mat-card-content style="border-radius:05px 0px 10px 10px;">
+                    <div class="row">
+                        <audio class="AudioPlayerV1" style="background: transparent;" controls controlsList="nodownload">
+                            <source src="{{item.audio.media}}" type="audio/mp3" />
+                            <source src=" {{item.audio.media}} " type="audio/ogg" />
+                        </audio>
+                    </div>
                     <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
                     <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
                     <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
-                    <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / artwork</span>
+                    <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
                 </mat-card-content>
-               
-            </mat-card>
-           
-        </li>
-    </ul>
-</section>
-
-<section id="content" class="container clearfix" *ngIf="this.audios">
-    <ul class="projects-carousel clearfix " id="audioSection">
-    <li style="margin-bottom: 0px !important;"  *ngFor="let item of this.audios | slice: -10;  let i=index"> <!-- get last 10 in array, can just do slice: 0: 10, to get first 10 -->
-        <mat-card style="border-radius: 10px; padding: 0px !important;"  *ngIf="this.images">
-            <mat-card-header style="background-color: transparent;">
-                <a style="padding: 0px;">
-                    <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="" style="border-radius: 5px 5px 0px 0px;">
-                </a>
-               
-            </mat-card-header>
-          
-            <mat-card-content style="border-radius:05px 0px 10px 10px;">
-                <div class="row">
-                    <audio class="AudioPlayerV1" style="background: transparent;" controls controlsList="nodownload">
-                        <source src="{{item.audio.media}}" type="audio/mp3" />
-                        <source src=" {{item.audio.media}} " type="audio/ogg" />
-                    </audio>
-                </div>
-                <h3 (click)="viewSec(item.tokenId, 'sellPage')" class="title"><b> {{item.symbol}} </b>  </h3>
-                <h5 class="title">Buy Now At: {{item.sellNowPrice}} BNB </h5>
-                <h5 class="title"> Highest Bid: {{item.highestBid}} BNB </h5>
-                <span class="categories"(click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
-            </mat-card-content>
-           
-        </mat-card>
-        <!-- <a style="padding: 0px;">
             
-                <img (click)="viewSec(item.tokenId, 'sellPage')" loading="lazy" src="{{item.image.media}}" alt="">
-                
-            <h5 class="title" (click)="viewSec(item.tokenId, 'sellPage')">  {{item.symbol}} </h5>
-            <span class="categories" (click)="viewSec(item.tokenId, 'sellPage')">NFT / music-rights</span>
-        </a> -->
-    </li>
+            </mat-card>
+        </li>
     </ul>    
 </section>
 
@@ -81,4 +116,4 @@
             </mat-card>
         </li>
     </ul>
-</section>
+</section> -->

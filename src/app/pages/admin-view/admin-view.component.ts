@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 declare var $: any;
 
+
+
 @Component({
   selector: 'app-typography',
   templateUrl: './admin-view.component.html',
@@ -26,9 +28,11 @@ export class AdminViewComponent implements OnInit {
   tokenId: any;
   unavailable: boolean;
   sharesRemaining: boolean;
+  
 
   constructor(public assetService: AssetsService, public router: Router, public loginService: LoginService,
     public activatedRoute: ActivatedRoute) { }
+    
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');

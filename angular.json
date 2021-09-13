@@ -107,6 +107,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -116,7 +118,8 @@
               "node_modules/arrive/src/arrive.js",
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
-              "node_modules/bootstrap-notify/bootstrap-notify.js"
+              "node_modules/bootstrap-notify/bootstrap-notify.js",
+              "./node_modules/owl.carousel/dist/owl.carousel.min.js"
             ]
           }
         },

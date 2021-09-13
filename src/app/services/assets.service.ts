@@ -40,7 +40,7 @@ declare let window: any;
   currentBlock: any;
   withdrawResponse: string;
 
-    constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService) {
+    constructor(public httpClient: HttpClient, public spinner: NgxSpinnerService,) {
     
       this.metamask = window.ethereum;
       window.web3 = new Web3(this.web3Provider);

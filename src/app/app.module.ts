@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -34,6 +35,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FeaturedCategoriesComponent } from './components/featured-categories/featured-categories.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {
   NgxMatDatetimePickerModule,
@@ -86,6 +88,7 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     NgImageSliderModule,
+    CarouselModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
@@ -107,7 +110,8 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
     AboutComponent,
     SecondaryViewComponent,
     UserDashboardComponent,
-    AdminSettingsComponent
+    AdminSettingsComponent,
+    FeaturedCategoriesComponent
   ],
   providers: [
      {provide: LocationStrategy, useClass: HashLocationStrategy},

@@ -1469,19 +1469,31 @@ input.placeholder, textarea.placeholder { color: #b0b0b0; }
 				width: 220px;
 			}
 
-		.jcarousel-next, .jcarousel-prev {
+		
+			.jcarousel-prev {
+				background-position: 0 -19px;
+				
+			}
+
+		.jcarousel-next{
 			background: #ddd url(/assets/img/button-arrows.png) no-repeat 0 0;
 			cursor: pointer;
-			height: 19px;
+			height: 96px;
 			position: absolute;
-			right: 0;
-			top: -35px;
-			width: 19px;
+			right: -119px;
+			top: 78px;
+			width: 94px;
 		}
 
 		.jcarousel-prev {
+			background: #ddd url(/assets/img/button-arrows.png) no-repeat 0 0;
+			cursor: pointer;
+			height: 96px;
+			position: absolute;
+			width: 94px;
+			right: 1147px;
+			top: 78px;
 			background-position: 0 -19px;
-			right: 20px;
 		}
 
 			.jcarousel-next:hover, .jcarousel-next:focus, .jcarousel-next:active,

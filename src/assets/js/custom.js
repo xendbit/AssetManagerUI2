@@ -3,7 +3,7 @@ jQuery('html').removeClass('no-js').addClass('js');
 
 // When DOM is fully loaded
 jQuery(document).ready(function($) {
-
+	jQuery.noConflict();
 	/* ---------------------------------------------------------------------- */
 	/*	Custom Functions
 	/* ---------------------------------------------------------------------- */
@@ -396,124 +396,124 @@ jQuery(document).ready(function($) {
 	/*	Projects Carousel & Post Carousel
 	/* ---------------------------------------------------------------------- */
 
-	(function() {
+	// (function() {
 
-		var $carousel = $('.projects-carousel, .post-carousel');
+	// 	var $carousel = $('.projects-carousel, .post-carousel');
 
-		if( $carousel.length ) {
+	// 	if( $carousel.length ) {
 
-			var scrollCount;
+	// 		var scrollCount;
+	// 		console.log('i am here')
+	// 		function getWindowWidth() {
 
-			function getWindowWidth() {
+	// 			if( $(window).width() < 480 ) {
+	// 				scrollCount = 1;
+	// 			} else if( $(window).width() < 768 ) {
+	// 				scrollCount = 2;
+	// 			} else if( $(window).width() < 960 ) {
+	// 				scrollCount = 3;
+	// 			} else {
+	// 				scrollCount = 4;
+	// 			}
 
-				if( $(window).width() < 480 ) {
-					scrollCount = 1;
-				} else if( $(window).width() < 768 ) {
-					scrollCount = 2;
-				} else if( $(window).width() < 960 ) {
-					scrollCount = 3;
-				} else {
-					scrollCount = 4;
-				}
+	// 		}
 
-			}
+	// 		function initCarousel( carousels ) {
 
-			function initCarousel( carousels ) {
+	// 			carousels.each(function() {
+					
+	// 				var $this  = $(this);
 
-				carousels.each(function() {
+	// 				$this.jcarousel({
+	// 					animation           : 600,
+	// 					easing              : 'easeOutCubic',
+	// 					scroll              : scrollCount,
+	// 					itemVisibleInCallback : function() {
+	// 						onBeforeAnimation : resetPosition( $this );
+	// 						onAfterAnimation  : resetPosition( $this );
+	// 					}
+	// 				});
 
-					var $this  = $(this);
+	// 			});
 
-					$this.jcarousel({
-						animation           : 600,
-						easing              : 'easeOutCubic',
-						scroll              : scrollCount,
-						itemVisibleInCallback : function() {
-							onBeforeAnimation : resetPosition( $this );
-							onAfterAnimation  : resetPosition( $this );
-						}
-					});
+	// 		}
 
-				});
+	// 		function adjustCarousel() {
 
-			}
+	// 			$carousel.each(function() {
 
-			function adjustCarousel() {
+	// 				var $this    = $(this),
+	// 					$lis     = $this.children('li')
+	// 					newWidth = $lis.length * $lis.first().outerWidth( true ) + 100;
 
-				$carousel.each(function() {
+	// 				getWindowWidth();
 
-					var $this    = $(this),
-						$lis     = $this.children('li')
-						newWidth = $lis.length * $lis.first().outerWidth( true ) + 100;
+	// 				// Resize only if width has changed
+	// 				if( $this.width() !== newWidth ) {
 
-					getWindowWidth();
+	// 					$this.css('width', newWidth )
+	// 						 .data('resize','true');
 
-					// Resize only if width has changed
-					if( $this.width() !== newWidth ) {
+	// 					initCarousel( $this );
 
-						$this.css('width', newWidth )
-							 .data('resize','true');
+	// 					$this.jcarousel('scroll', 1);
 
-						initCarousel( $this );
+	// 					var timer = window.setTimeout( function() {
+	// 						window.clearTimeout( timer );
+	// 						$this.data('resize', null);
+	// 					}, 600 );
 
-						$this.jcarousel('scroll', 1);
+	// 				}
 
-						var timer = window.setTimeout( function() {
-							window.clearTimeout( timer );
-							$this.data('resize', null);
-						}, 600 );
+	// 			});
 
-					}
+	// 		}
 
-				});
+	// 		function resetPosition( elem ) {
+	// 			if( elem.data('resize') )
+	// 				elem.css('left', '0');
+	// 		}
 
-			}
+	// 		getWindowWidth();
 
-			function resetPosition( elem ) {
-				if( elem.data('resize') )
-					elem.css('left', '0');
-			}
+	// 		initCarousel( $carousel );
 
-			getWindowWidth();
-
-			initCarousel( $carousel );
-
-			// Detect swipe gestures support
-			// if( Modernizr.touch ) {
+	// 		// Detect swipe gestures support
+	// 		// if( Modernizr.touch ) {
 				
-			// 	function swipeFunc( e, dir ) {
+	// 		// 	function swipeFunc( e, dir ) {
 				
-			// 		var $carousel = $(e.currentTarget);
+	// 		// 		var $carousel = $(e.currentTarget);
 					
-			// 		if( dir === 'left' )
-			// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-next').trigger('click');
+	// 		// 		if( dir === 'left' )
+	// 		// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-next').trigger('click');
 					
-			// 		if( dir === 'right' )
-			// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-prev').trigger('click');
+	// 		// 		if( dir === 'right' )
+	// 		// 			$carousel.parent('.jcarousel-clip').siblings('.jcarousel-prev').trigger('click');
 					
-			// 	}
+	// 		// 	}
 			
-			// 	$carousel.swipe({
-			// 		swipeLeft       : swipeFunc,
-			// 		swipeRight      : swipeFunc,
-			// 		allowPageScroll : 'auto'
-			// 	});
+	// 		// 	$carousel.swipe({
+	// 		// 		swipeLeft       : swipeFunc,
+	// 		// 		swipeRight      : swipeFunc,
+	// 		// 		allowPageScroll : 'auto'
+	// 		// 	});
 				
-			// }
+	// 		// }
 
-			// Window resize
-			$(window).on('resize', function() {
+	// 		// Window resize
+	// 		$(window).on('resize', function() {
 
-				var timer = window.setTimeout( function() {
-					window.clearTimeout( timer );
-					adjustCarousel();
-				}, 30 );
+	// 			var timer = window.setTimeout( function() {
+	// 				window.clearTimeout( timer );
+	// 				adjustCarousel();
+	// 			}, 30 );
 
-			});
+	// 		});
 
-		}
+	// 	}
 
-	})();
+	// })();
 
 
 	/* end Projects Carousel & Post Carousel */

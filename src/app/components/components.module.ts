@@ -9,22 +9,23 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { IssuerSidebarComponent } from './issuer-sidebar/issuer-sidebar.component';
-import { FeaturedCategoriesComponent } from './featured-categories/featured-categories.component';
+
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CarouselModule
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     AdminSidebarComponent,
-    IssuerSidebarComponent,
-    FeaturedCategoriesComponent
+    IssuerSidebarComponent
   ],
   exports: [
     FooterComponent,
@@ -32,7 +33,6 @@ import { FeaturedCategoriesComponent } from './featured-categories/featured-cate
     SidebarComponent,
     AdminSidebarComponent,
     IssuerSidebarComponent,
-    FeaturedCategoriesComponent
   ]
 })
 export class ComponentsModule { }

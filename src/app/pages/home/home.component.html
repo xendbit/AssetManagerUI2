@@ -223,32 +223,30 @@
         color: #6C4C9C !important; 
         text-transform: capitalize;
         font-size: 30px;">Featured Categories</h4>
-         <form [formGroup]="form">
+        <!--Select with pure css-->
+     
+         <form [formGroup]="form" style="margin-bottom: 20px;">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5">
 
                 </div>
               <div class="col-lg-2 col-md-2 col-sm-2">
-                <mat-label style="color: black;">
-                  * Select Category:
-                </mat-label>
-                <mat-select  formControlName="mainCategories">
-                  <mat-option (onSelectionChange)="getCategory(item.type)" #categoryInput *ngFor="let item of this.mainCategories  let i=index" id="mainCategory" name="item.type" placeholder="select category"   [value]="item.type">{{item.type}}</mat-option>
-                </mat-select>
+                <div class="select">
+                    <select class="select-text" required formControlName="mainCategories">
+                        <option value="" disabled selected></option>
+                        <option (onSelectionChange)="getCategory(item.type)" #categoryInput *ngFor="let item of this.mainCategories  let i=index" id="mainCategory" name="item.type" placeholder="select category"   [value]="item.type">
+                            {{item.type}}</option>
+                    </select>
+                    <label class="select-label">Select</label>
+                </div>
+               
               </div>
                 <div class="col-lg-5 col-md-5 col-sm-5">
 
                 </div>
             </div>
         </form>
-        <div class="row" >
-            <div class="col-12 col-lg-12  pb-5 p-sm-5 p-lg-0 hero-col" style="margin-top: 0;  ">
-                <div class="image-box" style="--image-url: url('/assets/img/tringle.png'); width: 100%; margin-right: 0; min-height: 20rem;">
-                   
-                    <app-featured-categories [msgFromParent]="this.currentMsgToChild"></app-featured-categories>
-                </div>
-            </div>
-        </div>
+       <app-featured-categories [msgFromParent]="this.currentMsgToChild"></app-featured-categories>
                 
         <h4 class="section-title" style="margin-top: 10rem;
         margin-bottom: 5rem; 
