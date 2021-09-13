@@ -33,13 +33,3 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Typecheck
-        description: 'TypeScript Error Reporter - Report type check result on PR diff view.'
-        runs:
-          using: 'node12'
-          main: './ext-scripts/index.js'
-        branding:
-          icon: 'check-circle'
-          color: 'blue'        
