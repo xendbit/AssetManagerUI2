@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ArtExchange": {
+    "NiftyRow": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -81,18 +81,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ArtExchange:build"
+            "browserTarget": "NiftyRow:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ArtExchange:build:production"
+              "browserTarget": "NiftyRow:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ArtExchange:build"
+            "browserTarget": "NiftyRow:build"
           }
         },
         "test": {
@@ -118,8 +118,8 @@
               "node_modules/arrive/src/arrive.js",
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
-              "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "./node_modules/owl.carousel/dist/owl.carousel.min.js"
+              "node_modules/bootstrap-notify/bootstrap-notify.js"
+//              "./node_modules/owl.carousel/dist/owl.carousel.min.js"
             ]
           }
         },
@@ -140,18 +140,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ArtExchange:serve"
+            "devServerTarget": "NiftyRow:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ArtExchange:serve:production"
+              "devServerTarget": "NiftyRow:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ArtExchange",
+  "defaultProject": "NiftyRow",
   "cli": {
     "analytics": false
   }
