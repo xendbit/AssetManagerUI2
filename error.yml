@@ -1,0 +1,8 @@
+name: 'TypeScript Error Reporter'
+description: 'Report type check result on PR diff view.'
+runs:
+  using: 'node12'
+  main: 'ext-scripts/index.js'
+branding:
+  icon: 'check-circle'
+  color: 'blue'

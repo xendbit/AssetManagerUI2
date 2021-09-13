@@ -37,10 +37,4 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Typecheck
-        runs:
-          using: 'node12'
-          main: './ext-scripts/index.js'
-        branding:
-          icon: 'check-circle'
-          color: 'blue'
-          
+        uses: ./
