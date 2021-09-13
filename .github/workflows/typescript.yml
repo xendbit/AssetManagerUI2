@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Angular Quality Check
+name: TypeScript Error Reporter
 
 # Controls when the workflow will run
 on:
@@ -15,11 +15,18 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  code-check:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [13.x]
     steps:
-      - uses: actions/checkout@v2
-      - name: Angular Full CI
-        uses: colbyhill21/angular-full-ci/@v1.0
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          testcommand: run test:ci
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Typecheck
+        uses: andoshin11/typescript-error-reporter-action@v1.0.2
