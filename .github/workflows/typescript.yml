@@ -26,7 +26,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Restore dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Typecheck
-        uses: andoshin11/typescript-error-reporter-action@v1.0.2
+        description: 'TypeScript Error Reporter - Report type check result on PR diff view.'
+        runs:
+          using: 'node12'
+          main: './ext-scripts/index.js'
+        branding:
+          icon: 'check-circle'
+          color: 'blue'        
