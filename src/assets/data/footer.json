@@ -1,0 +1,67 @@
+[
+    { 
+        "menuGroup": [
+            {
+                "title": "Navigation",
+                "menu": [
+                    {
+                        "title": "Home",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Explore",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Activity",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Pages",
+                        "url": "/home'"
+                    },
+                    {
+                        "title": "Community",
+                        "url": "/home"
+                    }
+                ]
+            },
+            {
+                "title": "Explore",
+                "menu": [
+                    {
+                        "title": "Explore Artworks",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Single Artwork",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Explore Creators",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Single Creator",
+                        "url": "/home"
+                    }
+                ]
+            },
+            {
+                "title": "Community",
+                "menu": [
+                    {
+                        "title": "Blog",
+                        "url": "/home"
+                    },
+                    {
+                        "title": "Help center",
+                        "url": "/home"
+                    }
+                ]
+            }
+
+        ]
+
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "navLinks": [
+            {
+                "id": 1,
+                "title": "Home",
+                "path": "home"
+              },
+              {
+                "id": 2,
+                "title": "My Dashboard",
+                "path": "home"
+              },
+              {
+                "id": 3,
+                "title": "My Assets",
+                "path": "home"
+              },
+              {
+                "id": 4,
+                "title": "All Assets",
+                "path": "home"
+              } 
+        ]
+    }
+  ]

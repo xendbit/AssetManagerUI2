@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { MainService } from './core/services/main.service';
 
 import { AppController } from './app.controller';
 
@@ -14,7 +15,7 @@ export class AppComponent extends AppController implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private titleService: Title) {
+              private titleService: Title, public mainService: MainService) {
     super();
   }
 

@@ -5,3 +5,5 @@ export const routerConfig: RouterConfig = {
     base: 'users'
   }
 };
+
+

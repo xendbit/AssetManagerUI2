@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^8.0.2",
     "@angular/platform-browser-dynamic": "^8.0.2",
     "@angular/router": "^8.0.2",
+    "breakpoint-sass": "^2.7.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
