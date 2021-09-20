@@ -6,7 +6,7 @@
 import { AppConfig } from '../interfaces/app-config.interface';
 
 export const appConfig: AppConfig = {
-  appTitle: 'Angular Best Boilerplate',
+  appTitle: 'Nifty Row',
   browserTabTitleDelimiter: ' | ',
   defaultLanguage: 'en_GB',
   availableLanguages: ['en_GB', 'pl_PL']

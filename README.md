@@ -1,4 +1,4 @@
-# Angular Best Boilerplate
+# Nifty Row
 
 This project is created for Angular 8+.
 

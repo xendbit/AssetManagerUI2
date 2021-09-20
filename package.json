@@ -1,5 +1,5 @@
 {
-  "name": "angular-best-boilerplate",
+  "name": "nifty-row",
   "version": "0.2.0",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "stats": "ng build --prod --stats-json",
-    "analyze": "webpack-bundle-analyzer dist/angular-best-boilerplate/stats-es5.json",
+    "analyze": "webpack-bundle-analyzer dist/nifty-row/stats-es5.json",
     "analyzer": "npm run stats && npm run analyze"
   },
   "private": true,

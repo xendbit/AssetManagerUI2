@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-best-boilerplate": {
+    "nifty-row": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-best-boilerplate",
+            "outputPath": "dist/nifty-row",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -109,18 +109,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-best-boilerplate:build"
+            "browserTarget": "nifty-row:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-best-boilerplate:build:production"
+              "browserTarget": "nifty-row:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-best-boilerplate:build"
+            "browserTarget": "nifty-row:build"
           }
         },
         "test": {
@@ -154,7 +154,7 @@
         }
       }
     },
-    "angular-best-boilerplate-e2e": {
+    "nifty-row-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -162,11 +162,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-best-boilerplate:serve"
+            "devServerTarget": "nifty-row:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-best-boilerplate:serve:production"
+              "devServerTarget": "nifty-row:serve:production"
             }
           }
         },
@@ -182,5 +182,5 @@
       }
     }
   },
-  "defaultProject": "angular-best-boilerplate"
+  "defaultProject": "nifty-row"
 }
