@@ -10,14 +10,24 @@ import { IPresentation } from '../../interfaces/main.interface';
 })
 export class SliderComponent implements OnInit {
   @Input() public msgFromParent: string;
-  presentationData: IPresentation; 
-  constructor(public mainService: MainService) { }
-
-  ngOnInit() {
-    this.mainService.getPresentation().subscribe((response: IPresentation) => { 
-      this.presentationData = response;
-      console.log('this is response', this.presentationData)
-    })
+  public presentationData: IPresentation;
+  constructor(public mainService: MainService) { 
+ 
+   
   }
+
+  async ngOnInit() {
+ 
+    
+  }
+
+  async ngOnChanges() {
+    await this.mainService.setPresentation().subscribe((res: IPresentation) => {
+      this.presentationData = res;
+      console.log('this is data', this.presentationData)
+    })
+    console.log('this is data', this.presentationData)
+  }
+  
 
 }

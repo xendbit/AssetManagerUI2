@@ -10,7 +10,7 @@
         Hero Inner Start Here
 ========================================-->
 
-        <div class="hero-mainn"  *ngFor="let item of this.presentationData">
+        <div class="hero-mainn"  *ngFor="let item of presentationData | async">
             <div class="container-fluid">
                 <div class="hero-inr">
                     <div class="row row-custom">
