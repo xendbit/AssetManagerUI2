@@ -16,11 +16,7 @@ export class FooterComponent implements OnInit {
    
     this.mainService.getFooter().subscribe((res: IMenuGroups) => {
       this.footerData = res;
-    }, err => {
-      this.footerData = footerJson['default'][0]['menuGroup'];
     });
-
-  
   }
 
 }

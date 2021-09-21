@@ -1,9 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl } from '../config/main.config.const';
-import { IMenuGroups, navBar } from '../interfaces/main.interface';
+import { IMenuGroups, navBar, IPresentation } from '../interfaces/main.interface';
 import * as headerJson from 'src/assets/data/navbar.json'
 import * as footerJson from 'src/assets/data/footer.json'
+import * as presentationJson from 'src/assets/data/presentation.json';
 import { Observable, of } from 'rxjs';
 
 
@@ -15,6 +16,7 @@ export class MainService {
 
   footerResponse: IMenuGroups;
   headerResponse: navBar;
+  presentationResponse: IPresentation;
 
   getFooter() {
     return new Observable((observer) => {
@@ -52,6 +54,25 @@ export class MainService {
         }, err => {
             this.headerResponse =  headerJson['default'][0]['navLinks'];
             observer.next(this.headerResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+  getPresentation() {
+    return new Observable((observer) => {
+      if (this.presentationResponse) {
+        observer.next(this.presentationResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<IPresentation>(baseUrl.mainUrl).subscribe((data: IPresentation) => {
+          this.presentationResponse = data; 
+          observer.next(this.presentationResponse);
+          observer.complete();
+        }, err => {
+            this.presentationResponse =  presentationJson['default'][0]['slides'];
+            observer.next(this.presentationResponse);
             observer.complete()
         });
       }
