@@ -2,7 +2,6 @@
     <!--=======================================
             Hero Section Start Here
     ========================================-->
-
     <div class="main-hero">
         <div class="hero-main-inr">
 
@@ -10,8 +9,8 @@
         Hero Inner Start Here
 ========================================-->
 
-        <div class="hero-mainn"  *ngFor="let item of presentationData | async">
-            <div class="container-fluid">
+        <div class="hero-mainn" >
+            <div class="container-fluid" *ngFor="let item of this.presentationData ">
                 <div class="hero-inr">
                     <div class="row row-custom">
                         <div class="col-lg-6 col-content-otr">

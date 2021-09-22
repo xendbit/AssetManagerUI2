@@ -37,12 +37,12 @@ export class MainService {
           this.footerResponse = data; 
           observer.next(this.footerResponse);
           observer.complete();
-          return this.footerResponse;
+          // return this.footerResponse;
         }, err => {
             this.footerResponse =  footerJson['default'][0]['menuGroup']
             observer.next(this.footerResponse);
             observer.complete()
-            return this.footerResponse;
+            // return this.footerResponse;
         }); /* make sure to handle http error */
       }
 
@@ -68,7 +68,7 @@ export class MainService {
     });
   }
 
-  setPresentation(): Observable<IPresentation> {
+  getPresentation(): Observable<IPresentation> {
     return new Observable((observer) => {
       if (this.presentationResponse) {
         observer.next(this.presentationResponse);
@@ -86,17 +86,6 @@ export class MainService {
         });
       }
     });
-  }
-
-  getPresentation() {
-    this.httpClient.get<IPresentation>(baseUrl.mainUrl).pipe(map((response: IPresentation) => {
-      const responseAsObject = response;
-      this.isYEs.next(responseAsObject); // change the value!
-      // console.log(this.);
-      return responseAsObject;
-  }));
-
-    console.log('this ', this.isYEs)
   }
 
 }

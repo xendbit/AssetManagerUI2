@@ -5,8 +5,7 @@ import { IPresentation } from '../../interfaces/main.interface';
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
   @Input() public msgFromParent: string;
@@ -16,17 +15,13 @@ export class SliderComponent implements OnInit {
    
   }
 
-  async ngOnInit() {
- 
-    
-  }
-
-  async ngOnChanges() {
-    await this.mainService.setPresentation().subscribe((res: IPresentation) => {
+   ngOnInit() {
+    this.mainService.getPresentation().subscribe((res: IPresentation) => {
       this.presentationData = res;
       console.log('this is data', this.presentationData)
     })
     console.log('this is data', this.presentationData)
+    
   }
   
 

@@ -6,23 +6,23 @@
                 "menu": [
                     {
                         "title": "Home",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Explore",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Activity",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Pages",
-                        "url": "/home'"
+                        "url": "'"
                     },
                     {
                         "title": "Community",
-                        "url": "/home"
+                        "url": ""
                     }
                 ]
             },
@@ -31,19 +31,19 @@
                 "menu": [
                     {
                         "title": "Explore Artworks",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Single Artwork",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Explore Creators",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Single Creator",
-                        "url": "/home"
+                        "url": ""
                     }
                 ]
             },
@@ -52,11 +52,11 @@
                 "menu": [
                     {
                         "title": "Blog",
-                        "url": "/home"
+                        "url": ""
                     },
                     {
                         "title": "Help center",
-                        "url": "/home"
+                        "url": ""
                     }
                 ]
             }
