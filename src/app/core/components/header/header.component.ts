@@ -1,5 +1,5 @@
+import { navBar } from './../../interfaces/header/header.interface';
 import { Component, OnInit } from '@angular/core';
-import { navBar } from '../../interfaces/main.interface';
 import { MainService } from '../../services/main.service';
 
 import { AppController } from '../../../app.controller';

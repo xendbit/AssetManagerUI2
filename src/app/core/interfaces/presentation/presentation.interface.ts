@@ -1,40 +1,16 @@
-export interface IMenuGroups { 
-    menuGroup?: Array<IMenuGroup>;
-  };
-  
-  interface IMenus { 
-    title: string;
-    url: string;
-  }
-  
-  interface IMenuGroup { 
-    title: string;
-    menu: Array<IMenus>;
-  }
-
-export interface navBar { 
-    logo:  string;
-    navLinks: Array<navType>;
-}
-
-interface navType {
-    id: number;
-    title: string;
-    path: string;
-}
-
 
 export interface IPresentation {
     slides:Array<IAuction | ICreator | IArtwork | ICollection>;
   }
-  interface IAuction {
+  export interface IAuction {
     title:string;
     currentBid:number;
     currency:string;
     deadline:Date;
     artwork:IArtwork;
+    type: string;
   }
-  interface IArtwork {
+ export interface IArtwork {
     id:string;
     category:string;
     tags?:Array<string>,
@@ -47,8 +23,9 @@ export interface IPresentation {
     price:number;
     currency:string;
     likes:Array<IMember>;
+    type: string;
   }
-  interface IMedia{
+  export interface IMedia{
     media:string;
     mediaType:MEDIA;
   }
@@ -63,12 +40,14 @@ export interface IPresentation {
     featuredImage:IMedia;
     createdOn:Date;
     gallery:Array<IArtwork>;
+    type: string;
   }
   interface ICreator {
     id:string;
     image:string;
     username:string;
     collections?:Array<IArtwork>;
+    type: string;
   }
   interface IMember{
     id:string;

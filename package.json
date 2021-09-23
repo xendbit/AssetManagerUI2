@@ -29,6 +29,8 @@
     "@angular/router": "^8.0.2",
     "breakpoint-sass": "^2.7.1",
     "core-js": "^2.5.4",
+    "primeicons": "^4.1.0",
+    "primeng": "^12.1.1",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

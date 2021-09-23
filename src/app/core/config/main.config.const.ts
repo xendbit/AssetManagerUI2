@@ -1,4 +1,4 @@
-import { IMenuGroups } from '../interfaces/main.interface';
+import { IMenuGroups } from './../interfaces/footer/footer.interface';
 import { urlConfig } from '../interfaces/dynamicUrl.interface';
 import * as footerData from 'src/assets/data/footer.json' 
 

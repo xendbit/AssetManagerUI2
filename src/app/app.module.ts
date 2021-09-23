@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { MainService } from './core/services/main.service';
+import {CarouselModule} from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MainService } from './core/services/main.service';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]

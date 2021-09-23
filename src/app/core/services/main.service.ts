@@ -1,10 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl } from '../config/main.config.const';
-import { IMenuGroups, navBar, IPresentation } from '../interfaces/main.interface';
+import { IMenuGroups } from '../interfaces/footer/footer.interface';
+import { IPresentation, IArtwork } from '../interfaces/presentation/presentation.interface';
+import { navBar } from '../interfaces/header/header.interface';
 import * as headerJson from 'src/assets/data/navbar.json'
 import * as footerJson from 'src/assets/data/footer.json'
 import * as presentationJson from 'src/assets/data/presentation.json';
+import * as artWorkJson from 'src/assets/data/artwork.json';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +17,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class MainService {
-  isYEs: BehaviorSubject<IPresentation> = new BehaviorSubject<IPresentation>(null);
+  private subjectNftCard = new BehaviorSubject<IArtwork>(null);
   presentationResponse: IPresentation;
   
   constructor(public httpClient: HttpClient) {
@@ -23,6 +26,15 @@ export class MainService {
   footerResponse: IMenuGroups;
   headerResponse: navBar;
 
+
+  getArtWork() {
+      this.httpClient.get<IArtwork>(baseUrl.mainUrl).subscribe((data: IArtwork) => {
+        this.subjectNftCard.next(data);
+      }, err => {
+          this.subjectNftCard.next(artWorkJson['default']);
+      }); 
+      return this.subjectNftCard.asObservable();
+  }
 
   getFooter() {
     return new Observable((observer) => {
@@ -48,6 +60,7 @@ export class MainService {
 
     });
   }
+
 
   getHeader() {
     return new Observable((observer) => {
@@ -87,5 +100,7 @@ export class MainService {
       }
     });
   }
+
+ 
 
 }

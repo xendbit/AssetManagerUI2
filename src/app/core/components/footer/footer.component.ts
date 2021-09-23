@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
-import { IMenuGroups } from '../../interfaces/main.interface';
+import { IMenuGroups } from '../../interfaces/footer/footer.interface';
+
 
 
 @Component({

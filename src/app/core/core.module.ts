@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SearchComponent } from './components/search/search.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { NFTCardComponent } from './components/nftcard/nftcard.component';
 
 @NgModule({
   imports: [
@@ -20,14 +21,16 @@ import { SliderComponent } from './components/slider/slider.component';
     HomeComponent,
     SearchComponent,
     SubscribeComponent,
-    SliderComponent
+    SliderComponent,
+    NFTCardComponent
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     SearchComponent,
     SubscribeComponent,
-    SliderComponent
+    SliderComponent,
+    NFTCardComponent
   ]
 })
 export class CoreModule {
