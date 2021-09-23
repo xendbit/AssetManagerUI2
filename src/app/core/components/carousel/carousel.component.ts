@@ -32,10 +32,15 @@ export class CarouselComponent implements OnInit {
   ];
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.mainService.getArtWork().subscribe(data => {
       this.artworks = data;
     })
+    console.log('this is artworks', this.artworks)
+  }
+
+  sort(data) {
+    data.sort((a, b) => new Date(b.CREATE_TS).getTime() - new Date(a.CREATE_TS).getTime());
   }
 
 }

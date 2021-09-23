@@ -11,6 +11,8 @@ import { SliderComponent } from './components/slider/slider.component';
 import { NFTCardComponent } from './components/nftcard/nftcard.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import {CarouselModule} from 'primeng/carousel';
+import { BlogComponent } from './components/blog/blog.component';
+import { AssetsGridComponent } from './components/assets-grid/assets-grid.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import {CarouselModule} from 'primeng/carousel';
     SubscribeComponent,
     SliderComponent,
     NFTCardComponent,
-    CarouselComponent
+    CarouselComponent,
+    BlogComponent,
+    AssetsGridComponent
   ],
   exports: [
     HeaderComponent,
@@ -35,7 +39,9 @@ import {CarouselModule} from 'primeng/carousel';
     SubscribeComponent,
     SliderComponent,
     NFTCardComponent,
-    CarouselComponent
+    CarouselComponent,
+    BlogComponent,
+    AssetsGridComponent
   ]
 })
 export class CoreModule {
