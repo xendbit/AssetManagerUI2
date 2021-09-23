@@ -1,0 +1,128 @@
+.teb-main {
+    padding-left: 105px;
+    padding-right: 105px;
+}
+
+.teb-main .tab-otr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.teb-main .tab-otr .tab-inr .tabs {
+    display: flex;
+    align-items: center;
+}
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.teb-main .tab-otr .tab-inr .tabs .tab-link:not(:last-child) {
+    margin-right: 24px;
+}
+
+.teb-main .tab-otr .tab-inr .tabs .tab-link {
+    margin-top: 24px;
+}
+
+.teb-main .tab-otr .tab-inr .tabs .active .tab-p {
+    background-color: #366CE3;
+    color: #FFFFFF;
+}
+
+.body-sb {
+    font-size: 16px;
+    line-height: 32px;
+    font-family: "DMSans-Bold";
+}
+
+.teb-main .tab-otr .tab-inr .tabs .tab-link .tab-p {
+    padding: 4px 16px;
+    border-radius: 12px;
+    background-color: #F2F2F2;
+    color: #666666;
+    transition: 0.3s;
+}
+
+.teb-main .tab-otr .slect-main {
+    display: flex;
+    align-items: center;
+}
+
+.teb-main .tab-otr .slect-main .select:not(:last-child) {
+    margin-right: 24px;
+}
+
+.teb-main .tab-otr .slect-main .select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    margin-top: 24px;
+}
+
+
+.teb-main .tab-otr .slect-main .select .select-hidden {
+    display: none;
+    visibility: hidden;
+    padding-right: 10px;
+}
+
+.teb-main .tab-otr .slect-main .select .select-styled {
+    background-color: #F2F2F2;
+    color: #666666;
+    padding: 4px 32px 4px 16px;
+    border-radius: 12px;
+    font-size: 17px;
+    line-height: 32px;
+    font-family: "DMSans-Bold";
+}
+
+.teb-main .tab-otr .slect-main .select .select-options {
+    display: none;
+    position: absolute;
+    top: 130%;
+    right: 0;
+    width: 200px;
+    z-index: 999;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 16px 0;
+    box-shadow: 0px 20px 50px rgb(0 0 0 / 10%);
+}
+
+
+
+.teb-main .tab-otr .slect-main .select .select-options li[rel=hide] {
+    display: none;
+}
+
+.teb-main .tab-otr .slect-main .select .select-options li:not(:last-child) {
+    margin: 0 0 4px 0;
+}
+
+.teb-main .tab-otr .slect-main .select .select-options li {
+    font-size: 16px;
+    line-height: 32px;
+    font-family: "DMSans-Bold";
+    color: #666666;
+    border-radius: 12px;
+    padding: 0 24px 0 24px;
+    transition: 0.3s;
+}
+
+.teb-main .tab-otr .slect-main .select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    margin-top: 24px;
+}
+
+.teb-main .tab-otr .slect-main .select .select-hidden {
+    display: none;
+    visibility: hidden;
+    padding-right: 10px;
+}

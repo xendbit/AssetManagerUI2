@@ -9,11 +9,14 @@ import { SearchComponent } from './components/search/search.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { NFTCardComponent } from './components/nftcard/nftcard.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import {CarouselModule} from 'primeng/carousel';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    CarouselModule
   ],
   declarations: [
     HeaderComponent,
@@ -22,7 +25,8 @@ import { NFTCardComponent } from './components/nftcard/nftcard.component';
     SearchComponent,
     SubscribeComponent,
     SliderComponent,
-    NFTCardComponent
+    NFTCardComponent,
+    CarouselComponent
   ],
   exports: [
     HeaderComponent,
@@ -30,7 +34,8 @@ import { NFTCardComponent } from './components/nftcard/nftcard.component';
     SearchComponent,
     SubscribeComponent,
     SliderComponent,
-    NFTCardComponent
+    NFTCardComponent,
+    CarouselComponent
   ]
 })
 export class CoreModule {

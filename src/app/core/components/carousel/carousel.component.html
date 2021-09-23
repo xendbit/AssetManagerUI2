@@ -1,0 +1,51 @@
+
+    <div class="teb-main">
+        <div class="tab-otr">
+            <div class="tab-inr">
+                <ul class="tabs">
+                    <li class="tab-link tab-1 active" data-tab="1">
+                        <p class="tab-p body-sb">All</p>
+                    </li>
+                    <li class="tab-link tab-2" data-tab="2">
+                        <p class="tab-p body-sb">Photography</p>
+                    </li>
+                    <li class="tab-link tab-3" data-tab="3">
+                        <p class="tab-p body-sb">Videos</p>
+                    </li>
+                    <li class="tab-link tab-4" data-tab="4">
+                        <p class="tab-p body-sb">Illustrations</p>
+                    </li>
+                    <li class="tab-link tab-5" data-tab="5">
+                        <p class="tab-p body-sb">Digital Art</p>
+                    </li>
+                    <li class="tab-link tab-6" data-tab="6">
+                        <p class="tab-p body-sb">Domains</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="slect-main">
+                <div class="select">
+                    <select id="year" class="select-styled">
+                        <option class="linkk" value="hide">All Artworks</option>
+                        <option class="linkk" value="2010">All Artworks</option>
+                        <option class="linkk" value="2011">Sort by</option>
+                        <option class="linkk" value="2012">All Artworks</option>
+                        <option class="linkk" value="2013">Sort by</option>
+                    </select>
+                    <select id="week" class="select-styled">
+                        <option class="linkk" value="hide">Sort by</option>
+                        <option class="linkk" value="2010">All Artworks</option>
+                        <option class="linkk" value="2011">Sort by</option>
+                        <option class="linkk" value="2012">All Artworks</option>
+                        <option class="linkk" value="2013">Sort by</option>
+                    </select>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+<p-carousel [value]="artworks" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="true">
+    <ng-template let-artwork pTemplate="item">
+        <app-nftcard [msgFromParent]="artwork"></app-nftcard>
+    </ng-template>
+</p-carousel>
