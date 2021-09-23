@@ -5,12 +5,11 @@
     "resolveJsonModule": true,
     "types": []
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts",
-    "**/*.mock.ts",
-    "**/*.spy.ts",
-    "**/*.stub.ts",
-    "test/**"
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }
