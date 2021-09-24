@@ -1,4 +1,4 @@
-
+<!-- 
     <div class="teb-main">
         <div class="tab-otr">
             <div class="tab-inr">
@@ -43,9 +43,9 @@
                 
             </div>
         </div>
-    </div>
+    </div> will be implemented when we have more datasets to filter from  -->
 <p-carousel [value]="artworks" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="true">
     <ng-template let-artwork pTemplate="item">
-        <app-nftcard [msgFromParent]="artwork"></app-nftcard>
+        <app-nftcard [artwork]="artwork"></app-nftcard>
     </ng-template>
 </p-carousel>

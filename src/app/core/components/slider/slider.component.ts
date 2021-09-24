@@ -8,7 +8,7 @@ import { IPresentation } from '../../interfaces/presentation/presentation.interf
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
-  @Input() public msgFromParent: string;
+  @Input() public slider: IPresentation;
   public presentationData: IPresentation;
   constructor(public mainService: MainService) { 
  

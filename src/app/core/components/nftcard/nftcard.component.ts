@@ -8,13 +8,12 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./nftcard.component.scss']
 })
 export class NFTCardComponent implements OnInit {
-  @Input() public msgFromParent: IArtwork;
+  @Input() public artwork: IArtwork;
   
 
   constructor(public mainService: MainService) { }
 
   ngOnInit() {
-    console.log('try', this.msgFromParent)
     
   }
 

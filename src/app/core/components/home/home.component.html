@@ -1,5 +1,6 @@
 <main>
-  {{this.currentMsgToNftCards}}
-  <app-slider [msgFromParent]="this.currentMsgToSlider"></app-slider>
+  <app-slider [slider]="this.slide"></app-slider>
   <app-carousel></app-carousel>
+  <app-blog [blog]="blogs"></app-blog>
+  <app-assets-grid [artworkArray]="artworks"></app-assets-grid>
 </main>

@@ -10,7 +10,6 @@ import { MainService } from '../../services/main.service';
 })
 export class CarouselComponent implements OnInit {
   artworks: IArtwork;
-  msgToSlider: IArtwork;
   responsiveOptions;
   constructor(public mainService: MainService) { 
     this.responsiveOptions = [
@@ -36,11 +35,15 @@ export class CarouselComponent implements OnInit {
     this.mainService.getArtWork().subscribe(data => {
       this.artworks = data;
     })
-    console.log('this is artworks', this.artworks)
   }
 
-  sort(data) {
-    data.sort((a, b) => new Date(b.CREATE_TS).getTime() - new Date(a.CREATE_TS).getTime());
+  sort(data) { //to be implemented for sort by date when we implement the sort feature
+    let today = Date.now();
+    this. artworks = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
+  }
+
+  filterArtworks(data) { //to be implemented for filter when we implement the filter feature
+    this.artworks = data.filter((res: IArtwork) =>res['sold'] === false);
   }
 
 }

@@ -11,6 +11,7 @@ import { SliderComponent } from './components/slider/slider.component';
 import { NFTCardComponent } from './components/nftcard/nftcard.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import {CarouselModule} from 'primeng/carousel';
+import {DataViewModule} from 'primeng/dataview';
 import { BlogComponent } from './components/blog/blog.component';
 import { AssetsGridComponent } from './components/assets-grid/assets-grid.component';
 
@@ -18,7 +19,8 @@ import { AssetsGridComponent } from './components/assets-grid/assets-grid.compon
   imports: [
     CommonModule,
     RouterModule,
-    CarouselModule
+    CarouselModule,
+    DataViewModule
   ],
   declarations: [
     HeaderComponent,
