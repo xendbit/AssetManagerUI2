@@ -56,16 +56,4 @@ export class AssetsGridComponent implements OnInit {
     this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
   }
 
-  Prev() {
-    if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages;
-      this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
-    } else {
-      this.currentPage = this.currentPage - 1;
-      this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
-    }
-
-   
-  }
-
 }

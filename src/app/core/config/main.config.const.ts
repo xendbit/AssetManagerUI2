@@ -14,7 +14,3 @@ export const baseUrl: urlConfig = {
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
         mainUrl: 'https://lb.xendbit.net/api/yasuke/',
 }
-
-export const baseHeader: headerConfig = {
-        headers: headers
-}

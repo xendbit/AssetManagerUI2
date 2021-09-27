@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl, baseHeader } from '../config/main.config.const';
+import { baseUrl} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta } from '../components/slider/presentation.interface';
 import { navBar } from '../components/header/header.interface';
@@ -33,7 +33,7 @@ export class MainService {
 
 
   fetchArtWorkFromMain(page: number, limit: number) {
-    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseHeader.headers).pipe(map(res => {
+    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
       res['data']['items'].forEach((item) =>   this.dataStore.artworks.push({
         id: item.id,
         category: item.category,
