@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, NgZone  } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges  } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
@@ -22,15 +22,12 @@ export class AssetsGridComponent implements OnInit {
   constructor(public mainService: MainService, private ngZone: NgZone) { }
 
   ngOnInit() {
-      this.mainService.returnArtwork().subscribe((data: IArtwork []) => {
-        this.ngZone.run( () => {
-          this.artworks = data;
-       });
-
-      })
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['artworkArray']) {
+      this.artworks = this.artworkArray //after push from parent assign to this.artworks
+    }
     this.mainService.getMeta().subscribe(res => {
       if (res !== null) {
         this.currentPage = res.currentPage;

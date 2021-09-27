@@ -11,7 +11,7 @@ import { MainService } from '../../services/main.service';
 export class HomeComponent implements OnInit {
   slide: IPresentation;
   blogs: IBlogGroup;
-  artworks: any;
+  artworks: IArtwork[];
   constructor(public mainService: MainService) { }
 
   ngOnInit() {
@@ -20,11 +20,7 @@ export class HomeComponent implements OnInit {
     })
    this.mainService.getBlogPost().subscribe((data: IBlogGroup) => {
      this.blogs = data;
-     this.artworks = data;
-     
    })
-
- 
   
   }
 
