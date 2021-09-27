@@ -21,6 +21,8 @@ export class AppComponent extends AppController implements OnInit {
 
   ngOnInit(): void {
     this.setBrowserTabTitle();
+    this.mainService.fetchArtWorkFromMain(1, 10);
+    this.mainService.fetchBlogPost();
   }
 
   private setBrowserTabTitle(): void {

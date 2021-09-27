@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
-import { IBlogGroup } from '../../interfaces/blog/blog.interfaces';
+import { IBlogGroup } from './blog.interfaces';
 import {SelectItem} from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 

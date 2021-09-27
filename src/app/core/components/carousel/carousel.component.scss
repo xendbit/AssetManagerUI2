@@ -94,6 +94,20 @@ ul, li {
     box-shadow: 0px 20px 50px rgb(0 0 0 / 10%);
 }
 
+.col-lg-3 {
+    flex: 0 0 auto;
+    width: 100% !important;
+}
+
+.row>* {
+    flex-shrink: 0;
+    /* width: 100%; */
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x)/ 2);
+    padding-left: calc(var(--bs-gutter-x)/ 2);
+    margin-top: var(--bs-gutter-y);
+}
+
 
 
 .teb-main .tab-otr .slect-main .select .select-options li[rel=hide] {

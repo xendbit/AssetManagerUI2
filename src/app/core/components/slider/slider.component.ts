@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { MainService } from '../../services/main.service';
-import { IPresentation } from '../../interfaces/presentation/presentation.interface';
+import { IPresentation } from './presentation.interface';
 
 @Component({
   selector: 'app-slider',

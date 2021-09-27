@@ -1,4 +1,4 @@
-import { IMenuGroups } from './../interfaces/footer/footer.interface';
+import { IMenuGroups } from '../components/footer/footer.interface';
 import { urlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
 import * as footerData from 'src/assets/data/footer.json' 
 import { HttpHeaders } from '@angular/common/http';

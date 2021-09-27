@@ -1,14 +1,7 @@
     <!--=======================================
             Explore Artworks Start Here
     ========================================-->
-
-    <div class="explore-artwork-creator">
-        <div class="container-fluid">
-            <div class="explore-artwork-inr" >
-                <div class="row row-custom-main">
-                    <div id="tab-1" class="tab-content active">
-                        <div class="row row-custom-inr" >  
-                            <div class="col-otr col-lg-3">
+ 
                                 <div class="col-inr box2">
                                     <div class="img-otr">
                                         <a href="" class="tilt-otr img-tilt" data-tilt>
@@ -34,7 +27,7 @@
                                                         </div>
                                                         <p class="post-title body-lb">{{artwork.creator.username}}</p>
                                                         <a href="" class="address-main">
-                                                            <p class="address body-s">0xd07dc4262bcdb...2430</p>
+                                                            <p class="address body-s">{{artwork.creator.username}}</p>
                                                             <svg class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                                         </a>
                                                         <p class="post-desc body-s">
@@ -63,7 +56,7 @@
                                                         </div>
                                                         <p class="post-title body-lb">{{artwork.owner.username}}</p>
                                                         <a href="" class="address-main">
-                                                            <p class="address body-s">0xd07dc4262bcdb...2430</p>
+                                                            <p class="address body-s">{{artwork.owner.username}}</p>
                                                             <svg class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                                         </a>
                                                         <p class="post-desc body-s">
@@ -80,19 +73,13 @@
                                             <p class="body-sb num">{{artwork.likes[0]}} Likes</p>
                                         </div>
                                     </div>
-                                    <a href="" class="body-mb box-head">{{artwork.id}}</a>
+                                    <a href="" class="body-mb box-head">{{artwork.symbol}}</a>
                                     <div class="bid-main">
                                         <p class="body-sb bid">Current Bid</p>
                                         <p class="body-mb eth">{{artwork.price}} {{artwork.currency}}</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 <!--=======================================
         Explore Artworks End Here

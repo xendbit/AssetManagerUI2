@@ -22,12 +22,25 @@ export interface IPresentation {
     description?:string;
     price:number;
     currency:string;
-    likes:Array<IMember>;
+    likes: number;
+    lastAuctionId: number;
+    symbol: string;
+    name: string;
     type: string;
+    tokenId: string;
+    sold: boolean;
   }
   export interface IMedia{
     media:string;
     mediaType:MEDIA;
+  }
+
+  export interface meta {
+    currentPage: number;
+    itemCount: number
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
   }
   interface IOwner {
     id:string;

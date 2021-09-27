@@ -44,8 +44,29 @@
             </div>
         </div>
     </div> will be implemented when we have more datasets to filter from  -->
-<p-carousel [value]="artworks" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="true">
-    <ng-template let-artwork pTemplate="item">
-        <app-nftcard [artwork]="artwork"></app-nftcard>
-    </ng-template>
-</p-carousel>
+    <div class="explore-artwork">
+        <div class="container-fluid">
+            <div class="explore-artwork-inr">
+                <div class="heading-otr">
+                    <div class="head-otr">
+                        <h3 class="heading heading-h3">Explore Artworks</h3>
+                    </div>
+                </div>
+                <span class="line"></span>
+                <div class="row row-custom-main" >
+                    <div id="tab-1" class="tab-content active">
+                        <div class="row row-custom-inr">  
+                              
+                            <div class="col-otr col-lg-3">
+                                <p-carousel [value]="artworks" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="true">
+                                    <ng-template let-artwork pTemplate="item">
+                                        <app-nftcard [artwork]="artwork"></app-nftcard>
+                                    </ng-template>
+                                </p-carousel>
+                            </div>
+                        </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>

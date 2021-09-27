@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { IArtwork } from '../../interfaces/presentation/presentation.interface';
+import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 
 
@@ -9,7 +9,7 @@ import { MainService } from '../../services/main.service';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
-  artworks: IArtwork;
+  artworks: IArtwork [];
   responsiveOptions;
   constructor(public mainService: MainService) { 
     this.responsiveOptions = [
@@ -32,7 +32,7 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.mainService.getArtWork().subscribe(data => {
+    this.mainService.returnArtwork().subscribe(data => {
       this.artworks = data;
     })
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IBlogGroup } from '../../interfaces/blog/blog.interfaces';
-import { IArtwork, IPresentation } from '../../interfaces/presentation/presentation.interface';
+import { IBlogGroup } from '../blog/blog.interfaces';
+import { IArtwork, IPresentation } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(public mainService: MainService) { }
 
   ngOnInit() {
-    this.mainService.getArtWork().subscribe((data: IArtwork) => {
+    this.mainService.returnArtwork().subscribe(data => {
       this.artworks = data;
     })
    this.mainService.getBlogPost().subscribe((data: IBlogGroup) => {
