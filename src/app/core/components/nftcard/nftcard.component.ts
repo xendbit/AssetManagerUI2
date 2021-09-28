@@ -32,14 +32,14 @@ export class NFTCardComponent implements OnInit {
   ngOnInit() {  
     this.mainService.fetchSingleArtwork(this.artwork.tokenId).subscribe((res: IArtwork) => {
       this.auctionService.fetchAuctionFromMain(res.tokenId, res.lastAuctionId).subscribe((data: IAuction) => {
+        console.log('this is date', data.endDate)
         this.setCountDown(data.endDate)
       })
     })
   }
 
   setCountDown(date) {
-   // Set the date we're counting down to
-   var end = new Date(date).getTime();
+   var end = new Date('2021-11-11T14:01:08.000Z').getTime();
    var _second = 1000;
    var _minute = _second * 60;
    var _hour = _minute * 60;
@@ -60,9 +60,9 @@ export class NFTCardComponent implements OnInit {
        var seconds = Math.floor((this.distance % _minute) / _second);
 
        this.countdownDay = days;
-       this.countdownHours += hours;
-       this.countdownMinutes += minutes;
-       this.countdownSeconds += seconds;
+       this.countdownHours = hours;
+       this.countdownMinutes = minutes;
+       this.countdownSeconds = seconds;
       }, 1000)
   }
   
