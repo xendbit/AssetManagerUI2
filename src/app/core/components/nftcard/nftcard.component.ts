@@ -12,14 +12,6 @@ import { AuctionService } from '../../services/auction.service';
 })
 export class NFTCardComponent implements OnInit {
   @Input() public artwork: IArtwork;
-  count = 10;
-  timeout: any;
-
-  private maxValue = 10;
-  countDown$ = interval(500).pipe(
-    map(value => this.maxValue - value),
-    takeWhile(x => x >= 0)
-  );
   countdown: string;
   countdownDay: number;
   countdownHours: number;
@@ -32,7 +24,6 @@ export class NFTCardComponent implements OnInit {
   ngOnInit() {  
     this.mainService.fetchSingleArtwork(this.artwork.tokenId).subscribe((res: IArtwork) => {
       this.auctionService.fetchAuctionFromMain(res.tokenId, res.lastAuctionId).subscribe((data: IAuction) => {
-        console.log('this is date', data.endDate)
         this.setCountDown(data.endDate)
       })
     })
