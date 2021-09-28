@@ -7,15 +7,17 @@ import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/pr
 import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, map, scan } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import * as auctionJson from 'src/assets/data/auction.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuctionService {
-  private subjectAuction: BehaviorSubject<IAuction []> = new BehaviorSubject<IAuction []>(null);
-  private dataStore: { auctions: IAuction[] } = { auctions: [] }; // store our data in memory
+  private subjectAuction: BehaviorSubject<IAuction> = new BehaviorSubject<IAuction>(null);
+  private dataStore: { auctions: IAuction } // store our data in memory
 
   constructor(public httpClient: HttpClient, public mainService: MainService) {
+ 
   }
 
 
@@ -23,74 +25,41 @@ export class AuctionService {
 
   fetchAuctionFromMain(tokenId: number, auctionId: number) {
 
-    this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${tokenId}/${auctionId}`, baseUrl.headers).pipe(map(res => {
-      let item = res['data'] 
-      this.dataStore.auctions.push({
-        "auctionId": item.auctionId,
-        "cancelled": item.cancelled,
-        "currentBlock": item.currentBlock,
-        "startBlock": item.startBlock,
-        "endBlock": item.endBlock,
-        "highestBid": item.highestBid,
-        "highestBidder": item.highestBidder,
-        "isActive": item.isActive,
-        "owner": item.owner,
-        "sellNowPrice": item.sellNowPrice,
-        "title": "Otown Auction",
-        "currentBid": 0,
-        "currency": "ETH",
-        "endDate": item.endDate,
-        "startDate": item.startDate,
-        "minimumBid": item.minimumBid,
-        "tokenId": item.tokenId,
-        "artwork": {
-            "id": "reno",
-            "category": "artwork",
-            "tags": ["art", "away"],
-            "owner": {
-                "id": "OGW",
-                "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-                "username": "Ndo"
-            },
-            "creator": {
-                "id": "Rew",
-                "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-                "username": "Ndo",
-                "collections": [],
-                "type": "Creator"
-            },
-            "featuredImage": {
-                "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-                "mediaType": 0
-            },
-            "isBidding": true,
-            "gallery": [{
-                "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-                "mediaType": 0
-            }],
-            "description": "Description",
-            "price": 23,
+    return new Observable((observer) => {
+      this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
+        let artwork = response
+        this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${tokenId}/${auctionId}`, baseUrl.headers).subscribe(data => {
+          let item = data['data'] 
+          observer.next({
+            "auctionId": item.auctionId,
+            "cancelled": item.cancelled,
+            "currentBlock": item.currentBlock,
+            "startBlock": item.startBlock,
+            "endBlock": item.endBlock,
+            "highestBid": item.highestBid,
+            "highestBidder": item.highestBidder,
+            "isActive": item.isActive,
+            "owner": item.owner,
+            "sellNowPrice": item.sellNowPrice,
+            "title": "Otown Auction",
+            "currentBid": 0,
             "currency": "ETH",
-            "likes": 34,
-            "lastAuctionId": 12345,
-            "symbol": "",
-            "name": "",
-            "type": "Artwork",
-            "tokenId": "",
-            "dateIssued": "",
-            "sold": true
-        },
-        "type": "Auction"
+            "endDate": item.endDate,
+            "startDate": item.startDate,
+            "minimumBid": item.minimumBid,
+            "tokenId": parseInt(item.tokenId),
+            "artwork": artwork,
+            "type": "Auction"
+        });
+          observer.complete();
+     
+        },err => {
+           observer.next(auctionJson['default']);
+           observer.complete();
+        })
+      })
     });
-    })).subscribe(data => {
-
-      this.subjectAuction.next(Object.assign({}, this.dataStore).auctions);
- 
-    },err => {
-      // this.subjectNftCard.next(artWorkJson['default']);
-    })
    
   }
-
 
 }

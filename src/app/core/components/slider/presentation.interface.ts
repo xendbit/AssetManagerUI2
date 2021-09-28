@@ -40,7 +40,7 @@ export interface IPresentation {
     symbol: string;
     name: string;
     type: string;
-    tokenId: string;
+    tokenId: number;
     dateIssued: string;
     sold: boolean;
   }

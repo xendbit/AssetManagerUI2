@@ -7,9 +7,14 @@
                                         <a href="" class="tilt-otr img-tilt" data-tilt>
                                             <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
                                         </a>
-                                        <div class="timer-otr">
-                                            <div class="body-sb countdown" data-countdown="2022/01/01">
-                                              {{count}}
+                                        <div class="timer-otr" *ngIf="distance > 0">
+                                            <div class="body-sb countdown" data-countdown="2022/01/01" id="timer">
+                                              {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownSeconds}}
+                                            </div>
+                                        </div>
+                                        <div class="timer-otr" *ngIf="distance < 0">
+                                            <div class="body-sb countdown" data-countdown="2022/01/01" id="timer">
+                                              {{this.countdown}}
                                             </div>
                                         </div>
                                     </div>

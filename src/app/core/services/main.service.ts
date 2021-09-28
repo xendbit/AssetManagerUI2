@@ -63,7 +63,7 @@ export class MainService {
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
-        tokenId: item.tokenId,
+        tokenId: parseInt(item.tokenId),
         dateIssued: item.dateIssued,
         sold: item.sold,
         type: item.type
@@ -81,7 +81,7 @@ export class MainService {
 
   fetchSingleArtwork(tokenId: number) {
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info${tokenId}`, baseUrl.headers).subscribe(data => {
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => {
           // this.footerResponse = data; 
           let item = data['data'];
           
@@ -113,14 +113,14 @@ export class MainService {
             lastAuctionId: item.lastAuctionId,
             symbol: item.symbol,
             name: item.name,
-            tokenId: item.tokenId,
+            tokenId: parseInt(item.tokenId),
             dateIssued: item.dateIssued,
             sold: item.sold,
             type: item.type
         });
           observer.complete();
         }, err => {
-            observer.next( artWorkJson['default'][0]);
+            observer.next(artWorkJson['default'][0]);
             observer.complete()
         }); /* make sure to handle http error */
 
