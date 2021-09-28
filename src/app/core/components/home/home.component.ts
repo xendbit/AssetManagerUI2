@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   slide: IPresentation;
   blogs: IBlogGroup;
   artworks: IArtwork[];
+  categoryToIds: Map<string, Array<number> >
   constructor(public mainService: MainService) { }
 
   ngOnInit() {
@@ -21,6 +22,11 @@ export class HomeComponent implements OnInit {
    this.mainService.getBlogPost().subscribe((data: IBlogGroup) => {
      this.blogs = data;
    })
+
+  //  console.log('dfdf',this.mainService.fetchSingleArtwork(710246))
+  this.mainService.fetchSingleArtwork(710246).subscribe(res => {
+    console.log('this is ', res)
+  })
   
   }
 
