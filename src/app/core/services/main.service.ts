@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
-import { IPresentation, IArtwork, meta } from '../components/slider/presentation.interface';
+import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { navBar } from '../components/header/header.interface';
 import * as headerJson from 'src/assets/data/navbar.json'
 import * as footerJson from 'src/assets/data/footer.json'
@@ -20,6 +20,7 @@ import { IBlogGroup } from '../components/blog/blog.interfaces';
 })
 export class MainService {
   private subjectNftCard: BehaviorSubject<IArtwork []> = new BehaviorSubject<IArtwork []>(null);
+  private subjectSingleArtwork: BehaviorSubject<IArtwork> = new BehaviorSubject<IArtwork>(null);
   private subjectNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
@@ -62,7 +63,8 @@ export class MainService {
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
-        tokenId: item.tokenId,
+        tokenId: parseInt(item.tokenId),
+        dateIssued: item.dateIssued,
         sold: item.sold,
         type: item.type
     }));
@@ -76,6 +78,57 @@ export class MainService {
     })
    
   }
+
+  fetchSingleArtwork(tokenId: number) {
+    return new Observable((observer) => {/* make http request & process */
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => {
+          // this.footerResponse = data; 
+          let item = data['data'];
+          
+          observer.next({
+            id: item.id,
+            category: item.category,
+            tags: item.tags,
+            owner: {
+              id: item.id,
+              image: item.media[0].media,
+              username: item.owner
+            },
+            creator: {
+              id: item.id,
+              image: item.media[0].media,
+              username: item.issuer,
+              type: item.type
+            },
+            featuredImage: {
+              media: item.media[0].media,
+              mediaType: 0
+            },
+            isBidding: item.hasActiveAuction,
+            gallery: item.media,
+            description: item.description,
+            price: 0,
+            currency: item.currency,
+            likes: 0,
+            lastAuctionId: item.lastAuctionId,
+            symbol: item.symbol,
+            name: item.name,
+            tokenId: parseInt(item.tokenId),
+            dateIssued: item.dateIssued,
+            sold: item.sold,
+            type: item.type
+        });
+          observer.complete();
+        }, err => {
+            observer.next(artWorkJson['default'][0]);
+            observer.complete()
+        }); /* make sure to handle http error */
+
+    });
+   
+    
+  }
+
 
   getMeta() {
     return this.subjectNftMeta;

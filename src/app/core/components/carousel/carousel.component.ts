@@ -1,3 +1,4 @@
+import { ICategory } from './category.interface';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
@@ -11,6 +12,14 @@ import { MainService } from '../../services/main.service';
 export class CarouselComponent implements OnInit {
   artworks: IArtwork [];
   responsiveOptions;
+  unsold: any;
+  categories:  ICategory [] = [
+    {id: 1, title:"Artwork"},
+    {id: 2, title: "Music Rights"}, 
+    {id: 2, title: "Movie Rights"}
+  ];
+  musicRights: IArtwork[];
+  movieRights: IArtwork[];
   constructor(public mainService: MainService) { 
     this.responsiveOptions = [
       {
@@ -32,9 +41,19 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.mainService.returnArtwork().subscribe(data => {
+    this.mainService.returnArtwork().subscribe(async data => {
       this.artworks = data;
     })
+  }
+
+  async categoryFilter() {
+    this.musicRights = await this.artworks.filter(item => {
+      return item.category === 'musicRight';
+    });
+
+    this.movieRights = await this.artworks.filter(item => {
+      return item.category === 'movieRight';
+    });
   }
 
   sort(data) { //to be implemented for sort by date when we implement the sort feature
@@ -43,7 +62,7 @@ export class CarouselComponent implements OnInit {
   }
 
   filterArtworks(data) { //to be implemented for filter when we implement the filter feature
-    this.artworks = data.filter((res: IArtwork) =>res['sold'] === false);
+    this.unsold = data.filter((res: IArtwork) =>res['sold'] === false);
   }
 
 }

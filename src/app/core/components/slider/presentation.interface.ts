@@ -3,10 +3,23 @@ export interface IPresentation {
     slides:Array<IAuction | ICreator | IArtwork | ICollection>;
   }
   export interface IAuction {
+    auctionId: string;
+    cancelled: boolean;
+    currentBlock: number;
+    startBlock: number;
+    endBlock: number;
+    highestBid: number;
+    highestBidder: string;
+    isActive: boolean;
+    owner: string;
+    sellNowPrice: number;
     title:string;
     currentBid:number;
     currency:string;
-    deadline:Date;
+    endDate: Date;
+    startDate: Date;
+    minimumBid: number;
+    tokenId: number;
     artwork:IArtwork;
     type: string;
   }
@@ -27,7 +40,8 @@ export interface IPresentation {
     symbol: string;
     name: string;
     type: string;
-    tokenId: string;
+    tokenId: number;
+    dateIssued: string;
     sold: boolean;
   }
   export interface IMedia{

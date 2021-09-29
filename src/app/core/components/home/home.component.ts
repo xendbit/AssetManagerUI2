@@ -1,3 +1,4 @@
+import { AuctionService } from './../../services/auction.service';
 import { Component, OnInit } from '@angular/core';
 import { IBlogGroup } from '../blog/blog.interfaces';
 import { IArtwork, IPresentation } from '../slider/presentation.interface';
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   slide: IPresentation;
   blogs: IBlogGroup;
   artworks: IArtwork[];
-  constructor(public mainService: MainService) { }
+  categoryToIds: Map<string, Array<number> >
+  constructor(public mainService: MainService, public auctionService: AuctionService) { }
 
   ngOnInit() {
     this.mainService.returnArtwork().subscribe(data => {
