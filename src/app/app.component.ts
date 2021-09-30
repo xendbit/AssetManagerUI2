@@ -33,7 +33,10 @@ export class AppComponent extends AppController implements OnInit {
       this.footerInfo = res;
     })
 
-    this.navButtons = this.mainService.getNavButtons();
+    this.mainService.getNavButtons().subscribe(res => {
+      this.navButtons = res;
+    });
+   
   }
 
   private setBrowserTabTitle(): void {

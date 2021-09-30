@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { baseUrl} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
+import { INavButton } from '../components/header/header.interface';
 import * as headerJson from 'src/assets/data/navbar.json'
 import * as footerJson from 'src/assets/data/footer.json'
 import * as presentationJson from 'src/assets/data/presentation.json';
@@ -25,6 +26,7 @@ export class MainService {
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
+  buttonsResponse: INavButton;
   
   constructor(public httpClient: HttpClient) {
    }
@@ -182,7 +184,22 @@ export class MainService {
   }
 
   getNavButtons() {
-    return navButtons['default'][0];
+    return new Observable((observer) => {
+      if (this.buttonsResponse) {
+        observer.next(this.buttonsResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<INavButton>(baseUrl.testUrl).subscribe((data: INavButton) => {
+          this.buttonsResponse = data; 
+          observer.next(this.buttonsResponse);
+          observer.complete();
+        }, err => {
+            this.buttonsResponse =  navButtons['default'][0];
+            observer.next(this.buttonsResponse);
+            observer.complete()
+        });
+      }
+    });
   }
 
   fetchBlogPost() {

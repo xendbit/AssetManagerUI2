@@ -3,7 +3,7 @@
     ========================================-->
  
     <div class="col-inr box2">
-        <div class="img-otr" [ngSwitch]="this.auction.artwork.category">
+        <div class="img-otr" [ngSwitch]="artwork.category">
             <a href="" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                 <img class="img-inr img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
                 <div class="timer-otr" *ngIf="distance > 0">
@@ -102,7 +102,7 @@
         <a href="" class="body-mb box-head">{{artwork.symbol}}</a>
         <div class="bid-main">
             <p class="body-sb bid">Current Bid</p>
-            <p class="body-mb eth">{{auction.currentBid}} {{artwork.currency}}</p>
+            <p class="body-mb eth"> {{artwork.currency}}</p>
         </div>
     </div>
 <!--=======================================

@@ -39,10 +39,10 @@ export interface IPresentation {
     lastAuctionId: number;
     symbol: string;
     name: string;
-    type: string;
     tokenId: number;
     dateIssued: string;
     sold: boolean;
+    type: string;
   }
   export interface IMedia{
     media:string;

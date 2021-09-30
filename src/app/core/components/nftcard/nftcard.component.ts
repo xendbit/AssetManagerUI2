@@ -6,6 +6,7 @@ import { map, takeWhile } from 'rxjs/operators';
 import { AuctionService } from '../../services/auction.service';
 import { EventQueueService } from '../../services/event-queue.service';
 import { AppEvent, AppEventType } from './nftEnum.type';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-nftcard',
@@ -22,14 +23,23 @@ export class NFTCardComponent implements OnInit {
   distance: number;
   auction: IAuction;
 
-  constructor(public mainService: MainService, public auctionService: AuctionService, public eventQueue: EventQueueService) { }
+  constructor(public mainService: MainService, public auctionService: AuctionService, 
+    public eventQueue: EventQueueService,  private spinner: NgxSpinnerService) { }
 
   ngOnInit() {  
-    this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
-      this.auction = data;
-      this.setCountDown(this.auction.endDate)
-    })
 
+
+  }
+
+  ngOnChanges() {
+    this.spinner.show();
+    if (this.artwork !== null) {
+      this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
+        this.auction = data;
+        this.setCountDown(this.auction.endDate)
+        this.spinner.hide();
+      })
+    }
   }
 
   setCountDown(date) {
