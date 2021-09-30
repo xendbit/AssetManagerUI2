@@ -18,7 +18,7 @@
                                         <p class="tab-p body-sb">All</p>
                                     </li>
                                     <li class="tab-link tab-2" data-tab="2" *ngFor="let category of this.categories">
-                                        <p class="tab-p body-sb">{{category.title}}</p>
+                                        <p class="tab-p body-sb" (click)="this.categoryFilter(category)">{{category.replace("Right", "")}}</p>
                                     </li>
                                   
                                 </ul>
@@ -47,7 +47,7 @@
                             <div class="row row-custom-inr">  
                                   
                                 <div class="col-otr col-lg-3">
-                                    <p-carousel [value]="artworks" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions" [showIndicators]="true">
+                                    <p-carousel [value]="artworks" [numVisible]="3" [numScroll]="1"  [showIndicators]="true">
                                         <ng-template let-artwork pTemplate="item">
                                             <app-nftcard [artwork]="artwork"></app-nftcard>
                                         </ng-template>

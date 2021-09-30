@@ -1,5 +1,6 @@
-import { ICategory } from './category.interface';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 
@@ -11,48 +12,36 @@ import { MainService } from '../../services/main.service';
 })
 export class CarouselComponent implements OnInit {
   artworks: IArtwork [];
+  @Input() public artworkArray: IArtwork [];
   responsiveOptions;
   unsold: any;
-  categories:  ICategory [] = [
-    {id: 1, title:"Artwork"},
-    {id: 2, title: "Music Rights"}, 
-    {id: 2, title: "Movie Rights"}
-  ];
+  categories: string [];
   musicRights: IArtwork[];
   movieRights: IArtwork[];
-  constructor(public mainService: MainService) { 
-    this.responsiveOptions = [
-      {
-          breakpoint: '1024px',
-          numVisible: 3,
-          numScroll: 3
-      },
-      {
-          breakpoint: '768px',
-          numVisible: 2,
-          numScroll: 2
-      },
-      {
-          breakpoint: '560px',
-          numVisible: 1,
-          numScroll: 1
-      }
-  ];
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService) { 
+ 
   }
 
   ngOnInit(){
-    this.mainService.returnArtwork().subscribe(async data => {
-      this.artworks = data;
-    })
+
   }
 
-  async categoryFilter() {
-    this.musicRights = await this.artworks.filter(item => {
-      return item.category === 'musicRight';
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    this.spinner.show();
+    if (changes['artworkArray']) {
+        if (this.artworkArray !== null) {
+          this.artworks = this.artworkArray //after push from parent assign to this.artworks
+          this.spinner.hide();
+          this.categories = this.artworks.map(item => item.category)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        }
+    }
+    
+  }
 
-    this.movieRights = await this.artworks.filter(item => {
-      return item.category === 'movieRight';
+  categoryFilter(category) {
+    this.artworks = this.artworks.filter(item => {
+      return item.category === category;
     });
   }
 

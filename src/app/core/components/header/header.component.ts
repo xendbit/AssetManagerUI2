@@ -1,8 +1,8 @@
-import { navBar } from './header.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
-
 import { AppController } from '../../../app.controller';
+import { IMenuGroups } from '../footer/footer.interface';
+import { INavButton } from './header.interface';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +10,13 @@ import { AppController } from '../../../app.controller';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  headerData: navBar;
+  @Input() public headerData: IMenuGroups;
+  @Input() public buttonsData: INavButton;
   constructor(public mainService: MainService) { }
 
 
   ngOnInit() {
-    this.mainService.getHeader().subscribe((res: navBar) => {
-      this.headerData = res;
-    })
+
   }
 
 }

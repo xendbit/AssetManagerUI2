@@ -1,26 +1,24 @@
-[
+  [
     {
-        "navLinks": [
-            {
-                "id": 1,
-                "title": "Home",
-                "path": ""
-              },
-              {
-                "id": 2,
-                "title": "My Dashboard",
-                "path": ""
-              },
-              {
-                "id": 3,
-                "title": "My Assets",
-                "path": ""
-              },
-              {
-                "id": 4,
-                "title": "All Assets",
-                "path": ""
-              } 
-        ]
+      "menuGroup": [
+        {
+            "title": "Home",
+            "menu": []
+        },
+        {
+            "title": "My Dashboard",
+            "menu": []
+        },
+        {
+            "title": "My Assets",
+            "menu": []
+        },
+        {
+          "title": "All Assets",
+          "menu": []
+        }
+
+    ],
+    "logoPath": "/assets/img/Niftylogo2.png"
     }
   ]

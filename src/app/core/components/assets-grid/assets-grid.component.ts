@@ -22,6 +22,7 @@ export class AssetsGridComponent implements OnInit {
   constructor(public mainService: MainService, private ngZone: NgZone) { }
 
   ngOnInit() {
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {

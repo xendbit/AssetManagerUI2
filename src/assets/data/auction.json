@@ -10,7 +10,7 @@
     "owner": "0x138eA87255926B6FA5F428079F5266A6693B8738",
     "sellNowPrice": 0.4,
     "title": "Otown Auction",
-    "curentBid": 0.3,
+    "currentBid": 0.3,
     "currency": "ETH",
     "endDate": "2021-05-09T14:01:08.000Z",
     "startDate": "2021-05-06T14:01:05.578Z",

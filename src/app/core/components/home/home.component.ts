@@ -12,17 +12,21 @@ import { MainService } from '../../services/main.service';
 export class HomeComponent implements OnInit {
   slide: IPresentation;
   blogs: IBlogGroup;
-  artworks: IArtwork[];
+  artworks: IArtwork [];
   categoryToIds: Map<string, Array<number> >
   constructor(public mainService: MainService, public auctionService: AuctionService) { }
 
   ngOnInit() {
-    this.mainService.returnArtwork().subscribe(data => {
+    this.mainService.returnArtwork().subscribe((data: IArtwork []) => {
       this.artworks = data;
     })
    this.mainService.getBlogPost().subscribe((data: IBlogGroup) => {
      this.blogs = data;
    })
+
+   this.mainService.getPresentation().subscribe((res: IPresentation) => {
+    this.slide = res;
+  })
   
   }
 

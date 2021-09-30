@@ -1,16 +1,16 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { baseUrl} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
-import { navBar } from '../components/header/header.interface';
 import * as headerJson from 'src/assets/data/navbar.json'
 import * as footerJson from 'src/assets/data/footer.json'
 import * as presentationJson from 'src/assets/data/presentation.json';
 import * as artWorkJson from 'src/assets/data/artwork.json';
 import * as blogJson from 'src/assets/data/blog.json';
-import { Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, map, scan } from 'rxjs/operators';
+import * as navButtons from 'src/assets/data/navButtons.json'
+import { Observable } from 'rxjs';
+import { map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IBlogGroup } from '../components/blog/blog.interfaces';
 
@@ -30,7 +30,7 @@ export class MainService {
    }
 
   footerResponse: IMenuGroups;
-  headerResponse: navBar;
+  headerResponse: IMenuGroups;
 
 
   fetchArtWorkFromMain(page: number, limit: number) {
@@ -152,7 +152,7 @@ export class MainService {
           observer.next(this.footerResponse);
           observer.complete();
         }, err => {
-            this.footerResponse =  footerJson['default'][0]['menuGroup']
+            this.footerResponse =  footerJson['default'][0];
             observer.next(this.footerResponse);
             observer.complete()
         }); /* make sure to handle http error */
@@ -168,17 +168,21 @@ export class MainService {
         observer.next(this.headerResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<navBar>(baseUrl.testUrl).subscribe((data: navBar) => {
+        this.httpClient.get<IMenuGroups>(baseUrl.testUrl).subscribe((data: IMenuGroups) => {
           this.headerResponse = data; 
           observer.next(this.headerResponse);
           observer.complete();
         }, err => {
-            this.headerResponse =  headerJson['default'][0]['navLinks'];
+            this.headerResponse =  headerJson['default'][0];
             observer.next(this.headerResponse);
             observer.complete()
         });
       }
     });
+  }
+
+  getNavButtons() {
+    return navButtons['default'][0];
   }
 
   fetchBlogPost() {

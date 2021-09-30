@@ -1,5 +1,7 @@
 export interface IMenuGroups { 
-    menuGroup?: Array<IMenuGroup>;
+    menuGroup: Array<IMenuGroup>;
+    logoPath: string;
+    type?: LOCATION
   };
   
   interface IMenus { 
@@ -9,5 +11,17 @@ export interface IMenuGroups {
   
   interface IMenuGroup { 
     title: string;
-    menu: Array<IMenus>;
+    menu?: Array<IMenus>;
   }
+
+export enum LOCATION {
+  header,
+  footer
+}
+
+export class AppEvent<T> {
+  constructor(
+    public type: LOCATION,
+    public payload: T,
+  ) {}
+}

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { IMenuGroups } from './footer.interface';
+import { INavButton } from '../header/header.interface';
+
 
 
 
@@ -10,14 +12,12 @@ import { IMenuGroups } from './footer.interface';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  footerData: IMenuGroups;
+  @Input() public footerData: IMenuGroups;
+  @Input() public buttonsData: INavButton;
   constructor(public mainService: MainService) { }
 
   ngOnInit() {
    
-    this.mainService.getFooter().subscribe((res: IMenuGroups) => {
-      this.footerData = res;
-    });
   }
 
 }

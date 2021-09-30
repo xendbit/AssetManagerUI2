@@ -12,6 +12,14 @@
     margin-top: var(--bs-gutter-y);
 }
 
+#countdownAudio {
+    bottom: 61px;
+}
+
+#anchorMedia {
+    margin-bottom: 56px;
+}
+
 @media (max-width: 600px){
     .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box1, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box2, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box3, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box4, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box5, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box6, .explore-artwork-creator .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box7 {
         margin-bottom: 24px;

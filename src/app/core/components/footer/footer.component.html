@@ -8,8 +8,8 @@
           <div class="row row-custom">
               <div class="col-lg-3 col-md-12 col-log-otr">
                   <div class="col-logo-inr">
-                      <a href="index.html" class="logo-otr">
-                          <img class="logo-img" src="/assets/img/Niftylogo2.png" alt="brand-logo">
+                      <a href="" class="logo-otr" *ngIf="this.footerData !== null">
+                          <img class="logo-img" src="{{this.footerData.logoPath}}" alt="brand-logo">
                       </a>
                       <ul class="icon-ul">
                           <li class="icon-li">
@@ -37,7 +37,7 @@
                       </ul>
                   </div>
               </div>
-              <div class="col-lg-2 col-md-6 col-nav-otr" *ngFor="let links of footerData">
+              <div class="col-lg-2 col-md-6 col-nav-otr" *ngFor="let links of footerData.menuGroup">
                   <div class="col-nav-inr" >
                       <h5 class="heading-h5 nav-head">{{links.title}}</h5>
                       <ul class="nav-ul" *ngFor="let link of links.menu">

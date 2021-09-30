@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { interval } from 'rxjs/internal/observable/interval';
 import { map, takeWhile } from 'rxjs/operators';
 import { AuctionService } from '../../services/auction.service';
+import { EventQueueService } from '../../services/event-queue.service';
+import { AppEvent, AppEventType } from './nftEnum.type';
 
 @Component({
   selector: 'app-nftcard',
@@ -18,15 +20,16 @@ export class NFTCardComponent implements OnInit {
   countdownMinutes: number;
   countdownSeconds: number;
   distance: number;
+  auction: IAuction;
 
-  constructor(public mainService: MainService, public auctionService: AuctionService) { }
+  constructor(public mainService: MainService, public auctionService: AuctionService, public eventQueue: EventQueueService) { }
 
   ngOnInit() {  
-    this.mainService.fetchSingleArtwork(this.artwork.tokenId).subscribe((res: IArtwork) => {
-      this.auctionService.fetchAuctionFromMain(res.tokenId, res.lastAuctionId).subscribe((data: IAuction) => {
-        this.setCountDown(data.endDate)
-      })
+    this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
+      this.auction = data;
+      this.setCountDown(this.auction.endDate)
     })
+
   }
 
   setCountDown(date) {
@@ -35,16 +38,10 @@ export class NFTCardComponent implements OnInit {
    var _minute = _second * 60;
    var _hour = _minute * 60;
    var _day = _hour * 24;
-   var timer;
 
    setInterval(() => {
       var now = new Date().getTime();
        this.distance = end - now;
-       if (this.distance < 0) {
-           clearInterval(timer);
-           this.countdown = 'EXPIRED';
-           return;
-       }
        var days = Math.floor(this.distance / _day);
        var hours =  Math.floor((this.distance % _day) / _hour );
        var minutes = Math.floor((this.distance % _hour) / _minute);
@@ -55,6 +52,20 @@ export class NFTCardComponent implements OnInit {
        this.countdownMinutes = minutes;
        this.countdownSeconds = seconds;
       }, 1000)
+  }
+
+  onClick(event: MouseEvent) {
+    this.eventQueue.dispatch(new AppEvent(AppEventType.ClickedOnNotification, event));
+    this.listenToEvent()
+  }
+
+  listenToEvent() {
+    this.eventQueue.on(AppEventType.ClickedOnNotification).subscribe(event => this.handleEvent(event.payload));
+  }
+
+  handleEvent(event: MouseEvent) {
+    // Do something with the click event
+    console.log('this is event', event)
   }
   
 

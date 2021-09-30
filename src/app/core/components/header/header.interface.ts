@@ -1,10 +1,9 @@
-export interface navBar { 
-    logo:  string;
-    navLinks: Array<navType>;
+export interface INavButton { 
+    create?:  buttonSetup;
+    wallet?: buttonSetup;
 }
 
-interface navType {
-    id: number;
+interface buttonSetup {
     title: string;
     path: string;
 }

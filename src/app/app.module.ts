@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { MainService } from './core/services/main.service';
 import {CarouselModule} from 'primeng/carousel';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {CarouselModule} from 'primeng/carousel';
     AppRoutingModule,
     CoreModule,
     HttpClientModule,
-    CarouselModule
+    CarouselModule,
+    NgxSpinnerModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]

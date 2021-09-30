@@ -1,0 +1,12 @@
+[
+    {
+        "create": {
+            "title": "Create",
+            "path": ""
+        },
+        "wallet": {
+            "title": "Connect Wallet",
+            "path": ""
+        }
+    }
+]

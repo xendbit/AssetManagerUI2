@@ -12,6 +12,9 @@ import { AppController } from './app.controller';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent extends AppController implements OnInit {
+  navButtons: any;
+  headerInfo: any;
+  footerInfo: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -23,6 +26,14 @@ export class AppComponent extends AppController implements OnInit {
     this.setBrowserTabTitle();
     this.mainService.fetchArtWorkFromMain(1, 10);
     this.mainService.fetchBlogPost();
+    this.mainService.getHeader().subscribe(res => {
+      this.headerInfo = res;
+    })
+    this.mainService.getFooter().subscribe(res => {
+      this.footerInfo = res;
+    })
+
+    this.navButtons = this.mainService.getNavButtons();
   }
 
   private setBrowserTabTitle(): void {

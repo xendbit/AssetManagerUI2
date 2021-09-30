@@ -11,13 +11,13 @@
           <div class="navbar-inr">
               <div class="logo-otr">
                   <a href="./" class="logo-inr">
-                      <img class="logo" src="../assets/img/Niftylogo2.png" alt="brand-logo">
+                      <img  class="logo" src="{{this.headerData.logoPath}}" alt="brand-logo">
                   </a>
               </div>
               <app-search></app-search>
               <div class="navigation-otr">
                   <ul class="navigation-inr">
-                      <li class="nav-li" *ngFor="let link of headerData ">
+                      <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                           <a routerLink= "/{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
                           <!-- <ul class="dropdown-otr">
                               <li class="dropdown-li">
@@ -34,8 +34,8 @@
                   </ul>
               </div>
               <div class="action-otr">
-                  <a href="pages/Create.html" class="btn-fill btn-create">Create</a>
-                  <a href="pages/Connect-Wallet.html" class="btn-outline1 btn-wallet">Connect Wallet</a>
+                  <a href="" class="btn-fill btn-create">{{this.buttonsData.create.title}}</a>
+                  <a href="" class="btn-outline1 btn-wallet">{{this.buttonsData.wallet.title}}</a>
               </div>
               <div class="burger-menu">
                   <div class="burger-icon-otr">
