@@ -28,6 +28,8 @@
     "@angular/platform-browser": "^9.1.13",
     "@angular/platform-browser-dynamic": "^9.1.13",
     "@angular/router": "^9.1.13",
+    "@types/jest": "^27.0.2",
+    "@types/mocha": "^9.0.0",
     "breakpoint-sass": "^2.7.1",
     "core-js": "^2.5.4",
     "ngx-spinner": "^9.0.2",
