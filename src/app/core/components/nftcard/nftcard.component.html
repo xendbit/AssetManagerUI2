@@ -40,13 +40,13 @@
         <div class="time-main">
             <div class="users-main">
                 <div class="create-img-otr">
-                    <a class="create-img left-create">
+                    <a (click)="goToCreatorPage()" class="create-img left-create">
                         <img class="img-create" src="{{artwork.creator.image}}" alt="create-img">
                     </a>
                     <div class="hover-box hover-box1">
                         <div class="hover-box-inr">
                             <div class="user-info">
-                                <a class="create-img">
+                                <a (click)="goToCreatorPage()" class="create-img">
                                     <img class="img-create" src="{{artwork.creator.image}}" alt="create-img">
                                 </a>
                                 <a *ngIf="this.followInfo.followCount < 1" (click)="follow(artwork.owner.username)" class="btn-outline2 follow-btn">Follow</a>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="create-img-otr">
-                    <a class="create-img">
+                    <a (click)="goToOwnerPage()" class="create-img">
                         <img class="img-create" src="{{artwork.owner.image}}" alt="create-img">
                         <div class="check-otr">
                             <svg class="check-icon" width="8" height="8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.583 2.25l-3.5 3.5L1.333 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -73,7 +73,7 @@
                     <div class="hover-box hover-box2">
                         <div class="hover-box-inr">
                             <div class="user-info">
-                                <a href="" class="create-img">
+                                <a (click)="goToOwnerPage()" class="create-img">
                                     <img class="img-create" src="{{artwork.owner.image}}" alt="create-img">
                                     <div class="check-otr">
                                         <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <a href="" class="body-mb box-head">{{artwork.symbol}}</a>
-        <div class="bid-main">
+        <div class="bid-main" (click)="placeBid()">
             <p class="body-sb bid">Current Bid</p>
             <p class="body-mb eth"> {{auction.currentBid}} {{artwork.currency}}</p>
         </div>

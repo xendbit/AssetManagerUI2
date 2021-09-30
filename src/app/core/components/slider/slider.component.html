@@ -50,8 +50,8 @@
                                         </div>
                                     </div>
                                     <div class="action-otr">
-                                        <a href="" class="btn-fill btn-create">Place a Bid</a>
-                                        <a href="" class="btn-outline2 btn-wallet">View Artwork</a>
+                                        <a (click)="placeBid()" class="btn-fill btn-create">Place a Bid</a>
+                                        <a  class="btn-outline2 btn-wallet">View Artwork</a>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     </a>
                                     <div class="create-otr">
                                         <div class="create-inr">
-                                            <a href="" class="create-img">
+                                            <a (click)="goToCreatorPage()" class="create-img">
                                                 <img class="img-create" src="{{item.artwork.creator.image}}" alt="create-img">
                                                 <div class="check-otr">
                                                     <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -70,12 +70,12 @@
                                             </a>
                                             <div class="create-content">
                                                 <p class="body-s create-p">Owned by</p>
-                                                <a href="" class="body-sb create-pb">{{item.artwork.owner.username}}</a>
+                                                <a click)="goToOwnerPage()" class="body-sb create-pb">{{item.artwork.owner.username}}</a>
                                             </div>
                                             <div class="hover-box">
                                                 <div class="hover-box-inr">
                                                     <div class="user-info">
-                                                        <a href="" class="create-img">
+                                                        <a click)="goToOwnerPage()" class="create-img">
                                                             <img class="img-create" src="{{item.artwork.owner.image}}" alt="create-img">
                                                             <div class="check-otr">
                                                                 <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

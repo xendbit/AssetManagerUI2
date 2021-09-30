@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { UserActionsService } from '../../services/userActions.service';
@@ -25,7 +26,7 @@ export class SliderComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  constructor(public mainService: MainService, public userActions: UserActionsService) { 
+  constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router) { 
  
    
   }
@@ -62,6 +63,18 @@ export class SliderComponent implements OnInit {
     this.followInfo.followCount = this.userActions.getFollowCount(username);
     console.log('this is follow', this.followInfo)
     console.log('this is follow', this.userActions.getFollowCount(username))
+  }
+
+  placeBid() {
+    this.router.navigateByUrl('/'); // no url for place bid page as page hasn't been created yet.
+  }
+
+  goToCreatorPage() {
+    this.router.navigateByUrl('/');
+  }
+
+  goToOwnerPage() {
+    this.router.navigateByUrl('/');
   }
 
   setCountDown(date) {

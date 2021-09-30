@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
@@ -37,7 +38,7 @@ export class NFTCardComponent implements OnInit {
       "dateIssued": "","lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
-    public userActions: UserActionsService,  private spinner: NgxSpinnerService) { }
+    public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router) { }
 
   ngOnInit() {  
 
@@ -123,6 +124,17 @@ export class NFTCardComponent implements OnInit {
   //   this.eventQueue.on(AppEventType.ClickedOnNotification).subscribe(event => this.handleEvent(event.payload));
   // }
 
+  placeBid() {
+    this.router.navigateByUrl('/'); // no url for place bid page as page hasn't been created yet.
+  }
+
+  goToCreatorPage() {
+    this.router.navigateByUrl('/');
+  }
+
+  goToOwnerPage() {
+    this.router.navigateByUrl('/');
+  }
   
   
 
