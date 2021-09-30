@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { MainService } from './core/services/main.service';
 import {CarouselModule} from 'primeng/carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     CoreModule,
     HttpClientModule,
     CarouselModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent]

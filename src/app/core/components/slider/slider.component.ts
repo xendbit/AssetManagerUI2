@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
 import { MainService } from '../../services/main.service';
+import { UserActionsService } from '../../services/userActions.service';
+import { IFollow, ILikes } from '../nftcard/event.interface';
 import { IPresentation } from './presentation.interface';
 
 @Component({
@@ -15,7 +17,15 @@ export class SliderComponent implements OnInit {
   countdownDay: number;
   countdownHours: number;
   countdownMinutes: number;
-  constructor(public mainService: MainService) { 
+  likes: ILikes = {
+    tokenId: 0,
+    likeCount: 0
+  };
+  followInfo: IFollow = {
+    id: "",
+    followCount: 0
+  }
+  constructor(public mainService: MainService, public userActions: UserActionsService) { 
  
    
   }
@@ -32,6 +42,26 @@ export class SliderComponent implements OnInit {
       })
       this.setCountDown(endDate);
     }
+  }
+
+  like(tokenId) {
+    this.userActions.BroadcastLikes("like", 1, tokenId);
+    this.getLikes(tokenId);
+  }
+
+  getLikes(tokenId) {
+    this.likes.likeCount = this.userActions.getLikes(tokenId);
+  }
+
+  follow(username) {
+    this.userActions.BroadcastFollowEvent("follow", 1, username);
+    this.getFollowerCount(username);
+  }
+
+  getFollowerCount(username) {
+    this.followInfo.followCount = this.userActions.getFollowCount(username);
+    console.log('this is follow', this.followInfo)
+    console.log('this is follow', this.userActions.getFollowCount(username))
   }
 
   setCountDown(date) {

@@ -5,6 +5,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { MainService } from './core/services/main.service';
 
 import { AppController } from './app.controller';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -17,25 +18,28 @@ export class AppComponent extends AppController implements OnInit {
   footerInfo: any;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
+              private route: ActivatedRoute,  private spinner: NgxSpinnerService,
               private titleService: Title, public mainService: MainService) {
     super();
   }
 
   ngOnInit(): void {
-    this.setBrowserTabTitle();
-    this.mainService.fetchArtWorkFromMain(1, 10);
-    this.mainService.fetchBlogPost();
     this.mainService.getHeader().subscribe(res => {
       this.headerInfo = res;
     })
     this.mainService.getFooter().subscribe(res => {
       this.footerInfo = res;
     })
+    this.spinner.show();
+    this.setBrowserTabTitle();
+    this.mainService.fetchArtWorkFromMain(1, 10);
+    this.mainService.fetchBlogPost();
+  
 
     this.mainService.getNavButtons().subscribe(res => {
       this.navButtons = res;
     });
+    this.spinner.hide();
    
   }
 

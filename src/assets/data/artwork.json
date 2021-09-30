@@ -27,7 +27,13 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "dateIssued": "2021-11-11T14:01:08.000Z",
+        "lastAuctionId": 155870,
+        "likes": 34,
+        "sold": false,
+        "name": "Beautyful",
+        "tokenId": 939141,
+        "symbol": "Mine",
         "type": "Artwork"
     },
     {
@@ -58,7 +64,13 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "dateIssued": "2021-11-11T14:01:08.000Z",
+        "lastAuctionId": 155870,
+        "likes": 34,
+        "sold": false,
+        "name": "Beautyful",
+        "tokenId": 939141,
+        "symbol": "Mine",
         "type": "Artwork"
     },
     {
@@ -89,7 +101,13 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "dateIssued": "2021-11-11T14:01:08.000Z",
+        "lastAuctionId": 155870,
+        "likes": 34,
+        "sold": false,
+        "name": "Beautyful",
+        "tokenId": 939141,
+        "symbol": "Mine",
         "type": "Artwork"
     },
     {
@@ -120,7 +138,13 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "dateIssued": "2021-11-11T14:01:08.000Z",
+        "lastAuctionId": 155870,
+        "likes": 34,
+        "sold": false,
+        "name": "Beautyful",
+        "tokenId": 939141,
+        "symbol": "Mine",
         "type": "Artwork"
     },
     {
@@ -151,7 +175,13 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "dateIssued": "2021-11-11T14:01:08.000Z",
+        "lastAuctionId": 155870,
+        "likes": 34,
+        "sold": false,
+        "name": "Beautyful",
+        "tokenId": 939141,
+        "symbol": "Mine",
         "type": "Artwork"
     }
 ]

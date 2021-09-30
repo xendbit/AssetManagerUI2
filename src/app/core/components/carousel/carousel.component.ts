@@ -12,6 +12,9 @@ import { MainService } from '../../services/main.service';
 })
 export class CarouselComponent implements OnInit {
   @Input() public artworkArray: IArtwork [];
+  artworks: IArtwork [] = [{"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
+            "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
+            "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": "", "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""}]
   unsold: any;
   categories: string [];
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { 
@@ -24,8 +27,9 @@ export class CarouselComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray']) {
-        if (this.artworkArray !== undefined) {
-          this.categories = this.artworkArray.map(item => item.category)
+        if (this.artworkArray !== null) {
+          this.artworks = this.artworkArray;
+          this.categories = this.artworks.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
         }
     }
@@ -33,14 +37,14 @@ export class CarouselComponent implements OnInit {
   }
 
   categoryFilter(category) {
-    this.artworkArray = this.artworkArray.filter(item => {
+    this.artworkArray = this.artworks.filter(item => {
       return item.category === category;
     });
   }
 
   sort(data) { //to be implemented for sort by date when we implement the sort feature
     let today = Date.now();
-    this. artworkArray = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
+    this. artworks = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
   }
 
   filterArtworks(data) { //to be implemented for filter when we implement the filter feature

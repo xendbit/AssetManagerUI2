@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EventQueueService } from './event-queue.service';
+import { EventQueueService } from './userActions.service';
 
 describe('EventQueueService', () => {
   let service: EventQueueService;

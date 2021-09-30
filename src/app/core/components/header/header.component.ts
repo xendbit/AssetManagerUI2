@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
@@ -10,13 +10,26 @@ import { INavButton } from './header.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() public headerData: IMenuGroups;
-  @Input() public buttonsData: INavButton;
+  @Input() public headerInfo: IMenuGroups;
+  @Input() public buttonsInfo: INavButton;
+  headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
+  buttonsData: INavButton = { "create": {"title": "Create", "path": ""}, "wallet": { "title": "Connect Wallet", "path": ""}}
   constructor(public mainService: MainService) { }
 
 
   ngOnInit() {
+  
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['headerInfo']) {
+        if (this.headerInfo !== undefined) {
+          this.headerData = this.headerInfo;
+        }
+        if (this.buttonsInfo !== undefined) {
+          this.buttonsData = this.buttonsInfo;
+        }
+    }   
   }
 
 }
