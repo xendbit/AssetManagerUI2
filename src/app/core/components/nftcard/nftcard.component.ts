@@ -31,7 +31,7 @@ export class NFTCardComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  auction: IAuction = {"auctionId": "","cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "","isActive": true,
+  auction: IAuction = {"auctionId": "","cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: ""}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
@@ -51,6 +51,7 @@ export class NFTCardComponent implements OnInit {
       this.getLikes(this.artwork.tokenId);
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
+        this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
         this.setCountDown(this.auction.endDate)
         this.spinner.hide();
       })
@@ -64,7 +65,6 @@ export class NFTCardComponent implements OnInit {
   }
 
   getLikes(tokenId) {
-    
     this.likes.likeCount = this.userActions.getLikes(tokenId);
   }
 

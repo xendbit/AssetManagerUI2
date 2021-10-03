@@ -10,6 +10,7 @@ export interface IPresentation {
     endBlock: number;
     highestBid: number;
     highestBidder: string;
+    bids: [{bidder: string, bid: number, auctionId: string}];
     isActive: boolean;
     owner: string;
     sellNowPrice: number;

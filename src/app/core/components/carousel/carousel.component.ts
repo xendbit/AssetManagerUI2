@@ -22,7 +22,6 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(){
-    //after push from parent assign to this.artworks
   }
 
   ngOnChanges(changes: SimpleChanges) {

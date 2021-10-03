@@ -61,8 +61,6 @@ export class SliderComponent implements OnInit {
 
   getFollowerCount(username) {
     this.followInfo.followCount = this.userActions.getFollowCount(username);
-    console.log('this is follow', this.followInfo)
-    console.log('this is follow', this.userActions.getFollowCount(username))
   }
 
   placeBid() {

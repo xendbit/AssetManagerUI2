@@ -52,7 +52,6 @@ export class AssetsGridComponent implements OnInit {
   }
 
   loadMore(page, count) {
-
     this.currentPage = this.currentPage + 1;
     this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
   }

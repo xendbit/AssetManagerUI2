@@ -8,7 +8,8 @@ import { IEvents, IFollow, ILikes } from '../components/nftcard/event.interface'
 })
 export class UserActionsService {
   protected _eventsSubject = new Subject<IEvents>();
-  private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0}, follow: <IFollow> { followCount: 0, id: "" } }; 
+  private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0}, 
+                        follow: <IFollow> { followCount: 0, id: "" } }; 
   constructor() { }
 
   BroadcastLikes(type: string, data: number, id: number) {
