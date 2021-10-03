@@ -94,11 +94,16 @@
                     </div>
                 </div>
             </div>
-            <div class="heart-main">
+            <div class="heart-main" *ngIf="this.likes.likeCount === 1">
+                <a class="heart-otr">
+                    <svg class="heart-icon" width="18" height="17" fill="true" xmlns="http://www.w3.org/2000/svg"><path d="M9 15.08S1 10.6 1 5.16a4.16 4.16 0 018-1.603h0a4.16 4.16 0 018 1.603c0 5.44-8 9.92-8 9.92z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <p class="body-sb num"  >{{this.likes.likeCount }} Like</p>
+            </div>
+            <div class="heart-main"  *ngIf="this.likes.likeCount !== 1">
                 <a class="heart-otr" (click)="like(artwork.tokenId)">
                     <svg class="heart-icon" width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 15.08S1 10.6 1 5.16a4.16 4.16 0 018-1.603h0a4.16 4.16 0 018 1.603c0 5.44-8 9.92-8 9.92z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
-                <p class="body-sb num" *ngIf="this.likes.likeCount === 1" >{{this.likes.likeCount }} Like</p>
                 <p class="body-sb num" *ngIf="this.likes.likeCount !== 1" >{{this.likes.likeCount }} Likes</p>
             </div>
         </div>
