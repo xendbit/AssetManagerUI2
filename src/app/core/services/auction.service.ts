@@ -43,7 +43,7 @@ export class AuctionService {
             "owner": item.owner,
             "sellNowPrice": item.sellNowPrice,
             "title": artwork.symbol,
-            "currentBid": item.bids.length - 1, //get last bid in bids array
+            "currentBid": item.highestBid, //highest bid is always the current bid, if no bid has been made, it is always set to minimum bid
             "currency": "ETH",
             "endDate": item.endDate,
             "startDate": item.startDate,
