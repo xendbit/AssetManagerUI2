@@ -69,12 +69,12 @@
                                             </a>
                                             <div class="create-content">
                                                 <p class="body-s create-p">Owned by</p>
-                                                <a click)="goToOwnerPage()" class="body-sb create-pb">{{item.artwork.owner.username}}</a>
+                                                <a (click)="goToOwnerPage()" class="body-sb create-pb">{{item.artwork.owner.username}}</a>
                                             </div>
                                             <div class="hover-box">
                                                 <div class="hover-box-inr">
                                                     <div class="user-info">
-                                                        <a click)="goToOwnerPage()" class="create-img">
+                                                        <a (click)="goToOwnerPage()" class="create-img">
                                                             <img class="img-create" src="{{item.artwork.owner.image}}" alt="create-img">
                                                             <div class="check-otr">
                                                                 <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

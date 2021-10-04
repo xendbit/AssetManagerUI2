@@ -3,19 +3,23 @@
       "menuGroup": [
         {
             "title": "Home",
-            "menu": []
+            "menu": [],
+            "path": "./"
         },
         {
             "title": "My Dashboard",
-            "menu": []
+            "menu": [],
+            "path": "./"
         },
         {
             "title": "My Assets",
-            "menu": []
+            "menu": [],
+            "path": "./"
         },
         {
           "title": "All Assets",
-          "menu": []
+          "menu": [],
+          "path": "./"
         }
 
     ],

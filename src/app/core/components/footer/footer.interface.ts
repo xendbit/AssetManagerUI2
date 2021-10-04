@@ -1,7 +1,6 @@
 export interface IMenuGroups { 
     menuGroup: Array<IMenuGroup>;
     logoPath: string;
-    type?: LOCATION
   };
   
   interface IMenus { 
@@ -12,6 +11,7 @@ export interface IMenuGroups {
   interface IMenuGroup { 
     title: string;
     menu?: Array<IMenus>;
+    path?: string;
   }
 
 export enum LOCATION {

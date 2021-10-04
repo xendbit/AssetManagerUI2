@@ -10,11 +10,13 @@ import {CarouselModule} from 'primeng/carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectWalletComponent
+    ConnectWalletComponent,
+    AuthenticationComponent
   ],
   imports: [
     BrowserModule,

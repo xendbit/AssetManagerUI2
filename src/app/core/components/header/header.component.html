@@ -11,14 +11,14 @@
           <div class="navbar-inr">
               <div class="logo-otr">
                   <a href="./" class="logo-inr">
-                      <img  class="logo" src="{{this.headerData.logoPath}}" alt="brand-logo">
+                      <img  class="logo" src="{{this.headerData.logoPath}}" alt="Nifty Row">
                   </a>
               </div>
               <app-search></app-search>
               <div class="navigation-otr">
                   <ul class="navigation-inr">
                       <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
-                          <a routerLink= "/{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
+                          <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
                           <!-- <ul class="dropdown-otr">
                               <li class="dropdown-li">
                                   <a href="./" class="dropdown-a body-sb">Home Layout 1</a>
