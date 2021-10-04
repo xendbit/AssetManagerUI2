@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   constructor(public mainService: MainService, public auctionService: AuctionService) { }
 
   ngOnInit() {
+     this.mainService.getPresentation().subscribe((res: IPresentation) => {
+    this.slide = res;
+  })
     this.mainService.returnArtwork().subscribe((data: IArtwork []) => {
       this.artworks = data;
     })
@@ -24,10 +27,13 @@ export class HomeComponent implements OnInit {
      this.blogs = data;
    })
 
-   this.mainService.getPresentation().subscribe((res: IPresentation) => {
-    this.slide = res;
-  })
   
+  
+  }
+
+  ngOnDestroy() {
+    this.mainService.returnArtwork().unsubscribe();
+    this.mainService.getBlogPost().unsubscribe();
   }
 
 }

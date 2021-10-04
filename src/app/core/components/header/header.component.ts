@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   @Input() public headerInfo: IMenuGroups;
   @Input() public buttonsInfo: INavButton;
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
-  buttonsData: INavButton = { "create": {"title": "Create", "path": ""}, "wallet": { "title": "Connect Wallet", "path": ""}}
+  buttonsData: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}}
   constructor(public mainService: MainService) { }
 
 

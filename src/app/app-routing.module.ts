@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {AppController} from './app.controller';
+import { AppController } from './app.controller';
 import { HomeComponent } from './core/components/home/home.component';
+import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { routerConfig } from './core/config/router-config.const';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: {
+      title: AppController.trans().home
+    }
+  },
+  {
+    path: 'connect-wallet',
+    component: ConnectWalletComponent,
     data: {
       title: AppController.trans().home
     }

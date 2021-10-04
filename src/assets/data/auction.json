@@ -45,7 +45,7 @@
         "description": "Description",
         "price": 23,
         "currency": "ETH",
-        "likes": [34],
+        "likes": 34,
         "type": "Artwork"
     },
     "type": "Auction"

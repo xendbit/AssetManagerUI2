@@ -6,7 +6,7 @@
         },
         "wallet": {
             "title": "Connect Wallet",
-            "path": ""
+            "path": "connect-wallet"
         }
     }
 ]

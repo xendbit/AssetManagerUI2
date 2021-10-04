@@ -214,7 +214,7 @@ export class MainService {
     return this.subjectBlogPost;
   }
 
-  getPresentation(): Observable<IPresentation> {
+  getPresentation() {
     return new Observable((observer) => {
       if (this.presentationResponse) {
         observer.next(this.presentationResponse);

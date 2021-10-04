@@ -32,10 +32,12 @@ export class SliderComponent implements OnInit {
   }
 
    ngOnInit() {
+    console.log('this si', this.slider)
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.slider !== undefined ){
+   
+    if (changes['slider']){
       let endDate =   this.slider.filter(slide => {
         if (slide['type'] === 'Auction') {
           return slide['endDate'];
