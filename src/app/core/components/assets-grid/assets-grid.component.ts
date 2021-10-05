@@ -27,7 +27,7 @@ export class AssetsGridComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['artworkArray']) {
+    if (changes['artworkArray'] && this.artworkArray !== null) {
       this.artworks = this.artworkArray //after push from parent assign to this.artworks
       this.categories = this.artworks.map(item => item.category)
       .filter((value, index, self) => self.indexOf(value) === index);

@@ -9,7 +9,7 @@
         {
             "title": "My Dashboard",
             "menu": [],
-            "path": "./"
+            "path": "/dashboard"
         },
         {
             "title": "My Assets",

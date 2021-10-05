@@ -14,6 +14,8 @@ import { AuthenticationComponent } from './pages/authentication/authentication.c
 import { AboutComponent } from './pages/about/about.component';
 import { AssetsComponent } from './pages/assets/assets.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { CreateAssetsComponent } from './components/create-assets/create-assets.component';
+import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ContactComponent } from './pages/contact/contact.component';
     AuthenticationComponent,
     AboutComponent,
     AssetsComponent,
-    ContactComponent
+    ContactComponent,
+    CreateAssetsComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { ContactComponent } from './pages/contact/contact.component';
     BrowserAnimationsModule
   ],
   providers: [MainService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [CreateAssetsComponent]
 })
 export class AppModule { }
