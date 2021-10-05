@@ -11,12 +11,14 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnectWalletComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

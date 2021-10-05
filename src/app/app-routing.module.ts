@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { HomeComponent } from './core/components/home/home.component';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { routerConfig } from './core/config/router-config.const';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
   {
@@ -16,10 +18,15 @@ const routes: Routes = [
   },
   {
     path: 'connect-wallet',
-    component: ConnectWalletComponent,
-    data: {
-      title: AppController.trans().home
-    }
+    component: ConnectWalletComponent
+  },
+  {
+    path: 'authentication',
+    component: AuthenticationComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: routerConfig.users.base,
