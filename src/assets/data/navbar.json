@@ -14,12 +14,12 @@
         {
             "title": "My Assets",
             "menu": [],
-            "path": "./"
+            "path": "/"
         },
         {
           "title": "All Assets",
           "menu": [],
-          "path": "./"
+          "path": "/assets"
         }
 
     ],

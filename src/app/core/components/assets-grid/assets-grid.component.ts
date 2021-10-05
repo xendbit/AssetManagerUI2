@@ -18,6 +18,7 @@ export class AssetsGridComponent implements OnInit {
   itemsPerPage: number;
   totalItems: number;
   totalPages: number;
+  categories: string[];
 
   constructor(public mainService: MainService, private ngZone: NgZone) { }
 
@@ -28,6 +29,8 @@ export class AssetsGridComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray']) {
       this.artworks = this.artworkArray //after push from parent assign to this.artworks
+      this.categories = this.artworks.map(item => item.category)
+      .filter((value, index, self) => self.indexOf(value) === index);
     }
     this.mainService.getMeta().subscribe(res => {
       if (res !== null) {

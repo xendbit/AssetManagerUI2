@@ -12,13 +12,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AboutComponent } from './pages/about/about.component';
+import { AssetsComponent } from './pages/assets/assets.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnectWalletComponent,
     AuthenticationComponent,
-    AboutComponent
+    AboutComponent,
+    AssetsComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

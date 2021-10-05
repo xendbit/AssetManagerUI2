@@ -7,6 +7,8 @@ import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.co
 import { routerConfig } from './core/config/router-config.const';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
 import { AboutComponent } from './pages/about/about.component';
+import { AssetsComponent } from './pages/assets/assets.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'assets',
+    component: AssetsComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   },
   {
     path: routerConfig.users.base,
