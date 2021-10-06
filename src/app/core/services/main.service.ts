@@ -9,11 +9,13 @@ import * as footerJson from 'src/assets/data/footer.json'
 import * as presentationJson from 'src/assets/data/presentation.json';
 import * as artWorkJson from 'src/assets/data/artwork.json';
 import * as blogJson from 'src/assets/data/blog.json';
-import * as navButtons from 'src/assets/data/navButtons.json'
+import * as navButtons from 'src/assets/data/navButtons.json';
+import * as userJson from 'src/assets/data/user.json'
 import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IBlogGroup } from '../components/blog/blog.interfaces';
+import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 
 
 @Injectable({
@@ -27,6 +29,7 @@ export class MainService {
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
   buttonsResponse: INavButton;
+  userResponse: IUser;
   
   constructor(public httpClient: HttpClient) {
    }
@@ -196,6 +199,25 @@ export class MainService {
         }, err => {
             this.buttonsResponse =  navButtons['default'][0];
             observer.next(this.buttonsResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+  getUserInfo() {
+    return new Observable((observer) => {
+      if (this.userResponse) {
+        observer.next(this.userResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<IUser>(baseUrl.testUrl).subscribe((data: IUser) => {
+          this.userResponse = data; 
+          observer.next(this.userResponse);
+          observer.complete();
+        }, err => {
+            this.userResponse =  userJson['default'];
+            observer.next(this.userResponse);
             observer.complete()
         });
       }

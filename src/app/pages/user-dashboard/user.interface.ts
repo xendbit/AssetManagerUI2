@@ -5,7 +5,6 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     username: string;
     walletAddress: string;
     email?: string;
-    password?: string;
     socials?: IUserSocials;
     followers?: Array<IFollowers>;
     following?: Array<IFollowers>;
@@ -17,7 +16,7 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     aboutInfo: string;
     displayImage: string;
     coverImage: string;
-    webUrl?: string;
+    webUrl?: {url: string, title: string};
     joinDate: string;
     type: string;
   }

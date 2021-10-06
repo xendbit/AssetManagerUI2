@@ -2,7 +2,6 @@
     <!--=======================================
                 Create Start Here
     ========================================-->
-
     <div class="create-main">
         <div class="container-fluid">
             <div class="row create-inr">
@@ -26,18 +25,19 @@
                                     </strong>
                                 </p>
                             </div>
-                            <div id="dropZoon" class="upload-area__drop-zoon drop-zoon">
+
+                            <div class="upload-area__drop-zoon drop-zoon">
                                 <span class="drop-zoon__icon">
                                     <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </span>
                                 <p class="desc body-sb">PNG, GIF, WEBP, MP4 or MP3. Max 2 GB.</p>
-                                <p class="drop-zoon__paragraph btn-outline1">browse</p>
+                                <label class="drop-zoon__paragraph btn-outline1">browse
+                                    <input type="file" id="images" class="drop-zoon__file-input" (change)="uploadFile($event)" #fileInput>
+                                </label>
                                 <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
-                                <div class="img-main">
-                                    <img src="../assets/img/user-Image15.jpg" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
-                                </div>
-                                <input type="file" id="fileInput" class="drop-zoon__file-input" accept="image/*">
+                                
                             </div>
+                            <img [src]="image" alt="Preview Image"  class="drop-zoon__preview-image" draggable="false" *ngIf="image">
                             <div id="fileDetails" class="upload-area__file-details file-details">
                                 <h3 class="file-details__title">Uploaded File</h3>
                                 <div id="uploadedFile" class="uploaded-file">

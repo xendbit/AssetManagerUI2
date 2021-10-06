@@ -1,14 +1,22 @@
 export interface ICreateArtwork {
-    artworkCategory: string;
+    category: string;
     assetType: string;
     title: string;
     symbol: string;
     description: string;
-    primaryImage: string;
-    issuerWalletAddress: string;
+    media: Array<ICreatorMedia>;
     tokenId: number;
-    gallery?: [{mediaType: string; media: string}];
-    secondaryMedia?: {mediaType: string; media: string};
-    assetSize: string;
-    dateCreated: Date;
+    dateIssued: Date;
+  }
+
+  export interface ICreatorMedia {
+      media: string;
+      mediaType: mediaType;
+      mediaSizeMB: number;
+  }
+
+  enum mediaType{
+    IMAGE = 0,
+    VIDEO = 1,
+    AUDIO = 2
   }
