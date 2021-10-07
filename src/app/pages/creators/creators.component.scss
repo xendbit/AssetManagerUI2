@@ -1,0 +1,197 @@
+@import 'src/assets/scss/utilities/screens';
+@import 'src/assets/scss/utilities/mixins';
+@import 'src/assets/scss/utilities/variables';
+@import 'src/assets/scss/utilities/settings';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+
+.creator-main{
+    overflow: hidden;
+    padding: 96px 0 128px 0;
+    @include breakpoint($secreen-max-sm){
+        padding: 56px 0 80px 0 !important;
+    }
+    .container-fluid{
+        .creator-main-inr{
+            .heading-otr{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                @include breakpoint($secreen-xxs){
+                    display: inherit;
+                    flex-direction: column;
+                    align-items: inherit;
+                }
+                .head-otr{
+                    .heading{
+                        color: $Black-Color;
+                    }
+                }
+                .select {
+                    cursor: pointer;
+                    display: inline-flex;
+                    position: relative;
+                    @include breakpoint($secreen-xxs){
+                        margin-top: 24px;
+                    }
+                    &:not(:last-child){
+                        margin-right: 24px;
+                        @include breakpoint($secreen-xxs){
+                            margin-right: 0;
+                        }
+                    }
+                    .select-hidden {
+                        display: none;
+                        visibility: hidden;
+                        padding-right: 10px;
+                    }
+                    .select-styled {
+                        background-color: $Gray-Shade-4;
+                        color: $Gray-Shade-1;
+                        padding: 4px 32px 4px 16px;
+                        border-radius: 12px;
+                        font-size: $font-size-bs;
+                        line-height: $line-height-bsb;
+                        font-family: $font-family-DMSans-Bold;
+                        &:after {
+                            content:"";
+                            width: 12px;
+                            height: 10px;
+                            position: absolute;
+                            background-image: url(/assets/img/artwork-page-arrow.svg);
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            top: 16px;
+                            right: 16px;
+                        }
+                        &:active, &.active {
+                            &:after {
+                                top: 16px;
+                                border-color: transparent transparent $White-Color transparent;
+                            }
+                        }
+                    }
+                    .select-options {
+                        display: none; 
+                        position: absolute;
+                        top: 130%;
+                        right: 0;
+                        width: 200px;
+                        z-index: 999;
+                        background-color: $White-Color;
+                        border-radius: 12px;
+                        padding: 16px 0;
+                        box-shadow: $box-shadow-custom;
+                        @include breakpoint($secreen-xxs){
+                            left: 0;
+                            right: inherit;
+                        }
+                        li {
+                            font-size: $font-size-bs;
+                            line-height: $line-height-bsb;
+                            font-family: $font-family-DMSans-Bold;
+                            color: $Gray-Shade-1;
+                            border-radius: 12px;
+                            padding: 0 24px 0 24px;
+                            transition: .3s;
+                            &:not(:last-child){
+                                margin: 0 0 4px 0;
+                            }
+                            &:hover {
+                                color: $Primary-Color-Home-1;
+                                background: transparent;
+                                border-radius: 0;
+                            }
+                            &[rel="hide"] {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            .line{
+                display: flex;
+                flex: 1;
+                height: 1px;
+                background-color: $Gray-Shade-3;
+                margin: 36px 0 48px 0;
+            }
+            .row-custom{
+                .creator-otr{
+                    @include breakpoint($secreen-custom){
+                        width: 50%;
+                    }
+                    .create-inr{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        padding: 24px 0 16px 0;
+                        border-radius: 24px;
+                        border: 1px solid $Gray-Shade-3;
+                        transition: .3s;
+                        &:hover{
+                            border: 1px solid transparent;
+                            background-color: $White-Color;
+                            box-shadow: $box-shadow-custom;
+                        }
+                        .create-img{
+                            position: relative;
+                            .img-create{
+                                width: 60px;
+                                border-radius: 16px;
+                            }
+                            .check-otr{
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                width: 20px;
+                                height: 20px;
+                                background-color: $Primary-Color-Home-1;
+                                border-radius: 100%;
+                                border: 2px solid $White-Color;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                .check-icon{
+                                    width: 10px;
+                                }
+                            }
+                        }
+                        .create-content{
+                            padding: 16px 0 0 0;
+                            .create-p{
+                                color: $Gray-Shade-2;
+                            }
+                            .create-pb{
+                                color: $Black-Color;
+                            }
+                        }
+                    }
+                    .box1,.box2,.box3,.box4,.box5,.box6,.box7,.box8,.box9.box10,.box11,.box12,.box13,.box14,.box15,.box16,.box17,.box18,.box19,.box20,.box21,.box22,.box23,.box24{
+                        margin-bottom: 24px;
+                    }
+                    .box1,.box2,.box3,.box4,.box5,.box6,.box7,.box8,.box9.box10,.box11,.box12,.box13,.box14,.box15,.box16,.box17,.box18,.box19,.box20,.box21,.box22,.box23,.box24,.box25,.box26,.box27,.box28{
+                        @include breakpoint($secreen-max-md){
+                            margin-bottom: 24px;
+                        }
+                    }
+                    .box9,.box10{
+                        @include breakpoint($secreen-xs){
+                            margin-bottom: 24px;
+                        }
+                    }
+                }
+                .col-btn-otr{
+                    .col-btn-inr{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 24px 0 0 0;
+                    }
+                }
+            }
+        }
+    }
+}

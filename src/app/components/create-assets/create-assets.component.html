@@ -25,32 +25,61 @@
                                     </strong>
                                 </p>
                             </div>
-
-                            <div class="upload-area__drop-zoon drop-zoon">
+                            <!-- <img [ngfSrc]="image" style="width: 50px; height: 50px;" /> -->
+                            <div class="upload-area__drop-zoon drop-zoon" ngfDrop selectable="1" multiple="1"
+                            [(files)]="files"
+                            [(file)] = "image"
+                            [(validDrag)]="validComboDrag"
+                            [maxSize]=10485760
+                            [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check($event)">
                                 <span class="drop-zoon__icon">
                                     <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </span>
                                 <p class="desc body-sb">PNG, GIF, WEBP, MP4 or MP3. Max 2 GB.</p>
-                                <label class="drop-zoon__paragraph btn-outline1">browse
-                                    <input type="file" id="images" class="drop-zoon__file-input" (change)="uploadFile($event)" #fileInput>
-                                </label>
-                                <span id="loadingText" class="drop-zoon__loading-text">Please Wait</span>
-                                
+                                <p class="drop-zoon__paragraph btn-outline1">browse</p>
+                                <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
+                                    <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
+                                </label> -->
                             </div>
-                            <img [src]="image" alt="Preview Image"  class="drop-zoon__preview-image" draggable="false" *ngIf="image">
-                            <div id="fileDetails" class="upload-area__file-details file-details">
-                                <h3 class="file-details__title">Uploaded File</h3>
-                                <div id="uploadedFile" class="uploaded-file">
-                                    <div class="uploaded-file__icon-container">
-                                        <i class='bx bxs-file-blank uploaded-file__icon'></i>
-                                        <span class="uploaded-file__icon-text"></span>
-                                    </div>
-                                    <div id="uploadedFileInfo" class="uploaded-file__info">
-                                        <span class="uploaded-file__name">Proejct 1</span>
-                                        <span class="uploaded-file__counter">0%</span>
-                                    </div>
-                                </div>
+                        </div>
+                        <table class="table" *ngIf="this.media.length > 0">
+                            <thead>
+                                <tr>
+                                    <th class="desc body-sb">Name</th>
+                                    <th class="desc body-sb">Media Type</th>
+                                    <th class="desc body-sb">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor="let item of media">
+                                    <td class="input-otr">{{item.media.name}}</td>
+                                    <td class="input-otr">{{item.media.type}}</td>
+                                    <td class="input-otr"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(item.index)"> Remove </button> </td>
+                                </tr>
+                                                  
+                            </tbody>
+                        </table>
+                        
+                        <div class="drop-zoon__preview-image" *ngIf="this.image !== undefined">
+                            <div class="img-main" *ngIf="this.image.type.includes('image')">
+                                <img [ngfSrc]="image" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
                             </div>
+                            <div class="img-main" *ngIf="this.image.type.includes('audio')">
+                                <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
+                                    <source [src]="image" type="audio/mp3" />
+                                    <source [ngfSrc]="image" type="audio/ogg" />
+                                    <source [ngfSrc]="image" type="audio/wav" />
+                                </audio>
+                            </div>
+                            <div class="img-main" *ngIf="this.image.type.includes('video')">
+                                <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
+                                    <source [src]="image" type="video/mp4" />
+                                    <source [ngfSrc]="image" type="video/webm" />
+                                    <source [ngfSrc]="image" type="video/ogg" />
+                                </video>
+                            </div>
+                            
+                            
                         </div>
                         <form class="form-main" method="post">
                             <h4 class="head-2 heading-h4">Artwork Details</h4>
@@ -60,55 +89,44 @@
                             <div class="input-otr">
                                 <textarea class="textarea input" name="disc" placeholder="Artwork Description e.g. “ Floating Nifty Row 3D”" required></textarea>
                             </div>
-                            <div class="input-otr-select">
-                                <select id="year">
-                                    <option class="linkk" value="hide">Select Royalties</option>
-                                    <option class="linkk" value="2010">UI Design</option>
-                                    <option class="linkk" value="2011">UI/UX</option>
-                                    <option class="linkk" value="2012">Web Development</option>
-                                    <option class="linkk" value="2013">UI/UX</option>
-                                </select>
-                            </div>
+                            <div class="row" style="margin-bottom: 20px;">
+                                <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of categories;">
+                                    <div class="check">
+                                        <label>
+                                            <span class="check-inner">
+                                                <input type="checkbox" class="input-check opacity-0 absolute">
+                                                <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
+                                            </span>
+                                            <span class="select-none heading-h5">{{item.name}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> 
+                           
                             <h4 class="head-2 heading-h4">Properties</h4>
                             <div class="input-main">
                                 <div class="input-otr-2">
-                                    <input class="input" type="text" name="size" placeholder="Propertie e.g. Size" required>
+                                    <input class="input" type="text" name="size" placeholder="Asset Symbol e.g. SZN" required>
                                 </div>
                                 <div class="input-otr-2">
-                                    <input class="input" type="text" name="text" placeholder="Propertie e.g. S" required>
+                                    <input class="input" type="text" name="text" placeholder="Asset Tag e.g. 'African' " required>
                                 </div>
                             </div>
                         </form>
-                        <div class="check">
-                            <label>
-                                <span class="check-inner">
-                                    <input type="checkbox" class="input-check opacity-0 absolute">
-                                    <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
-                                </span>
-                                <span class="select-none heading-h5">Put on Sale</span>
-                            </label>
-                        </div>
-                        <p class="desc body-m">You’ll start receiving bids on this artwork.</p>
-                        <div class="check">
-                            <label>
-                                <span class="check-inner">
-                                    <input type="checkbox" class="input-check opacity-0 absolute">
-                                    <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
-                                </span>
-                                <span class="select-none heading-h5">Instant Sale Price</span>
-                            </label>
-                        </div>
-                        <p class="desc body-m">Enter a price for which your item will be sold instantly.</p>
-                        <div class="check">
-                            <label>
-                                <span class="check-inner">
-                                    <input type="checkbox" class="input-check opacity-0 absolute">
-                                    <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
-                                </span>
-                                <span class="select-none heading-h5">Unlock Once Purchased</span>
-                            </label>
-                        </div>
-                        <p class="desc-2 body-m">Artwork will be unlocked after the purchase.</p>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of assetTypes;">
+                                <div class="check">
+                                    <label>
+                                        <span class="check-inner">
+                                            <input type="checkbox" class="input-check opacity-0 absolute">
+                                            <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
+                                        </span>
+                                        <span class="select-none heading-h5">{{item.name}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                       
                         <h4 class="head-2 heading-h4">Choose Collection</h4>
                         <div class="row row-custom-inr">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-box-otr">

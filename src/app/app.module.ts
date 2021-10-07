@@ -16,6 +16,8 @@ import { AssetsComponent } from './pages/assets/assets.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { CreateAssetsComponent } from './components/create-assets/create-assets.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { CreatorsComponent } from './pages/creators/creators.component';
+import { ngfModule } from "angular-file"
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     AssetsComponent,
     ContactComponent,
     CreateAssetsComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    CreatorsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     HttpClientModule,
     CarouselModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ngfModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 import { IMenuGroups } from '../components/footer/footer.interface';
-import { urlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
+import { IurlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
 import * as footerData from 'src/assets/data/footer.json' 
 import { HttpHeaders } from '@angular/common/http';
 
@@ -9,7 +9,7 @@ let headers: HttpHeaders = new HttpHeaders();
 headers = headers.append('Content-Type', 'application/json');
 headers = headers.append('api-key', apiKey);
 
-export const baseUrl: urlConfig = {
+export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
         mainUrl: 'https://lb.xendbit.net/api/yasuke/',

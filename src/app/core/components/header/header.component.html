@@ -19,17 +19,11 @@
                   <ul class="navigation-inr">
                       <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                           <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
-                          <!-- <ul class="dropdown-otr">
-                              <li class="dropdown-li">
-                                  <a href="./" class="dropdown-a body-sb">Home Layout 1</a>
+                          <ul class="dropdown-otr" >
+                              <li class="dropdown-li" *ngFor="let item of link.menu ">
+                                  <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
                               </li>
-                              <li class="dropdown-li">
-                                  <a href="pages/Home-2.html" class="dropdown-a body-sb">Home Layout 2</a>
-                              </li>
-                              <li class="dropdown-li">
-                                  <a href="pages/Home-3.html" class="dropdown-a body-sb">Home Layout 3</a>
-                              </li>
-                          </ul> -->
+                          </ul>
                       </li>
                   </ul>
               </div>

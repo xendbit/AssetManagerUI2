@@ -4,6 +4,7 @@ import { MainService } from '../../services/main.service';
 import { UserActionsService } from '../../services/userActions.service';
 import { IFollow, ILikes } from '../nftcard/event.interface';
 import { IPresentation } from './presentation.interface';
+import { creatorPage, ownerPage, placeBidPage } from '../../config/app-config.const';
 
 @Component({
   selector: 'app-slider',
@@ -66,15 +67,15 @@ export class SliderComponent implements OnInit {
   }
 
   placeBid() {
-    this.router.navigateByUrl('/'); // no url for place bid page as page hasn't been created yet.
+    this.router.navigateByUrl(placeBidPage.path); // no url for place bid page as page hasn't been created yet.
   }
 
   goToCreatorPage() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl(creatorPage.path);
   }
 
   goToOwnerPage() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl(ownerPage.path);
   }
 
   setCountDown(date) {

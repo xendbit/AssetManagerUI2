@@ -17,8 +17,17 @@
             "path": "/"
         },
         {
-          "title": "All Assets",
-          "menu": [],
+          "title": "Explore",
+          "menu": [ 
+            {
+                "title": "All Creators",
+                "url": "/creators"
+            },
+            {
+              "title": "All Assets",
+              "url": "/assets"
+            }
+          ],
           "path": "/assets"
         }
 

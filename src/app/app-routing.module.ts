@@ -10,6 +10,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { AssetsComponent } from './pages/assets/assets.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { CreatorsComponent } from './pages/creators/creators.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: UserDashboardComponent
+  },
+  {
+    path: 'creators',
+    component: CreatorsComponent
   },
   {
     path: routerConfig.users.base,

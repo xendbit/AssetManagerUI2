@@ -33,7 +33,6 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.mainService.getUserInfo().subscribe((data: IUser) => {
-      console.log('this is res', data)
       this.user = data;
     })
   }

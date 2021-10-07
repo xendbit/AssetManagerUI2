@@ -1,9 +1,13 @@
 import { Params } from '@angular/router';
 
-export interface urlConfig {
+export interface IurlConfig {
     headers?: Headers | any;
     testUrl?: Params | any;
     mainUrl: Params | any;
+}
+
+export interface IRouter {
+    path: Params | any;
 }
 
 export interface headerConfig {

@@ -10,12 +10,16 @@ import * as presentationJson from 'src/assets/data/presentation.json';
 import * as artWorkJson from 'src/assets/data/artwork.json';
 import * as blogJson from 'src/assets/data/blog.json';
 import * as navButtons from 'src/assets/data/navButtons.json';
-import * as userJson from 'src/assets/data/user.json'
+import * as userJson from 'src/assets/data/user.json';
+import * as creatorJson from 'src/assets/data/creators.json';
+import * as categoryJson from 'src/assets/data/categories.json';
+import * as assetTypeJson from 'src/assets/data/assetTypes.json';
 import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IBlogGroup } from '../components/blog/blog.interfaces';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
+import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
 
 
 @Injectable({
@@ -30,12 +34,14 @@ export class MainService {
   presentationResponse: IPresentation;
   buttonsResponse: INavButton;
   userResponse: IUser;
+  creatorResponse: IUser;
+  footerResponse: IMenuGroups;
+  headerResponse: IMenuGroups;
+  categoriesResponse: IAssetCategory;
+  assetTypeResponse: any;
   
   constructor(public httpClient: HttpClient) {
    }
-
-  footerResponse: IMenuGroups;
-  headerResponse: IMenuGroups;
 
 
   fetchArtWorkFromMain(page: number, limit: number) {
@@ -218,6 +224,64 @@ export class MainService {
         }, err => {
             this.userResponse =  userJson['default'];
             observer.next(this.userResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+  getCreators() {
+    return new Observable((observer) => {
+      if (this.creatorResponse) {
+        observer.next(this.creatorResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<IUser>(baseUrl.testUrl).subscribe((data: IUser) => {
+          this.creatorResponse = data; 
+          observer.next(this.creatorResponse);
+          observer.complete();
+        }, err => {
+            this.creatorResponse =  creatorJson['default'];
+            observer.next(this.creatorResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+
+  getAssetCategories() {
+    return new Observable((observer) => {
+      if (this.categoriesResponse) {
+        observer.next(this.categoriesResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<IAssetCategory>(baseUrl.testUrl).subscribe((data: IAssetCategory) => {
+          this.categoriesResponse = data; 
+          observer.next(this.categoriesResponse);
+          observer.complete();
+        }, err => {
+            this.categoriesResponse =  categoryJson['default'];
+            observer.next(this.categoriesResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+  getAssetTypes() {
+    return new Observable((observer) => {
+      if (this.assetTypeResponse) {
+        observer.next(this.assetTypeResponse);
+        observer.complete();
+      } else { 
+        this.httpClient.get<IAssetType>(baseUrl.testUrl).subscribe((data: IAssetType) => {
+          this.assetTypeResponse = data; 
+          observer.next(this.assetTypeResponse);
+          observer.complete();
+        }, err => {
+            this.assetTypeResponse =  assetTypeJson['default'];
+            observer.next(this.assetTypeResponse);
             observer.complete()
         });
       }

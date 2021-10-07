@@ -16,6 +16,7 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     aboutInfo: string;
     displayImage: string;
     coverImage: string;
+    assetTotalValue?: number;
     webUrl?: {url: string, title: string};
     joinDate: string;
     type: string;

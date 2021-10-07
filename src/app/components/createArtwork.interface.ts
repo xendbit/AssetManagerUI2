@@ -20,3 +20,13 @@ export interface ICreateArtwork {
     VIDEO = 1,
     AUDIO = 2
   }
+
+  export interface IAssetCategory {
+    name: string;
+    value: string;
+  }
+
+  export interface IAssetType {
+      name: string;
+      value: string;
+  }
