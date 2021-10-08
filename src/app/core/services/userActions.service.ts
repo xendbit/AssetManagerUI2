@@ -53,8 +53,8 @@ export class UserActionsService {
 
   }
 
-  addSingle(severity: string, summary: string, detail: string) {
-    this.messageService.add({severity: severity, summary: summary, detail: detail});
+  addSingle( severity: string, summary: string, detail: string) {
+    this.messageService.add({ severity: severity, summary: summary, detail: detail});
   }
 
   // public GetEvent(type: string, tokenId): Observable<IEvents> {

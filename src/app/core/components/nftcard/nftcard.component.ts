@@ -9,7 +9,6 @@ import { UserActionsService } from '../../services/userActions.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-nftcard',
@@ -40,7 +39,7 @@ export class NFTCardComponent implements OnInit {
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
-    private clipboard: Clipboard, private messageService: MessageService) { }
+    private clipboard: Clipboard) { }
 
   ngOnInit() {  
 
@@ -82,8 +81,7 @@ export class NFTCardComponent implements OnInit {
 
   copyMessage(val){
     this.clipboard.copy(val);
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-    // alert('got here')
+    this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
   }
 
   setCountDown(date) {

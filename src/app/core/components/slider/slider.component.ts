@@ -62,6 +62,7 @@ export class SliderComponent implements OnInit {
 
   copyMessage(val){
     this.clipboard.copy(val);
+    this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
   }
 
   follow(username) {

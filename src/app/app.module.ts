@@ -20,7 +20,7 @@ import { CreatorsComponent } from './pages/creators/creators.component';
 import { ngfModule } from "angular-file";
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
-import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,9 @@ import {MessageService} from 'primeng/api';
     ngfModule,
     MessagesModule,
     MessageModule,
+    ToastModule
   ],
-  providers: [MainService, MessageService],
+  providers: [MainService],
   bootstrap: [AppComponent],
   exports: [CreateAssetsComponent]
 })

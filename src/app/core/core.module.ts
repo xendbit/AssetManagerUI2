@@ -12,15 +12,22 @@ import { NFTCardComponent } from './components/nftcard/nftcard.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import {CarouselModule} from 'primeng/carousel';
 import {DataViewModule} from 'primeng/dataview';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 import { BlogComponent } from './components/blog/blog.component';
 import { AssetsGridComponent } from './components/assets-grid/assets-grid.component';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     CarouselModule,
-    DataViewModule
+    DataViewModule,
+    MessageModule,
+    MessagesModule,
+    ToastModule
   ],
   declarations: [
     HeaderComponent,
@@ -44,7 +51,8 @@ import { AssetsGridComponent } from './components/assets-grid/assets-grid.compon
     CarouselComponent,
     BlogComponent,
     AssetsGridComponent
-  ]
+  ],
+  providers: [MessageService],
 })
 export class CoreModule {
 }
