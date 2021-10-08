@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MainService } from '../../services/main.service';
 import { UserActionsService } from '../../services/userActions.service';
 import { IFollow, ILikes } from '../nftcard/event.interface';
 import { IPresentation } from './presentation.interface';
 import { creatorPage, ownerPage, placeBidPage } from '../../config/app-config.const';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-slider',
@@ -27,7 +28,8 @@ export class SliderComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router) { 
+  constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
+    private clipboard: Clipboard) { 
  
    
   }
@@ -39,6 +41,7 @@ export class SliderComponent implements OnInit {
    
     if (changes['slider'] && this.slider !== undefined){
       this.slider = this.slider;
+      console.log('this=>', this.slider)
       let endDate =   this.slider.filter(slide => {
         if (slide['type'] === 'Auction') {
           return slide['endDate'];
@@ -55,6 +58,10 @@ export class SliderComponent implements OnInit {
 
   getLikes(tokenId) {
     this.likes.likeCount = this.userActions.getLikes(tokenId);
+  }
+
+  copyMessage(val){
+    this.clipboard.copy(val);
   }
 
   follow(username) {

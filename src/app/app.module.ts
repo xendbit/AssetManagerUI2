@@ -17,7 +17,10 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { CreateAssetsComponent } from './components/create-assets/create-assets.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { CreatorsComponent } from './pages/creators/creators.component';
-import { ngfModule } from "angular-file"
+import { ngfModule } from "angular-file";
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {MessageService} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,11 @@ import { ngfModule } from "angular-file"
     CarouselModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    ngfModule
+    ngfModule,
+    MessagesModule,
+    MessageModule,
   ],
-  providers: [MainService],
+  providers: [MainService, MessageService],
   bootstrap: [AppComponent],
   exports: [CreateAssetsComponent]
 })

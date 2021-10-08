@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges  } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
@@ -20,7 +20,7 @@ export class AssetsGridComponent implements OnInit {
   totalPages: number;
   categories: string[];
 
-  constructor(public mainService: MainService, private ngZone: NgZone) { }
+  constructor(public mainService: MainService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     
@@ -43,16 +43,24 @@ export class AssetsGridComponent implements OnInit {
     })
     
   }
+  
 
-  ngOnDestroy() {
-    this.mainService.getMeta().unsubscribe();
-    this.mainService.returnArtwork().unsubscribe();
+
+  categoryFilter(category) {
+    this.artworkArray = this.artworks.filter(item => {
+      return item.category === category;
+    });
+    // this.artworks = this.artworkArray;
+    // console.log('done')
   }
+
+  
   
 
   byId(index, item) {
     return item.id;
   }
+
 
   loadMore(page, count) {
     this.currentPage = this.currentPage + 1;

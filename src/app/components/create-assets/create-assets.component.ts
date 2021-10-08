@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class CreateAssetsComponent implements OnInit {
  
-  image: any;
+  preview: any;
   files: File[] = [];
   media: Array<ICreatorMedia> = [];
   mp3: any;
@@ -26,26 +26,35 @@ export class CreateAssetsComponent implements OnInit {
   lastFileAt = new Date().getTime();
   categories: unknown;
   assetTypes: unknown;
+  errorMessage: string;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.spinner.show();
    this.mainService.getAssetCategories().subscribe(result => {
-     console.log('res=>', result)
-     this.categories = result;
+     if (result !== undefined) {
+      this.categories = result;
+     }
    });
    this.mainService.getAssetTypes().subscribe(result => {
-    console.log('res=>', result)
-    this.assetTypes = result;
+    if (result !== undefined) {
+      this.assetTypes = result;
+     }
     this.spinner.hide();
   })
   }
 
   
   check(file) {
+    this.errorMessage = "";
     const fileSize = file.size/1024/1024;
-    if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(file.name) === false  ) {
+    if (fileSize > 10) {
+      this.errorMessage = "Please Make sure that the file selected is not bigger than 10MB";
+      return;
+    }
+    if ( /\.(jpe?g|gif|png|mp3|mp4)$/i.test(file.name) === false  ) {
+      this.errorMessage = "Please select a file type of JPEG, GIF, PNG, MP3 or MP4";
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
@@ -54,17 +63,22 @@ export class CreateAssetsComponent implements OnInit {
         if ( /\.(mp4)$/i.test(file.name) === true  ) { 
           this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
         }
-        if ( /\.(mp3|wav)$/i.test(file.name) === true  ) {
+        if ( /\.(mp3)$/i.test(file.name) === true  ) {
           this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
         }
       };
-   
+      console.log('this is media', this.media)
   }
 
   remove(index) {
     if (index !== -1) {
       this.media.splice(index, 1);
     } 
+    console.log('this is media', this.media)
+  }
+
+  assignPreview(asset) {
+    this.preview = asset;
   }
 
 

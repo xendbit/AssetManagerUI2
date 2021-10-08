@@ -33,11 +33,11 @@ export class AppComponent extends AppController implements OnInit {
     this.mainService.getFooter().subscribe(res => {
       this.footerInfo = res;
     })
-    this.spinner.show();
+    // this.spinner.show();
     this.setBrowserTabTitle();
     this.mainService.fetchArtWorkFromMain(1, 10);
     this.mainService.fetchBlogPost();
-    this.spinner.hide();
+    // this.spinner.hide();
   }
 
   private setBrowserTabTitle(): void {

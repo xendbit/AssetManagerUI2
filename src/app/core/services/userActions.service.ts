@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import {MessageService} from 'primeng/api';
+import {Message} from 'primeng//api';
 import { IEvents, IFollow, ILikes } from '../components/nftcard/event.interface';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class UserActionsService {
   protected _eventsSubject = new Subject<IEvents>();
   private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0}, 
                         follow: <IFollow> { followCount: 0, id: "" } }; 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   BroadcastLikes(type: string, data: number, id: number) {
     let confirmLikeExists = this.dataStore.likes.tokenId === id;
@@ -50,6 +51,10 @@ export class UserActionsService {
       return this.dataStore.follow.followCount;
     }
 
+  }
+
+  addSingle(severity: string, summary: string, detail: string) {
+    this.messageService.add({severity: severity, summary: summary, detail: detail});
   }
 
   // public GetEvent(type: string, tokenId): Observable<IEvents> {

@@ -31,9 +31,6 @@ export class HomeComponent implements OnInit {
   
   }
 
-  ngOnDestroy() {
-    this.mainService.returnArtwork().unsubscribe();
-    this.mainService.getBlogPost().unsubscribe();
-  }
+ 
 
 }

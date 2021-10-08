@@ -3,12 +3,13 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { interval } from 'rxjs/internal/observable/interval';
-import { map, takeWhile } from 'rxjs/operators';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-nftcard',
@@ -38,7 +39,8 @@ export class NFTCardComponent implements OnInit {
       "dateIssued": "","lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
-    public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router) { }
+    public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
+    private clipboard: Clipboard, private messageService: MessageService) { }
 
   ngOnInit() {  
 
@@ -78,9 +80,10 @@ export class NFTCardComponent implements OnInit {
     this.followInfo.followCount = this.userActions.getFollowCount(username);
   }
 
-  copyMessage(val: string){
-    document.execCommand('copy');
-    console.log('copied this =>', val)
+  copyMessage(val){
+    this.clipboard.copy(val);
+    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    // alert('got here')
   }
 
   setCountDown(date) {

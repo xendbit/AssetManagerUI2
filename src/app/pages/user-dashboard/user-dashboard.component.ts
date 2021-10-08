@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainService } from 'src/app/core/services/main.service';
 import { IUser } from './user.interface';
 
@@ -35,11 +35,6 @@ export class UserDashboardComponent implements OnInit {
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
     })
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-   
-   
   }
 
 }

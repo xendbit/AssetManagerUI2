@@ -28,18 +28,40 @@
                             <!-- <img [ngfSrc]="image" style="width: 50px; height: 50px;" /> -->
                             <div class="upload-area__drop-zoon drop-zoon" ngfDrop selectable="1" multiple="1"
                             [(files)]="files"
-                            [(file)] = "image"
+                            [(file)] = "preview"
                             [(validDrag)]="validComboDrag"
                             [maxSize]=10485760
-                            [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check($event)">
+                            [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)">
                                 <span class="drop-zoon__icon">
                                     <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </span>
-                                <p class="desc body-sb">PNG, GIF, WEBP, MP4 or MP3. Max 2 GB.</p>
+                                <p class="desc body-sb">PNG, GIF, JPEG, JPG, MP4 or MP3. Max 10 MB.</p>
                                 <p class="drop-zoon__paragraph btn-outline1">browse</p>
                                 <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
                                     <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
                                 </label> -->
+                            </div>
+                        </div>
+                        <p *ngIf="errorMessage" class="desc body-sb" style="color: red;">{{errorMessage}}</p>
+
+                        <div class="drop-zoon__preview-image" *ngIf="this.preview !== undefined">
+                            <div class="img-main" *ngIf="this.preview.type.includes('image')">
+                                <img [ngfSrc]="preview" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
+                            </div>
+                            <div class="img-main" *ngIf="this.preview.type.includes('audio')">
+                                <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
+                                    <source [src]="preview" type="audio/mp3" />
+                                    <source [ngfSrc]="preview" type="audio/ogg" />
+                                    <source [ngfSrc]="preview" type="audio/wav" />
+                                </audio>
+                            </div>
+                            
+                            <div class="img-main" *ngIf="this.preview.type.includes('video')">
+                                <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
+                                    <source [src]="preview" type="video/mp4" />
+                                    <source [ngfSrc]="preview" type="video/webm" />
+                                    <source [ngfSrc]="preview" type="video/ogg" />
+                                </video>
                             </div>
                         </div>
                         <table class="table" *ngIf="this.media.length > 0">
@@ -51,7 +73,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr  *ngFor="let item of media">
+                                <tr *ngFor="let item of media" (click)="assignPreview(item.media)">
                                     <td class="input-otr">{{item.media.name}}</td>
                                     <td class="input-otr">{{item.media.type}}</td>
                                     <td class="input-otr"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(item.index)"> Remove </button> </td>
@@ -60,27 +82,7 @@
                             </tbody>
                         </table>
                         
-                        <div class="drop-zoon__preview-image" *ngIf="this.image !== undefined">
-                            <div class="img-main" *ngIf="this.image.type.includes('image')">
-                                <img [ngfSrc]="image" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
-                            </div>
-                            <div class="img-main" *ngIf="this.image.type.includes('audio')">
-                                <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
-                                    <source [src]="image" type="audio/mp3" />
-                                    <source [ngfSrc]="image" type="audio/ogg" />
-                                    <source [ngfSrc]="image" type="audio/wav" />
-                                </audio>
-                            </div>
-                            <div class="img-main" *ngIf="this.image.type.includes('video')">
-                                <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
-                                    <source [src]="image" type="video/mp4" />
-                                    <source [ngfSrc]="image" type="video/webm" />
-                                    <source [ngfSrc]="image" type="video/ogg" />
-                                </video>
-                            </div>
-                            
-                            
-                        </div>
+                       
                         <form class="form-main" method="post">
                             <h4 class="head-2 heading-h4">Artwork Details</h4>
                             <div class="input-otr">

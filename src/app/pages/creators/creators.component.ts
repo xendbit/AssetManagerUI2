@@ -1,6 +1,7 @@
 import { MainService } from './../../core/services/main.service';
 import { IUser } from './../user-dashboard/user.interface';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   templateUrl: './creators.component.html',
@@ -29,12 +30,17 @@ export class CreatorsComponent implements OnInit {
   "type": ""
   }];
   currentPage: any;
-  constructor(public mainService: MainService) { }
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.mainService.getCreators().subscribe((result: IUser []) => {
-      this.creators = result;
+      if (result !== undefined) {
+        this.creators = result;
+      }
+      this.spinner.hide();
     })
+    this.spinner.hide();
   }
 
   byId(index, item) {
