@@ -19,7 +19,7 @@
                   <ul class="navigation-inr">
                       <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                           <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
-                          <ul class="dropdown-otr" >
+                          <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
                               <li class="dropdown-li" *ngFor="let item of link.menu ">
                                   <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
                               </li>

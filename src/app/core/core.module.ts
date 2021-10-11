@@ -18,6 +18,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { AssetsGridComponent } from './components/assets-grid/assets-grid.component';
 import {MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {GalleriaModule} from 'primeng/galleria';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {ToastModule} from 'primeng/toast';
     DataViewModule,
     MessageModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    GalleriaModule
   ],
   declarations: [
     HeaderComponent,

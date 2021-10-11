@@ -21,6 +21,7 @@ import { ngfModule } from "angular-file";
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ToastModule} from 'primeng/toast';
+import {GalleriaModule} from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ToastModule} from 'primeng/toast';
     ngfModule,
     MessagesModule,
     MessageModule,
-    ToastModule
+    ToastModule,
+    GalleriaModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetamaskService } from 'src/app/core/services/metamask.service';
 
 @Component({
   templateUrl: './connect-wallet.component.html',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConnectWalletComponent implements OnInit {
 
-  constructor() { }
+  constructor(public metamaskService: MetamaskService) { }
 
   ngOnInit(): void {
+    
+  }
+
+  connectToMetamask() {
+    console.log('here')
+    this.metamaskService.openMetamask();
   }
 
 }

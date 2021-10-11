@@ -10,6 +10,37 @@
             Create Start Here
 -------------------------------------------*/
 
+.outer {
+    display: flex; /* displays flex-items (children) inline */
+    overflow-x: auto;
+  }
+  
+  .inner {
+    flex: 0 0 25%; /* doesn't grow nor shrink, initial width set to 25% of the parent's */
+    height: 1em; /* just for demo */
+  }
+
+
+.products {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    flex: 1 0 80%;
+    margin-left:20%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 20rem;
+    height: 30rem;
+    }
+    
+    .product {
+    width: 40rem;
+    height: 30rem;
+    margin: 12px;
+    background-color:rgb(255,191,0);
+    }
+    
+
 .create-main{
     padding: 96px 0 128px 0;
     @include breakpoint($secreen-max-sm){

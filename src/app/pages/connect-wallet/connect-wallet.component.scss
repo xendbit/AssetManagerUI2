@@ -33,10 +33,12 @@
                 .row-boxes{
                     .col-box-otr{
                         .box-inr{
-                            background-color: $Gray-Shade-4;
+                            background-color: white;
+                            /* border-color: #F2F2F2; */
+                            box-shadow: 0 0 10px;
                             border-radius: 24px;
                             padding: 28px 24px 20px 24px;
-                            transition: .3s;
+                            transition: 0.3s;
                             &:hover{
                                 background-color: $Primary-Color-Home-1;
                                 .head{

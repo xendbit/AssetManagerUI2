@@ -43,6 +43,44 @@
                             </div>
                         </div>
                         <p *ngIf="errorMessage" class="desc body-sb" style="color: red;">{{errorMessage}}</p>
+                        <!-- <div class="row products horizontal-scrollable" style="overflow-x: scroll;" >
+                            <div class="col-sm product">
+                              One of three columns
+                            </div>
+                            <div class="col-sm product">
+                              One of three columns
+                            </div>
+                            <div class="col-sm product">
+                              One of three columns
+                            </div>
+                          </div> -->
+                        
+                        
+                        <!-- <div *ngFor="let item of this.media">
+                            <div class="scrolling-wrapper" style="overflow-x: scroll; overflow-y: hidden;">
+                                <div class="scard">
+                                    <div  *ngIf="item.media.type.includes('image')">
+                                        <img [ngfSrc]="item.media" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
+                                    </div>
+                                    <div class="img-main" *ngIf="this.preview.type.includes('audio')">
+                                        <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
+                                            <source [src]="preview" type="audio/mp3" />
+                                            <source [ngfSrc]="preview" type="audio/ogg" />
+                                            <source [ngfSrc]="preview" type="audio/wav" />
+                                        </audio>
+                                    </div>
+                                    
+                                    <div class="img-main" *ngIf="this.preview.type.includes('video')">
+                                        <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
+                                            <source [src]="preview" type="video/mp4" />
+                                            <source [ngfSrc]="preview" type="video/webm" />
+                                            <source [ngfSrc]="preview" type="video/ogg" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
 
                         <div class="drop-zoon__preview-image" *ngIf="this.preview !== undefined">
                             <div class="img-main" *ngIf="this.preview.type.includes('image')">

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
    this.mainService.getBlogPost().subscribe((data: IBlogGroup) => {
      this.blogs = data;
    })
-
+   // do an object compare on the mainService calls before calling preloader after first call
   
   
   }
