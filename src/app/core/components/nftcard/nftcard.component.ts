@@ -31,30 +31,45 @@ export class NFTCardComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  auction: IAuction = {"auctionId": "","cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: ""}],"isActive": true,
+  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": "","lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
+      "dateIssued": new Date(),"lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
+  today: number;
+  notExpired: boolean;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
     private clipboard: Clipboard) { }
 
   ngOnInit() {  
-
+    this.today = new Date().getTime();
 
   }
 
   ngOnChanges() {
-    this.spinner.show();
+    // this.spinner.show();
     if (this.artwork !== null) {
+      this.today = new Date().getTime();
       this.getLikes(this.artwork.tokenId);
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
         this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
         this.setCountDown(this.auction.endDate)
-        this.spinner.hide();
+        // this.spinner.hide();
+        // if( new Date(data.endDate).getTime() > this.today) {
+        //   this.notExpired = true;
+        //   this.auction = data;
+        //   this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
+        //   this.setCountDown(this.auction.endDate)
+        //   this.spinner.hide();
+        // } else {
+        //   this.notExpired = false;
+        //   this.spinner.hide();
+        // }
+        // this.spinner.hide();
+        
       })
     }
     
@@ -106,17 +121,8 @@ export class NFTCardComponent implements OnInit {
       }, 1000)
   }
 
-  // onClick(event: MouseEvent) {
-  //   this.eventQueue.dispatch(new AppEvent(AppEventType.ClickedOnNotification, event));
-  //   this.listenToEvent()
-  // }
-
-  // listenToEvent() {
-  //   this.eventQueue.on(AppEventType.ClickedOnNotification).subscribe(event => this.handleEvent(event.payload));
-  // }
-
   placeBid() {
-    this.router.navigateByUrl('/'); // no url for place bid page as page hasn't been created yet.
+    this.router.navigateByUrl('/details', { state : {artwork: this.artwork, auction: this.auction} }); // no url for place bid page as page hasn't been created yet.
   }
 
   goToCreatorPage() {

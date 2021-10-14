@@ -1,9 +1,13 @@
+import { MetamaskService } from './../../core/services/metamask.service';
+import { UserActionsService } from './../../core/services/userActions.service';
+import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 import { ICreatorMedia } from '../createArtwork.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MainService } from 'src/app/core/services/main.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-assets',
@@ -15,29 +19,40 @@ export class CreateAssetsComponent implements OnInit {
   preview: any;
   files: File[] = [];
   media: Array<ICreatorMedia> = [];
-  mp3: any;
-  mp4: any;
-  dragFiles:any
+  mediaType: string[];
   validComboDrag:any
-  lastInvalids:any
-  fileDropDisabled:any
-  maxSize:any
+  maxSize: number;
   baseDropValid:any;
   lastFileAt = new Date().getTime();
-  categories: unknown;
-  assetTypes: unknown;
+  categories: IAssetCategory;
+  assetTypes: IAssetType;
   errorMessage: string;
+  categorySelected: string;
+  description: string;
+  symbol: string;
+  typeSelected: string;
+  title: string;
+  tokenId: number;
+  account: string;
+  error: any;
 
-  constructor( public mainService: MainService, private spinner: NgxSpinnerService) { }
+  constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
+    public metamaskService: MetamaskService ) { 
+   
+  }
 
   ngOnInit(): void {
+    this.mediaType = [];
+    this.metamaskService.openMetamask().then(result => {
+      this.account = result.account;
+    })
     this.spinner.show();
-   this.mainService.getAssetCategories().subscribe(result => {
+   this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
      if (result !== undefined) {
       this.categories = result;
      }
    });
-   this.mainService.getAssetTypes().subscribe(result => {
+   this.mainService.getAssetTypes().subscribe((result: IAssetType) => {
     if (result !== undefined) {
       this.assetTypes = result;
      }
@@ -49,6 +64,11 @@ export class CreateAssetsComponent implements OnInit {
   check(file) {
     this.errorMessage = "";
     const fileSize = file.size/1024/1024;
+    this.preview = file;
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = this.handleFile.bind(this);
+ 
     if (fileSize > 10) {
       this.errorMessage = "Please Make sure that the file selected is not bigger than 10MB";
       return;
@@ -58,17 +78,24 @@ export class CreateAssetsComponent implements OnInit {
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
-          this.media.push({media: file, mediaType: 0, mediaSizeMB: fileSize});
+          this.mediaType.push('image');
         }
         if ( /\.(mp4)$/i.test(file.name) === true  ) { 
-          this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
+          // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
+          this.mediaType.push('mp4');
         }
         if ( /\.(mp3)$/i.test(file.name) === true  ) {
-          this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
+          // this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
+          this.mediaType.push('mp3');
         }
       };
-      console.log('this is media', this.media)
   }
+
+  handleFile(event) {
+    var binaryString = event.target.result;
+    this.media.push(binaryString);
+           console.log(this.media);
+   }
 
   remove(index) {
     if (index !== -1) {
@@ -82,61 +109,90 @@ export class CreateAssetsComponent implements OnInit {
   }
 
 
-  // uploadFile(event: any) {
-  //   let files = event.target.files;
+  pickedCategory(value) {
+    console.log('cat', value)
+    this.categorySelected = value;
 
+  }
 
-  //   for(let newFile of files) {
-  //     const fileSize = newFile.size/1024/1024;
+  getAssetType(value) {
+    
+    this.typeSelected = value;
+    console.log('type', this.typeSelected)
+  }
 
-  //     if (fileSize > 10) {
-  //     return;
-  //   }
-  //     // if ( /\.(jpe?g|gif|png|mp3|wav|mp4)$/i.test(newFile.name) === false  ) {
-  //     //   event.srcElement.value = null;
-  //     // } else {
-  //     //   this.form.patchValue({
-  //     //   image: newFile
-  //     // });
-  //     // this.form.get('image').updateValueAndValidity();
-  //     // }
-  //     console.log('got here', newFile.name)
-  //     if ( /\.(mp3|wav)$/i.test(newFile.name) === true  ) {
-  //       const reader = new FileReader();
-  //       reader.onload = (e: any) => {
-  //       const mp3 = new Audio();
-  //       mp3.src = e.target.result;
-  //       this.mp3 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
-  //       this.image = e.target.result;
-  //       this.media.push({media: e.target.result, mediaType: 2, mediaSizeMB: fileSize});
-  //       }
-  //       reader.readAsDataURL(event.target.files[0]);
-  //     }
-  //     if ( /\.(mp4)$/i.test(newFile.name) === true  ) {
-  //       const reader = new FileReader();
-  //       reader.onload = (e: any) => {
-  //       this.mp4 = this.domSanitizer.bypassSecurityTrustUrl(e.target.result);
-  //       this.image = e.target.result;
-  //       this.media.push({media: e.target.result, mediaType: 2, mediaSizeMB: fileSize})
-  //       }
-  //       reader.readAsDataURL(event.target.files[0]);
+  async mint(form: NgForm) {
+    if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
+     } else {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure you select a category.');
+      return;
+    }
+    this.symbol = form.value.symbol;
+    this.description = form.value.description;
+    this.title = form.value.artName;
+    if (this.title === null || this.symbol === null) {
+      this.userActions.addSingle('error', 'Failed', 'Please fill all fields before submission.');
+      return;
+    }
 
-  //     }
-
-  //     if ( /\.(jpe?g|gif|png)$/i.test(newFile.name) === true  ) {
-  //       const reader = new FileReader();
-  //       reader.onload = (e: any) => {
-  //         const image = new Image();
-  //         image.src = e.target.result;
-  //         const imgBase64Path = e.target.result;
-     
-  //         this.image = imgBase64Path;
-  //         this.media.push({media: e.target.result, mediaType: 2, mediaSizeMB: fileSize})
-  //       };
-  //       reader.readAsDataURL(event.target.files[0]);
-  //     }
-  //   }
-  // }
+    var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
+    this.tokenId = rndNo;
+    let dateCreated = new Date().getTime();
+    let medias = this.media;
+ 
+    if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.');
+      return;
+    } else if (this.categorySelected === 'movieRight' && !this.mediaType.find(elem => elem === 'mp4' )) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure to upload a video representing the asset you intend to issue along-side the asset.');
+      return;
+    } else if (this.categorySelected === 'musicRight' && !this.mediaType.find(elem => elem === 'mp3' )) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure to upload an audio representing the asset you intend to issue along-side the asset.');
+      return;
+    } else if (this.typeSelected === undefined) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure you select a type.');
+      return;
+    }else {
+      this.spinner.show();
+      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
+           console.log('type', this.typeSelected)
+        console.log('token', this.tokenId)
+        console.log('media', medias)
+        console.log('media type', this.mediaType)
+        console.log('date', dateCreated)
+        console.log('categ', this.categorySelected)
+        console.log('sec', this.description)
+        console.log('type', this.typeSelected)
+        if (data.status === 'success') {
+          setTimeout(() => {
+            this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
+              if (data['status'] === 'success') {
+                this.spinner.hide();
+                this.userActions.addSingle('success', 'Success', 'Asset has been issued successfully');
+                return this.ngOnInit();
+              } else {
+                this.spinner.hide();
+                this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
+              }
+            }, err => {
+              this.spinner.hide();
+              this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
+            })
+            form.value.reset;
+        }, 15000);
+        } else {
+          this.spinner.hide();
+          this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
+        }
+      }, err => {
+        console.log(err.error.data.error);
+        this.error = err.error.data.error;
+        this.spinner.hide();
+        this.userActions.addSingle('error', 'Failed',  this.error);
+        form.value.reset;
+      });
+    }
+  }
 
 
 }

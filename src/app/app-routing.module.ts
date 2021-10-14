@@ -1,3 +1,4 @@
+import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -11,6 +12,7 @@ import { AssetsComponent } from './pages/assets/assets.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { CreatorsComponent } from './pages/creators/creators.component';
+import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: 'creators',
     component: CreatorsComponent
+  },
+  {
+    path: 'details',
+    component: AssetDetailsComponent
+  },
+  {
+    path: 'my-assets',
+    component: MyAssetsComponent
   },
   {
     path: routerConfig.users.base,

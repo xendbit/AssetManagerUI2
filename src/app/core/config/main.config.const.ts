@@ -14,3 +14,14 @@ export const baseUrl: IurlConfig = {
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
         mainUrl: 'https://lb.xendbit.net/api/yasuke/',
 }
+
+export const baseABI = [
+        "function issueToken(uint256,address,string,string,string)",
+        "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
+        "function placeBid(uint256,uint256)",
+        "function endBid(uint256,uint256)",
+        "function withdraw(uint256,uint256)",
+        "function cancelAuction(uint256,uint256)"
+]
+export const chainId = 97;
+export const niftyKey = apiKey;

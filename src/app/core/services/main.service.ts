@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { baseUrl} from '../config/main.config.const';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { baseUrl, niftyKey} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { INavButton } from '../components/header/header.interface';
@@ -29,8 +29,11 @@ export class MainService {
   private subjectNftCard: BehaviorSubject<IArtwork []> = new BehaviorSubject<IArtwork []>(null);
   private subjectSingleArtwork: BehaviorSubject<IArtwork> = new BehaviorSubject<IArtwork>(null);
   private subjectNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
+  private subjectOwnerNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
+  private subjectOwnerNFT: BehaviorSubject<IArtwork []> = new BehaviorSubject<IArtwork []>(null);
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
+  private ownerDataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
   buttonsResponse: INavButton;
   userResponse: IUser;
@@ -46,6 +49,7 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
+      console.log('this is data', res['data']['items'])
       res['data']['items'].forEach((item) =>   this.dataStore.artworks.push({
         id: item.id,
         category: item.category,
@@ -75,10 +79,11 @@ export class MainService {
         symbol: item.symbol,
         name: item.name,
         tokenId: parseInt(item.tokenId),
-        dateIssued: item.dateIssued,
+        dateIssued: new Date(parseInt(item.dateIssued)*1000),
         sold: item.sold,
         type: item.type
-    }));
+    }
+    ));
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
@@ -136,13 +141,95 @@ export class MainService {
         }); /* make sure to handle http error */
 
     });
+  }
+
+  fetchAssetsByOwnerId(account: string, page, limit) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.get(`${baseUrl.mainUrl}/list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+      res['data']['items'].forEach((item) =>   this.ownerDataStore.artworks.push({
+        id: item.id,
+        category: item.category,
+        tags: item.tags,
+        owner: {
+          id: item.id,
+          image: item.media[0].media,
+          username: item.owner
+        },
+        creator: {
+          id: item.id,
+          image: item.media[0].media,
+          username: item.issuer,
+          type: item.type
+        },
+        featuredImage: {
+          media: item.media[0].media,
+          mediaType: 0
+        },
+        isBidding: item.hasActiveAuction,
+        gallery: item.media,
+        description: item.description,
+        price: 0,
+        currency: item.currency,
+        likes: 0,
+        lastAuctionId: item.lastAuctionId,
+        symbol: item.symbol,
+        name: item.name,
+        tokenId: parseInt(item.tokenId),
+        dateIssued: new Date(parseInt(item.dateIssued)*1000),
+        sold: item.sold,
+        type: item.type
+    }
+    ));
+      this.subjectOwnerNftMeta.next(res['data']['meta']);
+    })).subscribe(data => {
+
+      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).artworks);
+ 
+    },err => {
+      this.subjectOwnerNFT.next(artWorkJson['default']);
+    })
    
-    
+  }
+
+  getOwnerAssets() {
+    console.log('this is ', this.subjectOwnerNFT)
+    return this.subjectOwnerNFT;
+  }
+
+
+  issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
+      "tokenId": tokenId,
+      "medias": medias,
+      "keys": mediaType, 
+      "dateIssued": dateCreated,
+      "assetType": assetType,
+      "description": description,
+      "category": category
+    },   {headers})
+  }
+
+  startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
+    return this.httpClient.post(`${baseUrl.mainUrl}/start-auction`, 
+    {tokenId: tokenId,
+      auctionId: auctionId,
+      startDate: startDate,
+      endDate: endDate
+    },   baseUrl.headers)
   }
 
 
   getMeta() {
     return this.subjectNftMeta;
+  }
+
+  getOwnerMeta() {
+    return this.subjectOwnerNftMeta;
   }
 
   returnArtwork() {

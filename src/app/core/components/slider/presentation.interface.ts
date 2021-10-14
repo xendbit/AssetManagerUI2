@@ -3,14 +3,14 @@ export interface IPresentation {
     slides:Array<IAuction | ICreator | IArtwork | ICollection>;
   }
   export interface IAuction {
-    auctionId: string;
+    auctionId: number;
     cancelled: boolean;
     currentBlock: number;
     startBlock: number;
     endBlock: number;
     highestBid: number;
     highestBidder: string;
-    bids: [{bidder: string, bid: number, auctionId: string}];
+    bids: [{bidder: string, bid: number, auctionId: number}];
     isActive: boolean;
     owner: string;
     sellNowPrice: number;
@@ -41,7 +41,7 @@ export interface IPresentation {
     symbol: string;
     name: string;
     tokenId: number;
-    dateIssued: string;
+    dateIssued: Date;
     sold: boolean;
     type: string;
   }

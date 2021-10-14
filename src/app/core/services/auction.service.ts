@@ -1,7 +1,7 @@
 import { MainService } from './main.service';
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl} from '../config/main.config.const';
+import { baseUrl, niftyKey} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { Observable, of, Subject, throwError } from 'rxjs';
@@ -61,6 +61,18 @@ export class AuctionService {
       })
     });
    
+  }
+
+  startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${baseUrl.mainUrl}/start-auction`, 
+    {tokenId: tokenId,
+      auctionId: auctionId,
+      startDate: startDate,
+      endDate: endDate
+    },  {headers})
   }
 
 }

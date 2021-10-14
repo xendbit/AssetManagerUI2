@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { MainService } from './core/services/main.service';
 import {CarouselModule} from 'primeng/carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -22,6 +23,15 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {ToastModule} from 'primeng/toast';
 import {GalleriaModule} from 'primeng/galleria';
+import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
+import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -33,7 +43,9 @@ import {GalleriaModule} from 'primeng/galleria';
     ContactComponent,
     CreateAssetsComponent,
     UserDashboardComponent,
-    CreatorsComponent
+    CreatorsComponent,
+    AssetDetailsComponent,
+    MyAssetsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +59,9 @@ import {GalleriaModule} from 'primeng/galleria';
     MessagesModule,
     MessageModule,
     ToastModule,
-    GalleriaModule
+    GalleriaModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

@@ -102,7 +102,7 @@
                                 </video>
                             </div>
                         </div>
-                        <table class="table" *ngIf="this.media.length > 0">
+                        <!-- <table class="table" *ngIf="this.media.length > 0">
                             <thead>
                                 <tr>
                                     <th class="desc body-sb">Name</th>
@@ -118,23 +118,25 @@
                                 </tr>
                                                   
                             </tbody>
-                        </table>
+                        </table> -->
                         
                        
-                        <form class="form-main" method="post">
+                        <form class="form-main" method="post"  #createForm="ngForm">
                             <h4 class="head-2 heading-h4">Artwork Details</h4>
                             <div class="input-otr">
-                                <input class="input" type="text" name="name" placeholder="Artwork Name e.g. “Floating Nifty Row”" required>
+                                <input class="input" type="text" id="artName" name="artName" [(ngModel)]="title" placeholder="Artwork Name e.g. “Floating Nifty Row”" required>
                             </div>
+                            
                             <div class="input-otr">
-                                <textarea class="textarea input" name="disc" placeholder="Artwork Description e.g. “ Floating Nifty Row 3D”" required></textarea>
+                                <textarea class="textarea input" id="description"   
+                                name="description" [(ngModel)]="description" placeholder="Artwork Description e.g. “ Floating Nifty Row 3D”" required></textarea>
                             </div>
                             <div class="row" style="margin-bottom: 20px;">
                                 <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of categories;">
-                                    <div class="check">
+                                    <div class="check" >
                                         <label>
                                             <span class="check-inner">
-                                                <input type="checkbox" class="input-check opacity-0 absolute">
+                                                <input type="checkbox" (change)="pickedCategory(item.value)" class="input-check opacity-0 absolute">
                                                 <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
                                             </span>
                                             <span class="select-none heading-h5">{{item.name}}</span>
@@ -146,27 +148,27 @@
                             <h4 class="head-2 heading-h4">Properties</h4>
                             <div class="input-main">
                                 <div class="input-otr-2">
-                                    <input class="input" type="text" name="size" placeholder="Asset Symbol e.g. SZN" required>
+                                    <input class="input" [(ngModel)]="symbol" type="text" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
                                 </div>
                                 <div class="input-otr-2">
                                     <input class="input" type="text" name="text" placeholder="Asset Tag e.g. 'African' " required>
                                 </div>
                             </div>
-                        </form>
-                        <div class="row" style="margin-bottom: 20px;">
-                            <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of assetTypes;">
-                                <div class="check">
-                                    <label>
-                                        <span class="check-inner">
-                                            <input type="checkbox" class="input-check opacity-0 absolute">
-                                            <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
-                                        </span>
-                                        <span class="select-none heading-h5">{{item.name}}</span>
-                                    </label>
+                      
+                            <div class="row" style="margin-bottom: 20px;">
+                                <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of assetTypes;">
+                                    <div class="check" >
+                                        <label>
+                                            <span class="check-inner">
+                                                <input type="checkbox" (change)="getAssetType(item.value)" class="input-check opacity-0 absolute">
+                                                <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
+                                            </span>
+                                            <span class="select-none heading-h5">{{item.name}}</span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                       
+                            </div> 
+                        </form>
                         <h4 class="head-2 heading-h4">Choose Collection</h4>
                         <div class="row row-custom-inr">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-box-otr">
@@ -203,7 +205,7 @@
                             </div>
                             <div class="col-lg-6 col-md-3 col-sm-6 col-btn-otr">
                                 <div class="col-btn-inr">
-                                    <a href="" class="btn-fill btn-create">Create Artwork</a>
+                                    <a (click)="mint(createForm)" class="btn-fill btn-create">Create Artwork</a>
                                 </div>
                             </div>
                         </div>

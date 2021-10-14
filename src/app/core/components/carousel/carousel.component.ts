@@ -14,7 +14,7 @@ export class CarouselComponent implements OnInit {
   @Input() public artworkArray: IArtwork [];
   artworks: IArtwork [] = [{"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
             "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
-            "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": "", "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""}]
+            "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""}]
   unsold: any;
   categories: string [];
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { 
@@ -43,7 +43,7 @@ export class CarouselComponent implements OnInit {
 
   sort(data) { //to be implemented for sort by date when we implement the sort feature
     let today = Date.now();
-    this. artworks = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
+    this.artworks = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
   }
 
   filterArtworks(data) { //to be implemented for filter when we implement the filter feature

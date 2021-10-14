@@ -89,7 +89,7 @@
     "symbol": "Mine",
     "type": "Artwork"
   }],
-  "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
+  "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": 121266}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
   "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",

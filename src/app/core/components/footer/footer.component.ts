@@ -24,7 +24,7 @@ export class FooterComponent implements OnInit {
 
 
   ngOnChanges(changes: SimpleChanges) {
-    this.spinner.show();
+    // this.spinner.show();
     if (changes['footerInfo']) {
         if (this.footerInfo !== undefined) {
           this.footerData = this.footerInfo;
