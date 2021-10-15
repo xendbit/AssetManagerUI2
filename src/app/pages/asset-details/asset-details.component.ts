@@ -43,6 +43,7 @@ export class AssetDetailsComponent implements OnInit {
   minimumPrice: number;
   auctionTime: any;
   currentTime: any;
+  auctionValue: number;
   
   
  
@@ -68,7 +69,9 @@ export class AssetDetailsComponent implements OnInit {
               if (window.history.state.artwork) {
                   this.artwork = window.history.state.artwork;
                   this.auction = window.history.state.auction;
-                  console.log('acc', this.auction)
+                  this.auctionService.getETHtoUSDValue().subscribe(res => {
+                    this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                  })
                   if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
                     this.owner = true;
                   }
@@ -148,7 +151,6 @@ export class AssetDetailsComponent implements OnInit {
     const sell =  auction.value.sellNowPrice;
     const startDate = auction.value.startDate;
     const endDate = auction.value.endDate;
-    console.log('this is price', auction.value.startDate)
     if (sell < minBid) {
       this.userActions.addSingle('error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
       return;
@@ -172,7 +174,6 @@ export class AssetDetailsComponent implements OnInit {
       this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
         setTimeout(() => { 
           this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
-          console.log('this is response', data);
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.spinner.hide();
         }, err =>  {

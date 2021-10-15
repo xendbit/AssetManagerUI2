@@ -7,6 +7,7 @@ import { IPresentation } from './presentation.interface';
 import { creatorPage, ownerPage, placeBidPage } from '../../config/app-config.const';
 import { Clipboard } from '@angular/cdk/clipboard';
 import * as moment from 'moment';
+import { AuctionService } from '../../services/auction.service';
 
 @Component({
   selector: 'app-slider',
@@ -31,8 +32,10 @@ export class SliderComponent implements OnInit {
   }
   auctionTime: number;
   currentTime: number;
+  currentBid: any;
+  auctionValue: number;
   constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
-    private clipboard: Clipboard) { 
+    private clipboard: Clipboard, public auctionService: AuctionService) { 
  
    
   }
@@ -44,11 +47,14 @@ export class SliderComponent implements OnInit {
    
     if (changes['slider'] && this.slider !== undefined){
       this.slider = this.slider;
-      console.log('this=>', this.slider)
       let endDate =   this.slider.filter(slide => {
         if (slide['type'] === 'Auction') {
+          this.currentBid = slide['highestBid'];
           return slide['endDate'];
         }
+      })
+      this.auctionService.getETHtoUSDValue().subscribe(res => {
+        this.auctionValue = res['last_trade_price'] * this.currentBid;
       })
       this.setCountDown(endDate);
     }

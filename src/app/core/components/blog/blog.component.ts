@@ -10,9 +10,28 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class BlogComponent implements OnChanges {
   @Input() public blog: IBlogGroup;
+  responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
  
 
-  constructor() { }
+  constructor() { 
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 1
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 1,
+          numScroll: 1
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+  }
 
   // ngOnInit() {
   

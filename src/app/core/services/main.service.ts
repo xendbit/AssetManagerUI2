@@ -33,7 +33,7 @@ export class MainService {
   private subjectOwnerNFT: BehaviorSubject<IArtwork []> = new BehaviorSubject<IArtwork []>(null);
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
-  private ownerDataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
+  private ownerDataStore: { ownerArtworks: IArtwork[] } = { ownerArtworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
   buttonsResponse: INavButton;
   userResponse: IUser;
@@ -49,7 +49,6 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
-      console.log('this is data', res['data']['items'])
       res['data']['items'].forEach((item) =>   this.dataStore.artworks.push({
         id: item.id,
         category: item.category,
@@ -98,10 +97,8 @@ export class MainService {
 
   fetchSingleArtwork(tokenId: number) {
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => {
-          // this.footerResponse = data; 
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => { 
           let item = data['data'];
-          
           observer.next({
             id: item.id,
             category: item.category,
@@ -150,8 +147,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}/list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
-
-      res['data']['items'].forEach((item) =>   this.ownerDataStore.artworks.push({
+      res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
         category: item.category,
         tags: item.tags,
@@ -187,9 +183,10 @@ export class MainService {
     }
     ));
       this.subjectOwnerNftMeta.next(res['data']['meta']);
+      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
     })).subscribe(data => {
 
-      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).artworks);
+      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
  
     },err => {
       this.subjectOwnerNFT.next(artWorkJson['default']);
@@ -198,7 +195,8 @@ export class MainService {
   }
 
   getOwnerAssets() {
-    return this.ownerDataStore.artworks;
+    console.log('data', this.subjectOwnerNFT)
+    return this.ownerDataStore.ownerArtworks;
   }
 
 

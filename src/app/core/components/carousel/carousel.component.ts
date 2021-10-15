@@ -17,8 +17,26 @@ export class CarouselComponent implements OnInit {
             "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""}]
   unsold: any;
   categories: string [];
+  responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { 
- 
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 1
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 1,
+          numScroll: 1
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+
   }
 
   ngOnInit(){

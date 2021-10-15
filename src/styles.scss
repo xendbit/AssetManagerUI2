@@ -13011,6 +13011,25 @@
       padding: 0;
       border-radius: 0;
       background-color: transparent;
+      margin-top: 10rem;
+    }
+    .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .boxes-main .auction-main {
+      margin-top: 5rem;
+    }
+
+    .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      top: 75%;
+      width: 141px;
+      height: 40px;
+      border: 1px solid #FFFFFF;
+      background-color: #366CE3;
+      border-radius: 12px;
+    }
+    #anchorMedia {
+      margin-bottom: 0px;
     }
   }
   
@@ -13864,6 +13883,7 @@
       padding: 0;
       border-radius: 0;
       background-color: transparent;
+      margin-top: 10rem;
     }
   }
   
@@ -15901,6 +15921,20 @@
   @media (max-width: 991px) {
     .explore-artwork-creator-dark .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr {
       width: 50%;
+    }
+    .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      top: 73%;
+      width: 141px;
+      height: 40px;
+      border: 1px solid #FFFFFF;
+      background-color: #366CE3;
+      border-radius: 12px;
+    }
+    #anchorMedia {
+      margin-bottom: 0px;
     }
   }
   
@@ -23050,6 +23084,7 @@
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box9,
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box10 {
       margin-bottom: 24px;
+      height: 35rem;
     }
   }
   
@@ -23066,7 +23101,7 @@
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box10,
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box11 {
       margin-bottom: 24px;
-      height: 35rem;
+      height: 34rem;
       margin: 5px;
     }
   }
@@ -24313,7 +24348,7 @@
     .explore-artwork-dark .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box11 {
       margin-bottom: 24px;
       margin: 5px;
-      height: 32rem;
+      height: 37rem;
     }
   }
   
@@ -28780,6 +28815,13 @@
       padding: 0 15px;
     }
   }
+
+  @media (max-width: 991px) {
+    .img-tilt {
+      height: 298px !important;
+      border-radius: 16px !important;
+    }
+  }
   
   .img-tilt {
     border-radius: 16px !important;
@@ -28795,6 +28837,11 @@
     .heading-h1 {
       font-size: 40px;
       line-height: 64px;
+    }
+
+    .img-tilt {
+      height: 290px;
+      border-radius: 16px !important;
     }
   }
   

@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IArtwork } from 'src/app/core/components/slider/presentation.interface';
 import { MainService } from 'src/app/core/services/main.service';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
@@ -22,17 +22,20 @@ export class MyAssetsComponent implements OnInit {
   ngOnInit(): void {
     this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
-
-      this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
-      this.artworks = this.mainService.getOwnerAssets()
-        console.log('acc', this.artworks)
+      this.getMeta();
+      this.mainService.fetchAssetsByOwnerId(this.account, 1, 10)
+      this.artworks = this.mainService.getOwnerAssets();
         this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
     })
     
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  byId(index, item) {
+    return item.id;
+  }
+
+  getMeta() {
     this.mainService.getOwnerMeta().subscribe(res => {
       if (res !== null) {
         this.currentPage = res.currentPage;
@@ -42,11 +45,6 @@ export class MyAssetsComponent implements OnInit {
         this.totalPages = res.totalPages
       }
     })
-    
-  }
-
-  byId(index, item) {
-    return item.id;
   }
 
   categoryFilter(category) {
@@ -60,6 +58,7 @@ export class MyAssetsComponent implements OnInit {
   loadMore(page, count) {
     this.currentPage = this.currentPage + 1;
     this.mainService.fetchAssetsByOwnerId(this.account, this.currentPage, this.itemCount);
+    this.getMeta();
   }
 
 }

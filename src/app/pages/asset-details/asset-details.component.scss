@@ -456,6 +456,44 @@
     }
 }
 
+@media (max-width: 575px) {
+    .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
+      padding: 0;
+      border-radius: 0;
+      background-color: transparent;
+      margin-top: 10rem;
+    }
+    .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .boxes-main .auction-main {
+      margin-top: 5rem;
+    }
+
+    .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 75%;
+        width: 141px;
+        height: 40px;
+        border: 1px solid #FFFFFF;
+        background-color: #366CE3;
+        border-radius: 12px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      top: 75%;
+      width: 141px;
+      height: 40px;
+      border: 1px solid #FFFFFF;
+      background-color: #366CE3;
+      border-radius: 12px;
+    }
+  }
+
 /*------------------------------------------
         Artwork Body End Here
 -------------------------------------------*/

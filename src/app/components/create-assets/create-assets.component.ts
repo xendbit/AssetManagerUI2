@@ -101,7 +101,6 @@ export class CreateAssetsComponent implements OnInit {
     if (index !== -1) {
       this.media.splice(index, 1);
     } 
-    console.log('this is media', this.media)
   }
 
   assignPreview(asset) {
@@ -110,15 +109,12 @@ export class CreateAssetsComponent implements OnInit {
 
 
   pickedCategory(value) {
-    console.log('cat', value)
     this.categorySelected = value;
 
   }
 
   getAssetType(value) {
-    
     this.typeSelected = value;
-    console.log('type', this.typeSelected)
   }
 
   async mint(form: NgForm) {
@@ -155,14 +151,6 @@ export class CreateAssetsComponent implements OnInit {
     }else {
       this.spinner.show();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
-           console.log('type', this.typeSelected)
-        console.log('token', this.tokenId)
-        console.log('media', medias)
-        console.log('media type', this.mediaType)
-        console.log('date', dateCreated)
-        console.log('categ', this.categorySelected)
-        console.log('sec', this.description)
-        console.log('type', this.typeSelected)
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {

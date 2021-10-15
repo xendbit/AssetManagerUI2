@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const footerConfig: IMenuGroups [] = footerData;
 let apiKey = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
+let demoBlockchainKey = "c7740e06-43f2-46cb-92e1-85841d6d2f72";
 let headers: HttpHeaders = new HttpHeaders();
 headers = headers.append('Content-Type', 'application/json');
 headers = headers.append('api-key', apiKey);
@@ -25,3 +26,7 @@ export const baseABI = [
 ]
 export const chainId = 97;
 export const niftyKey = apiKey;
+export const blockchainInfo = {
+        key: demoBlockchainKey,
+        url: "https://api.blockchain.com/v3/exchange"
+};
