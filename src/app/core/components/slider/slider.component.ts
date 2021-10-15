@@ -6,6 +6,7 @@ import { IFollow, ILikes } from '../nftcard/event.interface';
 import { IPresentation } from './presentation.interface';
 import { creatorPage, ownerPage, placeBidPage } from '../../config/app-config.const';
 import { Clipboard } from '@angular/cdk/clipboard';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-slider',
@@ -28,6 +29,8 @@ export class SliderComponent implements OnInit {
     id: "",
     followCount: 0
   }
+  auctionTime: number;
+  currentTime: number;
   constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
     private clipboard: Clipboard) { 
  
@@ -87,26 +90,22 @@ export class SliderComponent implements OnInit {
   }
 
   setCountDown(date) {
-    var end = new Date('2021-11-11T14:01:08.000Z').getTime();
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour = _minute * 60;
-    var _day = _hour * 24;
- 
+    this.auctionTime =  moment(new Date('2021-11-11T14:01:08.000Z').getTime()).unix();
+    this.currentTime = moment(new Date().getTime()).unix();
+    const diffTime = this.auctionTime - this.currentTime;
+    let duration;
+    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    const interval = 1000;
+
     setInterval(() => {
-       var now = new Date().getTime();
-        this.distance = end - now;
-        var days = Math.floor(this.distance / _day);
-        var hours =  Math.floor((this.distance % _day) / _hour );
-        var minutes = Math.floor((this.distance % _hour) / _minute);
-        var seconds = Math.floor((this.distance % _minute) / _second);
- 
-        this.countdownDay = days;
-        this.countdownHours = hours;
-        this.countdownMinutes = minutes;
-        this.countdownSeconds = seconds;
-       }, 1000)
-   }
+      duration = moment.duration(duration - interval, 'milliseconds');
+      this.countdownDay = moment.duration(duration).days();
+      this.countdownHours = moment.duration(duration).hours();
+      this.countdownMinutes = moment.duration(duration).minutes();
+      this.countdownSeconds = moment.duration(duration).seconds();
+    }, interval);
+    
+  }
   
 
 }

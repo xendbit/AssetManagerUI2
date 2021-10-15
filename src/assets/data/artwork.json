@@ -28,6 +28,7 @@
         "price": 23,
         "currency": "ETH",
         "dateIssued": "2021-11-11T14:01:08.000Z",
+        "hasActiveAuction": true,
         "lastAuctionId": 155870,
         "likes": 34,
         "sold": false,

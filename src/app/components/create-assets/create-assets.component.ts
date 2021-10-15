@@ -185,7 +185,7 @@ export class CreateAssetsComponent implements OnInit {
           this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
         }
       }, err => {
-        console.log(err.error.data.error);
+        console.log(err);
         this.error = err.error.data.error;
         this.spinner.hide();
         this.userActions.addSingle('error', 'Failed',  this.error);

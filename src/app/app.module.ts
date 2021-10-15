@@ -25,13 +25,7 @@ import {ToastModule} from 'primeng/toast';
 import {GalleriaModule} from 'primeng/galleria';
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatNativeDateModule,
-  NgxMatTimepickerModule
-} from '@angular-material-components/datetime-picker';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -62,6 +56,7 @@ import {
     GalleriaModule,
     FormsModule,
     ReactiveFormsModule,
+    CalendarModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

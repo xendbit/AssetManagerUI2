@@ -38,6 +38,7 @@ export interface IPresentation {
     currency:string;
     likes: number;
     lastAuctionId: number;
+    hasActiveAuction: boolean;
     symbol: string;
     name: string;
     tokenId: number;

@@ -63,16 +63,28 @@ export class AuctionService {
    
   }
 
-  startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
+  startAuctionNifty(auctionId: number, tokenId: number, startDate: any, endDate: any) {
+    console.log('tk', tokenId)
+    console.log('auction', auctionId)
+    console.log('startD', startDate)
+    console.log('endD', endDate)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.mainUrl}/start-auction`, 
+    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
       endDate: endDate
     },  {headers})
+  }
+
+  checkIssuer(issuerAddress) {
+    let issuer = issuerAddress.toLowerCase();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
   }
 
 }

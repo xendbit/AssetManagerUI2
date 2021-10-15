@@ -24,12 +24,10 @@ export class MyAssetsComponent implements OnInit {
       this.account = result.account;
 
       this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
-      this.mainService.getOwnerAssets().subscribe(data => {
-        this.artworks = data;
+      this.artworks = this.mainService.getOwnerAssets()
         console.log('acc', this.artworks)
         this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
-      })
     })
     
   }

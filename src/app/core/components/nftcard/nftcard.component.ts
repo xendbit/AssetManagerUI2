@@ -2,10 +2,10 @@ import { Router } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
-import { interval } from 'rxjs/internal/observable/interval';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
+import * as moment from 'moment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
@@ -35,16 +35,17 @@ export class NFTCardComponent implements OnInit {
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": new Date(),"lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
+      "dateIssued": new Date(),"hasActiveAuction": true,"lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
   today: number;
   notExpired: boolean;
+  auctionTime: number;
+  currentTime: number;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
     private clipboard: Clipboard) { }
 
   ngOnInit() {  
-    this.today = new Date().getTime();
 
   }
 
@@ -99,30 +100,28 @@ export class NFTCardComponent implements OnInit {
     this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
   }
 
+
+
   setCountDown(date) {
-   var end = new Date('2021-11-11T14:01:08.000Z').getTime();
-   var _second = 1000;
-   var _minute = _second * 60;
-   var _hour = _minute * 60;
-   var _day = _hour * 24;
+    this.auctionTime =  moment(new Date('2021-11-11T14:01:08.000Z').getTime()).unix();
+    this.currentTime = moment(new Date().getTime()).unix();
+    const diffTime = this.auctionTime - this.currentTime;
+    let duration;
+    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    const interval = 1000;
 
-   setInterval(() => {
-      var now = new Date().getTime();
-       this.distance = end - now;
-       var days = Math.floor(this.distance / _day);
-       var hours =  Math.floor((this.distance % _day) / _hour );
-       var minutes = Math.floor((this.distance % _hour) / _minute);
-       var seconds = Math.floor((this.distance % _minute) / _second);
-
-       this.countdownDay = days;
-       this.countdownHours = hours;
-       this.countdownMinutes = minutes;
-       this.countdownSeconds = seconds;
-      }, 1000)
+    setInterval(() => {
+      duration = moment.duration(duration - interval, 'milliseconds');
+      this.countdownDay = moment.duration(duration).days();
+      this.countdownHours = moment.duration(duration).hours();
+      this.countdownMinutes = moment.duration(duration).minutes();
+      this.countdownSeconds = moment.duration(duration).seconds();
+    }, interval);
+    
   }
 
   placeBid() {
-    this.router.navigateByUrl('/details', { state : {artwork: this.artwork, auction: this.auction} }); // no url for place bid page as page hasn't been created yet.
+    this.router.navigateByUrl('/details', { state : {artwork: this.artwork, auction: this.auction} });
   }
 
   goToCreatorPage() {

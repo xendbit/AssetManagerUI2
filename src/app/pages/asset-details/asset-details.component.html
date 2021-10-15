@@ -110,7 +110,7 @@
                                         </a>
                                         <div class="create-content">
                                             <p class="body-s create-p">Owned by</p>
-                                            <a  class="body-sb create-pb">{{artwork.owner.username.substring(0, 8) + 'xxxxx' + artwork.owner.username.slice(artwork.owner.username.length - 8)}}</a>
+                                            <a  class="body-sb create-pb">{{artwork.owner.username.substring(0, 4) + 'xxxxx' + artwork.owner.username.slice(artwork.owner.username.length - 4)}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                         </a>
                                         <div class="create-content">
                                             <p class="body-s create-p">Created by</p>
-                                            <a class="body-sb create-pb">{{artwork.creator.username.substring(0, 8) + 'xxxxx' + artwork.creator.username.slice(artwork.creator.username.length - 8)}}</a>
+                                            <a class="body-sb create-pb">{{artwork.creator.username.substring(0, 4) + 'xxxxx' + artwork.creator.username.slice(artwork.creator.username.length - 4)}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -148,8 +148,8 @@
                                         <!-- <p class="dollor body-mb">$2,505</p> -->
                                     </div>
                                     <div class="auction-main">
-                                        <p class="body-mb acution">Auction Ending</p>
-                                        <div id="clock" class="timer">
+                                        <p class="body-mb acution" *ngIf="auctionTime > currentTime">Auction Ending</p>
+                                        <div id="clock" class="timer" *ngIf="auctionTime > currentTime">
                                             <div class="hours-main main" *ngIf="countdownDay > 0">
                                                 <p class="heading-h3 time-inr" id="days"></p>
                                                 <p class="hours-p body-mb"> {{this.countdownDay}} Days</p>
@@ -168,9 +168,13 @@
                                                 <!-- <p class="seconds-p-2 body-mb">Sec</p> -->
                                             </div>
                                         </div>
+
+                                        <div id="clock" class="timer" *ngIf="auctionTime < currentTime">
+                                            <p class="hours-p body-mb" style="margin-top: 30px;"> Auction Ended</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <form *ngIf="visible && !this.owner" [@slideInOut] #buyForm="ngForm" novalidate >
+                                <form *ngIf="visible && !this.owner && auctionTime > currentTime" [@slideInOut] #buyForm="ngForm" novalidate >
                                     <div class="input-main">
                                         <div class="input-otr-2">
                                             <input class="input" style="width: 100%;
@@ -184,27 +188,39 @@
                                         <a (click)="bid()" class="btn-fill btn-bid">Place a Bid</a>
                                     </div>
                                 </form>
-                                <form *ngIf="visible && this.owner" [@slideInOut] #auctionForm="ngForm" novalidate >
+                                <form *ngIf="visible && this.owner && artwork.hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
                                     <div class="input-main">
                                         <div class="input-otr-2">
-                                            <input class="input" style="width: 100%;
+                                            <div class="input" style="width: 100%;
                                             margin-bottom: 25px;
                                             font-size: 20px;
-                                            background-color: white;" [ngxMatDatetimePicker]="picker" type="text" name="amount" [(ngModel)]="endDate" placeholder="End Date"  type="number" id="amount" name="amount"required>
-                                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                             <ngx-mat-datetime-picker #picker [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                            background-color: white;">
+                                            <label class="col-6 input" style="color: darkgrey;
+                                            margin-bottom: 25px;
+                                            font-size: 20px;
+                                            background-color: white;">Start Date</label>
+                                            <p-calendar class="col-2"  name="startDate" [(ngModel)]="startDate" id="startDate" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                            </p-calendar>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="input-main">
                                         <div class="input-otr-2">
-                                            <input class="input" style="width: 100%;
+                                            <div class="input" style="width: 100%;
                                             margin-bottom: 25px;
                                             font-size: 20px;
-                                            background-color: white;" name="amount" [ngxMatDatetimePicker]="picker" [(ngModel)]="startDate" placeholder="Start Date"  type="number" id="amount" name="amount"required>
-                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                            <ngx-mat-datetime-picker #picker [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                            background-color: white;">
+                                            <label class="col-6 input" style="color: darkgrey;
+                                            margin-bottom: 25px;
+                                            font-size: 20px;
+                                            background-color: white;">End Date</label>
+                                            <p-calendar class="col-2" name="endDate" [(ngModel)]="endDate" id="endDate" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                            </p-calendar>
+                                            </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="input-main">
                                         <div class="input-otr-2">
                                             <input class="input" style="width: 100%;
@@ -226,14 +242,14 @@
                                         <a (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                     </div>
                                 </form>
-                                <div class="action-otr" *ngIf="this.owner && auction.isActive === false">
+                                <div class="action-otr" *ngIf="this.owner">
                                     <a  class="btn-fill btn-bid">Withdraw</a>
                                 </div>
 
                             </div>
-                            <div class="activity-details">
+                            <div class="activity-details" >
                                 <h4 class="heading-h4 activity-head">Activity</h4>
-                                <div class="place-bid-main">
+                                <div class="place-bid-main" *ngIf="auction.bids.length > 0">
                                     <a  class="img-otr">
                                         <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
                                     </a>
@@ -253,6 +269,9 @@
                                             <!-- <p class="dollor body-sb">$2,505</p> -->
                                         </div>
                                     </div>
+                                </div>
+                                <div class="place-bid-main" *ngIf="auction.bids.length <= 0">
+                                    <p class="hours-p body-mb" style="margin-top: 30px;"> No Bids Yet.</p>
                                 </div>
                             </div>
                         </div>

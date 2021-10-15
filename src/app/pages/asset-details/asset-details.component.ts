@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: './asset-details.component.html',
@@ -36,6 +37,12 @@ export class AssetDetailsComponent implements OnInit {
   owner: boolean;
   auctionId: number;
   currentBlock: any;
+  startDate: any;
+  endDate: any;
+  sellNowPrice: number;
+  minimumPrice: number;
+  auctionTime: any;
+  currentTime: any;
   
   
  
@@ -46,10 +53,10 @@ export class AssetDetailsComponent implements OnInit {
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": new Date(), "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""};
+      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""};
   artwork: IArtwork = {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
-      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
+      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
     
   async ngOnInit(): Promise<void> {
     await this.metamaskService.openMetamask().then(result => {
@@ -61,6 +68,7 @@ export class AssetDetailsComponent implements OnInit {
               if (window.history.state.artwork) {
                   this.artwork = window.history.state.artwork;
                   this.auction = window.history.state.auction;
+                  console.log('acc', this.auction)
                   if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
                     this.owner = true;
                   }
@@ -75,30 +83,29 @@ export class AssetDetailsComponent implements OnInit {
           },
           () => { });
     })
+
+    // this.auctionService.checkIssuer('0xF0Cce76eEa51fae3cbBB6D7aad1C74D668f1E0f').subscribe(res => {
+    //   console.log('gw', res);
+    // })
    
     }
 
     setCountDown(date) {
-      console.log('tre', new Date(date*1000).getTime())
-      var end = new Date(date).getTime();
-      var _second = 1000;
-      var _minute = _second * 60;
-      var _hour = _minute * 60;
-      var _day = _hour * 24;
-   
+      this.auctionTime =  moment(new Date(date).getTime()).unix();
+      this.currentTime = moment(new Date().getTime()).unix();
+      const diffTime = this.auctionTime - this.currentTime;
+      let duration;
+      duration = moment.duration(diffTime * 1000, 'milliseconds');
+      const interval = 1000;
+
       setInterval(() => {
-         var now = new Date().getTime();
-          this.distance = end - now;
-          var days = Math.floor(this.distance / _day);
-          var hours =  Math.floor((this.distance % _day) / _hour );
-          var minutes = Math.floor((this.distance % _hour) / _minute);
-          var seconds = Math.floor((this.distance % _minute) / _second);
-   
-          this.countdownDay = days;
-          this.countdownHours = hours;
-          this.countdownMinutes = minutes;
-          this.countdownSeconds = seconds;
-         }, 1000)
+        duration = moment.duration(duration - interval, 'milliseconds');
+        this.countdownDay = moment.duration(duration).days();
+        this.countdownHours = moment.duration(duration).hours();
+        this.countdownMinutes = moment.duration(duration).minutes();
+        this.countdownSeconds = moment.duration(duration).seconds();
+      }, interval);
+      
     }
 
   openForm() {
@@ -139,7 +146,9 @@ export class AssetDetailsComponent implements OnInit {
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;
     const sell =  auction.value.sellNowPrice;
-    console.log('this is price', minBid)
+    const startDate = auction.value.startDate;
+    const endDate = auction.value.endDate;
+    console.log('this is price', auction.value.startDate)
     if (sell < minBid) {
       this.userActions.addSingle('error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
       return;
@@ -147,11 +156,9 @@ export class AssetDetailsComponent implements OnInit {
     this.spinner.show();
     this.metamaskService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];
-      let startDate = new Date(auction.value.startBlock);
-      let endDate = new Date(auction.value.endBlock)
+      let startDate = new Date(auction.value.startDate);
+      let endDate = new Date(auction.value.endDate)
       let currentDate = Date.now();
-      let startDateValue = auction.value.startBlock;
-      let endDateValue = auction.value.endBlock;
 
       let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
       let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
@@ -162,9 +169,9 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      this.metamaskService.startAuction(tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+      this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
         setTimeout(() => { 
-          this.auctionService.startAuctionNifty(this.auctionId, tokenId, startDateValue, endDateValue).subscribe(data => {
+          this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
           console.log('this is response', data);
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.spinner.hide();

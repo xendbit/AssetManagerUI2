@@ -81,7 +81,7 @@ export class MetamaskService {
       chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.bidResponse = txHash;
+      this.endbidResponse = txHash;
     }, (error: any) => {
       this.endbidResponse = error;
     });

@@ -75,6 +75,7 @@ export class MainService {
         price: 0,
         currency: item.currency,
         likes: 0,
+        hasActiveAuction: item.hasActiveAuction,
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
@@ -126,6 +127,7 @@ export class MainService {
             price: 0,
             currency: item.currency,
             likes: 0,
+            hasActiveAuction: item.hasActiveAuction,
             lastAuctionId: item.lastAuctionId,
             symbol: item.symbol,
             name: item.name,
@@ -148,6 +150,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}/list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+
       res['data']['items'].forEach((item) =>   this.ownerDataStore.artworks.push({
         id: item.id,
         category: item.category,
@@ -173,6 +176,7 @@ export class MainService {
         price: 0,
         currency: item.currency,
         likes: 0,
+        hasActiveAuction: item.hasActiveAuction,
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
@@ -194,8 +198,7 @@ export class MainService {
   }
 
   getOwnerAssets() {
-    console.log('this is ', this.subjectOwnerNFT)
-    return this.subjectOwnerNFT;
+    return this.ownerDataStore.artworks;
   }
 
 
