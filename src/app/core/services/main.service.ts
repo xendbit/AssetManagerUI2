@@ -30,7 +30,7 @@ export class MainService {
   private subjectSingleArtwork: BehaviorSubject<IArtwork> = new BehaviorSubject<IArtwork>(null);
   private subjectNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
   private subjectOwnerNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
-  private subjectOwnerNFT: BehaviorSubject<IArtwork []> = new BehaviorSubject<IArtwork []>(null);
+  private subjectOwnerNFT = new BehaviorSubject<IArtwork []>(null);
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   private ownerDataStore: { ownerArtworks: IArtwork[] } = { ownerArtworks: [] }; // store our data in memory
@@ -186,7 +186,7 @@ export class MainService {
       this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
     })).subscribe(data => {
 
-      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
  
     },err => {
       this.subjectOwnerNFT.next(artWorkJson['default']);
@@ -195,8 +195,7 @@ export class MainService {
   }
 
   getOwnerAssets() {
-    console.log('data', this.subjectOwnerNFT)
-    return this.ownerDataStore.ownerArtworks;
+     return this.subjectOwnerNFT.asObservable();
   }
 
 

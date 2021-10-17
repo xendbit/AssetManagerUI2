@@ -23,10 +23,16 @@ export class MyAssetsComponent implements OnInit {
     this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
       this.getMeta();
-      this.mainService.fetchAssetsByOwnerId(this.account, 1, 10)
-      this.artworks = this.mainService.getOwnerAssets();
-        this.categories = this.artworks.map(item => item.category)
-        .filter((value, index, self) => self.indexOf(value) === index);
+      this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
+      // console.log('res', )
+      this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+        if (res !== null) {
+          this.artworks = res;
+          this.categories = this.artworks.map(item => item.category)
+          .filter((value, index, self) => self.indexOf(value) === index);
+        };
+      })
+   
     })
     
   }
