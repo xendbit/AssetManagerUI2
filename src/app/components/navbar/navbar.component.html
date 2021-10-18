@@ -87,7 +87,7 @@
 			</ul>
 		</nav>
 
-		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile' && this.isConnected">
+		<nav id="main-nav" *ngIf="this.userAgent !== 'mobile'">
 			<ul >
 				<li *ngIf="this.isConnected === true" class="current">
 					<a (click)="goToHome()">Home</a>

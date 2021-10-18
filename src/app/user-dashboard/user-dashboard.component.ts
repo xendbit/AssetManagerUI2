@@ -144,10 +144,9 @@ export class UserDashboardComponent implements OnInit {
 
   async ngOnInit() {
     let element: HTMLElement = document.getElementById('openModal') as HTMLElement;
-    console.log('re', element)
     this.modalElement = element;
     this.timeNow = new Date().getTime();
-    // this.checkIssuer();
+    this.checkIssuer();
     var ua = navigator.userAgent;
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       this.userAgent = 'mobile';
@@ -193,7 +192,6 @@ export class UserDashboardComponent implements OnInit {
     const accountName = register.value.accountName;
     const accountNumber = register.value.accountNumber;
     const bankName = register.value.bankName;
-    // const blockchainAddress = register.value.blockchainAddress;
     if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined ) {
       this.assetService.showNotification('top', 'center', "Please make sure all fields are completed and correct.", 'danger');
       this.modalElement.click();
@@ -207,13 +205,15 @@ export class UserDashboardComponent implements OnInit {
       if (res['status'] === 'success') {
         this.assetService.stopSpinner();
         this.assetService.showNotification('top', 'center', 'Issuer has been successfully registered', 'success');
-        this.ngOnInit();
+        this.checkIssuer();
       }
     }, err => {
-      console.log(err.error.data.error);
+      // console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', this.error, 'danger');
+      this.checkIssuer();
+      this.ngOnInit();
     })
   }
 
@@ -231,16 +231,15 @@ export class UserDashboardComponent implements OnInit {
       },
       error => {
         this.response = error['error'];
-        // console.log('this is error', error);
       })
     
   }
  
   async submit() {
-    // if (this.response.data.error === 'Issuer with blockchain address not found') {
-    //     this.modalElement.click()
-    //     return;
-    // }
+    if (this.response.data.error === 'Issuer with blockchain address not found') {
+        this.modalElement.click()
+        return;
+    }
     this.categorySelected =  this.form.get('imageCategories').value;
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
@@ -293,7 +292,7 @@ export class UserDashboardComponent implements OnInit {
           this.assetService.showNotification('bottom', 'center', 'There has been an error while trying to issue this asset, please try again.', 'danger');
         }
       }, err => {
-        console.log(err.error.data.error);
+        // console.log(err.error.data.error);
         this.error = err.error.data.error;
         this.assetService.stopSpinner();
         this.assetService.showNotification('bottom', 'center', this.error, 'danger');
@@ -358,20 +357,20 @@ export class UserDashboardComponent implements OnInit {
         if (image.complete) { // was cached
           if (image.height < image.width) {
               $(imageClass).addClass("landscape").removeClass("portrait");
-              console.log('landscape');
+              // console.log('landscape');
           }
           else {
-            console.log('portrait');
+            // console.log('portrait');
           }
       }
       else { // wait for decoding
           image.onload = function () {
               if (image.height < image.width) {
-                  console.log('landscape')
+                  // console.log('landscape')
                   imageClass = 'landscape';
               }
               else {
-                console.log('portrait');
+                // console.log('portrait');
                 imageClass = 'portrait';
               }
           }
@@ -408,7 +407,7 @@ export class UserDashboardComponent implements OnInit {
       this.totalApproved = second.length;
       this.assetService.stopSpinner();
     }, err => {
-      console.log(err.error.data.error);
+      // console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
     });

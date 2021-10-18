@@ -112,6 +112,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   view(tokenId, page) {
+    console.log('i am here')
     this.router.navigateByUrl('/viewAsset', { state : {tokenId: tokenId, from: page} });
   }
 
