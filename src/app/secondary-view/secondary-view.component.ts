@@ -182,17 +182,17 @@ export class SecondaryViewComponent implements OnInit {
     this.assetService.showSpinner();
     this.assetService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
       country, zipCode, state, city, street, houseNumber).subscribe(res => {
-      console.log('==>', res);
       if (res['status'] === 'success') {
         this.assetService.stopSpinner();
         this.assetService.showNotification('top', 'center', 'Buyer has been successfully registered', 'success');
+        this.checkBuyer();
         this.ngOnInit;
       }
     }, err => {
-      console.log(err.error.data.error);
       this.error = err.error.data.error;
       this.assetService.stopSpinner();
       this.assetService.showNotification('top', 'center', this.error, 'danger');
+      this.checkBuyer();
     })
   }
 
@@ -211,7 +211,6 @@ export class SecondaryViewComponent implements OnInit {
       // let startBlock = this.currentBlock + (x * 24 * 60 * 60)/3);
       // let endBlock = this.currentBlock + (y * 24 * 60 * 60)/3) ;
       let currentBlock = parseInt(info.currentBlock)
-      console.log('this is current block', currentBlock)
       let day = (24 * 60 * 60)/3;
       let start = parseInt(info.startBlock);
       let startBlock = ( currentBlock - start)/ 3 ;
@@ -248,21 +247,17 @@ export class SecondaryViewComponent implements OnInit {
       this.balance = data.balance;
       this.account = data.account;
       this.assetService.getBuyerStatus(this.account).subscribe(res => {
-        console.log('this is response from check buyer', res)
         this.response = res;
       },
       error => {
         this.response = error['error'];
-        console.log('this is error', error);
         this.response = error['error']['data']['statusCode'];
-        console.log('this is response', this.response);
       })
     })
     
   }
 
   sendMarketOrder() {
-    console.log('this is response', this.response)
     if (this.response === 404) {
       this.modalElement.click()
       return;
@@ -291,7 +286,6 @@ export class SecondaryViewComponent implements OnInit {
         // this.router.navigateByUrl('/issuer-dashboard');
       }, 15000);
       }, err => {
-        console.log('this is error', err)
         this.assetService.stopSpinner();
     })
   }
