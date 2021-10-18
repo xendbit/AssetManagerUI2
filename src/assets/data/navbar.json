@@ -7,14 +7,9 @@
             "path": "./"
         },
         {
-            "title": "My Dashboard",
+            "title": "Profile",
             "menu": [],
-            "path": "/dashboard"
-        },
-        {
-            "title": "My Assets",
-            "menu": [],
-            "path": "/my-assets"
+            "path": "/profile"
         },
         {
           "title": "Explore",

@@ -14,7 +14,6 @@ export class ConnectWalletComponent implements OnInit {
   }
 
   connectToMetamask() {
-    console.log('here')
     this.metamaskService.openMetamask();
   }
 

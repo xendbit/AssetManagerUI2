@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { MainService } from './core/services/main.service';
-import {CarouselModule} from 'primeng/carousel';
+import { CarouselModule} from 'primeng/carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,13 +19,15 @@ import { CreateAssetsComponent } from './components/create-assets/create-assets.
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { CreatorsComponent } from './pages/creators/creators.component';
 import { ngfModule } from "angular-file";
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
-import {ToastModule} from 'primeng/toast';
-import {GalleriaModule} from 'primeng/galleria';
+import { MessagesModule} from 'primeng/messages';
+import { MessageModule} from 'primeng/message';
+import { ToastModule} from 'primeng/toast';
+import { GalleriaModule} from 'primeng/galleria';
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule} from 'primeng/calendar';
+import { MintComponent } from './pages/mint/mint.component';
+import { FAQComponent } from './pages/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import {CalendarModule} from 'primeng/calendar';
     UserDashboardComponent,
     CreatorsComponent,
     AssetDetailsComponent,
-    MyAssetsComponent
+    MyAssetsComponent,
+    MintComponent,
+    FAQComponent
   ],
   imports: [
     BrowserModule,

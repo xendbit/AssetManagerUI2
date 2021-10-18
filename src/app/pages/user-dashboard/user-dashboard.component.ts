@@ -97,4 +97,8 @@ export class UserDashboardComponent implements OnInit {
     this.getMeta();
   }
 
+  connectToMetamask() {
+    this.metamaskService.openMetamask();
+  }
+
 }

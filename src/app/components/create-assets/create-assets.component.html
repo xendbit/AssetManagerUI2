@@ -82,7 +82,22 @@
                         </div>
                         -->
 
+                   
+                        
+
                         <div class="drop-zoon__preview-image" *ngIf="this.preview !== undefined">
+                            <!-- <p-galleria *ngIf="this.media.length > 0" [(value)]="media"  [containerStyle]="{'max-width': '640px', 'margin-top':'2em'}" [numVisible]="5"
+                                [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
+                                [showIndicatorsOnItem]="true"> 
+                                <ng-template pTemplate="item" let-item>
+                                    <img [src]="item" style="width: 100%; display: block;" />
+                                </ng-template>
+                                <ng-template pTemplate="thumbnail" let-item>
+                                    <div class="p-grid p-nogutter p-justify-center">
+                                        <img [src]="item" style="display: block;" />
+                                    </div>
+                                </ng-template>
+                            </p-galleria> -->
                             <div class="img-main" *ngIf="this.preview.type.includes('image')">
                                 <img [ngfSrc]="preview" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
                             </div>

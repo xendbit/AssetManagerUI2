@@ -20,7 +20,7 @@ export class AssetsGridComponent implements OnInit {
   totalPages: number;
   categories: string[];
 
-  constructor(public mainService: MainService, private ref: ChangeDetectorRef) { }
+  constructor(public mainService: MainService) { }
 
   ngOnInit() {
     
@@ -28,9 +28,11 @@ export class AssetsGridComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray'] && this.artworkArray !== null) {
-      this.artworks = this.artworkArray //after push from parent assign to this.artworks
-      this.categories = this.artworks.map(item => item.category)
-      .filter((value, index, self) => self.indexOf(value) === index);
+      if (this.artworkArray !== null) {
+        this.artworks = this.artworkArray;
+        this.categories = this.artworks.map(item => item.category)
+        .filter((value, index, self) => self.indexOf(value) === index);
+      }
     }
     this.mainService.getMeta().subscribe(res => {
       if (res !== null) {
@@ -46,12 +48,10 @@ export class AssetsGridComponent implements OnInit {
   
 
 
-  categoryFilter(category) {
+  categoryFilter(category: string) {
     this.artworkArray = this.artworks.filter(item => {
       return item.category === category;
     });
-    // this.artworks = this.artworkArray;
-    // console.log('done')
   }
 
   

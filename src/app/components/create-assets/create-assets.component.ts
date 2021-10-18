@@ -46,18 +46,22 @@ export class CreateAssetsComponent implements OnInit {
     this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
     })
-    this.spinner.show();
-   this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
-     if (result !== undefined) {
-      this.categories = result;
-     }
-   });
-   this.mainService.getAssetTypes().subscribe((result: IAssetType) => {
-    if (result !== undefined) {
-      this.assetTypes = result;
-     }
-    this.spinner.hide();
-  })
+    
+    if (this.categories === undefined) {
+      this.spinner.show();
+      this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
+        if (result !== undefined) {
+         this.categories = result;
+        }
+      });
+      this.mainService.getAssetTypes().subscribe((result: IAssetType) => {
+       if (result !== undefined) {
+         this.assetTypes = result;
+        }
+       this.spinner.hide();
+     })
+    }
+  
   }
 
   
@@ -94,7 +98,6 @@ export class CreateAssetsComponent implements OnInit {
   handleFile(event) {
     var binaryString = event.target.result;
     this.media.push(binaryString);
-           console.log(this.media);
    }
 
   remove(index) {

@@ -13,6 +13,8 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { CreatorsComponent } from './pages/creators/creators.component';
 import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
+import { MintComponent } from './pages/mint/mint.component';
+import { FAQComponent } from './pages/faq/faq.component';
 
 const routes: Routes = [
   {
@@ -43,7 +45,7 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
-    path: 'dashboard',
+    path: 'profile',
     component: UserDashboardComponent
   },
   {
@@ -54,9 +56,17 @@ const routes: Routes = [
     path: 'details',
     component: AssetDetailsComponent
   },
+  // {
+  //   path: 'my-assets',
+  //   component: MyAssetsComponent
+  // },
   {
-    path: 'my-assets',
-    component: MyAssetsComponent
+    path: 'mint',
+    component: MintComponent
+  },
+  {
+    path: 'faq',
+    component: FAQComponent
   },
   {
     path: routerConfig.users.base,

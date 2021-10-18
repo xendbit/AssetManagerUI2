@@ -1,8 +1,8 @@
 [
     {
         "create": {
-            "title": "Create",
-            "path": ""
+            "title": "Mint",
+            "path": "mint"
         },
         "wallet": {
             "title": "Connect Wallet",

@@ -45,7 +45,7 @@ export class CarouselComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray']) {
         if (this.artworkArray !== null) {
-          this.artworks = this.artworkArray;
+          this.artworks = this.artworkArray.slice(-10);
           this.categories = this.artworks.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
         }
