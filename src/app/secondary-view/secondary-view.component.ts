@@ -282,10 +282,12 @@ export class SecondaryViewComponent implements OnInit {
     this.assetService.placeBid(this.asset.tokenId, this.auctionId, this.amount).then(data => {
       setTimeout(() => {
         this.assetService.stopSpinner();
+        this.assetService.showNotification('bottom', 'center', 'Bid placed successfully', 'success');
         this.ngOnInit();
         // this.router.navigateByUrl('/issuer-dashboard');
       }, 15000);
       }, err => {
+        this.assetService.showNotification('bottom', 'center', 'Error: please try again shortly.', 'danger');
         this.assetService.stopSpinner();
     })
   }
