@@ -1,4 +1,53 @@
+<p-toast position="top-center" ></p-toast>
+<p-dialog [(visible)]="displayOverlay" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        <h4 class="head-2 heading-h4">Issuer Registration</h4>
+    </ng-template>
+    <form class="form-main" method="post"  #registerForm="ngForm">
+        <span class="select-none heading-h5">Please complete the form below: </span>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="middleName" name="middleName" [(ngModel)]="middleName" placeholder="Middle Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="lastName" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="Email" name="email" [(ngModel)]="email" placeholder="Email" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="phone" id="phone" name="phone" [(ngModel)]="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="input-main">
+            <div class="input-otr-2" id="issuerInput">
+                <input style="width: 100%;" class="input" [(ngModel)]="bankName" type="text" name="bankName" placeholder="Bank Name" required>
+            </div>
+            <div class="input-otr-2" id="issuerInput">
+                <input style="width: 100%;" [(ngModel)]="bankAddress" class="input" type="text" name="bankAddress" placeholder="Bank Address " required>
+            </div>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="accountName" name="accountName" [(ngModel)]="accountName" placeholder="Account Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="number" id="accountNumber" name="accountNumber" [(ngModel)]="accountNumber" placeholder="Account Number" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="bankCode" name="bankCode" [(ngModel)]="bankCode" placeholder="Bank Code" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="iban" name="iban" [(ngModel)]="iban" placeholder="IBAN" required>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
 
+        <p-button icon="pi pi-check" (click)="register(registerForm)" label="Register" class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
+    </ng-template>
+</p-dialog>
     <!--=======================================
                 Create Start Here
     ========================================-->
@@ -12,6 +61,7 @@
                 </div>
             </div>
             <span class="line"></span>
+           
             <div class="row row-custon">
                 <div class="col-lg-8 col-create-otr">
                     <div class="col-create-inr">
@@ -219,7 +269,14 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-3 col-sm-6 col-btn-otr">
-                                <div class="col-btn-inr">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr">
+                                <!-- <div class="col-btn-inr" >
+                                    <a (click)="mint(createForm)" class="btn-fill btn-create">Create Artwork</a>
+                                </div> -->
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr">
+                                <div class="col-btn-inr" >
                                     <a (click)="mint(createForm)" class="btn-fill btn-create">Create Artwork</a>
                                 </div>
                             </div>

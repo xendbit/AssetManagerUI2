@@ -22,8 +22,6 @@ export class CreateAssetsComponent implements OnInit {
   mediaType: string[];
   validComboDrag:any
   maxSize: number;
-  baseDropValid:any;
-  lastFileAt = new Date().getTime();
   categories: IAssetCategory;
   assetTypes: IAssetType;
   errorMessage: string;
@@ -34,7 +32,20 @@ export class CreateAssetsComponent implements OnInit {
   title: string;
   tokenId: number;
   account: string;
-  error: any;
+  error: string;
+  displayOverlay: boolean = false;
+  response: any;
+  email: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  phone: string;
+  bankName: string;
+  bankAddress: string;
+  bankCode: string;
+  iban: string;
+  accountName: string;
+  accountNumber: string;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService ) { 
@@ -45,6 +56,7 @@ export class CreateAssetsComponent implements OnInit {
     this.mediaType = [];
     this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
+      this.checkIssuer()
     })
     
     if (this.categories === undefined) {
@@ -63,6 +75,55 @@ export class CreateAssetsComponent implements OnInit {
     }
   
   }
+
+  register(form: NgForm) {
+    this.displayOverlay = false;
+    const email = form.value.email;
+    const firstName = form.value.firstName;
+    const middleName = form.value.middleName;
+    const lastName = form.value.lastName;
+    const phone = form.value.phone;
+    const iban = form.value.iban;
+    const bankCode = form.value.bankCode;
+    const bankAddress = form.value.bankAddress;
+    const accountName = form.value.accountName;
+    const accountNumber = form.value.accountNumber;
+    const bankName = form.value.bankName;
+    if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined ) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure all fields are completed and correct.');
+      this.displayOverlay = true;
+      return false;
+    }
+    this.spinner.show();
+    this.mainService.saveIssuer(
+      email, phone, firstName, lastName, middleName,
+      this.account, bankName, bankAddress, accountName,
+      accountNumber, bankCode, iban).subscribe(res => {
+      if (res['status'] === 'success') {
+        this.spinner.hide();
+        this.userActions.addSingle('success', '', 'Issuer has been registered successfully');
+        this.checkIssuer();
+      }
+    }, err => {
+      // console.log(err.error.data.error);
+      this.error = err.error.data.error;
+      this.spinner.hide();
+      this.userActions.addSingle('error', 'Failed', this.error);
+      this.checkIssuer();
+    })
+  }
+
+  checkIssuer() {
+  
+    this.mainService.checkIssuer(this.account).subscribe(res => {
+      this.response = res;
+      console.log('gr', res)
+    },
+    error => {
+      this.response = error['error'];
+    })
+  
+}
 
   
   check(file) {
@@ -121,6 +182,10 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   async mint(form: NgForm) {
+    if (this.response.data.error === 'Issuer with blockchain address not found') {
+      this.displayOverlay = true;
+      return;
+  }
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
       this.userActions.addSingle('error', 'Failed', 'Please make sure you select a category.');

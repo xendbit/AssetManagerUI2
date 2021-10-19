@@ -8,6 +8,7 @@ import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import * as moment from 'moment';
+import { MainService } from 'src/app/core/services/main.service';
 
 @Component({
   templateUrl: './asset-details.component.html',
@@ -25,30 +26,18 @@ import * as moment from 'moment';
   ]
 })
 export class AssetDetailsComponent implements OnInit {
-  distance: number;
-  countdownDay: number;
-  countdownHours: number;
-  countdownMinutes: number;
-  countdownSeconds: number;
-  visible: boolean = true;
-  account: string;
-  balance: number = 0;
-  amount: number;
-  owner: boolean;
-  auctionId: number;
-  currentBlock: any;
-  startDate: any;
-  endDate: any;
-  sellNowPrice: number;
-  minimumPrice: number;
-  auctionTime: any;
-  currentTime: any;
-  auctionValue: number;
+  distance: number; countdownDay: number; countdownHours: number;
+  countdownMinutes: number; countdownSeconds: number; visible: boolean = true;
+  account: string; balance: number = 0; amount: number; owner: boolean;
+  auctionId: number; currentBlock: any; startDate: any; endDate: any; sellNowPrice: number; minimumPrice: number;
+  auctionTime: any; currentTime: any; auctionValue: number; response: any; error: any; displayOverlay: boolean = false;
+  email: string; firstName: string; lastName: string; middleName: string; phone: number;
+  country: string; zipCode: string; state: string; city: string; street: string; houseNumber: string;
   
   
  
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService,
+  constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService) { }
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
@@ -63,14 +52,21 @@ export class AssetDetailsComponent implements OnInit {
     await this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
       this.balance = result.balance;
+      this.checkBuyer();
       this.activatedRoute.paramMap
       .subscribe(
           () => {
               if (window.history.state.artwork) {
                   this.artwork = window.history.state.artwork;
                   this.auction = window.history.state.auction;
+                  console.log('this is auction', this.auction)
                   this.auctionService.getETHtoUSDValue().subscribe(res => {
-                    this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                    if (this.auction.bids.length > 0) {
+                      this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+                    } else {
+                      this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                    }
+                 
                   })
                   if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
                     this.owner = true;
@@ -86,12 +82,7 @@ export class AssetDetailsComponent implements OnInit {
           },
           () => { });
     })
-
-    // this.auctionService.checkIssuer('0xF0Cce76eEa51fae3cbBB6D7aad1C74D668f1E0f').subscribe(res => {
-    //   console.log('gw', res);
-    // })
-   
-    }
+  }
 
     setCountDown(date) {
       this.auctionTime =  moment(new Date(date).getTime()).unix();
@@ -116,6 +107,10 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   bid() {
+    if (this.response === 404) {
+      this.displayOverlay = true;
+      return;
+    }
     let currentBid = this.auction.highestBid;
     if (this.balance < this.amount ) {
       this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
@@ -134,13 +129,16 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.spinner.show();
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
+      console.log('dat', data)
       setTimeout(() => {
-        this.spinner.hide();
-        this.ngOnInit();
-        // this.router.navigateByUrl('/issuer-dashboard');
+        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
+          this.auction = data;
+          this.spinner.hide();
+          this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
+          
+        })
       }, 15000);
       }, err => {
-        console.log('this is error', err)
         this.spinner.hide();
     })
 
@@ -149,8 +147,6 @@ export class AssetDetailsComponent implements OnInit {
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;
     const sell =  auction.value.sellNowPrice;
-    const startDate = auction.value.startDate;
-    const endDate = auction.value.endDate;
     if (sell < minBid) {
       this.userActions.addSingle('error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
       return;
@@ -177,22 +173,74 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.spinner.hide();
         }, err =>  {
-          console.log('this is error:', err);
           this.spinner.hide();
         })
       }, 15000)
         
 
       }, err => {
-        console.log('ERR =>', err);
         this.spinner.hide()
       })
     }, err => {
       this.spinner.hide()
-      console.log('this is error', err);
     })
     
   }
+
+  withdraw() {
+    this.spinner.show();
+    this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
+      console.log('this is response', res)
+      this.spinner.hide();
+    })
+  }
+
+  checkBuyer() {
+    this.mainService.getBuyerStatus(this.account).subscribe(res => {
+      this.response = res;
+    },
+    error => {
+      this.response = error['error'];
+      this.response = error['error']['data']['statusCode'];
+    })
+  }
+
+    register(register: NgForm) {
+      const email = register.value.email;
+      const firstName = register.value.firstName;
+      const middleName = register.value.middleName;
+      const lastName = register.value.lastName;
+      const phone = register.value.phone;
+      const country = register.value.country;
+      const zipCode = register.value.zipCode;
+      const state = register.value.state;
+      const city = register.value.city;
+      const street = register.value.street;
+      const houseNumber = register.value.houseNumber;
+      const blockchainAddress = this.account;
+      if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || 
+        lastName === undefined || country === undefined ||
+        zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
+          this.userActions.addSingle('error', 'successful', 'Please make sure all fields are completed and correct.');
+        this.displayOverlay = true;
+      }
+      this.spinner.show();
+      this.mainService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
+        country, zipCode, state, city, street, houseNumber).subscribe(res => {
+        if (res['status'] === 'success') {
+          this.spinner.hide();
+          this.userActions.addSingle('success', 'successful', 'Buyer has been registered successfully!');
+          this.checkBuyer();
+          this.ngOnInit;
+        }
+      }, err => {
+        this.error = err.error.data.error;
+        this.spinner.hide();
+        this.userActions.addSingle('error', 'error', this.error);
+        this.checkBuyer();
+      })
+    }
+    
 
   
 

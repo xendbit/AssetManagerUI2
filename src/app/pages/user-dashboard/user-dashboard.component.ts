@@ -3,6 +3,9 @@ import { IArtwork } from 'src/app/core/components/slider/presentation.interface'
 import { MainService } from 'src/app/core/services/main.service';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { IUser } from './user.interface';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface';
+import { UserActionsService } from 'src/app/core/services/userActions.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -30,26 +33,27 @@ export class UserDashboardComponent implements OnInit {
     "joinDate": "",
     "type": ""
   };
-  userView: string;
-  account: string;
-  artworks: IArtwork[];
-  categories: string[];
-  currentPage: any;
-  itemCount: number;
-  itemsPerPage: number;
-  totalItems: number;
-  totalPages: number;
+  userView: string; account: string; artworks: IArtwork[]; categories: string[];
+  currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number;
+  totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
 
-  constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
+  constructor(public mainService: MainService, public metamaskService: MetamaskService, 
+    private clipboard: Clipboard, public userActions: UserActionsService) { }
 
   ngOnInit(): void {
+   
+    
+  }
+
+  ngAfterViewInit() {
     this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
       this.getMeta();
       this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
-      // console.log('res', )
+      
       this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
         if (res !== null) {
+          console.log('res', res)
           this.artworks = res;
           this.categories = this.artworks.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
@@ -60,7 +64,6 @@ export class UserDashboardComponent implements OnInit {
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
     })
-    
   }
 
   selectView(type) {
@@ -97,8 +100,19 @@ export class UserDashboardComponent implements OnInit {
     this.getMeta();
   }
 
-  connectToMetamask() {
-    this.metamaskService.openMetamask();
+
+  follow(username) {
+    this.userActions.BroadcastFollowEvent("follow", 1, username);
+    this.getFollowerCount(username);
+  }
+
+  getFollowerCount(username) {
+    this.followInfo.followCount = this.userActions.getFollowCount(username);
+  }
+
+  copyMessage(val){
+    this.clipboard.copy(val);
+    this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
   }
 
 }

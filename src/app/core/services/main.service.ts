@@ -407,6 +407,67 @@ export class MainService {
     });
   }
 
+  saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
+    middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
+    accountName: string, accountNumber: number, bankCode: any, IBAN: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${baseUrl.mainUrl}save-issuer/`, {
+      "email": email,
+      "phoneNumber": phone,
+      "firstName": firstname, 
+      "middleName": middlename,
+      "lastName": lastname,
+      "blockchainAddress": blockchainAddress,
+      "bankName": bankName,
+      "bankAddress": bankAddress,
+      "accountName": accountName,
+      "accountNumber": accountNumber,
+      "bankCode": bankCode,
+      "IBAN": IBAN
+    },  {headers})
+  }
+
+  saveBuyer(email: string, phone: any, firstname: string, lastname: string,
+    middlename: string, blockchainAddress: any, country: string, zipCode: any, state: string,
+    city: string, street: string, houseNumber: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${baseUrl.mainUrl}save-buyer/`, {
+      "email": email,
+      "phoneNumber": phone,
+      "firstName": firstname, 
+      "middleName": middlename,
+      "lastName": lastname,
+      "blockchainAddress": blockchainAddress,
+      "country": country,
+      "zipCode": zipCode,
+      "state": state,
+      "city": city,
+      "street": street,
+      "houseNumber": houseNumber
+    },  {headers})
+  }
+
+  checkIssuer(issuerAddress) {
+ 
+    let issuer = issuerAddress.toLowerCase();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
+  }
+
+  getBuyerStatus(walletAddress: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
+  }
+  
+
  
 
 }

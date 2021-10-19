@@ -26,6 +26,8 @@ import { GalleriaModule} from 'primeng/galleria';
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
 import { CalendarModule} from 'primeng/calendar';
+import {DialogModule} from 'primeng/dialog';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 
@@ -54,13 +56,15 @@ import { FAQComponent } from './pages/faq/faq.component';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ngfModule,
+    DialogModule,
     MessagesModule,
     MessageModule,
     ToastModule,
     GalleriaModule,
     FormsModule,
     ReactiveFormsModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

@@ -3,6 +3,10 @@ import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
+import { MetamaskService } from 'src/app/core/services/metamask.service';
+
+declare var $: any;
+
 
 @Component({
   selector: 'app-header',
@@ -14,7 +18,7 @@ export class HeaderComponent implements OnInit {
   @Input() public buttonsInfo: INavButton;
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
   buttonsData: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}}
-  constructor(public mainService: MainService) { }
+  constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
   ngOnInit() {
@@ -30,6 +34,10 @@ export class HeaderComponent implements OnInit {
           this.buttonsData = this.buttonsInfo;
         }
     }   
+  }
+
+  connectToMetamask() {
+    this.metamaskService.openMetamask();
   }
 
 }

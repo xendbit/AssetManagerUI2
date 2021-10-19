@@ -2,7 +2,55 @@
     <!--=======================================
             Hero Single ArtworK Start Here
     ========================================-->
+    <p-dialog [(visible)]="displayOverlay" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false"  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '40vw'}">
+    <ng-template pTemplate="header">
+        <h4 class="head-2 heading-h4">Buyer Registration</h4>
+    </ng-template>
+    <form class="form-main" method="post"  #registerForm="ngForm">
+        <span class="select-none heading-h5">Please complete the form below: </span>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="middleName" name="middleName" [(ngModel)]="middleName" placeholder="Middle Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="lastName" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="Email" name="email" [(ngModel)]="email" placeholder="Email" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="phone" id="phone" name="phone" [(ngModel)]="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="input-main">
+            <div class="input-otr-2" id="issuerInput">
+                <input style="width: 100%;" class="input" [(ngModel)]="country" type="text" name="country" placeholder="Country" required>
+            </div>
+            <div class="input-otr-2" id="issuerInput">
+                <input style="width: 100%;" [(ngModel)]="zipCode" class="input" type="text" name="zipCode" placeholder="ZipCode " required>
+            </div>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="state" name="state" [(ngModel)]="state" placeholder="State" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="city" name="city" [(ngModel)]="city" placeholder="City" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="street" name="street" [(ngModel)]="street" placeholder="Street" required>
+        </div>
+        <div class="input-otr" id="issuerInput">
+            <input class="input" style="width: 100%;" type="text" id="houseNumber" name="houseNumber" [(ngModel)]="houseNumber" placeholder="House Number" required>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
 
+        <p-button icon="pi pi-check" (click)="register(registerForm)" label="Register" class="p-button-text"></p-button>
+        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
+    </ng-template>
+</p-dialog>
  
     <p-toast position="top-center"></p-toast>
     <div class="hero-single-artwork">
@@ -144,7 +192,8 @@
                                 <div class="boxes-main">
                                     <div class="bid-main">
                                         <p class="bid body-mb">Current Bid</p>
-                                        <h3 class="heading-h3 bid-head">{{auction.highestBid}} {{auction.currency}}</h3>
+                                        <h3 class="heading-h3 bid-head"  *ngIf="auction.bids.length <= 0">{{auction.highestBid}} {{auction.currency}}</h3>
+                                        <h3 class="heading-h3 bid-head" *ngIf="auction.bids.length > 0">{{auction.bids[0]['bid']}} {{auction.currency}}</h3>
                                         <p class="dollor body-mb">{{this.auctionValue | currency}}</p>
                                     </div>
                                     <div class="auction-main">
@@ -247,13 +296,14 @@
                                 </div>
 
                             </div>
-                            <div class="activity-details" >
+                            <div class="activity-details" *ngIf="auction.bids.length > 0">
                                 <h4 class="heading-h4 activity-head">Activity</h4>
-                                <div class="place-bid-main" *ngIf="auction.bids.length > 0">
+                                <div class="place-bid-main" *ngFor="let bids of auction.bids">
                                     <a  class="img-otr">
                                         <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
                                     </a>
-                                    <div class="bid-content" *ngFor="let bids of auction.bids">
+                                    <div class="bid-content" >
+                                        
                                         <div class="content-left" >
                                             <p class="body-mb bid-otr"> 
                                                 <span class="bid">Bid placed</span>
@@ -268,6 +318,7 @@
                                             <p class="eth heading-h5"> {{bids.bid}} ETH</p>
                                             <!-- <p class="dollor body-sb">$2,505</p> -->
                                         </div>
+                                       
                                     </div>
                                 </div>
                                 <div class="place-bid-main" *ngIf="auction.bids.length <= 0">
