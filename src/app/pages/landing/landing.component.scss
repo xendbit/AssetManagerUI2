@@ -1,0 +1,52 @@
+.fullwidth {
+    width: 100vw!important;
+    height: 100vh!important;
+}
+
+.welcome_area {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 900px!important;
+}
+.dzsparallaxer {
+    color: #fff;
+}
+
+.dzsparallaxer:not(.mode-oneelement) {
+    height: 300px;
+    overflow: hidden;
+    background-color: #1c1a17;
+    position: relative;
+    transition-property: height;
+    transition-duration: .3s;
+    -moz-transition-property: height;
+    -moz-transition-duration: .3s;
+    -webkit-transition-property: height;
+    -webkit-transition-duration: .3s;
+    -o-transition-property: height;
+    -o-transition-duration: .3s;
+    -ms-transition-property: height;
+    -ms-transition-duration: .3s;
+    -ms-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.dzsparallaxer:not(.mode-oneelement)>.container, .dzsparallaxer:not(.mode-oneelement)>.row, .dzsparallaxer:not(.mode-oneelement)>div, .dzsparallaxer:not(.mode-oneelement)>p {
+    position: relative;
+}
+.dzsparallaxer:not(.mode-oneelement) * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.divimage {
+    background-size: cover;
+    background-position: center center;
+}

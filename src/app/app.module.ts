@@ -30,6 +30,7 @@ import {DialogModule} from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FAQComponent } from './pages/faq/faq.component';
     AssetDetailsComponent,
     MyAssetsComponent,
     MintComponent,
-    FAQComponent
+    FAQComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

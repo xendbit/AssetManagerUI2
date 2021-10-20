@@ -15,6 +15,7 @@ import { CreatorsComponent } from './pages/creators/creators.component';
 import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,11 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FAQComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent,
+    data: { showHeader: false }
   },
   {
     path: routerConfig.users.base,

@@ -16,6 +16,7 @@ export class AppComponent extends AppController implements OnInit {
   navButtons: any;
   headerInfo: any;
   footerInfo: any;
+  showHeader: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,  private spinner: NgxSpinnerService,
@@ -24,6 +25,11 @@ export class AppComponent extends AppController implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showHeader = this.route.firstChild.snapshot.data.showHeader;
+      }
+    });
     this.mainService.getNavButtons().subscribe(res => {
       this.navButtons = res;
     });
