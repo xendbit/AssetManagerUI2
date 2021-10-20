@@ -7,11 +7,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
-
-/*------------------------------------------
-        Explore Artworks Start Here
--------------------------------------------*/
-
 .explore-artwork{
     overflow: hidden;
     padding: 96px 0 128px 0;
@@ -88,69 +83,7 @@
                             &:not(:last-child){
                                 margin-right: 24px;
                             }
-                            .select-hidden {
-                                display: none;
-                                visibility: hidden;
-                                padding-right: 10px;
-                            }
-                            .select-styled {
-                                background-color: $Gray-Shade-4;
-                                color: $Gray-Shade-1;
-                                padding: 4px 32px 4px 16px;
-                                border-radius: 12px;
-                                font-size: $font-size-bs;
-                                line-height: $line-height-bsb;
-                                font-family: $font-family-DMSans-Bold;
-                                &:after {
-                                    content:"";
-                                    width: 12px;
-                                    height: 10px;
-                                    position: absolute;
-                                    background-image: url(/assets/img/artwork-page-arrow.svg);
-                                    background-repeat: no-repeat;
-                                    background-position: center;
-                                    top: 16px;
-                                    right: 16px;
-                                }
-                                &:active, &.active {
-                                    &:after {
-                                        top: 16px;
-                                        border-color: transparent transparent $White-Color transparent;
-                                    }
-                                }
-                            }
-                            .select-options {
-                                display: none; 
-                                position: absolute;
-                                top: 130%;
-                                right: 0;
-                                width: 200px;
-                                z-index: 999;
-                                background-color: $White-Color;
-                                border-radius: 12px;
-                                padding: 16px 0;
-                                box-shadow: $box-shadow-custom;
-                                li {
-                                    font-size: $font-size-bs;
-                                    line-height: $line-height-bsb;
-                                    font-family: $font-family-DMSans-Bold;
-                                    color: $Gray-Shade-1;
-                                    border-radius: 12px;
-                                    padding: 0 24px 0 24px;
-                                    transition: .3s;
-                                    &:not(:last-child){
-                                        margin: 0 0 4px 0;
-                                    }
-                                    &:hover {
-                                        color: $Primary-Color-Home-1;
-                                        background: transparent;
-                                        border-radius: 0;
-                                    }
-                                    &[rel="hide"] {
-                                        display: none;
-                                    }
-                                }
-                            }
+                            
                         }
                     }
                 }
@@ -199,8 +132,4 @@
     padding-left: calc(var(--bs-gutter-x)/ 2);
     margin-top: var(--bs-gutter-y);
 }
-
-/*------------------------------------------
-        Explore Artworks End Here
--------------------------------------------*/
 

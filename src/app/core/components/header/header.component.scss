@@ -143,49 +143,4 @@
     .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
         width: 43px;
     }
-
-
-    .navi > .navi-btn {
-      display: inline-block;
-      position: absolute;
-      right: 0px;
-      top: 0px;
-    }
-    .navi > .navi-btn > label {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      padding: 13px;
-    }
-    .navi > .navi-btn > label:hover,.navi  #navi-check:checked ~ .navi-btn > label {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-    .navi > .navi-btn > label > span {
-      display: block;
-      width: 25px;
-      height: 10px;
-      border-top: 2px solid #eee;
-    }
-    .navi > .navi-links {
-      position: absolute;
-      display: block;
-      width: 100%;
-      background-color: #333;
-      height: 0px;
-      transition: all 0.3s ease-in;
-      overflow-y: hidden;
-      top: 50px;
-      left: 0px;
-    }
-    .navi > .navi-links > a {
-      display: block;
-      width: 100%;
-    }
-    .navi > #navi-check:not(:checked) ~ .navi-links {
-      height: 0px;
-    }
-    .navi > #navi-check:checked ~ .navi-links {
-      height: calc(100vh - 50px);
-      overflow-y: auto;
-    }
   }

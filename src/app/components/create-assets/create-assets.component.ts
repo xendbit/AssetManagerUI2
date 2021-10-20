@@ -117,7 +117,6 @@ export class CreateAssetsComponent implements OnInit {
   
     this.mainService.checkIssuer(this.account).subscribe(res => {
       this.response = res;
-      console.log('gr', res)
     },
     error => {
       this.response = error['error'];

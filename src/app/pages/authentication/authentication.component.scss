@@ -15,24 +15,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                .logo-otr{
-                    .logo-inr{
-                        .logo-img{
-                            width: 100px;
-                        }
-                    }
-                }
-                .button-otr{
-                    display: flex;
-                    align-items: center;
-                    .member{
-                        color: $White-Color;
-                        margin: 0 24px 0 0;
-                        @include breakpoint($secreen-xxs){
-                            display: none;
-                        }
-                    }
-                }
             }
             .row-login{
                 display: flex;
@@ -240,101 +222,6 @@
                                     }
                                 }
                             }
-                        }
-                    }
-                }
-            }
-            .footer-login{
-                .copy-inr{
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    @include breakpoint($secreen-xxs){
-                        flex-direction: column;
-                    }
-                    .language-selector{
-                        @include breakpoint($secreen-xxs){
-                            margin: 0 0 16px 0;
-                        }
-                        .language-ul{
-                            .language-li{
-                                position: relative;
-                                .language-a{
-                                    padding: 9px 24px;
-                                    border: 1px solid $White-Color;
-                                    border-radius: 16px;
-                                    display: flex;
-                                    align-items: center;
-                                    &:hover{
-                                        cursor: pointer;
-                                    }
-                                    .flag-img{
-                                        width: 24px;
-                                        height: 24px;
-                                        border-radius: 100%;
-                                    }
-                                    .language{
-                                        padding: 0 8px;
-                                        color: $White-Color;
-                                    }
-                                    .caret-down{
-                                        position: relative;
-                                        top: 1px;
-                                        path{
-                                            stroke: $White-Color;
-                                        }
-                                    }
-                                }
-                                .drop-ul{
-                                    padding: 20px 24px;
-                                    background-color: $White-Color;
-                                    box-shadow: $box-shadow-custom;
-                                    border-radius: 16px;
-                                    position: absolute;
-                                    width: 100%;
-                                    top: -164px;
-                                    display: none;
-                                    .drop-li{
-                                        &:not(:last-child){
-                                            margin-bottom: 8px;
-                                        }
-                                        .drop-a{
-                                            display: inline-flex;
-                                            align-items: center;
-                                            &:hover{
-                                                cursor: pointer;
-                                            }
-                                            .flag-img{
-                                                width: 24px;
-                                                height: 24px;
-                                                border-radius: 100%;
-                                            }
-                                            .language{
-                                                color: $Gray-Shade-1;
-                                                padding-left: 8px;
-                                            }
-                                        }
-                                    }
-                                }
-                                .block{
-                                    display: block;
-                                }
-                            }
-                        }
-                    }
-                    .privacy-link{
-                        display: flex;
-                        align-items: center;
-                        .link{
-                            color: $White-Color;
-                            transition: .3s;
-                            &:hover{
-                                color: $Secondary-Color-Home-1;
-                            }
-                        }
-                        .dot{
-                            color: $White-Color;
-                            margin: 0 8px 0;
                         }
                     }
                 }

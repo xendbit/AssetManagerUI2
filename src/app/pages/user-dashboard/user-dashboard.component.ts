@@ -53,7 +53,6 @@ export class UserDashboardComponent implements OnInit {
       
       this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
         if (res !== null) {
-          console.log('res', res)
           this.artworks = res;
           this.categories = this.artworks.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);

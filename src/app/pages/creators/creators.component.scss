@@ -27,87 +27,6 @@
                         color: $Black-Color;
                     }
                 }
-                .select {
-                    cursor: pointer;
-                    display: inline-flex;
-                    position: relative;
-                    @include breakpoint($secreen-xxs){
-                        margin-top: 24px;
-                    }
-                    &:not(:last-child){
-                        margin-right: 24px;
-                        @include breakpoint($secreen-xxs){
-                            margin-right: 0;
-                        }
-                    }
-                    .select-hidden {
-                        display: none;
-                        visibility: hidden;
-                        padding-right: 10px;
-                    }
-                    .select-styled {
-                        background-color: $Gray-Shade-4;
-                        color: $Gray-Shade-1;
-                        padding: 4px 32px 4px 16px;
-                        border-radius: 12px;
-                        font-size: $font-size-bs;
-                        line-height: $line-height-bsb;
-                        font-family: $font-family-DMSans-Bold;
-                        &:after {
-                            content:"";
-                            width: 12px;
-                            height: 10px;
-                            position: absolute;
-                            background-image: url(/assets/img/artwork-page-arrow.svg);
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            top: 16px;
-                            right: 16px;
-                        }
-                        &:active, &.active {
-                            &:after {
-                                top: 16px;
-                                border-color: transparent transparent $White-Color transparent;
-                            }
-                        }
-                    }
-                    .select-options {
-                        display: none; 
-                        position: absolute;
-                        top: 130%;
-                        right: 0;
-                        width: 200px;
-                        z-index: 999;
-                        background-color: $White-Color;
-                        border-radius: 12px;
-                        padding: 16px 0;
-                        box-shadow: $box-shadow-custom;
-                        @include breakpoint($secreen-xxs){
-                            left: 0;
-                            right: inherit;
-                        }
-                        li {
-                            font-size: $font-size-bs;
-                            line-height: $line-height-bsb;
-                            font-family: $font-family-DMSans-Bold;
-                            color: $Gray-Shade-1;
-                            border-radius: 12px;
-                            padding: 0 24px 0 24px;
-                            transition: .3s;
-                            &:not(:last-child){
-                                margin: 0 0 4px 0;
-                            }
-                            &:hover {
-                                color: $Primary-Color-Home-1;
-                                background: transparent;
-                                border-radius: 0;
-                            }
-                            &[rel="hide"] {
-                                display: none;
-                            }
-                        }
-                    }
-                }
             }
             .line{
                 display: flex;
@@ -174,11 +93,6 @@
                     }
                     .box1,.box2,.box3,.box4,.box5,.box6,.box7,.box8,.box9.box10,.box11,.box12,.box13,.box14,.box15,.box16,.box17,.box18,.box19,.box20,.box21,.box22,.box23,.box24,.box25,.box26,.box27,.box28{
                         @include breakpoint($secreen-max-md){
-                            margin-bottom: 24px;
-                        }
-                    }
-                    .box9,.box10{
-                        @include breakpoint($secreen-xs){
                             margin-bottom: 24px;
                         }
                     }

@@ -59,7 +59,6 @@ export class AssetDetailsComponent implements OnInit {
               if (window.history.state.artwork) {
                   this.artwork = window.history.state.artwork;
                   this.auction = window.history.state.auction;
-                  console.log('this is auction', this.auction)
                   this.auctionService.getETHtoUSDValue().subscribe(res => {
                     if (this.auction.bids.length > 0) {
                       this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
@@ -129,7 +128,6 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.spinner.show();
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
-      console.log('dat', data)
       setTimeout(() => {
         this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
           this.auction = data;
@@ -190,7 +188,6 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.spinner.show();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
-      console.log('this is response', res)
       this.spinner.hide();
     })
   }
