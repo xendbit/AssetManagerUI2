@@ -399,7 +399,7 @@ export class MainService {
           observer.next(this.presentationResponse);
           observer.complete();
         }, err => {
-            this.presentationResponse =  presentationJson['default'][0]['slides'];
+            this.presentationResponse =  presentationJson['default'][0];
             observer.next(this.presentationResponse);
             observer.complete()
         });

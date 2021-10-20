@@ -15,8 +15,70 @@ import { AuctionService } from '../../services/auction.service';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
-  @Input() public slider: IPresentation [];
-  public presentationData: IPresentation;
+  @Input() public slider: IPresentation;
+  presentationData: IPresentation =
+    {
+      "slides":  [
+        {
+            "auctionId": 0,
+            "cancelled": false,
+            "currentBlock": 0,
+            "startBlock": 0,
+            "endBlock": 0,
+            "highestBid": 0,
+            "highestBidder": "",
+            "isActive": true,
+            "owner": "",
+            "sellNowPrice": 0,
+              "title": "The Mystic",
+            "subtitle": "The mystical artworks of the kubembe",
+            "bids": [{"bidder": "", "bid": 0, "auctionId": 0}],
+            "currentBid": 0,
+            "currency": "",
+            "endDate": new Date(),
+            "startDate": new Date(),
+            "minimumBid": 0,
+            "tokenId": 0,
+            "artwork": {
+                "id": "",
+                "category": "",
+                "tags": [],
+                "owner": {
+                    "id": "",
+                    "image": "",
+                    "username": ""
+                },
+                "creator": {
+                    "id": "",
+                    "image": "",
+                    "username": "",
+                    "collections": [],
+                    "type": ""
+                },
+                "featuredImage": {
+                    "media": "/assets/img/slide1.jpeg",
+                    "mediaType": 0
+                },
+                "isBidding": true,
+                "gallery": [],
+                "description": "Description",
+                "price": 0,
+                "currency": "ETH",
+                "likes": 0,
+                "type": "Artwork",
+                "lastAuctionId": 0,
+                "hasActiveAuction": true,
+                "symbol": "",
+                "tokenId": 0,
+                "name": "",
+                "dateIssued": new Date(),
+                "sold": false
+            },
+            "type": "Auction"
+        },
+      ],
+    "presentationType": 0
+    };
   countdownSeconds: number;
   distance: number;
   countdownDay: number;
@@ -34,10 +96,24 @@ export class SliderComponent implements OnInit {
   currentTime: number;
   currentBid: any;
   auctionValue: number;
+  responsiveOptions:any[] = [
+      {
+          breakpoint: '1024px',
+          numVisible: 1
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 1
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1
+      }
+  ];
+
   constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
     private clipboard: Clipboard, public auctionService: AuctionService) { 
  
-   
   }
 
    ngOnInit() {
@@ -45,9 +121,9 @@ export class SliderComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
    
-    if (changes['slider'] && this.slider !== undefined){
-      this.slider = this.slider;
-      let endDate =   this.slider.filter(slide => {
+    if (changes['slider'] && this.slider !== undefined ){
+      this.presentationData = this.slider;
+      let endDate =   this.presentationData.slides.filter(slide => {
         if (slide['type'] === 'Auction') {
           this.currentBid = slide['highestBid'];
           return slide['endDate'];

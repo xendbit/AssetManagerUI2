@@ -1,6 +1,7 @@
 
 export interface IPresentation {
     slides:Array<IAuction | ICreator | IArtwork | ICollection>;
+    presentationType: presentationType
   }
   export interface IAuction {
     auctionId: number;
@@ -15,6 +16,7 @@ export interface IPresentation {
     owner: string;
     sellNowPrice: number;
     title:string;
+    subtitle?: string;
     currentBid:number;
     currency:string;
     endDate: Date;
@@ -94,4 +96,11 @@ export interface IPresentation {
     IMAGE = 0,
     VIDEO = 1,
     AUDIO = 2
+  }
+
+  enum presentationType{
+    Auction = 0,
+    Artwork = 1,
+    Collection = 2,
+    Creator = 3
   }

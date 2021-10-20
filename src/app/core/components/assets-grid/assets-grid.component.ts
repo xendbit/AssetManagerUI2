@@ -19,6 +19,9 @@ export class AssetsGridComponent implements OnInit {
   totalItems: number;
   totalPages: number;
   categories: string[];
+  chinedu: {
+    ogu: any[];
+  }
 
   constructor(public mainService: MainService) { }
 

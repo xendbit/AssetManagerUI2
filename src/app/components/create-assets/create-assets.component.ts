@@ -60,7 +60,7 @@ export class CreateAssetsComponent implements OnInit {
     })
     
     if (this.categories === undefined) {
-      this.spinner.show();
+      // this.spinner.show();
       this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
         if (result !== undefined) {
          this.categories = result;
@@ -70,7 +70,7 @@ export class CreateAssetsComponent implements OnInit {
        if (result !== undefined) {
          this.assetTypes = result;
         }
-       this.spinner.hide();
+      //  this.spinner.hide();
      })
     }
   
