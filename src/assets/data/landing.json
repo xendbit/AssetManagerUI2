@@ -1,0 +1,63 @@
+{
+    "classynav": [{"link": "", "title": ""}],
+    "welcomeArea": {
+      "backgroundImage": "",
+      "title":"",
+      "subText": "",
+      "pdfLink": ""
+    },
+    "verticalSocial": {"facebookUrl": "", "twitterUrl": "", "discordUrl": "", "pinterestUrl": "", "youTubeUrl": "", "telegramUrl": ""},
+    "buyOrSellSection": {
+      "title": "",
+      "welcomeThumbImage": "",
+      "video": "",
+      "rightBlock": [{
+          "title": "",
+          "subtitle": ""
+      }]
+    },
+    "investorSection": [{
+        "image": "",
+        "title": "",
+        "subtitle": ""
+    }],
+    "aboutUsSection": [{
+      "image": "",
+      "title": "",
+      "paragraphs": [{"text": ""}]
+    }],
+    "servicesSection": [{
+      "image": "",
+      "title": "",
+      "subtitle": ""
+    }],
+    "roadmapSection": {
+      "image": ""
+    },
+    "deckSection": {
+      "decklink": ""
+    },
+    "tokenSection": {
+      "title": "",
+      "subtitle": "",
+      "tokenAllocationData": {
+        "partnerships": 0,
+        "privateSale": 0,
+        "team": 0,
+        "researchData": 0,
+        "votingRewards": 0,
+        "advisors": 0,
+        "publicSale": 0,
+        "exchange": 0
+      },
+      "useOfSalesData": {
+        "creativeFund": 0,
+        "development": 0,
+        "exchangeListings": 0,
+        "operations": 0,
+        "brandingMarketing": 0,
+        "legal": 0
+      }
+    }
+  
+  }

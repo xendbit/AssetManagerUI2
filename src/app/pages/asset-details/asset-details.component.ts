@@ -169,6 +169,7 @@ export class AssetDetailsComponent implements OnInit {
         setTimeout(() => { 
           this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
+          this.visible = false;
           this.spinner.hide();
         }, err =>  {
           this.spinner.hide();

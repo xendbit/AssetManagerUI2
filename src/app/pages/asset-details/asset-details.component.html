@@ -294,7 +294,7 @@
                                         <a (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                     </div>
                                 </form>
-                                <div class="action-otr" *ngIf="this.owner">
+                                <div class="action-otr" *ngIf="this.owner && artwork.hasActiveAuction === true">
                                     <a  class="btn-fill btn-bid">Withdraw</a>
                                 </div>
 

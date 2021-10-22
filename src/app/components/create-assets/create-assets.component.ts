@@ -46,6 +46,9 @@ export class CreateAssetsComponent implements OnInit {
   iban: string;
   accountName: string;
   accountNumber: string;
+  image: boolean;
+  mp3: boolean;
+  mp4: boolean;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService ) { 
@@ -142,14 +145,17 @@ export class CreateAssetsComponent implements OnInit {
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+          this.image = true;
           this.mediaType.push('image');
         }
         if ( /\.(mp4)$/i.test(file.name) === true  ) { 
           // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
+          this.mp3 = true;
           this.mediaType.push('mp4');
         }
         if ( /\.(mp3)$/i.test(file.name) === true  ) {
           // this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
+          this.mp4 = true;
           this.mediaType.push('mp3');
         }
       };
@@ -202,7 +208,10 @@ export class CreateAssetsComponent implements OnInit {
     this.tokenId = rndNo;
     let dateCreated = new Date().getTime();
     let medias = this.media;
- 
+    if (this.mp3 === true && this.image !== true || this.mp4 === true && this.image !== true) {
+      this.userActions.addSingle('error', 'Failed', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.');
+      return;
+    }
     if (this.categorySelected === 'artwork' && !this.mediaType.find(elem => elem === 'image' )) {
       this.userActions.addSingle('error', 'Failed', 'Please make sure to upload an image representing the asset you intend to issue along-side the asset.');
       return;

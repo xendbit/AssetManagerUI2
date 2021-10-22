@@ -132,9 +132,112 @@
     display: none;
   }
   
-  @media (max-width:600px) {
+  @media only screen and (min-width:420px) {
     #logoText {
-        margin-left: -25%;
+        margin-left: -138%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width:1024px) {
+    #logoText {
+        margin-left: -40%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width:768px) and (max-width:780px) {
+    #logoText {
+        margin-left: -138%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width: 280px) and (max-width: 280px){
+    #logoText {
+        margin-left: 0%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+  }
+
+
+  @media only screen and (min-width:540px) and (max-width: 540px) {
+    #logoText {
+        margin-left: -74%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+
+
+  @media only screen and (min-width:320px) and ( max-width:400px) {
+    #logoText {
+        margin-left: -22%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width: 401px) and ( max-width:420px) {
+    #logoText {
+        margin-left: -40%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width:320px) and (max-width: 320px) {
+    #logoText {
+        margin-left: -17%;
+        font-size: 25px;
+        line-height: 80px;
+        font-family: "DMSans-Bold";
+    }
+
+    .navbar-main .container-fluid .navbar-inr .logo-otr .logo-inr .logo {
+        width: 43px;
+    }
+  }
+
+  @media only screen and (min-width:600px) and (max-width:620px) {
+    #logoText {
+        margin-left: -20%;
         font-size: 25px;
         line-height: 80px;
         font-family: "DMSans-Bold";
