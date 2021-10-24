@@ -1,6 +1,6 @@
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 import { AppController } from './app.controller';
 import { HomeComponent } from './core/components/home/home.component';
@@ -79,9 +79,13 @@ const routes: Routes = [
     loadChildren: () => import('./lazy/users/users.module').then(mod => mod.UsersModule)
   }
 ];
-
+const routerOptions: ExtraOptions = {
+  useHash: false,
+  anchorScrolling: 'enabled',
+};
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
