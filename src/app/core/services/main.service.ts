@@ -14,12 +14,14 @@ import * as userJson from 'src/assets/data/user.json';
 import * as creatorJson from 'src/assets/data/creators.json';
 import * as categoryJson from 'src/assets/data/categories.json';
 import * as assetTypeJson from 'src/assets/data/assetTypes.json';
+import * as landingJson from 'src/assets/data/landing.json';
 import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IBlogGroup } from '../components/blog/blog.interfaces';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
+import { ILandingData } from 'src/app/pages/landing/landing.interface';
 
 
 @Injectable({
@@ -42,6 +44,7 @@ export class MainService {
   headerResponse: IMenuGroups;
   categoriesResponse: IAssetCategory;
   assetTypeResponse: any;
+  landingResponse: ILandingData;
   
   constructor(public httpClient: HttpClient) {
    }
@@ -401,6 +404,26 @@ export class MainService {
         }, err => {
             this.presentationResponse =  presentationJson['default'][0];
             observer.next(this.presentationResponse);
+            observer.complete()
+        });
+      }
+    });
+  }
+
+  getLanding() {
+    return new Observable((observer) => {
+      if (this.landingResponse) {
+        observer.next(this.landingResponse);
+        observer.complete();
+
+      } else { 
+        this.httpClient.get<ILandingData>(baseUrl.testUrl).subscribe((data: ILandingData) => {
+          this.landingResponse = data; 
+          observer.next(this.landingResponse);
+          observer.complete();
+        }, err => {
+            this.landingResponse =  landingJson['default'];
+            observer.next(this.landingResponse);
             observer.complete()
         });
       }

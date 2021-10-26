@@ -68,16 +68,15 @@
                 <app-search></app-search>
                 <div class="navigation-otr">
                     <ul class="navigation-inr">
-                            <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['./']" fragment="about">About</a></li>
+                            <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['./']" fragment="blog">Blog</a></li>
                             <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['./']" fragment="services" >Services</a></li>
                             <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['./']" fragment="roadmap">Roadmap</a></li>
                             <!-- <li class="nav-li"><a class="nav-a body-sb" href="#team">Team</a></li> -->
                             <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['./']" fragment="contact">Contact</a></li>
-                            <li class="nav-li"><a class="nav-a body-sb" [routerLink]="['/assets']">Explore</a></li>
                     </ul>
                 </div>
                 <div class="action-otr">
-                    <a routerLink= "/mint" class="btn-fill btn-create">{{navButtons.create.title}}</a>
+                    <a routerLink= "/" class="btn-fill btn-create">Demo</a>
                 </div>
                 <div class="burger-menu">
                     <div class="burger-icon-otr">
@@ -88,10 +87,10 @@
         </div>
     </div>
   
-    <section class="welcome_area clearfix dzsparallaxer auto-init none fullwidth" data-options='{direction: "normal"}' id="home">
+    <section class="welcome_area clearfix dzsparallaxer auto-init none fullwidth" data-options='{direction: "normal"}' id="home" *ngIf="landingData">
       
       
-        <div class="divimage" style="width: 101%; height: 130%; background-image: url(/assets/img/museum2D.png)"></div>
+        <div class="divimage" style="width: 101%; height: 130%; background-image: url({{landingData.welcomeArea.backgroundImage}})"></div>
     
         <div class="hero-content transparent">
     
@@ -101,13 +100,13 @@
                     <div class="col-12 col-lg-6 col-md-12">
                         <div class="welcome-content">
                             <div class="card" style="margin-bottom: 10px; opacity: 90%; background: #7253A0;">
-                                <h1 style="color: white; margin-left: 5%;" class="fadeInUp" data-wow-delay="0.2s">The NFT Marketplace for African Creations. </h1>
-                                <p style="color: white !important; margin-left: 5%;" class="w-text fadeInUp" data-wow-delay="0.3s">Nifty Row is the first global NFT Marketplace for African Visual and Audible Arts as well as other unique assets.</p>
+                                <h1 style="color: white; margin-left: 5%;" class="fadeInUp" data-wow-delay="0.2s"> {{landingData.welcomeArea.title}} </h1>
+                                <p style="color: white !important; margin-left: 5%;" class="w-text fadeInUp" data-wow-delay="0.3s">{{landingData.welcomeArea.subText}}</p>
                             </div>
     
                             <div class="dream-btn-group fadeInUp" data-wow-delay="0.4s">
                                 <!-- <a href="#contact" class="btn dream-btn mr-3">Join Pre-Sale</a> -->
-                                <a href="pdf/NiftyRowDeck.pdf" class="btn dream-btn"> Deck</a>
+                                <a href="{{landingData.welcomeArea.pdfLink}}" class="btn dream-btn"> Deck</a>
                             </div>
                         </div>
                     </div>
@@ -121,20 +120,20 @@
     </section>
     
     
-    <div class="vertical-social">
+    <div class="vertical-social" *ngIf="landingData">
         <ul class="icon-ul">
             <li class="icon-li">
-                <a href="" class="icon-a">
+                <a href="{{landingData.verticalSocial.facebookUrl}}" class="icon-a">
                     <svg class="icon" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 28c6.627 0 12-5.373 12-12S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 11h-2a3 3 0 00-3 3v14M12 18h8" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
             </li>
             <li class="icon-li" style="margin-top: 10px; margin-bottom: 10px;">
-                <a href="" class="icon-a">
+                <a href="{{landingData.verticalSocial.twitterUrl}}" class="icon-a">
                     <svg class="icon" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 25s5-1 6-4c0 0-8-3-6-14 0 0 4 5 10 6v-2a5 5 0 019.584-2H30l-4 4c0 7-5 14-14 14-4 0-6-2-6-2z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
             </li>
             <li class="icon-li" style="margin-top: 10px; margin-bottom: 10px;">
-                <a href="" class="icon-a">
+                <a href="{{landingData.verticalSocial.pinterestUrl}}" class="icon-a">
                     <svg class="icon" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 19.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM20 19.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#999"/><path d="M9.3 10A21.917 21.917 0 0116 9a21.916 21.916 0 016.7 1M22.7 22a21.917 21.917 0 01-6.7 1 21.917 21.917 0 01-6.7-1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.38 22.761l1.504 3.006a.996.996 0 001.123.526c3.068-.75 5.712-2.057 7.638-3.73a1.007 1.007 0 00.31-1.05L25.706 7.358a1.002 1.002 0 00-.578-.639c-1.2-.491-2.44-.875-3.708-1.148a1.002 1.002 0 00-1.165.66l-.997 2.99M12.62 22.76l-1.504 3.007a.997.997 0 01-1.124.526c-3.067-.75-5.711-2.057-7.637-3.73a1.007 1.007 0 01-.309-1.05L6.293 7.358a1.003 1.003 0 01.578-.64c1.2-.49 2.44-.874 3.708-1.147a1.002 1.002 0 011.165.66l.997 2.99" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 19.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM20 19.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#999"/><path d="M9.3 10A21.917 21.917 0 0116 9a21.916 21.916 0 016.7 1M22.7 22a21.917 21.917 0 01-6.7 1 21.917 21.917 0 01-6.7-1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.38 22.761l1.504 3.006a.996.996 0 001.123.526c3.068-.75 5.712-2.057 7.638-3.73a1.007 1.007 0 00.31-1.05L25.706 7.358a1.002 1.002 0 00-.578-.639c-1.2-.491-2.44-.875-3.708-1.148a1.002 1.002 0 00-1.165.66l-.997 2.99M12.62 22.76l-1.504 3.007a.997.997 0 01-1.124.526c-3.067-.75-5.711-2.057-7.637-3.73a1.007 1.007 0 01-.309-1.05L6.293 7.358a1.003 1.003 0 01.578-.64c1.2-.49 2.44-.874 3.708-1.147a1.002 1.002 0 011.165.66l.997 2.99" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
             </li>
@@ -157,10 +156,10 @@
     </div>
     
     <!-- Buy/Sell Artworks Section -->
-        <section class="demo-video features section-padding-100"  style="background:url('/assets/img/svg/bg_hero.svg') no-repeat center right">
+        <section class="demo-video features section-padding-100"  style="background:url('/assets/img/svg/bg_hero.svg') no-repeat center right" *ngIf="landingData">
             <div class="container">
                 <div class="section-heading text-center">
-                    <h2 class="b-text fadeInUp" data-wow-delay="0.3s">Buy or Sell Real African Artworks</h2>
+                    <h2 class="b-text fadeInUp" data-wow-delay="0.3s">{{landingData.buyOrSellSection.title}}</h2>
                     <!--  <p class="fadeInUp" data-wow-delay="0.4s" style="color:#888">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.</p>-->
                 </div>
                 <!-- Welcome Video Area -->
@@ -169,47 +168,26 @@
                         <div class="welcome-video-area fadeInUp" data-wow-delay="0.5s">
                             <!-- Welcome Thumbnail -->
                             <div class="welcome-thumb">
-                                <img src="/assets/img/pexelselephant.jpeg" alt="">
+                                <img src="{{landingData.buyOrSellSection.welcomeThumbImage}}" alt="">
                             </div>
                             <!-- Video Icon -->
                             <div class="video-icon">
-                                <a href="https://www.youtube.com/watch?v=4tQee2_JgUo" class="btn dream-btn video-btn" id="videobtn"><i class="fa fa-play"></i></a>
+                                <a href="{{landingData.buyOrSellSection.video}}" class="btn dream-btn video-btn" id="videobtn"><i class="fa fa-play"></i></a>
                             </div>
                         </div>
                     </div>
     
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="services-block-four mt-s">
+                        <div class="services-block-four mt-s" *ngFor="let item of landingData.buyOrSellSection.rightBlock">
                             <div class="inner-box">
                                 <div class="icon-img-box">
-                                    <img src="/assets/img/svg/how1.svg" alt="">
+                                    <img src="{{item.image}}" alt="">
                                 </div>
-                                <h3><a href="#">Issuing and auction NFTs easily</a></h3>
-                                <div class="text">Mint an ERC721/ERC1155 compartible NFT and auction it.</div>
+                                <h3><a href="#">{{item.title}}</a></h3>
+                                <div class="text">{{item.subtitle}}</div>
         
                             </div>
                         </div>
-                        <div class="services-block-four">
-                            <div class="inner-box">
-                                <div class="icon-img-box">
-                                    <img src="/assets/img/svg/how2.svg" alt="">
-                                </div>
-                                <h3><a href="#">Buy Curated Artworks</a></h3>
-                                <div class="text">Bid for artworks from collectors and galleries with the option for physical delivery.</div>
-                                <!-- <div class="text">Creators earn from initial auction and also from resale commissions perpetually.</div> -->
-                            </div>
-                        </div>
-                        <div class="services-block-four" style="margin-bottom:0">
-                            <div class="inner-box">
-                                <div class="icon-img-box">
-                                    <img src="/assets/img/svg/how3.svg" alt="">
-                                </div>
-                                <h3><a href="#">NFT DeFi Services</a></h3>
-                                <div class="text">Access convenient decentralized financial services like credit, staking and insurance.</div>
-        
-                            </div>
-                        </div>
-        
                     </div>
                 </div>
                 
@@ -217,7 +195,7 @@
             </div>
         </section>
     
-    <div class="double-bg">
+    <div class="double-bg" *ngIf="landingData">
     
         <section class="features section-padding-100-0" style="padding-bottom:70px">
     
@@ -228,45 +206,22 @@
     
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-4" *ngFor="let item of landingData.investorSection">
                     <!-- Content -->
-                    <div class="service_single_content box-shadow text-center mb-100 fadeInUp" data-wow-delay="0.2s" style="background:rgb(255, 253, 255)">
+                    <div class="service_single_content box-shadow text-center mb-100 fadeInUp" data-wow-delay="0.2s" style="background:rgb(255, 253, 255)" >
                         <!-- Icon -->
                         <div class="service_icon">
-                            <img class="embed-video" src="/assets/video/1.gif" alt="">
+                            <img class="embed-video" src="{{item.image}}" alt="">
                         </div>
-                        <h6>Winning Bidder</h6>
-                        <p>Investors participate by bidding in an NFT auction and secure the asset by being the highest bidder.</p>
+                        <h6>{{item.title}}</h6>
+                        <p>{{item.subtitle}}</p>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content box-shadow text-center mb-100 fadeInUp" data-wow-delay="0.3s" style="background:rgb(255, 253, 255)">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img class="embed-video" src="/assets/video/2.gif" alt="">
-                        </div>
-                        <h6>Earn Royalties</h6>
-                        <p>Investors are then able to earn extra income from royalties.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content box-shadow text-center mb-100 fadeInUp" data-wow-delay="0.4s" style="background:rgb(255, 253, 255)">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img class="embed-video" src="/assets/video/3.gif" alt="">
-                        </div>
-                        <h6>Resale for Capital Gains</h6>
-                        <p>Investors resell the asset to other investors in the future for capital gains.</p>
-                    </div>
-                </div>
-    
             </div>
         </div>
     </section>
         <!-- ##### About Us Area Start ##### -->
-
+<!-- 
         <section class="about-us-area section-padding-0-0 clearfix" id="about">
             <div class="container">
                 <div class="row align-items-center">
@@ -290,12 +245,6 @@
                 </div>
             </div>
         </section>
-        <!-- ##### About Us Area End ##### -->
-
-   
-
-    
-        <!-- ##### About Us Area Start ##### -->
         <section class="about-us-area section-padding-100 clearfix">
             <div class="container">
                 <div class="row align-items-center">
@@ -317,15 +266,14 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- ##### About Us Area End ##### -->
+        </section> -->
     </div>
 
 
     <div class="clearfix"></div>
 
     <!-- ##### Our Services Area Start ##### -->
-    <section class="our_services_area section-padding-100-0 clearfix" id="services">
+    <section class="our_services_area section-padding-100-0 clearfix" id="services" *ngIf="landingData">
         <div class="container">
 
             <div class="section-heading text-center">
@@ -335,70 +283,15 @@
 
 
             <div class="row">
-                <div class="col-12 col-sm-6 col-lg-4">
+                <div class="col-12 col-sm-6 col-lg-4" *ngFor="let item of landingData.servicesSection">
                     <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.2s">
+                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.2s" >
                         <!-- Icon -->
                         <div class="service_icon">
-                            <img src="/assets/img/features/1.png" alt="">
+                            <img src="{{item.image}}" alt="">
                         </div>
-                        <h6>Token Issuance</h6>
-                        <p>ERC721 and ERC1155 compatible NFT Issue platform.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.3s">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img src="/assets/img/features/2.png" alt="">
-                        </div>
-                        <h6>Investor Relations</h6>
-                        <p>Nifty Row ensures that all asset rights are smoothly transferred to the investor.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.4s">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img src="/assets/img/features/3.png" alt="">
-                        </div>
-                        <h6>Guranteed commissions </h6>
-                        <p>Artists can be rest assured of both the initial sale and subsequent resale commissions.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.5s">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img src="/assets/img/features/4.png" alt="">
-                        </div>
-                        <h6>English Auction</h6>
-                        <p>The protocol ensures an English Auction powered by a Smart Contract which  guarantees  undisputable sale finality.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.6s">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img src="/assets/img/features/5.png" alt="">
-                        </div>
-                        <h6>Asset Verification</h6>
-                        <p>All NFTs are asset backed and verified for proof of ownership without any hindrances.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <!-- Content -->
-                    <div class="service_single_content text-center mb-100 fadeInUp" data-wow-delay="0.7s">
-                        <!-- Icon -->
-                        <div class="service_icon">
-                            <img src="/assets/img/features/6.png" alt="">
-                        </div>
-                        <h6>DeFi Services</h6>
-                        <p>Nifty Row will enable borrowing, staking, and insurance services based on NFTs.</p>
+                        <h6>{{item.title}}</h6>
+                        <p>{{item.subtitle}}</p>
                     </div>
                 </div>
             </div>
@@ -413,78 +306,76 @@
             <!--<p class="fadeInUp" data-wow-delay="0.4s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo.</p>-->
         </div>
         <div class="container-fluid">
-            <div class="row">
+            <div class="row" id="mobileRow">
                 <div class="section_5-content">
                     <div class="section_5-slider-trumb"></div>
                     <div id="section_5-slider-circle">
-                        <div style="left:10%" class="data_cir cir_0" data-date="Q1 2021">
+                        <div style="left:30%" class="data_cir cir_0" data-date="Q1 2021">
                             <div class="data_cir-content">
-                                <div><span class="roadmap_content_info">Product Concept Development Jan 2021 </span><span class="roadmap_img"><img src="img/roadmap-icons/1.svg" alt=""></span></div>
+                                <div><div class="roadmap_content_info"><ul><li><span>Quarter 1, 2021</span></li>
+                                    <li><span>Technology Evaluation</span></li>
+                                    <li><span>Product Design </span></li>
+                                    <li><span>Partnerships sign-ups</span></li>
+                                    <li><span>Quarter 1, 2021</span></li>
+                                </ul>
+                                </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/1.svg" alt=""></span></div>
                             </div>
                         </div>
-                        <div style="left:20%" class="data_cir cir_1" data-date="Q1 2021">
+                        <div style="left:40%" class="data_cir cir_2" data-date="Q2 2021">
                             <div class="data_cir-content">
-                                <div>
-                                    <div class="roadmap_content_info">
-                                        <ul>
-                                            <li><span>Platform Design </span></li>
-                                            <li><span>UI Development </span></li>
-                                            <li><span>Partnerships sign-ups</span></li>
-                                            <li><span> February – March 2021</span></li>
-                                        </ul>
-                                    </div>
-                                    <span class="roadmap_img"><img src="/assets/img/roadmap-icons/2.svg" alt=""></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="left:30%" class="data_cir cir_2" data-date="Q2 2021">
-                            <div class="data_cir-content">
-                                <div><div class="roadmap_content_info"><ul><li><span> NFT Issue and Auction MVP Development</span></li>
+                                <div><div class="roadmap_content_info"><ul><li><span>Quarter 2, 2021</span></li>
+                                <li><span>Product Development</span></li>
                                 <li><span>Ethereum and BSC blockchain integration</span></li>
-                                <li><span>Start of partnerships signups</span></li>
-                                <li><span>April - May 2021</span></li>
+                                <li><span>Partnerships sign-ups</span></li>
+                                <li><span>Quality Assurance</span></li>
+
                                 </ul>
                                 </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/3.svg" alt=""></span></div>
                             </div>
                         </div>
-                        <div style="left:40%" class="data_cir cir_3" data-date="Q2 2021">
+                        <div style="left:50%" class="data_cir cir_3" data-date="Q3 2021">
                             <div class="data_cir-content">
-                                <div><div class="roadmap_content_info"><ul><li><span>Website and MVP launch</span></li>
+                                <div><div class="roadmap_content_info"><ul><li><span>Quarter 3, 2021</span></li>
+                                <li><span>Wallet Integration</span></li>
                                 <li><span>Testnet Go-Live</span></li>
-                                <!-- <li><span>Private Sale starts 30th June</span></li> -->
-                                <li><span>June 2021</span></li>
+                                <li><span>Marketing Plan</span></li>
+                                <li><span>Partnerships sign-ups</span></li>
+
                                 </ul>
                                 </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/4.svg" alt=""></span></div>
                             </div>
                         </div>
-                        <div style="left:50%" class="data_cir cir_4 red_crc" data-date="Q3 2021">
+                        <div style="left:60%" class="data_cir cir_4 red_crc" data-date="Q4 2021">
                             <div class="data_cir-content">
-                                <div><div class="roadmap_content_info"><ul>
+                                <div><div class="roadmap_content_info"><ul><li><span>Quarter 4, 2021</span></li>
                                 <li><span>Marketing campaign</span></li>
-                                <li><span>July - August 2021</span></li>
+                                <li><span>Pre-sale</span></li>
+                                <li><span>Public-sale</span></li>
+                                <li><span>Mainnet Launch</span></li>
+
                                 </ul>
                                 </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/5.svg" alt=""></span></div>
                             </div>
                         </div>
-                        <div style="left:60%" class="data_cir cir_5 next" data-date="Q3 2021">
+                        <div style="left:70%" class="data_cir cir_5 next" data-date="Q5 2022">
                             <div class="data_cir-content">
-                                <div><div class="roadmap_content_info"><ul>
-                                <li><span>Mobile App and DeFi Launch</span></li>
-                                <li><span>Start Development of DeFi services</span></li>
-                                <li><span>Mainnet Launch</span></li>
-                                <li><span> September-November 2021</span></li>
+                                <div><div class="roadmap_content_info"><ul><li><span>Quarter 1, 2022</span></li>
+                                <li><span>Mobile App and DeFi Development</span></li>
+                                <li><span>DeFi Development</span></li>
+                                <li><span>DeFi Mainnet Launch</span></li>
+                                <li><span>DEX Listing</span></li>
                                 </ul>
                                 </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/6.svg" alt=""></span></div>
                             </div>
                         </div>
-                        <div style="left:70%" class="data_cir cir_6 next" data-date="Q4 2021">
+                        <!--<div style="left:70%" class="data_cir cir_6 next" data-date="Q4 2021">
                             <div class="data_cir-content">
                                 <div><div class="roadmap_content_info"><ul><li><span>DeFi Services Alpha</span></li>
                                 <li><span>Testnet integration for DeFi Services</span></li>
                                 <li><span>New partnerships and new marketplace support</span></li>
                                 <li><span>December 2021</span></li>
                                 </ul>
-                                </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/7.svg" alt=""></span></div>
+                                </div><span class="roadmap_img"><img src="img/roadmap-icons/7.svg" alt=""></span></div>
                             </div>
                         </div>
                         <div style="left:80%" class="data_cir cir_7 next" data-date="Q1 2022">
@@ -494,7 +385,7 @@
                                 <li><span>Mainnet integration for DeFi Services</span></li>
                                 <li><span>January - March 2022 </span></li>
                                 </ul>
-                                </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/8.svg" alt=""></span></div>
+                                </div><span class="roadmap_img"><img src="img/roadmap-icons/8.svg" alt=""></span></div>
                             </div>
                         </div>
                         <div style="left:90%" class="data_cir cir_8 next" data-date="Q2 2022">
@@ -502,13 +393,14 @@
                                 <div><div class="roadmap_content_info"><ul><li><span> DeFi Platform integration to Third-party marketplaces</span></li>
                                 <li><span>Partnership sign-ups with Finance and Insurance organizations</span></li>
                                 </ul>
-                                </div><span class="roadmap_img"><img src="/assets/img/roadmap-icons/9.svg" alt=""></span></div>
+                                </div><span class="roadmap_img"><img src="img/roadmap-icons/9.svg" alt=""></span></div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
+       
     </section>
     <!-- ##### Our roadmap Area End ##### -->
 
@@ -516,31 +408,27 @@
             Popular Collection Start Here
     ========================================-->
 
-    <div class="popular-collection">
+    <div class="popular-collection" id="blog" *ngIf="landingData">
         <div class="container-fluid">
             <div class="popular-collection-inr">
-                <div class="heading-otr">
-                    <div class="head-otr">
-                        <h3 class="heading heading-h3">Popular Collections</h3>
-                    </div>
+                <div class="wrapper">
+                    <h3 class="heading heading-h2" style="text-align: center;">From Our Blog </h3>
                 </div>
                 <span class="line"></span>
-                <p-carousel [value]="blogs" [numVisible]="1" [numScroll]="1"  [showIndicators]="true">
-                    <ng-template let-artwork pTemplate="item">
+                <p-carousel [value]="landingData.blogSection" [numVisible]="1" [numScroll]="1"  [showIndicators]="true">
+                    <ng-template let-item pTemplate="item">
                         <div class="row-custom owl-carousel owl-theme" id="popular-artwork">
                             <div class="col-otr">
                                 <div class="col-inr">
                                     <a  class="img-otr">
-                                        <img class="img-fluid img-artwork" src="/assets/img/cover-img8.jpg" alt="artwork-img">
+                                        <img class="img-fluid img-artwork" src="{{item.image}}" alt="artwork-img">
                                     </a>
                                     <div class="content">
                                         
-                                        <h3 class="head heading-h3">Pre-sale Whitelist Form</h3>
-                                        <a  class="by-otr body-sb"> <span class="by body-s">by</span> MetaBoss</a>
-                                        <p class="fadeInUp" data-wow-delay="0.4s">Nifty Row seeks to deliver a unique platform that will enable creators like animators and producers issue and auction NFTs gloabally.</p>
-                                        <p class="fadeInUp" data-wow-delay="0.5s">The marketplace will leverage on the global success of Nollywood films which currently airs across Africa, the US, UK, Europe and other parts of the world.</p>
-                                        <p class="fadeInUp" data-wow-delay="0.6s">Investors of motion picture rights can be rest assured of incomes as the movies air over multiple cable and satellite networks such as Sky TV, DSTV, Netflix, Iroko TV, Amazon prime etc.</p>
-                                        <p class="View-p body-sb">Read More</p>
+                                        <h3 class="head heading-h3">{{item.title}}</h3>
+                                        <a  class="by-otr body-sb"> <span class="by body-s">by</span> {{item.author}}</a>
+                                        <p class="fadeInUp" data-wow-delay="0.4s">{{item.body}}</p>
+                                        <a class="btn dream-btn mt-30 fadeInUp" data-wow-delay="0.7s" href="#">Read More</a>
                                     </div>
                                     
                                 </div>
@@ -557,7 +445,7 @@
 ========================================-->
 
     <!-- ##### Token counter Start ##### -->
-    <div class="faq-timeline-area section-padding-100" style="background:#fff;padding-bottom:70px">
+    <div class="faq-timeline-area section-padding-100" style="background:#fff;padding-bottom:70px" *ngIf="landingData">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12">
@@ -571,7 +459,7 @@
                         </div>
 
 		                <div class="col-md-6">
-		                  <a href="/assets/pdf/NiftyRowDeck.pdf">
+		                  <a href="{{landingData.deckSection.decklink}}">
 		                      <div class="article box-shadow">
 		                        <i class="ui-content-download article__icon">
 		                            <img src="/assets/img/flags/uk.png" class="flag-img" alt="">
@@ -594,7 +482,7 @@
     <!-- ##### Token counter Area End ##### -->
 
     <!-- ##### token-distribution Area start ##### -->
-    <section class="token-distribution section-padding-100">
+    <section class="token-distribution section-padding-100" *ngIf="landingData">
         <div class="container">
 
             <div class="section-heading text-center">
@@ -602,21 +490,17 @@
                 <!-- <div class="dream-dots justify-content-center fadeInUp" data-wow-delay="0.2s">
                     <img src="img/svg/section-icon-4.svg" alt="">
                 </div> -->
-                <h2 class="fadeInUp" data-wow-delay="0.3s">Our Token Metrics</h2>
-                <p class="fadeInUp" data-wow-delay="0.4s">There will be a total of 100 Million NRT tokens in the token offer.</p>
+                <h2 class="fadeInUp" data-wow-delay="0.3s">{{landingData.tokenSection.title}}</h2>
+                <p class="fadeInUp" data-wow-delay="0.4s">{{landingData.tokenSection.subtitle}}</p>
             </div>
-
+            
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Token Allocation</h2>
-                <div class="token-allocation">
-                    <img src="/assets/img/core-img/sale.png" class="center-block" alt="">
-                </div>
+                <p-chart type="pie" [data]="tokenAllocationData" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Use of Sales Proceeds</h2>
-                <div class="token-allocation">
-                    <img src="/assets/img/core-img/distribution.png" class="center-block" alt="">
-                </div>
+                <p-chart type="pie" [data]="useOfSalesData" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
             </div>
         </div>
 
@@ -640,7 +524,8 @@
             </div>
             <span class="line"></span>
             <div class="row row-contact">
-                <div class="col-lg-5 col-contact-box">
+                <div class="col-lg-1 col-contact-box"></div>
+                <div class="col-lg-4 col-contact-box">
                     <div class="contact-box-inr">
                         <img class="circle-img" src="/assets/img/contact-circle.svg" alt="img">
                         <div class="box-address">

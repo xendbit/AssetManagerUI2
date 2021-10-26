@@ -31,6 +31,7 @@
     "@types/jest": "^27.0.2",
     "@types/mocha": "^9.0.0",
     "breakpoint-sass": "^2.7.1",
+    "chart.js": "^2.9.4",
     "core-js": "^2.5.4",
     "ethers": "^5.4.7",
     "moment": "^2.29.1",

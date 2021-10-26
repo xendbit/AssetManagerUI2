@@ -1,5 +1,4 @@
 export interface ILandingData {
-    classynav: [{"link": string, "title": string}]
     welcomeArea: {
       backgroundImage: string,
       title: string,
@@ -12,6 +11,7 @@ export interface ILandingData {
       welcomeThumbImage: string,
       video: string,
       rightBlock: [{
+          image: string,
           title: string,
           subtitle: string
       }]
@@ -21,10 +21,13 @@ export interface ILandingData {
           title: string,
           subtitle: string
     }],
-    aboutUsSection: [{
-      image: string,
-      title: string,
-      paragraphs: [{text: string}]
+    blogSection: [{
+        mainLink: string;
+        image: string; 
+        title: string;
+        date: string;
+        author: string;
+        body: string;
     }],
     servicesSection: [{
       image: string,

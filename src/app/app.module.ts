@@ -28,6 +28,7 @@ import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
 import { CalendarModule} from 'primeng/calendar';
 import {DialogModule} from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import {ChartModule} from 'primeng/chart';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -66,7 +67,8 @@ import { LandingComponent } from './pages/landing/landing.component';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ChartModule
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

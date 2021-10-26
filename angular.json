@@ -37,7 +37,8 @@
               "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [
-              "src/lib/js/modernizr-touch-events.js"
+              "src/lib/js/modernizr-touch-events.js",
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {

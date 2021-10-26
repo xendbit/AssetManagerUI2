@@ -33,6 +33,7 @@ export interface IPresentation {
     owner:IOwner;
     creator:ICreator;
     featuredImage:IMedia;
+    collection?: ICollection;
     isBidding:boolean;
     gallery?:Array<IMedia>;
     description?:string;

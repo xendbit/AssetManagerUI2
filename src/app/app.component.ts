@@ -30,6 +30,9 @@ export class AppComponent extends AppController implements OnInit {
         this.showHeader = this.route.firstChild.snapshot.data.showHeader;
       }
     });
+    this.mainService.getLanding().subscribe(res => {
+      
+    });
     this.mainService.getNavButtons().subscribe(res => {
       this.navButtons = res;
     });

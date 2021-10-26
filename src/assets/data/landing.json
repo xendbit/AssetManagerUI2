@@ -1,62 +1,147 @@
 {
-    "classynav": [{"link": "", "title": ""}],
     "welcomeArea": {
-      "backgroundImage": "",
-      "title":"",
-      "subText": "",
-      "pdfLink": ""
+      "backgroundImage": "/assets/img/museum2D.png",
+      "title":"The NFT Marketplace for African Creations.",
+      "subText": "Nifty Row is the first global NFT Marketplace for African Visual and Audible Arts as well as other unique assets.",
+      "pdfLink": "/assets/pdf/NiftyRowDeck.pdf"
     },
     "verticalSocial": {"facebookUrl": "", "twitterUrl": "", "discordUrl": "", "pinterestUrl": "", "youTubeUrl": "", "telegramUrl": ""},
     "buyOrSellSection": {
-      "title": "",
-      "welcomeThumbImage": "",
-      "video": "",
+      "title": "Buy or Sell Real African Artworks",
+      "welcomeThumbImage": "/assets/img/pexelselephant.jpeg",
+      "video": "https://www.youtube.com/watch?v=4tQee2_JgUo",
       "rightBlock": [{
-          "title": "",
-          "subtitle": ""
-      }]
+          "image": "/assets/img/svg/how1.svg",
+          "title": "Issuing and auction NFTs easily",
+          "subtitle": "Mint an ERC721/ERC1155 compartible NFT and auction it."
+      },
+      {
+          "image": "/assets/img/svg/how2.svg",
+          "title": "Buy Curated Artworks",
+          "subtitle": "Bid for artworks from collectors and galleries with the option for physical delivery."
+      },
+      {
+        "image": "/assets/img/svg/how3.svg",
+        "title": "NFT DeFi Services",
+        "subtitle": "Access convenient decentralized financial services like credit, staking and insurance."
+      }
+    ]
     },
-    "investorSection": [{
-        "image": "",
-        "title": "",
-        "subtitle": ""
+    "investorSection": [
+        {
+            "image": "/assets/video/1.gif",
+            "title": "Winning Bidder",
+            "subtitle": "Investors participate by bidding in an NFT auction and secure the asset by being the highest bidder."
+        },
+        {
+            "image": "/assets/video/1.gif",
+            "title": "Earn Royalties",
+            "subtitle": "Investors are then able to earn extra income from royalties."
+        }, 
+        {
+            "image":"/assets/video/3.gif",
+            "title":"Resale for Capital Gains",
+            "subtitle":"Investors resell the asset to other investors in the future for capital gains."
+        }
+    ],
+    "blogSection": [{
+        "mainLink": "",
+        "image": "/assets/img/bg-img/david.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/core-img/about12.png",
+        "title": "NFTs for the Nollywood movie industry.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Nifty Row seeks to deliver a unique platform that will enable creators like animators and producers issue and auction NFTs gloabally. The marketplace will leverage on the global success of Nollywood films which currently airs across Africa, the US, UK, Europe and other parts of the world. Investors of motion picture rights can be rest assured of incomes as the movies air over multiple cable and satellite networks such as Sky TV, DSTV, Netflix, Iroko TV, Amazon prime etc."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/bg-img/david.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/core-img/about12.png",
+        "title": "NFTs for the Nollywood movie industry.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": " Nifty Row seeks to deliver a unique platform that will enable creators like animators and producers issue and auction NFTs gloabally. The marketplace will leverage on the global success of Nollywood films which currently airs across Africa, the US, UK, Europe and other parts of the world. Investors of motion picture rights can be rest assured of incomes as the movies air over multiple cable and satellite networks such as Sky TV, DSTV, Netflix, Iroko TV, Amazon prime etc."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/bg-img/david.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
     }],
-    "aboutUsSection": [{
-      "image": "",
-      "title": "",
-      "paragraphs": [{"text": ""}]
-    }],
-    "servicesSection": [{
-      "image": "",
-      "title": "",
-      "subtitle": ""
-    }],
+    "servicesSection": [
+        {
+            "image": "/assets/img/features/1.png",
+            "title": "Token Issuance",
+            "subtitle": "ERC721 and ERC1155 compatible NFT Issue platform."
+        },
+        {
+            "image":"/assets/img/features/2.png",
+            "title":"Investor Relations",
+            "subtitle":"Nifty Row ensures that all asset rights are smoothly transferred to the investor."
+        },
+        {
+            "image":"/assets/img/features/3.png",
+            "title":"Guranteed commissions",
+            "subtitle":"Artists can be rest assured of both the initial sale and subsequent resale commissions."
+        },
+        {
+            "image": "/assets/img/features/4.png",
+            "title": "English Auction",
+            "subtitle": "The protocol ensures an English Auction powered by a Smart Contract which  guarantees  undisputable sale finality."
+        },
+        {
+            "image":"/assets/img/features/5.png",
+            "title":"Asset Verification",
+            "subtitle":"All NFTs are asset backed and verified for proof of ownership without any hindrances."
+        },
+        {
+            "image":"/assets/img/features/6.png",
+            "title":"DeFi Services",
+            "subtitle":"Nifty Row will enable borrowing, staking, and insurance services based on NFTs."
+        }
+    ],
     "roadmapSection": {
       "image": ""
     },
     "deckSection": {
-      "decklink": ""
+      "decklink": "/assets/pdf/NiftyRowDeck.pdf"
     },
     "tokenSection": {
-      "title": "",
-      "subtitle": "",
+      "title": "Our Token Metrics",
+      "subtitle": "There will be a total of 100 Million NRT tokens in the token offer.",
       "tokenAllocationData": {
-        "partnerships": 0,
-        "privateSale": 0,
-        "team": 0,
-        "researchData": 0,
-        "votingRewards": 0,
-        "advisors": 0,
-        "publicSale": 0,
-        "exchange": 0
+        "partnerships": 20,
+        "privateSale": 25,
+        "team": 15,
+        "researchData": 10,
+        "votingRewards": 5,
+        "advisors": 5,
+        "publicSale": 15,
+        "exchange": 5
       },
       "useOfSalesData": {
-        "creativeFund": 0,
-        "development": 0,
-        "exchangeListings": 0,
-        "operations": 0,
-        "brandingMarketing": 0,
-        "legal": 0
+        "creativeFund": 35,
+        "development": 20,
+        "exchangeListings": 15,
+        "operations": 10,
+        "brandingMarketing": 10,
+        "legal": 10
       }
     }
   
