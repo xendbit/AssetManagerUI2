@@ -496,11 +496,11 @@
             
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Token Allocation</h2>
-                <p-chart type="pie" [data]="tokenAllocationData" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
+                <p-chart type="doughnut" [data]="tokenAllocationData" [options]="chartOptions" [responsive]="true"  [style]="{'width': '50%'}"></p-chart>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Use of Sales Proceeds</h2>
-                <p-chart type="pie" [data]="useOfSalesData" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
+                <p-chart type="doughnut" [data]="useOfSalesData" [options]="chartOptions"  [style]="{'width': '50%'}"></p-chart>
             </div>
         </div>
 
@@ -525,7 +525,7 @@
             <span class="line"></span>
             <div class="row row-contact">
                 <div class="col-lg-1 col-contact-box"></div>
-                <div class="col-lg-4 col-contact-box">
+                <div class="col-lg-5 col-contact-box">
                     <div class="contact-box-inr">
                         <img class="circle-img" src="/assets/img/contact-circle.svg" alt="img">
                         <div class="box-address">
@@ -601,34 +601,53 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7 col-message-otr">
+                <div class="col-lg-6 col-message-otr">
                     <div class="col-message-inr">
                         <h3 class="head heading-h3">Pre-sale Whitelist Form</h3>
                         <p class="desc body-m">Please fill out the form with a copy of a link to your Nifty Row social media engagement on Twitter.</p>
-                        <form class="form-main" method="post">
-                            <div class="input-otr" data-wow-delay="0.2s">
-                                <input class="input" type="text" name="firstName" id="firstName" placeholder="Your First Name" required>
+                        <form class="form-main" method="post" #contactForm="ngForm">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-otr" data-wow-delay="0.2s">
+                                        <input class="input" type="text" name="firstName" id="firstName" [(ngModel)]="firstName" placeholder="Your First Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-otr" data-wow-delay="0.2s">
+                                        <input class="input" type="text" name="lastName" id="lastName" [(ngModel)]="lastName" placeholder="Your Last Name" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="input-otr" data-wow-delay="0.2s">
-                                <input class="input" type="text" name="lastName" id="lastName" placeholder="Your Last Name" required>
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="input-otr">
+                                        <input class="input" type="number" name="amount" id="amount" [(ngModel)]="amount" placeholder="ETH ICO Participation Amount" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="input-otr" data-wow-delay="0.3s">
+                                        <input class="input" type="email" name="email" [(ngModel)]="email" placeholder="Your Email Address" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-otr" data-wow-delay="0.2s">
+                                        <input class="input" type="text" name="tweetLink" [(ngModel)]="tweetLink" id="linkToTweet" placeholder="Twitter Link" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-otr">
+                                        <input class="input" type="text" name="linkedInUrl" [(ngModel)]="linkedInUrl" id="linkedInUrl" placeholder="LinkedIn Url" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="input-otr">
-                                <input class="input" type="number" name="amount" id="amount" placeholder="Expected ETH ICO Participation Amount" required>
-                            </div>
-                            <div class="input-otr" data-wow-delay="0.2s">
-                                <input class="input" type="text" name="walletAddress" id="walletAddress" placeholder="ERC-20 Wallet Address" required>
-                            </div>
-                            <div class="input-otr" data-wow-delay="0.3s">
-                                <input class="input" type="email" name="email" placeholder="Your Email Address" required>
+                                <input class="input" type="text" [(ngModel)]="country" name="country" id="country" placeholder="Country of Origin" required>
                             </div>
                             <div class="input-otr">
-                                <input class="input" type="text" name="linkedInUrl" id="linkedInUrl" placeholder="LinkedIn Url" required>
-                            </div>
-                            <div class="input-otr">
-                                <input class="input" type="text" name="country" id="country" placeholder="Country of Origin" required>
-                            </div>
-                            <div class="input-otr">
-                                <textarea class="input" name="tweetLink" id="linkToTweet" placeholder="ERC-20 Wallet Address" required></textarea>
+                                <textarea class="input" name="walletAddress" [(ngModel)]="walletAddress" id="walletAddress" placeholder="ERC-20 Wallet Address" required></textarea>
                             </div>
                             <div class="row">
                                 <div class="form-check">
@@ -639,7 +658,7 @@
                                   </div>
                             </div>
                             <div style="margin-top: 10px;" class="col-12 text-center fadeInUp" data-wow-delay="0.6s">
-                                <button type="submit" class="btn dream-btn" (click)="sendData()">Submit</button>
+                                <button type="submit" class="btn dream-btn" (click)="sendData(contactForm)">Submit</button>
                             </div>
                         </form>
                     </div>

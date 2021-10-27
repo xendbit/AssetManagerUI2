@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { IBlogGroup } from 'src/app/core/components/blog/blog.interfaces';
 import { IMenuGroups } from 'src/app/core/components/footer/footer.interface';
 import { INavButton } from 'src/app/core/components/header/header.interface';
 import { MainService } from 'src/app/core/services/main.service';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { ILandingData } from './landing.interface';
+import {  NgForm } from '@angular/forms';
 
 
 
@@ -20,6 +20,15 @@ export class LandingComponent implements OnInit {
   landingData: ILandingData;
   tokenAllocationData: any;
   useOfSalesData: any;
+  firstName: string;
+  lastName: string;
+  email: string;
+  amount: number;
+  walletAddress: string;
+  country: string;
+  linkedInUrl: string;
+  tweetLink: string;
+
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private spinner: NgxSpinnerService) {
     this.tokenAllocationData = {
       labels: ['Partnerships','Private Sale','Team', 'Research Data', 'Voting Rewards', 'Advisors', 'Public Sale', 'Exchange'],
@@ -96,8 +105,14 @@ export class LandingComponent implements OnInit {
     this.spinner.hide();
   }
 
-  sendData() {
-
+  sendData(contactForm: NgForm) {
+    this.mainService.submitWhitelistForm(
+      contactForm.value.email, contactForm.value.firstName, contactForm.value.lastName,
+      contactForm.value.amount, contactForm.value.walletAddress, contactForm.value.linkedInUrl,
+      contactForm.value.country, contactForm.value.tweetLink
+    ).subscribe(res => {
+      console.log('this is it');
+    });
   }
 
   updateCharts() {

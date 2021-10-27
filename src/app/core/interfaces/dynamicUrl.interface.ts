@@ -4,6 +4,7 @@ export interface IurlConfig {
     headers?: Headers | any;
     testUrl?: Params | any;
     mainUrl: Params | any;
+    icoUrl: Params | any;
 }
 
 export interface IRouter {

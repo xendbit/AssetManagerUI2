@@ -386,6 +386,24 @@ export class MainService {
     }); 
   }
 
+  submitWhitelistForm(email: string, firstname: string, lastname: string, 
+    amount: number, walletAddress: any, linkedInUrl: string, countryOfOrigin: string,
+    linkToTweet: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${baseUrl.icoUrl}`, {
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+      amount: amount,
+      wallerAddress: walletAddress,
+      linkedInUrl: linkedInUrl,
+      countryOfOrigin: countryOfOrigin,
+      linkToTweet: linkToTweet,
+    },  {headers})
+  }
+
   getBlogPost() {
     return this.subjectBlogPost;
   }
