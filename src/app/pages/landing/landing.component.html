@@ -482,6 +482,7 @@
     <!-- ##### Token counter Area End ##### -->
 
     <!-- ##### token-distribution Area start ##### -->
+    <figure id="pie"></figure>
     <section class="token-distribution section-padding-100" *ngIf="landingData">
         <div class="container">
 
@@ -673,61 +674,6 @@
             
                  
         </div>
-
-        
-<!-- 
-        <script type="text/javascript">
-        function sendData() {
-
-        var form = $('#myForm');
-            var formMessages = $('#success_fail_info');
-            
-            $(form).submit(function (e) {
-        e.preventDefault();
-        
-         var person = {
-            firstName: $("#firstName").val(),
-            lastName: $("#lastName").val(),
-            email: $("#email").val(),
-            amount: parseInt($("#amount").val()),
-            wallerAddress: $("#walletAddress").val(),
-            linkedInUrl: $("#linkedInUrl").val(),
-            countryOfOrigin: $("#countryOfOrigin").val(),
-            linkToTweet: $("#linkToTweet").val(),
-        }
-
-        $.ajax({
-            url: 'https://lb.xendbit.net/api/ico/whitelist/',
-            type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                'api-key': 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=',
-                data: JSON.stringify(person)
-            }).done(function (response) {
-                    $(formMessages).removeClass('error');
-                    $(formMessages).addClass('success');
-                    $(formMessages).text('Thanks! Message has been sent successfully.');
-                    $('#firstName').val('');
-                    $('#lastName').val('');
-                    $('#amount').val('');
-                    $('#walletAddress').val('');
-                    $('#email').val('');
-                    $('#linkedInUrl').val('');
-                    $('#countryOfOrigin').val('');
-                    $('#linkToTweet').val('');
-                })
-                .fail(function (data) {
-                    $(formMessages).removeClass('success');
-                    $(formMessages).addClass('error');
-                    if (data.responseText !== '') {
-                        $(formMessages).text(data.responseText);
-                    } else {
-                        $(formMessages).text('Oops! An error occured.');
-                    }
-                });
-        });
-    }
-            </script> -->
         <!-- ##### Contact Area End ##### -->
 
 

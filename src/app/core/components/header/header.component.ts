@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   @Input() public buttonsInfo: INavButton;
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
   buttonsData: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}}
+  account: string;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
@@ -37,7 +38,10 @@ export class HeaderComponent implements OnInit {
   }
 
   connectToMetamask() {
-    this.metamaskService.openMetamask();
+    this.metamaskService.openMetamask().then(res => {
+      console.log('res', res)
+      this.account = res.account;
+    });
   }
 
 }

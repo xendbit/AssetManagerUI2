@@ -97,7 +97,8 @@
                 </p-overlayPanel>
                 
                   <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
-                  <a (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
+                  <a *ngIf="account === ''" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
+                  <a *ngIf="account !== ''" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">Connected</a>
               </div>
               <div class="burger-menu">
                   <div class="burger-icon-otr">
