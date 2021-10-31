@@ -32,6 +32,7 @@ import {ChartModule} from 'primeng/chart';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,10 @@ import { LandingComponent } from './pages/landing/landing.component';
     ReactiveFormsModule,
     CalendarModule,
     OverlayPanelModule,
-    ChartModule
+    ChartModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

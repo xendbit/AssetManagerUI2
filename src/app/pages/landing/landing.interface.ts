@@ -43,24 +43,12 @@ export interface ILandingData {
     tokenSection: {
       title: string,
       subtitle: string
-      tokenAllocationData: {
-        partnerships: number,
-        privateSale: number,
-        team: number,
-        researchData: number,
-        votingRewards: number,
-        advisors: number,
-        publicSale: number
-        exchange: number
-      },
-      useOfSalesData: {
-        creativeFund: number,
-        development: number,
-        exchangeListings: number
-        operations: number,
-        brandingMarketing: number
-        legal: number
-      }
+      tokenAllocationData: [
+        {name: string, value: number}
+      ],
+      useOfSalesData: [
+        {name: string, value: number}
+      ]
     }
   
   }

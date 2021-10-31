@@ -7,9 +7,6 @@ import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { ILandingData } from './landing.interface';
 import {  NgForm } from '@angular/forms';
 
-
-
-
 @Component({
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
@@ -18,8 +15,6 @@ export class LandingComponent implements OnInit {
   headerInfo: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
   navButtons: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}};
   landingData: ILandingData;
-  tokenAllocationData: any;
-  useOfSalesData: any;
   firstName: string;
   lastName: string;
   email: string;
@@ -29,68 +24,67 @@ export class LandingComponent implements OnInit {
   linkedInUrl: string;
   tweetLink: string;
 
-  constructor(public mainService: MainService, public metamaskService: MetamaskService, private spinner: NgxSpinnerService) {
-    this.tokenAllocationData = {
-      labels: ['Partnerships','Private Sale','Team', 'Research Data', 'Voting Rewards', 'Advisors', 'Public Sale', 'Exchange'],
-      datasets: [
-          {
-              data: [0, 0, 0, 0, 0, 0, 0, 0],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726",
-                  "#2D5C96",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6",
-                  "#FFA726",
-              ]
-          }
-      ]
-    };
+  chartInstance: any;
+  tokenAllocation = {
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        name: 'Token Allocation',
+        type: 'pie',
+        radius: [30, 200],
+        center: ['50%', '50%'],
+        roseType: 'area',
+        itemStyle: {
+          borderRadius: 8
+        },
+        data: [
+          { value: 40, name: 'rose 1' },
+          { value: 38, name: 'rose 2' },
+          { value: 32, name: 'rose 3' },
+          { value: 30, name: 'rose 4' },
+          { value: 28, name: 'rose 5' },
+          { value: 26, name: 'rose 6' },
+          { value: 22, name: 'rose 7' },
+          { value: 18, name: 'rose 8' }
+        ]
+      }
+    ]
+  };
 
-    this.useOfSalesData = {
-      labels: ['Creative Fund','Development','Exchange Listings', 'Operations', 'Branding/Marketing', 'Legal'],
-      datasets: [
-          {
-              data: [0, 0, 0, 0, 0, 0,],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726",
-                  "#2D5C96",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6",
-                  "#FFA726",
-              ]
-          }
-      ]
-    };
+  useOfSales = {
+    tooltip: {
+      trigger: 'item'
+    },
+    series: [
+      {
+        name: 'Token Allocation',
+        type: 'pie',
+        radius: [30, 200],
+        center: ['50%', '50%'],
+        roseType: 'area',
+        itemStyle: {
+          borderRadius: 8
+        },
+        data: [
+          { value: 40, name: 'rose 1' },
+          { value: 38, name: 'rose 2' },
+          { value: 32, name: 'rose 3' },
+          { value: 30, name: 'rose 4' },
+          { value: 28, name: 'rose 5' },
+          { value: 26, name: 'rose 6' },
+          { value: 22, name: 'rose 7' },
+          { value: 18, name: 'rose 8' }
+        ]
+      }
+    ]
+  };
+
+  constructor(public mainService: MainService, public metamaskService: MetamaskService, private spinner: NgxSpinnerService) {
    }
 
   ngOnInit(): void {
-    
     this.spinner.show();
     this.mainService.getLanding().subscribe((res: any) => {
       this.landingData = res;
@@ -116,81 +110,54 @@ export class LandingComponent implements OnInit {
   }
 
   updateCharts() {
-    let updatedTokenData = {
-      labels: ['Partnerships','Private Sale','Team', 'Research Data', 'Voting Rewards', 'Advisors', 'Public Sale', 'Exchange'],
-      datasets: [
-          {
-              data: [this.landingData.tokenSection.tokenAllocationData.partnerships,
-                this.landingData.tokenSection.tokenAllocationData.privateSale,
-                this.landingData.tokenSection.tokenAllocationData.team,
-                this.landingData.tokenSection.tokenAllocationData.researchData,
-                this.landingData.tokenSection.tokenAllocationData.votingRewards,
-                this.landingData.tokenSection.tokenAllocationData.advisors,
-                this.landingData.tokenSection.tokenAllocationData.publicSale,
-                this.landingData.tokenSection.tokenAllocationData.exchange 
-              ],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726",
-                  "#2D5C96",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6",
-                  "#FFA726",
-              ]
-          }
+    this.tokenAllocation = {
+      tooltip: {
+        trigger: 'item'
+      },
+      series: [
+        {
+          name: 'Token Allocation',
+          type: 'pie',
+          radius: [10, 120],
+          center: ['50%', '50%'],
+          roseType: 'area',
+          itemStyle: {
+            borderRadius: 8
+          },
+          data: this.landingData.tokenSection.tokenAllocationData
+        }
       ]
     };
-
-    let updatedSalesData = {
-      labels: ['Creative Fund','Development','Exchange Listings', 'Operations', 'Branding/Marketing', 'Legal'],
-      datasets: [
-          {
-              data: [
-                this.landingData.tokenSection.useOfSalesData.creativeFund,
-                this.landingData.tokenSection.useOfSalesData.development,
-                this.landingData.tokenSection.useOfSalesData.exchangeListings,
-                this.landingData.tokenSection.useOfSalesData.operations,
-                this.landingData.tokenSection.useOfSalesData.brandingMarketing,
-                this.landingData.tokenSection.useOfSalesData.legal,
-              ],
-              backgroundColor: [
-                  "#42A5F5",
-                  "#66BB6A",
-                  "#FFA726",
-                  "#2D5C96",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6"
-              ],
-              hoverBackgroundColor: [
-                  "#64B5F6",
-                  "#81C784",
-                  "#FFB74D",
-                  "#7E9D38",
-                  "#66498A",
-                  "#298BA7",
-                  "#748DB6",
-                  "#FFA726",
-              ]
-          }
+    this.useOfSales = {
+      tooltip: {
+        trigger: 'item'
+      },
+      series: [
+        {
+          name: 'Use Of Sales',
+          type: 'pie',
+          radius: [10, 120],
+          center: ['50%', '50%'],
+          roseType: 'area',
+          itemStyle: {
+            borderRadius: 8
+          },
+          data: this.landingData.tokenSection.useOfSalesData
+        }
       ]
     };
+  }
 
-    this.tokenAllocationData = Object.assign({}, updatedTokenData);
-    this.useOfSalesData = Object.assign({}, updatedSalesData);
+  onChartInit(e: any) {
+    this.chartInstance = e;
+    console.log('on chart init:', e);
+  }
+
+  callMethod(type: string) {
+    if (this.chartInstance) {
+      const result = this.chartInstance[type]();
+      console.log(result);
+    }
   }
 
 

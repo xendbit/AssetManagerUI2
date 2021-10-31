@@ -123,26 +123,26 @@
       "decklink": "/assets/pdf/NiftyRowDeck.pdf"
     },
     "tokenSection": {
-      "title": "Our Token Metrics",
+      "title": "Tokenomics Preview",
       "subtitle": "There will be a total of 100 Million NRT tokens in the token offer.",
-      "tokenAllocationData": {
-        "partnerships": 20,
-        "privateSale": 25,
-        "team": 15,
-        "researchData": 10,
-        "votingRewards": 5,
-        "advisors": 5,
-        "publicSale": 15,
-        "exchange": 5
-      },
-      "useOfSalesData": {
-        "creativeFund": 35,
-        "development": 20,
-        "exchangeListings": 15,
-        "operations": 10,
-        "brandingMarketing": 10,
-        "legal": 10
-      }
+      "tokenAllocationData": [
+        { "value":  20, "name": "partnerships" },
+        { "value": 25, "name": "Private Sale" },
+        { "value": 15, "name": "Team" },
+        { "value": 10, "name": "Research Data" },
+        { "value": 5, "name": "Voting Rewards" },
+        { "value": 5, "name": "Advisors" },
+        { "value": 15, "name": "Public Sale" },
+        { "value": 5, "name": "Exchange" }
+      ],
+      "useOfSalesData":  [
+        { "value":  35, "name": "Creative Fund" },
+        { "value": 20, "name": "Development" },
+        { "value": 15, "name": "Exchange Listings" },
+        { "value": 10, "name": "Operations" },
+        { "value": 10, "name": "Branding Marketing" },
+        { "value": 10, "name": "Legal" }
+      ]
     }
   
   }

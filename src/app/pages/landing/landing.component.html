@@ -440,9 +440,8 @@
             </div>
         </div>
     </div>
-<!--=======================================
-        Popular Collection End Here
-========================================-->
+
+    
 
     <!-- ##### Token counter Start ##### -->
     <div class="faq-timeline-area section-padding-100" style="background:#fff;padding-bottom:70px" *ngIf="landingData">
@@ -481,8 +480,68 @@
     </div>
     <!-- ##### Token counter Area End ##### -->
 
+    <div class="faq-timeline-area section-padding-100" style="background:#fff;padding-bottom:70px">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12 col-md-12">
+                    <div class="section-heading">
+                        <h2 class="fadeInUp" data-wow-delay="0.3s" style="text-align: center;">Token Management Information</h2>
+                        <p class="fadeInUp" data-wow-delay="0.4s" style="text-align: center;">Nifty Row Token (NRT) will be managed by a Decentralized Autonomous Organization (DAO) that will operate through on-chain governance which will provide ongoing support for the creative community. </p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+
+		                <div class="col-md-6">
+                            The NRT will enable:
+                            
+                            <ul class="square">
+                                <li>
+                                    Early access to presales
+                                </li>
+                                <li>
+                                    Authorized Collections
+                                </li>
+                                <li>
+                                    Voting on proposals
+                                </li>
+                                <li>
+                                    Customized rarity 
+                                </li>
+                                <li>
+                                    Guaranteed royalties
+                                </li>
+                                <li>
+                                    NFT Lots
+                                </li>
+                                <li>
+                                    Discounted Fees
+                                </li>
+                                <li>
+                                    Exclusive Access to Mint 
+                                </li>
+                                <li>
+                                    Funding of Creative Initiatives and Projects
+                                </li>
+
+                            </ul>
+		                </div>
+                        <div class="col-md-3">
+                        </div>
+
+		            </div>
+                </div>
+
+               
+
+            </div>
+        </div>
+    </div>
+
     <!-- ##### token-distribution Area start ##### -->
     <figure id="pie"></figure>
+  
     <section class="token-distribution section-padding-100" *ngIf="landingData">
         <div class="container">
 
@@ -494,15 +553,15 @@
                 <h2 class="fadeInUp" data-wow-delay="0.3s">{{landingData.tokenSection.title}}</h2>
                 <p class="fadeInUp" data-wow-delay="0.4s">{{landingData.tokenSection.subtitle}}</p>
             </div>
-            
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Token Allocation</h2>
-                <p-chart type="doughnut" [data]="tokenAllocationData" [options]="chartOptions" [responsive]="true"  [style]="{'width': '50%'}"></p-chart>
+                <div echarts (chartInit)="onChartInit($event)" [options]="tokenAllocation"></div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2 class="text-center mb-30">Use of Sales Proceeds</h2>
-                <p-chart type="doughnut" [data]="useOfSalesData" [options]="chartOptions"  [style]="{'width': '50%'}"></p-chart>
+                <div echarts (chartInit)="onChartInit($event)" [options]="useOfSales" ></div>
             </div>
+           
         </div>
 
     </section>
@@ -532,16 +591,7 @@
                         <div class="box-address">
                             <h3 class="head heading-h3">We’d Love to Hear from You!</h3>
                             <p class="desc body-m">Reach out to us through any of our contact channels or visit our office.</p>
-                            <div class="icon-otr">
-                                <div class="icon-inr">
-                                    <div class="icon-inrr">
-                                        <span class="circle"></span>
-                                        <svg class="icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12.75a3 3 0 100-6 3 3 0 000 6z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 9.75c0 6.75-7.5 12-7.5 12s-7.5-5.25-7.5-12a7.5 7.5 0 0115 0v0z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </div>
-                                    <h4 class="head-icon heading-h4">Address</h4>
-                                </div>
-                                <p class="text body-m">Victoria Island, Lagos State, Nigeria</p>
-                            </div>
+                          
                             <div class="icon-main">
                                 <div class="icon-otr-2">
                                     <div class="icon-inr">
@@ -561,7 +611,7 @@
                                         </div>
                                         <h4 class="head-icon heading-h4">Email</h4>
                                     </div>
-                                    <p class="text body-m">niftyrow@gmail.com</p>
+                                    <p class="text body-m">support@niftyrow.io</p>
                                 </div>
                             </div>
                             <div class="social-icon-otr">
