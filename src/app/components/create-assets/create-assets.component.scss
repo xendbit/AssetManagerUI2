@@ -378,6 +378,12 @@
     }
 }
 
+@media screen and (max-width: 640px){
+    :host ::ng-deep .p-dialog {
+        width: 83vw !important;
+    }
+}
+
 .upload-area .upload-area__drop-zoon .drop-zoon__preview-image{
     height: 100%;
 }

@@ -248,6 +248,7 @@
                     }
                     .another-about-left{
                         display: flex;
+                        width: 60%;
                         align-items: center;
                         @include breakpoint($secreen-xl2){
                             flex-direction: column;

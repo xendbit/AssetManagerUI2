@@ -36,13 +36,15 @@ export class UserDashboardComponent implements OnInit {
   userView: string; account: string; artworks: IArtwork[]; categories: string[];
   currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number;
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
+  displayImage: string;
+  coverImage: string;
 
   constructor(public mainService: MainService, public metamaskService: MetamaskService, 
     private clipboard: Clipboard, public userActions: UserActionsService) { }
 
   ngOnInit(): void {
-   
-    
+   this.displayImage = "/assets/img/user-profile-default-image.png";
+   this.coverImage = "/assets/img/default-cover.png"
   }
 
   ngAfterViewInit() {
@@ -62,6 +64,8 @@ export class UserDashboardComponent implements OnInit {
     })
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
+      this.displayImage = this.user.displayImage;
+      this.coverImage = this.user.coverImage;
     })
   }
 

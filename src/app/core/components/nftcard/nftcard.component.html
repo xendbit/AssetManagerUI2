@@ -5,21 +5,12 @@
     <div class="col-inr box2" >
         <div class="img-otr" [ngSwitch]="artwork.category">
             <a href="" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
-                <img class="img-inr img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
-                <div class="timer-otr" >
-                    <div class="body-sb countdown" >
-                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
-                    </div>
-                </div>
+                <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
             </a>
             <a href="" class="tilt-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
                 <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
-                <div class="timer-otr" id="countdownAudio">
-                    <div class="body-sb countdown" >
-                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
-                    </div>
-                </div>
-                <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
+               
+                <audio class="AudioPlayerV1" style="width: 100%; margin-top: -7rem;" controls controlsList="nodownload">
                     <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
                     <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
                 </audio>
@@ -30,11 +21,6 @@
                     <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
                     <source src=" {{artwork.gallery[1]['media']}}" type="video/ogg" />
                 </video>
-                <div class="timer-otr" >
-                    <div class="body-sb countdown" >
-                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
-                    </div>
-                </div>
             </a>
         </div>
         <div class="time-main">
@@ -108,9 +94,21 @@
             </div>
         </div>
         <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
-        <div class="bid-main" (click)="placeBid()">
-            <p class="body-sb bid">Current Bid</p>
-            <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+        <div class="row">
+            <div class=" col-lg-6 col-md-6">
+                <div class="timer-otr" id="countdown">
+                    <div class="body-sb" >
+                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
+                    </div>
+                </div>
+            </div>
+            <div class=" col-lg-6 col-md-6" id="currentBid">
+                <div class="bid-main" (click)="placeBid()">
+                    <p class="body-sb bid">Current Bid</p>
+                    <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+                </div>
+            </div>
+
         </div>
     </div>
 <!--=======================================

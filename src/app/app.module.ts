@@ -33,6 +33,7 @@ import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import {PanelModule} from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     CalendarModule,
     OverlayPanelModule,
     ChartModule,
+    PanelModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

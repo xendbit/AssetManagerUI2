@@ -1,9 +1,9 @@
 <div class="user-profile-otr">
     <div class="container-fluid">
         <div class="wrapper">
-            <div class="user-img" style="background-image: url({{user.coverImage}});">
+            <div class="user-img" style="background-image: url({{coverImage}});">
                 <div class="creator-img-otr">
-                    <img class="creator-img" src="{{user.displayImage}}" alt="creator-img">
+                    <img class="creator-img" src="{{displayImage}}" alt="creator-img">
                 </div>
             </div>
             <p-toast position="top-center" ></p-toast>
@@ -17,9 +17,9 @@
                             </div>
                         </div>
                         <a class="address-main">
-                            <p class="address body-s">{{user.walletAddress}}</p>
+                            <p class="address body-s" *ngIf="account !== undefined"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </p>
                             <div class="copy-icon-otr">
-                                <svg (click)="copyMessage(user.walletAddress)"  class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg (click)="copyMessage(account)"  class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                         </a>
                     </div>
@@ -85,17 +85,23 @@
                 </div>
                 <div class="another-user-about">
                     <div class="another-about-left">
-                        <h5 class="about-head heading-h5">About Me</h5>
-                        <p class="body-m about-desc">
-                            {{user.aboutInfo}}
-                        </p>
+                        
+                        <div class="col-2">
+                            <h5 class="about-head heading-h5">About Me</h5>
+                        </div>
+                        <div class="col-10">
+                            <p class="body-m about-desc">
+                                {{user.aboutInfo}}
+                            </p>
+                        </div>
+                      
                     </div>
                     <div class="another-about-right">
                         <div class="visto-otr">
                             <div class="link-icon">
                                 <svg class="link" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.493 3.93l1.774-1.774a3.943 3.943 0 115.577 5.577l-2.535 2.535a3.944 3.944 0 01-5.577 0" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.507 14.07l-1.774 1.774a3.944 3.944 0 11-5.577-5.576l2.535-2.535a3.943 3.943 0 015.577 0" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
-                            <a href="{{user.webUrl.url}}" target="_blank" class="visto body-mb">{{user.webUrl.title}}</a>
+                            <a href="{{user.webUrl.url}}" target="_blank" class="visto body-mb">  {{user.webUrl.title}}</a>
                         </div>
                         <ul class="icon-ul">
                             <li class="icon-li" *ngIf="user.socials.facebookUrl">

@@ -190,7 +190,7 @@ export class CreateAssetsComponent implements OnInit {
     if (this.response.data.error === 'Issuer with blockchain address not found') {
       this.displayOverlay = true;
       return;
-  }
+    }
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
       this.userActions.addSingle('error', 'Failed', 'Please make sure you select a category.');

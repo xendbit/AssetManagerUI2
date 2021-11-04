@@ -26,57 +26,127 @@ export class LandingComponent implements OnInit {
 
   chartInstance: any;
   tokenAllocation = {
+    backgroundColor: 'transparent',
+    title: {
+      text: 'Token Allocation',
+      left: 'center',
+      top: 20,
+      textStyle: {
+        color: '#ccc'
+      }
+    },
     tooltip: {
       trigger: 'item'
+    },
+    visualMap: {
+      show: false,
+      min: 80,
+      max: 600,
+      inRange: {
+        colorLightness: [0, 1]
+      }
     },
     series: [
       {
         name: 'Token Allocation',
         type: 'pie',
-        radius: [30, 200],
+        radius: '55%',
         center: ['50%', '50%'],
-        roseType: 'area',
-        itemStyle: {
-          borderRadius: 8
-        },
+        roseType: 'radius',
         data: [
-          { value: 40, name: 'rose 1' },
-          { value: 38, name: 'rose 2' },
-          { value: 32, name: 'rose 3' },
-          { value: 30, name: 'rose 4' },
-          { value: 28, name: 'rose 5' },
-          { value: 26, name: 'rose 6' },
-          { value: 22, name: 'rose 7' },
-          { value: 18, name: 'rose 8' }
-        ]
+          { value: 40, name: '' },
+          { value: 38, name: '' },
+          { value: 32, name: '' },
+          { value: 30, name: '' },
+          { value: 28, name: '' },
+          { value: 26, name: '' },
+          { value: 22, name: '' },
+          { value: 18, name: '' }
+        ],
+        label: {
+          color: 'rgba(255, 255, 255, 0.3)'
+        },
+        labelLine: {
+          lineStyle: {
+            color: 'rgba(255, 255, 255, 0.3)'
+          },
+          smooth: 0.2,
+          length: 10,
+          length2: 20
+        },
+        itemStyle: {
+          color: '#c23531',
+          shadowBlur: 200,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        },
+        animationType: 'scale',
+        animationEasing: 'elasticOut',
+        animationDelay: function (idx) {
+          return Math.random() * 200;
+        }
       }
     ]
   };
 
   useOfSales = {
+    backgroundColor: 'transparent',
+    title: {
+      text: 'Use Of Sales',
+      left: 'center',
+      top: 20,
+      textStyle: {
+        color: '#ccc'
+      }
+    },
     tooltip: {
       trigger: 'item'
     },
+    visualMap: {
+      show: false,
+      min: 80,
+      max: 600,
+      inRange: {
+        colorLightness: [0, 1]
+      }
+    },
     series: [
       {
-        name: 'Token Allocation',
+        name: 'Use Of Sales',
         type: 'pie',
-        radius: [30, 200],
+        radius: '55%',
         center: ['50%', '50%'],
-        roseType: 'area',
-        itemStyle: {
-          borderRadius: 8
-        },
+        roseType: 'radius',
         data: [
-          { value: 40, name: 'rose 1' },
-          { value: 38, name: 'rose 2' },
-          { value: 32, name: 'rose 3' },
-          { value: 30, name: 'rose 4' },
-          { value: 28, name: 'rose 5' },
-          { value: 26, name: 'rose 6' },
-          { value: 22, name: 'rose 7' },
-          { value: 18, name: 'rose 8' }
-        ]
+          { value: 40, name: '' },
+          { value: 38, name: '' },
+          { value: 32, name: '' },
+          { value: 30, name: '' },
+          { value: 28, name: '' },
+          { value: 26, name: '' },
+          { value: 22, name: '' },
+          { value: 18, name: '' }
+        ],
+        label: {
+          color: 'rgba(255, 255, 255, 0.3)'
+        },
+        labelLine: {
+          lineStyle: {
+            color: 'rgba(255, 255, 255, 0.3)'
+          },
+          smooth: 0.2,
+          length: 10,
+          length2: 20
+        },
+        itemStyle: {
+          color: '#c23531',
+          shadowBlur: 200,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        },
+        animationType: 'scale',
+        animationEasing: 'elasticOut',
+        animationDelay: function (idx) {
+          return Math.random() * 200;
+        }
       }
     ]
   };
@@ -88,6 +158,14 @@ export class LandingComponent implements OnInit {
     this.spinner.show();
     this.mainService.getLanding().subscribe((res: any) => {
       this.landingData = res;
+      this.landingData.tokenSection.tokenAllocationData.map((token) => {
+        token.name = token.name + ' ' + '(' + token.value + '%' + ')';
+        token.value = token.value * 10;
+      })
+      this.landingData.tokenSection.useOfSalesData.map((token) => {
+        token.name = token.name + ' ' + '(' + token.value + '%' + ')';
+        token.value = token.value * 10;
+      })
       this.updateCharts();
     }) 
     this.mainService.getHeader().subscribe((res: any) => {
@@ -105,59 +183,120 @@ export class LandingComponent implements OnInit {
       contactForm.value.amount, contactForm.value.walletAddress, contactForm.value.linkedInUrl,
       contactForm.value.country, contactForm.value.tweetLink
     ).subscribe(res => {
-      console.log('this is it');
     });
   }
 
   updateCharts() {
     this.tokenAllocation = {
+      backgroundColor: 'transparent',
+      title: {
+        text: 'Token Allocation',
+        left: 'center',
+        top: 20,
+        textStyle: {
+          color: 'black'
+        }
+      },
       tooltip: {
         trigger: 'item'
+      },
+      visualMap: {
+        show: false,
+        min: 50,
+        max: 1000,
+        inRange: {
+          colorLightness: [0, 2]
+        }
       },
       series: [
         {
           name: 'Token Allocation',
           type: 'pie',
-          radius: [10, 120],
+          radius: '55%',
           center: ['50%', '50%'],
-          roseType: 'area',
-          itemStyle: {
-            borderRadius: 8
+          roseType: 'radius',
+          data: this.landingData.tokenSection.tokenAllocationData.sort(function (a, b) {
+            return a.value - b.value;
+          }),
+          label: {
+            color: 'black'
           },
-          data: this.landingData.tokenSection.tokenAllocationData
+          labelLine: {
+            lineStyle: {
+              color: 'black'
+            },
+            smooth: 0.2,
+            length: 5,
+            length2: 10
+          },
+          itemStyle: {
+            color: '#5892F5',
+            shadowBlur: 200,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          animationType: 'scale',
+          animationEasing: 'elasticOut',
+          animationDelay: function (idx) {
+            return Math.random() * 200;
+          }
         }
       ]
     };
     this.useOfSales = {
+      backgroundColor: 'transparent',
+      title: {
+        text: 'Use Of Sales',
+        left: 'center',
+        top: 20,
+        textStyle: {
+          color: 'black'
+        }
+      },
       tooltip: {
         trigger: 'item'
+      },
+      visualMap: {
+        show: false,
+        min: 50,
+        max: 1000,
+        inRange: {
+          colorLightness: [0, 2]
+        }
       },
       series: [
         {
           name: 'Use Of Sales',
           type: 'pie',
-          radius: [10, 120],
+          radius: '55%',
           center: ['50%', '50%'],
-          roseType: 'area',
-          itemStyle: {
-            borderRadius: 8
+          roseType: 'radius',
+          data: this.landingData.tokenSection.useOfSalesData.sort(function (a, b) {
+            return a.value - b.value;
+          }),
+          label: {
+            color: 'black'
           },
-          data: this.landingData.tokenSection.useOfSalesData
+          labelLine: {
+            lineStyle: {
+              color: 'black'
+            },
+            smooth: 0.2,
+            length: 5,
+            length2: 10
+          },
+          itemStyle: {
+            color: 'purple',
+            shadowBlur: 200,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          animationType: 'scale',
+          animationEasing: 'elasticOut',
+          animationDelay: function (idx) {
+            return Math.random() * 200;
+          }
         }
       ]
     };
-  }
-
-  onChartInit(e: any) {
-    this.chartInstance = e;
-    console.log('on chart init:', e);
-  }
-
-  callMethod(type: string) {
-    if (this.chartInstance) {
-      const result = this.chartInstance[type]();
-      console.log(result);
-    }
   }
 
 

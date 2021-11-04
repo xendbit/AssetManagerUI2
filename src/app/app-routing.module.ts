@@ -19,11 +19,16 @@ import { LandingComponent } from './pages/landing/landing.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'demo',
     component: HomeComponent,
     data: {
       title: AppController.trans().home
     }
+  },
+  {
+    path: '',
+    component: LandingComponent,
+    data: { showHeader: false }
   },
   {
     path: 'connect-wallet',
@@ -54,7 +59,7 @@ const routes: Routes = [
     component: CreatorsComponent
   },
   {
-    path: 'details',
+    path: 'details/:asset/:auction',
     component: AssetDetailsComponent
   },
   // {
@@ -68,11 +73,6 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FAQComponent
-  },
-  {
-    path: 'landing',
-    component: LandingComponent,
-    data: { showHeader: false }
   },
   {
     path: routerConfig.users.base,

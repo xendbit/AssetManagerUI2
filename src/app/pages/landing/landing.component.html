@@ -76,7 +76,7 @@
                     </ul>
                 </div>
                 <div class="action-otr">
-                    <a routerLink= "/" class="btn-fill btn-create">Demo</a>
+                    <a routerLink= "/demo" class="btn-fill btn-create">Demo</a>
                 </div>
                 <div class="burger-menu">
                     <div class="burger-icon-otr">
@@ -408,13 +408,12 @@
             Popular Collection Start Here
     ========================================-->
 
-    <div class="popular-collection" id="blog" *ngIf="landingData">
+    <div class="popular-collection section-padding-100" id="blog" *ngIf="landingData">
         <div class="container-fluid">
             <div class="popular-collection-inr">
                 <div class="wrapper">
                     <h3 class="heading heading-h2" style="text-align: center;">From Our Blog </h3>
                 </div>
-                <span class="line"></span>
                 <p-carousel [value]="landingData.blogSection" [numVisible]="1" [numScroll]="1"  [showIndicators]="true">
                     <ng-template let-item pTemplate="item">
                         <div class="row-custom owl-carousel owl-theme" id="popular-artwork">
@@ -554,12 +553,10 @@
                 <p class="fadeInUp" data-wow-delay="0.4s">{{landingData.tokenSection.subtitle}}</p>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2 class="text-center mb-30">Token Allocation</h2>
-                <div echarts (chartInit)="onChartInit($event)" [options]="tokenAllocation"></div>
+                <div echarts [options]="tokenAllocation"></div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2 class="text-center mb-30">Use of Sales Proceeds</h2>
-                <div echarts (chartInit)="onChartInit($event)" [options]="useOfSales" ></div>
+                <div echarts [options]="useOfSales" ></div>
             </div>
            
         </div>
@@ -572,17 +569,11 @@
 
         <!-- ##### Contact Area Start ##### -->
         <div class="contact_us_area section-padding-100-0" id="contact">
-
-                <!--=======================================
-              Contact Start Here
-    ========================================-->
-
     <div class="contact-main" id="contact">
         <div class="container-fluid">
             <div class="wrapper">
                 <h2 class="heading heading-h2" style="text-align: center;">Get in Touch</h2>
             </div>
-            <span class="line"></span>
             <div class="row row-contact">
                 <div class="col-lg-1 col-contact-box"></div>
                 <div class="col-lg-5 col-contact-box">

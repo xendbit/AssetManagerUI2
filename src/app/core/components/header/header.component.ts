@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-  
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -39,7 +38,6 @@ export class HeaderComponent implements OnInit {
 
   connectToMetamask() {
     this.metamaskService.openMetamask().then(res => {
-      console.log('res', res)
       this.account = res.account;
     });
   }

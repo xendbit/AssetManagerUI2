@@ -53,33 +53,25 @@ export class AssetDetailsComponent implements OnInit {
       this.account = result.account;
       this.balance = result.balance;
       this.checkBuyer();
-      this.activatedRoute.paramMap
-      .subscribe(
-          () => {
-              if (window.history.state.artwork) {
-                  this.artwork = window.history.state.artwork;
-                  this.auction = window.history.state.auction;
-                  this.auctionService.getETHtoUSDValue().subscribe(res => {
-                    if (this.auction.bids.length > 0) {
-                      this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-                    } else {
-                      this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-                    }
+      let tokenId = this.activatedRoute.snapshot.params.asset;
+      let auctionId = this.activatedRoute.snapshot.params.auction;
+      this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
+        this.artwork = res.artwork;
+        this.auction = res;
+        this.auctionService.getETHtoUSDValue().subscribe(res => {
+          if (this.auction.bids.length > 0) {
+            this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+          } else {
+            this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+          }
+        
+        })
+        if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+          this.owner = true;
+        }
+        this.setCountDown(this.auction.endDate);
                  
-                  })
-                  if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-                    this.owner = true;
-                  }
-                  this.setCountDown(this.auction.endDate);
-                 
-              } else {
-                this.router.navigateByUrl('/');
-              }
-          },
-          err => {
-              console.log(err);
-          },
-          () => { });
+      })
     })
   }
 

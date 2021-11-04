@@ -121,7 +121,7 @@ export class NFTCardComponent implements OnInit {
   }
 
   placeBid() {
-    this.router.navigateByUrl('/details', { state : {artwork: this.artwork, auction: this.auction} });
+    this.router.navigate(['/details/', this.artwork.tokenId, this.auction.auctionId]);
   }
 
   goToCreatorPage() {

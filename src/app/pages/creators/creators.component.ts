@@ -30,9 +30,12 @@ export class CreatorsComponent implements OnInit {
   "type": ""
   }];
   currentPage: any;
+  displayImage: string;
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.displayImage = "/assets/img/user-profile-default-image.png";
+    console.log('this', this.creators)
     this.spinner.show();
     this.mainService.getCreators().subscribe((result: IUser []) => {
       if (result !== undefined) {

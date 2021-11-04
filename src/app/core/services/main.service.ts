@@ -52,7 +52,7 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
-      res['data']['items'].forEach((item) =>   this.dataStore.artworks.push({
+      res['data']['items'].forEach((item) =>  this.dataStore.artworks.push({
         id: item.id,
         category: item.category,
         tags: item.tags,
@@ -89,8 +89,7 @@ export class MainService {
     ));
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
-
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
  
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);

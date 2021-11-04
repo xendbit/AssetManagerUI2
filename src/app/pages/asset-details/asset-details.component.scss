@@ -37,6 +37,8 @@
                     border-radius: 24px;
                     width: 100%;
                     height: 100%;
+                    height: 640px;
+                    object-fit: cover;
                     &:hover{
                         cursor: pointer;
                     }
@@ -184,6 +186,48 @@
     }
 }
 
+.hero-single-artwork .container-fluid .hero-inr .img-otr {
+    max-height: 100%;
+    border-radius: 24px !important;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.hero-single-artwork {
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+}
+
+.container-fluid {
+    padding: 0px 42px;
+}
+
+.hero-single-artwork .container-fluid .hero-inr .icons-div {
+    position: absolute;
+    right: 0;
+    bottom: 69px;
+    z-index: 10;
+}
+
+.hero-single-artwork .container-fluid .hero-inr .circle {
+    width: 600px;
+    height: 600px;
+    background-color: transparent;
+    border-radius: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(400px);
+}
+
+#assetMedia {
+    height: 686px;
+}
+
 /*------------------------------------------
         Hero Section End Here
 -------------------------------------------*/
@@ -272,7 +316,7 @@
                 }
                 .col-right-otr{
                     .col-right-inr{
-                        padding-left: 85px;
+                        padding-left: 0px;
                         @include breakpoint($secreen-max-md){
                             padding: 48px 0 0 0;
                         }
@@ -474,6 +518,16 @@
         background-color: #366CE3;
         border-radius: 12px;
     }
+    .hero-single-artwork .container-fluid .hero-inr .img-otr .img-artwork {
+        border-radius: 24px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #assetMedia {
+        height: 100%;
+    }
   }
 
   @media (max-width: 991px) {
@@ -488,6 +542,27 @@
       background-color: #366CE3;
       border-radius: 12px;
     }
+
+    .hero-single-artwork .container-fluid .hero-inr .img-otr .img-artwork {
+        border-radius: 24px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #assetMedia {
+        height: 100%;
+    }
+
+    #panel {
+        margin-top: 56px;
+        margin-bottom: 15px;
+    }
+  }
+
+  #issuerInput {
+    margin-bottom: 10px; 
+    margin-top: 10px;
   }
 
 /*------------------------------------------
