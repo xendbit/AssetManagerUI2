@@ -47,6 +47,7 @@ export interface IPresentation {
     tokenId: number;
     dateIssued: Date;
     sold: boolean;
+    assetType: string;
     type: string;
   }
   export interface IMedia{

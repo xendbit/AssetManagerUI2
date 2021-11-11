@@ -6,11 +6,7 @@
                 "menu": [
                     {
                         "title": "Home",
-                        "url": ""
-                    },
-                    {
-                        "title": "Explore",
-                        "url": ""
+                        "url": "/"
                     },
                     {
                         "title": "About",
@@ -19,10 +15,6 @@
                     {
                         "title": "Contact Us",
                         "url": "/contact"
-                    },
-                    {
-                        "title": "Community",
-                        "url": ""
                     }
                 ]
             },
@@ -31,19 +23,11 @@
                 "menu": [
                     {
                         "title": "Explore Artworks",
-                        "url": ""
-                    },
-                    {
-                        "title": "Single Artwork",
-                        "url": ""
+                        "url": "/assets"
                     },
                     {
                         "title": "Explore Creators",
-                        "url": ""
-                    },
-                    {
-                        "title": "Single Creator",
-                        "url": ""
+                        "url": "/creators"
                     }
                 ]
             },

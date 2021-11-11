@@ -22813,9 +22813,10 @@
     transition: 0.3s;
   }
   
+  //NFT card shadow
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr:hover {
     border: 1px solid transparent;
-    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0.2, 0.4);
   }
   
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr {
@@ -23073,6 +23074,7 @@
     height: 34rem;
     margin: 0px 6px 38px 0;
     padding: 2px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0.1, 0.2);
   }
   
   @media (max-width: 991px) {

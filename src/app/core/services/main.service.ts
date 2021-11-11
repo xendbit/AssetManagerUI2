@@ -84,6 +84,7 @@ export class MainService {
         tokenId: parseInt(item.tokenId),
         dateIssued: new Date(parseInt(item.dateIssued)*1000),
         sold: item.sold,
+        assetType: item.assetType,
         type: item.type
     }
     ));
@@ -181,6 +182,7 @@ export class MainService {
         tokenId: parseInt(item.tokenId),
         dateIssued: new Date(parseInt(item.dateIssued)*1000),
         sold: item.sold,
+        assetType: item.assetType,
         type: item.type
     }
     ));

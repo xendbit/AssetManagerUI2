@@ -19,7 +19,14 @@
                     </select> -->
                 </div>
                 <span class="line"></span>
-                <div class="row row-custom " id="popular-collection-home2">
+                <div class="row" *ngIf="!isLoaded">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                <div class="row row-custom" id="popular-collection-home2" *ngIf="isLoaded">
                     <div class="col-otr owl-carousel owl-theme" *ngFor="let creator of creators; trackBy: byId;">
                         <div class="col-inr">
                             <a  class="img-otr">
@@ -32,14 +39,14 @@
                                     <img *ngIf="creator.displayImage !== ''" class="user-img-inr" src="{{creator.displayImage}}" alt="creator-img">
                                 </a>
                                 <div class="user-content">
-                                    <a href="" class="title body-mb">{{creator.username}}</a>
-                                    <p class="body-s collect-by"> Value <a href="" class="body-sb username">{{creator.assetTotalValue}} ETH</a></p>
+                                    <a class="title body-mb">{{creator.username}}</a>
+                                    <p class="body-s collect-by"> Value <a class="body-sb username">{{creator.assetTotalValue}} ETH</a></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="isLoaded">
                     <div class="col-lg-5">
                     </div>
                     <div class="col-lg-4 col-btn-otr">
