@@ -133,3 +133,8 @@
     margin-top: var(--bs-gutter-y);
 }
 
+.p-carousel-items-content {
+    overflow: hidden;
+    width: fit-content;
+}
+

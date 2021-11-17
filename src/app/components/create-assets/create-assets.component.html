@@ -6,6 +6,7 @@
     </ng-template>
     <form class="form-main" method="post"  #registerForm="ngForm">
         <span class="select-none heading-h5">Please complete the form below: </span>
+        <p-toast position="top-center" ></p-toast>
         <div class="input-otr" id="issuerInput">
             <input class="input" style="width: 100%;" type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required>
         </div>
@@ -174,7 +175,7 @@
                                     <input class="input" [(ngModel)]="symbol" type="text" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
                                 </div>
                                 <div class="input-otr-2">
-                                    <input class="input" type="text" name="text" placeholder="Asset Tag e.g. 'African' " required>
+                                    <input disabled class="input" type="text" name="text" placeholder="Asset Tag (coming soon) " required>
                                 </div>
                             </div>
                       
@@ -192,7 +193,7 @@
                                 </div>
                             </div> 
                         </form>
-                        <h4 class="head-2 heading-h4">Choose Collection</h4>
+                        <h4 class="head-2 heading-h4">Choose Collection (coming soon)</h4>
                         <div class="row row-custom-inr">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-box-otr">
                                 <div class="col-box-inr box-1">

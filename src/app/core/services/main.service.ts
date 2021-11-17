@@ -52,42 +52,43 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
-      res['data']['items'].forEach((item) =>  this.dataStore.artworks.push({
-        id: item.id,
-        category: item.category,
-        tags: item.tags,
-        owner: {
+      res['data']['items'].forEach((item) => {
+        this.dataStore.artworks.push({
           id: item.id,
-          image: item.media[0].media,
-          username: item.owner
-        },
-        creator: {
-          id: item.id,
-          image: item.media[0].media,
-          username: item.issuer,
+          category: item.category,
+          tags: item.tags,
+          owner: {
+            id: item.id,
+            image: item.media[0].media,
+            username: item.owner
+          },
+          creator: {
+            id: item.id,
+            image: item.media[0].media,
+            username: item.issuer,
+            type: item.type
+          },
+          featuredImage: {
+            media: item.media[0].media,
+            mediaType: 0
+          },
+          isBidding: item.hasActiveAuction,
+          gallery: item.media,
+          description: item.description,
+          price: 0,
+          currency: item.currency,
+          likes: 0,
+          hasActiveAuction: item.hasActiveAuction,
+          lastAuctionId: item.lastAuctionId,
+          symbol: item.symbol,
+          name: item.name,
+          tokenId: parseInt(item.tokenId),
+          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          sold: item.sold,
+          assetType: item.assetType,
           type: item.type
-        },
-        featuredImage: {
-          media: item.media[0].media,
-          mediaType: 0
-        },
-        isBidding: item.hasActiveAuction,
-        gallery: item.media,
-        description: item.description,
-        price: 0,
-        currency: item.currency,
-        likes: 0,
-        hasActiveAuction: item.hasActiveAuction,
-        lastAuctionId: item.lastAuctionId,
-        symbol: item.symbol,
-        name: item.name,
-        tokenId: parseInt(item.tokenId),
-        dateIssued: new Date(parseInt(item.dateIssued)*1000),
-        sold: item.sold,
-        assetType: item.assetType,
-        type: item.type
-    }
-    ));
+        })
+     });
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
       this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
@@ -451,7 +452,7 @@ export class MainService {
 
   saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
-    accountName: string, accountNumber: number, bankCode: any, IBAN: any) {
+    accountName: string, accountNumber: number, bankCode: any, iban: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
@@ -467,7 +468,7 @@ export class MainService {
       "accountName": accountName,
       "accountNumber": accountNumber,
       "bankCode": bankCode,
-      "IBAN": IBAN
+      "iban": iban.toString()
     },  {headers})
   }
 

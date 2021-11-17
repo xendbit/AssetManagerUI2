@@ -95,10 +95,18 @@
         </div>
         <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
         <div class="row" (click)="placeBid()">
-            <div class=" col-lg-6 col-md-6">
+            <div class=" col-lg-6 col-md-6" *ngIf="auctionTime > currentTime && !sellPriceMet">
                 <div class="timer-otr" id="countdown">
                     <div class="body-sb" >
                         {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-lg-6 col-md-6"  *ngIf="auctionTime < currentTime || sellPriceMet">
+                <div class="timer-otr" id="countdown">
+                    <div class="body-sb" >
+                        Inactive
                     </div>
                 </div>
             </div>

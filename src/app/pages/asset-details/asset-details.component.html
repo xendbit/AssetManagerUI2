@@ -187,11 +187,12 @@
                             <div class="col-lg-12 col-right-otr">
                                     <div class="col-right-inr">
                                         <div class="bid-details">
-                                            <h4 class="heading-h4 bid-head">Bid Details</h4>
-                                            <a class="body-sb create-pb" style="margin-top: 10px;"> 
+                                            <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
+                                            <h6 *ngIf="this.owner && auctionTime > currentTime && !sellPriceMet" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
+                                            <a *ngIf="!this.owner" class="body-sb create-pb" style="margin-top: 10px;"> 
                                                Minimum Bid - {{auction.minimumBid}} ETH
                                             </a>
-                                            <div class="boxes-main">
+                                            <div class="boxes-main" *ngIf="!this.owner">
                                                 <div class="bid-main">
                                                     <p class="bid body-mb">Sell-Now Price</p>
                                                     <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} {{auction.currency}}</h5>
@@ -199,7 +200,7 @@
                                                 </div>
                                                 <div class="auction-main">
                                                     <p class="body-mb acution" *ngIf="auctionTime > currentTime && !sellPriceMet">Auction Ending</p>
-                                                    <div id="clock" class="timer" *ngIf="auctionTime > currentTime && auction.bids[0]['bid'] < auction.sellNowPrice">
+                                                    <div id="clock" class="timer" *ngIf="auctionTime > currentTime && !sellPriceMet">
                                                         <div class="hours-main main" *ngIf="countdownDay > 0">
                                                             <p class="heading-h3 time-inr" id="days"></p>
                                                             <p class="hours-p body-mb"> {{this.countdownDay}} Days</p>
@@ -219,12 +220,12 @@
                                                         </div>
                                                     </div>
             
-                                                    <div id="clock" class="timer" *ngIf="auctionTime < currentTime ||  auction.bids[0]['bid'] >= auction.sellNowPrice ">
-                                                        <p class="hours-p body-mb" style="margin-top: 30px;"> Auction Ended</p>
+                                                    <div id="clock" class="timer" *ngIf="auctionTime < currentTime || sellPriceMet ">
+                                                        <p class="hours-p body-mb" style="margin-top: 30px;"> Auction Inactive</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form class="bidform" *ngIf="visible && !this.owner && auctionTime > currentTime && auction.bids[0]['bid'] < auction.sellNowPrice" [@slideInOut] #buyForm="ngForm" novalidate >
+                                            <form class="bidform" *ngIf="visible && !this.owner && auctionTime > currentTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
                                                 <div class="input-main">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
@@ -254,7 +255,7 @@
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
                                                         background-color: white;">Start Date</label>
-                                                        <p-calendar class="col-2"  name="startDate" [(ngModel)]="startDate" id="startDate" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar class="col-2"  name="startDate" [(ngModel)]="startDate" id="startDate" [minDate]="today" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -270,7 +271,7 @@
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
                                                         background-color: white;">End Date</label>
-                                                        <p-calendar class="col-2" name="endDate" [(ngModel)]="endDate" id="endDate" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar class="col-2" name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="today"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -297,8 +298,8 @@
                                                     <a (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                                 </div>
                                             </form>
-                                            <div class="action-otr" *ngIf="this.owner && artwork.hasActiveAuction === true">
-                                                <a  class="btn-fill btn-bid">Withdraw</a>
+                                            <div class="action-otr" *ngIf="this.owner && sellPriceMet === true">
+                                                <a (click)="withdraw()" class="btn-fill btn-bid">Withdraw</a>
                                             </div>
             
                                         </div>
@@ -390,7 +391,7 @@
                                                         </p> -->
                                                     </div>
                                                     <div class="content-right">
-                                                        <p class="eth heading-h5"> {{bids.bid}} ETH</p>
+                                                        <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} ETH</p>
                                                         <!-- <p class="dollor body-sb">$2,505</p> -->
                                                     </div>
                                                    

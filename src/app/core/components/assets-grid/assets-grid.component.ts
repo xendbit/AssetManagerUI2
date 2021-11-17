@@ -1,7 +1,12 @@
 import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { IArtwork } from '../slider/presentation.interface';
+import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
+import { AuctionService } from '../../services/auction.service';
+import { mergeMap } from 'rxjs/operators';
+import { baseUrl } from '../../config/main.config.const';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-assets-grid',
@@ -11,6 +16,7 @@ import { MainService } from '../../services/main.service';
 })
 export class AssetsGridComponent implements OnInit {
   artworks: IArtwork [];
+  auction: IAuction;
   work: any [];
   @Input() public artworkArray: IArtwork [];
   currentPage: number;
@@ -19,24 +25,66 @@ export class AssetsGridComponent implements OnInit {
   totalItems: number;
   totalPages: number;
   categories: string[];
-  chinedu: {
-    ogu: any[];
-  }
+  isLoaded: boolean;
+  another: any [] = [];
+  result: any;
+  testTheory: any;
 
-  constructor(public mainService: MainService) { }
+  constructor(public mainService: MainService, public auctionService: AuctionService, public httpClient: HttpClient) { }
 
   ngOnInit() {
-    
+    this.isLoaded = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // this.isLoaded = false;
     if (changes['artworkArray'] && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
+        // this.isLoaded = true;
         this.artworks = this.artworkArray;
-        this.categories = this.artworks.map(item => item.category)
+        this.categories = this.artworkArray.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
+        // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
+        // .pipe(mergeMap(character => this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${character['tokenId']}/${character['auctionId']}`, baseUrl.headers)));
+        // console.log('this is ', this.testTheory)
+        this.mainService.returnArtwork().subscribe((response: IArtwork []) => {
+          let auctionReq: Array<Observable <any> > = [];
+          response.forEach(res => {
+            auctionReq.push(this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${res['tokenId']}/${res['auctionId']}`, baseUrl.headers))
+          })
+          forkJoin(auctionReq).subscribe(results => {
+            console.log('this is result', results)
+            // results[0] is for list of artworks
+            // results[1] is supposed to be for auction response
+          });
+        })
+        // this.artworkArray.forEach((artwork) => {
+        //   this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
+        //     console.log('here')
+        //         if (res !== undefined) {
+        //           this.another.push({
+        //             ...artwork,
+        //             auction: res
+        //           })
+        //         }
+               
+        //   })
+        // })
+        // console.log('here', this.another.filter(res => res.auction.bids[0]['bid'] < res.auction.sellNowPrice))
+      
+        // console.log('another 3', this.another)
+        // this.artworks = this.artworks.map(obj => this.another.find(o => o.id === obj.id) || obj);
+        // const seen = new Set();
+        // const filteredArr = this.another.filter(el => {
+        //   const duplicate = seen.has(el.id);
+        //   seen.add(el.id);
+        //   return !duplicate;
+        // });
+        // console.log('this =>', filteredArr)
+        // this.artworks = this.another;
       }
     }
+
     this.mainService.getMeta().subscribe(res => {
       if (res !== null) {
         this.currentPage = res.currentPage;

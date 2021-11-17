@@ -23,8 +23,8 @@ export interface IPresentation {
     startDate: Date;
     minimumBid: number;
     tokenId: number;
-    artwork:IArtwork;
-    type: string;
+    artwork?:IArtwork;
+    type?: string;
   }
  export interface IArtwork {
     id:string;
@@ -48,6 +48,7 @@ export interface IPresentation {
     dateIssued: Date;
     sold: boolean;
     assetType: string;
+    auction?: IAuction;
     type: string;
   }
   export interface IMedia{

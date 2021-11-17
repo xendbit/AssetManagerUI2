@@ -31,11 +31,10 @@ export class CreatorsComponent implements OnInit {
   }];
   currentPage: any;
   displayImage: string;
-  isLoaded: boolean;
+  isLoaded: boolean = false;
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.isLoaded = false;
     this.displayImage = "/assets/img/user-profile-default-image.png";
     this.spinner.show();
     this.mainService.getCreators().subscribe((result: IUser []) => {
@@ -44,7 +43,10 @@ export class CreatorsComponent implements OnInit {
         this.isLoaded = true;
       }
       this.spinner.hide();
-    })
+    }),
+    err => {
+      this.isLoaded = true;
+    };
     this.spinner.hide();
   }
 

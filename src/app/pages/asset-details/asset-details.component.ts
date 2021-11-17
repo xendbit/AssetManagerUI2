@@ -35,6 +35,7 @@ export class AssetDetailsComponent implements OnInit {
   country: string; zipCode: string; state: string; city: string; street: string; houseNumber: string;
   sellNowValue: number;
   sellPriceMet: boolean = false;
+  today: Date;
   
   
  
@@ -52,58 +53,70 @@ export class AssetDetailsComponent implements OnInit {
     
   async ngOnInit(): Promise<void> {
     window.onbeforeunload = function() {window.scrollTo(0,0);};
+    this.today = new Date();
     await this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
       this.balance = result.balance;
       this.checkBuyer();
       let tokenId = this.activatedRoute.snapshot.params.asset;
       let auctionId = this.activatedRoute.snapshot.params.auction;
-      this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
-        this.artwork = res.artwork;
-        this.auction = res;
-        this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
-       
-        this.auctionService.getETHtoUSDValue().subscribe(res => {
-          if (this.auction.bids.length > 0) {
-            this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-            this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
-            if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-              this.sellPriceMet = false;
-            } else {
-              this.sellPriceMet = true;
-            }
-          } else {
-            this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-            this.sellPriceMet = false;
-          }
-        
-        })
+      this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
+        this.artwork = res;
+        this.sellPriceMet = false;
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
           this.owner = true;
+          if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+            this.visible = true;
+          }
         }
-        this.setCountDown(this.auction.endDate);
-                 
-      })
+        if (this.artwork.lastAuctionId !== 0) {
+          
+          this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
+            this.auction = res;
+            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
+            this.auctionService.getETHtoUSDValue().subscribe(res => {
+              if (this.auction.bids.length > 0) {
+                this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+                this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
+                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                  this.sellPriceMet = false;
+                } else {
+                  this.sellPriceMet = true;
+                }
+              } else {
+                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                this.sellPriceMet = false;
+              }
+            
+            })
+            
+            this.setCountDown(this.auction.endDate);
+                     
+          })
+        }
+        
+      } )
+      
     })
   }
 
-    setCountDown(date) {
-      this.auctionTime =  moment(new Date(date).getTime()).unix();
-      this.currentTime = moment(new Date().getTime()).unix();
-      const diffTime = this.auctionTime - this.currentTime;
-      let duration;
-      duration = moment.duration(diffTime * 1000, 'milliseconds');
-      const interval = 1000;
+  setCountDown(date) {
+    this.auctionTime =  moment(new Date(date).getTime()).unix();
+    this.currentTime = moment(new Date().getTime()).unix();
+    const diffTime = this.auctionTime - this.currentTime;
+    let duration;
+    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    const interval = 1000;
 
-      setInterval(() => {
-        duration = moment.duration(duration - interval, 'milliseconds');
-        this.countdownDay = moment.duration(duration).days();
-        this.countdownHours = moment.duration(duration).hours();
-        this.countdownMinutes = moment.duration(duration).minutes();
-        this.countdownSeconds = moment.duration(duration).seconds();
-      }, interval);
-      
-    }
+    setInterval(() => {
+      duration = moment.duration(duration - interval, 'milliseconds');
+      this.countdownDay = moment.duration(duration).days();
+      this.countdownHours = moment.duration(duration).hours();
+      this.countdownMinutes = moment.duration(duration).minutes();
+      this.countdownSeconds = moment.duration(duration).seconds();
+    }, interval);
+    
+  }
 
   openForm() {
     this.visible = true;
@@ -137,6 +150,7 @@ export class AssetDetailsComponent implements OnInit {
           this.auction = data;
           this.spinner.hide();
           this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
+          this.ngOnInit();
           
         })
       }, 15000);
@@ -146,7 +160,7 @@ export class AssetDetailsComponent implements OnInit {
 
   }
 
-  //if end date elapse and no bid, call cancel endpoint and remove endpoint
+  //if end date elapse and no bid, call cancel endpoint and remove artwork
   //if there is a bid enable withdraw
   //if sell now met, enable withdraw
 
@@ -179,6 +193,7 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.visible = false;
           this.spinner.hide();
+          this.router.navigate(['/profile']);
         }, err =>  {
           this.spinner.hide();
         })
@@ -197,6 +212,7 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.spinner.show();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
+      console.log('this is res', res)
       this.spinner.hide();
     })
   }
@@ -239,7 +255,7 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('success', 'successful', 'Buyer has been registered successfully!');
           this.displayOverlay = false;
           this.checkBuyer();
-          this.ngOnInit;
+          this.ngOnInit();
         }
       }, err => {
         this.error = err.error.data.error;

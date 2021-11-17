@@ -6,7 +6,7 @@
         <div class="hero-main-inr"  *ngSwitchDefault>
             <p-galleria [(value)]="presentationData.slides" *ngIf="presentationData.slides"  [containerStyle]="{'width': '100%'}" [numVisible]="1"
             [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
-            [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [circular]="true"> 
+            [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true" [circular]="true"> 
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 600px; object-fit: cover;" />
                 </ng-template>

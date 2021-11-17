@@ -3,6 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
+import { AuctionService } from '../../services/auction.service';
 
 
 @Component({
@@ -17,8 +18,9 @@ export class CarouselComponent implements OnInit {
             "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "assetType": "digital", "type": ""}]
   unsold: any;
   categories: string [];
+  another: any [];
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
-  constructor(public mainService: MainService, private spinner: NgxSpinnerService) { 
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) { 
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -40,6 +42,7 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.another = [];
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -48,6 +51,18 @@ export class CarouselComponent implements OnInit {
           this.artworks = this.artworkArray.slice(-10);
           this.categories = this.artworks.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
+          const _this = this;
+          this.artworks.forEach((artwork) => {
+            this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
+              if (res !== undefined) {
+                this.another.push({
+                  ...artwork,
+                  auction: res
+                })
+              }
+            })
+           
+          })
         }
     }
     
