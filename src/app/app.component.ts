@@ -43,8 +43,8 @@ export class AppComponent extends AppController implements OnInit {
     this.mainService.getFooter().subscribe(res => {
       this.footerInfo = res;
     })
-    this.account = localStorage.getItem('account');
-    this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
+    // this.account = localStorage.getItem('account');
+    // this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
     // this.spinner.show();
     this.setBrowserTabTitle();
     this.mainService.fetchArtWorkFromMain(1, 10);

@@ -16,7 +16,7 @@ import { forkJoin, Observable } from 'rxjs';
 })
 export class AssetsGridComponent implements OnInit {
   artworks: IArtwork [];
-  auction: IAuction;
+  // auction: IAuction;
   work: any [];
   @Input() public artworkArray: IArtwork [];
   currentPage: number;
@@ -25,15 +25,15 @@ export class AssetsGridComponent implements OnInit {
   totalItems: number;
   totalPages: number;
   categories: string[];
-  isLoaded: boolean;
-  another: any [] = [];
-  result: any;
-  testTheory: any;
+  // isLoaded: boolean;
+  // another: any [] = [];
+  // result: any;
+  // testTheory: any;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, public httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.isLoaded = false;
+    // this.isLoaded = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -42,22 +42,22 @@ export class AssetsGridComponent implements OnInit {
       if (this.artworkArray !== null) {
         // this.isLoaded = true;
         this.artworks = this.artworkArray;
-        this.categories = this.artworkArray.map(item => item.category)
+        this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
         // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
         // .pipe(mergeMap(character => this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${character['tokenId']}/${character['auctionId']}`, baseUrl.headers)));
         // console.log('this is ', this.testTheory)
-        this.mainService.returnArtwork().subscribe((responseFromArtwork: IArtwork []) => {
-          const auctionReq: Array<Observable <any> > = [];
-          responseFromArtwork.forEach(individualResponse => {
-            auctionReq.push(this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${individualResponse['tokenId']}/${individualResponse['auctionId']}`, baseUrl.headers))
-          })
-          forkJoin(auctionReq).subscribe(forkjoinResults => {
-            console.log('this is result', forkjoinResults)
-            // results[0] is for list of artworks
-            // results[1] is supposed to be for auction response
-          });
-        })
+        // this.mainService.returnArtwork().subscribe((responseFromArtwork: IArtwork []) => {
+        //   const auctionReq: Array<Observable <any> > = [];
+        //   responseFromArtwork.forEach(individualResponse => {
+        //     auctionReq.push(this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${individualResponse['tokenId']}/${individualResponse['auctionId']}`, baseUrl.headers))
+        //   })
+        //   forkJoin(auctionReq).subscribe(forkjoinResults => {
+        //     console.log('this is result', forkjoinResults)
+        //     // results[0] is for list of artworks
+        //     // results[1] is supposed to be for auction response
+        //   });
+        // })
         // this.artworkArray.forEach((artwork) => {
         //   this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
         //     console.log('here')

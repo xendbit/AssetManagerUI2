@@ -4,7 +4,6 @@ import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
-import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 
 declare var $: any;
 
@@ -13,20 +12,6 @@ declare var $: any;
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations: [
-    trigger('collapse', [
-      state('false', style({ 
-        height: AUTO_STYLE, 
-        visibility: AUTO_STYLE
-      })),
-      state('true', style({ 
-        height: '0', 
-        visibility: 'hidden' 
-      })),
-      transition('false => true', animate('500ms ease-in')),
-      transition('true => false', animate('500ms ease-out'))
-    ])
-  ]
 })
 export class HeaderComponent implements OnInit {
   @Input() public headerInfo: IMenuGroups;
@@ -39,11 +24,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-   this.account = localStorage.getItem('account');
-  }
-
-  clicked(){
-    this.isOpen = !this.isOpen;
+  //  this.account = localStorage.getItem('account');
   }
 
   ngOnChanges(changes: SimpleChanges) {
