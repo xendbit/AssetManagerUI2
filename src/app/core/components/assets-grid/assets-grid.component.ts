@@ -47,13 +47,13 @@ export class AssetsGridComponent implements OnInit {
         // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
         // .pipe(mergeMap(character => this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${character['tokenId']}/${character['auctionId']}`, baseUrl.headers)));
         // console.log('this is ', this.testTheory)
-        this.mainService.returnArtwork().subscribe((response: IArtwork []) => {
-          let auctionReq: Array<Observable <any> > = [];
-          response.forEach(res => {
-            auctionReq.push(this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${res['tokenId']}/${res['auctionId']}`, baseUrl.headers))
+        this.mainService.returnArtwork().subscribe((responseFromArtwork: IArtwork []) => {
+          const auctionReq: Array<Observable <any> > = [];
+          responseFromArtwork.forEach(individualResponse => {
+            auctionReq.push(this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${individualResponse['tokenId']}/${individualResponse['auctionId']}`, baseUrl.headers))
           })
-          forkJoin(auctionReq).subscribe(results => {
-            console.log('this is result', results)
+          forkJoin(auctionReq).subscribe(forkjoinResults => {
+            console.log('this is result', forkjoinResults)
             // results[0] is for list of artworks
             // results[1] is supposed to be for auction response
           });
