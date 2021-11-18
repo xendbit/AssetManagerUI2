@@ -4,18 +4,18 @@
 
     <div class="col-inr box2" >
         <div class="img-otr" [ngSwitch]="artwork.category">
-            <a href="" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
+            <a (click)="placeBid()" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                 <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
             </a>
-            <a href="" class="tilt-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
-                <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
+            <a class="tilt-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
+                <img (click)="placeBid()" class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
                
                 <audio class="AudioPlayerV1" style="width: 100%; margin-top: -7rem;" controls controlsList="nodownload">
                     <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
                     <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
                 </audio>
             </a>
-            <a href="" class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
+            <a  class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
                 <video class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
                     <source src=" {{artwork.gallery[1]['media']}}" type="video/mp4" />
                     <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
@@ -23,7 +23,7 @@
                 </video>
             </a>
         </div>
-        <div class="time-main">
+        <div class="time-main" (click)="placeBid()">
             <div class="users-main">
                 <div class="create-img-otr">
                     <a (click)="goToCreatorPage()" class="create-img left-create">
@@ -94,11 +94,19 @@
             </div>
         </div>
         <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
-        <div class="row">
-            <div class=" col-lg-6 col-md-6">
+        <div class="row" (click)="placeBid()">
+            <div class=" col-lg-6 col-md-6" *ngIf="auctionTime > currentTime && !sellPriceMet">
                 <div class="timer-otr" id="countdown">
                     <div class="body-sb" >
                         {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-lg-6 col-md-6"  *ngIf="auctionTime < currentTime || sellPriceMet">
+                <div class="timer-otr" id="countdown">
+                    <div class="body-sb" >
+                        Inactive
                     </div>
                 </div>
             </div>

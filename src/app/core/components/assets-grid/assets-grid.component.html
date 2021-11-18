@@ -10,6 +10,7 @@
                         <h3 class="heading heading-h3">Explore Artworks</h3>
                     </div>
                 </div>
+                
                 <div class="teb-main">
                     <div class="tab-otr">
                         <div class="tab-inr">
@@ -46,7 +47,7 @@
                     <div id="tab-1" class="tab-content active">
                         <div class="row row-custom-inr">    
                             <div class="col-otr col-lg-3" *ngFor="let item of artworks; trackBy: byId;">
-                                <app-nftcard [artwork]="item"> </app-nftcard>
+                                <app-nftcard [artwork]="item" > </app-nftcard>
                             </div>
                     <div class="row">
                         <div class="col-lg-12 col-btn-otr" *ngIf="this.currentPage < this.totalPages">

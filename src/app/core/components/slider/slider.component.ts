@@ -72,6 +72,7 @@ export class SliderComponent implements OnInit {
                 "tokenId": 0,
                 "name": "",
                 "dateIssued": new Date(),
+                "assetType": "digital",
                 "sold": false
             },
             "type": "Auction"

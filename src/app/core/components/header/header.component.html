@@ -1,36 +1,4 @@
 <!-- {{trans.language}}: {{config.defaultLanguage}} -->
-
-    <!--=======================================
-                Modal Start Here
-    ========================================-->
-
-    <!-- <div class="navi">
-        <input type="checkbox" id="navi-check">
-        <div class="navi-header">
-
-        </div>
-        <div class="navi-btn">
-          <label for="navi-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-        </div>
-        
-        <div class="navi-links">
-          <a href="//github.io/jo_geek" target="_blank">Github</a>
-          <a href="http://stackoverflow.com/users/4084003/" target="_blank">Stackoverflow</a>
-          <a href="https://in.linkedin.com/in/jonesvinothjoseph" target="_blank">LinkedIn</a>
-          <a href="https://codepen.io/jo_Geek/" target="_blank">Codepen</a>
-          <a href="https://jsfiddle.net/user/jo_Geek/" target="_blank">JsFiddle</a>
-        </div>
-      </div> -->
-
-<!--=======================================
-            Modal End Here
-========================================-->
-
-    
     <!--=======================================
                 Navbar Start Here
     ========================================-->
@@ -40,7 +8,7 @@
           <div class="navbar-inr">
               <div class="logo-otr">
                   <a href="./" class="logo-inr">
-                      <img  class="logo" src="{{this.headerData.logoPath}}" alt="Nifty Row">
+                      <img  class="logo" src="{{this.headerData.logoPath}}">
                   </a>
                   
               </div>
@@ -97,13 +65,40 @@
                 </p-overlayPanel>
                 
                   <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
-                  <a *ngIf="account === undefined" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
-                  <a *ngIf="account !== undefined" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                  <a *ngIf="account === undefined || account === null" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
+                  <a *ngIf="account !== undefined ||  account !== null" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
               </div>
-              <div class="burger-menu">
-                  <div class="burger-icon-otr">
-                      <svg class="burger-icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 12h16.5M4 6h9M11 18h9" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
+             
+              <div class="burger-menu">                
+                <input id="burger" type="checkbox" />
+                <label for="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <nav>    
+                    <ul class="navigation-inr">
+                        <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
+                            <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
+                            <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
+                                <li class="dropdown-li" *ngFor="let item of link.menu ">
+                                    <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>                               
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
+                                <a routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
+                            <!-- <button *ngIf="account !== undefined ||  account !== null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
+                                <a  (click)="op.toggle($event)"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                            </button> -->
+                        </li>  
+                    </ul>
+                </nav>
               </div>
           </div>
       </div>

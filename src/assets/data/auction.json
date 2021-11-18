@@ -46,6 +46,7 @@
         "price": 0,
         "currency": "ETH",
         "likes": 0,
+        "assetType": "digital",
         "type": "Artwork"
     },
     "type": "Auction"

@@ -2,9 +2,9 @@
     {
       "menuGroup": [
         {
-            "title": "Home",
+            "title": "Marketplace",
             "menu": [],
-            "path": "./demo"
+            "path": "./"
         },
         {
             "title": "Profile",

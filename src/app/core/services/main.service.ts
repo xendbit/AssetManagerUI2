@@ -51,42 +51,44 @@ export class MainService {
 
 
   fetchArtWorkFromMain(page: number, limit: number) {
-    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
-      res['data']['items'].forEach((item) =>  this.dataStore.artworks.push({
-        id: item.id,
-        category: item.category,
-        tags: item.tags,
-        owner: {
+    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
+      res['data']['items'].forEach((item) => {
+        this.dataStore.artworks.push({
           id: item.id,
-          image: item.media[0].media,
-          username: item.owner
-        },
-        creator: {
-          id: item.id,
-          image: item.media[0].media,
-          username: item.issuer,
+          category: item.category,
+          tags: item.tags,
+          owner: {
+            id: item.id,
+            image: item.media[0].media,
+            username: item.owner
+          },
+          creator: {
+            id: item.id,
+            image: item.media[0].media,
+            username: item.issuer,
+            type: item.type
+          },
+          featuredImage: {
+            media: item.media[0].media,
+            mediaType: 0
+          },
+          isBidding: item.hasActiveAuction,
+          gallery: item.media,
+          description: item.description,
+          price: 0,
+          currency: item.currency,
+          likes: 0,
+          hasActiveAuction: item.hasActiveAuction,
+          lastAuctionId: item.lastAuctionId,
+          symbol: item.symbol,
+          name: item.name,
+          tokenId: parseInt(item.tokenId),
+          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          sold: item.sold,
+          assetType: item.assetType,
           type: item.type
-        },
-        featuredImage: {
-          media: item.media[0].media,
-          mediaType: 0
-        },
-        isBidding: item.hasActiveAuction,
-        gallery: item.media,
-        description: item.description,
-        price: 0,
-        currency: item.currency,
-        likes: 0,
-        hasActiveAuction: item.hasActiveAuction,
-        lastAuctionId: item.lastAuctionId,
-        symbol: item.symbol,
-        name: item.name,
-        tokenId: parseInt(item.tokenId),
-        dateIssued: new Date(parseInt(item.dateIssued)*1000),
-        sold: item.sold,
-        type: item.type
-    }
-    ));
+        })
+     });
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
       this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
@@ -99,7 +101,7 @@ export class MainService {
 
   fetchSingleArtwork(tokenId: number) {
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}/get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => { 
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, baseUrl.headers).subscribe(data => { 
           let item = data['data'];
           observer.next({
             id: item.id,
@@ -148,7 +150,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}/list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
         category: item.category,
@@ -181,6 +183,7 @@ export class MainService {
         tokenId: parseInt(item.tokenId),
         dateIssued: new Date(parseInt(item.dateIssued)*1000),
         sold: item.sold,
+        assetType: item.assetType,
         type: item.type
     }
     ));
@@ -217,7 +220,7 @@ export class MainService {
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
-    return this.httpClient.post(`${baseUrl.mainUrl}/start-auction`, 
+    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -247,7 +250,7 @@ export class MainService {
         observer.complete();
 
       } else { /* make http request & process */
-        this.httpClient.get<IMenuGroups>(baseUrl.testUrl).subscribe((data: IMenuGroups) => {
+        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
           this.footerResponse = data; 
           observer.next(this.footerResponse);
           observer.complete();
@@ -268,7 +271,7 @@ export class MainService {
         observer.next(this.headerResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<IMenuGroups>(baseUrl.testUrl).subscribe((data: IMenuGroups) => {
+        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
           this.headerResponse = data; 
           observer.next(this.headerResponse);
           observer.complete();
@@ -287,7 +290,7 @@ export class MainService {
         observer.next(this.buttonsResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<INavButton>(baseUrl.testUrl).subscribe((data: INavButton) => {
+        this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
           this.buttonsResponse = data; 
           observer.next(this.buttonsResponse);
           observer.complete();
@@ -306,7 +309,7 @@ export class MainService {
         observer.next(this.userResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<IUser>(baseUrl.testUrl).subscribe((data: IUser) => {
+        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
           this.userResponse = data; 
           observer.next(this.userResponse);
           observer.complete();
@@ -325,7 +328,7 @@ export class MainService {
         observer.next(this.creatorResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<IUser>(baseUrl.testUrl).subscribe((data: IUser) => {
+        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
           this.creatorResponse = data; 
           observer.next(this.creatorResponse);
           observer.complete();
@@ -345,7 +348,7 @@ export class MainService {
         observer.next(this.categoriesResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<IAssetCategory>(baseUrl.testUrl).subscribe((data: IAssetCategory) => {
+        this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
           this.categoriesResponse = data; 
           observer.next(this.categoriesResponse);
           observer.complete();
@@ -364,7 +367,7 @@ export class MainService {
         observer.next(this.assetTypeResponse);
         observer.complete();
       } else { 
-        this.httpClient.get<IAssetType>(baseUrl.testUrl).subscribe((data: IAssetType) => {
+        this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
           this.assetTypeResponse = data; 
           observer.next(this.assetTypeResponse);
           observer.complete();
@@ -378,7 +381,7 @@ export class MainService {
   }
 
   fetchBlogPost() {
-    return this.httpClient.get<IBlogGroup>(baseUrl.testUrl).subscribe((data: IBlogGroup) => {
+    return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
       this.subjectBlogPost.next(data);
     }, err => {
         this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
@@ -414,7 +417,7 @@ export class MainService {
         observer.complete();
 
       } else { 
-        this.httpClient.get<IPresentation>(baseUrl.testUrl).subscribe((data: IPresentation) => {
+        this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
           this.presentationResponse = data; 
           observer.next(this.presentationResponse);
           observer.complete();
@@ -434,7 +437,7 @@ export class MainService {
         observer.complete();
 
       } else { 
-        this.httpClient.get<ILandingData>(baseUrl.testUrl).subscribe((data: ILandingData) => {
+        this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
           this.landingResponse = data; 
           observer.next(this.landingResponse);
           observer.complete();
@@ -449,7 +452,7 @@ export class MainService {
 
   saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
-    accountName: string, accountNumber: number, bankCode: any, IBAN: any) {
+    accountName: string, accountNumber: number, bankCode: any, iban: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
@@ -465,7 +468,7 @@ export class MainService {
       "accountName": accountName,
       "accountNumber": accountNumber,
       "bankCode": bankCode,
-      "IBAN": IBAN
+      "iban": iban.toString()
     },  {headers})
   }
 

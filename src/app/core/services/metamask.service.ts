@@ -1,3 +1,4 @@
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
@@ -28,6 +29,9 @@ export class MetamaskService {
         this.contractAddress = data['data'];
       }
     }) 
+    this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    this.provider.on('accountsChanged', this.changed)
+    
   }
 
   public openMetamask = async () => {
@@ -36,18 +40,30 @@ export class MetamaskService {
     await this.provider.send("eth_requestAccounts", []);
     // console.log('pro', ethers.providers.getNetwork("https://data-seed-prebsc-2-s3.binance.org:8545/"))
     this.signer = this.provider.getSigner();
+    localStorage.removeItem('account');
     this.walletAddress = await this.signer.getAddress();
     this.signer.getBalance().then((balance) => {
       this.walletBalance =  parseInt(ethers.utils.formatEther(balance))
      });
+     localStorage.setItem('account', window.ethereum.selectedAddress)
     return {
       account: this.walletAddress,
       balance: this.walletBalance
     }
   }
 
+  changed(accounts) {
+    console.log('happened')
+    if (accounts.length === 0) {
+      // MetaMask is locked or the user has not connected any accounts
+      console.log('Please connect to MetaMask.');
+    } else if (accounts[0] !== this.walletAddress) {
+      this.walletAddress = accounts[0];
+      // Do any other work!
+    }
+  }
+
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
-    console.log('selected', window.ethereum.selectedAddress)
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     console.log('this is amount', String(bidAmount))

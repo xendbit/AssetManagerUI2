@@ -33,6 +33,9 @@ export class AssetDetailsComponent implements OnInit {
   auctionTime: any; currentTime: any; auctionValue: number; response: any; error: any; displayOverlay: boolean = false;
   email: string; firstName: string; lastName: string; middleName: string; phone: number;
   country: string; zipCode: string; state: string; city: string; street: string; houseNumber: string;
+  sellNowValue: number;
+  sellPriceMet: boolean = false;
+  today: Date;
   
   
  
@@ -43,62 +46,84 @@ export class AssetDetailsComponent implements OnInit {
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""};
+      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
   artwork: IArtwork = {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
-      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
+      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
     
   async ngOnInit(): Promise<void> {
+    window.onbeforeunload = function() {window.scrollTo(0,0);};
+    this.today = new Date();
     await this.metamaskService.openMetamask().then(result => {
       this.account = result.account;
       this.balance = result.balance;
       this.checkBuyer();
       let tokenId = this.activatedRoute.snapshot.params.asset;
       let auctionId = this.activatedRoute.snapshot.params.auction;
-      this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
-        this.artwork = res.artwork;
-        this.auction = res;
-        this.auctionService.getETHtoUSDValue().subscribe(res => {
-          if (this.auction.bids.length > 0) {
-            this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-          } else {
-            this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-          }
-        
-        })
+      this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
+        this.artwork = res;
+        this.sellPriceMet = false;
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
           this.owner = true;
+          if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+            this.visible = true;
+          }
         }
-        this.setCountDown(this.auction.endDate);
-                 
-      })
+        if (this.artwork.lastAuctionId !== 0) {
+          
+          this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
+            this.auction = res;
+            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
+            this.auctionService.getETHtoUSDValue().subscribe(res => {
+              if (this.auction.bids.length > 0) {
+                this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+                this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
+                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                  this.sellPriceMet = false;
+                } else {
+                  this.sellPriceMet = true;
+                }
+              } else {
+                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                this.sellPriceMet = false;
+              }
+            
+            })
+            
+            this.setCountDown(this.auction.endDate);
+                     
+          })
+        }
+        
+      } )
+      
     })
   }
 
-    setCountDown(date) {
-      this.auctionTime =  moment(new Date(date).getTime()).unix();
-      this.currentTime = moment(new Date().getTime()).unix();
-      const diffTime = this.auctionTime - this.currentTime;
-      let duration;
-      duration = moment.duration(diffTime * 1000, 'milliseconds');
-      const interval = 1000;
+  setCountDown(date) {
+    this.auctionTime =  moment(new Date(date).getTime()).unix();
+    this.currentTime = moment(new Date().getTime()).unix();
+    const diffTime = this.auctionTime - this.currentTime;
+    let duration;
+    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    const interval = 1000;
 
-      setInterval(() => {
-        duration = moment.duration(duration - interval, 'milliseconds');
-        this.countdownDay = moment.duration(duration).days();
-        this.countdownHours = moment.duration(duration).hours();
-        this.countdownMinutes = moment.duration(duration).minutes();
-        this.countdownSeconds = moment.duration(duration).seconds();
-      }, interval);
-      
-    }
+    setInterval(() => {
+      duration = moment.duration(duration - interval, 'milliseconds');
+      this.countdownDay = moment.duration(duration).days();
+      this.countdownHours = moment.duration(duration).hours();
+      this.countdownMinutes = moment.duration(duration).minutes();
+      this.countdownSeconds = moment.duration(duration).seconds();
+    }, interval);
+    
+  }
 
   openForm() {
     this.visible = true;
   }
 
   bid() {
-    if (this.response === 404) {
+    if (this.response === 404 && this.artwork.assetType === "physical") {
       this.displayOverlay = true;
       return;
     }
@@ -125,6 +150,7 @@ export class AssetDetailsComponent implements OnInit {
           this.auction = data;
           this.spinner.hide();
           this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
+          this.ngOnInit();
           
         })
       }, 15000);
@@ -133,6 +159,10 @@ export class AssetDetailsComponent implements OnInit {
     })
 
   }
+
+  //if end date elapse and no bid, call cancel endpoint and remove artwork
+  //if there is a bid enable withdraw
+  //if sell now met, enable withdraw
 
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;
@@ -163,6 +193,7 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.visible = false;
           this.spinner.hide();
+          this.router.navigate(['/profile']);
         }, err =>  {
           this.spinner.hide();
         })
@@ -181,6 +212,7 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.spinner.show();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
+      console.log('this is res', res)
       this.spinner.hide();
     })
   }
@@ -211,7 +243,8 @@ export class AssetDetailsComponent implements OnInit {
       if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || 
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
-          this.userActions.addSingle('error', 'successful', 'Please make sure all fields are completed and correct.');
+          this.userActions.addSingle('error', 'Error', 'Please make sure all fields are completed and correct.');
+          this.spinner.hide();
         this.displayOverlay = true;
       }
       this.spinner.show();
@@ -220,13 +253,15 @@ export class AssetDetailsComponent implements OnInit {
         if (res['status'] === 'success') {
           this.spinner.hide();
           this.userActions.addSingle('success', 'successful', 'Buyer has been registered successfully!');
+          this.displayOverlay = false;
           this.checkBuyer();
-          this.ngOnInit;
+          this.ngOnInit();
         }
       }, err => {
         this.error = err.error.data.error;
         this.spinner.hide();
         this.userActions.addSingle('error', 'error', this.error);
+        this.displayOverlay = false;
         this.checkBuyer();
       })
     }

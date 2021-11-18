@@ -34,6 +34,8 @@ import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import {PanelModule} from 'primeng/panel';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {FileUploadModule} from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import {PanelModule} from 'primeng/panel';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule,
+    ProgressSpinnerModule,
+    FileUploadModule,
     OverlayPanelModule,
     ChartModule,
     PanelModule,

@@ -19,14 +19,14 @@ import { LandingComponent } from './pages/landing/landing.component';
 
 const routes: Routes = [
   {
-    path: 'demo',
+    path: '',
     component: HomeComponent,
     data: {
       title: AppController.trans().home
     }
   },
   {
-    path: '',
+    path: 'landing',
     component: LandingComponent,
     data: { showHeader: false }
   },
@@ -80,8 +80,8 @@ const routes: Routes = [
   }
 ];
 const routerOptions: ExtraOptions = {
-  useHash: false,
-  anchorScrolling: 'enabled',
+  useHash: true
+  // anchorScrolling: 'enabled',
 };
 @NgModule({
   

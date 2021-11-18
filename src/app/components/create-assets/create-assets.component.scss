@@ -188,7 +188,8 @@
                                     width: 52px;
                                     height: 52px;
                                     border-radius: 100%;
-                                    background-color: $Primary-Color-Home-1;
+                                    // background-color: $Primary-Color-Home-1; original, revert when active
+                                    background-color: gray;
                                     cursor: pointer;
                                 }
                                 .img-otr{
@@ -200,7 +201,8 @@
                                     }
                                 }
                                 .heading{
-                                    color: $Black-Color;
+                                    // color: $Black-Color; revert when active
+                                    color: gray;
                                     @include breakpoint($secreen-max-lg){
                                         br{
                                             display: none;

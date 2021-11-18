@@ -6,6 +6,7 @@ import { IUser } from './user.interface';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface';
 import { UserActionsService } from 'src/app/core/services/userActions.service';
+import { AuctionService } from 'src/app/core/services/auction.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -38,30 +39,44 @@ export class UserDashboardComponent implements OnInit {
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
   displayImage: string;
   coverImage: string;
+  another: any [];
 
   constructor(public mainService: MainService, public metamaskService: MetamaskService, 
-    private clipboard: Clipboard, public userActions: UserActionsService) { }
+    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { }
 
   ngOnInit(): void {
+    this.another = [];
    this.displayImage = "/assets/img/user-profile-default-image.png";
-   this.coverImage = "/assets/img/default-cover.png"
+   this.coverImage = "/assets/img/default-cover.png";
+   this.metamaskService.openMetamask().then(result => {
+    this.account = localStorage.getItem('account');
+    this.getMeta();
+    
+    this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+      if (res !== null) {
+        this.artworks = res;
+        this.categories = this.artworks.map(item => item.category)
+        .filter((value, index, self) => self.indexOf(value) === index);
+        this.artworks.forEach((artwork) => {
+          this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
+                if (res !== undefined) {
+                  this.another.push({
+                    ...artwork,
+                    auction: res
+                  })
+                }
+               
+          })
+        })
+        this.artworks = this.another;
+      };
+    })
+ 
+  })
   }
 
   ngAfterViewInit() {
-    this.metamaskService.openMetamask().then(result => {
-      this.account = result.account;
-      this.getMeta();
-      this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
-      
-      this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
-        if (res !== null) {
-          this.artworks = res;
-          this.categories = this.artworks.map(item => item.category)
-          .filter((value, index, self) => self.indexOf(value) === index);
-        };
-      })
    
-    })
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
       this.displayImage = this.user.displayImage;

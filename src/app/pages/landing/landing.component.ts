@@ -160,11 +160,9 @@ export class LandingComponent implements OnInit {
       this.landingData = res;
       this.landingData.tokenSection.tokenAllocationData.map((token) => {
         token.name = token.name + ' ' + '(' + token.value + '%' + ')';
-        token.value = token.value * 10;
       })
       this.landingData.tokenSection.useOfSalesData.map((token) => {
         token.name = token.name + ' ' + '(' + token.value + '%' + ')';
-        token.value = token.value * 10;
       })
       this.updateCharts();
     }) 
@@ -205,7 +203,7 @@ export class LandingComponent implements OnInit {
         min: 50,
         max: 1000,
         inRange: {
-          colorLightness: [0, 2]
+          colorLightness: [0.5, 1]
         }
       },
       series: [
@@ -260,7 +258,7 @@ export class LandingComponent implements OnInit {
         min: 50,
         max: 1000,
         inRange: {
-          colorLightness: [0, 2]
+          colorLightness: [0.3, 1]
         }
       },
       series: [
