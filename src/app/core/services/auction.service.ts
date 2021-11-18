@@ -28,7 +28,7 @@ export class AuctionService {
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
-        this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${tokenId}/${auctionId}`, baseUrl.headers).subscribe(data => {
+        this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}get-auction-info/${tokenId}/${auctionId}`, baseUrl.headers).subscribe(data => {
           let item = data['data'] 
           observer.next({
             "auctionId": item.auctionId,
@@ -95,7 +95,7 @@ export class AuctionService {
   //     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
   //       res['data']['items'].forEach((item) => {
   //         if (item.lastAuctionId !== '') {
-  //           this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${item.tokenId}/${item.auctionId}`, baseUrl.headers).subscribe(data => {
+  //           this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}get-auction-info/${item.tokenId}/${item.auctionId}`, baseUrl.headers).subscribe(data => {
   //             let auction = data['data'] 
   //             observer.next({
   //               id: item.id,

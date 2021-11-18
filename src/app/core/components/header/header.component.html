@@ -101,41 +101,35 @@
                   <a *ngIf="account !== undefined ||  account !== null" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
               </div>
              
-              <div class="burger-menu">
-                                
+              <div class="burger-menu">                
                 <input id="burger" type="checkbox" />
-
                 <label for="burger">
                     <span></span>
                     <span></span>
                     <span></span>
                 </label>
-
                 <nav>    
-                    
-                        <ul class="navigation-inr">
-                            <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
-                                <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
-                                <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
-                                    <li class="dropdown-li" *ngFor="let item of link.menu ">
-                                        <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>                               
-                                <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
-                                    <a routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
-                                </button>
-                            </li>
-                            <li>
-                                <button *ngIf="account === undefined || account === null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
-                                <button *ngIf="account !== undefined ||  account !== null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
-                                    <a  (click)="op.toggle($event)"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                                </button>
-                            </li>
-                            
-                        </ul>
-               
+                    <ul class="navigation-inr">
+                        <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
+                            <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
+                            <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
+                                <li class="dropdown-li" *ngFor="let item of link.menu ">
+                                    <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>                               
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
+                                <a routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button *ngIf="account === undefined || account === null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
+                            <button *ngIf="account !== undefined ||  account !== null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
+                                <a  (click)="op.toggle($event)"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                            </button>
+                        </li>  
+                    </ul>
                 </nav>
               </div>
           </div>
