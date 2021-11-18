@@ -19,13 +19,13 @@ export class HeaderComponent implements OnInit {
   @Input() public buttonsInfo: INavButton;
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
   buttonsData: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}}
-  account: string;
+  account: string = '';
   isOpen = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
   ngOnInit() {
-  //  this.account = localStorage.getItem('account');
+   this.account = localStorage.getItem('account');
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -34,9 +34,15 @@ export class HeaderComponent implements OnInit {
           this.headerData = this.headerInfo;
         }
         if (this.buttonsInfo !== undefined) {
+          this.buttonsData = this.buttonsInfo;
         }
-    }
+    }   
+  }
 
+  connectToMetamask() {
+    this.metamaskService.openMetamask().then(res => {
+      this.account = res.account;
+    });
   }
 
 }

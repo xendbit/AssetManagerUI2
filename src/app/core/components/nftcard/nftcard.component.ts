@@ -62,17 +62,22 @@ export class NFTCardComponent implements OnInit {
     //   this.setCountDown(this.auction.endDate)
     //  }
       // this.sellPriceMet = false;
+    
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
-        this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
         this.setCountDown(this.auction.endDate)
-        if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
-          this.sellPriceMet = true;
-          this.isLoaded = true;
-        } else {
-          this.sellPriceMet = false;
-          this.isLoaded = true;
+        if (this.auction['bids'].length > 0) {
+          this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
+          if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
+            this.sellPriceMet = true;
+            this.isLoaded = true;
+          } else {
+            this.sellPriceMet = false;
+            this.isLoaded = true;
+          }
+          console.log('this.artwork.auction', this.auction['bids'])
         }
+       
         
       })
       
@@ -107,8 +112,8 @@ export class NFTCardComponent implements OnInit {
 
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
-    // this.auctionTime =  moment(new Date(date).getTime()).unix();
+    // this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
+    this.auctionTime =  moment(new Date(date).getTime()).unix();
     this.currentTime = moment(new Date().getTime()).unix();
     const diffTime = this.auctionTime - this.currentTime;
     let duration;
