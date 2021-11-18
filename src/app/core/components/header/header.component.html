@@ -1,36 +1,4 @@
 <!-- {{trans.language}}: {{config.defaultLanguage}} -->
-
-    <!--=======================================
-                Modal Start Here
-    ========================================-->
-
-    <!-- <div class="navi">
-        <input type="checkbox" id="navi-check">
-        <div class="navi-header">
-
-        </div>
-        <div class="navi-btn">
-          <label for="navi-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-        </div>
-        
-        <div class="navi-links">
-          <a href="//github.io/jo_geek" target="_blank">Github</a>
-          <a href="http://stackoverflow.com/users/4084003/" target="_blank">Stackoverflow</a>
-          <a href="https://in.linkedin.com/in/jonesvinothjoseph" target="_blank">LinkedIn</a>
-          <a href="https://codepen.io/jo_Geek/" target="_blank">Codepen</a>
-          <a href="https://jsfiddle.net/user/jo_Geek/" target="_blank">JsFiddle</a>
-        </div>
-      </div> -->
-
-<!--=======================================
-            Modal End Here
-========================================-->
-
-    
     <!--=======================================
                 Navbar Start Here
     ========================================-->
@@ -124,10 +92,10 @@
                             </button>
                         </li>
                         <li>
-                            <button *ngIf="account === undefined || account === null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
-                            <button *ngIf="account !== undefined ||  account !== null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
+                            <!-- <button *ngIf="account !== undefined ||  account !== null" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
                                 <a  (click)="op.toggle($event)"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                            </button>
+                            </button> -->
                         </li>  
                     </ul>
                 </nav>
