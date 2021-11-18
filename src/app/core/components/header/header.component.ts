@@ -4,6 +4,7 @@ import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
+import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 
 declare var $: any;
 
@@ -33,15 +34,9 @@ export class HeaderComponent implements OnInit {
           this.headerData = this.headerInfo;
         }
         if (this.buttonsInfo !== undefined) {
-          this.buttonsData = this.buttonsInfo;
         }
-    }   
-  }
+    }
 
-  connectToMetamask() {
-    this.metamaskService.openMetamask().then(res => {
-      this.account = res.account;
-    });
   }
 
 }

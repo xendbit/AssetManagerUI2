@@ -42,7 +42,7 @@ export class AssetsGridComponent implements OnInit {
       if (this.artworkArray !== null) {
         // this.isLoaded = true;
         this.artworks = this.artworkArray;
-        this.categories = this.artworks.map(item => item.category)
+        this.categories = this.artworkArray.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
         // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
         // .pipe(mergeMap(character => this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${character['tokenId']}/${character['auctionId']}`, baseUrl.headers)));

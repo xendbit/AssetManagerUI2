@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { IBlogGroup } from '../blog/blog.interfaces';
 import { IArtwork, IPresentation } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
+import { mergeMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
