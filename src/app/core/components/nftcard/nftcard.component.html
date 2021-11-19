@@ -2,7 +2,7 @@
             Explore Artworks Start Here
     ========================================-->
 
-    <div class="col-inr box2" >
+    <div class="col-inr box2" *ngIf="!this.hideNft">
         <div class="img-otr" [ngSwitch]="artwork.category">
             <a (click)="placeBid()" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                 <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">

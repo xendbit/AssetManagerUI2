@@ -17,6 +17,7 @@ import { IEvents, IFollow, ILikes } from './event.interface';
 })
 export class NFTCardComponent implements OnInit {
   @Input() public artwork: IArtwork;
+  @Input() public parentPage: string;
   countdown: string;
   countdownDay: number;
   countdownHours: number;
@@ -42,6 +43,7 @@ export class NFTCardComponent implements OnInit {
   currentTime: number;
   sellPriceMet: boolean = false;
   isLoaded: boolean;
+  hideNft: boolean = false;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
@@ -118,6 +120,11 @@ export class NFTCardComponent implements OnInit {
     let duration;
     duration = moment.duration(diffTime, 'seconds');
     const interval = 1000;
+    console.log(this.auctionTime < this.currentTime)
+    this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard' ? this.hideNft = true : this.hideNft = false
+    // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
+    //   this.hideNft = true;
+    // }
 
     setInterval(() => {
       this.countdownDay = duration.days();

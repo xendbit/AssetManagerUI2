@@ -7,6 +7,7 @@ import { mergeMap } from 'rxjs/operators';
 import { baseUrl } from '../../config/main.config.const';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-assets-grid',
@@ -19,6 +20,7 @@ export class AssetsGridComponent implements OnInit {
   // auction: IAuction;
   work: any [];
   @Input() public artworkArray: IArtwork [];
+  @Input() public parentPage: string;
   currentPage: number;
   itemCount: number;
   itemsPerPage: number;
@@ -30,7 +32,8 @@ export class AssetsGridComponent implements OnInit {
   // result: any;
   // testTheory: any;
 
-  constructor(public mainService: MainService, public auctionService: AuctionService, public httpClient: HttpClient) { }
+  constructor(public mainService: MainService, public auctionService: AuctionService, public httpClient: HttpClient,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     // this.isLoaded = false;
@@ -42,6 +45,7 @@ export class AssetsGridComponent implements OnInit {
       if (this.artworkArray !== null) {
         // this.isLoaded = true;
         this.artworks = this.artworkArray;
+        this.spinner.hide();
         this.categories = this.artworkArray.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
         // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
@@ -114,8 +118,10 @@ export class AssetsGridComponent implements OnInit {
 
 
   loadMore(page, count) {
+    this.spinner.show();
     this.currentPage = this.currentPage + 1;
     this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
+    this.spinner.hide();
   }
 
 }
