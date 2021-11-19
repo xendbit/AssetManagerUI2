@@ -12,11 +12,11 @@
                   </a>
                   
               </div>
-              <div class="head-otr" >
+              <!-- <div class="head-otr" >
                 <h1 id="logoText" class="heading-h1 heading titleGreathorned">
                 Nifty Row [Demo]
                 </h1>
-            </div>
+            </div> -->
               <app-search></app-search>
               <div class="navigation-otr">
                   <ul class="navigation-inr">
@@ -65,8 +65,8 @@
                 </p-overlayPanel>
                 
                   <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
-                  <a *ngIf="account === '' || account === null" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
-                  <a *ngIf="account !== '' ||  account !== null" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                  <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
+                  <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
               </div>
              
               <div class="burger-menu">                

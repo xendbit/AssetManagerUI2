@@ -75,7 +75,6 @@ export class NFTCardComponent implements OnInit {
             this.sellPriceMet = false;
             this.isLoaded = true;
           }
-          console.log('this.artwork.auction', this.auction['bids'])
         }
        
         

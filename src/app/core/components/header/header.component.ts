@@ -18,14 +18,20 @@ export class HeaderComponent implements OnInit {
   @Input() public headerInfo: IMenuGroups;
   @Input() public buttonsInfo: INavButton;
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
-  buttonsData: INavButton = { "create": {"title": "", "path": ""}, "wallet": { "title": "", "path": ""}}
-  account: string = '';
-  isOpen = false;
+  buttonsData: INavButton = { "create": {"title": "Mint", "path": "mint"}, "wallet": { "title": "Connect Wallet", "path": "connect-wallet"}}
+  account: string = 'Not connected';
+  accountFound = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
   ngOnInit() {
-   this.account = localStorage.getItem('account');
+    if (localStorage.getItem('account')) {
+      this.accountFound = true;
+      this.account = localStorage.getItem('account');
+    } else {
+      this.accountFound = false;
+    }
+ 
   }
 
   ngOnChanges(changes: SimpleChanges) {
