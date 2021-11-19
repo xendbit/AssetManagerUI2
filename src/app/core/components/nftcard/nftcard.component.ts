@@ -120,7 +120,6 @@ export class NFTCardComponent implements OnInit {
     let duration;
     duration = moment.duration(diffTime, 'seconds');
     const interval = 1000;
-    console.log(this.auctionTime < this.currentTime)
     this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard' ? this.hideNft = true : this.hideNft = false
     // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
     //   this.hideNft = true;

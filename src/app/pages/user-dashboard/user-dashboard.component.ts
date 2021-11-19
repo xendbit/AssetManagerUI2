@@ -40,43 +40,46 @@ export class UserDashboardComponent implements OnInit {
   displayImage: string;
   coverImage: string;
   another: any [];
+  error: string;
 
   constructor(public mainService: MainService, public metamaskService: MetamaskService, 
     private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { }
 
   ngOnInit(): void {
     this.another = [];
-   this.displayImage = "/assets/img/user-profile-default-image.png";
-   this.coverImage = "/assets/img/default-cover.png";
-   this.metamaskService.openMetamask().then(result => {
-    this.account = localStorage.getItem('account');
-    this.getMeta();
-    
-    this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
-      if (res !== null) {
-        this.artworks = res;
-        this.categories = this.artworks.map(item => item.category)
-        .filter((value, index, self) => self.indexOf(value) === index);
-        this.artworks.forEach((artwork) => {
-          this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
-                if (res !== undefined) {
-                  this.another.push({
-                    ...artwork,
-                    auction: res
-                  })
-                }
-               
+    this.displayImage = "/assets/img/user-profile-default-image.png";
+    this.coverImage = "/assets/img/default-cover.png";
+    this.metamaskService.checkConnection().then(res => {
+        if (res === undefined || !localStorage.getItem('account')) {
+          this.error = 'You are currently not connected to a wallet. Please Connect to your Metamask wallet account.'
+          return;
+        } else {
+          this.account = localStorage.getItem('account');
+          this.getMeta();
+          this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+            if (res !== null) {
+              this.artworks = res;
+              this.categories = this.artworks.map(item => item.category)
+              .filter((value, index, self) => self.indexOf(value) === index);
+              this.artworks.forEach((artwork) => {
+                this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
+                      if (res !== undefined) {
+                        this.another.push({
+                          ...artwork,
+                          auction: res
+                        })
+                      }
+                    
+                })
+              })
+              this.artworks = this.another;
+            };
           })
-        })
-        this.artworks = this.another;
-      };
-    })
- 
-  })
+        }
+      })
   }
 
   ngAfterViewInit() {
-   
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
       this.displayImage = this.user.displayImage;

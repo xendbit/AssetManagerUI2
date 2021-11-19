@@ -49,6 +49,7 @@ export class CreateAssetsComponent implements OnInit {
   image: boolean;
   mp3: boolean;
   mp4: boolean;
+  accountFound: boolean = false;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService ) { 
@@ -57,11 +58,7 @@ export class CreateAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaType = [];
-    this.metamaskService.openMetamask().then(result => {
-      this.account = result.account;
-      this.checkIssuer()
-    })
-    
+    this.checkConnection();
     if (this.categories === undefined) {
       // this.spinner.show();
       this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
@@ -77,6 +74,20 @@ export class CreateAssetsComponent implements OnInit {
      })
     }
   
+  }
+
+  checkConnection() {
+    this.metamaskService.checkConnection().then(res => {
+      if (res === undefined || !localStorage.getItem('account')) {
+        this.accountFound = false;
+        this.error = 'Please Connect to your Metamask wallet account.'
+        return;
+      } else {
+        this.accountFound = true;
+        this.account = localStorage.getItem('account');
+        this.checkIssuer()
+      }
+    })
   }
 
   register(form: NgForm) {
@@ -97,6 +108,7 @@ export class CreateAssetsComponent implements OnInit {
       this.displayOverlay = true;
       return false;
     }
+    this.checkConnection();
     this.spinner.show();
     this.mainService.saveIssuer(
       email, phone, firstName, lastName, middleName,
@@ -187,6 +199,11 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   async mint(form: NgForm) {
+    if (this.response === undefined) {
+      this.userActions.addSingle('error', 'Failed', 'Please confirm that your wallet address is connected.');
+      this.checkConnection();
+      return;
+    }
     if (this.response.data.error === 'Issuer with blockchain address not found') {
       this.displayOverlay = true;
       return;
@@ -225,6 +242,7 @@ export class CreateAssetsComponent implements OnInit {
       this.userActions.addSingle('error', 'Failed', 'Please make sure you select a type.');
       return;
     }else {
+      this.checkConnection();
       this.spinner.show();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
         if (data.status === 'success') {

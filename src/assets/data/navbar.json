@@ -16,7 +16,8 @@
           "menu": [ 
             {
                 "title": "All Creators",
-                "url": "/creators"
+                "url": "/"
+                
             },
             {
               "title": "All Assets",

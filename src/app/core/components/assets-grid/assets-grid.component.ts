@@ -27,6 +27,7 @@ export class AssetsGridComponent implements OnInit {
   totalItems: number;
   totalPages: number;
   categories: string[];
+  isLoaded: boolean = true;
   // isLoaded: boolean;
   // another: any [] = [];
   // result: any;
@@ -36,7 +37,7 @@ export class AssetsGridComponent implements OnInit {
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    // this.isLoaded = false;
+    this.isLoaded = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -118,10 +119,10 @@ export class AssetsGridComponent implements OnInit {
 
 
   loadMore(page, count) {
-    this.spinner.show();
+    this.isLoaded = false;
     this.currentPage = this.currentPage + 1;
     this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
-    this.spinner.hide();
+    this.isLoaded = true;
   }
 
 }

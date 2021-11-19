@@ -29,8 +29,8 @@ export class MetamaskService {
         this.contractAddress = data['data'];
       }
     }) 
-    this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    this.provider.on('accountsChanged', this.changed)
+    // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    // this.provider.on('accountsChanged', this.changed)
     
   }
 
@@ -50,6 +50,17 @@ export class MetamaskService {
       account: this.walletAddress,
       balance: this.walletBalance
     }
+  }
+
+  public getBalance() {
+    const account = localStorage.getItem('account');
+    return this.httpClient.get(`${baseUrl.mainUrl}get-account-balance/${account}`)
+  }
+
+  public async checkConnection() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.listAccounts();
+    return accounts[0];
   }
 
   changed(accounts) {

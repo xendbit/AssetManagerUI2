@@ -58,6 +58,7 @@
                 <div class="col-lg-8 col-heading-otr">
                     <div class="heading-inr">
                         <h3 class="heading heading-h3">Create Single Artwork</h3>
+                        <p *ngIf="error" class="desc body-sb" style="color: red;">{{error}}</p>
                     </div>
                 </div>
             </div>
@@ -234,9 +235,14 @@
                                     <a (click)="mint(createForm)" class="btn-fill btn-create">Create Artwork</a>
                                 </div> -->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr" *ngIf="this.accountFound">
                                 <div class="col-btn-inr" >
                                     <a (click)="mint(createForm)" class="btn-fill btn-create">Create Artwork</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr" *ngIf="!this.accountFound">
+                                <div class="heading-inr">
+                                    <p *ngIf="error" class="desc body-sb" style="color: red;">{{error}}</p>
                                 </div>
                             </div>
                         </div>

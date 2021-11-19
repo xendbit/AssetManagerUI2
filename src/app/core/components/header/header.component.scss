@@ -506,3 +506,13 @@
     #burger {
         display: none;
     }
+
+    .icon-ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 0 72px 0;
+    }
+
+    .icon-ul .icon-li {
+        margin-right: 20px;
+    }

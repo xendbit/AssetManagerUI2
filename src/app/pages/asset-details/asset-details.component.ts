@@ -36,6 +36,7 @@ export class AssetDetailsComponent implements OnInit {
   sellNowValue: number;
   sellPriceMet: boolean = false;
   today: Date;
+  accountFound: boolean;
   
   
  
@@ -54,49 +55,59 @@ export class AssetDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
-    await this.metamaskService.openMetamask().then(result => {
-      this.account = result.account;
-      this.balance = result.balance;
-      this.checkBuyer();
-      let tokenId = this.activatedRoute.snapshot.params.asset;
-      let auctionId = this.activatedRoute.snapshot.params.auction;
-      this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
-        this.artwork = res;
-        this.sellPriceMet = false;
+    this.checkConnection();
+    let tokenId = this.activatedRoute.snapshot.params.asset;
+    let auctionId = this.activatedRoute.snapshot.params.auction;
+    this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
+      this.artwork = res;
+      this.sellPriceMet = false;
+      if (this.artwork.lastAuctionId !== 0) {
+        this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
+          this.auction = res;
+          this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
+          this.checkBuyer();
+          this.auctionService.getETHtoUSDValue().subscribe(res => {
+            if (this.auction.bids.length > 0) {
+              this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+              this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
+              if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                this.sellPriceMet = false;
+              } else {
+                this.sellPriceMet = true;
+              }
+            } else {
+              this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+              this.sellPriceMet = false;
+            }
+          
+          })
+          this.setCountDown(this.auction.endDate);  
+        })
+      }
+      
+    } )
+   
+  }
+
+  checkConnection() {
+    this.metamaskService.checkConnection().then(res => {
+      if (res === undefined || !localStorage.getItem('account')) {
+        this.accountFound = false;
+        this.error = 'Please Connect Your metamask wallet account to bid on this asset.'
+        return;
+      } else {
+        this.accountFound = true;
+        this.account = localStorage.getItem('account');
+        this.metamaskService.getBalance().subscribe(response => {
+          this.balance = response['data'];
+        })
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
             this.visible = true;
           }
         }
-        if (this.artwork.lastAuctionId !== 0) {
-          
-          this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
-            this.auction = res;
-            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
-            this.auctionService.getETHtoUSDValue().subscribe(res => {
-              if (this.auction.bids.length > 0) {
-                this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-                this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
-                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-                  this.sellPriceMet = false;
-                } else {
-                  this.sellPriceMet = true;
-                }
-              } else {
-                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-                this.sellPriceMet = false;
-              }
-            
-            })
-            
-            this.setCountDown(this.auction.endDate);
-                     
-          })
-        }
-        
-      } )
-      
+      }
     })
   }
 
@@ -123,6 +134,10 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   bid() {
+    if(this.response === undefined) {
+      this.userActions.addSingle('error', 'Failed', 'Please confirm that your wallet is connected.');
+      return;
+    }
     if (this.response === 404 && this.artwork.assetType === "physical") {
       this.displayOverlay = true;
       return;
@@ -143,6 +158,7 @@ export class AssetDetailsComponent implements OnInit {
       this.userActions.addSingle('error', 'Failed', 'Please confirm you have entered your bidding price for this asset.');
       return;
     }
+    this.checkConnection();
     this.spinner.show();
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       setTimeout(() => {
@@ -171,6 +187,7 @@ export class AssetDetailsComponent implements OnInit {
       this.userActions.addSingle('error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
       return;
     }
+    this.checkConnection();
     this.spinner.show();
     this.metamaskService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];
@@ -212,7 +229,7 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.spinner.show();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
-      console.log('this is res', res)
+      // console.log('this is res', res)
       this.spinner.hide();
     })
   }

@@ -23051,6 +23051,7 @@
     padding: 10px 20px;
     background-color: #F2F2F2;
     border-radius: 16px;
+    margin-left: 0px;
   }
 
   @media only screen and (min-width:768px) and (max-width:780px) {
@@ -23076,7 +23077,7 @@
       }
   }
 
-  @media only screen and (min-width:1024px) {
+  @media only screen and (min-width:1000px) and (max-width: 1390px) {
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .bid-main {
       display: flex;
       align-items: center;
@@ -23084,6 +23085,7 @@
       padding: 10px 8px;
       background-color: #F2F2F2;
       border-radius: 16px;
+      margin-left: -25px;
     }
   }
 

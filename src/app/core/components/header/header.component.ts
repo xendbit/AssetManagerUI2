@@ -25,12 +25,14 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    if (localStorage.getItem('account')) {
-      this.accountFound = true;
-      this.account = localStorage.getItem('account');
-    } else {
-      this.accountFound = false;
-    }
+     this.metamaskService.checkConnection().then(res => {
+      if (res === undefined || !localStorage.getItem('account')) {
+        this.accountFound = false;
+      } else {
+        this.accountFound = true;
+        this.account = localStorage.getItem('account');
+      }
+    })
  
   }
 
@@ -48,6 +50,7 @@ export class HeaderComponent implements OnInit {
   connectToMetamask() {
     this.metamaskService.openMetamask().then(res => {
       this.account = res.account;
+      this.ngOnInit();
     });
   }
 
