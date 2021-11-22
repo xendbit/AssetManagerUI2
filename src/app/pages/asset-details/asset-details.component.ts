@@ -55,12 +55,13 @@ export class AssetDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
-    this.checkConnection();
+    
     let tokenId = this.activatedRoute.snapshot.params.asset;
     let auctionId = this.activatedRoute.snapshot.params.auction;
     this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
       this.artwork = res;
       this.sellPriceMet = false;
+      this.checkConnection();
       if (this.artwork.lastAuctionId !== 0) {
         this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
           this.auction = res;
@@ -101,6 +102,7 @@ export class AssetDetailsComponent implements OnInit {
         this.metamaskService.getBalance().subscribe(response => {
           this.balance = response['data'];
         })
+        console.log('true', this.account.toLowerCase() === this.artwork.owner.username.toLowerCase())
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
