@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { MetamaskService } from './../../core/services/metamask.service';
 import { UserActionsService } from './../../core/services/userActions.service';
 import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
@@ -50,9 +51,10 @@ export class CreateAssetsComponent implements OnInit {
   mp3: boolean;
   mp4: boolean;
   accountFound: boolean = false;
+  previewArray: any = [];
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
-    public metamaskService: MetamaskService ) { 
+    public metamaskService: MetamaskService, public router: Router ) { 
    
   }
 
@@ -158,16 +160,19 @@ export class CreateAssetsComponent implements OnInit {
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
           this.image = true;
+          this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
         if ( /\.(mp4)$/i.test(file.name) === true  ) { 
           // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
           this.mp3 = true;
+          this.previewArray.push({type: 'mp4', name: file.name, media: file})
           this.mediaType.push('mp4');
         }
         if ( /\.(mp3)$/i.test(file.name) === true  ) {
           // this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
           this.mp4 = true;
+          this.previewArray.push({type: 'mp3', name: file.name, media: file})
           this.mediaType.push('mp3');
         }
       };
@@ -178,9 +183,15 @@ export class CreateAssetsComponent implements OnInit {
     this.media.push(binaryString);
    }
 
-  remove(index) {
+  remove(index, name) {
     if (index !== -1) {
       this.media.splice(index, 1);
+      this.previewArray.splice(index, 1)
+      this.mediaType.splice(index, 1)
+      if (this.previewArray.filter(item => item.name !== this.preview.name)) {
+        this.preview = undefined;
+      }
+      
     } 
   }
 
@@ -251,7 +262,8 @@ export class CreateAssetsComponent implements OnInit {
               if (data['status'] === 'success') {
                 this.spinner.hide();
                 this.userActions.addSingle('success', 'Success', 'Asset has been issued successfully');
-                return this.ngOnInit();
+                // this.ngOnInit();
+                this.router.navigateByUrl('/profile')
               } else {
                 this.spinner.hide();
                 this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');

@@ -102,7 +102,6 @@ export class AssetDetailsComponent implements OnInit {
         this.metamaskService.getBalance().subscribe(response => {
           this.balance = response['data'];
         })
-        console.log('true', this.account.toLowerCase() === this.artwork.owner.username.toLowerCase())
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {

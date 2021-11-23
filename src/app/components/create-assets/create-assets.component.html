@@ -126,8 +126,9 @@
                                     <source [ngfSrc]="preview" type="video/ogg" />
                                 </video>
                             </div>
+
                         </div>
-                        <!-- <table class="table" *ngIf="this.media.length > 0">
+                        <table class="table" *ngIf="this.media.length > 0">
                             <thead>
                                 <tr>
                                     <th class="desc body-sb">Name</th>
@@ -136,14 +137,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of media" (click)="assignPreview(item.media)">
-                                    <td class="input-otr">{{item.media.name}}</td>
-                                    <td class="input-otr">{{item.media.type}}</td>
-                                    <td class="input-otr"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(item.index)"> Remove </button> </td>
+                                <tr *ngFor="let item of previewArray; let i =index" (click)="assignPreview(item.media)">
+                                    <td class="input-otr">{{item.name}}</td>
+                                    <td class="input-otr">{{item.type}}</td>
+                                    <td class="input-otr"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
                                 </tr>
                                                   
                             </tbody>
-                        </table> -->
+                        </table>
                         
                        
                         <form class="form-main" method="post"  #createForm="ngForm">
