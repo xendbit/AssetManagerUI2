@@ -195,7 +195,7 @@
                                             <div class="boxes-main" *ngIf="!this.owner">
                                                 <div class="bid-main"  *ngIf="auctionTime > currentTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Sell-Now Price</p>
-                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} {{auction.currency}}</h5>
+                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} BNB</h5>
                                                     <p class="dollor body-mb">{{this.sellNowValue | currency}}</p>
                                                 </div>
                                                 <div class="auction-main"  *ngIf="auctionTime > currentTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
