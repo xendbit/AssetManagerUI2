@@ -271,9 +271,10 @@ export class CreateAssetsComponent implements OnInit {
                 this.spinner.hide();
                 this.userActions.addSingle('success', 'Success', 'Asset has been issued successfully');
                 // this.ngOnInit();
-                this.router.navigateByUrl('/profile')
+                this.router.navigateByUrl('/profile').then(() => {
+                  window.location.reload();
+                });
               } else {
-                console.log('data =>', data)
                 this.spinner.hide();
                 this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
               }

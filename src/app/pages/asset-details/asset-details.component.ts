@@ -211,7 +211,9 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.visible = false;
           this.spinner.hide();
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/profile']).then(() => {
+            window.location.reload();
+          });;
         }, err =>  {
           this.spinner.hide();
         })
