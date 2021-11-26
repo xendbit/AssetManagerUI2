@@ -1,8 +1,17 @@
     <!--=======================================
             Explore Artworks Start Here
     ========================================-->
+    <div class="row" *ngIf="!isLoaded">
+        <div class="col-lg-6">
+            <div class="img-otr">
+                <a class="tilt-otr img-tilt" id="anchorMedia" data-tilt>
+                <img class="img-inr img-fluid" style="object-fit: cover;" src="/assets/img/loading.gif" alt="artwork-img">
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <div class="col-inr box2" *ngIf="!this.hideNft">
+    <div class="col-inr box2" *ngIf="isLoaded">
         <div class="img-otr" [ngSwitch]="artwork.category">
             <a (click)="placeBid()" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                 <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">

@@ -40,6 +40,9 @@ export class HeaderComponent implements OnInit {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {
           this.headerData = this.headerInfo;
+          if (!this.accountFound) {
+            this.headerData.menuGroup = this.headerData.menuGroup.filter(res => res.title !== 'Profile');
+          }
         }
         if (this.buttonsInfo !== undefined) {
           this.buttonsData = this.buttonsInfo;

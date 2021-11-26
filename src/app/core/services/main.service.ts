@@ -200,7 +200,7 @@ export class MainService {
   }
 
   getOwnerAssets() {
-     return this.subjectOwnerNFT.asObservable();
+     return this.subjectOwnerNFT;
   }
 
 

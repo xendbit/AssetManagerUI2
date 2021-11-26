@@ -52,6 +52,7 @@ export class CreateAssetsComponent implements OnInit {
   mp4: boolean;
   accountFound: boolean = false;
   previewArray: any = [];
+  acceptedFileType: any = 'image/*'
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService, public router: Router ) { 
@@ -152,10 +153,13 @@ export class CreateAssetsComponent implements OnInit {
  
     if (fileSize > 10) {
       this.errorMessage = "Please Make sure that the file selected is not bigger than 10MB";
+      console.log('here')
+      this.userActions.addSingle('error', 'Failed', 'Please Make sure that the file selected is not bigger than 10MB');
       return;
     }
     if ( /\.(jpe?g|gif|png|mp3|mp4)$/i.test(file.name) === false  ) {
       this.errorMessage = "Please select a file type of JPEG, GIF, PNG, MP3 or MP4";
+      this.userActions.addSingle('error', 'Failed', 'Please select a file type of JPEG, GIF, PNG, MP3 or MP4');
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
@@ -202,6 +206,10 @@ export class CreateAssetsComponent implements OnInit {
 
   pickedCategory(value) {
     this.categorySelected = value;
+    console.log('category', this.categorySelected)
+    if (this.categorySelected === 'musicRight') {
+      
+    }
 
   }
 
@@ -265,6 +273,7 @@ export class CreateAssetsComponent implements OnInit {
                 // this.ngOnInit();
                 this.router.navigateByUrl('/profile')
               } else {
+                console.log('data =>', data)
                 this.spinner.hide();
                 this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
               }

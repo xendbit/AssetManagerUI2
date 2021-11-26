@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IArtwork, IAuction } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { AuctionService } from '../../services/auction.service';
@@ -49,6 +49,7 @@ export class AssetsGridComponent implements OnInit {
         this.spinner.hide();
         this.categories = this.artworkArray.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
+      
         // this.testTheory = this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}/list-tokens?page=1&limit=10`, baseUrl.headers)
         // .pipe(mergeMap(character => this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}/get-auction-info/${character['tokenId']}/${character['auctionId']}`, baseUrl.headers)));
         // console.log('this is ', this.testTheory)

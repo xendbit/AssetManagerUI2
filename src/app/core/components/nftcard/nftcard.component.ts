@@ -42,7 +42,7 @@ export class NFTCardComponent implements OnInit {
   auctionTime: number;
   currentTime: number;
   sellPriceMet: boolean = false;
-  isLoaded: boolean;
+  isLoaded: boolean = false;
   hideNft: boolean = false;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, 
@@ -50,6 +50,7 @@ export class NFTCardComponent implements OnInit {
     private clipboard: Clipboard) { }
 
   ngOnInit() {  
+    this.spinner.show('spinner1');
   }
 
   ngOnChanges() {
@@ -57,25 +58,18 @@ export class NFTCardComponent implements OnInit {
     if (this.artwork !== null) {
       this.today = new Date().getTime();
       this.getLikes(this.artwork.tokenId);
+     
       this.isLoaded = false;
-    //  if (this.artwork.auction !== undefined) {
-    //   this.auction = this.artwork.auction;
-    //   this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
-    //   this.setCountDown(this.auction.endDate)
-    //  }
-      // this.sellPriceMet = false;
     
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
-        this.setCountDown(this.auction.endDate)
+        this.setCountDown(this.auction.endDate);
         if (this.auction['bids'].length > 0) {
           this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
           if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
             this.sellPriceMet = true;
-            this.isLoaded = true;
           } else {
             this.sellPriceMet = false;
-            this.isLoaded = true;
           }
         }
        
@@ -116,14 +110,18 @@ export class NFTCardComponent implements OnInit {
     // this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
     this.auctionTime =  moment(new Date(date).getTime()).unix();
     this.currentTime = moment(new Date().getTime()).unix();
+    // console.log('this => ', this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard')
+    if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
+      this.hideNft = true;
+      this.isLoaded = true;
+    } else {
+      this.hideNft = false;
+      this.isLoaded = true;
+    }
     const diffTime = this.auctionTime - this.currentTime;
     let duration;
     duration = moment.duration(diffTime, 'seconds');
     const interval = 1000;
-    this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard' ? this.hideNft = true : this.hideNft = false
-    // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
-    //   this.hideNft = true;
-    // }
 
     setInterval(() => {
       this.countdownDay = duration.days();

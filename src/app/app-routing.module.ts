@@ -80,7 +80,8 @@ const routes: Routes = [
   }
 ];
 const routerOptions: ExtraOptions = {
-  useHash: true
+  useHash: true,
+  scrollPositionRestoration: 'top',
   // anchorScrolling: 'enabled',
 };
 @NgModule({

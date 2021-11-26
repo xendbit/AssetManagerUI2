@@ -37,18 +37,29 @@ export class UserDashboardComponent implements OnInit {
   userView: string; account: string; artworks: IArtwork[]; categories: string[];
   currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number;
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
-  displayImage: string;
-  coverImage: string;
-  another: any [];
+  displayImage: string = "/assets/img/user-profile-default-image.png";
+  coverImage: string = "/assets/img/default-cover.png";
+  another: any [] = [];
   error: string;
 
   constructor(public mainService: MainService, public metamaskService: MetamaskService, 
     private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { }
 
   ngOnInit(): void {
-    this.another = [];
-    this.displayImage = "/assets/img/user-profile-default-image.png";
-    this.coverImage = "/assets/img/default-cover.png";
+    this.mainService.getUserInfo().subscribe((data: IUser) => {
+      this.user = data;
+      this.displayImage = this.user.displayImage;
+      this.coverImage = this.user.coverImage;
+    })
+  }
+
+  
+
+  ngAfterViewInit() {
+    this.checkConnection();
+  }
+
+  checkConnection() {
     this.metamaskService.checkConnection().then(res => {
       if (res === undefined || !localStorage.getItem('account')) {
         this.error = 'You are currently not connected to a wallet. Please Connect to your Metamask wallet account.'
@@ -66,14 +77,8 @@ export class UserDashboardComponent implements OnInit {
       }
     })
   }
+  
 
-  ngAfterViewInit() {
-    this.mainService.getUserInfo().subscribe((data: IUser) => {
-      this.user = data;
-      this.displayImage = this.user.displayImage;
-      this.coverImage = this.user.coverImage;
-    })
-  }
 
   selectView(type) {
     this.userView = type;

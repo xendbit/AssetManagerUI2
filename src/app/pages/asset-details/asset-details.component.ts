@@ -80,7 +80,6 @@ export class AssetDetailsComponent implements OnInit {
               this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
               this.sellPriceMet = false;
             }
-          
           })
           this.setCountDown(this.auction.endDate);  
         })
@@ -200,7 +199,8 @@ export class AssetDetailsComponent implements OnInit {
       let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
       let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
       let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
-      let sellNow: string =  sell.toString();
+      // let sellNow: string =  sell.toString();
+      let sellNow = '2';
       let minimumPrice: string =  minBid.toString();
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
