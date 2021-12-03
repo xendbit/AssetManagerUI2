@@ -52,7 +52,7 @@
     <!--=======================================
                 Create Start Here
     ========================================-->
-    <div class="create-main">
+    <div class="create-main" *ngIf="this.accountFound">
         <div class="container-fluid">
             <div class="row create-inr">
                 <div class="col-lg-8 col-heading-otr">
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                             </div> 
-                            <div id="uploadArea" class="upload-area">
+                            <div id="uploadArea" class="upload-area" *ngIf="this.categorySelected !== undefined">
                                 <div class="upload-area__header">
                                     <p class="upload-area__title"></p>
                                     <p class="upload-area__paragraph">
@@ -94,16 +94,29 @@
                                         </strong>
                                     </p>
                                 </div>
-                                <div class="upload-area__drop-zoon drop-zoon" ngfDrop selectable="1" multiple="1"
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="!hideBrowse"  ngfDrop selectable="1" multiple="1"
                                 [(files)]="files"
                                 [(file)] = "preview"
                                 [(validDrag)]="validComboDrag"
-                                [maxSize]=10485760
-                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= "{{acceptedFileType}}">
+                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= "image/gif,image/png,image/jpg,image/jpeg, image/*;">
                                     <span class="drop-zoon__icon">
                                         <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </span>
-                                    <p class="desc body-sb">PNG, GIF, JPEG, JPG, MP4 or MP3. Max 10 MB.</p>
+                                    <p class="desc body-sb">select art work (PNG, GIF, JPEG, JPG Max 10 MB.)</p>
+                                    <p class="drop-zoon__paragraph btn-outline1">browse</p>
+                                    <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
+                                        <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
+                                    </label> -->
+                                </div>
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'musicRight' && previewArray.length > 0  || this.categorySelected === 'movieRight' && previewArray.length > 0 "  ngfDrop selectable="1" multiple="1"
+                                [(files)]="files"
+                                [(file)] = "preview"
+                                [(validDrag)]="validComboDrag"
+                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= ".mp4, .mp3">
+                                    <span class="drop-zoon__icon">
+                                        <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </span>
+                                    <p class="desc body-sb">select media (MP4 or MP3. Max 10 MB.)</p>
                                     <p class="drop-zoon__paragraph btn-outline1">browse</p>
                                     <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
                                         <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
@@ -125,20 +138,20 @@
                                         </div>
                                     </ng-template>
                                 </p-galleria> -->
-                                <div class="img-main" *ngIf="this.preview.type.includes('image')">
+                                <div class="img-main" *ngIf="this.preview.type.includes('image') && this.fileSize < 10">
                                     <img [ngfSrc]="preview" style="width: 100%; height: 100%;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
                                 </div>
-                                <div class="img-main" *ngIf="this.preview.type.includes('audio')">
+                                <div class="img-main" *ngIf="this.preview.type.includes('audio') && this.fileSize < 10">
                                     <audio class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
-                                        <source [src]="preview" type="audio/mp3" />
+                                        <source src="preview" type="audio/mp3" />
                                         <source [ngfSrc]="preview" type="audio/ogg" />
                                         <source [ngfSrc]="preview" type="audio/wav" />
                                     </audio>
                                 </div>
                                 
-                                <div class="img-main" *ngIf="this.preview.type.includes('video')">
+                                <div class="img-main" *ngIf="this.preview.type.includes('video') && this.fileSize < 10">
                                     <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
-                                        <source [src]="preview" type="video/mp4" />
+                                        <source src="preview" type="video/mp4" />
                                         <source [ngfSrc]="preview" type="video/webm" />
                                         <source [ngfSrc]="preview" type="video/ogg" />
                                     </video>
@@ -157,7 +170,7 @@
                                     <tr *ngFor="let item of previewArray; let i =index" (click)="assignPreview(item.media)">
                                         <td class="input-otr">{{item.name}}</td>
                                         <td class="input-otr">{{item.type}}</td>
-                                        <td class="input-otr"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
+                                        <td class="input-otr" *ngIf="item.type !== 'image' && categorySelected === 'musicRight' || item.type !== 'image' && categorySelected === 'movieRight'"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
                                     </tr>
                                                     
                                 </tbody>
@@ -254,6 +267,7 @@
             </div>
         </div>
     </div>
+    <app-connect-wallet *ngIf="!this.accountFound"></app-connect-wallet>
 
 <!--=======================================
             Create End Here

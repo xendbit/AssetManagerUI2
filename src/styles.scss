@@ -11,6 +11,11 @@ html {
   scroll-behavior: smooth;
 }
 
+.p-carousel-items-content {
+  overflow: hidden;
+  width: 100% !important;
+}
+
 
 
 @-webkit-keyframes fadeIn {
@@ -498,9 +503,9 @@ html {
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: #FFFFFF;
-    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
-    margin: 0 0 12px 0;
+    background-color: transparent;
+    box-shadow: 0px 20px 50px rgb(0 0 0 / 10%);
+    margin: 0px 0px 12px 34%;
   }
   
   .connect-wallet-main .modal .modal-dialog .modal-content .row-boxes .col-box-otr .box-inr .head {
@@ -28250,9 +28255,9 @@ html {
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background-color: #FFFFFF;
-    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
-    margin: 0 0 12px 0;
+    background-color: transparent;
+    box-shadow: 0px 20px 50px rgb(0 0 0 / 10%);
+    margin: 0px 0px 12px 34%;
   }
   
   .connect-wallet .container .col-connect-otr .col-connect-inr .row-boxes .col-box-otr .box-inr .head {

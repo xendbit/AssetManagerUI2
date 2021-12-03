@@ -21,6 +21,7 @@ import {ToastModule} from 'primeng/toast';
 import {GalleriaModule} from 'primeng/galleria';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
+import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {DialogModule} from 'primeng/dialog';
     NFTCardComponent,
     CarouselComponent,
     BlogComponent,
-    AssetsGridComponent
+    AssetsGridComponent,
+    ConnectWalletComponent
   ],
   exports: [
     HeaderComponent,
@@ -56,7 +58,8 @@ import {DialogModule} from 'primeng/dialog';
     NFTCardComponent,
     CarouselComponent,
     BlogComponent,
-    AssetsGridComponent
+    AssetsGridComponent,
+    ConnectWalletComponent
   ],
   providers: [MessageService],
 })

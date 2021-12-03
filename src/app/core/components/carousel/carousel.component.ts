@@ -21,6 +21,7 @@ export class CarouselComponent implements OnInit {
   categories: string [];
   another: any [];
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
+  newArtworkArray: IArtwork[] = [];
   constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) { 
     this.responsiveOptions = [
       {
@@ -49,34 +50,24 @@ export class CarouselComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray']) {
         if (this.artworkArray !== null) {
-          this.artworks = this.artworkArray;
-          this.categories = this.artworks.map(item => item.category)
+          this.newArtworkArray = this.artworkArray;
+          this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
+          this.artworkArray = this.newArtworkArray.slice(0,10);
+          this.categories = this.artworkArray.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
-          // this.artworks.forEach((artwork) => {
-          //   this.auctionService.fetchAuctionFromMain(artwork.tokenId, artwork.lastAuctionId).subscribe(res => {
-          //     if (res !== undefined) {
-          //       this.another.push({
-          //         ...artwork,
-          //         auction: res
-          //       })
-          //     }
-          //   })
-           
-          // })
         }
     }
     
   }
 
   categoryFilter(category) {
-    this.artworkArray = this.artworks.filter(item => {
+    this.artworkArray = this.newArtworkArray.filter(item => {
       return item.category === category;
     });
   }
 
   sort(data) { //to be implemented for sort by date when we implement the sort feature
-    let today = Date.now();
-    this.artworks = data.sort((a, b) => today - new Date(data.dateIssued * 1000).getTime());
+    this.artworks = this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
   }
 
   filterArtworks(data) { //to be implemented for filter when we implement the filter feature

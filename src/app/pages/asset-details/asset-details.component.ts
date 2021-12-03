@@ -37,6 +37,9 @@ export class AssetDetailsComponent implements OnInit {
   sellPriceMet: boolean = false;
   today: Date;
   accountFound: boolean;
+  lastBidder: boolean;
+  contractAddress: any;
+  hasActiveAuction: boolean;
   
   
  
@@ -55,6 +58,9 @@ export class AssetDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
+    this.metamaskService.getContractAddress().subscribe(response => {
+      this.contractAddress = response['data'];
+    })
     
     let tokenId = this.activatedRoute.snapshot.params.asset;
     let auctionId = this.activatedRoute.snapshot.params.auction;
@@ -63,25 +69,34 @@ export class AssetDetailsComponent implements OnInit {
       this.sellPriceMet = false;
       this.checkConnection();
       if (this.artwork.lastAuctionId !== 0) {
-        this.auctionService.fetchAuctionFromMain(tokenId, auctionId).subscribe((res: IAuction) => {
-          this.auction = res;
-          this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
-          this.checkBuyer();
-          this.auctionService.getETHtoUSDValue().subscribe(res => {
-            if (this.auction.bids.length > 0) {
-              this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-              this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
-              if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-                this.sellPriceMet = false;
+        this.auctionService.fetchAuctionFromMain(tokenId, res.lastAuctionId).subscribe((res: any) => {
+          if (res === 'Auction has ended') {
+            this.hasActiveAuction = false;
+          } else {
+            this.auction = res;
+            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
+            this.checkBuyer();
+            this.auctionService.getETHtoUSDValue().subscribe(res => {
+              if (this.auction.bids.length > 0) {
+                this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
+                this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
+                if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                  this.lastBidder = true;
+                }
+                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                  this.sellPriceMet = false;
+                } else {
+                  this.sellPriceMet = true;
+                }
               } else {
-                this.sellPriceMet = true;
+                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                this.sellPriceMet = false;
               }
-            } else {
-              this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-              this.sellPriceMet = false;
-            }
-          })
-          this.setCountDown(this.auction.endDate);  
+            })
+            this.setCountDown(this.auction.endDate);
+          }   
+        }, err => {
+          console.log('this is error')
         })
       }
       
@@ -102,6 +117,7 @@ export class AssetDetailsComponent implements OnInit {
           this.balance = response['data'];
         })
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+       
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
             this.visible = true;
@@ -114,6 +130,9 @@ export class AssetDetailsComponent implements OnInit {
   setCountDown(date) {
     this.auctionTime =  moment(new Date(date).getTime()).unix();
     this.currentTime = moment(new Date().getTime()).unix();
+    if (this.currentTime > this.auctionTime) {
+      console.log('expired')
+    }
     const diffTime = this.auctionTime - this.currentTime;
     let duration;
     duration = moment.duration(diffTime * 1000, 'milliseconds');
@@ -166,10 +185,17 @@ export class AssetDetailsComponent implements OnInit {
           this.auction = data;
           this.spinner.hide();
           this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
-          this.ngOnInit();
-          
+          if (this.amount >= this.auction.bids[0]['bid']){
+            this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+              console.log('hello',  tokenOwnerResponse)
+              this.ngOnInit();
+            }, err => {
+              this.userActions.addSingle('error', 'Failed', 'There has been an error, please try again.');
+              return;
+            })
+          }
         })
-      }, 15000);
+      }, 25000);
       }, err => {
         this.spinner.hide();
     })
@@ -199,8 +225,7 @@ export class AssetDetailsComponent implements OnInit {
       let initialEnd: number = Math.abs(Math.floor((currentDate - endDate.getTime()) / 1000 / 60 / 60 / 24));
       let startBlock: number = this.currentBlock + ((initialStart * 24 * 60 * 60)/3);
       let endBlock: number = this.currentBlock + ((initialEnd * 24 * 60 * 60)/3) ;
-      // let sellNow: string =  sell.toString();
-      let sellNow = '2';
+      let sellNow: string =  sell.toString();
       let minimumPrice: string =  minBid.toString();
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;

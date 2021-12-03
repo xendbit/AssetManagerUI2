@@ -47,7 +47,7 @@
                             <div class="row row-custom-inr">  
                                   
                                 <div class="col-otr col-lg-3">
-                                    <p-carousel [value]="artworkArray" [numVisible]="3" [numScroll]="1" [style]="{width: 'inherit'}" [showNavigators]="false"  [responsiveOptions]="responsiveOptions"  [showIndicators]="true">
+                                    <p-carousel [value]="artworkArray" [numVisible]="3" [numScroll]="3" [style]="{width: 'inherit'}" [showNavigators]="false"  [responsiveOptions]="responsiveOptions"  [showIndicators]="true">
                                         <ng-template let-artwork pTemplate="item" >
                                             <app-nftcard [artwork]="artwork" [parentPage]="parentPage"></app-nftcard>
                                         </ng-template>

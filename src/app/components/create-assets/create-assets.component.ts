@@ -53,6 +53,8 @@ export class CreateAssetsComponent implements OnInit {
   accountFound: boolean = false;
   previewArray: any = [];
   acceptedFileType: any = 'image/*'
+  hideBrowse: boolean = false;
+  fileSize: number;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService, public router: Router ) { 
@@ -61,6 +63,7 @@ export class CreateAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaType = [];
+    console.log('this is cate', this.categorySelected)
     this.checkConnection();
     if (this.categories === undefined) {
       // this.spinner.show();
@@ -145,18 +148,20 @@ export class CreateAssetsComponent implements OnInit {
   
   check(file) {
     this.errorMessage = "";
-    const fileSize = file.size/1024/1024;
-    this.preview = file;
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = this.handleFile.bind(this);
- 
-    if (fileSize > 10) {
+    this.fileSize = file.size/1024/1024;
+
+    if (this.fileSize > 10) {
       this.errorMessage = "Please Make sure that the file selected is not bigger than 10MB";
       console.log('here')
       this.userActions.addSingle('error', 'Failed', 'Please Make sure that the file selected is not bigger than 10MB');
       return;
-    }
+    } else {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = this.handleFile.bind(this);
+      this.preview = file;
+      console.log('here file', this.fileSize)
+
     if ( /\.(jpe?g|gif|png|mp3|mp4)$/i.test(file.name) === false  ) {
       this.errorMessage = "Please select a file type of JPEG, GIF, PNG, MP3 or MP4";
       this.userActions.addSingle('error', 'Failed', 'Please select a file type of JPEG, GIF, PNG, MP3 or MP4');
@@ -180,6 +185,14 @@ export class CreateAssetsComponent implements OnInit {
           this.mediaType.push('mp3');
         }
       };
+      if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 || this.categorySelected === 'movieRight' && this.previewArray.length > 0 ) {
+        console.log('true')
+        this.hideBrowse = true;
+      } else {
+        this.hideBrowse = false;
+        console.log('false', this.media)
+      }
+    }
   }
 
   handleFile(event) {
@@ -201,14 +214,18 @@ export class CreateAssetsComponent implements OnInit {
 
   assignPreview(asset) {
     this.preview = asset;
+   
   }
 
 
   pickedCategory(value) {
     this.categorySelected = value;
-    console.log('category', this.categorySelected)
-    if (this.categorySelected === 'musicRight') {
-      
+    if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 || this.categorySelected === 'movieRight' && this.previewArray.length > 0 ) {
+      this.hideBrowse = true;
+      this.acceptedFileType = '.mp4, .mp3';
+    } else {
+      this.hideBrowse = false;
+      this.acceptedFileType = 'image/*';
     }
 
   }
@@ -274,7 +291,7 @@ export class CreateAssetsComponent implements OnInit {
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });
-              } else {
+              } else {        
                 this.spinner.hide();
                 this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
               }

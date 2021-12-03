@@ -111,13 +111,13 @@ export class NFTCardComponent implements OnInit {
     this.auctionTime =  moment(new Date(date).getTime()).unix();
     this.currentTime = moment(new Date().getTime()).unix();
     // console.log('this => ', this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard')
-    if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
-      this.hideNft = true;
-      this.isLoaded = true;
-    } else {
-      this.hideNft = false;
-      this.isLoaded = true;
-    }
+    // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
+    //   this.hideNft = true;
+    //   this.isLoaded = true;
+    // } else {
+    //   this.hideNft = false;
+    //   this.isLoaded = true;
+    // }
     const diffTime = this.auctionTime - this.currentTime;
     let duration;
     duration = moment.duration(diffTime, 'seconds');
@@ -133,7 +133,7 @@ export class NFTCardComponent implements OnInit {
   }
 
   placeBid() {
-    this.router.navigate(['/details/', this.artwork.tokenId, this.auction.auctionId]);
+    this.router.navigate(['/details/', this.artwork.tokenId, this.artwork.lastAuctionId]);
   }
 
   goToCreatorPage() {
