@@ -7,6 +7,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface';
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
+import { interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -43,7 +45,8 @@ export class UserDashboardComponent implements OnInit {
   error: string;
 
   constructor(public mainService: MainService, public metamaskService: MetamaskService, 
-    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { }
+    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { 
+    }
 
   ngOnInit(): void {
     this.mainService.getUserInfo().subscribe((data: IUser) => {
