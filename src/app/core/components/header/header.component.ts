@@ -51,10 +51,8 @@ export class HeaderComponent implements OnInit {
   }
 
   connectToMetamask() {
-    this.metamaskService.openMetamask().then(res => {
-      this.account = res.account;
-      this.ngOnInit();
-    });
+    this.metamaskService.openMetamask();
+    this.ngOnInit();
   }
 
 }

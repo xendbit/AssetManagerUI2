@@ -4,6 +4,9 @@ import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
 import { baseABI, baseUrl, chainId} from '../config/main.config.const';
 declare const window: any;
+import  detectEthereumProvider from '@metamask/detect-provider';
+import { from } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -11,7 +14,7 @@ declare const window: any;
 })
 export class MetamaskService {
   window:any;
-  provider: ethers.providers.Web3Provider;
+  provider: any;
   signer: ethers.providers.JsonRpcSigner;
   walletAddress: string;
   walletBalance: number;
@@ -35,21 +38,37 @@ export class MetamaskService {
   }
 
   public openMetamask = async () => {
-    this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    // Prompt user for account connections
-    await this.provider.send("eth_requestAccounts", []);
-    // console.log('pro', ethers.providers.getNetwork("https://data-seed-prebsc-2-s3.binance.org:8545/"))
-    this.signer = this.provider.getSigner();
-    localStorage.removeItem('account');
-    this.walletAddress = await this.signer.getAddress();
-    this.signer.getBalance().then((balance) => {
-      this.walletBalance =  parseInt(ethers.utils.formatEther(balance))
-     });
-     localStorage.setItem('account', window.ethereum.selectedAddress)
-    return {
-      account: this.walletAddress,
-      balance: this.walletBalance
-    }
+    return from(detectEthereumProvider()).subscribe(async (provider) => {
+        if (!provider) {
+          // throw new Error('Please install MetaMask');
+          console.log('not metamask')
+        }
+        localStorage.removeItem('account');
+        this.provider = provider;
+        await this.provider.request({ method: 'eth_requestAccounts' });
+        this.walletAddress = this.provider.selectedAddress
+        localStorage.setItem('account', this.provider.selectedAddress)
+        return {
+          account: this.walletAddress
+        }
+        
+      });
+    // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    // await this.provider.send("eth_requestAccounts", []);
+    // this.signer = this.provider.getSigner();
+    // localStorage.removeItem('account');
+    // this.walletAddress = await this.signer.getAddress();
+    // if (window.ethereum && window.ethereum.isMetaMask) {
+    //   console.log('here')
+    // }
+    // this.signer.getBalance().then((balance) => {
+    //   this.walletBalance =  parseInt(ethers.utils.formatEther(balance))
+    //  });
+    //  localStorage.setItem('account', window.ethereum.selectedAddress)
+    // return {
+    //   account: this.walletAddress,
+    //   balance: this.walletBalance
+    // }
   }
 
   public getBalance() {
@@ -64,7 +83,6 @@ export class MetamaskService {
   }
 
   changed(accounts) {
-    console.log('happened')
     if (accounts.length === 0) {
       // MetaMask is locked or the user has not connected any accounts
       console.log('Please connect to MetaMask.');

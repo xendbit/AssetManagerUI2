@@ -45,8 +45,6 @@ export class AssetsGridComponent implements OnInit {
     // this.isLoaded = false;
     if (changes['artworkArray'] && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
-        console.log('oooo', this.artworkArray);
-        
         // this.isLoaded = true;
         this.newArtworkArray = this.artworkArray;
         this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
