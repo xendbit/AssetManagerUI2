@@ -92,7 +92,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button *ngIf="!accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="op.toggle($event)" >{{buttonsData.wallet.title}}</a></button>
+                                <button *ngIf="!accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="connectToMetamask()" >{{buttonsData.wallet.title}}</a></button>
                                 <button *ngIf="accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
                                     <a  (click)="op.toggle($event)"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                                 </button>
