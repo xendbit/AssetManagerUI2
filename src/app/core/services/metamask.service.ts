@@ -39,6 +39,10 @@ export class MetamaskService {
   public openMetamask = async () => {
     if (this.platform.ANDROID) {
       window.location.href = "https://metamask.app.link/bxwkE8oF99";
+      // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
+    }
+    if (this.platform.IOS) {
+      window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202";
     }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
         if (!provider) {
