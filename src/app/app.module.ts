@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {PlatformModule} from '@angular/cdk/platform';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import {FileUploadModule} from 'primeng/fileupload';
   ],
   imports: [
     BrowserModule,
+    PlatformModule,
     AppRoutingModule,
     CoreModule,
     HttpClientModule,

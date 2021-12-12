@@ -3,11 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
 import { baseABI, baseUrl, chainId} from '../config/main.config.const';
-declare const window: any;
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-
+import { Platform } from '@angular/cdk/platform';
+declare const window: any;
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class MetamaskService {
   withdrawResponse: string;
   cancelResponse: string;
 
-  constructor(public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient, public platform: Platform) {
     this.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
@@ -38,10 +37,13 @@ export class MetamaskService {
   }
 
   public openMetamask = async () => {
+    if (this.platform.ANDROID) {
+      window.location.href = "https://metamask.app.link/bxwkE8oF99";
+    }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
         if (!provider) {
           // throw new Error('Please install MetaMask');
-          console.log('not metamask')
+          console.log('not metamask');
         }
         localStorage.removeItem('account');
         this.provider = provider;
