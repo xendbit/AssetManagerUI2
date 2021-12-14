@@ -44,7 +44,7 @@ export class CreateAssetsComponent implements OnInit {
   bankName: string;
   bankAddress: string;
   bankCode: string;
-  iban: string;
+  bankIban: string;
   accountName: string;
   accountNumber: string;
   image: boolean;
@@ -103,7 +103,7 @@ export class CreateAssetsComponent implements OnInit {
     const middleName = form.value.middleName;
     const lastName = form.value.lastName;
     const phone = form.value.phone;
-    const iban = form.value.iban;
+    const iban = form.value.bankIban;
     const bankCode = form.value.bankCode;
     const bankAddress = form.value.bankAddress;
     const accountName = form.value.accountName;
