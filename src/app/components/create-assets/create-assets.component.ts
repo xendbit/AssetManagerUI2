@@ -109,7 +109,9 @@ export class CreateAssetsComponent implements OnInit {
     const accountName = form.value.accountName;
     const accountNumber = form.value.accountNumber;
     const bankName = form.value.bankName;
-    if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined ) {
+    console.log('this => ', this.bankIban)
+    console.log('this => 2 ', form)
+    if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined || iban === undefined ) {
       this.userActions.addSingle('error', 'Failed', 'Please make sure all fields are completed and correct.');
       this.displayOverlay = true;
       return false;

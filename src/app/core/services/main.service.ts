@@ -469,6 +469,7 @@ export class MainService {
   saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
     accountName: string, accountNumber: number, bankCode: any, iban: any) {
+      console.log('this is iban', iban)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
