@@ -166,6 +166,8 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     let currentBid = this.auction.highestBid;
+    console.log('this is balance', this.balance)
+    console.log('truthy', this.amount > this.balance)
     if (+this.balance < +this.amount ) {
       this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
@@ -183,7 +185,8 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.spinner.show();
-    if (+this.amount >= +this.auction.sellNowPrice) {
+    if (+this.amount >= this.auction.sellNowPrice) {
+      console.log('met');
       this.metBuyNow = true;
       this.sellPriceMet = true;
     }
@@ -200,6 +203,7 @@ export class AssetDetailsComponent implements OnInit {
           this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+              console.log('hello',  tokenOwnerResponse)
               if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
                 this.owner = true;
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
