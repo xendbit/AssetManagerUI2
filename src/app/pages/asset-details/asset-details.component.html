@@ -188,7 +188,7 @@
                                     <div class="col-right-inr">
                                         <div class="bid-details">
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
-                                            <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
+                                            <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                             <a *ngIf="!this.owner" class="body-sb create-pb" style="margin-top: 10px;"> 
                                                Minimum Bid - {{auction.minimumBid}} BNB
                                             </a>
@@ -377,7 +377,7 @@
                                         <h4 class="heading-h4 activity-head">Activity</h4>
                                     </ng-template>
                                     <div class="col-right-inr">
-                                        <div class="activity-details" *ngIf="auction.bids.length > 0">
+                                        <div class="activity-details" *ngIf="auctionLength > 0">
                                             <h6 class="heading-h4 activity-head">Recent bid history</h6>
                                             <div class="place-bid-main" *ngFor="let bids of auction.bids">
                                                 <a  class="img-otr">
@@ -403,7 +403,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="activity-details" *ngIf="auction.bids.length <= 0">
+                                        <div class="activity-details" *ngIf="auctionLength <= 0">
                                             <div class="place-bid-main">
                                                 <p class="hours-p body-mb" style="margin-top: 30px; text-align: center;"> No Bids Yet.</p>
                                             </div>
