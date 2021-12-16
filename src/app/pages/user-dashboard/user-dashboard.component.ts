@@ -70,7 +70,9 @@ export class UserDashboardComponent implements OnInit {
       } else {
         this.account = localStorage.getItem('account');
         this.getMeta();
+        console.log('here')
         this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+          console.log('hete too')
           if (res !== null) {
             this.artworks = res;
             this.categories = this.artworks.map(item => item.category)

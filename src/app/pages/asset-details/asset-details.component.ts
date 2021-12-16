@@ -39,7 +39,9 @@ export class AssetDetailsComponent implements OnInit {
   accountFound: boolean;
   lastBidder: boolean;
   contractAddress: any;
-  hasActiveAuction: boolean;
+  hasActiveAuction: boolean = false;
+  metBuyNow: boolean;
+  auctionLength: number = 0;
   
   
  
@@ -73,7 +75,9 @@ export class AssetDetailsComponent implements OnInit {
           if (res === 'Auction has ended') {
             this.hasActiveAuction = false;
           } else {
+            this.hasActiveAuction = true;
             this.auction = res;
+            this.auctionLength = this.auction.bids.length;
             this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
             this.checkBuyer();
             this.auctionService.getETHtoUSDValue().subscribe(res => {
@@ -162,7 +166,9 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     let currentBid = this.auction.highestBid;
-    if (this.balance < this.amount ) {
+    console.log('this is balance', this.balance)
+    console.log('truthy', this.amount > this.balance)
+    if (+this.balance < +this.amount ) {
       this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
     } else if (this.balance < currentBid)  {
@@ -179,15 +185,32 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.spinner.show();
+    if (+this.amount >= this.auction.sellNowPrice) {
+      console.log('met');
+      this.metBuyNow = true;
+      this.sellPriceMet = true;
+    }
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       setTimeout(() => {
-        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
-          this.auction = data;
+        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: any) => {
+          if (data !== 'Auction has ended') {
+            this.auction = data;
+          }
+          if (data === 'Auction has ended') {
+            this.hasActiveAuction = false;
+          }
           this.spinner.hide();
           this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
-          if (this.amount >= this.auction.bids[0]['bid']){
+          if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
               console.log('hello',  tokenOwnerResponse)
+              if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+                this.owner = true;
+                if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                  this.visible = true;
+                }
+              }
+              this.spinner.hide();
               this.ngOnInit();
             }, err => {
               this.userActions.addSingle('error', 'Failed', 'There has been an error, please try again.');
