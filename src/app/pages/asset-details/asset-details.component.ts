@@ -112,7 +112,7 @@ export class AssetDetailsComponent implements OnInit {
     this.metamaskService.checkConnection().then(res => {
       if (res === undefined || !localStorage.getItem('account')) {
         this.accountFound = false;
-        this.error = 'Please Connect Your metamask wallet account to bid on this asset.'
+        this.error = 'Please connect your metamask wallet account to bid on this asset.'
         return;
       } else {
         this.accountFound = true;
