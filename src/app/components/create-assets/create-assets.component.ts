@@ -109,8 +109,6 @@ export class CreateAssetsComponent implements OnInit {
     const accountName = form.value.accountName;
     const accountNumber = form.value.accountNumber;
     const bankName = form.value.bankName;
-    console.log('this => ', this.bankIban)
-    console.log('this => 2 ', form)
     if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined || iban === undefined ) {
       this.userActions.addSingle('error', 'Failed', 'Please make sure all fields are completed and correct.');
       this.displayOverlay = true;
@@ -188,11 +186,9 @@ export class CreateAssetsComponent implements OnInit {
         }
       };
       if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 || this.categorySelected === 'movieRight' && this.previewArray.length > 0 ) {
-        console.log('true')
         this.hideBrowse = true;
       } else {
         this.hideBrowse = false;
-        console.log('false', this.media)
       }
     }
   }
