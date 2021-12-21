@@ -171,6 +171,7 @@
                                         <td class="input-otr">{{item.name}}</td>
                                         <td class="input-otr">{{item.type}}</td>
                                         <td class="input-otr" *ngIf="item.type !== 'image' && categorySelected === 'musicRight' || item.type !== 'image' && categorySelected === 'movieRight'"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
+                                        <td class="input-otr" *ngIf="item.type === 'image' && categorySelected === 'artwork'"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
                                     </tr>
                                                     
                                 </tbody>
