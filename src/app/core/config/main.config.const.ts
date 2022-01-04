@@ -25,7 +25,7 @@ export const baseABI = [
         "function withdraw(uint256,uint256)",
         "function cancelAuction(uint256,uint256)"
 ]
-export const chainId = 97;
+export const chainId = 1666700000;
 export const niftyKey = apiKey;
 export const blockchainInfo = {
         key: demoBlockchainKey,
