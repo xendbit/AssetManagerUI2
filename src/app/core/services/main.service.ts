@@ -53,10 +53,6 @@ export class MainService {
   fetchArtWorkFromMain(page: number, limit: number) {
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, baseUrl.headers).pipe(map(res => {
       res['data']['items'].forEach((item) => {
-        console.log('data', res['data']['items'])
-        let trial = []
-        trial.push(res['data']['items'])
-        console.log('tri', trial)
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
