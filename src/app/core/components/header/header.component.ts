@@ -36,6 +36,10 @@ export class HeaderComponent implements OnInit {
  
   }
 
+  disconnectFromMetamask() {
+    this.metamaskService.disconnectFromClient();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {

@@ -51,13 +51,22 @@ export class MetamaskService {
         }
         localStorage.removeItem('account');
         this.provider = provider;
-        await this.provider.request({ method: 'eth_requestAccounts' });
-        this.walletAddress = this.provider.selectedAddress
-        localStorage.setItem('account', this.provider.selectedAddress)
-        return {
-          account: this.walletAddress
-        }
-        
+        const accounts = await this.provider.request({
+          method: "wallet_requestPermissions",
+          params: [{
+              eth_accounts: {}
+          }]
+      }).then(() => {
+        this.provider.request({
+          method: 'eth_requestAccounts',
+      })
+      this.walletAddress = this.provider.selectedAddress
+      localStorage.setItem('account', this.provider.selectedAddress);
+      return {
+        account: this.walletAddress
+      }
+    })
+      window.location.reload();
       });
     // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     // await this.provider.send("eth_requestAccounts", []);
@@ -86,6 +95,11 @@ export class MetamaskService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const accounts = await provider.listAccounts();
     return accounts[0];
+  }
+
+  disconnectFromClient() {
+    localStorage.removeItem('account');
+    window.location.reload();
   }
 
   changed(accounts) {
