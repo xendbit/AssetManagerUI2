@@ -30,7 +30,7 @@
             width: 100%;
             height: 1px;
             background-color: $Gray-Shade-3;
-            margin: 36px 0;
+            margin: 11px 0;
             display: flex;
         }
         .col-connect-otr{
@@ -131,6 +131,11 @@
   
   .navi > #navi-check {
     display: none;
+  }
+
+  .connect-wallet .container .col-connect-otr .col-connect-inr .desc {
+    color: #666666;
+    margin: 0 0 12px 0;
   }
   
   @media only screen and (min-width:420px) {

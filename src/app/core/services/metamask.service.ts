@@ -82,17 +82,15 @@ export class MetamaskService {
           params: [{
               eth_accounts: {}
           }]
-      }).then(async () => {
+      }).then(() => {
         this.provider.request({
           method: 'eth_requestAccounts',
       })
       this.walletAddress = this.provider.selectedAddress
-      const chainId = await this.provider.request({ method: 'eth_chainId' });
       localStorage.setItem('account', this.provider.selectedAddress);
       return {
         account: this.walletAddress
       }
-      
     })
       window.location.reload();
       });
