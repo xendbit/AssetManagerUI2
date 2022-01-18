@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
-import { baseABI, baseUrl, chainId} from '../config/main.config.const';
+import { baseABI, baseUrl, chainId, niftyKey} from '../config/main.config.const';
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
@@ -154,7 +154,12 @@ export class MetamaskService {
   }
 
   getContractAddress() {
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, baseUrl.headers)
+    let headers: HttpHeaders = new HttpHeaders();
+    let chain = localStorage.getItem('currentChain');
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', chain);
+    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {

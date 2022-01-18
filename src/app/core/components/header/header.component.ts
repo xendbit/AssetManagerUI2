@@ -59,4 +59,9 @@ export class HeaderComponent implements OnInit {
     this.ngOnInit();
   }
 
+  switchChain(chain: string) {
+    localStorage.setItem('currentChain', chain);
+    window.location.reload();
+  }
+
 }
