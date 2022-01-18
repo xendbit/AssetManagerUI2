@@ -36,6 +36,10 @@ export class HeaderComponent implements OnInit {
  
   }
 
+  disconnectFromMetamask() {
+    this.metamaskService.disconnectFromClient();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {
@@ -53,6 +57,11 @@ export class HeaderComponent implements OnInit {
   connectToMetamask() {
     this.metamaskService.openMetamask();
     this.ngOnInit();
+  }
+
+  switchChain(chain: string) {
+    localStorage.setItem('currentChain', chain);
+    window.location.reload();
   }
 
 }
