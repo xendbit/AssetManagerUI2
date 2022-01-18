@@ -45,17 +45,22 @@ export class MainService {
   categoriesResponse: IAssetCategory;
   assetTypeResponse: any;
   landingResponse: ILandingData;
+  chain: string;
   
   constructor(public httpClient: HttpClient) {
+    if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
+      this.chain = 'harmony';
+    } else {
+      this.chain = localStorage.getItem('currentChain');
+    }
    }
 
 
   fetchArtWorkFromMain(page: number, limit: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -106,10 +111,9 @@ export class MainService {
 
   fetchSingleArtwork(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => { 
           let item = data['data'];
@@ -158,10 +162,9 @@ export class MainService {
 
   fetchAssetsByOwnerId(account: string, page, limit) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
@@ -218,10 +221,9 @@ export class MainService {
 
   issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
@@ -467,7 +469,6 @@ export class MainService {
   saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
     accountName: string, accountNumber: number, bankCode: any, iban: any) {
-      console.log('this is iban', iban)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);

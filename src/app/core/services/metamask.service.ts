@@ -24,6 +24,7 @@ export class MetamaskService {
   issuanceResponse: any;
   withdrawResponse: string;
   cancelResponse: string;
+  chain: string;
 
   constructor(public httpClient: HttpClient, public platform: Platform) {
     this.getContractAddress().subscribe(data => {
@@ -31,8 +32,11 @@ export class MetamaskService {
         this.contractAddress = data['data'];
       }
     }) 
-    // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    // this.provider.on('accountsChanged', this.changed)
+    if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
+      this.chain = 'harmony';
+    } else {
+      this.chain = localStorage.getItem('currentChain');
+    }
     
   }
 
@@ -155,10 +159,9 @@ export class MetamaskService {
 
   getContractAddress() {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
   }
 
