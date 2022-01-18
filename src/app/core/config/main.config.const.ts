@@ -7,16 +7,13 @@ export const footerConfig: IMenuGroups [] = footerData;
 let apiKey = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 let demoBlockchainKey = "c7740e06-43f2-46cb-92e1-85841d6d2f72";
 let headers: HttpHeaders = new HttpHeaders();
-let chain = localStorage.getItem('currentChain');
 headers = headers.append('Content-Type', 'application/json');
 headers = headers.append('api-key', apiKey);
-headers = headers.append('chain', chain);
-console.log('head', headers)
 
 export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
-        mainUrl: 'https://lb.xendbit.net/api/yasuke/',
+        mainUrl: 'https://lb.xendbit.net/api/harmony/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
 
