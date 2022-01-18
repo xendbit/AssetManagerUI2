@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
-import { baseABI, baseUrl, chainId} from '../config/main.config.const';
+import { baseABI, baseUrl, chainId, niftyKey} from '../config/main.config.const';
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
@@ -51,13 +51,22 @@ export class MetamaskService {
         }
         localStorage.removeItem('account');
         this.provider = provider;
-        await this.provider.request({ method: 'eth_requestAccounts' });
-        this.walletAddress = this.provider.selectedAddress
-        localStorage.setItem('account', this.provider.selectedAddress)
-        return {
-          account: this.walletAddress
-        }
-        
+        const accounts = await this.provider.request({
+          method: "wallet_requestPermissions",
+          params: [{
+              eth_accounts: {}
+          }]
+      }).then(() => {
+        this.provider.request({
+          method: 'eth_requestAccounts',
+      })
+      this.walletAddress = this.provider.selectedAddress
+      localStorage.setItem('account', this.provider.selectedAddress);
+      return {
+        account: this.walletAddress
+      }
+    })
+      window.location.reload();
       });
     // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     // await this.provider.send("eth_requestAccounts", []);
@@ -86,6 +95,11 @@ export class MetamaskService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const accounts = await provider.listAccounts();
     return accounts[0];
+  }
+
+  disconnectFromClient() {
+    localStorage.removeItem('account');
+    window.location.reload();
   }
 
   changed(accounts) {
@@ -140,7 +154,12 @@ export class MetamaskService {
   }
 
   getContractAddress() {
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, baseUrl.headers)
+    let headers: HttpHeaders = new HttpHeaders();
+    let chain = localStorage.getItem('currentChain');
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', chain);
+    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
