@@ -267,7 +267,7 @@
                                         .img-create{
                                             width: 60px;
                                             height: 60px;
-                                            border-radius: 16px;
+                                            border-radius: 8px;
                                         }
                                         .check-otr{
                                             position: absolute;
@@ -322,7 +322,7 @@
                             padding: 48px 0 0 0;
                         }
                         .bid-details{
-                            padding: 28px 36px 36px 36px;
+                            padding: 28px 26px 26px 26px;
                             border-radius: 24px;
                             background-color: $Gray-Shade-4;
                             @include breakpoint($secreen-xs){
@@ -341,7 +341,7 @@
                                     flex-direction: column;
                                 }
                                 .bid-main{
-                                    padding: 24px 32px;
+                                    padding: 14px 18px;
                                     background-color: $White-Color;
                                     box-shadow: $box-shadow-custom;
                                     border-radius: 8px;
@@ -363,7 +363,7 @@
                                     }
                                 }
                                 .auction-main{
-                                    padding: 24px 32px;
+                                    padding: 14px 18px;
                                     box-shadow: $box-shadow-custom;
                                     background-color: $White-Color;
                                     border-radius: 8px;
@@ -499,11 +499,13 @@
 
 .heading-h3 {
     font-size: 24px;
-    line-height: 48px;
+    line-height: 1.2;
     font-family: "DMSans-Bold";
-    margin-top: 1rem;
+    //margin-top: 1rem;
 }
-
+.heading-h2 {
+  font-size: 32px;
+}
 @media (max-width: 575px) {
     .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
       padding: 0;
