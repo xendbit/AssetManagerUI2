@@ -1,8 +1,10 @@
+import { MetamaskService } from './core/services/metamask.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { MainService } from './core/services/main.service';
+import {HostListener} from '@angular/core';
 
 import { AppController } from './app.controller';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -21,8 +23,12 @@ export class AppComponent extends AppController implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,  private spinner: NgxSpinnerService,
-              private titleService: Title, public mainService: MainService) {
+              private titleService: Title, public mainService: MainService, public metamaskService: MetamaskService) {
     super();
+    window.addEventListener("load", () => { 
+      console.log('loaded')
+      // this.metamaskService.checkChainChange();
+    })
   }
 
   ngOnInit(): void {

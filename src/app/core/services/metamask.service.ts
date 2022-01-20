@@ -1,3 +1,4 @@
+import { UserActionsService } from 'src/app/core/services/userActions.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
@@ -26,7 +27,7 @@ export class MetamaskService {
   cancelResponse: string;
   chain: string;
 
-  constructor(public httpClient: HttpClient, public platform: Platform) {
+  constructor(public httpClient: HttpClient, public platform: Platform, public userActions: UserActionsService) {
     this.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
@@ -37,7 +38,28 @@ export class MetamaskService {
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
-    
+    this.checkChainChange();
+  }
+
+
+  async checkChainChange() {
+    const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    console.log('this is chain', parseInt(_chainId, 16))
+    let networkChain = parseInt(_chainId, 16);
+    if (networkChain === 1666700000 || networkChain === 97) {
+    } else {
+      this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+    }
+    window.ethereum.on('chainChanged', (chainId) => { 
+      if (networkChain === 1666700000 || networkChain === 97) {
+      } else {
+        this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+      }
+        // Handle the new chain.
+        // Correctly handling chain changes can be complicated.
+        // Metamask recommends reloading the page unless you have good reason not to.
+      window.location.reload();
+    })
   }
 
   public openMetamask = async () => {
@@ -60,15 +82,17 @@ export class MetamaskService {
           params: [{
               eth_accounts: {}
           }]
-      }).then(() => {
+      }).then(async () => {
         this.provider.request({
           method: 'eth_requestAccounts',
       })
       this.walletAddress = this.provider.selectedAddress
+      const chainId = await this.provider.request({ method: 'eth_chainId' });
       localStorage.setItem('account', this.provider.selectedAddress);
       return {
         account: this.walletAddress
       }
+      
     })
       window.location.reload();
       });
@@ -254,6 +278,7 @@ export class MetamaskService {
   getCurrentBlock()  {
     return this.httpClient.get(`${baseUrl.mainUrl}/get-block`, baseUrl.headers)
   }
+
 
 
 }
