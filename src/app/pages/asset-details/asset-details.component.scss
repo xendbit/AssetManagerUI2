@@ -295,6 +295,7 @@
                                         }
                                         .create-p{
                                             color: $Gray-Shade-2;
+                                            font-style: italic;
                                         }
                                         .create-pb{
                                             color: $Black-Color;
@@ -323,7 +324,7 @@
                         }
                         .bid-details{
                             padding: 12px 26px 26px 26px;
-                            border-radius: 24px;
+                            border-radius: 12px;
                             background-color: $Gray-Shade-4;
                             @include breakpoint($secreen-xs){
                                 padding: 0;
@@ -332,13 +333,15 @@
                             }
                             .bid-head{
                                 color: $Black-Color;
+                                margin-top: 0;
                             }
                             .boxes-main{
                                 display: flex;
                                 margin: 2px 0 30px 0;
+                                justify-content: space-between;
                                 //max-height: 173px;
                                 @include breakpoint($secreen-max-xxxl){
-                                    flex-direction: column;
+                                    //flex-direction: column;
                                 }
                                 .bid-main{
                                     padding: 14px 18px;
@@ -448,7 +451,7 @@
                                     align-items: center;
                                     justify-content: space-between;
                                     @include breakpoint($secreen-xs){
-                                        flex-direction: column;
+                                        //flex-direction: column;
                                         align-items: flex-start;
                                     }
                                     .content-left{
