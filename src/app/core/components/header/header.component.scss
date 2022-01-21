@@ -10,7 +10,7 @@
     background-image: linear-gradient(to right, #366CE3, #D0FC00);
     position: relative;
     z-index: 2;
-    // margin-left: -34%; 
+    // margin-left: -34%;
     margin-left: -29%;
     font-size: 41px;
     line-height: 80px;
@@ -90,45 +90,48 @@
 }
 
 
+.btn-fill, .btn-outline1 {
+  border-radius: 8px;
+}
 
 .navi {
     height: 50px;
     width: 100%;
     position: relative;
   }
-  
+
   .navi > .navi-header {
     display: inline;
   }
-  
+
   .navi > .navi-header > .navi-title {
     display: inline-block;
     font-size: 22px;
     color: #fff;
     padding: 10px 10px 10px 10px;
   }
-  
+
   .navi > .navi-btn {
     display: none;
   }
-  
+
   .navi > .navi-links {
     display: inline;
     float: right;
     font-size: 18px;
   }
-  
+
   .navi > .navi-links > a {
     display: inline-block;
     padding: 13px 10px 13px 10px;
     text-decoration: none;
     color: #efefef;
   }
-  
+
   .navi > .navi-links > a:hover {
     background-color: rgba(0, 0, 0, 0.3);
   }
-  
+
   .navi > #navi-check {
     display: none;
   }
@@ -137,7 +140,7 @@
     color: #666666;
     margin: 0 0 12px 0;
   }
-  
+
   @media only screen and (min-width:420px) {
     #logoText {
         margin-left: -138%;
@@ -418,7 +421,7 @@
       top: 35px;
       right: 40px;
       height: 20px;
-      width: 15px; 
+      width: 15px;
       z-index: 5;
       span {
         position: absolute;
@@ -432,16 +435,16 @@
         transition: .5s;
       }
       span:first-child {
-        top: 3px; 
+        top: 3px;
       }
       span:last-child {
-        top: 16px; 
-      }      
+        top: 16px;
+      }
     }
     label:hover {
       cursor: pointer;
     }
-    input:checked + label { 
+    input:checked + label {
       span {
         opacity: 0;
         top: 50%;
@@ -489,7 +492,7 @@
         }
       }
     }
-    input:checked ~ nav { 
+    input:checked ~ nav {
       height: 100%;
       transition-delay: 0s;
       top: 0%;
@@ -503,7 +506,7 @@
         }
       }
     }
-    
+
     .body-sb{
         line-height: 25px;
     }
