@@ -584,7 +584,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
+    padding-block: 10px;
   }
 
   @media (max-width: 991px) {
@@ -13007,6 +13007,7 @@ html {
 
   .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .action-otr .btn-bid {
     text-align: center;
+    border-radius: $border-radius-medium;
   }
 
   .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
