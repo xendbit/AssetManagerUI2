@@ -186,9 +186,14 @@
                                         <div class="bid-details">
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
-                                            <a *ngIf="!this.owner" class="body-sb create-pb">
+                                            <div class="minimum-bid-box">
+                                              <a *ngIf="!this.owner" class="body-sb create-pb">
                                                Minimum Bid - {{auction.minimumBid}} ONE
                                             </a>
+                                          <a href="https://explorer.testnet.harmony.one/address/{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-bottom: 1rem; font-size: 18px; font-style: italic">
+                                            {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                                          </a>
+                                            </div>
                                             <div class="boxes-main" *ngIf="!this.owner">
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Sell-Now Price</p>
@@ -208,7 +213,7 @@
                                                         </div>
                                                         <div class="minutes-main main">
 <!--                                                            <p class="heading-h3 time-inr" id="minutes"></p>-->
-                                                            <p class="minutes-p body-mb"> {{this.countdownMinutes}} Minutes</p>
+                                                            <p class="minutes-p body-mb"> {{this.countdownMinutes}} Mins</p>
                                                         </div>
                                                         <div class="seconds-main main" *ngIf="countdownDay < 0">
 <!--                                                            <p class="heading-h3 time-inr" id="seconds"></p>-->
@@ -222,21 +227,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                          <a href="https://explorer.testnet.harmony.one/address/{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-bottom: 1rem; font-size: 18px; font-style: italic">
-                                            {{artwork.tokenId}} - Verify <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-                                          </a>
-                                            <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
+                                            <form class="bidform current-bid" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
                                                 <div class="input-main">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
+                                                        text-align: center; border-radius: 8px;
                                                         background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} ONE"  type="number" id="amount" name="amount"required>
                                                     </div>
                                                     <div *ngIf="auction.bids.length > 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
-                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} ONE ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                        background-color: white;
+                                                        text-align: center; border-radius: 8px"
+                                                               type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} ONE ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
                                                     </div>
                                                 </div>
 
