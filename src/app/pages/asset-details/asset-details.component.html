@@ -190,7 +190,7 @@
                                               <a *ngIf="!this.owner" class="body-sb create-pb">
                                                Minimum Bid - {{auction.minimumBid}} ONE
                                             </a>
-                                          <a href="https://explorer.testnet.harmony.one/address/{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-bottom: 1rem; font-size: 18px; font-style: italic">
+                                          <a href="https://explorer.testnet.harmony.one/address/{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-left:auto; margin-bottom: 1rem; font-size: 18px; font-style: italic">
                                             {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
                                           </a>
                                             </div>
@@ -249,8 +249,8 @@
                                                     <a (click)="bid()" class="btn-fill btn-bid">Place a Bid</a>
                                                 </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
-                                                    <div class="heading-inr">
-                                                        <p *ngIf="error" class="desc body-sb" style="color: red;">{{error}}</p>
+                                                    <div class="heading-inr error-container">
+                                                        <p *ngIf="error" class="desc" style="color: red;">{{error}}</p>
                                                     </div>
                                                 </div>
                                             </form>
@@ -311,7 +311,59 @@
                                             <div class="action-otr" *ngIf="this.lastBidder && currentTime  > auctionTime">
                                                 <a (click)="withdraw()" class="btn-fill btn-bid">Withdraw</a>
                                             </div>
+                                          <div class="row">
+                                            <div class="col-lg-12">
+                                              <div class="artwork-body">
+                                                <div>
+                                                  <div class="artwork-body-inr">
+                                                    <div class="row row-custom">
+                                                      <div class="col-lg-12 col-right-otr">
+                                                        <p-panel class="" [toggleable]="true" >
+<!--                                                          class activity-details-->
+                                                          <ng-template pTemplate="header" >
+                                                            <h4 class="heading-h4 activity-head">Activity</h4>
+                                                          </ng-template>
+                                                          <div class="col-right-inr">
+                                                            <div class="activity-details" *ngIf="auctionLength > 0">
+                                                              <h6 class="heading-h4 activity-head">Recent bid history</h6>
+                                                              <div class="place-bid-main" *ngFor="let bids of auction.bids">
+                                                                <a  class="img-otr">
+                                                                  <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
+                                                                </a>
+                                                                <div class="bid-content" >
 
+                                                                  <div class="content-left" >
+                                                                    <p class="body-mb bid-otr">
+                                                                      <span class="bid">Bid placed</span>
+                                                                      <span class="by body-m"> by</span>
+                                                                      <a class="user"> {{bids.bidder.substring(0, 4) + 'xxxxx' + bids.bidder.slice(bids.bidder.length - 4)}} </a>
+                                                                    </p>
+                                                                    <!-- <p class="body-s date">
+                                                                        At 2:30 PM on 19th June, 2021
+                                                                    </p> -->
+                                                                  </div>
+                                                                  <div class="content-right">
+                                                                    <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} ONE</p>
+                                                                    <!-- <p class="dollor body-sb">$2,505</p> -->
+                                                                  </div>
+
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="activity-details" *ngIf="auctionLength <= 0">
+                                                              <div class="place-bid-main">
+                                                                <p class="hours-p body-mb" style="margin-top: 30px; text-align: center;"> No Bids Yet.</p>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </p-panel>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
                                         </div>
                                     </div>
                             </div>
