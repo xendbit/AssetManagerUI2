@@ -42,9 +42,9 @@ export class AssetDetailsComponent implements OnInit {
   hasActiveAuction: boolean = false;
   metBuyNow: boolean;
   auctionLength: number = 0;
-  
-  
- 
+
+
+
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService) { }
@@ -56,14 +56,14 @@ export class AssetDetailsComponent implements OnInit {
   artwork: IArtwork = {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
-    
+
   async ngOnInit(): Promise<void> {
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.metamaskService.getContractAddress().subscribe(response => {
       this.contractAddress = response['data'];
     })
-    
+
     let tokenId = this.activatedRoute.snapshot.params.asset;
     let auctionId = this.activatedRoute.snapshot.params.auction;
     this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
@@ -98,14 +98,14 @@ export class AssetDetailsComponent implements OnInit {
               }
             })
             this.setCountDown(this.auction.endDate);
-          }   
+          }
         }, err => {
           console.log('this is error')
         })
       }
-      
+
     } )
-   
+
   }
 
   checkConnection() {
@@ -121,7 +121,7 @@ export class AssetDetailsComponent implements OnInit {
           this.balance = response['data'];
         })
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-       
+
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
             this.visible = true;
@@ -149,7 +149,7 @@ export class AssetDetailsComponent implements OnInit {
       this.countdownMinutes = moment.duration(duration).minutes();
       this.countdownSeconds = moment.duration(duration).seconds();
     }, interval);
-    
+
   }
 
   openForm() {
@@ -250,7 +250,7 @@ export class AssetDetailsComponent implements OnInit {
       this.auctionId = rndNo;
 
       this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
-        setTimeout(() => { 
+        setTimeout(() => {
           this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
           this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
           this.visible = false;
@@ -262,7 +262,7 @@ export class AssetDetailsComponent implements OnInit {
           this.spinner.hide();
         })
       }, 15000)
-        
+
 
       }, err => {
         this.spinner.hide()
@@ -270,7 +270,7 @@ export class AssetDetailsComponent implements OnInit {
     }, err => {
       this.spinner.hide()
     })
-    
+
   }
 
   withdraw() {
@@ -304,7 +304,7 @@ export class AssetDetailsComponent implements OnInit {
       const street = register.value.street;
       const houseNumber = register.value.houseNumber;
       const blockchainAddress = this.account;
-      if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || 
+      if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined ||
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
           this.userActions.addSingle('error', 'Error', 'Please make sure all fields are completed and correct.');
@@ -329,8 +329,8 @@ export class AssetDetailsComponent implements OnInit {
         this.checkBuyer();
       })
     }
-    
 
-  
+
+
 
 }

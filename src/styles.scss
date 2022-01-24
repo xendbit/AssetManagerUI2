@@ -28991,7 +28991,7 @@ html {
 
   .input {
     padding: 10px 24px;
-    border-radius: 16px;
+    border-radius: 4px;
     background-color: #F2F2F2;
     font-size: 16px;
     line-height: 32px;
@@ -29000,6 +29000,11 @@ html {
     border: none;
     transition: 0.2s;
   }
+
+
+.p-calendar-w-btn .p-datepicker-trigger {
+  background: #366CE3;
+}
 
   .input:focus {
     outline: none;
