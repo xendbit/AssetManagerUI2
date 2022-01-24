@@ -373,6 +373,9 @@
                                     background-color: $White-Color;
                                     border-radius: 8px;
                                     height: 98.8px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
                                     //width: 324px;
                                     //height: 173px;
                                     .acution{
@@ -419,7 +422,7 @@
                         }
                         .activity-details{
                             padding: 28px 36px 36px 36px;
-                            border-radius: 24px;
+                            border-radius: $border-radius-medium;
                             background-color: $Gray-Shade-4;
                             margin: 30px 0 0 0;
                             @include breakpoint($secreen-xs){
@@ -433,9 +436,9 @@
                             }
                             .place-bid-main{
                                 padding: 20px 24px;
-                                border-radius: 24px;
+                                border-radius: 3px;
                                 background-color: $White-Color;
-                                box-shadow: $box-shadow-custom;
+                                box-shadow: none;
                                 display: flex;
                                 align-items: center;
                                 &:not(:last-child){
@@ -595,6 +598,8 @@
 
   .current-bid {
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   .error-container {
