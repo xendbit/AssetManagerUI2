@@ -32,7 +32,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
@@ -75,7 +75,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
     {tokenId: tokenId,
       auctionId: auctionId,
@@ -88,7 +88,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.post(`${baseUrl.mainUrl}change-token-ownership/${tokenId}`, {}, {headers})
   }
 
@@ -97,7 +97,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
   }
 
@@ -112,7 +112,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-sold`, {}, {headers})
   }
 

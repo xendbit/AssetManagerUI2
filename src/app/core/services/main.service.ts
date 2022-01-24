@@ -60,7 +60,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -113,7 +113,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => { 
           let item = data['data'];
@@ -164,7 +164,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
@@ -223,7 +223,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,

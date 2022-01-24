@@ -190,12 +190,12 @@
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                             <a *ngIf="!this.owner" class="body-sb create-pb" style="margin-top: 10px;"> 
-                                               Minimum Bid - {{auction.minimumBid}} BNB
+                                               Minimum Bid - {{auction.minimumBid}} ETH
                                             </a>
                                             <div class="boxes-main" *ngIf="!this.owner">
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Sell-Now Price</p>
-                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} BNB</h5>
+                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} ETH</h5>
                                                     <p class="dollor body-mb">{{this.sellNowValue | currency}}</p>
                                                 </div>
                                                 <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
@@ -231,12 +231,12 @@
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
-                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="current Bid: {{auction.highestBid}} BNB"  type="number" id="amount" name="amount"required>
+                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="current Bid: {{auction.highestBid}} ETH"  type="number" id="amount" name="amount"required>
                                                     </div>
                                                     <div *ngIf="auction.bids.length > 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
-                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="current Bid: {{auction.bids[0]['bid']}} BNB ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="current Bid: {{auction.bids[0]['bid']}} ETH ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
                                                     </div>
                                                 </div>
             
@@ -396,7 +396,7 @@
                                                         </p> -->
                                                     </div>
                                                     <div class="content-right">
-                                                        <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} BNB</p>
+                                                        <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} ETH</p>
                                                         <!-- <p class="dollor body-sb">$2,505</p> -->
                                                     </div>
                                                    

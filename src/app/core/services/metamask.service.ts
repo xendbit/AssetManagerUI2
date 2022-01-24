@@ -46,12 +46,13 @@ export class MetamaskService {
     const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
     console.log('this is chain', parseInt(_chainId, 16))
     let networkChain = parseInt(_chainId, 16);
-    if (networkChain === 1666700000 || networkChain === 97) {
+    if (networkChain === 1666700000 || networkChain === 97 || networkChain === 1313161554 || networkChain === 1313161555 || networkChain === 137 || networkChain === 80001 || networkChain === 56) {
     } else {
       this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
     }
     window.ethereum.on('chainChanged', (chainId) => { 
-      if (networkChain === 1666700000 || networkChain === 97) {
+      if (chainId === 1666700000 || chainId === 97 || chainId === 1313161554 || chainId === 1313161555 || chainId === 137 || chainId === 80001 || chainId === 56) {
+        console.log('true')
       } else {
         this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
       }
@@ -144,7 +145,7 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     console.log('this is amount', String(bidAmount))
-    const ethValue: string = String(bidAmount); // 0 BNB
+    const ethValue: string = String(bidAmount); // 0 ETH
     const transactionParameters = {
       nonce: '0x00',
       to: this.contractAddress,
@@ -164,7 +165,7 @@ export class MetamaskService {
   async endBid(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
-    const ethValue = "0"; // 0 BNB
+    const ethValue = "0"; // 0 ETH
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       to: this.contractAddress, // Required except during contract publications.
@@ -185,14 +186,14 @@ export class MetamaskService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    // headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
-    const ethValue = "0"; // 0 BNB
+    const ethValue = "0"; // 0 ETH
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       to: this.contractAddress, // Required except during contract publications.
@@ -217,7 +218,7 @@ export class MetamaskService {
     let mb: string = ethers.utils.parseEther(minimumBid).toHexString();
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, currentBlock, snp, mb ]);
-    const ethValue = "0"; // 0 BNB
+    const ethValue = "0"; // 0 ETH
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       to: this.contractAddress, // Required except during contract publications.
@@ -238,7 +239,7 @@ export class MetamaskService {
   async withdraw(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
-    const ethValue = "0"; // 0 BNB
+    const ethValue = "0"; // 0 ETH
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       to: this.contractAddress, // Required except during contract publications.
@@ -258,7 +259,7 @@ export class MetamaskService {
   async cancelAuction(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(this.bidResponse);
     const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
-    const ethValue = "0.1"; // 0 BNB
+    const ethValue = "0.1"; // 0 ETH
     const transactionParameters = {
       nonce: '0x00', // ignored by MetaMask
       to: this.contractAddress, // Required except during contract publications.
