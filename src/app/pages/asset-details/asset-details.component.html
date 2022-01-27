@@ -258,19 +258,19 @@
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
-                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} ONE"  type="number" id="amount" name="amount"required>
+                                                        background-color: white;" type="text" name="amount" [(ngModel)]="USDAmount" placeholder="Current Bid: {{ USDAmount  }} ONE"  type="number" id="amount" name="amount"required>
                                                   </div>
                                                   <div *ngIf="auction.bids.length > 0" class="input-otr-2">
                                                     <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         background-color: white;
                                                         text-align: left; border-radius: 8px"
-                                                           type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} ONE ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                           type="text" name="amount" [(ngModel)]="USDAmount" placeholder="Current Bid: {{USDAmount}} ONE ({{ USDAmount | currency}}) "  type="number" id="amount" name="amount"required>
                                                   </div>
                                                 </div>
 
                                                 <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound">
-                                                  <a (click)="bid()" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid</a>
+                                                  <a (click)="initializePayment(USDAmount)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid in USD</a>
                                                 </div>
                                               </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
