@@ -348,8 +348,8 @@ export class AssetDetailsComponent implements OnInit {
     });
 
     paymentHandler.open({
-      name: 'Nifty Row Payment',
-      description: 'Card: 4242 4242 4242 4242',
+      name: 'Nifty Row',
+      description: 'Use Card: 4242 4242 4242 4242',
       amount: amount * 100
     });
   }
