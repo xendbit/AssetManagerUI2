@@ -29,6 +29,7 @@ export class AssetDetailsComponent implements OnInit {
   distance: number; countdownDay: number; countdownHours: number;
   countdownMinutes: number; countdownSeconds: number; visible: boolean = true;
   account: string; balance: number = 0; amount: number; owner: boolean;
+  USDAmount: number = 300; // the speculated dollar value of the crypto
   auctionId: number; currentBlock: any; startDate: any; endDate: any; sellNowPrice: number; minimumPrice: number;
   auctionTime: any; currentTime: any; auctionValue: number; response: any; error: any; displayOverlay: boolean = false;
   email: string; firstName: string; lastName: string; middleName: string; phone: number;
@@ -43,8 +44,8 @@ export class AssetDetailsComponent implements OnInit {
   metBuyNow: boolean;
   auctionLength: number = 0;
 
-
-
+  // STRIPE PAYMENT HANDLER
+  paymentHandler: any = null;
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService) { }
@@ -62,7 +63,9 @@ export class AssetDetailsComponent implements OnInit {
     this.today = new Date();
     this.metamaskService.getContractAddress().subscribe(response => {
       this.contractAddress = response['data'];
-    })
+    });
+    // INVOKE STRIPE
+    this.invokeStripe();
 
     let tokenId = this.activatedRoute.snapshot.params.asset;
     let auctionId = this.activatedRoute.snapshot.params.auction;
@@ -331,6 +334,43 @@ export class AssetDetailsComponent implements OnInit {
     }
 
 
+// STRIPE IMPLEMENTATIONS
 
 
+  initializePayment(amount: number) {
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51KCY9mE56BwLuZepj0kzE3n8BLfLCfKhcav75HeIIpISFKe2xl1XCgSatNvKXRIogrhT0WMbnBg7nakDynqLOFSU00QcLgdt28',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log({stripeToken})
+        alert('Stripe token generated!');
+      }
+    });
+
+    paymentHandler.open({
+      name: 'Nifty Row Payment',
+      description: 'Card: 4242 4242 4242 4242',
+      amount: amount * 100
+    });
+  }
+
+  invokeStripe() {
+    if(!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement("script");
+      script.id = "stripe-script";
+      script.type = "text/javascript";
+      script.src = "https://checkout.stripe.com/checkout.js";
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51KCY9mE56BwLuZepj0kzE3n8BLfLCfKhcav75HeIIpISFKe2xl1XCgSatNvKXRIogrhT0WMbnBg7nakDynqLOFSU00QcLgdt28',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken)
+            alert('Payment has been successfull!');
+          }
+        });
+      }
+      window.document.body.appendChild(script);
+    }
+  }
 }
