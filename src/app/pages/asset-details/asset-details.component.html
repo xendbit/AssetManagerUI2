@@ -250,9 +250,33 @@
                                                     <a (click)="bid()" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid</a>
                                                 </div>
                                                </div>
+<!--                                              STRIPE IMPLEMENTATION-->
+                                              <div class="current-bid" *ngIf="visible && !accountFound">
+                                                <div class="input-main" style="flex: 1">
+                                                  <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
+                                                    <input class="input" style="width: 100%;
+                                                        margin-bottom: 25px;
+                                                        font-size: 20px;
+                                                        text-align: left; border-radius: 8px;
+                                                        background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} ONE"  type="number" id="amount" name="amount"required>
+                                                  </div>
+                                                  <div *ngIf="auction.bids.length > 0" class="input-otr-2">
+                                                    <input class="input" style="width: 100%;
+                                                        margin-bottom: 25px;
+                                                        background-color: white;
+                                                        text-align: left; border-radius: 8px"
+                                                           type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} ONE ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                  </div>
+                                                </div>
+
+                                                <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound">
+                                                  <a (click)="bid()" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid</a>
+                                                </div>
+                                              </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
-                                                        <p *ngIf="error" class="desc" style="color: red;"> {{error}} </p>
+                                                        <p *ngIf="error" class="desc" style="text-align: right" > Purchase with fiat currency in USD</p>
+                                                        <p *ngIf="error" class="desc" style="color: red;"> Please connect your metamask wallet account to bid on this asset with your crypto. </p>
                                                     </div>
                                                 </div>
                                             </form>
