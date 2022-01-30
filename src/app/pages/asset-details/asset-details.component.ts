@@ -1,3 +1,6 @@
+import {HttpClient} from '@angular/common/http';
+import {switchMap} from 'rxjs/operators';
+import {ILocation} from '../../core/interfaces/ilocation';
 import { UserActionsService } from './../../core/services/userActions.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,9 +49,11 @@ export class AssetDetailsComponent implements OnInit {
 
   // STRIPE PAYMENT HANDLER
   paymentHandler: any = null;
+  userIP: string;
+  location: ILocation;
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
-    public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService) { }
+    public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService, private http: HttpClient) { }
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
@@ -64,9 +69,11 @@ export class AssetDetailsComponent implements OnInit {
     this.metamaskService.getContractAddress().subscribe(response => {
       this.contractAddress = response['data'];
     });
+
+
     // INVOKE STRIPE
     this.invokeStripe();
-
+    this.loadUserInfo();
     let tokenId = this.activatedRoute.snapshot.params.asset;
     let auctionId = this.activatedRoute.snapshot.params.auction;
     this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
@@ -373,4 +380,22 @@ export class AssetDetailsComponent implements OnInit {
       window.document.body.appendChild(script);
     }
   }
+
+  loadUserInfo() {
+    this.http.get('https://jsonip.com/')
+      .pipe(
+        switchMap((value: ILocation) => {
+          this.userIP = value.ip;
+          const url = `http://api.ipstack.com/${value.ip}?access_key=181449605578c34ac1f698c6a28003bc`
+          return this.http.get(url);
+        })
+      )
+      .subscribe((response: any) => {
+          this.location = response;
+        },
+        (error) => {
+          console.log(error);
+        });
+  }
+
 }

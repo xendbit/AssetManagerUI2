@@ -1,9 +1,13 @@
+import {HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
+  userIP: string;
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
+
+
 }
