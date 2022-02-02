@@ -602,6 +602,19 @@
     justify-content: space-between;
   }
 
+  .buy-nigeria {
+    padding: 10px 24px;
+    border-radius: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    font-family: "DMSans-Bold";
+    color: #366CE3;
+    background: white;
+    /* background-color: #366CE3; */
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
   .error-container {
     font-style: italic;
     font-family: 'DMSans-Regular';
