@@ -230,7 +230,7 @@
                                                 </div>
                                             </div>
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
-                                              {{ location.country_name }}
+<!--                                              {{ location.country_name }}-->
                                                <div class="current-bid">
                                                 <div class="input-main" style="flex: 1">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
@@ -276,12 +276,13 @@
                                                   <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Buy now in USD</a>
                                                 </div>
                                                 <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
-                                                  <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW</a>
+                                                  <a (click)="initializePayment(this.sellNowValue)" class="buy-nigeria btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW
+                                                  <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
                                                 </div>
                                               </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
-                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>
+<!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
                                                         <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset with your ... </p>
                                                     </div>
                                                 </div>
