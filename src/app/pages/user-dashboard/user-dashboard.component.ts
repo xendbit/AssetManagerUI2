@@ -44,8 +44,8 @@ export class UserDashboardComponent implements OnInit {
   another: any [] = [];
   error: string;
 
-  constructor(public mainService: MainService, public metamaskService: MetamaskService, 
-    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) { 
+  constructor(public mainService: MainService, public metamaskService: MetamaskService,
+    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) {
     }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class UserDashboardComponent implements OnInit {
     })
   }
 
-  
+
 
   ngAfterViewInit() {
     this.checkConnection();
@@ -82,7 +82,7 @@ export class UserDashboardComponent implements OnInit {
       }
     })
   }
-  
+
 
 
   selectView(type) {
@@ -113,7 +113,7 @@ export class UserDashboardComponent implements OnInit {
     // console.log('done')
   }
 
-  loadMore(page, count) {
+  loadMore(page?, count?) {
     this.currentPage = this.currentPage + 1;
     this.mainService.fetchAssetsByOwnerId(this.account, this.currentPage, this.itemCount);
     this.getMeta();

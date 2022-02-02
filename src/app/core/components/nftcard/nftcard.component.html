@@ -18,7 +18,7 @@
             </a>
             <a class="tilt-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
                 <img (click)="placeBid()" class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
-               
+
                 <audio class="AudioPlayerV1" style="width: 100%; margin-top: -7rem;" controls controlsList="nodownload">
                     <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
                     <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
@@ -103,8 +103,8 @@
             </div>
         </div>
         <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
-        <div class="row" (click)="placeBid()">
-            <div class=" col-lg-6 col-md-6" *ngIf="auctionTime > currentTime && !sellPriceMet">
+        <div class="row" class="box-below" (click)="placeBid()">
+            <div *ngIf="auctionTime > currentTime && !sellPriceMet">
                 <div class="timer-otr" id="countdown">
                     <div class="body-sb" >
                         {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
@@ -112,16 +112,16 @@
                 </div>
             </div>
 
-            <div class=" col-lg-6 col-md-6"  *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false">
+            <div *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false">
                 <div class="timer-otr" id="countdown">
-                    <div class="body-sb" >
+                    <div class="body-sb" style="color: #999999; font-style: italic" >
                         Closed
                     </div>
                 </div>
             </div>
-            <div class=" col-lg-6 col-md-6" (click)="placeBid()" id="currentBid">
-                <div class="bid-main" >
-                    <p class="body-sb bid">Current Bid</p>
+            <div (click)="placeBid()" id="currentBid">
+                <div class="current-bid-container" >
+                    <p class="body-sb bid mr-3">Current Bid</p>
                     <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
                 </div>
             </div>
