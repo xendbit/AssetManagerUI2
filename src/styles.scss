@@ -14,6 +14,7 @@ html {
 .p-carousel-items-content {
   overflow: hidden;
   width: 100% !important;
+  padding-bottom: 3rem;
 }
 
 
@@ -22820,14 +22821,14 @@ html {
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr {
     padding: 0px;
-    border-radius: 26px;
+    border-radius: 8px;
     transition: 0.3s;
   }
 
   //NFT card shadow
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr:hover {
-    border: 1px solid transparent;
-    box-shadow: 0px 20px 40px rgba(0, 0, 0.2, 0.4);
+    //border: 1px solid transparent;
+    //box-shadow: 0px 20px 40px rgba(0, 0, 0.2, 0.4);
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr {
@@ -22835,8 +22836,9 @@ html {
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .img-inr {
-    border-top-right-radius: 26px;
-    border-top-left-radius: 26px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    cursor: pointer;
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
@@ -23050,7 +23052,7 @@ html {
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .box-head {
-    color: #000000;
+    color: #212529;
     padding: 0 8px 24px 8px;
     display: inline-flex;
   }
@@ -23129,11 +23131,13 @@ html {
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box6,
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box7,
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box8 {
-    margin-bottom: 24px;
     height: 34rem;
-    margin: 0px 6px 38px 0;
+    //margin: 0px 6px 38px 0;
     padding: 2px;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0.1, 0.2);
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    max-width: 350px;
+    box-shadow: 7px 9px 7px 0px rgb(0 0 0 / 20%);
   }
 
   @media (max-width: 991px) {
@@ -28981,6 +28985,7 @@ html {
     font-size: 16px;
     line-height: 32px;
     font-family: "DMSans-Bold";
+    color: #212529;
   }
 
   .body-xsb {

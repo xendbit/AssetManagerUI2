@@ -10,7 +10,7 @@
                         <h3 class="heading heading-h3">Explore Artworks</h3>
                     </div>
                 </div>
-                
+
                 <div class="teb-main">
                     <div class="tab-otr">
                         <div class="tab-inr">
@@ -21,7 +21,7 @@
                                 <li class="tab-link tab-2" data-tab="2" *ngFor="let category of this.categories">
                                     <p class="tab-p body-sb" (click)="this.categoryFilter(category)">{{category.replace("Right", "")}}</p>
                                 </li>
-                              
+
                             </ul>
                         </div>
                         <!-- <div class="slect-main">
@@ -45,21 +45,21 @@
                 <span class="line"></span>
                 <div class="row row-custom-main" >
                     <div id="tab-1" class="tab-content active">
-                        <div class="row row-custom-inr">    
+                        <div class="row row-custom-inr">
                             <div class="col-otr col-lg-3" *ngFor="let item of artworks; trackBy: byId;">
                                 <app-nftcard [artwork]="item" [parentPage]="parentPage" > </app-nftcard>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-lg-12 col-btn-otr" *ngIf="this.currentPage < this.totalPages">
                             <div class="col-btn-inr">
-                                <a (click)="loadMore()" class="btn-outline1 btn-more">Load More</a>
+                                <a (click)="loadMore()" class="btn-outline1 load-more">Load More</a>
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>

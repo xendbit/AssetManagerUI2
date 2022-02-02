@@ -4,6 +4,11 @@
     object-fit: cover;
 }
 
+.load-more {
+  padding: 9px 50px;
+  border-radius: 3px;
+}
+
 @media (min-width: 992px){
     .col-lg-3 {
         flex: 0 0 auto;
