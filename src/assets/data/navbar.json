@@ -1,0 +1,33 @@
+  [
+    {
+      "menuGroup": [
+        {
+            "title": "Marketplace",
+            "menu": [],
+            "path": "./"
+        },
+        {
+            "title": "Profile",
+            "menu": [],
+            "path": "/profile"
+        },
+        {
+          "title": "Explore",
+          "menu": [ 
+            {
+                "title": "All Creators",
+                "url": "/"
+                
+            },
+            {
+              "title": "All Assets",
+              "url": "/assets"
+            }
+          ],
+          "path": "/assets"
+        }
+
+    ],
+    "logoPath": "/assets/img/NiftyRow-logo.png"
+    }
+  ]

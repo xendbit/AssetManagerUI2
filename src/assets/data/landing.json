@@ -1,0 +1,148 @@
+{
+    "welcomeArea": {
+      "backgroundImage": "/assets/img/museum2D.png",
+      "title":"The NFT Marketplace for the global unsung",
+      "subText": "Nifty Row is a DAO that will operate via on-chain governance by audio and visual art creators.",
+      "pdfLink": "/assets/pdf/NiftyRowDeck.pdf"
+    },
+    "verticalSocial": {"facebookUrl": "", "twitterUrl": "", "discordUrl": "", "pinterestUrl": "", "youTubeUrl": "", "telegramUrl": ""},
+    "buyOrSellSection": {
+      "title": "Buy or Sell Real African Artworks",
+      "welcomeThumbImage": "/assets/img/pexelselephant.jpeg",
+      "video": "https://www.youtube.com/watch?v=4tQee2_JgUo",
+      "rightBlock": [{
+          "image": "/assets/img/svg/how1.svg",
+          "title": "Mint and auction NFTs easily",
+          "subtitle": "Mint an ERC721/ERC1155 compatible NFT and auction it."
+      },
+      {
+          "image": "/assets/img/svg/how2.svg",
+          "title": "Buy Curated Artwork.",
+          "subtitle": "Buy digital creations or physical artwork from global unsung artists with the option for physical delivery."
+      },
+      {
+        "image": "/assets/img/svg/how3.svg",
+        "title": "NFT DeFi Services",
+        "subtitle": "Artists can access convenient decentralized financial services like credit, staking and insurance."
+      }
+    ]
+    },
+    "investorSection": [
+        {
+            "image": "/assets/video/1.gif",
+            "title": "Winning Bidder",
+            "subtitle": "Investors participate by bidding in an NFT auction and secure the asset by being the highest bidder."
+        },
+        {
+            "image": "/assets/video/1.gif",
+            "title": "Earn Royalties",
+            "subtitle": "Artists are able to earn royalties perpetually."
+        }, 
+        {
+            "image":"/assets/video/3.gif",
+            "title":"Resale for Capital Gains",
+            "subtitle":"Collectors resell the asset to other investors in the future for capital gains."
+        }
+    ],
+    "blogSection": [{
+        "mainLink": "",
+        "image": "/assets/img/music.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/music2.jpeg",
+        "title": "NFTs for the music industry.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Nifty Row seeks to deliver a unique platform that will enable creators like producers and musicians issue and auction NFTs globally. The marketplace will leverage on the global success of Nollywood films which currently airs across Africa, the US, UK, Europe and other parts of the world. Investors of motion picture rights can be rest assured of incomes as the movies air over multiple cable and satellite networks such as Sky TV, DSTV, Netflix, Iroko TV, Amazon prime etc."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/music.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/music2.jpeg",
+        "title": "NFTs for the Nollywood movie industry.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": " Nifty Row seeks to deliver a unique platform that will enable creators like animators and producers issue and auction NFTs globally. The marketplace will leverage on the global success of Nollywood films which currently airs across Africa, the US, UK, Europe and other parts of the world. Investors of motion picture rights can be rest assured of incomes as the movies air over multiple cable and satellite networks such as Sky TV, DSTV, Netflix, Iroko TV, Amazon prime etc."
+    },
+    {
+        "mainLink": "",
+        "image": "/assets/img/music.jpeg",
+        "title": "Music NFTs for an emerging genre and new generation of global performing artists.",
+        "date": "August, 2021",
+        "author": "Nifty Row",
+        "body": "Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels. Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more. Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few."
+    }],
+    "servicesSection": [
+        {
+            "image": "/assets/img/features/1.png",
+            "title": "Token Minting",
+            "subtitle": "ERC721 and ERC1155 compatible NFT minting platform."
+        },
+        {
+            "image":"/assets/img/features/2.png",
+            "title":"Investor Relations",
+            "subtitle":"Nifty Row ensures that all asset rights are smoothly transferred to the collector."
+        },
+        {
+            "image":"/assets/img/features/3.png",
+            "title":"Guaranteed commissions",
+            "subtitle":"Artists can be rest assured of both the initial sale and subsequent resale commissions."
+        },
+        {
+            "image": "/assets/img/features/4.png",
+            "title": "English Auction",
+            "subtitle": "The protocol ensures an English Auction powered by a Smart Contract which  guarantees  undisputable sale finality."
+        },
+        {
+            "image":"/assets/img/features/5.png",
+            "title":"Asset Verification",
+            "subtitle":"All NFTs are asset backed and verified for proof of ownership without any hindrances."
+        },
+        {
+            "image":"/assets/img/features/6.png",
+            "title":"DeFi Services",
+            "subtitle":"Nifty Row will enable staking, and insurance services based on NFTs."
+        }
+    ],
+    "roadmapSection": {
+      "image": ""
+    },
+    "deckSection": {
+      "decklink": "/assets/pdf/NiftyRowDeck.pdf"
+    },
+    "tokenSection": {
+      "title": "Tokenomics Preview",
+      "subtitle": "There will be a total of 100 Million NRT tokens in the token offer.",
+      "tokenAllocationData": [
+        { "value":  5, "name": "partnerships" },
+        { "value": 25, "name": "Private Sale" },
+        { "value": 15, "name": "Team" },
+        { "value": 5, "name": "DAO council" },
+        { "value": 5, "name": "Voting Rewards" },
+        { "value": 10, "name": "Advisors" },
+        { "value": 25, "name": "Public Sale" },
+        { "value": 10, "name": "Exchange" }
+      ],
+      "useOfSalesData":  [
+        { "value":  30, "name": "Creative Fund" },
+        { "value": 20, "name": "Product Development" },
+        { "value": 15, "name": "Exchange Listings" },
+        { "value": 10, "name": "Operations" },
+        { "value": 20, "name": "Branding/Marketing" },
+        { "value": 5, "name": "Legal" }
+      ]
+    }
+  
+  }
