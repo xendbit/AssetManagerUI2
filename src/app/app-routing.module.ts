@@ -83,10 +83,6 @@ const routerOptions: ExtraOptions = {
     useHash: true,
     scrollPositionRestoration: 'top',
     relativeLinkResolution: 'legacy'
-}{
-    useHash: true,
-    scrollPositionRestoration: 'top',
-    relativeLinkResolution: 'legacy'
 };
 @NgModule({
   
