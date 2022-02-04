@@ -13,11 +13,6 @@
     "analyzer": "npm run stats && npm run analyze"
   },
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-push": "ng build --prod"
-    }
-  },
   "dependencies": {
     "@angular/animations": "^9.1.13",
     "@angular/cdk": "^12.2.6",
