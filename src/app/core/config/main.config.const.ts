@@ -13,7 +13,7 @@ headers = headers.append('api-key', apiKey);
 export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
-        mainUrl: 'https://lb.xendbit.net/api/harmony/',
+        mainUrl: 'https://lb.xendbit.net/api/aurora/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
 
@@ -25,7 +25,7 @@ export const baseABI = [
         "function withdraw(uint256,uint256)",
         "function cancelAuction(uint256,uint256)"
 ]
-export const chainId = 1666700000;
+export const chainId = 1313161555;
 export const niftyKey = apiKey;
 export const blockchainInfo = {
         key: demoBlockchainKey,
