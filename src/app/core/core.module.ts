@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -21,7 +22,9 @@ import {ToastModule} from 'primeng/toast';
 import {GalleriaModule} from 'primeng/galleria';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
+import { NgxStripeModule } from 'ngx-stripe';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   imports: [
@@ -34,7 +37,10 @@ import { ConnectWalletComponent } from './components/connect-wallet/connect-wall
     ToastModule,
     GalleriaModule,
     OverlayPanelModule,
-    DialogModule
+    DialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxStripeModule
   ],
   declarations: [
     HeaderComponent,
@@ -47,7 +53,8 @@ import { ConnectWalletComponent } from './components/connect-wallet/connect-wall
     CarouselComponent,
     BlogComponent,
     AssetsGridComponent,
-    ConnectWalletComponent
+    ConnectWalletComponent,
+    PaymentComponent
   ],
   exports: [
     HeaderComponent,
@@ -59,7 +66,8 @@ import { ConnectWalletComponent } from './components/connect-wallet/connect-wall
     CarouselComponent,
     BlogComponent,
     AssetsGridComponent,
-    ConnectWalletComponent
+    ConnectWalletComponent,
+    PaymentComponent
   ],
   providers: [MessageService],
 })

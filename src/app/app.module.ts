@@ -37,8 +37,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import {PanelModule} from 'primeng/panel';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
-import { PaymentComponent } from './pages/payment/payment.component';
-// import { NgxStripeModule } from 'ngx-stripe';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -55,8 +54,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     MyAssetsComponent,
     MintComponent,
     FAQComponent,
-    LandingComponent,
-    PaymentComponent
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +82,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
-    // NgxStripeModule.forRoot('pk_test_51KCY9mE56BwLuZepj0kzE3n8BLfLCfKhcav75HeIIpISFKe2xl1XCgSatNvKXRIogrhT0WMbnBg7nakDynqLOFSU00QcLgdt28'),
+    NgxStripeModule.forRoot('pk_test_51KCY9mE56BwLuZepj0kzE3n8BLfLCfKhcav75HeIIpISFKe2xl1XCgSatNvKXRIogrhT0WMbnBg7nakDynqLOFSU00QcLgdt28'),
   ],
   providers: [MainService],
   bootstrap: [AppComponent],

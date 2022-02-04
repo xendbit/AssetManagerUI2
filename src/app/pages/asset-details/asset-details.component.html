@@ -184,6 +184,7 @@
                             <div class="col-lg-12 col-right-otr">
                                     <div class="col-right-inr">
                                         <div class="bid-details">
+                                            <app-payment></app-payment>
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                             <div class="minimum-bid-box">
@@ -195,6 +196,7 @@
                                           </a>
                                             </div>
                                             <div class="boxes-main" *ngIf="!this.owner">
+                                                
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Buy-Now Price</p>
                                                   <div style="display: flex">

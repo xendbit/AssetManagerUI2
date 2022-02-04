@@ -1,0 +1,9 @@
+<form class="form-main" method="post"  #registerForm="ngForm">
+    <ngx-stripe-card
+    [options]="cardOptions"
+    [elementsOptions]="elementsOptions"
+  ></ngx-stripe-card>
+  <button (click)="createToken()">
+    Pay
+  </button>
+</form>

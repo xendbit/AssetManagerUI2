@@ -12,6 +12,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
+import { StripeService } from 'ngx-stripe';
+
 
 @Component({
   templateUrl: './asset-details.component.html',
@@ -53,7 +55,7 @@ export class AssetDetailsComponent implements OnInit {
   location: ILocation;
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
-    public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService, private http: HttpClient) { }
+    public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService, private http: HttpClient, private stripeService: StripeService) { }
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
@@ -69,8 +71,6 @@ export class AssetDetailsComponent implements OnInit {
     this.metamaskService.getContractAddress().subscribe(response => {
       this.contractAddress = response['data'];
     });
-
-
     // INVOKE STRIPE
     this.invokeStripe();
     this.loadUserInfo();
