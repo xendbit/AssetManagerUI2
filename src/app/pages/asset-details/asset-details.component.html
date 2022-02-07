@@ -187,7 +187,7 @@
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                             <div class="minimum-bid-box">
-                                              <a *ngIf="!this.owner" class="create-pb">
+                                              <a *ngIf="!this.owner" class="body-sb create-pb">
                                                Minimum Bid - {{auction.minimumBid}} ONE
                                             </a>
                                           <a href="https://explorer.testnet.harmony.one/address/{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-left:auto; margin-bottom: 1rem; font-size: 18px; font-style: italic">
@@ -223,36 +223,34 @@
                                                     </div>
 
                                                     <div id="clock" class="timer" *ngIf="currentTime >  auctionTime || sellPriceMet ">
-                                                        <p class="hours-p body-mb"> Auction Inactive</p>
+                                                        <p class="hours-p body-mb" style="margin-top: 30px;"> Auction Inactive</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
-                                               <div class="current-bid">
-                                                <div class="input-main" style="flex: 1">
+                                            <form class="bidform current-bid" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
+                                                <div class="input-main">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
-                                                        text-align: left; border-radius: 8px;
+                                                        text-align: center; border-radius: 8px;
                                                         background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} ONE"  type="number" id="amount" name="amount"required>
                                                     </div>
                                                     <div *ngIf="auction.bids.length > 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         background-color: white;
-                                                        text-align: left; border-radius: 8px"
+                                                        text-align: center; border-radius: 8px"
                                                                type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} ONE ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
                                                     </div>
                                                 </div>
 
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound">
-                                                    <a (click)="bid()" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid</a>
+                                                <div class="action-otr" *ngIf="visible && accountFound">
+                                                    <a (click)="bid()" class="btn-fill btn-bid">Place a Bid</a>
                                                 </div>
-                                               </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
-                                                        <p *ngIf="error" class="desc" style="color: red;"> {{error}} </p>
+                                                        <p *ngIf="error" class="desc" style="color: red;">{{error}}</p>
                                                     </div>
                                                 </div>
                                             </form>
@@ -262,14 +260,12 @@
                                                         <div class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
-                                                        background-color: white;
-                                                        display: flex;
-                                                        justify-content: space-between;
-                                                        align-items: center; padding-block: 1rem">
-                                                        <label class="input col-6" style="color: darkgrey;
+                                                        background-color: white;">
+                                                        <label class="col-6 input" style="color: darkgrey;
+                                                        margin-bottom: 25px;
                                                         font-size: 20px;
                                                         background-color: white;">Start Date</label>
-                                                        <p-calendar name="startDate" [(ngModel)]="startDate" id="startDate" [minDate]="today" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar class="col-2"  name="startDate" [(ngModel)]="startDate" id="startDate" [minDate]="today" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -277,17 +273,15 @@
 
                                                 <div class="input-main">
                                                     <div class="input-otr-2">
-                                                        <div class="input"  style="width: 100%;
+                                                        <div class="input" style="width: 100%;
                                                         margin-bottom: 25px;
                                                         font-size: 20px;
-                                                        background-color: white;
-                                                        display: flex;
-                                                        justify-content: space-between;
-                                                        align-items: center; padding-block: 1rem">
+                                                        background-color: white;">
                                                         <label class="col-6 input" style="color: darkgrey;
+                                                        margin-bottom: 25px;
                                                         font-size: 20px;
                                                         background-color: white;">End Date</label>
-                                                        <p-calendar name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="today"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar class="col-2" name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="today"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -327,7 +321,7 @@
                                                         <p-panel class="" [toggleable]="true" >
 <!--                                                          class activity-details-->
                                                           <ng-template pTemplate="header" >
-                                                            <h4 style="font-size: 18px" class="heading-h4 activity-head">Activity</h4>
+                                                            <h4 style="font-size: 20px" class="heading-h4 activity-head">Activity</h4>
                                                           </ng-template>
                                                           <div class="col-right-inr">
                                                             <div class="activity-details" *ngIf="auctionLength > 0">
@@ -358,7 +352,7 @@
                                                             </div>
                                                             <div class="activity-details" *ngIf="auctionLength <= 0">
                                                               <div class="place-bid-main">
-                                                                <p class="hours-p body-mb" style="text-align: center;"> No Bids Yet.</p>
+                                                                <p class="hours-p body-mb" style="margin-top: 30px; text-align: center;"> No Bids Yet.</p>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -468,7 +462,7 @@
                                         </div>
                                         <div class="activity-details" *ngIf="auctionLength <= 0">
                                             <div class="place-bid-main">
-                                                <p class="hours-p body-mb" style="text-align: center;"> No Bids Yet.</p>
+                                                <p class="hours-p body-mb" style="margin-top: 30px; text-align: center;"> No Bids Yet.</p>
                                             </div>
                                         </div>
                                     </div>
