@@ -892,7 +892,7 @@ html {
   .hero-main .container-fluid .hero-inr {
     padding: 128px 0;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 767px) {
@@ -3799,7 +3799,7 @@ html {
   .hero-main-dark .container-fluid .hero-inr {
     padding: 128px 0;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 767px) {
@@ -12581,7 +12581,7 @@ html {
   .hero-single-artwork .container-fluid .hero-inr {
     padding: 128px 0;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 767px) {
@@ -12596,7 +12596,7 @@ html {
     border-radius: 24px !important;
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
     overflow: hidden;
   }
 
@@ -12619,7 +12619,7 @@ html {
     position: absolute;
     right: 0;
     bottom: 80px;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 991px) {
@@ -13014,10 +13014,17 @@ html {
   .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
     padding: 28px 36px 36px 36px;
     border-radius: 24px;
-    background-color: #F2F2F2;
+    background-color: white;
     margin: 30px 0 0 0;
   }
 
+  .activity-div {
+    //padding: 0px 36px 36px 36px;
+    border-radius: 10px;
+    background-color: white;
+    margin: 0px 0 0 0;
+    background-color: #f2f2f2;
+  }
   @media (max-width: 575px) {
     .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
       padding: 0;
@@ -13053,7 +13060,7 @@ html {
   .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details .place-bid-main {
     padding: 20px 24px;
     border-radius: 24px;
-    background-color: #FFFFFF;
+    background-color: transparent;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -13482,7 +13489,7 @@ html {
   .hero-single-artwork-dark .container-fluid .hero-inr {
     padding: 128px 0;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 767px) {
@@ -13497,7 +13504,7 @@ html {
     border-radius: 24px !important;
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    // z-index: 10;
     overflow: hidden;
   }
 
@@ -13520,7 +13527,7 @@ html {
     position: absolute;
     right: 0;
     bottom: 80px;
-    z-index: 10;
+    // z-index: 10;
   }
 
   @media (max-width: 991px) {
@@ -23134,9 +23141,8 @@ html {
     height: 34rem;
     //margin: 0px 6px 38px 0;
     padding: 2px;
-    margin: 0 auto;
-    margin-bottom: 3rem;
-    max-width: 370px;
+    margin: 0 auto 3rem auto;
+    max-width: 390px;
     box-shadow: 7px 9px 7px 0px rgb(0 0 0 / 20%);
   }
 
@@ -28940,7 +28946,7 @@ html {
   }
 
   .heading-h4 {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 40px;
     font-family: "DMSans-Bold";
   }
