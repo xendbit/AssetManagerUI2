@@ -198,7 +198,8 @@
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Buy-Now Price</p>
                                                   <div style="display: flex">
-                                                    <h5 *ngIf="visible && accountFound" class="heading-h3 bid-head"> {{auction.sellNowPrice}} ONE</h5>
+                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} ONE</h5>
+                                                    <p class="dollor body-mb ml-3">{{this.sellNowValue | currency}}</p>
                                                     <!-- <h5 *ngIf="visible && !accountFound" class="heading-h3 bid-head"> {{this.sellNowValue | currency}} </h5> -->
                                                     <p  *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
@@ -233,7 +234,7 @@
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
 <!--                                              {{ location.country_name }}-->
                                                <div class="current-bid">
-                                                <div class="input-main" style="flex: 1">
+                                                <div class="input-main" style="flex: 1.5">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
@@ -255,7 +256,7 @@
                                                 </div>
                                                </div>
 <!--                                              STRIPE IMPLEMENTATION-->
-                                              <div class="current-bid" *ngIf="visible && !accountFound">
+                                              <!-- <div class="current-bid" *ngIf="visible && !accountFound">
                                                 <div class="input-main" style="flex: 1">
                                                   <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                     <input class="input" style="width: 100%;
@@ -269,9 +270,9 @@
                                                         margin-bottom: 25px;
                                                         background-color: white;
                                                         text-align: left; border-radius: 8px"
-                                                           type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{this.sellNowValue}} ONE ({{ USDAmount | currency}}) "  type="number" id="amount" name="amount"required>
+                                                           type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{this.sellNowValue}} ONE &nbsp; &nbsp; ({{ USDAmount | currency}})"  type="number" id="amount" name="amount"required>
                                                   </div>
-                                                </div>
+                                                </div> -->
 
                                                 <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
                                                   <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Buy now in USD</a>
@@ -280,11 +281,11 @@
                                                   <a (click)="initializePayment(this.sellNowValue)" class="buy-nigeria btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW
                                                   <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
                                                 </div> -->
-                                              </div>
+                                              <!-- </div> -->
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
 <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
-                                                        <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset with your ... </p>
+                                                        <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
                                             </form>
