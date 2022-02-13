@@ -128,7 +128,7 @@
 
           <div  *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false" (click)="placeBid()" id="currentBid">
             <div class="current-bid-container" >
-              <p class="body-sb bid mr-3" style="font-style: italic; color: #999999">Last Bid</p>
+              <p class="body-sb bid mr-3" style="font-style: italic; color: #999999">Current Bid</p>
               <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
             </div>
           </div>
