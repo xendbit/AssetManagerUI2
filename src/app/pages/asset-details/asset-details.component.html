@@ -199,7 +199,7 @@
                                                     <p class="bid body-mb">Buy-Now Price</p>
                                                   <div style="display: flex">
                                                     <h5 *ngIf="visible && accountFound" class="heading-h3 bid-head"> {{auction.sellNowPrice}} ONE</h5>
-                                                    <h5 *ngIf="visible && !accountFound" class="heading-h3 bid-head"> {{this.sellNowValue | currency}} </h5>
+                                                    <!-- <h5 *ngIf="visible && !accountFound" class="heading-h3 bid-head"> {{this.sellNowValue | currency}} </h5> -->
                                                     <p  *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
                                                 </div>
@@ -273,13 +273,13 @@
                                                   </div>
                                                 </div>
 
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
+                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
                                                   <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Buy now in USD</a>
-                                                </div>
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
+                                                </div> -->
+                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
                                                   <a (click)="initializePayment(this.sellNowValue)" class="buy-nigeria btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW
                                                   <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
-                                                </div>
+                                                </div> -->
                                               </div>
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
