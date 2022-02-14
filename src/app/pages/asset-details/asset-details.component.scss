@@ -16,7 +16,7 @@
         .hero-inr{
             padding: 128px 0;
             position: relative;
-            z-index: 10;
+            // z-index: 10;
             @include breakpoint($secreen-max-sm){
                 padding: 80px 0px 158px 0;
             }
@@ -26,7 +26,7 @@
                 border-radius: 24px !important;
                 margin: 0 auto;
                 position: relative;
-                z-index: 10;
+                // z-index: 10;
                 overflow: hidden;
                 box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
                 @include breakpoint($secreen-xs){
@@ -48,7 +48,7 @@
                 position: absolute;
                 right: 0;
                 bottom: 80px;
-                z-index: 10;
+                // z-index: 10;
                 @include breakpoint($secreen-max-md){
                     right: inherit;
                     width: 100%;
@@ -192,7 +192,7 @@
     margin: 0 auto;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
     position: relative;
-    z-index: 10;
+    // z-index: 10;
     overflow: hidden;
 }
 
@@ -210,7 +210,12 @@
     position: absolute;
     right: 0;
     bottom: 69px;
-    z-index: 10;
+    // z-index: 10;
+}
+
+.no-bids {
+  background-color: transparent;
+  justify-content: center;
 }
 
 .hero-single-artwork .container-fluid .hero-inr .circle {
@@ -320,7 +325,7 @@
                     .col-right-inr{
                         padding-left: 0px;
                         @include breakpoint($secreen-max-md){
-                            padding: 48px 0 0 0;
+                            padding: 10px 0 0 0;
                         }
                         .bid-details{
                             padding: 12px 26px 26px 26px;
@@ -423,7 +428,7 @@
                         .activity-details{
                             padding: 28px 36px 36px 36px;
                             border-radius: $border-radius-medium;
-                            background-color: $Gray-Shade-4;
+                            background-color: $White-Color;
                             margin: 30px 0 0 0;
                             @include breakpoint($secreen-xs){
                                 padding: 0;
@@ -530,12 +535,12 @@
     }
 
     .bidform {
-        margin-top: 14rem;
+        margin-top: 1rem;
         background-color: transparent;
     }
 
     .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .action-otr {
-        margin-top: 12rem;
+        margin-top: 1rem;
     }
 
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
@@ -629,7 +634,6 @@
     align-items: center;
     margin-top: -0.5rem;
     margin-bottom: -0.5rem;
-    margin-bottom: -0.5rem;
     font-size: 18px !important;
     font-family: 'DMSans-Bold';
   }
@@ -640,5 +644,17 @@
 @media screen and (max-width: 1180px) {
   .boxes-main {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .create-p {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: -1rem;
+  }
+
+  .create-pb {
+    margin-top: -0.5rem;
   }
 }

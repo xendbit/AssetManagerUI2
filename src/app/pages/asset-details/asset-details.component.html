@@ -200,8 +200,10 @@
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Buy-Now Price</p>
                                                   <div style="display: flex">
-                                                    <h5 *ngIf="visible && accountFound" class="heading-h3 bid-head"> {{auction.sellNowPrice}} ONE</h5>
-                                                    <h5 *ngIf="visible && !accountFound" class="heading-h3 bid-head"> {{this.sellNowValue | currency}} </h5>
+                                                    <h5 class="heading-h3 bid-head" >{{auction.sellNowPrice}} ONE</h5>
+                                                    <p class="dollor body-mb ml-3">{{this.sellNowValue | currency}}</p>
+                                                    <!-- <h5 *ngIf="visible && !accountFound" class="heading-h3 bid-head"> {{this.sellNowValue | currency}} </h5> -->
+                                                    <p  *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
                                                 </div>
                                                 <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
@@ -234,7 +236,7 @@
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
 <!--                                              {{ location.country_name }}-->
                                                <div class="current-bid">
-                                                <div class="input-main" style="flex: 1">
+                                                <div class="input-main" style="flex: 1.5">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
                                                         margin-bottom: 25px;
@@ -256,7 +258,7 @@
                                                 </div>
                                                </div>
 <!--                                              STRIPE IMPLEMENTATION-->
-                                              <div class="current-bid" *ngIf="visible && !accountFound">
+                                              <!-- <div class="current-bid" *ngIf="visible && !accountFound">
                                                 <div class="input-main" style="flex: 1">
                                                   <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                     <input class="input" style="width: 100%;
@@ -270,22 +272,22 @@
                                                         margin-bottom: 25px;
                                                         background-color: white;
                                                         text-align: left; border-radius: 8px"
-                                                           type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{this.sellNowValue}} ONE ({{ USDAmount | currency}}) "  type="number" id="amount" name="amount"required>
+                                                           type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{this.sellNowValue}} ONE &nbsp; &nbsp; ({{ USDAmount | currency}})"  type="number" id="amount" name="amount"required>
                                                   </div>
-                                                </div>
+                                                </div> -->
 
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
+                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
                                                   <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Buy now in USD</a>
-                                                </div>
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
+                                                </div> -->
+                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
                                                   <a (click)="initializePayment(this.sellNowValue)" class="buy-nigeria btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW
                                                   <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
-                                                </div>
-                                              </div>
+                                                </div> -->
+                                              <!-- </div> -->
                                                 <div class="action-otr" *ngIf="visible && !accountFound">
                                                     <div class="heading-inr error-container">
 <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
-                                                        <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset with your ... </p>
+                                                        <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
                                             </form>
@@ -347,7 +349,7 @@
                                                     <a (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                                 </div>
                                             </form>
-                                            <div class="action-otr" *ngIf="this.lastBidder && currentTime  > auctionTime">
+                                            <div class="action-otr mt-3 mb-2" *ngIf="this.lastBidder && currentTime  > auctionTime">
                                                 <a (click)="withdraw()" class="btn-fill btn-bid">Withdraw</a>
                                             </div>
                                           <div class="row">
@@ -363,8 +365,9 @@
                                                             <h4 style="font-size: 18px" class="heading-h4 activity-head">Activity</h4>
                                                           </ng-template>
                                                           <div class="col-right-inr">
-                                                            <div class="activity-details" *ngIf="auctionLength > 0">
-                                                              <h6 class="heading-h4 activity-head">Recent bid history</h6>
+                                                            <div class="activity-div">
+                                                              <h6 class="heading-h4 activity-head p-3">Recent bid history</h6>
+                                                            <div class="activity-details mt-0" *ngIf="auctionLength > 0">
                                                               <div class="place-bid-main" *ngFor="let bids of auction.bids">
                                                                 <a  class="img-otr">
                                                                   <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
@@ -387,11 +390,13 @@
                                                                   </div>
 
                                                                 </div>
+
                                                               </div>
                                                             </div>
-                                                            <div class="activity-details" *ngIf="auctionLength <= 0">
-                                                              <div class="place-bid-main">
-                                                                <p class="hours-p body-mb" style="text-align: center;"> No Bids Yet.</p>
+<!--                                                            <div class="activity-details no-bids" *ngIf="auctionLength <= 0">-->
+<!--                                                            </div>-->
+                                                              <div class="place-bid-main no-bids p-5" *ngIf="auctionLength <= 0">
+                                                                <p class="hours-p" style="text-align: center;"> No Bids Yet</p>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -470,40 +475,40 @@
                             <div class="col-lg-12 col-right-otr">
                                 <p-panel class="activity-details" [toggleable]="true" >
                                     <ng-template pTemplate="header" >
-                                        <h4 class="heading-h4 activity-head">Activity</h4>
+                                        <h4 class="heading-h4 activity-head">History</h4>
                                     </ng-template>
                                     <div class="col-right-inr">
-                                        <div class="activity-details" *ngIf="auctionLength > 0">
-                                            <h6 class="heading-h4 activity-head">Recent bid history</h6>
-                                            <div class="place-bid-main" *ngFor="let bids of auction.bids">
-                                                <a  class="img-otr">
+                                        <!-- <div class="activity-details" *ngIf="auctionLength > 0"> -->
+                                            <!-- <h6 class="heading-h4 activity-head">Recent bid history</h6> -->
+                                            <!-- <div class="place-bid-main" *ngFor="let bids of auction.bids"> -->
+                                                <!-- <a  class="img-otr">
                                                     <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
-                                                </a>
-                                                <div class="bid-content" >
+                                                </a> -->
+                                                <!-- <div class="bid-content" > -->
 
-                                                    <div class="content-left" >
+                                                    <!-- <div class="content-left" >
                                                         <p class="body-mb bid-otr">
                                                             <span class="bid">Bid placed</span>
                                                             <span class="by body-m"> by</span>
                                                             <a class="user"> {{bids.bidder.substring(0, 4) + 'xxxxx' + bids.bidder.slice(bids.bidder.length - 4)}} </a>
-                                                        </p>
+                                                        </p> -->
                                                         <!-- <p class="body-s date">
                                                             At 2:30 PM on 19th June, 2021
                                                         </p> -->
-                                                    </div>
-                                                    <div class="content-right">
+                                                    <!-- </div> -->
+                                                    <!-- <div class="content-right">
                                                         <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} ONE</p>
-                                                        <!-- <p class="dollor body-sb">$2,505</p> -->
-                                                    </div>
+                                                        <p class="dollor body-sb">$2,505</p>
+                                                    </div> -->
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="activity-details" *ngIf="auctionLength <= 0">
+                                                <!-- </div> -->
+                                            <!-- </div> -->
+                                        <!-- </div> -->
+                                        <!-- <div class="activity-details" *ngIf="auctionLength <= 0">
                                             <div class="place-bid-main">
                                                 <p class="hours-p body-mb" style="text-align: center;"> No Bids Yet.</p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </p-panel>
                             </div>
