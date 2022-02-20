@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 import {MessageService} from 'primeng/api';
 import {Message} from 'primeng//api';
+import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IEvents, IFollow, ILikes } from '../components/nftcard/event.interface';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class UserActionsService {
   protected _eventsSubject = new Subject<IEvents>();
   private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0}, 
                         follow: <IFollow> { followCount: 0, id: "" } }; 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService, private stripeService: StripeService, public httpClient: HttpClient) { }
 
   BroadcastLikes(type: string, data: number, id: number) {
     let confirmLikeExists = this.dataStore.likes.tokenId === id;
@@ -64,5 +67,23 @@ export class UserActionsService {
   //             map(e => e.data)
   //         );
   // }
+
+  initiateStripePay( amount: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Authorization', 'my-auth-token')
+    headers.append('Content-Type', 'application/json');
+    return this.httpClient.post('https://node-stripe-nifty.herokuapp.com/charge', {
+      amount: amount
+    }, {headers})
+  }
+
+  confirmPaymentIntent( payId: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Authorization', 'my-auth-token')
+    headers.append('Content-Type', 'application/json');
+    return this.httpClient.post('http://localhost:3000/confirm', {
+      id: payId
+    }, {headers})
+  }
   
 }

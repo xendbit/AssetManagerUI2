@@ -1,10 +1,15 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, OnInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
 import {  NgForm } from '@angular/forms';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeService, StripeCardComponent, StripePaymentElementComponent} from 'ngx-stripe';
 import {
   StripeCardElementOptions,
-  StripeElementsOptions
+  StripeElementsOptions,
+  PaymentIntent
 } from '@stripe/stripe-js';
+import { UserActionsService } from '../../services/userActions.service';
+import { switchMap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-payment',
@@ -12,48 +17,66 @@ import {
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit {
-  @ViewChild(StripeCardComponent) card: StripeCardComponent;
-  cardOptions: StripeCardElementOptions = {
-    hidePostalCode: true,
-    style: {
-      base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
-        fontWeight: '300',
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
-  };
-
+  @ViewChild(StripePaymentElementComponent)
+  paymentElement: StripePaymentElementComponent;
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
 
-  constructor(private stripeService: StripeService) { }
+  paying = false;
+  fullname: string = "";
+  payId: string = '';
 
-  ngOnInit(): void {
+  constructor(private stripeService: StripeService, private cd: ChangeDetectorRef, 
+    public userService: UserActionsService, public httpClient: HttpClient) { 
   }
 
-  createToken(): void {
-    const name = "chinedu";
-    this.stripeService
-      .createToken(this.card.element, { name })
-      .subscribe((result) => {
-        if (result.token) {
-          // Use the token
-          console.log(result);
-         return this.stripeService.redirectToCheckout({ sessionId: 'hbhjbhbjh' }).subscribe(res => {
-            console.log('thisi', res)
-          })
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
+  ngOnInit(): void {
+
+  }
+
+  pay() {
+     this.createPaymentIntent()
+    .subscribe(pi => {
+      this.elementsOptions.clientSecret = pi.client_secret;
+      console.log('resp,', pi)
+      this.payId = pi.id;
+
+    });
+      this.paying = true;
+      this.stripeService.confirmPayment({
+        elements: this.paymentElement.elements,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: this.fullname
+            }
+          }
+        },
+        redirect: 'if_required'
+      }).subscribe(result => {
+        this.paying = false;
+        console.log('Result', result);
+        if (result.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          alert({ success: false, error: result.error.message });
+        } else {
+          // The payment has been processed!
+          if (result.paymentIntent.status === 'succeeded') {
+            // Show a success message to your customer
+            alert({ success: true });
+          }
         }
       });
+  }
+
+  createPaymentIntent(): Observable<PaymentIntent> {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Authorization', 'my-auth-token')
+    headers.append('Content-Type', 'application/json');
+    return this.httpClient.post<PaymentIntent>('https://node-stripe-nifty.herokuapp.com/charge', {
+      amount: 200
+    }, {headers})
   }
 
 }

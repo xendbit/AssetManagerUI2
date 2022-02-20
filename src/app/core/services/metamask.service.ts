@@ -185,7 +185,7 @@ export class MetamaskService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     // headers = headers.append('chain', chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
+    return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {

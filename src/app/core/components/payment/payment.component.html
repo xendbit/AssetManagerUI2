@@ -1,9 +1,15 @@
-<form class="form-main" method="post"  #registerForm="ngForm">
-    <ngx-stripe-card
-    [options]="cardOptions"
-    [elementsOptions]="elementsOptions"
-  ></ngx-stripe-card>
-  <button (click)="createToken()">
-    Pay
-  </button>
+<form  #paymentForm="ngForm">
+  <div  style="margin-left: 80px; margin-right: 80px; margin-top: 50px;">
+    <input
+    placeholder="Full Name"
+    [(ngModel)]="fullname"
+    id="firstName" 
+    name="firstName" 
+     />
+    <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
+      <ngx-stripe-payment [clientSecret]="clientSecret">
+      </ngx-stripe-payment>
+    </ng-container>
+    <button (click)="pay()" style="margin-bottom: 50px;">PAY</button>
+  </div>
 </form>
