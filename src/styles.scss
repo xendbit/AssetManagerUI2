@@ -18,7 +18,6 @@ html {
 }
 
 
-
 @-webkit-keyframes fadeIn {
     100% {
       opacity: 1;
@@ -29184,3 +29183,10 @@ html {
 
 
   /*# sourceMappingURL=app.css.map*/
+
+.p-overlaypanel {
+  //margin-top: 72px !important;
+  position: absolute;
+  right: 0;
+  //bottom: 0;
+}
