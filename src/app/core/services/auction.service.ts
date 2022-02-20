@@ -30,10 +30,10 @@ export class AuctionService {
 
   fetchAuctionFromMain(tokenId: number, auctionId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
@@ -74,10 +74,10 @@ export class AuctionService {
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: any, endDate: any) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
     {tokenId: tokenId,
       auctionId: auctionId,
@@ -88,20 +88,20 @@ export class AuctionService {
 
   changeTokenOwnership(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.post(`${baseUrl.mainUrl}change-token-ownership/${tokenId}`, {}, {headers})
   }
 
   checkIssuer(issuerAddress) {
     let issuer = issuerAddress.toLowerCase();
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
   }
 
@@ -114,10 +114,10 @@ export class AuctionService {
 
   toggleSold(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-sold`, {}, {headers})
   }
 

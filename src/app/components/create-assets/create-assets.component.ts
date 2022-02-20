@@ -63,7 +63,6 @@ export class CreateAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaType = [];
-    console.log('this is cate', this.categorySelected)
     this.checkConnection();
     if (this.categories === undefined) {
       // this.spinner.show();
