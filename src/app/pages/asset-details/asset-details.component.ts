@@ -181,8 +181,8 @@ export class AssetDetailsComponent implements OnInit {
     } else if (+this.balance < +currentBid)  {
       this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
-    } else if (+this.amount < +currentBid) {
-      this.userActions.addSingle('error', 'Failed', 'You cannot Bid less than the minimum acceptable bid for this asset');
+    } else if (+this.amount <= +currentBid) {
+      this.userActions.addSingle('error', 'Failed', 'The bid amount has to be higher than the current bid for this asset.');
       return;
     }
 
