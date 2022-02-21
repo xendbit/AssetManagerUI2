@@ -17,6 +17,17 @@
     font-family: "DMSans-Bold";
 }
 
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.wallet-row:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
 .connect-wallet{
     margin: 0px 0 0px 0;
     .container{
@@ -140,7 +151,7 @@
     color: #666666;
     margin: 0 0 12px 0;
   }
-  
+
   @media only screen and (min-width:420px) {
     #logoText {
         margin-left: -138%;
