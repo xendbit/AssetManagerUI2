@@ -20,22 +20,26 @@ export const baseUrl: IurlConfig = {
 export const networkChains = [ { 
                 name: 'harmony testnet',
                 chain: 1666700000,
-                rpcUrl: 'https://api.s0.b.hmny.io'                  
+                rpcUrl: 'https://api.s0.b.hmny.io',
+                currency: 'ONE'                 
         },
         {
                 name: "Binance Smart Chain testnet",
                 chain: 97,
-                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545'
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                currency: 'TBNB'
         },
         {
                 name: "polygon testnet",
                 chain: 80001,
-                rpcUrl: 'https://rpc-mumbai.matic.today'
+                rpcUrl: 'https://rpc-mumbai.matic.today',
+                currency: 'MATIC'
         },
         {
                 name: "aurora testnet",
                 chain: 1313161555,
-                rpcUrl: 'https://testnet.aurora.dev/'
+                rpcUrl: 'https://testnet.aurora.dev/',
+                currency: 'aETH'
         }
 ]
 

@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
+import { networkChains } from 'src/app/core/config/main.config.const';
 
 @Component({
   templateUrl: './asset-details.component.html',
@@ -45,6 +46,7 @@ export class AssetDetailsComponent implements OnInit {
   hasActiveAuction: boolean = false;
   metBuyNow: boolean;
   auctionLength: number = 0;
+  foundNetwork: {};
   
   
  
@@ -61,6 +63,12 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
+    let networkChain = parseInt(localStorage.getItem('networkChain'));
+    if (networkChain === undefined || networkChain === null) {
+      networkChain === 1666700000 //defaults to harmony
+    }
+    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    console.log('this i found', this.foundNetwork)
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.metamaskService.getContractAddress().subscribe(response => {
