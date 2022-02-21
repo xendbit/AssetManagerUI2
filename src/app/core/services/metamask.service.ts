@@ -44,15 +44,15 @@ export class MetamaskService {
 
   async checkChainChange() {
     const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log('this is chain', parseInt(_chainId, 16))
     let networkChain = parseInt(_chainId, 16);
     this.chainId = networkChain;
+    localStorage.setItem('networkChain', networkChain.toString())
     const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     console.log('found', foundNetwork)
     if (foundNetwork === undefined) {
       this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
     } else {
-      this.userActions.addSingle('warn', foundNetwork.name, "Currently on  " + foundNetwork.name + " , Rpc Url: " + foundNetwork.rpcUrl + " ")
+      this.userActions.addSingle('warn', foundNetwork.name, "Currently on  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
     }
 
     if (networkChain !== foundNetwork.chain) {
