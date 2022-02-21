@@ -68,7 +68,6 @@ export class AssetDetailsComponent implements OnInit {
       networkChain === 1666700000 //defaults to harmony
     }
     this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
-    console.log('this i found', this.foundNetwork)
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.metamaskService.getContractAddress().subscribe(response => {
