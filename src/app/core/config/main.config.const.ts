@@ -13,9 +13,31 @@ headers = headers.append('api-key', apiKey);
 export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
-        mainUrl: 'https://lb.xendbit.net/api/harmony/',
+        mainUrl: 'https://lb.xendbit.net/api/yasuke/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
+
+export const networkChains = [ { 
+                name: 'harmony testnet',
+                chain: 1666700000,
+                rpcUrl: 'https://api.s0.b.hmny.io'                  
+        },
+        {
+                name: "Binance Smart Chain testnet",
+                chain: 97,
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545'
+        },
+        {
+                name: "polygon testnet",
+                chain: 80001,
+                rpcUrl: 'https://rpc-mumbai.matic.today'
+        },
+        {
+                name: "aurora testnet",
+                chain: 1313161555,
+                rpcUrl: 'https://testnet.aurora.dev/'
+        }
+]
 
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",
