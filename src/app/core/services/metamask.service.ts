@@ -150,7 +150,6 @@ export class MetamaskService {
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
-    console.log('this is amount', String(bidAmount))
     const ethValue: string = String(bidAmount); // 0 BNB
     const transactionParameters = {
       nonce: '0x00',
