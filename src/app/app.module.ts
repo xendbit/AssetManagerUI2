@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {PlatformModule} from '@angular/cdk/platform';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,6 +37,8 @@ import {PanelModule} from 'primeng/panel';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
 import { NgxStripeModule } from 'ngx-stripe';
+import { PaymentModule } from './niftyrow-pay';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     PlatformModule,
     AppRoutingModule,
     CoreModule,
+    PaymentModule,
     HttpClientModule,
     CarouselModule,
     NgxSpinnerModule,

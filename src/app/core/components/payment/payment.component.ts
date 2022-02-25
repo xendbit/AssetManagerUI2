@@ -1,8 +1,7 @@
 import { AfterViewInit, OnInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
 import {  NgForm } from '@angular/forms';
-import { StripeService, StripeCardComponent, StripePaymentElementComponent} from 'ngx-stripe';
+import { StripeService, StripePaymentElementComponent} from 'ngx-stripe';
 import {
-  StripeCardElementOptions,
   StripeElementsOptions,
   PaymentIntent
 } from '@stripe/stripe-js';
@@ -77,6 +76,18 @@ export class PaymentComponent implements OnInit {
     return this.httpClient.post<PaymentIntent>('https://node-stripe-nifty.herokuapp.com/charge', {
       amount: 200
     }, {headers})
+  }
+
+  callNodePayment() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers.append('Authorization', 'my-auth-token')
+    headers.append('Content-Type', 'application/json');
+    this.httpClient.post('http://localhost:3000/flutterwavepay', {
+      amount: 200
+    }, {headers}).subscribe((res: any) => {
+      console.log('res', res)
+    })
+
   }
 
 }

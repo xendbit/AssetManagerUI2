@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -40,7 +39,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxStripeModule
+    NgxStripeModule,
   ],
   declarations: [
     HeaderComponent,

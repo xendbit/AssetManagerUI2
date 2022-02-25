@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {IPaymentGatewayDetails, PaymentGatewayMode} from '../interfaces/payment.interfaces';
-import {IFlutterwaveCredentials} from '../../../..';
+import { IPaymentGatewayDetails, PaymentGatewayMode } from 'src/app/core/interfaces/payment.interfaces';
+import { IFlutterwaveCredentials } from '../flutterwave/flutterwave-interface';
 
 @Injectable()
 export class FlutterwaveDetails {
