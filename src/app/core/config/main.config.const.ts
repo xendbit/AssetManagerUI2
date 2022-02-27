@@ -43,6 +43,13 @@ export const networkChains = [ {
                 rpcUrl: 'https://testnet.aurora.dev/',
                 currency: 'aETH',
                 verifyLink: 'https://aurorascan.dev/token/'
+        },
+        {
+                name: "Avalanche",
+                chain: 43113,
+                rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+                currency: 'AVAX',
+                verifyLink: 'https://aurorascan.dev/token/'
         }
 ]
 

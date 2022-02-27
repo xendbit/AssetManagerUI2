@@ -32,17 +32,20 @@
                             <span  class="nav-a body-sb"> Blockchains </span>
                             <ul class="dropdown-otr">
                                 <li class="dropdown-li" >
+                                    <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
+                                </li>
+                                <li class="dropdown-li" >
+                                    <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
+                                </li>
+                                <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                 </li>
                                 <li class="dropdown-li" >
                                     <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
                                 </li>
-                                <!-- <li class="dropdown-li" >
+                                <li class="dropdown-li" >
                                     <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
                                 </li>
-                                <li class="dropdown-li" >
-                                    <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
-                                </li> -->
                             </ul>
                         </li>
                     </ul>
@@ -50,7 +53,7 @@
                 <div class="action-otr">
                     <p-overlayPanel #op>
 
-                        <div class="">
+                      <div class="">
                             <div class="container">
                                 <div class="col-head-otr" *ngIf="!accountFound">
                                     <h2 style="font-size: 20px; line-height: 26px;" class="connect-heading heading-h2">Connect a wallet</h2>
@@ -97,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                      </div>
 
                     </p-overlayPanel>
 
