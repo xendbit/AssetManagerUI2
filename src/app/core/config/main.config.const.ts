@@ -1,6 +1,6 @@
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IurlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
-import * as footerData from 'src/assets/data/footer.json' 
+import * as footerData from 'src/assets/data/footer.json'
 import { HttpHeaders } from '@angular/common/http';
 
 export const footerConfig: IMenuGroups [] = footerData;
@@ -17,12 +17,12 @@ export const baseUrl: IurlConfig = {
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
 
-export const networkChains = [ { 
+export const networkChains = [ {
                 name: 'Harmony Testnet',
                 chain: 1666700000,
                 rpcUrl: 'https://api.s0.b.hmny.io',
                 currency: 'ONE',
-                verifyLink: 'https://explorer.testnet.harmony.one/address/'              
+                verifyLink: 'https://explorer.testnet.harmony.one/address/'
         },
         {
                 name: "Binance Smart Chain Testnet",
@@ -35,7 +35,8 @@ export const networkChains = [ {
                 name: "Polygon Testnet",
                 chain: 80001,
                 rpcUrl: 'https://rpc-mumbai.matic.today',
-                currency: 'MATIC'
+                currency: 'MATIC',
+                verifyLink: 'https://mumbai.polygonscan.com/token/'
         },
         {
                 name: "Aurora Testnet",
@@ -49,7 +50,7 @@ export const networkChains = [ {
                 chain: 43113,
                 rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
                 currency: 'AVAX',
-                verifyLink: 'https://aurorascan.dev/token/'
+                verifyLink: 'https://testnet.snowtrace.io/token/'
         }
 ]
 

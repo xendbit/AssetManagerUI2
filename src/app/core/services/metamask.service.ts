@@ -32,7 +32,7 @@ export class MetamaskService {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
       }
-    }) 
+    })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
       this.chain = 'harmony';
     } else {
@@ -59,7 +59,7 @@ export class MetamaskService {
       this.userActions.addSingle('error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. ")
     }
 
-    window.ethereum.on('chainChanged', (chainId) => { 
+    window.ethereum.on('chainChanged', (chainId) => {
       if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555) {
       } else {
         this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
@@ -193,7 +193,7 @@ export class MetamaskService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
+    return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
