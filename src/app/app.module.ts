@@ -37,6 +37,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import {PanelModule} from 'primeng/panel';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {FileUploadModule} from 'primeng/fileupload';
     FileUploadModule,
     OverlayPanelModule,
     ChartModule,
+    RadioButtonModule,
     PanelModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')

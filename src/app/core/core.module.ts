@@ -22,6 +22,7 @@ import {GalleriaModule} from 'primeng/galleria';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { ConnectWalletComponent } from './components/connect-wallet/connect-wall
     ToastModule,
     GalleriaModule,
     OverlayPanelModule,
-    DialogModule
+    DialogModule,
+    RadioButtonModule
   ],
   declarations: [
     HeaderComponent,
