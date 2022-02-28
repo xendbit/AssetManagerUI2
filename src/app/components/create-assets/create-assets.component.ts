@@ -217,9 +217,12 @@ export class CreateAssetsComponent implements OnInit {
 
   pickedCategory(value) {
     this.categorySelected = value;
-    if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 || this.categorySelected === 'movieRight' && this.previewArray.length > 0 ) {
+    if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 ) {
       this.hideBrowse = true;
-      this.acceptedFileType = '.mp4, .mp3';
+      this.acceptedFileType = '.mp3';
+    } else if (this.categorySelected === 'movieRight' && this.previewArray.length > 0) {
+      this.hideBrowse = true;
+      this.acceptedFileType = '.mp4';
     } else {
       this.hideBrowse = false;
       this.acceptedFileType = 'image/*';

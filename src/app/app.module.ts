@@ -38,6 +38,7 @@ import {PanelModule} from 'primeng/panel';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
 import { PaymentComponent } from './pages/payment/payment.component';
+import {RadioButtonModule} from 'primeng/radiobutton';
 // import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
@@ -81,6 +82,7 @@ import { PaymentComponent } from './pages/payment/payment.component';
     OverlayPanelModule,
     ChartModule,
     PanelModule,
+    RadioButtonModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
