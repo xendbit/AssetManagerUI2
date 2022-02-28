@@ -208,6 +208,7 @@ export class MetamaskService {
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
+    console.log('this is params', transactionParameters)
       // txHash is a hex string
   // As with any RPC call, it may throw an error
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
