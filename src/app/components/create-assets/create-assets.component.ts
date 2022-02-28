@@ -227,7 +227,6 @@ export class CreateAssetsComponent implements OnInit {
       this.hideBrowse = false;
       this.acceptedFileType = 'image/*';
     }
-
   }
 
   getAssetType(value) {
