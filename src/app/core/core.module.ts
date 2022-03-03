@@ -22,6 +22,7 @@ import {GalleriaModule} from 'primeng/galleria';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
 import { NgxStripeModule } from 'ngx-stripe';
+import {RadioButtonModule} from 'primeng/radiobutton';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
 
@@ -40,6 +41,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule,
+    RadioButtonModule,
   ],
   declarations: [
     HeaderComponent,

@@ -40,6 +40,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentModule } from './niftyrow-pay';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { PaymentService } from './core/services/payment.service';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { PaymentService } from './core/services/payment.service';
     OverlayPanelModule,
     ChartModule,
     PanelModule,
+    RadioButtonModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),

@@ -16,7 +16,7 @@ import { timeout } from 'rxjs/operators';
   styleUrls: ['./create-assets.component.scss']
 })
 export class CreateAssetsComponent implements OnInit {
- 
+
   preview: any;
   files: File[] = [];
   media: Array<ICreatorMedia> = [];
@@ -57,13 +57,12 @@ export class CreateAssetsComponent implements OnInit {
   fileSize: number;
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
-    public metamaskService: MetamaskService, public router: Router ) { 
-   
+    public metamaskService: MetamaskService, public router: Router ) {
+
   }
 
   ngOnInit(): void {
     this.mediaType = [];
-    console.log('this is cate', this.categorySelected)
     this.checkConnection();
     if (this.categories === undefined) {
       // this.spinner.show();
@@ -79,7 +78,7 @@ export class CreateAssetsComponent implements OnInit {
       //  this.spinner.hide();
      })
     }
-  
+
   }
 
   checkConnection() {
@@ -135,17 +134,17 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   checkIssuer() {
-  
+
     this.mainService.checkIssuer(this.account).subscribe(res => {
       this.response = res;
     },
     error => {
       this.response = error['error'];
     })
-  
+
 }
 
-  
+
   check(file) {
     this.errorMessage = "";
     this.fileSize = file.size/1024/1024;
@@ -172,7 +171,7 @@ export class CreateAssetsComponent implements OnInit {
           this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
-        if ( /\.(mp4)$/i.test(file.name) === true  ) { 
+        if ( /\.(mp4)$/i.test(file.name) === true  ) {
           // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
           this.mp3 = true;
           this.previewArray.push({type: 'mp4', name: file.name, media: file})
@@ -206,26 +205,28 @@ export class CreateAssetsComponent implements OnInit {
       if (this.previewArray.filter(item => item.name !== this.preview.name)) {
         this.preview = undefined;
       }
-      
-    } 
+
+    }
   }
 
   assignPreview(asset) {
     this.preview = asset;
-   
+
   }
 
 
   pickedCategory(value) {
     this.categorySelected = value;
-    if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 || this.categorySelected === 'movieRight' && this.previewArray.length > 0 ) {
+    if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 ) {
       this.hideBrowse = true;
-      this.acceptedFileType = '.mp4, .mp3';
+      this.acceptedFileType = '.mp3';
+    } else if (this.categorySelected === 'movieRight' && this.previewArray.length > 0) {
+      this.hideBrowse = true;
+      this.acceptedFileType = '.mp4';
     } else {
       this.hideBrowse = false;
       this.acceptedFileType = 'image/*';
     }
-
   }
 
   getAssetType(value) {
@@ -289,7 +290,7 @@ export class CreateAssetsComponent implements OnInit {
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });
-              } else {        
+              } else {
                 this.spinner.hide();
                 this.userActions.addSingle('error', 'Failed', 'There has been an error while trying to issue this asset, please try again.');
               }

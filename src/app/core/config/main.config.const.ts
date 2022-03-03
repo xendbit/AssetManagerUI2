@@ -14,9 +14,46 @@ headers = headers.append('api-key', apiKey);
 export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
-        mainUrl: 'https://lb.xendbit.net/api/harmony/',
+        mainUrl: 'https://lb.xendbit.net/api/yasuke/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
+
+export const networkChains = [ {
+                name: 'Harmony Testnet',
+                chain: 1666700000,
+                rpcUrl: 'https://api.s0.b.hmny.io',
+                currency: 'ONE',
+                verifyLink: 'https://explorer.testnet.harmony.one/address/'
+        },
+        {
+                name: "Binance Smart Chain Testnet",
+                chain: 97,
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                currency: 'TBNB',
+                verifyLink: 'https://testnet.bscscan.com/token/'
+        },
+        {
+                name: "Polygon Testnet",
+                chain: 80001,
+                rpcUrl: 'https://rpc-mumbai.matic.today',
+                currency: 'MATIC',
+                verifyLink: 'https://mumbai.polygonscan.com/token/'
+        },
+        {
+                name: "Aurora Testnet",
+                chain: 1313161555,
+                rpcUrl: 'https://testnet.aurora.dev/',
+                currency: 'aETH',
+                verifyLink: 'https://aurorascan.dev/token/'
+        },
+        {
+                name: "Avalanche",
+                chain: 43113,
+                rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+                currency: 'AVAX',
+                verifyLink: 'https://testnet.snowtrace.io/token/'
+        }
+]
 
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",

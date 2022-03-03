@@ -1,9 +1,8 @@
 import { UserActionsService } from 'src/app/core/services/userActions.service';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
-import { baseABI, baseUrl, chainId, niftyKey} from '../config/main.config.const';
+import { baseABI, baseUrl, chainId, niftyKey, networkChains} from '../config/main.config.const';
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
@@ -26,6 +25,7 @@ export class MetamaskService {
   withdrawResponse: string;
   cancelResponse: string;
   chain: string;
+  chainId = chainId;
 
   constructor(public httpClient: HttpClient, public platform: Platform, public userActions: UserActionsService) {
     this.getContractAddress().subscribe(data => {
@@ -44,16 +44,25 @@ export class MetamaskService {
 
   async checkChainChange() {
     const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log('this is chain', parseInt(_chainId, 16))
     let networkChain = parseInt(_chainId, 16);
-    if (networkChain === 1666700000 || networkChain === 97) {
+    this.chainId = networkChain;
+    localStorage.setItem('networkChain', networkChain.toString())
+    const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    console.log('found', foundNetwork)
+    if (foundNetwork === undefined) {
+      this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
     } else {
-      this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+      this.userActions.addSingle('warn', foundNetwork.name, "Currently on  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
     }
+
+    if (networkChain !== foundNetwork.chain) {
+      this.userActions.addSingle('error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. ")
+    }
+
     window.ethereum.on('chainChanged', (chainId) => {
-      if (networkChain === 1666700000 || networkChain === 97) {
+      if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555) {
       } else {
-        this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+        this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
       }
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
@@ -141,7 +150,6 @@ export class MetamaskService {
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
-    console.log('this is amount', String(bidAmount))
     const ethValue: string = String(bidAmount); // 0 BNB
     const transactionParameters = {
       nonce: '0x00',
@@ -149,7 +157,7 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress,
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId,
+      chainId: this.chainId,
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.bidResponse = txHash;
@@ -169,7 +177,7 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.endbidResponse = txHash;
@@ -181,10 +189,10 @@ export class MetamaskService {
 
   getContractAddress() {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 
@@ -198,8 +206,9 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
+    console.log('this is params', transactionParameters)
       // txHash is a hex string
   // As with any RPC call, it may throw an error
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
@@ -223,7 +232,7 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.auctionResponse = txHash;
@@ -244,7 +253,7 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.withdrawResponse = txHash;
@@ -264,7 +273,7 @@ export class MetamaskService {
       from: window.ethereum.selectedAddress, // must match user's active address.
       value: ethers.utils.parseEther(ethValue).toHexString(),
       data: data,
-      chainId: chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.cancelResponse = txHash;

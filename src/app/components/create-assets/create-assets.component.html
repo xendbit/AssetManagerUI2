@@ -63,28 +63,21 @@
                 </div>
             </div>
             <span class="line"></span>
-           
+
             <div class="row row-custon">
                 <div class="col-lg-8 col-create-otr">
                     <div class="col-create-inr">
-                        
-                        
-                       
+
+
+
                         <form class="form-main" method="post"  #createForm="ngForm">
                             <!-- <h4 class="head heading-h4">Upload Artwork</h4> -->
                             <div class="row" style="margin-bottom: 40px; margin-top: 20px;">
-                                <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of categories;">
-                                    <div class="check" >
-                                        <label>
-                                            <span class="check-inner">
-                                                <input type="checkbox" (change)="pickedCategory(item.value)" class="input-check opacity-0 absolute">
-                                                <svg class="fill-current" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8" fill="#366CE3"/></svg>
-                                            </span>
-                                            <span class="select-none heading-h5">{{item.name}}</span>
-                                        </label>
-                                    </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 field-checkbox" *ngFor="let category of categories;">
+                                  <p-radioButton [inputId]="category.key" name="category" [value]="category.name" [(ngModel)]="categorySelected" (onClick)="pickedCategory(category.value)" [disabled]="category.key === 'R'"></p-radioButton>
+                                  <label [for]="category.key">{{category.name}}</label>
                                 </div>
-                            </div> 
+                            </div>
                             <div id="uploadArea" class="upload-area" *ngIf="this.categorySelected !== undefined">
                                 <div class="upload-area__header">
                                     <p class="upload-area__title"></p>
@@ -94,7 +87,7 @@
                                         </strong>
                                     </p>
                                 </div>
-                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="!hideBrowse"  ngfDrop selectable="1" multiple="1"
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'artwork'"  ngfDrop selectable="1" multiple="1"
                                 [(files)]="files"
                                 [(file)] = "preview"
                                 [(validDrag)]="validComboDrag"
@@ -104,31 +97,50 @@
                                     </span>
                                     <p class="desc body-sb">select art work (PNG, GIF, JPEG, JPG Max 10 MB.)</p>
                                     <p class="drop-zoon__paragraph btn-outline1">browse</p>
-                                    <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
-                                        <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
-                                    </label> -->
                                 </div>
-                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'musicRight' && previewArray.length > 0  || this.categorySelected === 'movieRight' && previewArray.length > 0 "  ngfDrop selectable="1" multiple="1"
+
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'musicRight' && previewArray.length === 0 || this.categorySelected === 'movieRight' && previewArray.length === 0"  ngfDrop selectable="1" multiple="1"
                                 [(files)]="files"
                                 [(file)] = "preview"
                                 [(validDrag)]="validComboDrag"
-                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= ".mp4, .mp3">
+                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= "image/gif,image/png,image/jpg,image/jpeg, image/*;">
                                     <span class="drop-zoon__icon">
                                         <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </span>
-                                    <p class="desc body-sb">select media (MP4 or MP3. Max 10 MB.)</p>
+                                    <p class="desc body-sb">select art work (PNG, GIF, JPEG, JPG Max 10 MB.) as a cover for this asset</p>
                                     <p class="drop-zoon__paragraph btn-outline1">browse</p>
-                                    <!-- <label (change)="uploadFile($event)" class="drop-zoon__paragraph btn-outline1">browse
-                                        <input type="file" id="images" class="drop-zoon__file-input"  #fileInput>
-                                    </label> -->
                                 </div>
+
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'musicRight' && previewArray.length > 0"  ngfDrop selectable="1" multiple="1"
+                                [(files)]="files"
+                                [(file)] = "preview"
+                                [(validDrag)]="validComboDrag"
+                                [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= ".mp3">
+                                    <span class="drop-zoon__icon">
+                                        <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </span>
+                                    <p class="desc body-sb">select media (MP3 Max 10 MB.)</p>
+                                    <p class="drop-zoon__paragraph btn-outline1">browse</p>
+                                </div>
+
+                                <div class="upload-area__drop-zoon drop-zoon" *ngIf="this.categorySelected === 'movieRight' && previewArray.length > 0 "  ngfDrop selectable="1" multiple="1"
+                                  [(files)]="files"
+                                  [(file)] = "preview"
+                                  [(validDrag)]="validComboDrag"
+                                  [ngClass]="{'goodDragClass':validComboDrag}" (fileChange)="check(preview)"  accept= ".mp4">
+                                      <span class="drop-zoon__icon">
+                                          <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                      </span>
+                                      <p class="desc body-sb">select media (MP4 Max 10 MB.)</p>
+                                      <p class="drop-zoon__paragraph btn-outline1">browse</p>
+                                  </div>
                             </div>
                             <p *ngIf="errorMessage" class="desc body-sb" style="color: red;">{{errorMessage}}</p>
 
                             <div class="drop-zoon__preview-image" *ngIf="this.preview !== undefined">
                                 <!-- <p-galleria *ngIf="this.media.length > 0" [(value)]="media"  [containerStyle]="{'max-width': '640px', 'margin-top':'2em'}" [numVisible]="5"
                                     [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
-                                    [showIndicatorsOnItem]="true"> 
+                                    [showIndicatorsOnItem]="true">
                                     <ng-template pTemplate="item" let-item>
                                         <img [src]="item" style="width: 100%; display: block;" />
                                     </ng-template>
@@ -148,7 +160,7 @@
                                         <source [ngfSrc]="preview" type="audio/wav" />
                                     </audio>
                                 </div>
-                                
+
                                 <div class="img-main" *ngIf="this.preview.type.includes('video') && this.fileSize < 10">
                                     <video class="img-inr img-fluid" style="object-fit: cover;"  controls controlsList="nodownload">
                                         <source src="preview" type="video/mp4" />
@@ -173,20 +185,20 @@
                                         <td class="input-otr" *ngIf="item.type !== 'image' && categorySelected === 'musicRight' || item.type !== 'image' && categorySelected === 'movieRight'"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
                                         <td class="input-otr" *ngIf="item.type === 'image' && categorySelected === 'artwork'"> <button class="drop-zoon__paragraph btn-outline1" (click)="remove(i, item.name)"> Remove </button> </td>
                                     </tr>
-                                                    
+
                                 </tbody>
                             </table>
                             <h4 class="head-2 heading-h4">Artwork Details</h4>
                             <div class="input-otr">
                                 <input class="input" type="text" id="artName" name="artName" [(ngModel)]="title" placeholder="Artwork Name e.g. “Floating Nifty Row”" required>
                             </div>
-                            
+
                             <div class="input-otr">
-                                <textarea class="textarea input" id="description"   
+                                <textarea class="textarea input" id="description"
                                 name="description" [(ngModel)]="description" placeholder="Artwork Description e.g. “ Floating Nifty Row 3D”" required></textarea>
                             </div>
-                           
-                           
+
+
                             <h4 class="head-2 heading-h4">Properties</h4>
                             <div class="input-main">
                                 <div class="input-otr-2">
@@ -196,7 +208,7 @@
                                     <input disabled class="input" type="text" name="text" placeholder="Asset Tag (coming soon) " required>
                                 </div>
                             </div>
-                      
+
                             <div class="row" style="margin-bottom: 20px;">
                                 <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of assetTypes;">
                                     <div class="check" >
@@ -209,7 +221,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </form>
                         <h4 class="head-2 heading-h4">Choose Collection (coming soon)</h4>
                         <div class="row row-custom-inr">

@@ -13,6 +13,7 @@ import { AuctionService } from 'src/app/core/services/auction.service';
 import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
 import { StripeService } from 'ngx-stripe';
+import { networkChains } from 'src/app/core/config/main.config.const';
 
 
 @Component({
@@ -47,9 +48,10 @@ export class AssetDetailsComponent implements OnInit {
   hasActiveAuction: boolean = false;
   metBuyNow: boolean;
   auctionLength: number = 0;
-  
-  
- 
+  foundNetwork: {};
+
+
+
 
   constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService, private http: HttpClient, private stripeService: StripeService) { }
@@ -63,6 +65,11 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
+    let networkChain = parseInt(localStorage.getItem('networkChain'));
+    if (networkChain === undefined || networkChain === null) {
+      networkChain === 1666700000 //defaults to harmony
+    }
+    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.metamaskService.getContractAddress().subscribe(response => {
@@ -176,8 +183,8 @@ export class AssetDetailsComponent implements OnInit {
     } else if (+this.balance < +currentBid)  {
       this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
-    } else if (+this.amount < +currentBid) {
-      this.userActions.addSingle('error', 'Failed', 'You cannot Bid less than the minimum acceptable bid for this asset');
+    } else if (+this.amount <= +currentBid) {
+      this.userActions.addSingle('error', 'Failed', 'The bid amount has to be higher than the current bid for this asset.');
       return;
     }
 
