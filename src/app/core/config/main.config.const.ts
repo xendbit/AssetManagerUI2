@@ -1,11 +1,12 @@
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IurlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
-import * as footerData from 'src/assets/data/footer.json' 
+import * as footerData from 'src/assets/data/footer.json'
 import { HttpHeaders } from '@angular/common/http';
 
 export const footerConfig: IMenuGroups [] = footerData;
 let apiKey = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 let demoBlockchainKey = "c7740e06-43f2-46cb-92e1-85841d6d2f72";
+let ravePubKey = 'FLWPUBK-1d8566c17fd622e946c6652b20b30b12-X'
 let headers: HttpHeaders = new HttpHeaders();
 headers = headers.append('Content-Type', 'application/json');
 headers = headers.append('api-key', apiKey);
@@ -27,6 +28,7 @@ export const baseABI = [
 ]
 export const chainId = 1666700000;
 export const niftyKey = apiKey;
+export const ravePublicKey = ravePubKey;
 export const blockchainInfo = {
         key: demoBlockchainKey,
         url: "https://api.blockchain.com/v3/exchange"

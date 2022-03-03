@@ -32,7 +32,7 @@ export class MetamaskService {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
       }
-    }) 
+    })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
       this.chain = 'harmony';
     } else {
@@ -50,7 +50,7 @@ export class MetamaskService {
     } else {
       this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
     }
-    window.ethereum.on('chainChanged', (chainId) => { 
+    window.ethereum.on('chainChanged', (chainId) => {
       if (networkChain === 1666700000 || networkChain === 97) {
       } else {
         this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")

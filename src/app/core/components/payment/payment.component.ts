@@ -1,14 +1,11 @@
-import { AfterViewInit, OnInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, OnInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import {  NgForm } from '@angular/forms';
-import { StripeService, StripePaymentElementComponent} from 'ngx-stripe';
+import { StripeService, StripePaymentElementComponent, StripeCardComponent} from 'ngx-stripe';
+import { PaymentService } from '../../services/payment.service';
 import {
   StripeElementsOptions,
-  PaymentIntent
 } from '@stripe/stripe-js';
 import { UserActionsService } from '../../services/userActions.service';
-import { switchMap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-payment',
@@ -16,8 +13,9 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit {
-  @ViewChild(StripePaymentElementComponent)
+
   paymentElement: StripePaymentElementComponent;
+
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
@@ -26,21 +24,19 @@ export class PaymentComponent implements OnInit {
   fullname: string = "";
   payId: string = '';
 
-  constructor(private stripeService: StripeService, private cd: ChangeDetectorRef, 
-    public userService: UserActionsService, public httpClient: HttpClient) { 
+  constructor(private stripeService: StripeService, private cd: ChangeDetectorRef,
+    public userService: UserActionsService,
+    public paymentService: PaymentService) {
   }
 
   ngOnInit(): void {
-
   }
 
   pay() {
-     this.createPaymentIntent()
+     this.paymentService.createPaymentIntent(200)
     .subscribe(pi => {
       this.elementsOptions.clientSecret = pi.client_secret;
-      console.log('resp,', pi)
       this.payId = pi.id;
-
     });
       this.paying = true;
       this.stripeService.confirmPayment({
@@ -69,25 +65,12 @@ export class PaymentComponent implements OnInit {
       });
   }
 
-  createPaymentIntent(): Observable<PaymentIntent> {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append('Authorization', 'my-auth-token')
-    headers.append('Content-Type', 'application/json');
-    return this.httpClient.post<PaymentIntent>('https://node-stripe-nifty.herokuapp.com/charge', {
-      amount: 200
-    }, {headers})
-  }
-
-  callNodePayment() {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers.append('Authorization', 'my-auth-token')
-    headers.append('Content-Type', 'application/json');
-    this.httpClient.post('http://localhost:3000/flutterwavepay', {
-      amount: 200
-    }, {headers}).subscribe((res: any) => {
+  payWithRave() {
+    this.paymentService.payWithRave('chinedukogu@gmail.com', 100,
+    '090332323323', 'djskd767'
+    ).subscribe((res: any) => {
       console.log('res', res)
     })
-
   }
 
 }

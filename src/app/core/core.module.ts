@@ -71,4 +71,4 @@ import { PaymentComponent } from './components/payment/payment.component';
   providers: [MessageService],
 })
 export class CoreModule {
-}
+ }

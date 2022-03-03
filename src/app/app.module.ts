@@ -38,6 +38,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentModule } from './niftyrow-pay';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { PaymentService } from './core/services/payment.service';
 
 
 @NgModule({
@@ -74,6 +76,7 @@ import { PaymentModule } from './niftyrow-pay';
     ToastModule,
     GalleriaModule,
     FormsModule,
+    InputSwitchModule,
     ReactiveFormsModule,
     CalendarModule,
     ProgressSpinnerModule,
@@ -86,7 +89,7 @@ import { PaymentModule } from './niftyrow-pay';
     }),
     NgxStripeModule.forRoot('pk_test_51KP6OgCU7wHmOgIeQ84Kyn1S1CjHuIreTqOZOaoYNcMwndLCx0ghjNBsI7ywyy4hFVZk6QEbTG4kQhY2AklEiGLb00bgQlYxn8'),
   ],
-  providers: [MainService],
+  providers: [MainService, PaymentService],
   bootstrap: [AppComponent],
   exports: [CreateAssetsComponent]
 })

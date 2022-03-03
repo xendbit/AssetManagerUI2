@@ -1,31 +1,17 @@
 <form  #paymentForm="ngForm">
-  <div  style="margin-left: 80px; margin-right: 80px; margin-top: 50px;">
+  <div  style="margin-left: 80px; margin-right: 80px; margin-top: 50px; width: 120px;">
     <input
     placeholder="Full Name"
     [(ngModel)]="fullname"
-    id="firstName" 
-    name="firstName" 
+    id="firstName"
+    name="firstName"
      />
-    <ng-container *ngIf="elementsOptions?.clientSecret as clientSecret">
-      <ngx-stripe-payment [clientSecret]="clientSecret">
+    <ng-container style="width: 50px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
+      <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
       </ngx-stripe-payment>
     </ng-container>
   </div>
 
-  <button (click)="callNodePayment()">Try </button>
-
-  <!-- <flutterwave-make-payment
-    [public_key]="publicKey"
-    amount='10'
-    currency='NGN'
-    payment_options="card"
-    redirect_url=""
-    text="Pay Now"
-    [customer]="customerDetails"
-    [customizations]="customizations"
-    [meta]="meta"
-    [tx_ref]="generateReference()"
-    (callback)="makePaymentCallback($event)"
-    (close)="closedPaymentModal()" >
-  </flutterwave-make-payment> -->
+  <button (click)="pay()">Try </button>
+  <button (click)="payWithRave()"> Rave </button>
 </form>
