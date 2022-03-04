@@ -237,7 +237,6 @@
                                                 <div class="input-main" style="flex: 1.5">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
                                                         <input class="input" style="width: 100%;
-                                                        margin-bottom: 25px;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
                                                         background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}}"  type="number" id="amount" name="amount"required>
@@ -419,7 +418,7 @@
         <div class="col-lg-12">
             <div class="artwork-body">
                 <div class="container-fluid">
-                    <div class="artwork-body-inr">
+                    <div class="artwork-body-inr" style="margin-top: 3rem">
                         <div class="row row-custom">
                             <div class="col-lg-6 col-right-otr">
                                 <p-panel class="heading-h4 activity-head" styleClass="ark-panel" header="Description" [toggleable]="true">
