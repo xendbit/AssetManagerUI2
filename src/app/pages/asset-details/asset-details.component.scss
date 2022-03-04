@@ -368,6 +368,7 @@
                                     .bid-head{
                                         padding: 4px 0;
                                         color: $Black-Color;
+                                        white-space: nowrap;
                                     }
                                     .dollor{
                                         color: $Gray-Shade-2;
@@ -387,6 +388,9 @@
                                     .acution{
                                         color: $Gray-Shade-2;
                                         text-align: right;
+                                        @include breakpoint($secreen-max-md){
+                                          text-align: center;
+                                      }
                                     }
                                     .timer{
                                         display: flex;
@@ -647,6 +651,8 @@
   .boxes-main {
     flex-direction: column;
   }
+
+  
 }
 
 @media (max-width: 420px) {
@@ -660,3 +666,26 @@
     margin-top: -0.5rem;
   }
 }
+
+.current-bid-input {
+  width: 100%;
+  background-color: white;
+  text-align: left; border-radius: 8px
+}
+
+.place-a-bid {
+  border-top-left-radius: 0; border-bottom-left-radius: 0;
+}
+
+@media (max-width: 510px) {
+  .current-bid {
+      display: block;
+  }
+
+  .place-a-bid {
+    border-radius: 8px;
+  }
+
+}
+
+

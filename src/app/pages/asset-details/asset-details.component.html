@@ -234,24 +234,21 @@
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
 <!--                                              {{ location.country_name }}-->
                                                <div class="current-bid">
-                                                <div class="input-main" style="flex: 1.5">
-                                                    <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
+                                                <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
+                                                    <div *ngIf="auction.bids.length <= 0" class="input-otr-2" style="flex: 1">
                                                         <input class="input" style="width: 100%;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
                                                         background-color: white;" type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}}"  type="number" id="amount" name="amount"required>
                                                     </div>
-                                                    <div *ngIf="auction.bids.length > 0" class="input-otr-2">
-                                                        <input class="input" style="width: 100%;
-                                                        margin-bottom: 25px;
-                                                        background-color: white;
-                                                        text-align: left; border-radius: 8px"
+                                                    <div *ngIf="auction.bids.length > 0" class="input-otr-2" style="flex: 1">
+                                                        <input class="input current-bid-input"
                                                                type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
                                                     </div>
                                                 </div>
 
                                                 <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound">
-                                                    <a (click)="bid()" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Place a Bid</a>
+                                                    <a (click)="bid()" class="btn-fill btn-bid place-a-bid">Place a Bid</a>
                                                 </div>
                                                </div>
 <!--                                              STRIPE IMPLEMENTATION-->
