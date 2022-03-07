@@ -343,7 +343,7 @@
                             }
                             .boxes-main{
                                 display: flex;
-                                margin: 2px 0 -24px 0;
+                                // margin: 2px 0 -24px 0;
                                 justify-content: space-between;
                                 //max-height: 173px;
                                 @include breakpoint($secreen-max-xxxl){
@@ -356,6 +356,7 @@
                                     border-radius: 8px;
                                     margin-right: 30px;
                                     height: 98.8px;
+                                    flex: 0.9;
                                     //width: 320px;
                                     //height: 173px;
                                     @include breakpoint($secreen-max-xxxl){
@@ -367,6 +368,7 @@
                                     .bid-head{
                                         padding: 4px 0;
                                         color: $Black-Color;
+                                        white-space: nowrap;
                                     }
                                     .dollor{
                                         color: $Gray-Shade-2;
@@ -386,6 +388,9 @@
                                     .acution{
                                         color: $Gray-Shade-2;
                                         text-align: right;
+                                        @include breakpoint($secreen-max-md){
+                                          text-align: center;
+                                      }
                                     }
                                     .timer{
                                         display: flex;
@@ -646,6 +651,8 @@
   .boxes-main {
     flex-direction: column;
   }
+
+  
 }
 
 @media (max-width: 420px) {
@@ -659,3 +666,26 @@
     margin-top: -0.5rem;
   }
 }
+
+.current-bid-input {
+  width: 100%;
+  background-color: white;
+  text-align: left; border-radius: 8px
+}
+
+.place-a-bid {
+  border-top-left-radius: 0; border-bottom-left-radius: 0;
+}
+
+@media (max-width: 510px) {
+  .current-bid {
+      display: block;
+  }
+
+  .place-a-bid {
+    border-radius: 8px;
+  }
+
+}
+
+
