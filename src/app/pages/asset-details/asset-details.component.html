@@ -184,7 +184,7 @@
                             <div class="col-lg-12 col-right-otr">
                                     <div class="col-right-inr">
                                         <div class="bid-details">
-                                            <app-payment></app-payment>
+                                            <!-- <app-payment></app-payment> -->
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                             <div class="minimum-bid-box">
@@ -196,7 +196,7 @@
                                           </a>
                                             </div>
                                             <div class="boxes-main" *ngIf="!this.owner">
-                                                
+
                                                 <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="bid body-mb">Buy-Now Price</p>
                                                   <div style="display: flex">
@@ -284,12 +284,23 @@
                                                   <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
                                                 </div> -->
                                               <!-- </div> -->
-                                                <div class="action-otr" *ngIf="visible && !accountFound">
+                                                <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'physical'">
                                                     <div class="heading-inr error-container">
 <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
                                                         <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
+
+                                                <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital'">
+                                                  <div class="heading-inr error-container">
+                                                       <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>
+                                                       <ng-container style="width: 300px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
+                                                        <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
+                                                        </ngx-stripe-payment>
+                                                      </ng-container>
+                                                     <span class="desc" style="margin-bottom: 1rem;"> USD </span> <p-inputSwitch (onChange)="switchPay($event)" name="checked" [(ngModel)]="checked"></p-inputSwitch> <span class="desc" style="margin-bottom: 1rem;"> NGN </span>
+                                                  </div>
+                                              </div>
                                             </form>
                                             <form class="bidform" *ngIf="visible && this.owner && artwork.hasActiveAuction === false ||  visible && this.owner && hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
                                                 <div class="input-main">

@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MainService } from 'src/app/core/services/main.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { timeout } from 'rxjs/operators';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-create-assets',
@@ -55,6 +56,24 @@ export class CreateAssetsComponent implements OnInit {
   acceptedFileType: any = 'image/*'
   hideBrowse: boolean = false;
   fileSize: number;
+  items: MenuItem[];
+  activeIndex: number = 1;
+  checked = false;
+
+  responsiveOptions:any[] = [
+    {
+        breakpoint: '1024px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
 
   constructor( public mainService: MainService, private spinner: NgxSpinnerService, public userActions: UserActionsService,
     public metamaskService: MetamaskService, public router: Router ) {
@@ -63,6 +82,33 @@ export class CreateAssetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaType = [];
+    this.activeIndex = 0;
+    this.items = [{
+      label: 'Select Category and cover art',
+      command: (event: any) => {
+          this.activeIndex = 0;
+      }
+    },
+    {
+        label: 'Select media (For Audio and visual arts)',
+        command: (event: any) => {
+            this.activeIndex = 1;
+        }
+    },
+    {
+        label: 'Enter Description',
+        command: (event: any) => {
+            this.activeIndex = 2;
+        }
+    },
+    {
+        label: 'Confirmation',
+        command: (event: any) => {
+            this.activeIndex = 3;
+        }
+    }
+  ];
+
     this.checkConnection();
     if (this.categories === undefined) {
       // this.spinner.show();
@@ -79,6 +125,40 @@ export class CreateAssetsComponent implements OnInit {
      })
     }
 
+  }
+
+
+  Next() {
+    if (this.activeIndex === 0 && this.categorySelected === 'musicRight' || this.activeIndex === 0 && this.categorySelected === 'movieRight') {
+      this.preview = undefined;
+      console.log('this ', this.categorySelected)
+      console.log('this  ', this.previewArray)
+      this.activeIndex = 1;
+    } else if (this.activeIndex === 0 && this.categorySelected === 'artwork') {
+      this.activeIndex = 2
+    } else if (this.activeIndex === 1) {
+      this.activeIndex = 2
+    } else if (this.activeIndex === 2) {
+      this.activeIndex = 3
+    } else if (this.activeIndex === 3) {
+      this.activeIndex = 3
+    }
+  }
+
+  Back() {
+    if (this.activeIndex === 3 ) {
+      this.activeIndex = 2;
+    } else if (this.activeIndex === 2 && this.categorySelected === 'artwork') {
+      this.previewArray = [];
+      this.activeIndex = 0
+    } else if (this.activeIndex === 2 && this.categorySelected === 'musicRight' || this.activeIndex === 0 && this.categorySelected === 'movieRight') {
+      this.activeIndex = 1
+    } else if (this.activeIndex === 1) {
+      this.previewArray = [];
+      this.activeIndex = 0
+    } else if (this.activeIndex === 0) {
+      this.activeIndex = 0
+    }
   }
 
   checkConnection() {
@@ -134,24 +214,21 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   checkIssuer() {
-
     this.mainService.checkIssuer(this.account).subscribe(res => {
       this.response = res;
     },
     error => {
       this.response = error['error'];
     })
+  }
 
-}
 
-
-  check(file) {
+  check(event: any) {
+    const file = event.target.files[0]
     this.errorMessage = "";
     this.fileSize = file.size/1024/1024;
-
     if (this.fileSize > 10) {
       this.errorMessage = "Please Make sure that the file selected is not bigger than 10MB";
-      console.log('here')
       this.userActions.addSingle('error', 'Failed', 'Please Make sure that the file selected is not bigger than 10MB');
       return;
     } else {
@@ -159,8 +236,6 @@ export class CreateAssetsComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = this.handleFile.bind(this);
       this.preview = file;
-      console.log('here file', this.fileSize)
-
     if ( /\.(jpe?g|gif|png|mp3|mp4)$/i.test(file.name) === false  ) {
       this.errorMessage = "Please select a file type of JPEG, GIF, PNG, MP3 or MP4";
       this.userActions.addSingle('error', 'Failed', 'Please select a file type of JPEG, GIF, PNG, MP3 or MP4');
@@ -211,12 +286,12 @@ export class CreateAssetsComponent implements OnInit {
 
   assignPreview(asset) {
     this.preview = asset;
-
   }
 
 
   pickedCategory(value) {
     this.categorySelected = value;
+    this.checked = true;
     if (this.categorySelected === 'musicRight' && this.previewArray.length > 0 ) {
       this.hideBrowse = true;
       this.acceptedFileType = '.mp3';
@@ -248,14 +323,10 @@ export class CreateAssetsComponent implements OnInit {
       this.userActions.addSingle('error', 'Failed', 'Please make sure you select a category.');
       return;
     }
-    this.symbol = form.value.symbol;
-    this.description = form.value.description;
-    this.title = form.value.artName;
     if (this.title === null || this.symbol === null) {
       this.userActions.addSingle('error', 'Failed', 'Please fill all fields before submission.');
       return;
     }
-
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
     let dateCreated = new Date().getTime();
@@ -279,7 +350,9 @@ export class CreateAssetsComponent implements OnInit {
     }else {
       this.checkConnection();
       this.spinner.show();
+      console.log('hia', this.tokenId, this.title, this.symbol, this.account)
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
+        console.log('stopped')
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {

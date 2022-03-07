@@ -12,8 +12,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
-import { StripeService } from 'ngx-stripe';
+import { StripePaymentElementComponent, StripeService } from 'ngx-stripe';
 import { networkChains } from 'src/app/core/config/main.config.const';
+import { StripeElementsOptions } from '@stripe/stripe-js';
+import { PaymentService } from 'src/app/core/services/payment.service';
 
 
 @Component({
@@ -49,12 +51,31 @@ export class AssetDetailsComponent implements OnInit {
   metBuyNow: boolean;
   auctionLength: number = 0;
   foundNetwork: {};
+  checked: boolean = true;
+  paymentElement: StripePaymentElementComponent;
+
+  elementsOptions: StripeElementsOptions = {
+    locale: 'en'
+  };
+
+  paying = false;
+  fullname: string = "";
+  payId: string = '';
 
 
 
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute, public metamaskService: MetamaskService, public mainService: MainService,
-    public userActions: UserActionsService,  private spinner: NgxSpinnerService, private auctionService: AuctionService, private http: HttpClient, private stripeService: StripeService) { }
+  constructor(private router: Router,
+    public activatedRoute: ActivatedRoute,
+    public metamaskService: MetamaskService,
+    public mainService: MainService,
+    public userActions: UserActionsService,
+    private spinner: NgxSpinnerService,
+    private auctionService: AuctionService,
+    private http: HttpClient,
+    private stripeService: StripeService,
+    public paymentService: PaymentService) { }
+
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
@@ -79,6 +100,7 @@ export class AssetDetailsComponent implements OnInit {
     let auctionId = this.activatedRoute.snapshot.params.auction;
     this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
       this.artwork = res;
+      console.log('here', this.artwork)
       this.sellPriceMet = false;
       this.checkConnection();
       if (this.artwork.lastAuctionId !== 0) {
@@ -340,5 +362,57 @@ export class AssetDetailsComponent implements OnInit {
         this.checkBuyer();
       })
     }
+
+    pay() {
+      this.paymentService.createPaymentIntent(200)
+     .subscribe(pi => {
+       this.elementsOptions.clientSecret = pi.client_secret;
+       this.payId = pi.id;
+     });
+       this.paying = true;
+       this.stripeService.confirmPayment({
+         elements: this.paymentElement.elements,
+         confirmParams: {
+           payment_method_data: {
+             billing_details: {
+               name: 'chinedu'
+             }
+           }
+         },
+         redirect: 'if_required'
+       }).subscribe(result => {
+         this.paying = false;
+         console.log('Result', result);
+         if (result.error) {
+           // Show error to your customer (e.g., insufficient funds)
+           alert({ success: false, error: result.error.message });
+         } else {
+           // The payment has been processed!
+           if (result.paymentIntent.status === 'succeeded') {
+             // Show a success message to your customer
+             alert({ success: true });
+           }
+         }
+       });
+   }
+
+   payWithRave() {
+    this.paymentService.payWithRave('chinedukogu@gmail.com', 100,
+    '090332323323', 'djskd767'
+    ).subscribe((res: any) => {
+      console.log('res', res)
+    })
+  }
+
+  switchPay(e) {
+    let isChecked = e.checked;
+    console.log('hd', isChecked)
+    this.checked = isChecked;
+    if (this.checked === true) {
+      this.payWithRave()
+    } else {
+      this.pay();
+    }
+  }
 
 }

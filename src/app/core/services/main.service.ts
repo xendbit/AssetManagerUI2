@@ -46,7 +46,7 @@ export class MainService {
   assetTypeResponse: any;
   landingResponse: ILandingData;
   chain: string;
-  
+
   constructor(public httpClient: HttpClient) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
       this.chain = 'harmony';
@@ -103,11 +103,11 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
       this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
- 
+
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
     })
-   
+
   }
 
   fetchSingleArtwork(tokenId: number) {
@@ -117,12 +117,13 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', chain);
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => { 
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
           observer.next({
             id: item.id,
             category: item.category,
             tags: item.tags,
+            assetType: item.assetType,
             owner: {
               id: item.id,
               image: item.media[0].media,
@@ -210,11 +211,11 @@ export class MainService {
     })).subscribe(data => {
 
       // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
- 
+
     },err => {
       this.subjectOwnerNFT.next(artWorkJson['default']);
     })
-   
+
   }
 
   getOwnerAssets() {
@@ -231,7 +232,7 @@ export class MainService {
     return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
-      "keys": mediaType, 
+      "keys": mediaType,
       "dateIssued": dateCreated,
       "assetType": assetType,
       "description": description,
@@ -240,7 +241,7 @@ export class MainService {
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
+    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -271,7 +272,7 @@ export class MainService {
 
       } else { /* make http request & process */
         this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
-          this.footerResponse = data; 
+          this.footerResponse = data;
           observer.next(this.footerResponse);
           observer.complete();
         }, err => {
@@ -290,9 +291,9 @@ export class MainService {
       if (this.headerResponse) {
         observer.next(this.headerResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
-          this.headerResponse = data; 
+          this.headerResponse = data;
           observer.next(this.headerResponse);
           observer.complete();
         }, err => {
@@ -309,9 +310,9 @@ export class MainService {
       if (this.buttonsResponse) {
         observer.next(this.buttonsResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
-          this.buttonsResponse = data; 
+          this.buttonsResponse = data;
           observer.next(this.buttonsResponse);
           observer.complete();
         }, err => {
@@ -328,9 +329,9 @@ export class MainService {
       if (this.userResponse) {
         observer.next(this.userResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
-          this.userResponse = data; 
+          this.userResponse = data;
           observer.next(this.userResponse);
           observer.complete();
         }, err => {
@@ -347,9 +348,9 @@ export class MainService {
       if (this.creatorResponse) {
         observer.next(this.creatorResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
-          this.creatorResponse = data; 
+          this.creatorResponse = data;
           observer.next(this.creatorResponse);
           observer.complete();
         }, err => {
@@ -367,9 +368,9 @@ export class MainService {
       if (this.categoriesResponse) {
         observer.next(this.categoriesResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
-          this.categoriesResponse = data; 
+          this.categoriesResponse = data;
           observer.next(this.categoriesResponse);
           observer.complete();
         }, err => {
@@ -386,9 +387,9 @@ export class MainService {
       if (this.assetTypeResponse) {
         observer.next(this.assetTypeResponse);
         observer.complete();
-      } else { 
+      } else {
         this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
-          this.assetTypeResponse = data; 
+          this.assetTypeResponse = data;
           observer.next(this.assetTypeResponse);
           observer.complete();
         }, err => {
@@ -405,10 +406,10 @@ export class MainService {
       this.subjectBlogPost.next(data);
     }, err => {
         this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
-    }); 
+    });
   }
 
-  submitWhitelistForm(email: string, firstname: string, lastname: string, 
+  submitWhitelistForm(email: string, firstname: string, lastname: string,
     amount: number, walletAddress: any, linkedInUrl: string, countryOfOrigin: string,
     linkToTweet: string) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -436,9 +437,9 @@ export class MainService {
         observer.next(this.presentationResponse);
         observer.complete();
 
-      } else { 
+      } else {
         this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
-          this.presentationResponse = data; 
+          this.presentationResponse = data;
           observer.next(this.presentationResponse);
           observer.complete();
         }, err => {
@@ -456,9 +457,9 @@ export class MainService {
         observer.next(this.landingResponse);
         observer.complete();
 
-      } else { 
+      } else {
         this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
-          this.landingResponse = data; 
+          this.landingResponse = data;
           observer.next(this.landingResponse);
           observer.complete();
         }, err => {
@@ -470,7 +471,7 @@ export class MainService {
     });
   }
 
-  saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
+  saveIssuer(email: string, phone: any, firstname: string, lastname: string,
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
     accountName: string, accountNumber: number, bankCode: any, iban: any) {
       console.log('this is iban', iban)
@@ -480,7 +481,7 @@ export class MainService {
     return this.httpClient.post(`${baseUrl.mainUrl}save-issuer/`, {
       "email": email,
       "phoneNumber": phone,
-      "firstName": firstname, 
+      "firstName": firstname,
       "middleName": middlename,
       "lastName": lastname,
       "blockchainAddress": blockchainAddress,
@@ -502,7 +503,7 @@ export class MainService {
     return this.httpClient.post(`${baseUrl.mainUrl}save-buyer/`, {
       "email": email,
       "phoneNumber": phone,
-      "firstName": firstname, 
+      "firstName": firstname,
       "middleName": middlename,
       "lastName": lastname,
       "blockchainAddress": blockchainAddress,
@@ -516,7 +517,7 @@ export class MainService {
   }
 
   checkIssuer(issuerAddress) {
- 
+
     let issuer = issuerAddress.toLowerCase();
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -530,8 +531,8 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
-  
 
- 
+
+
 
 }

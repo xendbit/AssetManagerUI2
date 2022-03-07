@@ -41,6 +41,8 @@ import { PaymentModule } from './niftyrow-pay';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { PaymentService } from './core/services/payment.service';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import { StepsModule } from 'primeng/steps';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -71,12 +73,14 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ngfModule,
+    StepsModule,
     DialogModule,
     MessagesModule,
     MessageModule,
     ToastModule,
     GalleriaModule,
     FormsModule,
+    TableModule,
     InputSwitchModule,
     ReactiveFormsModule,
     CalendarModule,
