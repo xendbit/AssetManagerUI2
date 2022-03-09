@@ -28,6 +28,9 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-li" *ngIf="accountFound">
+                          <a routerLink= "/profile" class="nav-a body-sb"> Profile </a>
+                        </li>
                         <li class="nav-li">
                             <span  class="nav-a body-sb"> Blockchains </span>
                             <ul class="dropdown-otr">

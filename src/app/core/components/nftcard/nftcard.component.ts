@@ -62,8 +62,8 @@ export class NFTCardComponent implements OnInit {
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
         this.setCountDown(this.auction.endDate);
-        if (this.auction['bids'].length > 0) {
-          this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
+        if (this.auction['bids']?.length > 0) {
+          this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
           if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
             this.sellPriceMet = true;
           } else {
