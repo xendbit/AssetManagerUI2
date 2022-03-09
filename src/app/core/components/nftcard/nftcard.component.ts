@@ -104,14 +104,6 @@ export class NFTCardComponent implements OnInit {
     // this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
     this.auctionTime =  moment(new Date(date).getTime()).unix();
     this.currentTime = moment(new Date().getTime()).unix();
-    // console.log('this => ', this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard')
-    // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
-    //   this.hideNft = true;
-    //   this.isLoaded = true;
-    // } else {
-    //   this.hideNft = false;
-    //   this.isLoaded = true;
-    // }
     const diffTime = this.auctionTime - this.currentTime;
     let duration;
     duration = moment.duration(diffTime, 'seconds');

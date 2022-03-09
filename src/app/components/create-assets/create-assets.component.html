@@ -121,7 +121,7 @@
                                 <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </span>
                             <input class="hidden" #uploader type="file" accept="image/*" class="hidden" type="file" accept="image/*, audio/mp3, video/mp4" name="image" (change)="check($event)" />
-                            <span class="desc body-sb">select media file (PNG, GIF, JPEG, JPG, MP3, MP4 Max 10 MB.)</span>
+                            <span class="desc body-sb">select file (PNG, GIF, JPEG, JPG, MP3, MP4 Max 10 MB.)</span>
                             <p class="drop-zoon__paragraph btn-outline1">browse</p>
                         </div>
                         <div (click)="uploader.click()" class="upload-area__drop-zoon drop-zoon" *ngIf="previewMedia !== undefined && preview === undefined">
@@ -129,7 +129,7 @@
                               <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                           </span>
                           <input class="hidden" #uploader type="file" accept="image/*" name="image" (change)="check($event)" />
-                          <span class="desc body-sb">select cover art for this media (PNG, GIF, JPEG, JPG Max 10 MB.)</span>
+                          <span class="desc body-sb">select cover art (PNG, GIF, JPEG, JPG Max 10 MB.)</span>
                           <p class="drop-zoon__paragraph btn-outline1">browse</p>
                       </div>
                       </div>
