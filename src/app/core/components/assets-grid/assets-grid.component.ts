@@ -1,12 +1,8 @@
-import { Component, OnInit, Input, OnChanges, NgZone,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
-import { IArtwork, IAuction } from '../slider/presentation.interface';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { IArtwork } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { AuctionService } from '../../services/auction.service';
-import { mergeMap } from 'rxjs/operators';
-import { baseUrl } from '../../config/main.config.const';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -29,10 +25,7 @@ export class AssetsGridComponent implements OnInit {
   categories: string[];
   isLoaded: boolean = true;
   newArtworkArray: any = [];
-  // isLoaded: boolean;
-  // another: any [] = [];
-  // result: any;
-  // testTheory: any;
+  categorySelected: string;
 
   constructor(public mainService: MainService, public auctionService: AuctionService, public httpClient: HttpClient,
     private spinner: NgxSpinnerService) { }
@@ -52,8 +45,6 @@ export class AssetsGridComponent implements OnInit {
         this.spinner.hide();
         this.categories = this.artworkArray.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
-      
-        
       }
     }
 
@@ -72,9 +63,14 @@ export class AssetsGridComponent implements OnInit {
 
 
   categoryFilter(category: string) {
-    this.artworks = this.newArtworkArray.filter(item => {
-      return item.category === category;
-    });
+    this.categorySelected = category;
+    if (category === 'all') {
+      this.artworks = this.newArtworkArray;
+    } else {
+      this.artworks = this.newArtworkArray.filter(item => {
+        return item.category === category;
+      });
+    }
   }
 
   

@@ -46,7 +46,7 @@ export class MainService {
   assetTypeResponse: any;
   landingResponse: ILandingData;
   chain: string;
-  
+
   constructor(public httpClient: HttpClient) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
       this.chain = 'harmony';
@@ -58,10 +58,10 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -70,17 +70,17 @@ export class MainService {
           tags: item.tags,
           owner: {
             id: item.id,
-            image: item.media[0].media,
+            image: item.media[0]?.media,
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0].media,
+            image: item.media[0]?.media,
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0].media,
+            media: item.media[0]?.media,
             mediaType: 0
           },
           isBidding: item.hasActiveAuction,
@@ -102,27 +102,29 @@ export class MainService {
      });
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
+
       this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
- 
+
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
     })
-   
+
   }
 
   fetchSingleArtwork(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => { 
+      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
           observer.next({
             id: item.id,
             category: item.category,
             tags: item.tags,
+            assetType: item.assetType,
             owner: {
               id: item.id,
               image: item.media[0].media,
@@ -164,10 +166,10 @@ export class MainService {
 
   fetchAssetsByOwnerId(account: string, page, limit) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
@@ -210,11 +212,11 @@ export class MainService {
     })).subscribe(data => {
 
       // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
- 
+
     },err => {
       this.subjectOwnerNFT.next(artWorkJson['default']);
     })
-   
+
   }
 
   getOwnerAssets() {
@@ -224,14 +226,14 @@ export class MainService {
 
   issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
     let headers: HttpHeaders = new HttpHeaders();
-    // let chain = localStorage.getItem('currentChain');
+    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    // headers = headers.append('chain', chain);
+    headers = headers.append('chain', chain);
     return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
-      "keys": mediaType, 
+      "keys": mediaType,
       "dateIssued": dateCreated,
       "assetType": assetType,
       "description": description,
@@ -240,7 +242,7 @@ export class MainService {
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
+    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -270,15 +272,18 @@ export class MainService {
         observer.complete();
 
       } else { /* make http request & process */
-        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
-          this.footerResponse = data; 
-          observer.next(this.footerResponse);
-          observer.complete();
-        }, err => {
-            this.footerResponse =  footerJson['default'][0];
-            observer.next(this.footerResponse);
-            observer.complete()
-        }); /* make sure to handle http error */
+        this.footerResponse =  footerJson['default'][0];
+        observer.next(this.footerResponse);
+        observer.complete()
+        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
+        //   this.footerResponse = data;
+        //   observer.next(this.footerResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.footerResponse =  footerJson['default'][0];
+        //     observer.next(this.footerResponse);
+        //     observer.complete()
+        // }); 
       }
 
     });
@@ -290,16 +295,19 @@ export class MainService {
       if (this.headerResponse) {
         observer.next(this.headerResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
-          this.headerResponse = data; 
-          observer.next(this.headerResponse);
-          observer.complete();
-        }, err => {
-            this.headerResponse =  headerJson['default'][0];
-            observer.next(this.headerResponse);
-            observer.complete()
-        });
+      } else {
+        this.headerResponse =  headerJson['default'][0];
+        observer.next(this.headerResponse);
+        observer.complete()
+        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
+        //   this.headerResponse = data;
+        //   observer.next(this.headerResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.headerResponse =  headerJson['default'][0];
+        //     observer.next(this.headerResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -309,16 +317,19 @@ export class MainService {
       if (this.buttonsResponse) {
         observer.next(this.buttonsResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
-          this.buttonsResponse = data; 
-          observer.next(this.buttonsResponse);
-          observer.complete();
-        }, err => {
-            this.buttonsResponse =  navButtons['default'][0];
-            observer.next(this.buttonsResponse);
-            observer.complete()
-        });
+      } else {
+        this.buttonsResponse =  navButtons['default'][0];
+        observer.next(this.buttonsResponse);
+        observer.complete()
+        // this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
+        //   this.buttonsResponse = data;
+        //   observer.next(this.buttonsResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.buttonsResponse =  navButtons['default'][0];
+        //     observer.next(this.buttonsResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -328,16 +339,19 @@ export class MainService {
       if (this.userResponse) {
         observer.next(this.userResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
-          this.userResponse = data; 
-          observer.next(this.userResponse);
-          observer.complete();
-        }, err => {
-            this.userResponse =  userJson['default'];
-            observer.next(this.userResponse);
-            observer.complete()
-        });
+      } else {
+        this.userResponse =  userJson['default'];
+        observer.next(this.userResponse);
+        observer.complete()
+        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
+        //   this.userResponse = data;
+        //   observer.next(this.userResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.userResponse =  userJson['default'];
+        //     observer.next(this.userResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -347,16 +361,19 @@ export class MainService {
       if (this.creatorResponse) {
         observer.next(this.creatorResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
-          this.creatorResponse = data; 
-          observer.next(this.creatorResponse);
-          observer.complete();
-        }, err => {
-            this.creatorResponse =  creatorJson['default'];
-            observer.next(this.creatorResponse);
-            observer.complete()
-        });
+      } else {
+        this.creatorResponse =  creatorJson['default'];
+        observer.next(this.creatorResponse);
+        observer.complete()
+        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
+        //   this.creatorResponse = data;
+        //   observer.next(this.creatorResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.creatorResponse =  creatorJson['default'];
+        //     observer.next(this.creatorResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -367,16 +384,19 @@ export class MainService {
       if (this.categoriesResponse) {
         observer.next(this.categoriesResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
-          this.categoriesResponse = data; 
-          observer.next(this.categoriesResponse);
-          observer.complete();
-        }, err => {
-            this.categoriesResponse =  categoryJson['default'];
-            observer.next(this.categoriesResponse);
-            observer.complete()
-        });
+      } else {
+        this.categoriesResponse =  categoryJson['default'];
+        observer.next(this.categoriesResponse);
+        observer.complete()
+        // this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
+        //   this.categoriesResponse = data;
+        //   observer.next(this.categoriesResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.categoriesResponse =  categoryJson['default'];
+        //     observer.next(this.categoriesResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -386,29 +406,33 @@ export class MainService {
       if (this.assetTypeResponse) {
         observer.next(this.assetTypeResponse);
         observer.complete();
-      } else { 
-        this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
-          this.assetTypeResponse = data; 
-          observer.next(this.assetTypeResponse);
-          observer.complete();
-        }, err => {
-            this.assetTypeResponse =  assetTypeJson['default'];
-            observer.next(this.assetTypeResponse);
-            observer.complete()
-        });
+      } else {
+        this.assetTypeResponse =  assetTypeJson['default'];
+        observer.next(this.assetTypeResponse);
+        observer.complete()
+        // this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
+        //   this.assetTypeResponse = data;
+        //   observer.next(this.assetTypeResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.assetTypeResponse =  assetTypeJson['default'];
+        //     observer.next(this.assetTypeResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
 
   fetchBlogPost() {
-    return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
-      this.subjectBlogPost.next(data);
-    }, err => {
-        this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
-    }); 
+    // return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
+    //   this.subjectBlogPost.next(data);
+    // }, err => {
+    //     this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
+    // });
+    return this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
   }
 
-  submitWhitelistForm(email: string, firstname: string, lastname: string, 
+  submitWhitelistForm(email: string, firstname: string, lastname: string,
     amount: number, walletAddress: any, linkedInUrl: string, countryOfOrigin: string,
     linkToTweet: string) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -436,16 +460,19 @@ export class MainService {
         observer.next(this.presentationResponse);
         observer.complete();
 
-      } else { 
-        this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
-          this.presentationResponse = data; 
-          observer.next(this.presentationResponse);
-          observer.complete();
-        }, err => {
-            this.presentationResponse =  presentationJson['default'][0];
-            observer.next(this.presentationResponse);
-            observer.complete()
-        });
+      } else {
+        this.presentationResponse =  presentationJson['default'][0];
+        observer.next(this.presentationResponse);
+        observer.complete()
+        // this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
+        //   this.presentationResponse = data;
+        //   observer.next(this.presentationResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.presentationResponse =  presentationJson['default'][0];
+        //     observer.next(this.presentationResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -456,31 +483,33 @@ export class MainService {
         observer.next(this.landingResponse);
         observer.complete();
 
-      } else { 
-        this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
-          this.landingResponse = data; 
-          observer.next(this.landingResponse);
-          observer.complete();
-        }, err => {
-            this.landingResponse =  landingJson['default'];
-            observer.next(this.landingResponse);
-            observer.complete()
-        });
+      } else {
+        this.landingResponse =  landingJson['default'];
+        observer.next(this.landingResponse);
+        observer.complete()
+        // this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
+        //   this.landingResponse = data;
+        //   observer.next(this.landingResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.landingResponse =  landingJson['default'];
+        //     observer.next(this.landingResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
 
-  saveIssuer(email: string, phone: any, firstname: string, lastname: string, 
+  saveIssuer(email: string, phone: any, firstname: string, lastname: string,
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
     accountName: string, accountNumber: number, bankCode: any, iban: any) {
-      console.log('this is iban', iban)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.post(`${baseUrl.mainUrl}save-issuer/`, {
       "email": email,
       "phoneNumber": phone,
-      "firstName": firstname, 
+      "firstName": firstname,
       "middleName": middlename,
       "lastName": lastname,
       "blockchainAddress": blockchainAddress,
@@ -502,7 +531,7 @@ export class MainService {
     return this.httpClient.post(`${baseUrl.mainUrl}save-buyer/`, {
       "email": email,
       "phoneNumber": phone,
-      "firstName": firstname, 
+      "firstName": firstname,
       "middleName": middlename,
       "lastName": lastname,
       "blockchainAddress": blockchainAddress,
@@ -516,7 +545,7 @@ export class MainService {
   }
 
   checkIssuer(issuerAddress) {
- 
+
     let issuer = issuerAddress.toLowerCase();
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -530,8 +559,8 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
-  
 
- 
+
+
 
 }

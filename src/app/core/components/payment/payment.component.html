@@ -1,0 +1,17 @@
+<form  #paymentForm="ngForm">
+  <div  style="margin-left: 80px; margin-right: 80px; margin-top: 50px; width: 120px;">
+    <input
+    placeholder="Full Name"
+    [(ngModel)]="fullname"
+    id="firstName"
+    name="firstName"
+     />
+    <ng-container style="width: 50px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
+      <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
+      </ngx-stripe-payment>
+    </ng-container>
+  </div>
+
+  <button (click)="pay()">Try </button>
+  <button (click)="payWithRave()"> Rave </button>
+</form>

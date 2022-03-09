@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {PlatformModule} from '@angular/cdk/platform';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,8 +36,16 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import {PanelModule} from 'primeng/panel';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FileUploadModule} from 'primeng/fileupload';
-import { PaymentComponent } from './pages/payment/payment.component';
-// import { NgxStripeModule } from 'ngx-stripe';
+import { NgxStripeModule } from 'ngx-stripe';
+import { PaymentModule } from './niftyrow-pay';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { PaymentService } from './core/services/payment.service';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import { StepsModule } from 'primeng/steps';
+import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import { HotToastModule } from '@ngneat/hot-toast';
+
 
 @NgModule({
   declarations: [
@@ -55,25 +62,29 @@ import { PaymentComponent } from './pages/payment/payment.component';
     MyAssetsComponent,
     MintComponent,
     FAQComponent,
-    LandingComponent,
-    PaymentComponent
+    LandingComponent
   ],
   imports: [
     BrowserModule,
     PlatformModule,
     AppRoutingModule,
     CoreModule,
+    PaymentModule,
     HttpClientModule,
     CarouselModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ngfModule,
     DialogModule,
+    StepsModule,
+    DialogModule,
     MessagesModule,
     MessageModule,
     ToastModule,
     GalleriaModule,
     FormsModule,
+    TableModule,
+    InputSwitchModule,
     ReactiveFormsModule,
     CalendarModule,
     ProgressSpinnerModule,
@@ -81,12 +92,15 @@ import { PaymentComponent } from './pages/payment/payment.component';
     OverlayPanelModule,
     ChartModule,
     PanelModule,
+    DropdownModule,
+    RadioButtonModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
-    // NgxStripeModule.forRoot('pk_test_51KCY9mE56BwLuZepj0kzE3n8BLfLCfKhcav75HeIIpISFKe2xl1XCgSatNvKXRIogrhT0WMbnBg7nakDynqLOFSU00QcLgdt28'),
+    NgxStripeModule.forRoot('pk_test_51KP6OgCU7wHmOgIeQ84Kyn1S1CjHuIreTqOZOaoYNcMwndLCx0ghjNBsI7ywyy4hFVZk6QEbTG4kQhY2AklEiGLb00bgQlYxn8'),
+    HotToastModule.forRoot(),
   ],
-  providers: [MainService],
+  providers: [MainService, PaymentService],
   bootstrap: [AppComponent],
   exports: [CreateAssetsComponent]
 })

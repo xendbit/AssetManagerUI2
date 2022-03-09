@@ -4,11 +4,13 @@
 @import 'src/assets/scss/utilities/settings';
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
+$primary-color: #366CE3; // Change color here. C'mon, try it! 
+$text-color: mix(#000, $primary-color, 64%);
+
 
 /*------------------------------------------
         Hero Section Start Here
 -------------------------------------------*/
-
 .hero-single-artwork{
     overflow: hidden;
     position: relative;
@@ -17,7 +19,7 @@
         .hero-inr{
             padding: 128px 0;
             position: relative;
-            z-index: 10;
+            // z-index: 10;
             @include breakpoint($secreen-max-sm){
                 padding: 80px 0px 158px 0;
             }
@@ -27,7 +29,7 @@
                 border-radius: 24px !important;
                 margin: 0 auto;
                 position: relative;
-                z-index: 10;
+                // z-index: 10;
                 overflow: hidden;
                 box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
                 @include breakpoint($secreen-xs){
@@ -49,7 +51,7 @@
                 position: absolute;
                 right: 0;
                 bottom: 80px;
-                z-index: 10;
+                // z-index: 10;
                 @include breakpoint($secreen-max-md){
                     right: inherit;
                     width: 100%;
@@ -193,7 +195,7 @@
     margin: 0 auto;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
     position: relative;
-    z-index: 10;
+    // z-index: 10;
     overflow: hidden;
 }
 
@@ -211,7 +213,12 @@
     position: absolute;
     right: 0;
     bottom: 69px;
-    z-index: 10;
+    // z-index: 10;
+}
+
+.no-bids {
+  background-color: transparent;
+  justify-content: center;
 }
 
 .hero-single-artwork .container-fluid .hero-inr .circle {
@@ -239,7 +246,7 @@
 -------------------------------------------*/
 
 .artwork-body{
-    margin: 72px 0;
+    margin: 12px 0;
     .container-fluid{
         .artwork-body-inr{
             .row-custom{
@@ -268,7 +275,7 @@
                                         .img-create{
                                             width: 60px;
                                             height: 60px;
-                                            border-radius: 16px;
+                                            border-radius: 8px;
                                         }
                                         .check-otr{
                                             position: absolute;
@@ -296,6 +303,7 @@
                                         }
                                         .create-p{
                                             color: $Gray-Shade-2;
+                                            font-style: italic;
                                         }
                                         .create-pb{
                                             color: $Black-Color;
@@ -320,11 +328,11 @@
                     .col-right-inr{
                         padding-left: 0px;
                         @include breakpoint($secreen-max-md){
-                            padding: 48px 0 0 0;
+                            padding: 10px 0 0 0;
                         }
                         .bid-details{
-                            padding: 28px 36px 36px 36px;
-                            border-radius: 24px;
+                            padding: 12px 26px 26px 26px;
+                            border-radius: 12px;
                             background-color: $Gray-Shade-4;
                             @include breakpoint($secreen-xs){
                                 padding: 0;
@@ -333,22 +341,27 @@
                             }
                             .bid-head{
                                 color: $Black-Color;
+                                margin-top: 0;
+                                font-size: 20px;
                             }
                             .boxes-main{
                                 display: flex;
-                                margin: 24px 0 30px 0;
-                                max-height: 173px;
+                                // margin: 2px 0 -24px 0;
+                                justify-content: space-between;
+                                //max-height: 173px;
                                 @include breakpoint($secreen-max-xxxl){
-                                    flex-direction: column;
+                                    //flex-direction: column;
                                 }
                                 .bid-main{
-                                    padding: 24px 32px;
+                                    padding: 14px 18px;
                                     background-color: $White-Color;
-                                    box-shadow: $box-shadow-custom;
-                                    border-radius: 24px;
+                                    box-shadow: $box-shadow-custom-2;
+                                    border-radius: 8px;
                                     margin-right: 30px;
-                                    width: 320px;
-                                    height: 173px;
+                                    height: 98.8px;
+                                    flex: 0.9;
+                                    //width: 320px;
+                                    //height: 173px;
                                     @include breakpoint($secreen-max-xxxl){
                                         margin: 0 0 30px 0;
                                     }
@@ -358,30 +371,40 @@
                                     .bid-head{
                                         padding: 4px 0;
                                         color: $Black-Color;
+                                        white-space: nowrap;
                                     }
                                     .dollor{
                                         color: $Gray-Shade-2;
                                     }
                                 }
                                 .auction-main{
-                                    padding: 24px 32px;
-                                    box-shadow: $box-shadow-custom;
+                                    padding: 14px 18px;
+                                    box-shadow: $box-shadow-custom-2;
                                     background-color: $White-Color;
-                                    border-radius: 24px;
-                                    width: 324px;
-                                    height: 173px;
+                                    border-radius: 8px;
+                                    height: 98.8px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    //width: 324px;
+                                    //height: 173px;
                                     .acution{
                                         color: $Gray-Shade-2;
+                                        text-align: right;
+                                        @include breakpoint($secreen-max-md){
+                                          text-align: center;
+                                      }
                                     }
                                     .timer{
                                         display: flex;
+                                        justify-content: center;
                                         .hours-main,.minutes-main,.seconds-main{
                                             .time-inr{
-                                                color: $Primary-Color-Home-1;
+                                                color: $Black-Color;
                                                 padding: 4px 0;
                                             }
                                             .hours-p,.minutes-p,.seconds-p{
-                                                color: $Gray-Shade-2;
+                                                color: $Black-Color;
                                             }
                                             .seconds-p{
                                                 @include breakpoint($secreen-xxsx){
@@ -412,8 +435,8 @@
                         }
                         .activity-details{
                             padding: 28px 36px 36px 36px;
-                            border-radius: 24px;
-                            background-color: $Gray-Shade-4;
+                            border-radius: $border-radius-medium;
+                            background-color: $White-Color;
                             margin: 30px 0 0 0;
                             @include breakpoint($secreen-xs){
                                 padding: 0;
@@ -426,11 +449,12 @@
                             }
                             .place-bid-main{
                                 padding: 20px 24px;
-                                border-radius: 24px;
+                                border-radius: 3px;
                                 background-color: $White-Color;
-                                box-shadow: $box-shadow-custom;
+                                box-shadow: none;
                                 display: flex;
                                 align-items: center;
+                                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                                 &:not(:last-child){
                                     margin-bottom: 24px;
                                 }
@@ -449,7 +473,7 @@
                                     align-items: center;
                                     justify-content: space-between;
                                     @include breakpoint($secreen-xs){
-                                        flex-direction: column;
+                                        //flex-direction: column;
                                         align-items: flex-start;
                                     }
                                     .content-left{
@@ -500,8 +524,13 @@
 
 .heading-h3 {
     font-size: 24px;
-    line-height: 48px;
+    line-height: 1.2;
     font-family: "DMSans-Bold";
+    margin-top: 1rem;
+}
+
+.heading-h2 {
+  font-size: 24px;
 }
 
 @media (max-width: 575px) {
@@ -515,12 +544,12 @@
     }
 
     .bidform {
-        margin-top: 14rem;
+        margin-top: 1rem;
         background-color: transparent;
     }
 
     .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .action-otr {
-        margin-top: 12rem;
+        margin-top: 1rem;
     }
 
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
@@ -577,10 +606,129 @@
   }
 
   #issuerInput {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     margin-top: 10px;
+  }
+
+  .current-bid {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .buy-nigeria {
+    padding: 10px 24px;
+    border-radius: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    font-family: "DMSans-Bold";
+    color: #366CE3;
+    background: white;
+    /* background-color: #366CE3; */
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .error-container {
+    font-style: italic;
+    font-family: 'DMSans-Regular';
+    margin-top: -1.4rem;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .minimum-bid-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -0.5rem;
+    margin-bottom: -0.5rem;
+    font-size: 18px !important;
+    font-family: 'DMSans-Bold';
   }
 
 /*------------------------------------------
         Artwork Body End Here
 -------------------------------------------*/
+@media screen and (max-width: 1180px) {
+  .boxes-main {
+    flex-direction: column;
+  }
+
+  
+}
+
+@media (max-width: 420px) {
+  .create-p {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: -1rem;
+  }
+
+  .create-pb {
+    margin-top: -0.5rem;
+  }
+}
+
+.current-bid-input {
+  width: 100%;
+  background-color: white;
+  text-align: left; border-radius: 8px
+}
+
+.place-a-bid {
+  border-top-left-radius: 0; border-bottom-left-radius: 0;
+}
+
+@media (max-width: 510px) {
+  .current-bid {
+      display: block;
+  }
+
+  .place-a-bid {
+    border-radius: 8px;
+  }
+
+}
+
+label {
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.375em;
+  input {
+    position: absolute;
+    left: -9999px;
+    &:checked + span {
+      background-color: mix(#fff, $primary-color, 84%);
+      &:before {
+        box-shadow: inset 0 0 0 0.4375em $primary-color;
+      }
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    padding: 0.375em 0.75em 0.375em 0.375em;
+    border-radius: 99em; // or something higher...
+    transition: 0.25s ease;
+    &:hover {
+      background-color: mix(#fff, $primary-color, 84%);
+    }
+    &:before {
+      display: flex;
+      flex-shrink: 0;
+      content: "";
+      background-color: #fff;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+      margin-right: 0.375em;
+      transition: 0.25s ease;
+      box-shadow: inset 0 0 0 0.125em $primary-color;
+    }
+  }
+}

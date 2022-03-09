@@ -1,11 +1,12 @@
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IurlConfig, headerConfig } from '../interfaces/dynamicUrl.interface';
-import * as footerData from 'src/assets/data/footer.json' 
+import * as footerData from 'src/assets/data/footer.json'
 import { HttpHeaders } from '@angular/common/http';
 
 export const footerConfig: IMenuGroups [] = footerData;
 let apiKey = 'U2FsdGVkX18k5itQROOzEotUtBOLK4apPBmljl1wphduEXLbXkP08TjP6EVNDq+QzEVSAVgWOD/WMCkV1WQZ9Uo/3JXBrjz2RVdgNQmZ5sU=';
 let demoBlockchainKey = "c7740e06-43f2-46cb-92e1-85841d6d2f72";
+let ravePubKey = 'FLWPUBK-1d8566c17fd622e946c6652b20b30b12-X'
 let headers: HttpHeaders = new HttpHeaders();
 headers = headers.append('Content-Type', 'application/json');
 headers = headers.append('api-key', apiKey);
@@ -13,9 +14,46 @@ headers = headers.append('api-key', apiKey);
 export const baseUrl: IurlConfig = {
         headers:  headers,
         testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
-        mainUrl: 'https://lb.xendbit.net/api/harmony/',
+        mainUrl: 'https://lb.xendbit.net/api/yasuke/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
+
+export const networkChains = [ {
+                name: 'Harmony Testnet',
+                chain: 1666700000,
+                rpcUrl: 'https://api.s0.b.hmny.io',
+                currency: 'ONE',
+                verifyLink: 'https://explorer.testnet.harmony.one/address/'
+        },
+        {
+                name: "Binance Smart Chain Testnet",
+                chain: 97,
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                currency: 'BNB',
+                verifyLink: 'https://testnet.bscscan.com/token/'
+        },
+        {
+                name: "Polygon Testnet",
+                chain: 80001,
+                rpcUrl: 'https://rpc-mumbai.matic.today',
+                currency: 'MATIC',
+                verifyLink: 'https://mumbai.polygonscan.com/token/'
+        },
+        {
+                name: "Aurora Testnet",
+                chain: 1313161555,
+                rpcUrl: 'https://testnet.aurora.dev/',
+                currency: 'aETH',
+                verifyLink: 'https://aurorascan.dev/token/'
+        },
+        {
+                name: "Avalanche",
+                chain: 43113,
+                rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+                currency: 'AVAX',
+                verifyLink: 'https://testnet.snowtrace.io/token/'
+        }
+]
 
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",
@@ -27,7 +65,12 @@ export const baseABI = [
 ]
 export const chainId = 1666700000;
 export const niftyKey = apiKey;
+export const ravePublicKey = ravePubKey;
 export const blockchainInfo = {
-        key: demoBlockchainKey,
-        url: "https://api.blockchain.com/v3/exchange"
+  key: demoBlockchainKey,
+  url: "https://api.blockchain.com/v3/exchange"
 };
+
+export const cryptocompareInfo = {
+  url: "https://min-api.cryptocompare.com/data/price?"
+}
