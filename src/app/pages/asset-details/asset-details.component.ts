@@ -66,6 +66,7 @@ export class AssetDetailsComponent implements OnInit {
   payId: string = '';
   displayPosition: boolean;
   selectedCountry: any;
+  tokenId: any;
 
   constructor(private router: Router,
     public activatedRoute: ActivatedRoute,
@@ -76,7 +77,11 @@ export class AssetDetailsComponent implements OnInit {
     private auctionService: AuctionService,
     private http: HttpClient,
     private stripeService: StripeService,
-    public paymentService: PaymentService) { }
+    public paymentService: PaymentService) {
+      this.metamaskService.getContractAddress().subscribe(response => {
+        this.contractAddress = response['data'];
+      });
+     }
 
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
@@ -90,6 +95,8 @@ export class AssetDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.initialCheck();
+    // this.setCountDown(this.auction.endDate);
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 1666700000 //defaults to harmony
@@ -97,23 +104,56 @@ export class AssetDetailsComponent implements OnInit {
     this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
-    this.metamaskService.getContractAddress().subscribe(response => {
-      this.contractAddress = response['data'];
-    });
-    let tokenId = this.activatedRoute.snapshot.params.asset;
-    this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
+    this.tokenId = this.activatedRoute.snapshot.params.asset;
+    this.checkConnection();
+    this.getSingleArtworkDetails();
+  }
+
+  initialCheck() {
+    if (this.artwork.lastAuctionId !== 0) {
+      this.hasActiveAuction = true;
+      if (this.auction.bids[0]['bidder'].includes('')) {
+        this.auctionLength = 0
+      } else {
+        this.auctionLength = this.auction.bids.length;
+      }
+      if (this.auctionLength > 0) {
+        this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
+      }
+      this.auctionService.getETHtoUSDValue().subscribe(res => {
+        if (this.auction.bids.length > 0) {
+          this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
+          this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+          this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
+          if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+            this.lastBidder = true;
+          }
+          if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+            this.sellPriceMet = false;
+          } else {
+            this.sellPriceMet = true;
+          }
+        } else {
+          this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+          this.sellPriceMet = false;
+        }
+      })
+    }
+  }
+
+  getSingleArtworkDetails() {
+    this.mainService.fetchSingleArtwork(this.tokenId).subscribe((res: IArtwork) => {
       this.artwork = res;
       this.sellPriceMet = false;
-      this.checkConnection();
       if (this.artwork.lastAuctionId !== 0) {
-        this.auctionService.fetchAuctionFromMain(tokenId, res.lastAuctionId).subscribe((res: any) => {
+        this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
           if (res === 'Auction has ended') {
             this.hasActiveAuction = false;
           } else {
             this.hasActiveAuction = true;
             this.auction = res;
             this.auctionLength = this.auction.bids.length;
-            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
+            this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
             this.checkBuyer();
             this.auctionService.getETHtoUSDValue().subscribe(res => {
               if (this.auction.bids.length > 0) {
@@ -139,9 +179,7 @@ export class AssetDetailsComponent implements OnInit {
           console.log('this is error')
         })
       }
-
-    } )
-
+    })
   }
 
   checkConnection() {
@@ -157,7 +195,6 @@ export class AssetDetailsComponent implements OnInit {
           this.balance = response['data'];
         })
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
             this.visible = true;
