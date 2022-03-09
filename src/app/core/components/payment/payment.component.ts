@@ -4,6 +4,7 @@ import { StripeService, StripePaymentElementComponent, StripeCardComponent} from
 import { PaymentService } from '../../services/payment.service';
 import {
   StripeElementsOptions,
+  PaymentIntent
 } from '@stripe/stripe-js';
 import { UserActionsService } from '../../services/userActions.service';
 
@@ -33,7 +34,7 @@ export class PaymentComponent implements OnInit {
   }
 
   pay() {
-     this.paymentService.createPaymentIntent(200)
+     this.paymentService.createPaymentIntent(200, 'chinedukogu@gmail.com')
     .subscribe(pi => {
       this.elementsOptions.clientSecret = pi.client_secret;
       this.payId = pi.id;

@@ -70,17 +70,17 @@ export class MainService {
           tags: item.tags,
           owner: {
             id: item.id,
-            image: item.media[0].media,
+            image: item.media[0]?.media,
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0].media,
+            image: item.media[0]?.media,
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0].media,
+            media: item.media[0]?.media,
             mediaType: 0
           },
           isBidding: item.hasActiveAuction,
@@ -102,6 +102,7 @@ export class MainService {
      });
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
+
       this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
 
     },err => {
@@ -271,15 +272,18 @@ export class MainService {
         observer.complete();
 
       } else { /* make http request & process */
-        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
-          this.footerResponse = data;
-          observer.next(this.footerResponse);
-          observer.complete();
-        }, err => {
-            this.footerResponse =  footerJson['default'][0];
-            observer.next(this.footerResponse);
-            observer.complete()
-        }); /* make sure to handle http error */
+        this.footerResponse =  footerJson['default'][0];
+        observer.next(this.footerResponse);
+        observer.complete()
+        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
+        //   this.footerResponse = data;
+        //   observer.next(this.footerResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.footerResponse =  footerJson['default'][0];
+        //     observer.next(this.footerResponse);
+        //     observer.complete()
+        // }); 
       }
 
     });
@@ -292,15 +296,18 @@ export class MainService {
         observer.next(this.headerResponse);
         observer.complete();
       } else {
-        this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
-          this.headerResponse = data;
-          observer.next(this.headerResponse);
-          observer.complete();
-        }, err => {
-            this.headerResponse =  headerJson['default'][0];
-            observer.next(this.headerResponse);
-            observer.complete()
-        });
+        this.headerResponse =  headerJson['default'][0];
+        observer.next(this.headerResponse);
+        observer.complete()
+        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
+        //   this.headerResponse = data;
+        //   observer.next(this.headerResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.headerResponse =  headerJson['default'][0];
+        //     observer.next(this.headerResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -311,15 +318,18 @@ export class MainService {
         observer.next(this.buttonsResponse);
         observer.complete();
       } else {
-        this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
-          this.buttonsResponse = data;
-          observer.next(this.buttonsResponse);
-          observer.complete();
-        }, err => {
-            this.buttonsResponse =  navButtons['default'][0];
-            observer.next(this.buttonsResponse);
-            observer.complete()
-        });
+        this.buttonsResponse =  navButtons['default'][0];
+        observer.next(this.buttonsResponse);
+        observer.complete()
+        // this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
+        //   this.buttonsResponse = data;
+        //   observer.next(this.buttonsResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.buttonsResponse =  navButtons['default'][0];
+        //     observer.next(this.buttonsResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -330,15 +340,18 @@ export class MainService {
         observer.next(this.userResponse);
         observer.complete();
       } else {
-        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
-          this.userResponse = data;
-          observer.next(this.userResponse);
-          observer.complete();
-        }, err => {
-            this.userResponse =  userJson['default'];
-            observer.next(this.userResponse);
-            observer.complete()
-        });
+        this.userResponse =  userJson['default'];
+        observer.next(this.userResponse);
+        observer.complete()
+        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
+        //   this.userResponse = data;
+        //   observer.next(this.userResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.userResponse =  userJson['default'];
+        //     observer.next(this.userResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -349,15 +362,18 @@ export class MainService {
         observer.next(this.creatorResponse);
         observer.complete();
       } else {
-        this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
-          this.creatorResponse = data;
-          observer.next(this.creatorResponse);
-          observer.complete();
-        }, err => {
-            this.creatorResponse =  creatorJson['default'];
-            observer.next(this.creatorResponse);
-            observer.complete()
-        });
+        this.creatorResponse =  creatorJson['default'];
+        observer.next(this.creatorResponse);
+        observer.complete()
+        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
+        //   this.creatorResponse = data;
+        //   observer.next(this.creatorResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.creatorResponse =  creatorJson['default'];
+        //     observer.next(this.creatorResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -369,15 +385,18 @@ export class MainService {
         observer.next(this.categoriesResponse);
         observer.complete();
       } else {
-        this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
-          this.categoriesResponse = data;
-          observer.next(this.categoriesResponse);
-          observer.complete();
-        }, err => {
-            this.categoriesResponse =  categoryJson['default'];
-            observer.next(this.categoriesResponse);
-            observer.complete()
-        });
+        this.categoriesResponse =  categoryJson['default'];
+        observer.next(this.categoriesResponse);
+        observer.complete()
+        // this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
+        //   this.categoriesResponse = data;
+        //   observer.next(this.categoriesResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.categoriesResponse =  categoryJson['default'];
+        //     observer.next(this.categoriesResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -388,25 +407,29 @@ export class MainService {
         observer.next(this.assetTypeResponse);
         observer.complete();
       } else {
-        this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
-          this.assetTypeResponse = data;
-          observer.next(this.assetTypeResponse);
-          observer.complete();
-        }, err => {
-            this.assetTypeResponse =  assetTypeJson['default'];
-            observer.next(this.assetTypeResponse);
-            observer.complete()
-        });
+        this.assetTypeResponse =  assetTypeJson['default'];
+        observer.next(this.assetTypeResponse);
+        observer.complete()
+        // this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
+        //   this.assetTypeResponse = data;
+        //   observer.next(this.assetTypeResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.assetTypeResponse =  assetTypeJson['default'];
+        //     observer.next(this.assetTypeResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
 
   fetchBlogPost() {
-    return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
-      this.subjectBlogPost.next(data);
-    }, err => {
-        this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
-    });
+    // return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
+    //   this.subjectBlogPost.next(data);
+    // }, err => {
+    //     this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
+    // });
+    return this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
   }
 
   submitWhitelistForm(email: string, firstname: string, lastname: string,
@@ -438,15 +461,18 @@ export class MainService {
         observer.complete();
 
       } else {
-        this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
-          this.presentationResponse = data;
-          observer.next(this.presentationResponse);
-          observer.complete();
-        }, err => {
-            this.presentationResponse =  presentationJson['default'][0];
-            observer.next(this.presentationResponse);
-            observer.complete()
-        });
+        this.presentationResponse =  presentationJson['default'][0];
+        observer.next(this.presentationResponse);
+        observer.complete()
+        // this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
+        //   this.presentationResponse = data;
+        //   observer.next(this.presentationResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.presentationResponse =  presentationJson['default'][0];
+        //     observer.next(this.presentationResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -458,15 +484,18 @@ export class MainService {
         observer.complete();
 
       } else {
-        this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
-          this.landingResponse = data;
-          observer.next(this.landingResponse);
-          observer.complete();
-        }, err => {
-            this.landingResponse =  landingJson['default'];
-            observer.next(this.landingResponse);
-            observer.complete()
-        });
+        this.landingResponse =  landingJson['default'];
+        observer.next(this.landingResponse);
+        observer.complete()
+        // this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
+        //   this.landingResponse = data;
+        //   observer.next(this.landingResponse);
+        //   observer.complete();
+        // }, err => {
+        //     this.landingResponse =  landingJson['default'];
+        //     observer.next(this.landingResponse);
+        //     observer.complete()
+        // });
       }
     });
   }
@@ -474,7 +503,6 @@ export class MainService {
   saveIssuer(email: string, phone: any, firstname: string, lastname: string,
     middlename: string, blockchainAddress: any, bankName: string, bankAddress: string,
     accountName: string, accountNumber: number, bankCode: any, iban: any) {
-      console.log('this is iban', iban)
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);

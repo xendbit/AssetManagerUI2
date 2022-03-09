@@ -25,6 +25,8 @@
     "@angular/router": "^12.2.16",
     "@juggle/resize-observer": "^3.3.1",
     "@metamask/detect-provider": "^1.2.0",
+    "@ngneat/hot-toast": "^3.4.3",
+    "@ngneat/overview": "^2.0.2",
     "@stripe/stripe-js": "^1.22.0",
     "@types/jest": "^27.0.2",
     "@types/mocha": "^9.0.0",

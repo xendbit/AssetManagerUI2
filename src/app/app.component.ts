@@ -25,10 +25,6 @@ export class AppComponent extends AppController implements OnInit {
               private route: ActivatedRoute,  private spinner: NgxSpinnerService,
               private titleService: Title, public mainService: MainService, public metamaskService: MetamaskService) {
     super();
-    window.addEventListener("load", () => { 
-      console.log('loaded')
-      // this.metamaskService.checkChainChange();
-    })
   }
 
   ngOnInit(): void {
@@ -53,7 +49,7 @@ export class AppComponent extends AppController implements OnInit {
     this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
     // this.spinner.show();
     this.setBrowserTabTitle();
-    this.mainService.fetchArtWorkFromMain(1, 10);
+    this.mainService.fetchArtWorkFromMain(1, 15);
     this.mainService.fetchBlogPost();
     // this.spinner.hide();
   }

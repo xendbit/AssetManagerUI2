@@ -82,12 +82,13 @@ constructor(public httpClient: HttpClient) {
     return options;
   }
 
-  createPaymentIntent(amount: number): Observable<PaymentIntent> {
+  createPaymentIntent(amount: number, email: string): Observable<PaymentIntent> {
     let headers: HttpHeaders = new HttpHeaders();
     headers.append('Authorization', 'my-auth-token')
     headers.append('Content-Type', 'application/json');
     return this.httpClient.post<PaymentIntent>('https://node-stripe-nifty.herokuapp.com/charge', {
-      amount: amount
+      amount: amount,
+      email: email
     }, {headers})
   }
 

@@ -43,6 +43,8 @@ import { PaymentService } from './core/services/payment.service';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { StepsModule } from 'primeng/steps';
 import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 
 @NgModule({
@@ -73,6 +75,7 @@ import {TableModule} from 'primeng/table';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     ngfModule,
+    DialogModule,
     StepsModule,
     DialogModule,
     MessagesModule,
@@ -89,11 +92,13 @@ import {TableModule} from 'primeng/table';
     OverlayPanelModule,
     ChartModule,
     PanelModule,
+    DropdownModule,
     RadioButtonModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
     NgxStripeModule.forRoot('pk_test_51KP6OgCU7wHmOgIeQ84Kyn1S1CjHuIreTqOZOaoYNcMwndLCx0ghjNBsI7ywyy4hFVZk6QEbTG4kQhY2AklEiGLb00bgQlYxn8'),
+    HotToastModule.forRoot(),
   ],
   providers: [MainService, PaymentService],
   bootstrap: [AppComponent],

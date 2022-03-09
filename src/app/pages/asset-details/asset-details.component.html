@@ -51,9 +51,10 @@
         <p-button icon="pi pi-check" (click)="register(registerForm)" label="Register" class="p-button-text"></p-button>
         <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
     </ng-template>
-</p-dialog>
+  </p-dialog>
 
     <p-toast position="top-center"></p-toast>
+    
 
     <div class="row">
         <div class="col-lg-6" id="assetMedia">
@@ -190,10 +191,10 @@
                                             <div class="minimum-bid-box">
                                               <a *ngIf="!this.owner" class="create-pb">
                                                Minimum Bid - {{auction.minimumBid}} {{foundNetwork['currency']}}
-                                            </a>
-                                          <a href="{{foundNetwork['verifyLink']}}{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-left:auto; margin-bottom: 1rem; font-size: 16px; font-style: italic; color: #54BEF2">
-                                            {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-                                          </a>
+                                              </a>
+                                              <a href="{{foundNetwork['verifyLink']}}{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-left:auto; margin-bottom: 1rem; font-size: 16px; font-style: italic; color: #54BEF2">
+                                                {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                                              </a>
                                             </div>
                                             <div class="boxes-main" *ngIf="!this.owner">
 
@@ -235,6 +236,45 @@
                                             </div>
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
 <!--                                              {{ location.country_name }}-->
+                                              <!-- <p-dialog header="Pre-checkout information" [(visible)]="displayPosition" [position]="top" [modal]="true" [style]="{width: '50vw'}"
+                                                [draggable]="false" [resizable]="false">
+                                                  <div style="width: 100%; margin-top: 3rem; margin-left: 2rem;" *ngIf="!elementsOptions?.clientSecret as clientSecret">
+                                                    <div class="input-otr-2" style="margin-top: 1rem;">
+                                                      <input class="input" style="width: 90%;" [(ngModel)]="fullname" type="text" name="fullname" placeholder="Enter Full Name" required>
+                                                    </div>
+
+                                                    <div class="input-otr" style="margin-top: 1rem;">
+                                                      <input class="input" style="width: 90%;" type="email" name="email" [(ngModel)]="paymentEmail" placeholder=" Enter Email Address " required>
+                                                    </div>
+
+                                                    <div class="input-otr" style="margin-top: 1rem;">
+                                                      <input class="input" style="width: 90%;" type="text" name="billingAddress" [(ngModel)]="billingAddress" placeholder=" Billing/Delivery Address" required>
+                                                    </div>
+  
+                                                    <div class="input-otr" style="margin-top: 1rem;">
+                                                      <input class="input" style="width: 90%;" type="number" id="amount" name="paymentAmount" placeholder="Buy-Now Price: {{sellNowValueNGN | number}}" disabled>
+                                                    </div>
+                          
+                                                    <div class="row input-otr" style="width: 90%; height: 120px; margin-bottom: 3rem; margin-top: 2rem;">
+                                                      <p-dropdown [options]="countriesArray" [(ngModel)]="selectedCountry" (change)="selectedCountry === selectedCountry.name" name="country" optionLabel="name"
+                                                      [virtualScroll]="true" itemSize="30" [style]="{width: '100%'}" placeholder="Select a Country">
+                                                      </p-dropdown>
+                                                    </div>
+                                                  </div>
+
+                                                  <div style="margin-top: 3rem; margin-left: 2rem;" *ngIf="elementsOptions?.clientSecret as clientSecret">
+                                                    <ng-container style="width: 300px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
+                                                      <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
+                                                      </ngx-stripe-payment>
+                                                    </ng-container>
+                                                  </div>
+                                                  
+                                                  <ng-template pTemplate="footer">
+                                                      <p-button *ngIf="this.paying === false" icon="pi pi-check" (click)="continuePayment()" label="Pay" styleClass="p-button-text"></p-button>
+                                                      <p-button *ngIf="this.paying" icon="pi pi-check" (click)="pay()" label="Pay with stripe" styleClass="p-button-text"></p-button>
+                                                  </ng-template>
+                                                </p-dialog> -->
+
                                                <div class="current-bid">
                                                 <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
                                                     <div *ngIf="auction.bids.length <= 0" class="input-otr-2" style="flex: 1">
@@ -249,45 +289,36 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound">
+                                                <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound && artwork.assetType === 'digital'">
                                                     <a (click)="bid()" class="btn-fill btn-bid place-a-bid">Place a Bid</a>
                                                 </div>
-                                               </div>
-<!--                                              STRIPE IMPLEMENTATION-->
-                                              <!-- <div class="current-bid" *ngIf="visible && !accountFound">
-                                                <div class="input-main" style="flex: 1">
-                                                  <div *ngIf="auction.bids.length <= 0" class="input-otr-2">
-                                                    <input class="input" style="width: 100%;
-                                                        margin-bottom: 25px;
-                                                        font-size: 20px;
-                                                        text-align: left; border-radius: 8px;
-                                                        background-color: white;" type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{ this.sellNowValue  }} {{foundNetwork['currency']}}"  type="number" id="amount" name="amount"required>
-                                                  </div>
-                                                  <div *ngIf="auction.bids.length > 0" class="input-otr-2">
-                                                    <input class="input" style="width: 100%;
-                                                        margin-bottom: 25px;
-                                                        background-color: white;
-                                                        text-align: left; border-radius: 8px"
-                                                           type="text" name="amount" [(ngModel)]="this.sellNowValue" placeholder="Current Bid: {{this.sellNowValue}} {{foundNetwork['currency']}} &nbsp; &nbsp; ({{ USDAmount | currency}})"  type="number" id="amount" name="amount"required>
-                                                  </div>
-                                                </div> -->
 
-                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name !=='Nigeria'">
-                                                  <a (click)="initializePayment(this.sellNowValue)" class="btn-fill btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Buy now in USD</a>
-                                                </div> -->
-                                                <!-- <div class="action-otr" style="flex: 1" *ngIf="visible && !accountFound && location.country_name ==='Nigeria'">
-                                                  <a (click)="initializePayment(this.sellNowValue)" class="buy-nigeria btn-bid" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">BUY NOW
-                                                  <span><img src="assets/img/icons/mastercard.svg" alt=""><img src="assets/img/icons/visa.svg" alt=""></span></a>
-                                                </div> -->
-                                              <!-- </div> -->
-                                                <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'physical'">
+                                                <div class="action-otr" style="flex: 1" *ngIf="visible && artwork.assetType === 'physical'">
+                                                  <a (click)="showPositionDialog()" class="btn-fill btn-bid place-a-bid" style="display: inline-block;">Buy now 
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="17px" viewBox="0 0 152.407 108">
+                                                      <g>
+                                                        <rect width="152.407" height="108" style="fill: none"/>
+                                                        <g>
+                                                          <rect x="60.4117" y="25.6968" width="31.5" height="56.6064" style="fill: #ff5f00"/>
+                                                          <path d="M382.20839,306a35.9375,35.9375,0,0,1,13.7499-28.3032,36,36,0,1,0,0,56.6064A35.938,35.938,0,0,1,382.20839,306Z" transform="translate(-319.79649 -252)" style="fill: #eb001b"/>
+                                                          <path d="M454.20349,306a35.99867,35.99867,0,0,1-58.2452,28.3032,36.00518,36.00518,0,0,0,0-56.6064A35.99867,35.99867,0,0,1,454.20349,306Z" transform="translate(-319.79649 -252)" style="fill: #f79e1b"/>
+                                                          <path d="M450.76889,328.3077v-1.1589h.4673v-.2361h-1.1901v.2361h.4675v1.1589Zm2.3105,0v-1.3973h-.3648l-.41959.9611-.41971-.9611h-.365v1.3973h.2576v-1.054l.3935.9087h.2671l.39351-.911v1.0563Z" transform="translate(-319.79649 -252)" style="fill: #f79e1b"/>
+                                                        </g>
+                                                      </g>
+                                                    </svg>
+                                                    <img src="/assets/img/visa_logo.svg">
+                                                  </a>
+                                                </div>
+
+                                               </div>
+                                                <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'digital'">
                                                     <div class="heading-inr error-container">
 <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
                                                         <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
 
-                                                <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital'">
+                                                <!-- <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital'">
                                                   <div class="heading-inr error-container">
                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>
                                                        <ng-container style="width: 300px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
@@ -296,7 +327,7 @@
                                                       </ng-container>
                                                      <span class="desc" style="margin-bottom: 1rem;"> USD </span> <p-inputSwitch (onChange)="switchPay($event)" name="checked" [(ngModel)]="checked"></p-inputSwitch> <span class="desc" style="margin-bottom: 1rem;"> NGN </span>
                                                   </div>
-                                              </div>
+                                                </div> -->
                                             </form>
                                             <form class="bidform" *ngIf="visible && this.owner && artwork.hasActiveAuction === false ||  visible && this.owner && hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
                                                 <div class="input-main">

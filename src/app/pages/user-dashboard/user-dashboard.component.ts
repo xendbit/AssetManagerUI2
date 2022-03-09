@@ -131,7 +131,7 @@ export class UserDashboardComponent implements OnInit {
 
   copyMessage(val){
     this.clipboard.copy(val);
-    this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
+    this.userActions.addSingle('global','success', 'Copied', 'Copied to clipboard!');
   }
 
 }

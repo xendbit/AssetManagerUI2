@@ -29,7 +29,7 @@ export const networkChains = [ {
                 name: "Binance Smart Chain Testnet",
                 chain: 97,
                 rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
-                currency: 'TBNB',
+                currency: 'BNB',
                 verifyLink: 'https://testnet.bscscan.com/token/'
         },
         {
@@ -67,6 +67,10 @@ export const chainId = 1666700000;
 export const niftyKey = apiKey;
 export const ravePublicKey = ravePubKey;
 export const blockchainInfo = {
-        key: demoBlockchainKey,
-        url: "https://api.blockchain.com/v3/exchange"
+  key: demoBlockchainKey,
+  url: "https://api.blockchain.com/v3/exchange"
 };
+
+export const cryptocompareInfo = {
+  url: "https://min-api.cryptocompare.com/data/price?"
+}

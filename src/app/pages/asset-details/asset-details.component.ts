@@ -1,8 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {switchMap} from 'rxjs/operators';
-import {ILocation} from '../../core/interfaces/ilocation';
+import { countryList } from './countries';
+import {  HttpClient} from '@angular/common/http';
 import { UserActionsService } from './../../core/services/userActions.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAuction, IArtwork } from 'src/app/core/components/slider/presentation.interface';
 import { trigger, transition, animate, style } from '@angular/animations';
@@ -42,6 +41,7 @@ export class AssetDetailsComponent implements OnInit {
   email: string; firstName: string; lastName: string; middleName: string; phone: number;
   country: string; zipCode: string; state: string; city: string; street: string; houseNumber: string;
   sellNowValue: number;
+  sellNowValueNGN: number;
   sellPriceMet: boolean = false;
   today: Date;
   accountFound: boolean;
@@ -52,18 +52,20 @@ export class AssetDetailsComponent implements OnInit {
   auctionLength: number = 0;
   foundNetwork: {};
   checked: boolean = true;
+  countriesArray: any[] = countryList;
+  billingAddress: string;
+  @ViewChild(StripePaymentElementComponent)
   paymentElement: StripePaymentElementComponent;
-
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
-
   paying = false;
   fullname: string = "";
+  paymentEmail: string;
+  paymentAmount: number;
   payId: string = '';
-
-
-
+  displayPosition: boolean;
+  selectedCountry: any;
 
   constructor(private router: Router,
     public activatedRoute: ActivatedRoute,
@@ -86,6 +88,8 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
+    this.auction = JSON.parse(localStorage.getItem('auctionData'));
+    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 1666700000 //defaults to harmony
@@ -97,10 +101,8 @@ export class AssetDetailsComponent implements OnInit {
       this.contractAddress = response['data'];
     });
     let tokenId = this.activatedRoute.snapshot.params.asset;
-    let auctionId = this.activatedRoute.snapshot.params.auction;
     this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
       this.artwork = res;
-      console.log('here', this.artwork)
       this.sellPriceMet = false;
       this.checkConnection();
       if (this.artwork.lastAuctionId !== 0) {
@@ -115,8 +117,9 @@ export class AssetDetailsComponent implements OnInit {
             this.checkBuyer();
             this.auctionService.getETHtoUSDValue().subscribe(res => {
               if (this.auction.bids.length > 0) {
-                this.auctionValue = res['last_trade_price'] * this.auction.bids[0]['bid'];
-                this.sellNowValue = res['last_trade_price'] * this.auction.sellNowPrice;
+                this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
+                this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
                 if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
                   this.lastBidder = true;
                 }
@@ -185,13 +188,17 @@ export class AssetDetailsComponent implements OnInit {
 
   }
 
+  showPositionDialog() {
+    this.displayPosition = true;
+  }
+
   openForm() {
     this.visible = true;
   }
 
   bid() {
     if(this.response === undefined) {
-      this.userActions.addSingle('error', 'Failed', 'Please confirm that your wallet is connected.');
+      this.userActions.addSingle('global', 'error', 'Failed', 'Please confirm that your wallet is connected.');
       return;
     }
     if (this.response === 404 && this.artwork.assetType === "physical") {
@@ -200,18 +207,18 @@ export class AssetDetailsComponent implements OnInit {
     }
     let currentBid = this.auction.highestBid;
     if (+this.balance < +this.amount ) {
-      this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
+      this.userActions.addSingle('global', 'error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
     } else if (+this.balance < +currentBid)  {
-      this.userActions.addSingle('error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
+      this.userActions.addSingle('global', 'error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
     } else if (+this.amount <= +currentBid) {
-      this.userActions.addSingle('error', 'Failed', 'The bid amount has to be higher than the current bid for this asset.');
+      this.userActions.addSingle('global', 'error', 'Failed', 'The bid amount has to be higher than the current bid for this asset.');
       return;
     }
 
     if (!+this.amount) {
-      this.userActions.addSingle('error', 'Failed', 'Please confirm you have entered your bidding price for this asset.');
+      this.userActions.addSingle('global', 'error', 'Failed', 'Please confirm you have entered your bidding price for this asset.');
       return;
     }
     this.checkConnection();
@@ -230,7 +237,7 @@ export class AssetDetailsComponent implements OnInit {
             this.hasActiveAuction = false;
           }
           this.spinner.hide();
-          this.userActions.addSingle('Success', 'Successful', 'Bid placed successfully');
+          this.userActions.addSingle('global', 'Success', 'Successful', 'Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
               if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
@@ -242,7 +249,7 @@ export class AssetDetailsComponent implements OnInit {
               this.spinner.hide();
               this.ngOnInit();
             }, err => {
-              this.userActions.addSingle('error', 'Failed', 'There has been an error, please try again.');
+              this.userActions.addSingle('global', 'error', 'Failed', 'There has been an error, please try again.');
               return;
             })
           }
@@ -262,7 +269,7 @@ export class AssetDetailsComponent implements OnInit {
     const minBid = auction.value.minimumPrice;
     const sell =  auction.value.sellNowPrice;
     if (sell < minBid) {
-      this.userActions.addSingle('error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
+      this.userActions.addSingle('global', 'error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
       return;
     }
     this.checkConnection();
@@ -285,7 +292,7 @@ export class AssetDetailsComponent implements OnInit {
       this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
         setTimeout(() => {
           this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
-          this.userActions.addSingle('success', 'successful', 'Auction has been started for this asset');
+          this.userActions.addSingle('global', 'success', 'successful', 'Auction has been started for this asset');
           this.visible = false;
           this.spinner.hide();
           this.router.navigate(['/profile']).then(() => {
@@ -295,15 +302,12 @@ export class AssetDetailsComponent implements OnInit {
           this.spinner.hide();
         })
       }, 15000)
-
-
       }, err => {
         this.spinner.hide()
       })
     }, err => {
       this.spinner.hide()
     })
-
   }
 
   withdraw() {
@@ -340,7 +344,7 @@ export class AssetDetailsComponent implements OnInit {
       if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined ||
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
-          this.userActions.addSingle('error', 'Error', 'Please make sure all fields are completed and correct.');
+          this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
           this.spinner.hide();
         this.displayOverlay = true;
       }
@@ -349,7 +353,7 @@ export class AssetDetailsComponent implements OnInit {
         country, zipCode, state, city, street, houseNumber).subscribe(res => {
         if (res['status'] === 'success') {
           this.spinner.hide();
-          this.userActions.addSingle('success', 'successful', 'Buyer has been registered successfully!');
+          this.userActions.addSingle('global', 'success', 'successful', 'Buyer has been registered successfully!');
           this.displayOverlay = false;
           this.checkBuyer();
           this.ngOnInit();
@@ -357,62 +361,74 @@ export class AssetDetailsComponent implements OnInit {
       }, err => {
         this.error = err.error.data.error;
         this.spinner.hide();
-        this.userActions.addSingle('error', 'error', this.error);
+        this.userActions.addSingle('global', 'error', 'error', this.error);
         this.displayOverlay = false;
         this.checkBuyer();
       })
     }
 
+    continuePayment() {
+      this.selectedCountry = this.selectedCountry.name;
+      console.log('sel', this.sellNowValue)
+      if (this.billingAddress === undefined || this.billingAddress === '') {
+        this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
+        return;
+      }
+      if (this.paymentEmail === '') {
+        this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
+        return;
+      }
+      if (this.selectedCountry === 'Nigeria') {
+        this.payWithRave();
+        this.displayPosition = false
+      }else {
+        this.paymentService.createPaymentIntent(this.sellNowValue * 100, this.paymentEmail)
+        .subscribe(pi => {
+          this.elementsOptions.clientSecret = pi.client_secret;
+          this.payId = pi.id;
+          this.paying = true;
+        });
+      }
+    }
+
     pay() {
-      this.paymentService.createPaymentIntent(200)
-     .subscribe(pi => {
-       this.elementsOptions.clientSecret = pi.client_secret;
-       this.payId = pi.id;
-     });
-       this.paying = true;
-       this.stripeService.confirmPayment({
-         elements: this.paymentElement.elements,
-         confirmParams: {
-           payment_method_data: {
-             billing_details: {
-               name: 'chinedu'
-             }
-           }
-         },
-         redirect: 'if_required'
-       }).subscribe(result => {
-         this.paying = false;
-         console.log('Result', result);
-         if (result.error) {
-           // Show error to your customer (e.g., insufficient funds)
-           alert({ success: false, error: result.error.message });
-         } else {
-           // The payment has been processed!
-           if (result.paymentIntent.status === 'succeeded') {
-             // Show a success message to your customer
-             alert({ success: true });
-           }
-         }
-       });
+        console.log('th', this.paymentElement)
+          this.stripeService.confirmPayment({
+            elements: this.paymentElement.elements,
+            confirmParams: {
+              payment_method_data: {
+                billing_details: {
+                  name: this.fullname
+                }
+              }
+            },
+            redirect: 'if_required'
+          }).subscribe(result => {
+            this.paying = false;
+            console.log('Result', result);
+            if (result.error) {
+              // Show error to your customer (e.g., insufficient funds)
+              alert({ success: false, error: result.error.message });
+            } else {
+              // The payment has been processed!
+              if (result.paymentIntent.status === 'succeeded') {
+                // Show a success message to your customer
+                alert({ success: true });
+              }
+            }
+          });
+   }
+
+   getCountry(country: any) {
+     this.selectedCountry = country;
    }
 
    payWithRave() {
-    this.paymentService.payWithRave('chinedukogu@gmail.com', 100,
+    this.paymentService.payWithRave(this.paymentEmail, this.sellNowValueNGN,
     '090332323323', 'djskd767'
     ).subscribe((res: any) => {
       console.log('res', res)
     })
-  }
-
-  switchPay(e) {
-    let isChecked = e.checked;
-    console.log('hd', isChecked)
-    this.checked = isChecked;
-    if (this.checked === true) {
-      this.payWithRave()
-    } else {
-      this.pay();
-    }
   }
 
 }

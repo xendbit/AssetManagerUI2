@@ -15,13 +15,20 @@
                     <div class="tab-otr">
                         <div class="tab-inr">
                             <ul class="tabs"  >
-                                <li class="tab-link tab-1 active" data-tab="1" >
-                                    <p class="tab-p body-sb">All</p>
+                                <li class="{{
+                                  categorySelected === 'all'
+                                    ? 'tab-link tab-1 active'
+                                    : 'tab-link tab-2'
+                                }}" data-tab="1" >
+                                    <p class="tab-p body-sb" (click)="this.categoryFilter('all')">All</p>
                                 </li>
-                                <li class="tab-link tab-2" data-tab="2" *ngFor="let category of this.categories">
+                                <li class="{{
+                                  categorySelected === category
+                                    ? 'tab-link tab-1 active'
+                                    : 'tab-link tab-2'
+                                }}" data-tab="2" *ngFor="let category of this.categories">
                                     <p class="tab-p body-sb" (click)="this.categoryFilter(category)">{{category.replace("Right", "")}}</p>
                                 </li>
-
                             </ul>
                         </div>
                         <!-- <div class="slect-main">
