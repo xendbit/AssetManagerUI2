@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IRaveCredentials} from '../rave-payment/rave-payment.service';
-import {IPaymentGatewayDetails, PaymentGatewayMode} from '../interfaces/payment.interfaces';
+import { IPaymentGatewayDetails, PaymentGatewayMode } from 'src/app/core/interfaces/payment.interfaces';
 
 @Injectable()
 export class RaveDetails {

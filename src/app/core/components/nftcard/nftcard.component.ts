@@ -58,9 +58,7 @@ export class NFTCardComponent implements OnInit {
     if (this.artwork !== null) {
       this.today = new Date().getTime();
       this.getLikes(this.artwork.tokenId);
-     
       this.isLoaded = false;
-    
       this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
         this.auction = data;
         this.setCountDown(this.auction.endDate);
@@ -71,13 +69,9 @@ export class NFTCardComponent implements OnInit {
           } else {
             this.sellPriceMet = false;
           }
-        }
-       
-        
-      })
-      
-    }
-    
+        } 
+      })  
+    }  
   }
 
   like(tokenId) {
@@ -101,7 +95,7 @@ export class NFTCardComponent implements OnInit {
 
   copyMessage(val){
     this.clipboard.copy(val);
-    this.userActions.addSingle('success', 'Copied', 'Copied to clipboard!');
+    this.userActions.addSingle('global' ,'success', 'Copied', 'Copied to clipboard!');
   }
 
 
@@ -133,6 +127,8 @@ export class NFTCardComponent implements OnInit {
   }
 
   placeBid() {
+    localStorage.setItem('auctionData', JSON.stringify(this.auction));
+    localStorage.setItem('artworkData', JSON.stringify(this.artwork));
     this.router.navigate(['/details/', this.artwork.tokenId, this.artwork.lastAuctionId]);
   }
 
@@ -143,7 +139,5 @@ export class NFTCardComponent implements OnInit {
   goToOwnerPage() {
     this.router.navigateByUrl('/');
   }
-  
-  
 
 }

@@ -16,6 +16,7 @@ import { MyAssetsComponent } from './pages/my-assets/my-assets.component';
 import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { PaymentComponent } from './core/components/payment/payment.component';
 
 const routes: Routes = [
   {
@@ -62,10 +63,10 @@ const routes: Routes = [
     path: 'details/:asset/:auction',
     component: AssetDetailsComponent
   },
-  // {
-  //   path: 'my-assets',
-  //   component: MyAssetsComponent
-  // },
+  {
+    path: 'payment',
+    component: PaymentComponent
+  },
   {
     path: 'mint',
     component: MintComponent

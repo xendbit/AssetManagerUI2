@@ -32,7 +32,7 @@ export class MetamaskService {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
       }
-    }) 
+    })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
       this.chain = 'harmony';
     } else {
@@ -48,21 +48,20 @@ export class MetamaskService {
     this.chainId = networkChain;
     localStorage.setItem('networkChain', networkChain.toString())
     const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
-    console.log('found', foundNetwork)
     if (foundNetwork === undefined) {
-      this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+      this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
     } else {
-      this.userActions.addSingle('warn', foundNetwork.name, "Currently on  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+      this.userActions.addSingle('global','warn', foundNetwork.name, "Currently on  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
     }
 
     if (networkChain !== foundNetwork.chain) {
-      this.userActions.addSingle('error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. ")
+      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. ")
     }
 
-    window.ethereum.on('chainChanged', (chainId) => { 
+    window.ethereum.on('chainChanged', (chainId) => {
       if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555) {
       } else {
-        this.userActions.addSingle('warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+        this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
       }
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
@@ -82,7 +81,6 @@ export class MetamaskService {
     return from(detectEthereumProvider()).subscribe(async (provider) => {
         if (!provider) {
           // throw new Error('Please install MetaMask');
-          console.log('not metamask');
         }
         localStorage.removeItem('account');
         this.provider = provider;
@@ -109,7 +107,6 @@ export class MetamaskService {
     // localStorage.removeItem('account');
     // this.walletAddress = await this.signer.getAddress();
     // if (window.ethereum && window.ethereum.isMetaMask) {
-    //   console.log('here')
     // }
     // this.signer.getBalance().then((balance) => {
     //   this.walletBalance =  parseInt(ethers.utils.formatEther(balance))
@@ -193,7 +190,7 @@ export class MetamaskService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-contract-address`, {headers})
+    return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
@@ -213,7 +210,6 @@ export class MetamaskService {
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.issuanceResponse = {status: 'success', response: txHash};
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.issuanceResponse = error;
     });
     return this.issuanceResponse;
@@ -236,7 +232,6 @@ export class MetamaskService {
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.auctionResponse = txHash;
     }, (error: any) => {
-      console.log('this is error ==>', error)
       this.auctionResponse = error;
     });
     return this.auctionResponse;

@@ -22,6 +22,7 @@ export class CarouselComponent implements OnInit {
   another: any [];
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   newArtworkArray: IArtwork[] = [];
+  categorySelected: any;
   constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) { 
     this.responsiveOptions = [
       {
@@ -61,9 +62,14 @@ export class CarouselComponent implements OnInit {
   }
 
   categoryFilter(category) {
-    this.artworkArray = this.newArtworkArray.filter(item => {
-      return item.category === category;
-    });
+    this.categorySelected = category;
+    if (category === 'all') {
+      this.artworks = this.newArtworkArray;
+    } else {
+      this.artworks = this.newArtworkArray.filter(item => {
+        return item.category === category;
+      });
+    }
   }
 
   sort(data) { //to be implemented for sort by date when we implement the sort feature
