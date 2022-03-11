@@ -117,6 +117,7 @@ export class AssetDetailsComponent implements OnInit {
       } else {
         this.auctionLength = this.auction.bids.length;
       }
+
       if (this.auctionLength > 0) {
         this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
       }
