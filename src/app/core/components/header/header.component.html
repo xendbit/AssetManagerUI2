@@ -121,6 +121,11 @@
                     <nav>
                         <app-search></app-search>
                         <ul class="navigation-inr">
+                          <li class="nav-li" *ngIf="accountFound" style="margin-bottom: 5px;">
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
+                              <a  routerLink= "/profile" >Profile</a>
+                            </button>
+                          </li>
                             <li style="margin-bottom: 5px;">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
