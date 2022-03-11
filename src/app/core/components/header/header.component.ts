@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   buttonsData: INavButton = { "create": {"title": "Mint", "path": "mint"}, "wallet": { "title": "Connect Wallet", "path": "connect-wallet"}}
   account: string = 'Not connected';
   accountFound = false;
+  reduceOpacity = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
@@ -33,11 +34,15 @@ export class HeaderComponent implements OnInit {
         this.account = localStorage.getItem('account');
       }
     })
- 
+
   }
 
   disconnectFromMetamask() {
     this.metamaskService.disconnectFromClient();
+  }
+
+  onCheckboxChange(e) {
+    this.reduceOpacity = !this.reduceOpacity;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,7 +56,7 @@ export class HeaderComponent implements OnInit {
         if (this.buttonsInfo !== undefined) {
           this.buttonsData = this.buttonsInfo;
         }
-    }   
+    }
   }
 
   connectToMetamask() {
