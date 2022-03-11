@@ -139,7 +139,7 @@
                                 <button *ngIf="accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
                                     <a  (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                                 </button>
-                                <p *ngIf="accountFound" class="desc body-sb"> (toggle button to disconnect)</p>
+                                <!-- <p *ngIf="accountFound" class="desc body-sb"> (toggle button to disconnect)</p> -->
                             </li>
                             <li>
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
