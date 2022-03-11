@@ -41,6 +41,10 @@ export class HeaderComponent implements OnInit {
     this.metamaskService.disconnectFromClient();
   }
 
+  onCheckboxChange(e) {
+    this.reduceOpacity = !this.reduceOpacity;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {
