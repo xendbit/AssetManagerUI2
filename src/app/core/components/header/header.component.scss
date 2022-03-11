@@ -580,11 +580,17 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 0;
-  margin: 2px 0 0 0;
+  margin: 2px 0 10 0;
   box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
   background-color: #ffffff;
   list-style-type: none;
+  opacity: 100%;
   width: 100%;
+  overflow: scroll;
+}
+
+.opacityStyle {
+  opacity: 20%;
 }
 
 .dd-input + .dd-menu {

@@ -121,33 +121,44 @@
                     <nav>
                         <app-search></app-search>
                         <ul class="navigation-inr">
-                            <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
-                                <a routerLink= "{{link.path}}" class="nav-a heading-h4 home">{{link.title}} </a>
-                                <ul class="dropdown-otr drop-1" *ngIf="link.menu.length > 0">
-                                    <li class="dropdown-li" *ngFor="let item of link.menu ">
-                                        <a routerLink="{{item.url}}" class="dropdown-a body-mb" style="color: black;">{{item.title}}</a>
-                                    </li>
+                            <li style="margin-bottom: 5px;">
+                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
+                                <div class="dd-button" (click)="reduceOpacity === true" style="margin-bottom: 5px;">
+                                  Explore
+                                </div>
+                                <input type="checkbox" class="dd-input" id="test">
+                                <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
+                                  <li class="dropdown-li" *ngFor="let link of headerData.menuGroup ">
+                                    <a routerLink= "{{link.path}}" class="nav-a heading-h4 home">{{link.title}} </a>
+                                    <ul  *ngIf="link.menu.length > 0">
+                                      <li class="dropdown-li" *ngFor="let item of link.menu ">
+                                          <a routerLink="{{item.url}}" class="dropdown-a body-mb">{{item.title}}</a>
+                                      </li>
+                                    </ul>
+                                  </li>
                                 </ul>
+                              </label>
+                            </li>
+                            <li style="margin-bottom: 5px;">
+                              <button *ngIf="!accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;"> <a  (click)="connectToMetamask()" >{{buttonsData.wallet.title}}</a></button>
+                              <button *ngIf="accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
+                                  <a  (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                              </button>
                             </li>
                             <li>
                                 <button class=" btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
                                     <a routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
                                 </button>
                             </li>
-                            <li>
-                                <button *ngIf="!accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;"> <a  (click)="connectToMetamask()" >{{buttonsData.wallet.title}}</a></button>
-                                <button *ngIf="accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px;">
-                                    <a  (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                                </button>
-                                <!-- <p *ngIf="accountFound" class="desc body-sb"> (toggle button to disconnect)</p> -->
-                            </li>
-                            <li>
+                            <li style="margin-bottom: 5px;">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
-                                <div class="dd-button" style="margin-bottom: 5px;">
+                                <div [ngClass]="{
+                                  'opacityStyle dd-button': reduceOpacity, 'dd-button' : !reduceOpacity
+                                }" style="margin-bottom: 5px;">
                                   Blockchains
                                 </div>
                                 <input type="checkbox" class="dd-input" id="test">
-                                <ul class="dd-menu" style="margin-top: 5px;">
+                                <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
                                   <li class="dropdown-li" >
                                     <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
                                   </li>
