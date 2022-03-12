@@ -93,15 +93,17 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
-    this.auction = JSON.parse(localStorage.getItem('auctionData'));
-    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
-    this.initialCheck();
-    // this.setCountDown(this.auction.endDate);
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 1666700000 //defaults to harmony
     }
     this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.auction = JSON.parse(localStorage.getItem('auctionData'));
+    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    console.log('thus', this.auction)
+    this.initialCheck();
+    // this.setCountDown(this.auction.endDate);
+
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.tokenId = this.activatedRoute.snapshot.params.asset;
@@ -112,7 +114,7 @@ export class AssetDetailsComponent implements OnInit {
   initialCheck() {
     if (this.artwork.lastAuctionId !== 0) {
       this.hasActiveAuction = true;
-      if (this.auction.bids[0]['bidder'].includes('')) {
+      if (this.auction.bids?.length < 1) {
         this.auctionLength = 0
       } else {
         this.auctionLength = this.auction.bids.length;
