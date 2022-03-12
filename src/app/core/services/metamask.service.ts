@@ -100,7 +100,7 @@ export class MetamaskService {
         // If the event is not dispatched by the end of the timeout,
         // the user probably doesn't have MetaMask installed.
         setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
+        // window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
       }
     }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
