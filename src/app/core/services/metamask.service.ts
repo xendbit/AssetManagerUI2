@@ -74,13 +74,34 @@ export class MetamaskService {
   }
 
   public openMetamask = async () => {
-    if (this.platform.ANDROID && this.clickedOnMobile === false) {
-      window.location.href = "https://metamask.app.link";
-      this.clickedOnMobile = true;
+    if (this.platform.ANDROID) {
+      if (window.ethereum) {
+        this.handleEthereum();
+      } else {
+        window.addEventListener('ethereum#initialized', this.handleEthereum, {
+          once: true,
+        });
+        // If the event is not dispatched by the end of the timeout,
+        // the user probably doesn't have MetaMask installed.
+        setTimeout(this.handleEthereum, 3000); // 3 seconds
+        window.location.href = "https://metamask.app.link";
+      }
+
+      // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
-      window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
+      if (window.ethereum) {
+        this.handleEthereum();
+      } else {
+        window.addEventListener('ethereum#initialized', this.handleEthereum, {
+          once: true,
+        });
+        // If the event is not dispatched by the end of the timeout,
+        // the user probably doesn't have MetaMask installed.
+        setTimeout(this.handleEthereum, 3000); // 3 seconds
+        window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
+      }
     }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
         if (!provider) {
@@ -120,6 +141,39 @@ export class MetamaskService {
     //   account: this.walletAddress,
     //   balance: this.walletBalance
     // }
+  }
+
+  public handleEthereum() {
+    const { ethereum } = window;
+    if (ethereum && ethereum.isMetaMask) {
+      console.log('Ethereum successfully detected!');
+      // Access the decentralized web!
+      return from(detectEthereumProvider()).subscribe(async (provider) => {
+        if (!provider) {
+          // throw new Error('Please install MetaMask');
+        }
+        localStorage.removeItem('account');
+        this.provider = provider;
+        const accounts = await this.provider.request({
+          method: "wallet_requestPermissions",
+          params: [{
+              eth_accounts: {}
+          }]
+      }).then(() => {
+        this.provider.request({
+          method: 'eth_requestAccounts',
+      })
+      this.walletAddress = this.provider.selectedAddress
+      localStorage.setItem('account', this.provider.selectedAddress);
+      return {
+        account: this.walletAddress
+      }
+    })
+      window.location.reload();
+      });
+    } else {
+      console.log('Please install MetaMask!');
+    }
   }
 
   public getBalance() {
