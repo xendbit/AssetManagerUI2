@@ -26,6 +26,7 @@ export class MetamaskService {
   cancelResponse: string;
   chain: string;
   chainId = chainId;
+  clickedOnMobile: boolean = false;
 
   constructor(public httpClient: HttpClient, public platform: Platform, public userActions: UserActionsService) {
     this.getContractAddress().subscribe(data => {
@@ -48,14 +49,16 @@ export class MetamaskService {
     this.chainId = networkChain;
     localStorage.setItem('networkChain', networkChain.toString())
     const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+    console.log('this is sys', systemChain)
     if (foundNetwork === undefined) {
       this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+    } else if (systemChain.name !== foundNetwork.name) {
+      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
+    }else if (networkChain !== foundNetwork.chain) {
+      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet.")
     } else {
-      this.userActions.addSingle('global','warn', foundNetwork.name, "Currently on  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
-    }
-
-    if (networkChain !== foundNetwork.chain) {
-      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. ")
+      this.userActions.addSingle('global','info', foundNetwork.name, "Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
     }
 
     window.ethereum.on('chainChanged', (chainId) => {
@@ -71,8 +74,9 @@ export class MetamaskService {
   }
 
   public openMetamask = async () => {
-    if (this.platform.ANDROID) {
+    if (this.platform.ANDROID && this.clickedOnMobile === false) {
       window.location.href = "https://metamask.app.link";
+      this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
@@ -186,10 +190,9 @@ export class MetamaskService {
 
   getContractAddress() {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 

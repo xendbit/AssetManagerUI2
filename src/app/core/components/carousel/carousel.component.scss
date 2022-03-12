@@ -83,7 +83,7 @@
                             &:not(:last-child){
                                 margin-right: 24px;
                             }
-                            
+
                         }
                     }
                 }
@@ -138,3 +138,10 @@
     width: 31%;
 }
 
+
+@media (min-width: 992px){
+  .alter {
+      flex: 0 0 auto;
+      width: 33%;
+  }
+}

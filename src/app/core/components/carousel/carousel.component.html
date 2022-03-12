@@ -28,7 +28,7 @@
                                   }}" data-tab="2" *ngFor="let category of this.categories">
                                       <p class="tab-p body-sb" (click)="this.categoryFilter(category)">{{category.replace("Right", "")}}</p>
                                   </li>
-                                  
+
                                 </ul>
                             </div>
                             <!-- <div class="slect-main">
@@ -50,21 +50,30 @@
                         </div>
                     </div>
                     <span class="line"></span>
-                    <div class="row row-custom-main" >
+                    <div class="row row-custom-main" *ngIf="artworkArray.length >= 3">
                         <div id="tab-1" class="tab-content active">
-                            <div class="row row-custom-inr">  
-                                  
+                            <div class="row row-custom-inr">
+
                                 <div class="col-otr col-lg-3">
-                                    <p-carousel [value]="artworkArray" [numVisible]="3" [numScroll]="3" [style]="{width: 'inherit'}" [showNavigators]="false"  [responsiveOptions]="responsiveOptions"  [showIndicators]="true">
+                                    <p-carousel   [value]="artworkArray" [numVisible]="3" [numScroll]="3" [style]="{width: 'inherit'}" [showNavigators]="false"  [responsiveOptions]="responsiveOptions"  [showIndicators]="true">
                                         <ng-template let-artwork pTemplate="item" >
                                             <app-nftcard [artwork]="artwork" [parentPage]="parentPage"></app-nftcard>
                                         </ng-template>
                                     </p-carousel>
                                 </div>
                             </div>
-                       
+                        </div>
                     </div>
-                </div>
+                    <div class="row row-custom-main" *ngIf="artworkArray.length < 3">
+                      <div id="tab-1" class="tab-content active">
+                          <div class="row row-custom-inr">
+                              <div class="col-otr alter" *ngFor="let item of artworkArray;">
+                                  <app-nftcard [artwork]="item" [parentPage]="parentPage" > </app-nftcard>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
             </div>
         </div>
 
@@ -77,5 +86,5 @@
 
 
 
-             
-          
+
+
