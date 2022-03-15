@@ -54,7 +54,7 @@
   </p-dialog>
 
     <p-toast position="top-center"></p-toast>
-    
+
 
     <div class="row">
         <div class="col-lg-6" id="assetMedia">
@@ -250,11 +250,11 @@
                                                     <div class="input-otr" style="margin-top: 1rem;">
                                                       <input class="input" style="width: 90%;" type="text" name="billingAddress" [(ngModel)]="billingAddress" placeholder=" Billing/Delivery Address" required>
                                                     </div>
-  
+
                                                     <div class="input-otr" style="margin-top: 1rem;">
                                                       <input class="input" style="width: 90%;" type="number" id="amount" name="paymentAmount" placeholder="Buy-Now Price: {{sellNowValueNGN | number}}" disabled>
                                                     </div>
-                          
+
                                                     <div class="row input-otr" style="width: 90%; height: 120px; margin-bottom: 3rem; margin-top: 2rem;">
                                                       <p-dropdown [options]="countriesArray" [(ngModel)]="selectedCountry" (change)="selectedCountry === selectedCountry.name" name="country" optionLabel="name"
                                                       [virtualScroll]="true" itemSize="30" [style]="{width: '100%'}" placeholder="Select a Country">
@@ -268,7 +268,7 @@
                                                       </ngx-stripe-payment>
                                                     </ng-container>
                                                   </div>
-                                                  
+
                                                   <ng-template pTemplate="footer">
                                                       <p-button *ngIf="this.paying === false" icon="pi pi-check" (click)="continuePayment()" label="Pay" styleClass="p-button-text"></p-button>
                                                       <p-button *ngIf="this.paying" icon="pi pi-check" (click)="pay()" label="Pay with stripe" styleClass="p-button-text"></p-button>
@@ -294,7 +294,7 @@
                                                 </div>
 
                                                 <div class="action-otr" style="flex: 1" *ngIf="visible && artwork.assetType === 'physical'">
-                                                  <a (click)="showPositionDialog()" class="btn-fill btn-bid place-a-bid" style="display: inline-block;">Buy now 
+                                                  <a (click)="showPositionDialog()" class="btn-fill btn-bid place-a-bid" style="display: inline-block;">Buy now
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="17px" viewBox="0 0 152.407 108">
                                                       <g>
                                                         <rect width="152.407" height="108" style="fill: none"/>
@@ -314,7 +314,7 @@
                                                 <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'digital'">
                                                     <div class="heading-inr error-container">
 <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
-                                                        <p *ngIf="error" class="desc" style="color: red;"> Connect your wallet to bid on this asset</p>
+                                                        <p *ngIf="error" class="desc" style="color: red; margin-top: 2rem;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
 
@@ -397,48 +397,7 @@
                                                   <div class="artwork-body-inr">
                                                     <div class="row row-custom">
                                                       <div class="col-lg-12 col-right-otr">
-                                                        <p-panel class="" [toggleable]="true" >
-<!--                                                          class activity-details-->
-                                                          <ng-template pTemplate="header" >
-                                                            <h4 style="font-size: 18px" class="heading-h4 activity-head">Activity</h4>
-                                                          </ng-template>
-                                                          <div class="col-right-inr">
-                                                            <div class="activity-div">
-                                                              <h6 class="heading-h4 activity-head p-3">Recent bid history</h6>
-                                                            <div class="activity-details mt-0" *ngIf="auctionLength > 0">
-                                                              <div class="place-bid-main" *ngFor="let bids of auction.bids">
-                                                                <a  class="img-otr">
-                                                                  <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
-                                                                </a>
-                                                                <div class="bid-content" >
-
-                                                                  <div class="content-left" >
-                                                                    <p class="body-mb bid-otr">
-                                                                      <span class="bid">Bid placed</span>
-                                                                      <span class="by body-m"> by</span>
-                                                                      <a class="user"> {{bids.bidder.substring(0, 4) + 'xxxxx' + bids.bidder.slice(bids.bidder.length - 4)}} </a>
-                                                                    </p>
-                                                                    <!-- <p class="body-s date">
-                                                                        At 2:30 PM on 19th June, 2021
-                                                                    </p> -->
-                                                                  </div>
-                                                                  <div class="content-right">
-                                                                    <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} {{foundNetwork['currency']}}</p>
-                                                                    <!-- <p class="dollor body-sb">$2,505</p> -->
-                                                                  </div>
-
-                                                                </div>
-
-                                                              </div>
-                                                            </div>
-<!--                                                            <div class="activity-details no-bids" *ngIf="auctionLength <= 0">-->
-<!--                                                            </div>-->
-                                                              <div class="place-bid-main no-bids p-5" *ngIf="auctionLength === 0">
-                                                                <p class="hours-p" style="text-align: center;"> No Bids Yet</p>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </p-panel>
+                                                        <app-activities [auction]="auction" [auctionLength]="auctionLength" [foundNetwork]="foundNetwork"></app-activities>
                                                       </div>
                                                     </div>
                                                   </div>

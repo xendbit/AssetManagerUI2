@@ -45,7 +45,7 @@ import { StepsModule } from 'primeng/steps';
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import { HotToastModule } from '@ngneat/hot-toast';
-
+import { ActivitiesComponent } from './pages/asset-details/activities/activities.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MyAssetsComponent,
     MintComponent,
     FAQComponent,
-    LandingComponent
+    LandingComponent,
+    ActivitiesComponent
   ],
   imports: [
     BrowserModule,
