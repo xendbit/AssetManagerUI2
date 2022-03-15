@@ -4,6 +4,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 import { AppController } from './app.controller';
 import { HomeComponent } from './core/components/home/home.component';
+import {CheckoutComponent} from './pages/checkout/checkout.component';
 import { ConnectWalletComponent } from './pages/connect-wallet/connect-wallet.component';
 import { routerConfig } from './core/config/router-config.const';
 import { AuthenticationComponent } from './pages/authentication/authentication.component';
@@ -76,6 +77,10 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
+    path: 'checkout',
+    component: CheckoutComponent
+  },
+  {
     path: routerConfig.users.base,
     loadChildren: () => import('./lazy/users/users.module').then(mod => mod.UsersModule)
   }
@@ -86,7 +91,7 @@ const routerOptions: ExtraOptions = {
     relativeLinkResolution: 'legacy'
 };
 @NgModule({
-  
+
   imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
