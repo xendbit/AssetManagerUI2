@@ -95,7 +95,7 @@ export class AssetDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 1666700000 //defaults to harmony
+      networkChain === 97 //defaults to bsc
     }
     this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
