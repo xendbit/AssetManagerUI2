@@ -1,0 +1,41 @@
+<p-panel class="" [toggleable]="true">
+  <!--                                                          class activity-details-->
+  <ng-template pTemplate="header">
+    <h4 style="font-size: 18px" class="heading-h4 activity-head">Activities</h4>
+  </ng-template>
+  <div class="col-right-inr">
+    <div class="activity-div">
+      <div class="activity-details mt-0" *ngIf="auctionLength > 0">
+        <div class="place-bid-main" *ngFor="let bids of auction.bids">
+          <a  class="img-otr">
+            <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
+          </a>
+          <div class="bid-content" >
+
+            <div class="content-left" >
+              <p class="body-mb bid-otr" style="font-size: 18px">
+                <span class="bid">Bid placed</span>
+                <span class="by body-m"> by</span>
+                <a class="user"> {{bids.bidder.substring(0, 4) + 'xxxxx' + bids.bidder.slice(bids.bidder.length - 4)}} </a>
+              </p>
+              <!-- <p class="body-s date">
+                  At 2:30 PM on 19th June, 2021
+              </p> -->
+            </div>
+            <div class="content-right" style="font-size: 18px">
+              <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} {{foundNetwork['currency']}}</p>
+              <!-- <p class="dollor body-sb">$2,505</p> -->
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--                                                            <div class="activity-details no-bids" *ngIf="auctionLength <= 0">-->
+      <!--                                                            </div>-->
+      <div class="place-bid-main no-bids p-5" *ngIf="!auction?.bids">
+        <p class="hours-p" style="text-align: center;"> No Bids Yet</p>
+      </div>
+    </div>
+  </div>
+</p-panel>
