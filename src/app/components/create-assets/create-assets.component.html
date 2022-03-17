@@ -68,18 +68,9 @@
                 <div class="col-create-inr">
                   <form class="form-main" method="post"  #createForm="ngForm">
                     <div *ngIf="activeIndex === 0">
-                      <div class="row" style="margin-bottom: 40px; margin-top: 3rem;">
-                        <div class="col-xs-4 col-sm-4 col-md-4 field-checkbox" *ngFor="let category of categories;">
-                          <label>
-                            <input [value]="category.name" (change)="pickedCategory(category.value)" type="radio" name="radio"/>
-                            <span>{{category.name}}</span>
-                          </label>
-                           
-                        </div>
-                      </div>
                       <div class="row row-custom-inr">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr">
-  
+
                         </div>
                         <div class="col-lg-6 col-md-3 col-sm-6 col-btn-otr">
                           <div *ngIf="this.preview !== undefined || this.previewMedia !== undefined" style=" margin: 0 auto;">
@@ -103,10 +94,10 @@
                           </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr" *ngIf="this.accountFound && this.categorySelected !== undefined && this.previewArray.length > 0">
-                           
+
                         </div>
                       </div>
-                      <div id="uploadArea" style="margin-top: 1rem;" class="upload-area" *ngIf="preview === undefined 
+                      <div id="uploadArea" style="margin-top: 2rem;" class="upload-area" *ngIf="preview === undefined
                       || previewMedia !== undefined && preview === undefined" >
                         <div class="upload-area__header">
                           <p class="upload-area__title"></p>
@@ -134,7 +125,7 @@
                       </div>
                       </div>
 
-                      <div id="uploadArea" style="margin-top: 1rem;" class="upload-area" *ngIf="categorySelected === 'musicRight' && previewMedia === undefined && preview !== undefined
+                      <div id="uploadArea" style="margin-top: 2rem;" class="upload-area" *ngIf="categorySelected === 'musicRight' && previewMedia === undefined && preview !== undefined
                         || categorySelected === 'movieRight' && previewMedia  === undefined && preview !== undefined">
                         <div class="upload-area__header">
                             <p class="upload-area__title"></p>
@@ -181,6 +172,16 @@
                           </tbody>
                       </table>
 
+                      <div class="row" style="margin-bottom: 40px; margin-top: 3rem;">
+                        <h4 class="head-2 heading-h4">Category</h4>
+                        <div class="col-xs-4 col-sm-4 col-md-4 field-checkbox" *ngFor="let category of categories;">
+                          <label>
+                            <input [value]="category.name" (change)="pickedCategory(category.value)" type="radio" name="radio"/>
+                            <span>{{category.name}}</span>
+                          </label>
+                        </div>
+                      </div>
+
                       <div class="row row-custom-inr">
                         <div class="col-lg-3 col-md-3 col-sm-3 col-btn-otr">
                           <!-- <div class="col-btn-inr" >
@@ -198,7 +199,7 @@
                             </div>
                         </div>
                       </div>
-                     
+
                       <div class="navbar-main" style="margin-bottom: 20px;">
                         <div class="container-fluid">
                           <div class="navbar-inr">
@@ -242,7 +243,7 @@
                           <textarea class="textarea input" id="description"
                           name="description" [(ngModel)]="description" placeholder="Artwork Description e.g. “ Floating Nifty Row 3D”" required></textarea>
                       </div>
-                      
+
                       <div class="input-main">
                         <div class="input-otr-2">
                             <input class="input" [(ngModel)]="symbol" type="text" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
@@ -312,7 +313,7 @@
                           <textarea disabled class="textarea input" id="description"
                           name="description" [(ngModel)]="description" placeholder="{{description}}" readonly></textarea>
                       </div>
-                    
+
                       <div class="input-main">
                         <div class="input-otr-2">
                             <input disabled class="input" type="text" name="text" placeholder="{{symbol || 'Eg. AAPL'}}" required>
@@ -328,7 +329,7 @@
                           </label>
                         </div>
                       </div>
-                      
+
                       <h4 class="head-2 heading-h4">Choose Collection (coming soon)</h4>
                       <div class="row row-custom-inr">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-box-otr">

@@ -204,6 +204,7 @@ export class MetamaskService {
 
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
     let yFace = new ethers.utils.Interface(baseABI);
+    console.log('params', tokenId, auctionId, bidAmount)
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     const ethValue: string = String(bidAmount); // 0 BNB
     const transactionParameters = {
@@ -216,8 +217,10 @@ export class MetamaskService {
     };
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.bidResponse = txHash;
+      console.log('response', txHash)
     }, (error: any) => {
       this.bidResponse = error;
+      console.log('this is error', error)
     });
     return this.bidResponse;
   }

@@ -267,11 +267,13 @@ export class AssetDetailsComponent implements OnInit {
       this.metBuyNow = true;
       this.sellPriceMet = true;
     }
+    console.log('confirm', this.artwork.tokenId, this.auction.auctionId, this.amount)
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       setTimeout(() => {
         this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: any) => {
           if (data !== 'Auction has ended') {
             this.auction = data;
+            console.log('response', data)
           }
           if (data === 'Auction has ended') {
             this.hasActiveAuction = false;
