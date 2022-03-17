@@ -100,7 +100,14 @@ export class AssetDetailsComponent implements OnInit {
     this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
-    console.log('thus', this.auction)
+    this.metamaskService.getContractAddress().subscribe(data => {
+      if (data['status'] === 'success') {
+        this.contractAddress = data['data'];
+        localStorage.removeItem('contractAddress');
+        localStorage.setItem('contractAddress', this.contractAddress)
+        console.log('here', this.contractAddress)
+      }
+    })
     this.initialCheck();
     // this.setCountDown(this.auction.endDate);
 

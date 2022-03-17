@@ -203,7 +203,8 @@ export class MetamaskService {
 
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
     let yFace = new ethers.utils.Interface(baseABI);
-    console.log('params', tokenId, auctionId, bidAmount)
+    this.contractAddress = localStorage.getItem('contractAddress');
+    console.log('params', tokenId, auctionId, bidAmount, this.contractAddress)
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     const ethValue: string = String(bidAmount); // 0 BNB
     const transactionParameters = {
@@ -226,6 +227,7 @@ export class MetamaskService {
 
   async endBid(tokenId: number, auctionId: number) {
     let yFace = new ethers.utils.Interface(baseABI);
+    this.contractAddress = localStorage.getItem('contractAddress');
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
@@ -254,6 +256,7 @@ export class MetamaskService {
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
     let yFace = new ethers.utils.Interface(baseABI);
+    this.contractAddress = localStorage.getItem('contractAddress')
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
     const transactionParameters = {
@@ -275,6 +278,7 @@ export class MetamaskService {
   }
 
   async startAuction(tokenId: number, auctionId: number, startBlock: number, endBlock: number, currentBlock: number, sellNowPrice: string, minimumBid: string) {
+    this.contractAddress = localStorage.getItem('contractAddress');
     let snp: string = ethers.utils.parseEther(sellNowPrice).toHexString();
     let mb: string = ethers.utils.parseEther(minimumBid).toHexString();
     let yFace = new ethers.utils.Interface(baseABI);
@@ -297,6 +301,7 @@ export class MetamaskService {
   }
 
   async withdraw(tokenId: number, auctionId: number) {
+    this.contractAddress = localStorage.getItem('contractAddress');
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
@@ -317,6 +322,7 @@ export class MetamaskService {
   }
 
   async cancelAuction(tokenId: number, auctionId: number) {
+    this.contractAddress = localStorage.getItem('contractAddress');
     let yFace = new ethers.utils.Interface(this.bidResponse);
     const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
     const ethValue = "0.1"; // 0 BNB
