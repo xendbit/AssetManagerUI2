@@ -78,16 +78,22 @@ export class CreateAssetsComponent implements OnInit {
     }
 ];
 
-  constructor( public mainService: MainService, 
-    private spinner: NgxSpinnerService, 
+  constructor( public mainService: MainService,
+    private spinner: NgxSpinnerService,
     public userActions: UserActionsService,
     public metamaskService: MetamaskService,
-    public toast: HotToastService, 
+    public toast: HotToastService,
     public router: Router ) {
 
   }
 
   ngOnInit(): void {
+    this.metamaskService.getContractAddress().subscribe(data => {
+      if (data['status'] === 'success') {
+        localStorage.removeItem('contractAddress');
+        localStorage.setItem('contractAddress', data['data'])
+      }
+    })
     this.currentChain = localStorage.getItem('currentChain');
     this.mediaType = [];
     this.activeIndex = 0;
@@ -137,12 +143,12 @@ export class CreateAssetsComponent implements OnInit {
 
 
   Next() {
-    if (this.activeIndex === 0 && this.categorySelected === 'musicRight' 
+    if (this.activeIndex === 0 && this.categorySelected === 'musicRight'
       && this.previewMedia !== undefined && this.preview !== undefined
       || this.activeIndex === 0 && this.categorySelected === 'movieRight'
       && this.previewMedia !== undefined && this.preview !== undefined) {
         this.activeIndex = 1;
-    } else if (this.activeIndex === 0 && this.categorySelected === 'musicRight' 
+    } else if (this.activeIndex === 0 && this.categorySelected === 'musicRight'
       && this.previewMedia === undefined && this.preview !== undefined
       || this.activeIndex === 0 && this.categorySelected === 'movieRight'
       && this.previewMedia === undefined && this.preview !== undefined) {
@@ -151,11 +157,11 @@ export class CreateAssetsComponent implements OnInit {
     } else if (this.previewMedia !== undefined && this.preview === undefined) {
         this.toast.error('Please select a cover art for this media');
         return;
-    }  else if (this.activeIndex === 0 && this.previewMedia !== undefined && this.preview !== undefined 
+    }  else if (this.activeIndex === 0 && this.previewMedia !== undefined && this.preview !== undefined
       && this.categorySelected === '' || this.activeIndex === 0 && this.preview !== undefined && this.categorySelected === '') {
         this.toast.error('Please select a category for this issue.');
         return;
-    } else if (this.activeIndex === 0 && this.categorySelected === 'musicRight' 
+    } else if (this.activeIndex === 0 && this.categorySelected === 'musicRight'
       && this.previewMedia !== undefined && this.preview === undefined
       || this.activeIndex === 0 && this.categorySelected === 'movieRight'
       && this.previewMedia !== undefined && this.preview === undefined) {
@@ -163,14 +169,14 @@ export class CreateAssetsComponent implements OnInit {
         return;
     } else if (this.activeIndex === 0 && this.categorySelected === 'artwork') {
       this.activeIndex = 1
-    } else if (this.activeIndex === 1 
+    } else if (this.activeIndex === 1
       && this.categorySelected !== '' && this.description !== null
       && this.typeSelected !== undefined && this.symbol !== undefined) {
         this.activeIndex = 2
-    } else if (this.activeIndex === 1 
-      && this.categorySelected === '' 
+    } else if (this.activeIndex === 1
+      && this.categorySelected === ''
       || this.activeIndex === 1 && this.description === null
-      ||this.activeIndex === 1 && this.typeSelected === undefined 
+      ||this.activeIndex === 1 && this.typeSelected === undefined
       ||this.activeIndex === 1 && this.symbol === undefined) {
         this.toast.error('Please make sure all fields are filled.')
         return;
@@ -185,7 +191,7 @@ export class CreateAssetsComponent implements OnInit {
   Back() {
     // if (this.activeIndex === 3 ) {
     //   this.activeIndex = 2;
-    // } else 
+    // } else
     if (this.activeIndex === 2) {
       this.activeIndex = 1
     } else if (this.activeIndex === 1) {
