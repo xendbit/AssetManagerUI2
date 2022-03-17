@@ -8,25 +8,25 @@
           <div class="row">
             <div class="col-md-6">
               <div class="input-otr">
-                <p class="input-title">First name</p>
+                <p class="input-title">First name*</p>
                 <input class="input" type="text" name="fname" [(ngModel)]="firstName" placeholder="First name" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
-              <p class="input-title">Last name</p>
+              <p class="input-title">Last name*</p>
                 <input class="input" type="text" [(ngModel)]="lastName" name="lastName" placeholder="Last name" required="">
               </div>
             </div>
             <div class="col-md-12">
               <div class="input-otr">
-                <p class="input-title">Company name</p>
+                <p class="input-title">Company name*</p>
                 <input class="input" type="text"[(ngModel)]="companyName" name="companyName" placeholder="Company name" required="">
               </div>
             </div>
             <div class="col-md-12">
               <div class="input-otr">
-                <p class="input-title">Country</p>
+                <p class="input-title">Country*</p>
                 <div class="select" (click)="active = !active">
                   <select id="year" class="select-hidden" [(ngModel)]="countryId" name="countryId">
                     <option class="linkk" value="hide">Select country</option>
@@ -48,19 +48,23 @@
           <div class="row">
             <div class="col-md-12">
               <div class="input-otr">
-                <p class="input-title">Card holder's name</p>
+                <p class="input-title">Card holder's name*</p>
                 <input class="input" type="text" [(ngModel)]="cardHoldersName" name="cardHoldersName" placeholder="Card holder's name" required="">
+              </div>
+              <div class="input-otr">
+                <p class="input-title">Card number*</p>
+                <input class="input" type="text" [(ngModel)]="cardNumber" name="cardNumber" placeholder="Card number" required="">
               </div>
               <div class="row">
               <div class="col-md-6">
                 <div class="input-otr">
-                  <p class="input-title">Expiry date</p>
+                  <p class="input-title">Expiry date*</p>
                   <input class="input" type="text" [(ngModel)]="expiryDate" name="expiry" placeholder="Expiry date" required="">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="input-otr">
-                  <p class="input-title">Security code</p>
+                  <p class="input-title">Security code*</p>
                   <input class="input" [(ngModel)]="securityCode" type="text" name="code" placeholder="Security code" required="">
                 </div>
               </div>

@@ -13,6 +13,7 @@ export class CheckoutComponent implements OnInit {
   companyName: string;
   countryId = 'Select Country';
   cardHoldersName: string;
+  cardNumber: string;
   expiryDate: string;
   securityCode: string;
 
