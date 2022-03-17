@@ -1,3 +1,5 @@
+import { NgxStripeModule, StripeService } from 'ngx-stripe';
+import { MetamaskService } from './core/services/metamask.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
@@ -9,7 +11,10 @@ import { DummyLoginComponent } from '../test/components/dummy-login.component';
 import { DummySearchComponent } from '../test/components/dummy-search.component';
 import { testingRoutes } from '../test/mocks/routes.mock';
 import { AppComponent } from './app.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { appConfig } from './core/config/app-config.const';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -17,17 +22,23 @@ describe('AppComponent', () => {
   let titleService: Title;
   let router: Router;
   let route: ActivatedRoute;
+  let httpClient: HttpClient;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(testingRoutes)],
+      imports: [RouterTestingModule.withRoutes(testingRoutes),
+        HttpClientTestingModule,
+        NgxStripeModule.forRoot('pk_test_51KP6OgCU7wHmOgIeQ84Kyn1S1CjHuIreTqOZOaoYNcMwndLCx0ghjNBsI7ywyy4hFVZk6QEbTG4kQhY2AklEiGLb00bgQlYxn8'),
+      ],
       declarations: [
         AppComponent,
         DummyHomeComponent,
         DummySearchComponent,
         DummyLoginComponent
       ],
-      providers: [Title],
+      providers: [Title, MetamaskService, MessageService,
+      StripeService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
@@ -36,9 +47,11 @@ describe('AppComponent', () => {
     titleService = TestBed.get(Title);
     router = TestBed.get(Router);
     route = TestBed.get(ActivatedRoute);
-
+    httpClient = TestBed.get(HttpClient);
+    httpTestingController = TestBed.get(HttpTestingController);
     fixture.detectChanges();
   });
+
 
   it('should create the app', waitForAsync(() => {
     expect(component).toBeTruthy();
