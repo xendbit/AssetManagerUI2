@@ -2,41 +2,42 @@
   <div class="white-card">
     <div class="row">
       <div class="col-md-5">
+        <form #myForm="ngForm">
         <div>
           <h4>Billing Details</h4>
           <div class="row">
             <div class="col-md-6">
               <div class="input-otr">
-                <input class="input" type="text" name="fname" placeholder="First name" required="">
+                <p class="input-title">First name*</p>
+                <input class="input" type="text" name="fname" [(ngModel)]="firstName" placeholder="First name" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
-                <input class="input" type="text" name="lname" placeholder="Last name" required="">
+              <p class="input-title">Last name*</p>
+                <input class="input" type="text" [(ngModel)]="lastName" name="lastName" placeholder="Last name" required="">
               </div>
             </div>
             <div class="col-md-12">
               <div class="input-otr">
-                <input class="input" type="text" name="cname" placeholder="Company name" required="">
+                <p class="input-title">Company name*</p>
+                <input class="input" type="text"[(ngModel)]="companyName" name="companyName" placeholder="Company name" required="">
               </div>
             </div>
             <div class="col-md-12">
               <div class="input-otr">
-                <div class="select">
-                  <select id="year" class="select-hidden">
+                <p class="input-title">Country*</p>
+                <div class="select" (click)="active = !active">
+                  <select id="year" class="select-hidden" [(ngModel)]="countryId" name="countryId">
                     <option class="linkk" value="hide">Select country</option>
                     <option class="linkk" value="2010">UI Design</option>
                     <option class="linkk" value="2011">UI/UX</option>
                     <option class="linkk" value="2012">Web Development</option>
                     <option class="linkk" value="2013">UI/UX</option>
                   </select>
-                  <div class="select-styled">Select contrary</div>
-                  <ul class="select-options" style="display: block;">
-                    <li rel="hide">Select Subject</li>
-                    <li rel="2010">UI Design</li>
-                    <li rel="2011">UI/UX</li>
-                    <li rel="2012">Web Development</li>
-                    <li rel="2013">UI/UX</li>
+                  <div class="select-styled">{{ countryId }}</div>
+                  <ul class="select-options" [ngStyle]="{'display': active ? 'block' : 'none' }">
+                    <li *ngFor="let country of countries" (click)="getCountry(country.name)">{{ country.name }}</li>
                   </ul>
                 </div>
               </div>
@@ -44,11 +45,39 @@
           </div>
           <h4>Payment method     <img width="140px" src="assets/img/icons/payments.svg" alt=""></h4>
 
-          <h4>Name on card</h4>
-          <input type="text">
-          <h6>Card number</h6>
-
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-otr">
+                <p class="input-title">Card holder's name*</p>
+                <input class="input" type="text" [(ngModel)]="cardHoldersName" name="cardHoldersName" placeholder="Card holder's name" required="">
+              </div>
+              <div class="input-otr">
+                <p class="input-title">Card number*</p>
+                <input class="input" type="text" [(ngModel)]="cardNumber" name="cardNumber" placeholder="Card number" required="">
+              </div>
+              <div class="row">
+              <div class="col-md-6">
+                <div class="input-otr">
+                  <p class="input-title">Expiry date*</p>
+                  <input class="input" type="text" [(ngModel)]="expiryDate" name="expiry" placeholder="Expiry date" required="">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-otr">
+                  <p class="input-title">Security code*</p>
+                  <input class="input" [(ngModel)]="securityCode" type="text" name="code" placeholder="Security code" required="">
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="row mt-5">
+          <div class="col-md-6">
+            <a class="btn-fill btn-create text-center" (click)="submit(myForm.value)">Check out</a>
+          </div>
+        </div>
+        </form>
       </div>
       <div class="col-md-7"></div>
     </div>
