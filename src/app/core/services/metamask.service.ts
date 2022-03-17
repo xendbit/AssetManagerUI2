@@ -35,7 +35,7 @@ export class MetamaskService {
       }
     })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -50,7 +50,6 @@ export class MetamaskService {
     localStorage.setItem('networkChain', networkChain.toString())
     const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
     const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
-    console.log('this is sys', systemChain)
     if (foundNetwork === undefined) {
       this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
     } else if (systemChain.name !== foundNetwork.name) {
@@ -62,9 +61,9 @@ export class MetamaskService {
     }
 
     window.ethereum.on('chainChanged', (chainId) => {
-      if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555) {
+      if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555 || networkChain === 43113) {
       } else {
-        this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+        this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
       }
         // Handle the new chain.
         // Correctly handling chain changes can be complicated.
