@@ -74,7 +74,7 @@
         </div>
         <div class="row mt-5">
           <div class="col-md-6">
-            <a class="btn-fill btn-create text-center" (click)="submit(myForm.value)">Check out</a>
+            <button [disabled]="myForm.invalid" class="btn-fill btn-create text-center" (click)="submit(myForm.value)">Check out</button>
           </div>
         </div>
         </form>
