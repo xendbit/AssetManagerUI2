@@ -22841,9 +22841,8 @@ html {
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .img-inr {
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
     cursor: pointer;
+    border-radius: 8px 8px 3px 3px;
   }
 
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .img-otr .timer-otr {
@@ -23138,11 +23137,10 @@ html {
   .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box8 {
     //height: 30rem;
     //margin: 0px 6px 38px 0;
-    padding: 2px;
     margin: 0 auto 3rem auto;
     max-width: 95%;
-    box-shadow: 7px 9px 7px 0px rgb(0 0 0 / 20%);
-    padding-bottom: 1.5rem;
+    box-shadow: 4px 5px 9px 5px rgb(0 0 0 / 20%);
+    padding: 2px 2px 1.5rem;
   }
 
   @media (max-width: 991px) {
@@ -29189,4 +29187,8 @@ html {
   position: absolute;
   right: 0;
   //bottom: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
