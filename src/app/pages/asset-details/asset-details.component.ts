@@ -235,8 +235,8 @@ export class AssetDetailsComponent implements OnInit {
 
   }
 
-  showPositionDialog() {
-    this.displayPosition = true;
+  goToCheckout() {
+    this.router.navigate(['/checkout'])
   }
 
   openForm() {
@@ -440,33 +440,6 @@ export class AssetDetailsComponent implements OnInit {
       }
     }
 
-    pay() {
-        console.log('th', this.paymentElement)
-          this.stripeService.confirmPayment({
-            elements: this.paymentElement.elements,
-            confirmParams: {
-              payment_method_data: {
-                billing_details: {
-                  name: this.fullname
-                }
-              }
-            },
-            redirect: 'if_required'
-          }).subscribe(result => {
-            this.paying = false;
-            console.log('Result', result);
-            if (result.error) {
-              // Show error to your customer (e.g., insufficient funds)
-              alert({ success: false, error: result.error.message });
-            } else {
-              // The payment has been processed!
-              if (result.paymentIntent.status === 'succeeded') {
-                // Show a success message to your customer
-                alert({ success: true });
-              }
-            }
-          });
-   }
 
    getCountry(country: any) {
      this.selectedCountry = country;
