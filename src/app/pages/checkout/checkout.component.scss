@@ -45,6 +45,9 @@
   z-index: 999;
   background-color: #F2F2F2;
   border-radius: 16px;
+  max-height: 228px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .select .select-styled:after {
@@ -89,4 +92,23 @@
 
 .show {
   display: none;
+}
+
+button {
+outline: none;
+border: none;
+border-radius: 8px;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: #cccccc;
+  color: #666666;
+}
+
+button:disabled,
+button[disabled]:hover {
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
