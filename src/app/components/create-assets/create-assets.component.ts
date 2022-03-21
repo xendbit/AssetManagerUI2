@@ -394,7 +394,7 @@ export class CreateAssetsComponent implements OnInit {
     }
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
-    let dateCreated = new Date().getTime();
+    let dateCreated = new Date();
     let medias = this.media;
     if (this.mp3 === true && this.image !== true || this.mp4 === true && this.image !== true) {
       this.toast.error('Please make sure to upload an image representing the asset you intend to issue along-side the asset.')
