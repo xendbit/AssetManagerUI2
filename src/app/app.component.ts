@@ -34,7 +34,7 @@ export class AppComponent extends AppController implements OnInit {
       }
     });
     this.mainService.getLanding().subscribe(res => {
-      
+
     });
     this.mainService.getNavButtons().subscribe(res => {
       this.navButtons = res;

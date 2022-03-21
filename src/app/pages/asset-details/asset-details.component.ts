@@ -83,7 +83,7 @@ export class AssetDetailsComponent implements OnInit {
       });
      }
 
-  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
+  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
@@ -105,12 +105,12 @@ export class AssetDetailsComponent implements OnInit {
         this.contractAddress = data['data'];
         localStorage.removeItem('contractAddress');
         localStorage.setItem('contractAddress', this.contractAddress)
-        console.log('here', this.contractAddress)
       }
     })
     this.initialCheck();
     // this.setCountDown(this.auction.endDate);
-
+    let dateCreated = new Date();
+    console.log('this is current Date', dateCreated)
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     this.tokenId = this.activatedRoute.snapshot.params.asset;
@@ -144,7 +144,8 @@ export class AssetDetailsComponent implements OnInit {
             this.sellPriceMet = true;
           }
         } else {
-          this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+          this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+          this.auctionValue = res['USD'] * this.auction.minimumBid;
           this.sellPriceMet = false;
         }
       })
@@ -179,7 +180,8 @@ export class AssetDetailsComponent implements OnInit {
                   this.sellPriceMet = true;
                 }
               } else {
-                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
+                this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                this.auctionValue = res['USD'] * this.auction.highestBid;
                 this.sellPriceMet = false;
               }
             })
@@ -215,8 +217,8 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date(date).getTime()).unix();
-    this.currentTime = moment(new Date().getTime()).unix();
+    this.auctionTime =  moment(new Date(date)).unix();
+    this.currentTime = moment(new Date()).unix();
     if (this.currentTime > this.auctionTime) {
       console.log('expired')
     }
