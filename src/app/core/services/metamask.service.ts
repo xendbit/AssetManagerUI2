@@ -65,9 +65,6 @@ export class MetamaskService {
       } else {
         this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
       }
-        // Handle the new chain.
-        // Correctly handling chain changes can be complicated.
-        // Metamask recommends reloading the page unless you have good reason not to.
       window.location.reload();
     })
   }
@@ -96,8 +93,6 @@ export class MetamaskService {
         window.addEventListener('ethereum#initialized', this.handleEthereum, {
           once: true,
         });
-        // If the event is not dispatched by the end of the timeout,
-        // the user probably doesn't have MetaMask installed.
         setTimeout(this.handleEthereum, 3000); // 3 seconds
         window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
       }
@@ -125,21 +120,6 @@ export class MetamaskService {
     })
       window.location.reload();
       });
-    // this.provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    // await this.provider.send("eth_requestAccounts", []);
-    // this.signer = this.provider.getSigner();
-    // localStorage.removeItem('account');
-    // this.walletAddress = await this.signer.getAddress();
-    // if (window.ethereum && window.ethereum.isMetaMask) {
-    // }
-    // this.signer.getBalance().then((balance) => {
-    //   this.walletBalance =  parseInt(ethers.utils.formatEther(balance))
-    //  });
-    //  localStorage.setItem('account', window.ethereum.selectedAddress)
-    // return {
-    //   account: this.walletAddress,
-    //   balance: this.walletBalance
-    // }
   }
 
   public handleEthereum() {
@@ -220,7 +200,6 @@ export class MetamaskService {
       console.log('response', txHash)
     }, (error: any) => {
       this.bidResponse = error;
-      console.log('this is error', error)
     });
     return this.bidResponse;
   }
@@ -267,8 +246,7 @@ export class MetamaskService {
       data: data,
       chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
     };
-      // txHash is a hex string
-  // As with any RPC call, it may throw an error
+
     await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
       this.issuanceResponse = {status: 'success', response: txHash};
     }, (error: any) => {

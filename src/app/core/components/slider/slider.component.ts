@@ -113,15 +113,15 @@ export class SliderComponent implements OnInit {
   ];
 
   constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
-    private clipboard: Clipboard, public auctionService: AuctionService) { 
- 
+    private clipboard: Clipboard, public auctionService: AuctionService) {
+
   }
 
    ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-   
+
     if (changes['slider'] && this.slider !== undefined ){
       this.presentationData = this.slider;
       let endDate =   this.presentationData.slides.filter(slide => {
@@ -130,8 +130,8 @@ export class SliderComponent implements OnInit {
           return slide['endDate'];
         }
       })
-      this.auctionService.getETHtoUSDValue().subscribe(res => {
-        this.auctionValue = res['last_trade_price'] * this.currentBid;
+      this.auctionService.getUSDValue().subscribe(res => {
+        this.auctionValue = res['USD'] * this.currentBid;
       })
       this.setCountDown(endDate);
     }
@@ -187,8 +187,8 @@ export class SliderComponent implements OnInit {
       this.countdownMinutes = moment.duration(duration).minutes();
       this.countdownSeconds = moment.duration(duration).seconds();
     }, interval);
-    
+
   }
-  
+
 
 }

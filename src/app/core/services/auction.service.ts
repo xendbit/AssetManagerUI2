@@ -107,14 +107,7 @@ export class AuctionService {
     return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
   }
 
-  // getETHtoUSDValue() {
-  //   let headers: HttpHeaders = new HttpHeaders();
-  //   headers = headers.append('Content-Type', 'application/json');
-  //   headers = headers.append('X-API-Token', blockchainInfo.key);
-  //   return this.httpClient.get(`${blockchainInfo.url}/tickers/ETH-USD`, {headers})
-  // }
-
-  getETHtoUSDValue() {
+  getUSDValue() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     // headers = headers.append('X-API-Token', blockchainInfo.key);

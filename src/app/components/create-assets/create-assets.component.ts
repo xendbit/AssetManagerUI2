@@ -377,12 +377,6 @@ export class CreateAssetsComponent implements OnInit {
     var tmpOrder = this.media[imageIndex];
     this.media.splice(imageIndex, 1);
     this.media.splice(0, 0, tmpOrder);
-
-    // const item = newArr.splice(imageIndex, 1)[0];
-    // newArr.splice(0, 0, item);
-    // const secondItem = newArr.splice(mediaIndex, 1)[0];
-    // newArr.splice(1, 0, secondItem);
-    console.log('this is new', this.media)
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
        this.toast.error('Please make sure you select a category.')
@@ -394,7 +388,7 @@ export class CreateAssetsComponent implements OnInit {
     }
     var rndNo:number = Math.round((Math.random() * 1000000)) + 1;
     this.tokenId = rndNo;
-    let dateCreated = new Date();
+    let dateCreated = new Date().getTime();
     let medias = this.media;
     if (this.mp3 === true && this.image !== true || this.mp4 === true && this.image !== true) {
       this.toast.error('Please make sure to upload an image representing the asset you intend to issue along-side the asset.')

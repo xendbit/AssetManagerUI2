@@ -65,7 +65,6 @@ export class NFTCardComponent implements OnInit {
           this.hasActiveAuction = false;
         } else {
           this.auction = data;
-          console.log('da', this.auction)
           this.setCountDown(this.auction.endDate);
           if (this.auction['bids']?.length > 0) {
             this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
@@ -108,7 +107,6 @@ export class NFTCardComponent implements OnInit {
 
 
   setCountDown(date) {
-    // this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
     this.auctionTime =  moment(new Date(date)).unix();
     this.currentTime = moment(new Date()).unix();
     const diffTime = this.auctionTime - this.currentTime;

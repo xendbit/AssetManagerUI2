@@ -23,6 +23,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
 import { NgxStripeModule } from 'ngx-stripe';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
 
@@ -37,6 +38,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     ToastModule,
     GalleriaModule,
     OverlayPanelModule,
+    ScrollingModule,
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
