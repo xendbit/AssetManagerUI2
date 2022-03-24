@@ -77,7 +77,7 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
-    path: 'checkout',
+    path: 'checkout/:tokenId/:amount',
     component: CheckoutComponent
   },
   {

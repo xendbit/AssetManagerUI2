@@ -45,7 +45,7 @@ export interface IPresentation {
     symbol: string;
     name: string;
     tokenId: number;
-    dateIssued: Date;
+    dateIssued?: any;
     sold: boolean;
     assetType: string;
     auction?: IAuction;

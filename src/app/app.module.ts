@@ -45,6 +45,7 @@ import { StepsModule } from 'primeng/steps';
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import { HotToastModule } from '@ngneat/hot-toast';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ActivitiesComponent } from './pages/asset-details/activities/activities.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 
@@ -81,6 +82,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
     DialogModule,
     StepsModule,
     DialogModule,
+    ScrollingModule,
     MessagesModule,
     MessageModule,
     ToastModule,
