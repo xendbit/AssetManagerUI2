@@ -256,6 +256,7 @@ export class MainService {
   }
 
   returnArtwork() {
+    console.log('this is ar', this.subjectNftCard)
     return this.subjectNftCard;
   }
 
@@ -295,15 +296,6 @@ export class MainService {
         this.headerResponse =  headerJson['default'][0];
         observer.next(this.headerResponse);
         observer.complete()
-        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
-        //   this.headerResponse = data;
-        //   observer.next(this.headerResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.headerResponse =  headerJson['default'][0];
-        //     observer.next(this.headerResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -317,15 +309,6 @@ export class MainService {
         this.buttonsResponse =  navButtons['default'][0];
         observer.next(this.buttonsResponse);
         observer.complete()
-        // this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
-        //   this.buttonsResponse = data;
-        //   observer.next(this.buttonsResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.buttonsResponse =  navButtons['default'][0];
-        //     observer.next(this.buttonsResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -339,15 +322,6 @@ export class MainService {
         this.userResponse =  userJson['default'];
         observer.next(this.userResponse);
         observer.complete()
-        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
-        //   this.userResponse = data;
-        //   observer.next(this.userResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.userResponse =  userJson['default'];
-        //     observer.next(this.userResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -361,15 +335,6 @@ export class MainService {
         this.creatorResponse =  creatorJson['default'];
         observer.next(this.creatorResponse);
         observer.complete()
-        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
-        //   this.creatorResponse = data;
-        //   observer.next(this.creatorResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.creatorResponse =  creatorJson['default'];
-        //     observer.next(this.creatorResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -384,15 +349,6 @@ export class MainService {
         this.categoriesResponse =  categoryJson['default'];
         observer.next(this.categoriesResponse);
         observer.complete()
-        // this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
-        //   this.categoriesResponse = data;
-        //   observer.next(this.categoriesResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.categoriesResponse =  categoryJson['default'];
-        //     observer.next(this.categoriesResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -406,15 +362,6 @@ export class MainService {
         this.assetTypeResponse =  assetTypeJson['default'];
         observer.next(this.assetTypeResponse);
         observer.complete()
-        // this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
-        //   this.assetTypeResponse = data;
-        //   observer.next(this.assetTypeResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.assetTypeResponse =  assetTypeJson['default'];
-        //     observer.next(this.assetTypeResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -460,15 +407,6 @@ export class MainService {
         this.presentationResponse =  presentationJson['default'][0];
         observer.next(this.presentationResponse);
         observer.complete()
-        // this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
-        //   this.presentationResponse = data;
-        //   observer.next(this.presentationResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.presentationResponse =  presentationJson['default'][0];
-        //     observer.next(this.presentationResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -483,15 +421,6 @@ export class MainService {
         this.landingResponse =  landingJson['default'];
         observer.next(this.landingResponse);
         observer.complete()
-        // this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
-        //   this.landingResponse = data;
-        //   observer.next(this.landingResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.landingResponse =  landingJson['default'];
-        //     observer.next(this.landingResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -555,8 +484,5 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
-
-
-
 
 }

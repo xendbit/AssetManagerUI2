@@ -1,15 +1,6 @@
     <!--=======================================
             Explore Artworks Start Here
     ========================================-->
-    <!-- <div class="row" *ngIf="!isLoaded">
-        <div class="col-lg-6">
-            <div class="img-otr">
-                <a class="tilt-otr img-tilt" id="anchorMedia" data-tilt>
-                <img class="img-inr img-fluid" style="object-fit: cover;" src="/assets/img/loading.gif" alt="artwork-img">
-                </a>
-            </div>
-        </div>
-    </div> -->
 
     <div class="col-inr box2">
         <div class="img-otr" [ngSwitch]="artwork.category">
@@ -112,21 +103,21 @@
                 </div>
             </div>
 
-            <div *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false">
-                <div class="timer-otr" id="countdown nowrap">
+            <div *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false">
+                <div class="timer-otr nowrap" id="countdown">
                     <div class="body-sb" style="color: #999999; font-style: italic" >
                         Closed
                     </div>
                 </div>
             </div>
-            <div *ngIf="auctionTime > currentTime && !sellPriceMet" (click)="placeBid()" id="currentBid">
+            <div *ngIf="currentTime  < auctionTime && !sellPriceMet" (click)="placeBid()" id="currentBid">
                 <div class="current-bid-container" >
                     <p class=" bid mr-3 nowrap">Current Bid</p>
                     <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
                 </div>
             </div>
 
-          <div  *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false" (click)="placeBid()" id="currentBid">
+          <div  *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false" (click)="placeBid()" id="currentBid">
             <div class="current-bid-container" >
               <p class="bid mr-3 nowrap" style="font-style: italic; color: #999999;">Current Bid</p>
               <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StripeElementsOptions } from '@stripe/stripe-js';
-import { StripePaymentElementComponent, StripeService } from 'ngx-stripe';
+import { StripeElementsOptions, StripeCardElementOptions, PaymentIntent } from '@stripe/stripe-js';
+import { StripeCardNumberComponent, StripeService } from 'ngx-stripe';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { countryList } from '../asset-details/countries';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -31,18 +32,42 @@ export class CheckoutComponent implements OnInit {
   paymentEmail: string;
   paymentAmount: number;
   payId: string = '';
-  @ViewChild(StripePaymentElementComponent)
-  paymentElement: StripePaymentElementComponent;
+  tokenId: any;
+  amount: any;
+  @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
   };
+  cardOptions: StripeCardElementOptions = {
+    style: {
+      base: {
+        iconColor: '#666EE8',
+        color: '#31325F',
+        fontWeight: '300',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#999999',
+          fontStyle: 'bold',
+          fontSize: '16px',
+          fontWeight: '500'
+        },
+      },
+    },
+  };
+  clientSecret: string;
 
   constructor(
     private stripeService: StripeService,
     public paymentService: PaymentService,
-    public toast: HotToastService) { }
+    public toast: HotToastService,
+    private router: Router,
+    public activatedRoute: ActivatedRoute,
+    ) { }
 
   ngOnInit(): void {
+    this.tokenId = this.activatedRoute.snapshot.params.tokenId;
+    this.amount = this.activatedRoute.snapshot.params.amount;
   }
 
   submit(value) {
@@ -65,6 +90,7 @@ export class CheckoutComponent implements OnInit {
     }else {
       this.paymentService.createPaymentIntent(this.sellNowValue * 100, this.paymentEmail)
       .subscribe(pi => {
+        this.clientSecret = pi.client_secret;
         this.elementsOptions.clientSecret = pi.client_secret;
         this.payId = pi.id;
         this.paying = true;
@@ -87,18 +113,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   pay() {
-    console.log('th', this.paymentElement)
-      this.stripeService.confirmPayment({
-        elements: this.paymentElement.elements,
-        confirmParams: {
-          payment_method_data: {
-            billing_details: {
-              name: this.fullname
-            }
-          }
+    this.stripeService.confirmCardPayment(this.clientSecret, {
+      payment_method: {
+        card: this.card.element,
+        billing_details: {
+          name: this.fullname,
         },
-        redirect: 'if_required'
-      }).subscribe(result => {
+      }}).subscribe(result => {
         this.paying = false;
         console.log('Result', result);
         if (result.error) {
