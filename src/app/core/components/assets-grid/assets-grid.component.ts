@@ -43,7 +43,7 @@ export class AssetsGridComponent implements OnInit {
         this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
         this.artworks = this.newArtworkArray;
         this.spinner.hide();
-        this.categories = this.artworkArray.map(item => item.category)
+        this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
       }
     }
@@ -57,9 +57,9 @@ export class AssetsGridComponent implements OnInit {
         this.totalPages = res.totalPages
       }
     })
-    
+
   }
-  
+
 
 
   categoryFilter(category: string) {
@@ -73,8 +73,8 @@ export class AssetsGridComponent implements OnInit {
     }
   }
 
-  
-  
+
+
 
   byId(index, item) {
     return item.id;

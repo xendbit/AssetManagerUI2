@@ -256,7 +256,6 @@ export class MainService {
   }
 
   returnArtwork() {
-    console.log('this is ar', this.subjectNftCard)
     return this.subjectNftCard;
   }
 

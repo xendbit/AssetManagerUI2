@@ -135,13 +135,15 @@ export class AssetDetailsComponent implements OnInit {
           this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
           this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
           this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
-          if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
-            this.lastBidder = true;
-          }
-          if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-            this.sellPriceMet = false;
-          } else {
-            this.sellPriceMet = true;
+          if (this.auction.bids[0].bid !== 0) {
+            if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+              this.lastBidder = true;
+            }
+            if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+              this.sellPriceMet = false;
+            } else {
+              this.sellPriceMet = true;
+            }
           }
         } else {
           this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
@@ -238,10 +240,8 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   goToCheckout() {
-    if (this.amount > 0) {
-      const amount = this.usdValue * this.amount;
-      this.router.navigate(['/checkout/' + this.tokenId + '/' + amount])
-    }
+    // const amount = this.usdValue * this.amount;
+    this.router.navigate(['/checkout/' + this.tokenId + '/' + this.auction.sellNowPrice])
   }
 
   openForm() {
@@ -376,13 +376,19 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   checkBuyer() {
-    this.mainService.getBuyerStatus(this.account).subscribe(res => {
-      this.response = res;
-    },
-    error => {
-      this.response = error['error'];
-      this.response = error['error']['data']['statusCode'];
-    })
+    if (!localStorage.getItem('account')) {
+      this.accountFound = false;
+      this.error = 'Please connect your metamask wallet account to bid on this asset.'
+      return;
+    } else {
+      this.mainService.getBuyerStatus(this.account).subscribe(res => {
+        this.response = res;
+      },
+      error => {
+        this.response = error['error'];
+        this.response = error['error']['data']['statusCode'];
+      })
+    }
   }
 
     register(register: NgForm) {

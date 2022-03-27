@@ -52,13 +52,11 @@
                 <span class="line"></span>
                 <div class="row row-custom-main" >
                     <div id="tab-1" class="tab-content active">
-                      <cdk-virtual-scroll-viewport itemSize="10" style="height:80vh">
                         <div class="row row-custom-inr">
-                          <div class="col-otr col-md-3" *cdkVirtualFor="let item of artworks; trackBy: byId;">
+                          <div class="col-otr col-md-3" *ngFor="let item of artworks; trackBy: byId;">
                               <app-nftcard [artwork]="item" [parentPage]="parentPage" > </app-nftcard>
                           </div>
                         </div>
-                      </cdk-virtual-scroll-viewport>
                     </div>
 
                     <div class="row">
