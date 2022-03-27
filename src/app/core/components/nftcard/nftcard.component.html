@@ -96,15 +96,15 @@
         <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
         <div class="row" class="box-below" (click)="placeBid()">
             <div *ngIf="auctionTime > currentTime && !sellPriceMet">
-                <div class="timer-otr" id="countdown">
-                    <div class="body-sb" >
+                <div class="timer-otr" id="countdown nowrap">
+                    <div class="nowrap" >
                         {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
                     </div>
                 </div>
             </div>
 
             <div *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false">
-                <div class="timer-otr" id="countdown">
+                <div class="timer-otr nowrap" id="countdown">
                     <div class="body-sb" style="color: #999999; font-style: italic" >
                         Closed
                     </div>
@@ -112,15 +112,15 @@
             </div>
             <div *ngIf="currentTime  < auctionTime && !sellPriceMet" (click)="placeBid()" id="currentBid">
                 <div class="current-bid-container" >
-                    <p class="body-sb bid mr-3">Current Bid</p>
-                    <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+                    <p class=" bid mr-3 nowrap">Current Bid</p>
+                    <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
                 </div>
             </div>
 
           <div  *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false" (click)="placeBid()" id="currentBid">
             <div class="current-bid-container" >
-              <p class="body-sb bid mr-3" style="font-style: italic; color: #999999">Current Bid</p>
-              <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+              <p class="bid mr-3 nowrap" style="font-style: italic; color: #999999;">Current Bid</p>
+              <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
             </div>
           </div>
         </div>

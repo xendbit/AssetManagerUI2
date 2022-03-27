@@ -13,8 +13,8 @@
 }
 
 #countdown {
-    position: absolute;
-    width: 155px;
+    //position: absolute;
+    //width: 155px;
     height: 52px;
     background-color: transparent;
     border-radius: 12px;
@@ -24,6 +24,7 @@
     //padding: 10px 20px;
     color: black;
     border-radius: 16px;
+    font-size: 14px;
 }
 
 #anchorMedia {
@@ -34,6 +35,10 @@
   display: flex;
   justify-content: space-between;
   padding-inline: 8px;
+  align-items: center;
+  font-family: "DMSans-Bold";
+  color: #212529;
+  font-size: 14px;
 }
 
 .current-bid-container {
@@ -73,10 +78,10 @@ audio::-webkit-media-controls-panel{
         border-radius: 16px;
     }
 
-    #currentBid {
-        width: 61%;
-        margin-left: 37%;
-    }
+    //#currentBid {
+    //    width: 61%;
+    //    margin-left: 37%;
+    //}
 
     #anchorMedia {
         margin-bottom: 0px;

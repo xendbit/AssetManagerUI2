@@ -54,7 +54,7 @@
                     <div id="tab-1" class="tab-content active">
                       <cdk-virtual-scroll-viewport itemSize="10" class="scroll" style="height:80vh">
                         <div class="row row-custom-inr">
-                          <div class="col-otr col-lg-3" *cdkVirtualFor="let item of artworks; trackBy: byId;">
+                          <div class="col-otr col-md-3" *cdkVirtualFor="let item of artworks; trackBy: byId;">
                               <app-nftcard [artwork]="item" [parentPage]="parentPage" > </app-nftcard>
                           </div>
                         </div>
