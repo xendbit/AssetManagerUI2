@@ -596,6 +596,7 @@ html {
       background: white;
       width: 100%;
       left: 0;
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
     }
   }
 
@@ -12625,13 +12626,6 @@ html {
     cursor: pointer;
   }
 
-  .hero-single-artwork .container-fluid .hero-inr .icons-div {
-    position: absolute;
-    right: 0;
-    bottom: 80px;
-    // z-index: 10;
-  }
-
   @media (max-width: 991px) {
     .hero-single-artwork .container-fluid .hero-inr .icons-div {
       right: inherit;
@@ -23176,7 +23170,7 @@ html {
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box8,
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box9,
     .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .box10 {
-      margin: 0px 6px 0px 0;
+      margin: 0px 6px 3rem 0;
       //height: 34rem;
     }
   }

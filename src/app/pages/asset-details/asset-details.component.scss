@@ -4,7 +4,7 @@
 @import 'src/assets/scss/utilities/settings';
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
-$primary-color: #366CE3; // Change color here. C'mon, try it! 
+$primary-color: #366CE3; // Change color here. C'mon, try it!
 $text-color: mix(#000, $primary-color, 64%);
 
 
@@ -17,11 +17,11 @@ $text-color: mix(#000, $primary-color, 64%);
     background-color: $Gray-Shade-4;
     .container-fluid{
         .hero-inr{
-            padding: 128px 0;
+            padding: 28px 0;
             position: relative;
             // z-index: 10;
             @include breakpoint($secreen-max-sm){
-                padding: 80px 0px 158px 0;
+                padding: 40px 0px 8px 0;
             }
             .img-otr{
                 // width: 430px;
@@ -48,9 +48,7 @@ $text-color: mix(#000, $primary-color, 64%);
                 }
             }
             .icons-div{
-                position: absolute;
-                right: 0;
-                bottom: 80px;
+                font-size: 16px;
                 // z-index: 10;
                 @include breakpoint($secreen-max-md){
                     right: inherit;
@@ -62,6 +60,8 @@ $text-color: mix(#000, $primary-color, 64%);
                 .icons-div-inr{
                     display: flex;
                     align-items: center;
+                    justify-content: right;
+                    margin-top: 0.5rem;
                     @include breakpoint($secreen-max-md){
                         justify-content: center;
                     }
@@ -206,14 +206,7 @@ $text-color: mix(#000, $primary-color, 64%);
 }
 
 .container-fluid {
-    padding: 0px 42px;
-}
-
-.hero-single-artwork .container-fluid .hero-inr .icons-div {
-    position: absolute;
-    right: 0;
-    bottom: 69px;
-    // z-index: 10;
+    padding: 50px 42px 0px 42px;
 }
 
 .no-bids {
@@ -655,7 +648,7 @@ $text-color: mix(#000, $primary-color, 64%);
     flex-direction: column;
   }
 
-  
+
 }
 
 @media (max-width: 420px) {
