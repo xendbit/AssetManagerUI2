@@ -45,6 +45,10 @@ export class HeaderComponent implements OnInit {
     this.reduceOpacity = !this.reduceOpacity;
   }
 
+  connectToWallectConnect() {
+    this.metamaskService.tryWalletConnect();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {

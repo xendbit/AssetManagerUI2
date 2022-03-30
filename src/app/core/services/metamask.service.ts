@@ -1,11 +1,13 @@
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
-import { ethers } from "ethers";
+import { ethers, } from "ethers";
 import { baseABI, baseUrl, chainId, niftyKey, networkChains} from '../config/main.config.const';
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
 declare const window: any;
 
 @Injectable({
@@ -231,6 +233,28 @@ export class MetamaskService {
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
     return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
+  }
+
+  tryWalletConnect() {
+    const connector = new WalletConnect({
+      bridge: "https://bridge.walletconnect.org", // Required
+      qrcodeModal: QRCodeModal,
+    });
+
+    if (!connector.connected) {
+      // create new session
+      connector.createSession();
+    }
+
+    connector.on("connect", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+
+      // Get provided accounts and chainId
+      const { accounts, chainId } = payload.params[0];
+      console.log('see', accounts, chainId)
+    });
   }
 
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
