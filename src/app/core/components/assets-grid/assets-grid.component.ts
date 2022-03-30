@@ -35,10 +35,8 @@ export class AssetsGridComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // this.isLoaded = false;
     if (changes['artworkArray'] && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
-        // this.isLoaded = true;
         this.newArtworkArray = this.artworkArray;
         this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
         this.artworks = this.newArtworkArray;
