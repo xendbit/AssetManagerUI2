@@ -2,6 +2,19 @@
     <div class="container-fluid">
         <div class="wrapper">
             <div class="user-img" style="background-image: url({{coverImage}});">
+              <svg title="Update backdrop" class="edit-backdrop-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                   width="48" height="48"
+                   viewBox="0 0 24 24"
+                   style=" fill:#366CE3;">
+                <path d="M 19.171875 2 C 18.448125 2 17.724375 2.275625 17.171875 2.828125 L 16 4 L 20 8 L 21.171875 6.828125 C 22.275875 5.724125 22.275875 3.933125 21.171875 2.828125 C 20.619375 2.275625 19.895625 2 19.171875 2 z M 14.5 5.5 L 3 17 L 3 21 L 7 21 L 18.5 9.5 L 14.5 5.5 z"></path>
+              </svg>
+
+              <svg (click)="clickedProfile()" title="Update picture" class="edit-user-icon" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                   width="48" height="48"
+                   viewBox="0 0 24 24"
+                   style=" fill:#366CE3;">
+                <path d="M 19.171875 2 C 18.448125 2 17.724375 2.275625 17.171875 2.828125 L 16 4 L 20 8 L 21.171875 6.828125 C 22.275875 5.724125 22.275875 3.933125 21.171875 2.828125 C 20.619375 2.275625 19.895625 2 19.171875 2 z M 14.5 5.5 L 3 17 L 3 21 L 7 21 L 18.5 9.5 L 14.5 5.5 z"></path>
+              </svg>
                 <div class="creator-img-otr">
                     <img class="creator-img" src="{{displayImage}}" alt="creator-img">
                 </div>
@@ -184,3 +197,36 @@
         </div>
     </div>
 </div>
+
+      <p-dialog id="registrationDialog" [(visible)]="showProfileUpload" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+                [draggable]="false" [resizable]="false"  [breakpoints]="{'960px': '75vw', '640px': '83vw'}" [style]="{width: '40vw'}">
+        <div id="uploadArea" style="margin-top: 2rem;" class="upload-area" *ngIf="preview === undefined
+                      || previewMedia !== undefined && preview === undefined">
+          <div class="upload-area__header">
+            <p class="upload-area__title"></p>
+            <p class="upload-area__paragraph">
+              <strong class="upload-area__tooltip">
+                <span class="upload-area__tooltip-data"></span>
+              </strong>
+            </p>
+          </div>
+          <div (click)="uploader.click()" class="upload-area__drop-zoon drop-zoon">
+              <span class="drop-zoon__icon">
+                  <svg class="upload-icon" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.438 12.81L20 6.25l6.563 6.56M20 23.75V6.255M33.75 23.75v8.75a1.25 1.25 0 01-1.25 1.25h-25a1.25 1.25 0 01-1.25-1.25v-8.75" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            <input id="fileSelect" class="hidden" #uploader type="file" accept="image/*" class="hidden" type="file" accept="image/*, audio/mp3, video/mp4" name="image" (change)="check($event)" />
+            <span class="desc body-sb">select file (PNG, GIF, JPEG, JPG)</span>
+            <p class="drop-zoon__paragraph btn-outline1">browse</p>
+          </div>
+        </div>
+        <div id="preview" *ngIf="this.preview !== undefined || this.previewMedia !== undefined" style=" margin: 0 auto;">
+          <div class="" *ngIf="this.preview?.type.includes('image') && this.preview?.size/1024/1024 <= 10">
+            <img id="imagePreview" [ngfSrc]="preview" style="width: 27rem; margin: 0 auto; max-height: 20rem; border-radius: 10px; object-fit: cover;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
+          </div>
+        </div>
+        <ng-template pTemplate="footer">
+
+          <p-button icon="pi pi-check" (click)="uploadPicture('registerForm')" label="Okay" class="p-button-text"></p-button>
+          <p-button icon="pi pi-times" (click)="this.preview=undefined" label="Reset"></p-button>
+        </ng-template>
+      </p-dialog>

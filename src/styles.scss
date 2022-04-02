@@ -14352,6 +14352,7 @@ html {
     background-size: cover;
     border-radius: 24px 24px 0 0;
     padding: 40px;
+    position: relative;
   }
 
   .user-profile-otr .container-fluid .wrapper .user-img .creator-img-otr {
@@ -29242,4 +29243,8 @@ html {
 
 .p-carousel-items-content .col-inr.box2 {
   width: 95%;
+}
+
+.p-dialog .p-dialog-header {
+  justify-content: right;
 }
