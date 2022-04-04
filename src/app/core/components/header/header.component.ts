@@ -22,19 +22,29 @@ export class HeaderComponent implements OnInit {
   account: string = 'Not connected';
   accountFound = false;
   reduceOpacity = false;
+  userWallet: any;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
   ngOnInit() {
-     this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.accountFound = false;
-      } else {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+          }
+        })
+      }
+
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
       }
-    })
-
+    }
   }
 
   disconnectFromMetamask() {
@@ -43,6 +53,10 @@ export class HeaderComponent implements OnInit {
 
   onCheckboxChange(e) {
     this.reduceOpacity = !this.reduceOpacity;
+  }
+
+  disconnectFromWalletConnect() {
+    this.metamaskService.disconnectFromWalletConnect();
   }
 
   connectToWallectConnect() {

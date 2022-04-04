@@ -44,6 +44,7 @@
               "src/lib/js/modernizr-touch-events.js",
               "node_modules/chart.js/dist/Chart.js"
             ],
+            "allowedCommonJsDependencies": ["crypto"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

@@ -28,7 +28,7 @@ export class AuctionService {
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
   }
 
 

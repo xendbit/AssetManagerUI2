@@ -98,7 +98,7 @@ export class AssetDetailsComponent implements OnInit {
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     // console.log('art', new Date(parseInt(this.artwork.dateIssued) * 1000))
@@ -136,8 +136,10 @@ export class AssetDetailsComponent implements OnInit {
           this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
           this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
           if (this.auction.bids[0].bid !== 0) {
-            if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
-              this.lastBidder = true;
+            if (this.account !== undefined) {
+              if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                this.lastBidder = true;
+              }
             }
             if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
               this.sellPriceMet = false;
@@ -173,8 +175,10 @@ export class AssetDetailsComponent implements OnInit {
                 this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
                 this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
                 this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
-                if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
-                  this.lastBidder = true;
+                if (this.account !== undefined) {
+                  if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                    this.lastBidder = true;
+                  }
                 }
                 if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
                   this.sellPriceMet = false;
@@ -334,7 +338,7 @@ export class AssetDetailsComponent implements OnInit {
     this.metamaskService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];
       let startDate = new Date(auction.value.startDate);
-      let endDate = new Date(auction.value.endDate)
+      let endDate = new Date(auction.value.endDate);
       let currentDate = Date.now();
 
       let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
