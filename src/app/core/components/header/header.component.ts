@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   accountFound = false;
   reduceOpacity = false;
   userWallet: any;
+  displaySidebar: boolean = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
 
@@ -48,6 +49,7 @@ export class HeaderComponent implements OnInit {
   }
 
   disconnectFromMetamask() {
+    this.displaySidebar = false;
     this.metamaskService.disconnectFromClient();
   }
 
@@ -56,6 +58,7 @@ export class HeaderComponent implements OnInit {
   }
 
   disconnectFromWalletConnect() {
+    this.displaySidebar = false;
     this.metamaskService.disconnectFromWalletConnect();
   }
 
@@ -83,6 +86,7 @@ export class HeaderComponent implements OnInit {
   }
 
   switchChain(chain: string) {
+    this.displaySidebar = false;
     localStorage.setItem('currentChain', chain);
     window.location.reload();
   }
