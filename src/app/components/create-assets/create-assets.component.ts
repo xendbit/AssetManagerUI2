@@ -410,6 +410,7 @@ export class CreateAssetsComponent implements OnInit {
       this.checkConnection();
       this.spinner.show();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
+        console.log('res', data)
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {

@@ -75,10 +75,18 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToMetamask()">
                                                 <a class="box-inr box-2" >
                                                     <div class="icon-otr">
-                                                        <img class="icon" style="height: 28px; margin-left: 39%;" src="../assets/img/metamask.jpeg" alt="icon">
+                                                        <img class="icon" style="height: 48px; margin-left: 39%;" src="../assets/img/metamask.jpeg" alt="icon">
                                                     </div>
                                                     <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
                                                 </a>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToWallectConnect()">
+                                              <a class="box-inr box-2" >
+                                                  <div class="icon-otr">
+                                                    <img class="icon" style="height: 120px; margin-left: 15%;" src="../assets/img/icons/WalletConnect.svg" alt="icon">
+                                                  </div>
+                                                  <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
+                                              </a>
                                             </div>
                                           <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToMetamask()">
                                             <a class="box-inr box-2" >
@@ -89,14 +97,22 @@
                                             </a>
                                           </div> -->
                                         </div>
-                                        <div class="row row-boxes"*ngIf="accountFound">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="disconnectFromMetamask()">
+                                        <div class="row row-boxes" *ngIf="accountFound">
+                                            <div *ngIf="accountFound && userWallet === 'Metamask'" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="disconnectFromMetamask()">
                                                 <a class="box-inr box-2" >
                                                     <div class="icon-otr">
                                                         <img class="icon" style="height: 28px; margin-left: 39%;" src="../assets/img/metamask.jpeg" alt="icon">
                                                     </div>
                                                     <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
                                                 </a>
+                                            </div>
+                                            <div *ngIf="accountFound && userWallet === 'WalletConnect'" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)=" disconnectFromWalletConnect()">
+                                              <a class="box-inr box-2" >
+                                                  <div class="icon-otr">
+                                                    <img class="icon" style="height: 120px;" src="../assets/img/icons/WalletConnect.svg" alt="icon">
+                                                  </div>
+                                                  <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
+                                              </a>
                                             </div>
                                         </div>
                                     </div>
@@ -111,56 +127,50 @@
                     <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                 </div>
 
-                <div class="burger-menu">
-                    <input id="burger" type="checkbox" />
+                <div class="burger-menu" style="z-index: 0 !important;">
+                    <input *ngIf="!displaySidebar" (click)="displaySidebar = true" id="burger" type="checkbox" />
                     <label for="burger">
                         <span></span>
                         <span></span>
                         <span></span>
                     </label>
-                    <nav>
-                        <app-search></app-search>
+                    <p-sidebar [autoZIndex]="false" [fullScreen]="true" blockScroll="true" [(visible)]="displaySidebar" position="right">
+                      <app-search></app-search>
                         <ul class="navigation-inr">
                           <li class="nav-li" *ngIf="accountFound" style="margin-bottom: 5px;">
-                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
-                              <a  routerLink= "/profile" >Profile</a>
+                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                              <a (click)="displaySidebar = false" routerLink= "/profile" >Profile</a>
                             </button>
                           </li>
                             <li style="margin-bottom: 5px;">
-                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
+                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
-                                  Explore
+                                  <a style="text-align: center;" >Explore</a>
                                 </div>
                                 <input type="checkbox" class="dd-input" id="test" (change)="onCheckboxChange($event)">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
                                   <li class="dropdown-li" *ngFor="let link of headerData.menuGroup ">
-                                    <a routerLink= "{{link.path}}" class="nav-a heading-h4 home">{{link.title}} </a>
+                                    <a (click)="displaySidebar = false" routerLink= "{{link.path}}" class="nav-a heading-h4 home">{{link.title}} </a>
                                     <ul  *ngIf="link.menu.length > 0">
                                       <li class="dropdown-li" *ngFor="let item of link.menu ">
-                                          <a routerLink="{{item.url}}" class="dropdown-a body-mb">{{item.title}}</a>
+                                          <a (click)="displaySidebar = false" routerLink="{{item.url}}" class="dropdown-a body-mb">{{item.title}}</a>
                                       </li>
                                     </ul>
                                   </li>
                                 </ul>
                               </label>
                             </li>
-                            <li style="margin-bottom: 5px;">
-                              <button *ngIf="!accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;"> <a  (click)="connectToMetamask()" >{{buttonsData.wallet.title}}</a></button>
-                              <button *ngIf="accountFound" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
-                                  <a  (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                              </button>
-                            </li>
                             <li>
-                                <button class=" btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 40%;">
-                                    <a routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
-                                </button>
+                              <button class=" btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a (click)="displaySidebar = false" routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
+                              </button>
                             </li>
                             <li style="margin-bottom: 5px;" [ngStyle]="{
                               'opacity': reduceOpacity ? '0%' : '100%'
                             }">
-                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 40%;">
+                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
-                                  Blockchains
+                                  <a style="text-align: center;" >Blockchains</a>
                                 </div>
                                 <input type="checkbox" class="dd-input" id="chain">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
@@ -182,8 +192,31 @@
                                 </ul>
                               </label>
                             </li>
+                            <li *ngIf="accountFound">
+                              <button *ngIf="accountFound && userWallet === 'Metamask'" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                              </button>
+                              <button *ngIf="accountFound && userWallet === 'WalletConnect'" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                <a (click)=" disconnectFromWalletConnect()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                              </button>
+                          </li>
                         </ul>
-                    </nav>
+                        <span style="margin-left: 10px;" *ngIf="!accountFound">
+                          <h6 class="head-2 heading-h6" style="margin-left: 10px;">connect using any of the following wallets:</h6>
+                          <div class="input-otr-2">
+                            <span class="input">
+                              <img (click)="connectToMetamask()" class="icon" style="height: 25px;" src="../assets/img/metamask.jpeg" alt="icon">
+                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 10px; margin-right: 10px;">Metamask</h6> </label>
+                              <img (click)="connectToWallectConnect()" class="icon" style="height: 80px;" src="../assets/img/icons/WalletConnect.svg" alt="icon">
+                            </span>
+                          </div>
+                          
+                          
+                        </span>
+                    </p-sidebar>
+                    <!-- <nav>
+                        
+                    </nav> -->
                 </div>
             </div>
         </div>

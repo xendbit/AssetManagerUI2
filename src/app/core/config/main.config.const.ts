@@ -60,6 +60,14 @@ export const networkChains = [ {
         }
 ]
 
+export const rpcData = {
+  1666700000: 'https://api.s0.b.hmny.io',
+  97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  80001: 'https://rpc-mumbai.matic.today',
+  1313161555: 'https://testnet.aurora.dev/',
+  43113: 'https://api.avax-test.network/ext/bc/C/rpc'
+}
+
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",
         "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",

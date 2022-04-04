@@ -26,6 +26,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import {SidebarModule} from 'primeng/sidebar';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule,
+    SidebarModule,
     RadioButtonModule,
   ],
   declarations: [

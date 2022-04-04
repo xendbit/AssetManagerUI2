@@ -1,11 +1,16 @@
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
-import { ethers } from "ethers";
-import { baseABI, baseUrl, chainId, niftyKey, networkChains} from '../config/main.config.const';
+import { ethers, providers } from "ethers";
+import { baseABI, baseUrl, chainId, niftyKey, networkChains, rpcData} from '../config/main.config.const';
 import  detectEthereumProvider from '@metamask/detect-provider';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import Web3 from "web3";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+
 declare const window: any;
 
 @Injectable({
@@ -27,8 +32,13 @@ export class MetamaskService {
   chain: string;
   chainId = chainId;
   clickedOnMobile: boolean = false;
+  connector: WalletConnect;
+  userWallet: any;
 
-  constructor(public httpClient: HttpClient, public platform: Platform, public userActions: UserActionsService) {
+  constructor(
+    public httpClient: HttpClient, 
+    public platform: Platform,
+    public userActions: UserActionsService) {
     this.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
@@ -44,29 +54,78 @@ export class MetamaskService {
 
 
   async checkChainChange() {
-    const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
-    let networkChain = parseInt(_chainId, 16);
-    this.chainId = networkChain;
-    localStorage.setItem('networkChain', networkChain.toString())
-    const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
-    const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
-    if (foundNetwork === undefined) {
-      this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
-    } else if (systemChain.name !== foundNetwork.name) {
-      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
-    }else if (networkChain !== foundNetwork.chain) {
-      this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet.")
-    } else {
-      this.userActions.addSingle('global','info', foundNetwork.name, "Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
-    }
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        let networkChain = parseInt(_chainId, 16);
+        this.chainId = networkChain;
+        localStorage.setItem('networkChain', networkChain.toString())
+        const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+        const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+        if (foundNetwork === undefined) {
+          this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+        } else if (systemChain.name !== foundNetwork.name) {
+          this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
+        }else if (networkChain !== foundNetwork.chain) {
+          this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet.")
+        } else {
+          this.userActions.addSingle('global','info', foundNetwork.name, "Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+        }
 
-    window.ethereum.on('chainChanged', (chainId) => {
-      if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555 || networkChain === 43113) {
-      } else {
-        this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+        window.ethereum.on('chainChanged', (chainId) => {
+          if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555 || networkChain === 43113) {
+          } else {
+            this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+          }
+          window.location.reload();
+        })
       }
-      window.location.reload();
-    })
+      if (this.userWallet === 'WalletConnect') {
+        const provider = new WalletConnectProvider({
+          infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
+          rpc: rpcData,
+          chainId: 97
+        });
+        provider.enable();
+        const web3 = new Web3(<any>provider);
+        this.provider = provider;
+        this.chainId = this.provider.chainId;
+        provider.updateRpcUrl(this.chainId)
+        localStorage.setItem('networkChain', this.chainId.toString())
+        const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
+        const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+        if (foundNetwork === undefined) {
+          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+        } else if (foundNetwork && systemChain.name !== foundNetwork.name) {
+          this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
+        } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
+          this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
+        } else {
+          this.userActions.infoToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+        }
+
+        // Subscribe to chainId change
+        this.provider.on("chainChanged", (chainId: number) => {
+          this.chainId = chainId;
+          if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113) {
+          } else {
+            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+          }
+          window.location.reload();
+        });
+        provider.on("accountsChanged", (accounts: string[]) => {
+          console.log(accounts);
+          this.walletAddress = accounts[0];
+          localStorage.setItem('account', accounts[0]);
+        });
+        this.provider.on("disconnect", (code: number, reason: string) => {
+          console.log(code, reason);
+          this.disconnectFromWalletConnect()
+        });
+
+      }
+    }
   }
 
   public openMetamask = async () => {
@@ -112,8 +171,9 @@ export class MetamaskService {
         this.provider.request({
           method: 'eth_requestAccounts',
       })
-      this.walletAddress = this.provider.selectedAddress
+      this.walletAddress = this.provider.selectedAddress;
       localStorage.setItem('account', this.provider.selectedAddress);
+      localStorage.setItem('userWallet', 'Metamask');
       return {
         account: this.walletAddress
       }
@@ -142,7 +202,8 @@ export class MetamaskService {
         this.provider.request({
           method: 'eth_requestAccounts',
       })
-      this.walletAddress = this.provider.selectedAddress
+      this.walletAddress = this.provider.selectedAddress;
+      localStorage.setItem('userWallet', 'Metamask');
       localStorage.setItem('account', this.provider.selectedAddress);
       return {
         account: this.walletAddress
@@ -167,6 +228,39 @@ export class MetamaskService {
   }
 
   disconnectFromClient() {
+    localStorage.removeItem('userWallet');
+    localStorage.removeItem('account');
+    window.location.reload();
+  }
+
+
+  async tryWalletConnect() {
+    //  Create WalletConnect Provider
+    if (this.provider !== undefined) {
+      this.provider.disconnect();
+    }
+    const provider = new WalletConnectProvider({
+      infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
+      rpc: rpcData
+    });
+    await provider.enable();
+    //  Create Web3
+    const web3 = new Web3(<any>provider);
+    this.provider = provider;
+     // Get provided accounts and chainId
+    this.chainId = this.provider.chainId;
+    provider.updateRpcUrl(this.chainId)
+    this.walletAddress = this.provider.accounts[0];
+    localStorage.setItem('userWallet', 'WalletConnect')
+    localStorage.setItem('account', this.walletAddress);
+    window.location.reload();
+  }
+
+  disconnectFromWalletConnect() {
+    if (this.provider !== undefined) {
+      this.provider.disconnect();
+    }
+    localStorage.removeItem('userWallet');
     localStorage.removeItem('account');
     window.location.reload();
   }
@@ -233,26 +327,50 @@ export class MetamaskService {
     return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
   }
 
+
   async issue(tokenId: number, assetName: any, symbol: any, account: string) {
+    this.userWallet = localStorage.getItem('userWallet');
     let yFace = new ethers.utils.Interface(baseABI);
     this.contractAddress = localStorage.getItem('contractAddress')
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      to: this.contractAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    };
-
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.issuanceResponse = {status: 'success', response: txHash};
-    }, (error: any) => {
-      this.issuanceResponse = error;
-    });
-    return this.issuanceResponse;
+    console.log('heree')
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters]}).then((txHash: string) => {
+          this.issuanceResponse = {status: 'success', response: txHash};
+        }, (error: any) => {
+          this.issuanceResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        console.log('cont', this.provider.accounts[0])
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.provider.accounts[0], // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        console.log('herein', this.provider)
+        await this.provider.request({ method: 'eth_sendTransaction', params: [transactionParameters]}).then((txHash: string) => {
+          console.log('fre',txHash)
+        }, (error: any) => {
+          console.log('err', error)
+        });
+        // console.log('here', result)
+      }
+      return this.issuanceResponse;
+    }
   }
 
   async startAuction(tokenId: number, auctionId: number, startBlock: number, endBlock: number, currentBlock: number, sellNowPrice: string, minimumBid: string) {
