@@ -60,7 +60,7 @@
         <div class="col-lg-6" id="assetDetails">
             <div class="hero-single-artwork">
                 <div class="container-fluid">
-                    <div class="hero-inr" style="padding-top: 25px;">
+                    <div class="hero-inr">
                         <div [ngSwitch]="artwork.category">
                             <a class="img-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                                 <img id="imageDisplay" class="img-artwork img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
@@ -131,16 +131,13 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="circle"></span>
                     </div>
                 </div>
-                <!-- <img class="circle-1" src="../assets/img/svg/circles-1.svg" alt="circale">
-                <img class="circle-2" src="../assets/img/svg/circles-2.svg" alt="circale"> -->
             </div>
         </div>
         <div class="col-lg-6">
             <div class="artwork-body">
-                <div class="container-fluid">
+                <div class="container-fluid" style="padding-top: 0">
                     <div class="artwork-body-inr">
                         <div class="row row-custom">
                           <h2 id="artworkSymbol" class="heading-h2 head">
