@@ -26,6 +26,7 @@
               "src/favicon.ico",
               "src/web.config",
               "src/.htaccess",
+              "./src/assets/img/WalletConnect.svg",
               {
                 "glob": "**/*",
                 "input": "src/assets/",
