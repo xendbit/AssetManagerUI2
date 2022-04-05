@@ -23,12 +23,12 @@ export class MetamaskService {
   walletAddress: string;
   walletBalance: number;
   contractAddress: string;
-  bidResponse: string;
-  endbidResponse: string;
-  auctionResponse: string;
+  bidResponse: any;
+  endbidResponse: any;
+  auctionResponse: any;
   issuanceResponse: any;
-  withdrawResponse: string;
-  cancelResponse: string;
+  withdrawResponse: any;
+  cancelResponse: any;
   chain: string;
   chainId = chainId;
   clickedOnMobile: boolean = false;
@@ -82,16 +82,39 @@ export class MetamaskService {
         })
       }
       if (this.userWallet === 'WalletConnect') {
-        const provider = new WalletConnectProvider({
-          infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
-          rpc: rpcData,
-          chainId: 97
+        // const provider = new WalletConnectProvider({
+        //   // infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
+        //   rpc: rpcData,
+        // });
+        this.connector = new WalletConnect({
+          bridge: "https://bridge.walletconnect.org", // Required
+          qrcodeModal: QRCodeModal,
         });
-        provider.enable();
-        const web3 = new Web3(<any>provider);
-        this.provider = provider;
-        this.chainId = this.provider.chainId;
-        provider.updateRpcUrl(this.chainId)
+  
+        this.chainId = parseInt(localStorage.getItem('currentChainId'));
+        console.log('chain', localStorage.getItem('currentChainId'))
+        this.connector.on("session_update", (error, payload) => {
+          if (error) {
+            throw error;
+          }
+        
+          // Get updated accounts and chainId
+          const { accounts, chainId } = payload.params[0];
+          console.log('acc', accounts)
+          this.chainId = chainId;
+          if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113 ) {
+          } else {
+            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+          }
+          window.location.reload();
+        });
+        this.connector.on("disconnect", (error, payload) => {
+          if (error) {
+            throw error;
+          }
+          this.disconnectFromWalletConnect();
+        })
+
         localStorage.setItem('networkChain', this.chainId.toString())
         const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
@@ -104,26 +127,6 @@ export class MetamaskService {
         } else {
           this.userActions.infoToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
         }
-
-        // Subscribe to chainId change
-        this.provider.on("chainChanged", (chainId: number) => {
-          this.chainId = chainId;
-          if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113) {
-          } else {
-            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
-          }
-          window.location.reload();
-        });
-        provider.on("accountsChanged", (accounts: string[]) => {
-          console.log(accounts);
-          this.walletAddress = accounts[0];
-          localStorage.setItem('account', accounts[0]);
-        });
-        this.provider.on("disconnect", (code: number, reason: string) => {
-          console.log(code, reason);
-          this.disconnectFromWalletConnect()
-        });
-
       }
     }
   }
@@ -230,38 +233,44 @@ export class MetamaskService {
   disconnectFromClient() {
     localStorage.removeItem('userWallet');
     localStorage.removeItem('account');
+    localStorage.removeItem('currentChainId');
     window.location.reload();
   }
 
 
   async tryWalletConnect() {
-    //  Create WalletConnect Provider
-    if (this.provider !== undefined) {
-      this.provider.disconnect();
-    }
-    const provider = new WalletConnectProvider({
-      infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
-      rpc: rpcData
+    this.connector = new WalletConnect({
+      bridge: "https://bridge.walletconnect.org", // Required
+      qrcodeModal: QRCodeModal,
     });
-    await provider.enable();
-    //  Create Web3
-    const web3 = new Web3(<any>provider);
-    this.provider = provider;
-     // Get provided accounts and chainId
-    this.chainId = this.provider.chainId;
-    provider.updateRpcUrl(this.chainId)
-    this.walletAddress = this.provider.accounts[0];
-    localStorage.setItem('userWallet', 'WalletConnect')
-    localStorage.setItem('account', this.walletAddress);
-    window.location.reload();
+
+    if (!this.connector.connected) {
+      // create new session
+      this.connector.createSession();
+    }
+
+    this.connector.on("connect", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+      // Get provided accounts and chainId
+      const { accounts, chainId } = payload.params[0];
+      this.chainId = chainId;
+      this.walletAddress = accounts;
+      localStorage.setItem('userWallet', 'WalletConnect')
+      localStorage.setItem('account', this.walletAddress);
+      localStorage.setItem('currentChainId', this.chainId.toString())
+      window.location.reload();
+    });
   }
 
   disconnectFromWalletConnect() {
-    if (this.provider !== undefined) {
-      this.provider.disconnect();
+    if (this.connector) {
+      this.connector.killSession();
     }
     localStorage.removeItem('userWallet');
     localStorage.removeItem('account');
+    localStorage.removeItem('currentChainId');
     window.location.reload();
   }
 
@@ -281,21 +290,46 @@ export class MetamaskService {
     console.log('params', tokenId, auctionId, bidAmount, this.contractAddress)
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     const ethValue: string = String(bidAmount); // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00',
-      to: this.contractAddress,
-      from: window.ethereum.selectedAddress,
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId,
-    };
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.bidResponse = txHash;
-      console.log('response', txHash)
-    }, (error: any) => {
-      this.bidResponse = error;
-    });
-    return this.bidResponse;
+    if (this.userWallet !== null) { 
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00',
+          to: this.contractAddress,
+          from: window.ethereum.selectedAddress,
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId,
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.bidResponse = txHash;
+        }, (error: any) => {
+          this.bidResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.bidResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.bidResponse = data;
+        });
+      }
+      return this.bidResponse;
+    }
   }
 
   async endBid(tokenId: number, auctionId: number) {
@@ -303,20 +337,46 @@ export class MetamaskService {
     this.contractAddress = localStorage.getItem('contractAddress');
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      to: this.contractAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    };
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.endbidResponse = txHash;
-    }, (error: any) => {
-      this.endbidResponse = error;
-    });
-    return this.endbidResponse;
+    if (this.userWallet !== null) { 
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.endbidResponse = txHash;
+        }, (error: any) => {
+          this.endbidResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.endbidResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.endbidResponse = data;
+        });
+      }
+      return this.endbidResponse;
+    }
   }
 
   getContractAddress() {
@@ -334,7 +394,6 @@ export class MetamaskService {
     this.contractAddress = localStorage.getItem('contractAddress')
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
-    console.log('heree')
     if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
@@ -352,22 +411,26 @@ export class MetamaskService {
         });
       }
       if (this.userWallet === 'WalletConnect') {
-        console.log('cont', this.provider.accounts[0])
+        this.walletAddress = localStorage.getItem('account')
         const transactionParameters = {
           nonce: '0x00', // ignored by MetaMask
           to: this.contractAddress, // Required except during contract publications.
-          from:  this.provider.accounts[0], // must match user's active address.
+          from:  this.walletAddress, // must match user's active address.
           value: ethers.utils.parseEther(ethValue).toHexString(),
           data: data,
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
-        console.log('herein', this.provider)
-        await this.provider.request({ method: 'eth_sendTransaction', params: [transactionParameters]}).then((txHash: string) => {
-          console.log('fre',txHash)
-        }, (error: any) => {
-          console.log('err', error)
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.issuanceResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.issuanceResponse = data;
         });
-        // console.log('here', result)
       }
       return this.issuanceResponse;
     }
@@ -380,20 +443,46 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, currentBlock, snp, mb ]);
     const ethValue = "0"; // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      to: this.contractAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    };
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.auctionResponse = txHash;
-    }, (error: any) => {
-      this.auctionResponse = error;
-    });
-    return this.auctionResponse;
+    if (this.userWallet !== null) { 
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.auctionResponse = txHash;
+        }, (error: any) => {
+          this.auctionResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.auctionResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.auctionResponse = data;
+        });
+      }
+      return this.auctionResponse;
+    }
   }
 
   async withdraw(tokenId: number, auctionId: number) {
@@ -401,20 +490,46 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      to: this.contractAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    };
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.withdrawResponse = txHash;
-    }, (error: any) => {
-      this.withdrawResponse = error;
-    });
-    return this.withdrawResponse;
+    if (this.userWallet !== null) { 
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.withdrawResponse = txHash;
+        }, (error: any) => {
+          this.withdrawResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.withdrawResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.withdrawResponse = data;
+        });
+      }
+      return this.withdrawResponse;
+    }
   }
 
   async cancelAuction(tokenId: number, auctionId: number) {
@@ -422,20 +537,46 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(this.bidResponse);
     const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
     const ethValue = "0.1"; // 0 BNB
-    const transactionParameters = {
-      nonce: '0x00', // ignored by MetaMask
-      to: this.contractAddress, // Required except during contract publications.
-      from: window.ethereum.selectedAddress, // must match user's active address.
-      value: ethers.utils.parseEther(ethValue).toHexString(),
-      data: data,
-      chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-    };
-    await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-      this.cancelResponse = txHash;
-    }, (error: any) => {
-      this.cancelResponse = error;
-    });
-    return this.cancelResponse;
+    if (this.userWallet !== null) { 
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.cancelResponse = txHash;
+        }, (error: any) => {
+          this.cancelResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.cancelResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.cancelResponse = data;
+        });
+      }
+      return this.cancelResponse;
+    }
   }
 
   getCurrentBlock()  {

@@ -423,11 +423,11 @@ export class CreateAssetsComponent implements OnInit {
                 });
               } else {
                 this.spinner.hide();
-                this.toast.error('There has been an error while trying to issue this asset, please try again.')
+                this.toast.error('Minting failed, please try again.')
               }
             }, err => {
               this.spinner.hide();
-              this.toast.error('There has been an error while trying to issue this asset, please try again.')
+              this.toast.error('Minting failed, please try again.')
             })
             form.value.reset;
         }, 15000);
@@ -436,8 +436,7 @@ export class CreateAssetsComponent implements OnInit {
           this.toast.error('There has been an error while trying to issue this asset, please try again.')
         }
       }, err => {
-        console.log(err);
-        this.error = err.error.data.error;
+        this.error = err;
         this.spinner.hide();
         this.toast.error(this.error)
         form.value.reset;
