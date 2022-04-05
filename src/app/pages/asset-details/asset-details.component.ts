@@ -262,6 +262,7 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     let currentBid = this.auction.highestBid;
+    console.log('bala', this.balance)
     if (+this.balance < +this.amount ) {
       this.toast.error('You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;

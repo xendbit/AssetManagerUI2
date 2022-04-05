@@ -59,10 +59,10 @@
                       <div class="">
                             <div class="container">
                                 <div class="col-head-otr" *ngIf="!accountFound">
-                                    <h2 style="font-size: 20px; line-height: 26px;" class="connect-heading heading-h2">Connect</h2>
+                                    <h6 style="font-size: 16px; line-height: 26px;" class="connect-heading heading-h6">Connect</h6>
                                 </div>
                                 <div class="col-lg-8 col-head-otr" *ngIf="accountFound">
-                                    <h2 style="font-size: 26px; line-height: 26px;" class="connect-heading heading-h2">Disconnect</h2>
+                                    <h6 style="font-size: 20px; line-height: 26px;" class="connect-heading heading-h6">Disconnect</h6>
                                 </div>
                               <hr>
                                 <span class="line"></span>
@@ -83,7 +83,7 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToWallectConnect()">
                                               <a class="box-inr box-2" >
                                                   <div class="icon-otr">
-                                                    <img class="icon" style="height: 120px; margin-left: 15%;" src="../assets/img/WalletConnect.svg" alt="icon">
+                                                    <img class="icon" style="height: 120px; margin-left: 15%;" src="../assets/img/walletconnect.png" alt="icon">
                                                   </div>
                                                   <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
                                               </a>
@@ -109,7 +109,7 @@
                                             <div *ngIf="accountFound && userWallet === 'WalletConnect'" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)=" disconnectFromWalletConnect()">
                                               <a class="box-inr box-2" >
                                                   <div class="icon-otr">
-                                                    <img class="icon" style="height: 120px;" src="../assets/img/WalletConnect.svg" alt="icon">
+                                                    <img class="icon" style="height: 88px; margin-left: 20%;" src="../assets/img/walletconnect.png" alt="icon">
                                                   </div>
                                                   <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
                                               </a>
@@ -202,12 +202,13 @@
                           </li>
                         </ul>
                         <span style="margin-left: 10px;" *ngIf="!accountFound">
-                          <h6 class="head-2 heading-h6" style="margin-left: 10px;">connect using any of the following wallets:</h6>
+                          <h6 class="head-2 heading-h6" style="margin-left: 10px; padding-bottom: 3px;">connect using any of the following wallets:</h6>
                           <div class="input-otr-2">
-                            <span class="input">
+                            <span class="input" style="padding: 10px 16px !important;">
                               <img (click)="connectToMetamask()" class="icon" style="height: 25px;" src="../assets/img/metamask.jpeg" alt="icon">
-                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 10px; margin-right: 10px;">Metamask</h6> </label>
-                              <img (click)="connectToWallectConnect()" class="icon" style="height: 80px;" src="../assets/img/WalletConnect.svg" alt="icon">
+                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 10px;">Metamask</h6> </label>
+                              <img (click)="connectToWallectConnect()" class="icon" style="margin-left: 10px; height: 50px;" src="../assets/img/walletconnect.png" alt="icon">
+                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 5px;">Walletconnect</h6> </label>
                             </span>
                           </div>
                           
