@@ -49,6 +49,8 @@ export class UserDashboardComponent implements OnInit {
   showProfileUpload = false;
   displayPicture;
   previewMedia: any;
+  facebook: string;
+  twitter: string;
   private errorMessage: string;
   private image: boolean;
   private previewArray:any = [];
@@ -56,7 +58,9 @@ export class UserDashboardComponent implements OnInit {
   private mediaType: any;
   private fileSize: number;
   private media: Array<ICreatorMedia> = [];
-
+  selectedFile: File;
+  showAboutMeModal = false;
+  showSocialsModal = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService,
     private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService,
               public toast: HotToastService) {
@@ -146,8 +150,12 @@ export class UserDashboardComponent implements OnInit {
     this.userActions.addSingle('global','success', 'Copied', 'Copied to clipboard!');
   }
 
-  uploadPicture(form) {
-
+  uploadPicture() {
+    this.mainService.postDisplayPicture(this.selectedFile)
+      // .subscribe(response => {
+      //   console.log(response);
+      // });
+    this.showProfileUpload = false;
   }
 
   clickedProfile() {
@@ -156,7 +164,7 @@ export class UserDashboardComponent implements OnInit {
 
   check(event: any) {
     const file = event.target.files[0]
-
+    this.selectedFile = file;
     this.errorMessage = '';
     this.fileSize = file.size / 1024 / 1024;
     if (this.fileSize > 10) {
@@ -189,4 +197,11 @@ export class UserDashboardComponent implements OnInit {
     this.media.push(binaryString);
   }
 
+  editAboutMe() {
+    this.showAboutMeModal = true;
+  }
+
+  clickedSocials() {
+    this.showSocialsModal = true;
+  }
 }

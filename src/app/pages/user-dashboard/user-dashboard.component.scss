@@ -392,3 +392,39 @@
   right: 20px;
 }
 
+.another-about-left {
+  posistion: relative
+}
+
+.edit-about-icon {
+  position: absolute;
+  background: rgb(50 84 161 / 50%);
+  color: #0a58ca;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  padding: 6px;
+  cursor: pointer;
+  left: 100px;
+  top: -15px;
+}
+
+.edit-social-icon {
+  position: absolute;
+  background: rgb(50 84 161 / 50%);
+  color: #0a58ca;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  padding: 6px;
+  cursor: pointer;
+  right: -149px;
+  top: -34px;
+}
+
+@media (max-width: 900px) {
+  .user-profile-otr {
+    padding-top: 100px
+  }
+}
+
