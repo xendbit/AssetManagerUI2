@@ -27,6 +27,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import {SidebarModule} from 'primeng/sidebar';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import {SidebarModule} from 'primeng/sidebar';
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule,
+    NgxUiLoaderModule,
     SidebarModule,
     RadioButtonModule,
   ],

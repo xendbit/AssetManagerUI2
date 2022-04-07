@@ -9,6 +9,7 @@ import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import { interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -43,16 +44,26 @@ export class UserDashboardComponent implements OnInit {
   coverImage: string = "/assets/img/default-cover.png";
   another: any [] = [];
   error: string;
+  userWallet: any;
 
-  constructor(public mainService: MainService, public metamaskService: MetamaskService,
-    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService) {
+  constructor(public mainService: MainService, 
+    public metamaskService: MetamaskService,
+    private clipboard: Clipboard, 
+    public userActions: UserActionsService, 
+    public auctionService: AuctionService,
+    private ngxService: NgxUiLoaderService) {
     }
 
   ngOnInit(): void {
+    this.ngxService.start();
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
+      this.ngxService.stop();
+    }, err => {
+      this.ngxService.stop()
+      console.log('err', err)
     })
   }
 
@@ -63,11 +74,34 @@ export class UserDashboardComponent implements OnInit {
   }
 
   checkConnection() {
-    this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.error = 'You are currently not connected to a wallet. Please Connect to your Metamask wallet account.'
-        return;
-      } else {
+    this.ngxService.start();
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.error = 'Please Connect to your Metamask wallet account.';
+            this.ngxService.stop();
+            return;
+          } else {
+            this.account = localStorage.getItem('account');
+            this.getMeta();
+            this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+              if (res !== null) {
+                this.artworks = res;
+                this.categories = this.artworks.map(item => item.category)
+                .filter((value, index, self) => self.indexOf(value) === index);
+                this.ngxService.stop();
+              } else {
+                this.ngxService.stop();
+              }
+            }, err => {
+              this.ngxService.stop();
+            })
+          }
+        })
+      }
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.account = localStorage.getItem('account');
         this.getMeta();
         this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
@@ -75,10 +109,15 @@ export class UserDashboardComponent implements OnInit {
             this.artworks = res;
             this.categories = this.artworks.map(item => item.category)
             .filter((value, index, self) => self.indexOf(value) === index);
+            this.ngxService.stop();
+          } else {
+            this.ngxService.stop();
           }
+        }, err => {
+          this.ngxService.stop();
         })
       }
-    })
+    }
   }
 
 
@@ -100,6 +139,8 @@ export class UserDashboardComponent implements OnInit {
         this.totalItems = res.totalItems
         this.totalPages = res.totalPages
       }
+    }, err => {
+      this.ngxService.stop();
     })
   }
 
@@ -107,8 +148,6 @@ export class UserDashboardComponent implements OnInit {
     this.artworks = this.artworks.filter(item => {
       return item.category === category;
     });
-    // this.artworks = this.artworkArray;
-    // console.log('done')
   }
 
   loadMore(page?, count?) {
