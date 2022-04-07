@@ -16,6 +16,7 @@ import { networkChains } from 'src/app/core/config/main.config.const';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -69,13 +70,14 @@ export class AssetDetailsComponent implements OnInit {
   selectedCountry: any;
   tokenId: any;
   usdValue: any;
+  userWallet: any;
 
   constructor(private router: Router,
     public activatedRoute: ActivatedRoute,
     public metamaskService: MetamaskService,
     public mainService: MainService,
     public userActions: UserActionsService,
-    private spinner: NgxSpinnerService,
+    private ngxService: NgxUiLoaderService,
     private auctionService: AuctionService,
     public toast: HotToastService,
     public paymentService: PaymentService) {
@@ -94,6 +96,7 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
+    this.ngxService.start();
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
@@ -164,6 +167,7 @@ export class AssetDetailsComponent implements OnInit {
         this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
           if (res === 'Auction has ended') {
             this.hasActiveAuction = false;
+            this.ngxService.stop();
           } else {
             this.hasActiveAuction = true;
             this.auction = res;
@@ -190,23 +194,46 @@ export class AssetDetailsComponent implements OnInit {
                 this.auctionValue = res['USD'] * this.auction.highestBid;
                 this.sellPriceMet = false;
               }
+            }, err => {
+              this.ngxService.stop();
             })
             this.setCountDown(this.auction.endDate);
+            this.ngxService.stop();
           }
         }, err => {
           console.log('this is error')
         })
+      } else {
+        this.ngxService.stop();
       }
     })
   }
 
   checkConnection() {
-    this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.accountFound = false;
-        this.error = 'Please connect your metamask wallet account to bid on this asset.'
-        return;
-      } else {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+            this.error = 'Please Connect to your Metamask wallet account.'
+            return;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+            this.metamaskService.getBalance().subscribe(response => {
+              this.balance = response['data'];
+            })
+            if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+              this.owner = true;
+              if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                this.visible = true;
+              }
+            }
+          }
+        })
+      }
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
         this.metamaskService.getBalance().subscribe(response => {
@@ -219,7 +246,7 @@ export class AssetDetailsComponent implements OnInit {
           }
         }
       }
-    })
+    }
   }
 
   setCountDown(date) {
@@ -262,7 +289,6 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     let currentBid = this.auction.highestBid;
-    console.log('bala', this.balance)
     if (+this.balance < +this.amount ) {
       this.toast.error('You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
@@ -279,14 +305,14 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     this.checkConnection();
-    this.spinner.show();
+    this.ngxService.start();
     if (+this.amount >= this.auction.sellNowPrice) {
       this.metBuyNow = true;
       this.sellPriceMet = true;
     }
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
-        this.spinner.hide();
+        this.ngxService.stop();
         this.toast.error('Bid cancelled');
         return;
       }
@@ -298,7 +324,7 @@ export class AssetDetailsComponent implements OnInit {
           if (data === 'Auction has ended') {
             this.hasActiveAuction = false;
           }
-          this.spinner.hide();
+          this.ngxService.stop();
           this.toast.success('Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
@@ -308,9 +334,10 @@ export class AssetDetailsComponent implements OnInit {
                   this.visible = true;
                 }
               }
-              this.spinner.hide();
+              this.ngxService.stop();
               this.ngOnInit();
             }, err => {
+              this.ngxService.stop();
               this.toast.success('There has been an error, please try again.');
               return;
             })
@@ -318,7 +345,7 @@ export class AssetDetailsComponent implements OnInit {
         })
       }, 25000);
       }, err => {
-        this.spinner.hide();
+        this.ngxService.stop();
     })
 
   }
@@ -335,7 +362,7 @@ export class AssetDetailsComponent implements OnInit {
       return;
     }
     this.checkConnection();
-    this.spinner.show();
+    this.ngxService.start();
     this.metamaskService.getCurrentBlock().subscribe(res => {
       this.currentBlock = res['data'];
       let startDate = new Date(auction.value.startDate);
@@ -356,27 +383,29 @@ export class AssetDetailsComponent implements OnInit {
           this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
             this.toast.success( 'Auction has been started for this asset')
             this.visible = false;
-            this.spinner.hide();
+            this.ngxService.stop();
             this.router.navigate(['/profile']).then(() => {
               window.location.reload();
             });;
         }, err =>  {
-          this.spinner.hide();
+          this.ngxService.stop();
         })
       }, 15000)
       }, err => {
-        this.spinner.hide()
+        this.ngxService.stop()
       })
     }, err => {
-      this.spinner.hide()
+      this.ngxService.stop()
     })
   }
 
   withdraw() {
-    this.spinner.show();
+    this.ngxService.start();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
       // console.log('this is res', res)
-      this.spinner.hide();
+      this.ngxService.stop();
+    }, err => {
+      this.ngxService.stop();
     })
   }
 
@@ -413,14 +442,14 @@ export class AssetDetailsComponent implements OnInit {
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
           this.toast.error('Please make sure all fields are completed and correct.')
-          this.spinner.hide();
+          this.ngxService.stop();
         this.displayOverlay = true;
       }
-      this.spinner.show();
+      this.ngxService.start();
       this.mainService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
         country, zipCode, state, city, street, houseNumber).subscribe(res => {
         if (res['status'] === 'success') {
-          this.spinner.hide();
+          this.ngxService.stop();
           this.toast.success('Buyer has been registered successfully!');
           this.displayOverlay = false;
           this.checkBuyer();
@@ -428,7 +457,7 @@ export class AssetDetailsComponent implements OnInit {
         }
       }, err => {
         this.error = err.error.data.error;
-        this.spinner.hide();
+        this.ngxService.stop();
         this.toast.error(this.error);
         this.displayOverlay = false;
         this.checkBuyer();
@@ -437,7 +466,6 @@ export class AssetDetailsComponent implements OnInit {
 
     continuePayment() {
       this.selectedCountry = this.selectedCountry.name;
-      console.log('sel', this.sellNowValue)
       if (this.billingAddress === undefined || this.billingAddress === '') {
         this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
         return;
@@ -455,6 +483,8 @@ export class AssetDetailsComponent implements OnInit {
           this.elementsOptions.clientSecret = pi.client_secret;
           this.payId = pi.id;
           this.paying = true;
+        }, err => {
+          console.log('err', err)
         });
       }
     }
@@ -469,6 +499,8 @@ export class AssetDetailsComponent implements OnInit {
     '090332323323', 'djskd767'
     ).subscribe((res: any) => {
       console.log('res', res)
+    }, err => {
+      console.log(' err', err)
     })
   }
 

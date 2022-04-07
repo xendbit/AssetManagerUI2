@@ -92,7 +92,6 @@ export class MetamaskService {
         });
   
         this.chainId = parseInt(localStorage.getItem('currentChainId'));
-        console.log('chain', localStorage.getItem('currentChainId'))
         this.connector.on("session_update", (error, payload) => {
           if (error) {
             throw error;
