@@ -1,4 +1,6 @@
+import {HttpClient} from '@angular/common/http';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
@@ -24,7 +26,9 @@ export class HeaderComponent implements OnInit {
   reduceOpacity = false;
   userWallet: any;
   displaySidebar: boolean = false;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
+  darkMode$ = this.darkModeService.darkMode$;
+
+  constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
@@ -48,6 +52,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  onToggle(): void {
+    this.darkModeService.toggle();
+  }
+
   disconnectFromMetamask() {
     this.displaySidebar = false;
     this.metamaskService.disconnectFromClient();
@@ -66,6 +74,9 @@ export class HeaderComponent implements OnInit {
     this.metamaskService.tryWalletConnect();
   }
 
+  toggleDark() {
+    this
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {

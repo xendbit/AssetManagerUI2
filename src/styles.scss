@@ -23157,6 +23157,7 @@ html {
     margin: 0 auto 3rem auto;
     box-shadow: 4px 5px 9px -1px rgb(0 0 0 / 20%);
     padding: 2px 2px 1.5rem;
+    min-height: 415px;
   }
 
   @media (max-width: 991px) {
@@ -29246,4 +29247,40 @@ html {
 
 .hot-toast-bar-base {
   max-width: 80% !important;
+}
+
+body:not(.dark-mode-preloading) {
+  transition: all 0.3s linear;
+}
+
+body.dark-mode {
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+body.light-mode {
+  background-color: #FFFFFF;
+  color: #2d3436;
+}
+
+
+body.dark-mode .explore-artwork .container-fluid .explore-artwork-inr .row-custom-main .tab-content .row-custom-inr .col-otr .col-inr .box-head {
+  color: #F2F2F2;
+}
+
+body.dark-mode .navbar-main .container-fluid .navbar-inr .navigation-otr .navigation-inr .nav-li .nav-a {
+  color: #F2F2F2;
+}
+
+body.dark-mode .heading-otr .heading {
+  color: #F2F2F2 !important;
+}
+
+body.dark-mode .timer-otr {
+  color: #F2F2F2;
+}
+
+body.dark-mode .btn-outline1 {
+  color: #F2F2F2;
+  border-color: #FFFFFF;
 }
