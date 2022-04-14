@@ -50,18 +50,18 @@
                     </div>
                 </div>
                 <span class="line"></span>
-                <div class="row row-custom-main" >
-                    <div id="tab-1" class="tab-content active">
+                <div class="row row-custom-main" (scroll)="onScroll($event)">
+                    <div id="tab-1" class="tab-content active" >
                         <div class="row row-custom-inr">
-                          <div class="col-otr col-md-3" *ngFor="let item of artworks; trackBy: byId;">
+                          <div class="col-otr col-md-3" *ngFor="let item of artworks; trackBy: byId;" #item>
                               <app-nftcard [artwork]="item" [parentPage]="parentPage" > </app-nftcard>
                           </div>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-lg-12 col-btn-otr" *ngIf="this.currentPage < this.totalPages">
-                            <div class="col-btn-inr">
+                            <div class="col-btn-inr" >
                                 <a (click)="loadMore()" class="btn-outline1 load-more">Load More</a>
                             </div>
                         </div>
