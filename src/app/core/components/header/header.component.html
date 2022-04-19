@@ -42,9 +42,9 @@
                                 <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                 </li>
-                                <li class="dropdown-li" >
+                                <!-- <li class="dropdown-li" >
                                     <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
-                                </li>
+                                </li> -->
                                 <!-- <li class="dropdown-li" >
                                     <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
                                 </li> -->
@@ -71,18 +71,18 @@
                                             Click to disconnect your wallet.
                                         </p> -->
                                         <div class="row row-boxes" *ngIf="!accountFound">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToMetamask()">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" id="metamask" (click)="connectToMetamask()">
                                                 <a class="box-inr box-2" >
                                                     <div class="icon-otr">
-                                                        <img class="icon" style="height: 48px; margin-left: 39%;" src="../assets/img/metamask.jpeg" alt="icon">
+                                                        <img class="icon" style="height: 48px; margin-left: 39%;" src="./assets/img/metamask.jpeg" alt="icon">
                                                     </div>
                                                     <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
                                                 </a>
                                             </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToWallectConnect()">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" id="walletconnect" (click)="connectToWallectConnect()">
                                               <a class="box-inr box-2" >
                                                   <div class="icon-otr">
-                                                    <img class="icon" style="height: 120px; margin-left: 15%;" src="../assets/img/walletconnect.png" alt="walletconnect">
+                                                    <img class="icon" style="height: 120px; margin-left: 23%;" src="./assets/img/walletconnect.png" alt="walletconnect">
                                                   </div>
                                                   <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
                                               </a>
@@ -97,18 +97,18 @@
                                           </div> -->
                                         </div>
                                         <div class="row row-boxes" *ngIf="accountFound">
-                                            <div *ngIf="accountFound && userWallet === 'Metamask'" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="disconnectFromMetamask()">
+                                            <div *ngIf="accountFound && userWallet === 'Metamask'" id="disconnectMetamask" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="disconnectFromMetamask()">
                                                 <a class="box-inr box-2" >
                                                     <div class="icon-otr">
-                                                        <img class="icon" style="height: 28px; margin-left: 39%;" src="../assets/img/metamask.jpeg" alt="icon">
+                                                        <img class="icon" style="height: 28px; margin-left: 39%;" src="./assets/img/metamask.jpeg" alt="icon">
                                                     </div>
                                                     <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
                                                 </a>
                                             </div>
-                                            <div *ngIf="accountFound && userWallet === 'WalletConnect'" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)=" disconnectFromWalletConnect()">
+                                            <div *ngIf="accountFound && userWallet === 'WalletConnect'" id="disconnectWalletConnect" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)=" disconnectFromWalletConnect()">
                                               <a class="box-inr box-2" >
                                                   <div class="icon-otr">
-                                                    <img class="icon" style="height: 88px; margin-left: 20%;" src="../assets/img/walletconnect.png" alt="walletconnect">
+                                                    <img class="icon" style="height: 88px; margin-left: 20%;" src="./assets/img/walletconnect.png" alt="walletconnect">
                                                   </div>
                                                   <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
                                               </a>
@@ -192,9 +192,9 @@
                                   <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                   </li>
-                                  <li class="dropdown-li" >
+                                  <!-- <li class="dropdown-li" >
                                       <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
-                                  </li>
+                                  </li> -->
                                   <!-- <li class="dropdown-li" >
                                       <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
                                   </li> -->
@@ -202,11 +202,11 @@
                               </label>
                             </li>
                             <li *ngIf="accountFound">
-                              <button *ngIf="accountFound && userWallet === 'Metamask'" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
-                                  <a (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                              <button *ngIf="accountFound && userWallet === 'Metamask'" class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a id="disconnectMetamask" (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
-                              <button *ngIf="accountFound && userWallet === 'WalletConnect'" class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
-                                <a (click)=" disconnectFromWalletConnect()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                              <button *ngIf="accountFound && userWallet === 'WalletConnect'" class="btn-outline1 btn-wallet" id="connect-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                <a id="disconnectWalletConnect" (click)=" disconnectFromWalletConnect()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
                           </li>
                         </ul>
@@ -214,10 +214,10 @@
                           <h6 class="head-2 heading-h6" style="margin-left: 10px; padding-bottom: 3px;">connect using any of the following wallets:</h6>
                           <div class="input-otr-2">
                             <span class="input" style="padding: 10px 16px !important;">
-                              <img (click)="connectToMetamask()" class="icon" style="height: 25px;" src="../assets/img/metamask.jpeg" alt="icon">
-                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 10px;">Metamask</h6> </label>
-                              <img (click)="connectToWallectConnect()" class="icon" style="margin-left: 10px; height: 50px;" src="../assets/img/walletconnect.png" alt="walletconnect">
-                              <label (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 5px;">Walletconnect</h6> </label>
+                              <img id="metamask" (click)="connectToMetamask()" class="icon" style="height: 25px;" src="./assets/img/metamask.jpeg" alt="icon">
+                              <label id="metamask" (click)="connectToMetamask()"> <h6 class="head-2 heading-h6" style="margin-left: 10px;">Metamask</h6> </label>
+                              <img id="WalletConnect" (click)="connectToWallectConnect()" class="icon" style="margin-left: 10px; height: 50px;" src="./assets/img/walletconnect.png" alt="walletconnect">
+                              <label id="WalletConnect" (click)="connectToWallectConnect()"> <h6 class="head-2 heading-h6" style="margin-left: 5px;">Walletconnect</h6> </label>
                             </span>
                           </div>
 

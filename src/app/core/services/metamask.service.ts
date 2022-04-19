@@ -36,7 +36,7 @@ export class MetamaskService {
   userWallet: any;
 
   constructor(
-    public httpClient: HttpClient, 
+    public httpClient: HttpClient,
     public platform: Platform,
     public userActions: UserActionsService) {
     this.getContractAddress().subscribe(data => {
@@ -90,14 +90,13 @@ export class MetamaskService {
           bridge: "https://bridge.walletconnect.org", // Required
           qrcodeModal: QRCodeModal,
         });
-  
+
         this.chainId = parseInt(localStorage.getItem('currentChainId'));
-        console.log('chain', localStorage.getItem('currentChainId'))
         this.connector.on("session_update", (error, payload) => {
           if (error) {
             throw error;
           }
-        
+
           // Get updated accounts and chainId
           const { accounts, chainId } = payload.params[0];
           console.log('acc', accounts)
@@ -290,7 +289,7 @@ export class MetamaskService {
     console.log('params', tokenId, auctionId, bidAmount, this.contractAddress)
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     const ethValue: string = String(bidAmount); // 0 BNB
-    if (this.userWallet !== null) { 
+    if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
           nonce: '0x00',
@@ -337,7 +336,7 @@ export class MetamaskService {
     this.contractAddress = localStorage.getItem('contractAddress');
     const data: string = yFace.encodeFunctionData("endBid", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
-    if (this.userWallet !== null) { 
+    if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
           nonce: '0x00', // ignored by MetaMask
@@ -443,7 +442,7 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("startAuction", [tokenId, auctionId, startBlock, endBlock, currentBlock, snp, mb ]);
     const ethValue = "0"; // 0 BNB
-    if (this.userWallet !== null) { 
+    if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
           nonce: '0x00', // ignored by MetaMask
@@ -490,7 +489,7 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(baseABI);
     const data: string = yFace.encodeFunctionData("withdraw", [tokenId, auctionId ]);
     const ethValue = "0"; // 0 BNB
-    if (this.userWallet !== null) { 
+    if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
           nonce: '0x00', // ignored by MetaMask
@@ -537,7 +536,7 @@ export class MetamaskService {
     let yFace = new ethers.utils.Interface(this.bidResponse);
     const data: string = yFace.encodeFunctionData("cancelAuction", [tokenId, auctionId ]);
     const ethValue = "0.1"; // 0 BNB
-    if (this.userWallet !== null) { 
+    if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         const transactionParameters = {
           nonce: '0x00', // ignored by MetaMask

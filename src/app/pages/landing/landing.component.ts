@@ -6,6 +6,7 @@ import { MainService } from 'src/app/core/services/main.service';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { ILandingData } from './landing.interface';
 import {  NgForm } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   templateUrl: './landing.component.html',
@@ -151,11 +152,13 @@ export class LandingComponent implements OnInit {
     ]
   };
 
-  constructor(public mainService: MainService, public metamaskService: MetamaskService, private spinner: NgxSpinnerService) {
+  constructor(public mainService: MainService, 
+    public metamaskService: MetamaskService, 
+    private ngxService: NgxUiLoaderService) {
    }
 
   ngOnInit(): void {
-    this.spinner.show();
+    this.ngxService.start();
     this.mainService.getLanding().subscribe((res: any) => {
       this.landingData = res;
       this.landingData.tokenSection.tokenAllocationData.map((token) => {
@@ -172,7 +175,7 @@ export class LandingComponent implements OnInit {
     this.mainService.getNavButtons().subscribe(res => {
       this.navButtons = res;
     });
-    this.spinner.hide();
+    this.ngxService.stop();
   }
 
   sendData(contactForm: NgForm) {
