@@ -10,13 +10,6 @@
                     <a href="./" class="logo-inr">
                         <img  class="logo" src="{{headerData.logoPath}}">
                     </a>
-                  <input
-                    id="darkMode"
-                    type="checkbox"
-                    [checked]="darkMode$ | async"
-                    (change)="onToggle()"
-                    class="toggle"
-                  />
                 </div>
                 <!-- <div class="head-otr" >
                     <h1 id="logoText" class="heading-h1 heading titleGreathorned">
@@ -132,7 +125,17 @@
                     <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
                     <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                 </div>
-
+               <input
+                 id="darkMode"
+                 type="checkbox"
+                 [checked]="darkMode$ | async"
+                 (change)="onToggle()"
+                 class="toggle"
+               />
+               <label class="toggle-label" for="darkMode">
+                 <i class="pi pi-moon sun"></i>
+                 <i class="pi pi-sun moon"></i>
+               </label>
                 <div class="burger-menu" style="z-index: 0 !important;">
                     <input *ngIf="!displaySidebar" (click)="displaySidebar = true" id="burger" type="checkbox" />
                     <label for="burger">

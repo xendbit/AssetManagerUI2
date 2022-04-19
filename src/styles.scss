@@ -14,7 +14,7 @@ html {
 .p-carousel-items-content {
   overflow: hidden;
   width: 100% !important;
-  padding-bottom: 3rem;
+  padding-bottom: 0rem;
 }
 
 
@@ -22634,7 +22634,7 @@ html {
 
   .explore-artwork {
     overflow: hidden;
-    padding: 96px 0 128px 0;
+    padding: 6px 0 28px 0 !important;
   }
 
   @media (max-width: 767px) {
@@ -29283,4 +29283,72 @@ body.dark-mode .timer-otr {
 body.dark-mode .btn-outline1 {
   color: #F2F2F2;
   border-color: #FFFFFF;
+}
+
+body.dark-mode .footer-main {
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+body.dark-mode .footer-main .container-fluid .row-custom .col-nav-otr .col-nav-inr .nav-head {
+  color: #F2F2F2;
+}
+
+body.dark-mode .footer-main .container-fluid .row-custom .col-nav-otr .col-nav-inr .nav-ul .nav-li .nav-a {
+  display: inline;
+  color: #dfe6e9;
+  transition: 0.3s;
+}
+
+body.dark-mode .footer-main .container-fluid .row-custom .col-nav-otr .col-nav-inr .nav-ul .nav-li .nav-a:hover {
+  color: #2196F3;
+  transition: 0.3s;
+}
+
+body.dark-mode .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .bid-head {
+  color: #f2f2f2 !important;
+}
+
+body.dark-mode .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details {
+  background-color: #5A5A5A !important;
+}
+
+body.dark-mode .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .bid-details .boxes-main .bid-main {
+  background-color: grey !important;
+}
+
+body.dark-mode .create-pb {
+  color: #BBBBBB;
+}
+
+body.dark-mode .auction-main {
+  background-color: grey !important;
+}
+body.dark-mode .minutes-p, body.dark-mode .hours-p {
+  color: #F2F2F2 !important;
+}
+
+body.dark-mode #amount {
+  background-color: grey !important;
+}
+
+body.dark-mode .p-panel .p-panel-content, body.dark-mode .p-panel .p-panel-header, body.dark-mode .activity-details {
+  border: none;
+  background: #2c3334 !important;
+}
+
+body.dark-mode .activity-details .place-bid-main, .panel-header {
+  background-color: #5A5A5A !important;
+}
+
+body.dark-mode .body-sb, body.dark-mode .body-m, body.dark-mode .p-panel-title, body.dark-mode #contractAddress, body.dark-mode .bid {
+  color: #f2f2f2 !important;
+}
+
+body.dark-mode .explore-artwork .container-fluid .explore-artwork-inr .teb-main .tab-otr .tab-inr .tabs .tab-link .tab-p {
+  background-color:  #666 !important;
+}
+
+body.dark-mode .current-bid-container {
+  background-color: #666;
 }
