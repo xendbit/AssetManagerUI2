@@ -20,6 +20,7 @@ export class FooterComponent implements OnInit {
   constructor(public mainService: MainService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.changeLogo()
   }
 
 
@@ -33,8 +34,16 @@ export class FooterComponent implements OnInit {
         //   this.buttonsData = this.buttonsInfo;
         // }
         this.spinner.hide();
-    }   
-   
+    }
+
   }
 
+  changeLogo() {
+    const darkState = localStorage.getItem('dark-mode');
+    if (darkState === 	'{"darkMode":false}') {
+      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+    } else {
+      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+    }
+  }
 }

@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   userWallet: any;
   displaySidebar: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
-
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
@@ -50,12 +49,22 @@ export class HeaderComponent implements OnInit {
         this.account = localStorage.getItem('account');
       }
     }
+    this.changeLogo();
   }
 
   onToggle(): void {
     this.darkModeService.toggle();
+    this.changeLogo();
   }
 
+  changeLogo() {
+   const darkState = localStorage.getItem('dark-mode');
+   if (darkState === 	'{"darkMode":false}') {
+     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+   } else {
+     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+   }
+  }
   disconnectFromMetamask() {
     this.displaySidebar = false;
     this.metamaskService.disconnectFromClient();
@@ -74,9 +83,6 @@ export class HeaderComponent implements OnInit {
     this.metamaskService.tryWalletConnect();
   }
 
-  toggleDark() {
-    this
-  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['headerInfo']) {
         if (this.headerInfo !== undefined) {
