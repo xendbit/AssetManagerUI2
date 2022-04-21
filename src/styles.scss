@@ -29369,3 +29369,28 @@ body.dark-mode #connectWallet {
 body.dark-mode .dropdown-otr {
   background-color: #585858 !important;
 }
+
+body.dark-mode .p-steps .p-steps-item .p-menuitem-link {
+    background-color: #2d3436;
+}
+
+body.dark-mode .p-steps .p-steps-item.p-highlight .p-steps-title {
+  color: #F2F2F2;
+}
+
+body.dark-mode .upload-area {
+  background-color: #808080
+}
+
+body.dark-mode #mediaTable .input-otr {
+  color: #F2F2F2
+}
+
+body.dark-mode .drop-zoon__paragraph {
+  background-color: #366CE3;
+  border: none;
+}
+
+body.dark-mode label input:checked + span, body.dark-mode label input + span:hover {
+  color: grey;
+}

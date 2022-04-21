@@ -3,7 +3,7 @@
         "blogGroup" : [
             {
                 "mainLink": "",
-                "image": "../assets/img/blog-details-img.jpg",
+                "image": "../assets/img/blogs/NIFTYROWplacementholder1.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -11,7 +11,7 @@
             },
             {
                 "mainLink": "",
-                "image": "../assets/img/blog-details-img.jpg",
+                "image": "../assets/img/blogs/NIFTYROWplacementholder2.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -19,7 +19,7 @@
             },
             {
                 "mainLink": "",
-                "image": "../assets/img/blog-details-img.jpg",
+                "image": "../assets/img/blogs/NIFTYROWplacementholder3.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -27,7 +27,7 @@
             },
             {
                 "mainLink": "",
-                "image": "../assets/img/blog-details-img.jpg",
+                "image": "../assets/img/blogs/NIFTYROWplacementholder4.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -35,13 +35,13 @@
             },
             {
                 "mainLink": "",
-                "image": "../assets/img/blog-details-img.jpg",
+                "image": "../assets/img/blogs/NIFTYROWplacementholder1.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
                 "body": "Nifty Row has been launched in a bid to boost the market for African Arts."
             }
-        
+
         ]
     }
 ]
