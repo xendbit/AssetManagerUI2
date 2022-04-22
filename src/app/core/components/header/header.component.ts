@@ -60,9 +60,9 @@ export class HeaderComponent implements OnInit {
   changeLogo() {
    const darkState = localStorage.getItem('dark-mode');
    if (darkState === 	'{"darkMode":false}') {
-     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+     this.headerInfo.logoPath = './assets/img/NiftyRow-logo.png';
    } else {
-     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+     this.headerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png';
    }
   }
   disconnectFromMetamask() {

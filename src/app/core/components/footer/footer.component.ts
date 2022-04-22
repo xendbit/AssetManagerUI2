@@ -41,9 +41,9 @@ export class FooterComponent implements OnInit {
   changeLogo() {
     const darkState = localStorage.getItem('dark-mode');
     if (darkState === 	'{"darkMode":false}') {
-      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+      this.footerInfo.logoPath = './assets/img/NiftyRow-logo.png';
     } else {
-      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+      this.footerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png';
     }
   }
 }
