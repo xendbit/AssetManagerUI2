@@ -725,3 +725,17 @@ label {
     }
   }
 }
+
+body.dark-mode #bidDetails {
+  background-color: #5a5a5a;
+}
+
+#amount {
+  width: 100%;
+  font-size: 20px;
+  text-align: left;
+  border-radius: 8px;
+  background-color: white;
+}
+
+

@@ -1,4 +1,6 @@
+import {HttpClient} from '@angular/common/http';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
@@ -24,7 +26,8 @@ export class HeaderComponent implements OnInit {
   reduceOpacity = false;
   userWallet: any;
   displaySidebar: boolean = false;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
+  darkMode$ = this.darkModeService.darkMode$;
+  constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
@@ -46,8 +49,22 @@ export class HeaderComponent implements OnInit {
         this.account = localStorage.getItem('account');
       }
     }
+    this.changeLogo();
   }
 
+  onToggle(): void {
+    this.darkModeService.toggle();
+    this.changeLogo();
+  }
+
+  changeLogo() {
+   const darkState = localStorage.getItem('dark-mode');
+   if (darkState === 	'{"darkMode":false}') {
+     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+   } else {
+     this.headerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+   }
+  }
   disconnectFromMetamask() {
     this.displaySidebar = false;
     this.metamaskService.disconnectFromClient();
