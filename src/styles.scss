@@ -29394,3 +29394,11 @@ body.dark-mode .drop-zoon__paragraph {
 body.dark-mode label input:checked + span, body.dark-mode label input + span:hover {
   color: grey;
 }
+
+.p-overlaypanel:after, .p-overlaypanel:before {
+  left: calc(var(--overlayArrowLeft, 0) + 4.25rem) !important;
+  }
+
+p-overlayPanel .connection {
+  z-index: 1001; transform-origin: center top; top: 59.8278px; left: 1053.58px !important; --overlayArrowLeft:83.0006px; transform: translateY(0px); opacity: 1
+}
