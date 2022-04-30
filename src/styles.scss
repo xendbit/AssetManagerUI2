@@ -29382,8 +29382,8 @@ body.dark-mode .upload-area {
   background-color: #808080
 }
 
-body.dark-mode #mediaTable .input-otr {
-  color: #F2F2F2
+body.dark-mode #mediaTable .input-otr, body.dark-mode .heading-h4, body.dark-mode .col-lg-6.col-right-otr, body.dark-mode h3.heading.heading-h3, body.dark-mode h4.head-2.heading-h4, body.dark-mode .num.heading-h5, body.dark-mode .about-head.heading-h5 {
+  color: #F2F2F2 !important;
 }
 
 body.dark-mode .drop-zoon__paragraph {
