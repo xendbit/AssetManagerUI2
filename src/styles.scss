@@ -29334,7 +29334,7 @@ body.dark-mode #amount {
 
 body.dark-mode .p-panel .p-panel-content, body.dark-mode .p-panel .p-panel-header, body.dark-mode .activity-details {
   border: none;
-  background: #2c3334 !important;
+  background: #5b6060 !important;
 }
 
 body.dark-mode .activity-details .place-bid-main, .panel-header {
@@ -29359,6 +29359,10 @@ body.dark-mode .input{
 
 body.dark-mode .p-inputtext {
 background-color: lightgray !important;
+}
+
+body.dark-mode .eth.heading-h5 {
+  color: #222222 !important;
 }
 
 body.dark-mode #connectWallet {
