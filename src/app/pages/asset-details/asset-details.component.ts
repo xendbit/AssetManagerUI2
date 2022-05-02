@@ -102,9 +102,9 @@ export class AssetDetailsComponent implements OnInit {
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.foundNetwork = (networkChains.find((res: any) => res.systemName === this.artwork.chain)|| 'BNB')
     // console.log('art', new Date(parseInt(this.artwork.dateIssued) * 1000))
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {

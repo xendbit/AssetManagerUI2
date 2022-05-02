@@ -5,23 +5,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         }],
         "description": "Description",
@@ -44,23 +44,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         }],
         "description": "Description",
@@ -82,23 +82,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/profile_holder.jpg",
+            "media": "./assets/img/card_holder.jpg",
             "mediaType": 0
         }],
         "description": "Description",
@@ -120,7 +120,7 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/profile_holder.jpg",
+            "image": "./assets/img/card_holder.jpg",
             "username": "Ndo"
         },
         "creator": {

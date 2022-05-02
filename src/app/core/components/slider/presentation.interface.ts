@@ -14,6 +14,7 @@ export interface IPresentation {
     bids: [{bidder: string, bid: number, auctionId: number}];
     isActive: boolean;
     owner: string;
+    chain?: string;
     sellNowPrice: number;
     title:string;
     subtitle?: string;
@@ -40,6 +41,7 @@ export interface IPresentation {
     price:number;
     currency:string;
     likes: number;
+    chain?: string;
     lastAuctionId: number;
     hasActiveAuction: boolean;
     symbol: string;

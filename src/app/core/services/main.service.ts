@@ -82,6 +82,7 @@ export class MainService {
             media: item.media[0]?.media,
             mediaType: 0
           },
+          chain: item.chain,
           isBidding: item.hasActiveAuction,
           gallery: item.media,
           description: item.description,
@@ -144,6 +145,7 @@ export class MainService {
             price: 0,
             currency: item.currency,
             likes: 0,
+            chain: item.chain,
             hasActiveAuction: item.hasActiveAuction,
             lastAuctionId: item.lastAuctionId,
             symbol: item.symbol,
@@ -191,6 +193,7 @@ export class MainService {
         gallery: item.media,
         description: item.description,
         price: 0,
+        chain: item.chain,
         currency: item.currency,
         likes: 0,
         hasActiveAuction: item.hasActiveAuction,
