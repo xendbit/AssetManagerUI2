@@ -6,6 +6,7 @@ import { HeaderComponent } from './header.component';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { NgxStripeModule } from 'ngx-stripe';
+import * as navbarJson from 'src/assets/data/navbar.json';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -26,6 +27,7 @@ describe('HeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    component.headerInfo = navbarJson['default'][0];
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     fixture.detectChanges();

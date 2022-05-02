@@ -96,14 +96,15 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
+    // console.log('try', this.metamaskService.createWalletForBuyer().buyerAddress)
     this.ngxService.start();
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
     this.auction = JSON.parse(localStorage.getItem('auctionData'));
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.foundNetwork = (networkChains.find((res: any) => res.systemName === this.artwork.chain)|| 'BNB')
     // console.log('art', new Date(parseInt(this.artwork.dateIssued) * 1000))
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
@@ -437,7 +438,10 @@ export class AssetDetailsComponent implements OnInit {
       const city = register.value.city;
       const street = register.value.street;
       const houseNumber = register.value.houseNumber;
-      const blockchainAddress = this.account;
+      let blockchainAddress = this.account;
+      if (this.accountFound !== true) {
+        blockchainAddress = this.metamaskService.createWalletForBuyer().buyerAddress;
+      }
       if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined ||
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
