@@ -102,19 +102,19 @@ export class CreateAssetsComponent implements OnInit {
     this.mediaType = [];
     this.activeIndex = 0;
     this.items = [{
-      label: 'Select media and category ',
+      label: 'Media & Category ',
       command: (event: any) => {
           this.activeIndex = 0;
       }
     },
     {
-        label: 'Enter description',
+        label: 'Enter Description',
         command: (event: any) => {
             this.activeIndex = 1;
         }
     },
     {
-        label: 'Confirm and mint',
+        label: 'Confirm & Mint',
         command: (event: any) => {
             this.activeIndex = 2;
         }

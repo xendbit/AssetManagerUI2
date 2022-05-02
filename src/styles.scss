@@ -2808,7 +2808,7 @@ html {
   -------------------------------------------*/
 
   .footer-main {
-    padding: 128px 0;
+    padding: 128px 0 100px 0;
     background-color: #F2F2F2;
     position: relative;
     overflow: hidden;
@@ -29334,7 +29334,7 @@ body.dark-mode #amount {
 
 body.dark-mode .p-panel .p-panel-content, body.dark-mode .p-panel .p-panel-header, body.dark-mode .activity-details {
   border: none;
-  background: #2c3334 !important;
+  background: #5b6060 !important;
 }
 
 body.dark-mode .activity-details .place-bid-main, .panel-header {
@@ -29361,6 +29361,10 @@ body.dark-mode .p-inputtext {
 background-color: lightgray !important;
 }
 
+body.dark-mode .eth.heading-h5 {
+  color: #222222 !important;
+}
+
 body.dark-mode #connectWallet {
   background-color: #ffa7a7 !important;
   border-radius: 9px;
@@ -29382,8 +29386,8 @@ body.dark-mode .upload-area {
   background-color: #808080
 }
 
-body.dark-mode #mediaTable .input-otr {
-  color: #F2F2F2
+body.dark-mode #mediaTable .input-otr, body.dark-mode .heading-h4, body.dark-mode .col-lg-6.col-right-otr, body.dark-mode h3.heading.heading-h3, body.dark-mode h4.head-2.heading-h4, body.dark-mode .num.heading-h5, body.dark-mode .about-head.heading-h5 {
+  color: #F2F2F2 !important;
 }
 
 body.dark-mode .drop-zoon__paragraph {
@@ -29393,4 +29397,12 @@ body.dark-mode .drop-zoon__paragraph {
 
 body.dark-mode label input:checked + span, body.dark-mode label input + span:hover {
   color: grey;
+}
+
+.p-overlaypanel:after, .p-overlaypanel:before {
+  left: calc(var(--overlayArrowLeft, 0) + 4.25rem) !important;
+  }
+
+p-overlayPanel .connection {
+  z-index: 1001; transform-origin: center top; top: 59.8278px; left: 1053.58px !important; --overlayArrowLeft:83.0006px; transform: translateY(0px); opacity: 1
 }
