@@ -504,4 +504,7 @@ export class AssetDetailsComponent implements OnInit {
     })
   }
 
+  getChain() {
+    return localStorage.getItem('currentChain');
+  }
 }
