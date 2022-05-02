@@ -296,14 +296,12 @@ export class CreateAssetsComponent implements OnInit {
           this.mediaType.push('image');
         }
         if ( /\.(mp4)$/i.test(file.name) === true  ) {
-          // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
           this.mp4 = true;
           this.previewMedia = file;
           this.previewArray.push({type: 'mp4', name: file.name, media: file})
           this.mediaType.push('mp4');
         }
         if ( /\.(mp3)$/i.test(file.name) === true  ) {
-          // this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
           this.mp3 = true;
           this.previewMedia = file;
           this.previewArray.push({type: 'mp3', name: file.name, media: file})
@@ -323,19 +321,18 @@ export class CreateAssetsComponent implements OnInit {
     this.media.push(binaryString);
    }
 
-  remove(index, name) {
+  remove(index, name, type) {
     if (index !== -1) {
       this.media.splice(index, 1);
-      this.previewArray.splice(index, 1)
       this.mediaType.splice(index, 1)
-      this.previewArray.find(item => {
-        if (item.type !== 'image') {
-          this.preview = undefined;
-        } else {
-          this.previewMedia = undefined;
-        }
-        item.type === 'image'
-      })
+      const compareIndex = this.previewArray.findIndex(hey => hey.name === name)
+      if (index === compareIndex && type === 'image') {
+        this.previewArray.splice(index, 1)
+        this.preview = undefined;
+      }  else if (index === compareIndex && type === 'mp3' || index === compareIndex && type === 'mp4') {
+        this.previewArray.splice(index, 1)
+        this.previewMedia = undefined;
+      }
     }
   }
 

@@ -41,15 +41,15 @@ export class UserDashboardComponent implements OnInit {
   currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number;
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
   displayImage: string = "/assets/img/user-profile-default-image.png";
-  coverImage: string = "/assets/img/default-cover.png";
+  coverImage: string = "/assets/img/profile_holder.jpg";
   another: any [] = [];
   error: string;
   userWallet: any;
 
-  constructor(public mainService: MainService, 
+  constructor(public mainService: MainService,
     public metamaskService: MetamaskService,
-    private clipboard: Clipboard, 
-    public userActions: UserActionsService, 
+    private clipboard: Clipboard,
+    public userActions: UserActionsService,
     public auctionService: AuctionService,
     private ngxService: NgxUiLoaderService) {
     }

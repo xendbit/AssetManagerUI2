@@ -6,13 +6,13 @@
     "socials": {"twitterUrl": "www.twitter.com/xendbit", "facebookUrl": "www.facebook.com/xendbit",
     "youtubeUrl": "www.youtube.com/xendbit", "telegramUrl": "www.telegram.com/xendbit"},
     "followers": [{
-      "walletAddress": "0xd07dc4262...2430", 
-      "username": "odeny", 
+      "walletAddress": "0xd07dc4262...2430",
+      "username": "odeny",
       "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
     }],
     "following": [{
-      "walletAddress": "0xd07dc4262...2430", 
-      "username": "odeny", 
+      "walletAddress": "0xd07dc4262...2430",
+      "username": "odeny",
       "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
@@ -94,7 +94,7 @@
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
   "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "coverImage": "./assets/img/profile_holder.jpg",
   "webUrl": {"ur": "www.telegram.com/xendbit", "title": "telegram"},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
