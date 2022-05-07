@@ -23,10 +23,10 @@
                         <a routerLink= "/shore" class="nav-a body-sb" routerLinkActive="active"> Shore </a>
                       </li>
                         <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
-                            <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
+                            <a routerLink= "{{link.path}}" routerLinkActive="active" class="nav-a body-sb">{{link.title}} </a>
                             <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
                                 <li class="dropdown-li" *ngFor="let item of link.menu ">
-                                    <a routerLink="{{item.url}}"  routerLinkActive="active" class="dropdown-a body-sb">{{item.title}}</a>
+                                    <a routerLink="{{item.url}}" class="dropdown-a body-sb">{{item.title}}</a>
                                 </li>
                             </ul>
                         </li>
