@@ -8,12 +8,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -22,23 +22,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -59,23 +59,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -93,8 +93,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
@@ -109,12 +109,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -123,23 +123,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -160,23 +160,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -194,8 +194,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
@@ -210,12 +210,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -224,23 +224,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -261,23 +261,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -295,8 +295,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
@@ -311,12 +311,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -325,23 +325,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -362,23 +362,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -396,8 +396,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
@@ -412,12 +412,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -426,23 +426,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -463,23 +463,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -497,8 +497,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
@@ -513,12 +513,12 @@
     "followers": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "following": [{
       "walletAddress": "0xd07dc4262...2430", 
       "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "displayImage": "./assets/img/profile_holder.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -527,23 +527,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/profile_holder.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/profile_holder.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -564,23 +564,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/profile_holder.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/profile_holder.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -598,8 +598,8 @@
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": "121266"}],
   "isActive": true,
   "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+  "displayImage": "./assets/img/profile_holder.png",
+  "coverImage": "./assets/img/profile_holder.png",
   "webUrl": {"ur": "", "title": ""},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",

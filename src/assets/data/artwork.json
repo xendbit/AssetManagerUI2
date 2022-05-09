@@ -5,23 +5,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         }],
         "description": "Description",
@@ -34,7 +34,7 @@
         "sold": false,
         "name": "Beautyful",
         "tokenId": 939141,
-        "symbol": "Mine",
+        "symbol": "Nifty Row",
         "assetType": "digital",
         "type": "Artwork"
     },
@@ -44,23 +44,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         }],
         "description": "Description",
@@ -72,7 +72,7 @@
         "sold": false,
         "name": "Beautyful",
         "tokenId": 939141,
-        "symbol": "Mine",
+        "symbol": "Nifty Row",
         "assetType": "digital",
         "type": "Artwork"
     },
@@ -82,23 +82,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         }],
         "description": "Description",
@@ -110,7 +110,7 @@
         "sold": false,
         "name": "Beautyful",
         "tokenId": 939141,
-        "symbol": "Mine",
+        "symbol": "Nifty Row",
         "assetType": "digital",
         "type": "Artwork"
     },
@@ -120,23 +120,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         }],
         "description": "Description",
@@ -148,7 +148,7 @@
         "sold": false,
         "name": "Beautyful",
         "tokenId": 939141,
-        "symbol": "Mine",
+        "symbol": "Nifty Row",
         "assetType": "digital",
         "type": "Artwork"
     },
@@ -158,23 +158,23 @@
         "tags": ["art", "away"],
         "owner": {
             "id": "OGW",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo"
         },
         "creator": {
             "id": "Rew",
-            "image": "./assets/img/card_holder.jpg",
+            "image": "./assets/img/nifty_card.png",
             "username": "Ndo",
             "collections": [],
             "type": "Creator"
         },
         "featuredImage": {
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         },
         "isBidding": true,
         "gallery": [{
-            "media": "./assets/img/card_holder.jpg",
+            "media": "./assets/img/nifty_card.png",
             "mediaType": 0
         }],
         "description": "Description",
@@ -186,7 +186,7 @@
         "sold": false,
         "name": "Beautyful",
         "tokenId": 939141,
-        "symbol": "Mine",
+        "symbol": "Nifty Row",
         "assetType": "digital",
         "type": "Artwork"
     }
