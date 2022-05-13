@@ -12,7 +12,6 @@ import { ShoreComponent } from './shore/shore.component';
 @NgModule({
   declarations: [
     ShoreComponent,
-    // HeroComponent,
     CuratorsOfTheWeekComponent
   ],
   imports: [
@@ -22,7 +21,6 @@ import { ShoreComponent } from './shore/shore.component';
     PublicRoutingModule,
   ],
   exports: [
-    // HeroComponent
   ]
 })
 export class PublicModule { }
