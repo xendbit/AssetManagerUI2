@@ -404,9 +404,10 @@ export class MainService {
       if (this.presentationResponse) {
         observer.next(this.presentationResponse);
         observer.complete();
-
+        console.log('TRUE', this.presentationResponse);
       } else {
         this.presentationResponse =  presentationJson['default'][0];
+        console.log('FALSE', this.presentationResponse)
         observer.next(this.presentationResponse);
         observer.complete()
       }
