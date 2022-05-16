@@ -77,7 +77,7 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
-    path: 'shore',
+    path: 'home',
     loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   {

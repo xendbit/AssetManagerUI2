@@ -16,7 +16,7 @@ import { ShoreComponent } from './shore/shore.component';
   ],
   imports: [
     CommonModule,
-    AngularTiltModule,
+    // AngularTiltModule,
     CoreModule,
     PublicRoutingModule,
   ],
