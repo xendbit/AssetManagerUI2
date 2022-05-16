@@ -79,6 +79,7 @@ export class CreateAssetsComponent implements OnInit {
         numVisible: 1
     }
 ];
+  thumbnail: any;
 
   constructor( public mainService: MainService,
     private spinner: NgxSpinnerService,
@@ -91,6 +92,9 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mainService.toggleApproved(304432).subscribe((res:any) => {
+      console.log('response', res)
+    })
     this.ngxService.start()
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
@@ -290,8 +294,22 @@ export class CreateAssetsComponent implements OnInit {
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+          var imageReader = new FileReader();
+          imageReader.readAsDataURL(file);
+          imageReader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = async rs => {
+                // const img_height = rs.currentTarget['height'];
+                // const img_width = rs.currentTarget['width'];
+                this.thumbnail = await this.generateThumbnail(file, [1000, 1000]) 
+                console.log('hey', this.thumbnail)
+                console.log('bin', this.media)
+            };
+          };
           this.image = true;
           this.preview = file;
+
           this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
@@ -316,8 +334,37 @@ export class CreateAssetsComponent implements OnInit {
     }
   }
 
+  // Creates a thumbnail fitted insize the boundBox (w x h)
+  generateThumbnail(file, boundBox){
+    if (!boundBox || boundBox.length != 2){
+      throw "You need to give the boundBox"
+    }
+    var scaleRatio = Math.min(...boundBox) / Math.max(file.width, file.height)
+    var reader = new FileReader();
+    var canvas = document.createElement("canvas")
+    var ctx = canvas.getContext('2d');
+
+    return new Promise((resolve, reject) => {
+      reader.onload = (e: any) => {
+          var img = new Image();
+          img.onload = function(){
+              var scaleRatio = Math.min(...boundBox) / Math.max(img.width, img.height)
+              let w = img.width*scaleRatio
+              let h = img.height*scaleRatio
+              canvas.width = w;
+              canvas.height = h;
+              ctx.drawImage(img, 0, 0, w, h);
+              return resolve(canvas.toDataURL(file.type))
+          };
+          img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    })
+  }
+
   handleFile(event) {
     var binaryString = event.target.result;
+    console.log('media', binaryString)
     this.media.push(binaryString);
    }
 
@@ -370,13 +417,14 @@ export class CreateAssetsComponent implements OnInit {
     //   this.displayOverlay = true;
     //   return;
     // }
-    console.log('media', this.media)
     const imageIndex = this.media.findIndex((res: any) => res.includes('image'));
     const mediaIndex = this.media.findIndex((res: any) => res.includes('audio') || res.includes('video'))
     const newArr = [...this.media];
     var tmpOrder = this.media[imageIndex];
+    console.log('this is tmp', tmpOrder)
     this.media.splice(imageIndex, 1);
     this.media.splice(0, 0, tmpOrder);
+    console.log('media', this.media)
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
        this.toast.error('Please make sure you select a category.')
@@ -418,9 +466,12 @@ export class CreateAssetsComponent implements OnInit {
                 this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
                 // this.ngOnInit();
-                this.router.navigateByUrl('/profile').then(() => {
-                  window.location.reload();
-                });
+                this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
+                  console.log('response', res)
+                })
+                // this.router.navigateByUrl('/profile').then(() => {
+                //   window.location.reload();
+                // });
               } else {
                 this.ngxService.stop();
                 this.toast.error('Minting failed, please try again.')
