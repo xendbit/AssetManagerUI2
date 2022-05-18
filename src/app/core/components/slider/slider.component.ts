@@ -43,6 +43,10 @@ export class SliderComponent implements OnInit {
                 "id": "",
                 "category": "",
                 "tags": [],
+                "auctions": { "auctionId": "",
+                "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+                "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+                "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
                 "owner": {
                     "id": "",
                     "image": "",

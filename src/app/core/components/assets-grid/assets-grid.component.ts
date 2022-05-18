@@ -33,7 +33,7 @@ export class AssetsGridComponent implements OnInit {
       this.isLoaded = false;
       this.currentPage = this.currentPage + 1;
       if (this.currentPage < this.totalPages) {
-        this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
+        this.mainService.fetchOnlyApproved(this.currentPage, this.itemCount);
         this.isLoaded = true;
       }
     }
@@ -98,7 +98,7 @@ export class AssetsGridComponent implements OnInit {
   loadMore(e: any) {
     this.isLoaded = false;
     this.currentPage = this.currentPage + 1;
-    this.mainService.fetchArtWorkFromMain(this.currentPage, this.itemCount);
+    this.mainService.fetchOnlyApproved(this.currentPage, this.itemCount);
     this.isLoaded = true;
   }
 
