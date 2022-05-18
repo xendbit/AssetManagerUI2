@@ -203,7 +203,7 @@
                                                     <p id="noBid" *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
                                                 </div>
-                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
+                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime">
                                                     <p class="body-mb acution" *ngIf="currentTime  < auctionTime && !sellPriceMet">Auction Ending</p>
                                                     <div id="clock" class="timer" *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                         <div class="hours-main main" *ngIf="countdownDay > 0">
@@ -224,10 +224,9 @@
                                                             <!-- <p class="seconds-p-2 body-mb">Sec</p> -->
                                                         </div>
                                                     </div>
-
-                                                    <div id="clock" class="timer" *ngIf="currentTime >  auctionTime || sellPriceMet ">
-                                                        <p id="inActive" class="hours-p body-mb"> Auction Inactive</p>
-                                                    </div>
+                                                </div>
+                                                <div id="clock" class="timer" *ngIf="currentTime >  auctionTime || hasActiveAuction === false ">
+                                                  <p id="inActive" class="hours-p body-mb"> Auction Inactive</p>
                                                 </div>
                                             </div>
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
@@ -432,12 +431,12 @@
                             </div>
                             <div class="col-lg-6 col-right-otr" id="panel">
                                 <p-panel class="heading-h4 activity-head"  styleClass="ark-panel" header="Asset Details" [toggleable]="true">
-                                    <div class="row">
+                                    <div class="row" *ngIf="contractAddress">
                                         <div class="col-lg-6 col-right-otr">
                                             <span id="contractAddress" class="bid">Issuing Contract Address:</span>
                                         </div>
                                         <div class="col-lg-6 col-right-otr">
-                                            <a id="ownerUserName" class="user"> {{artwork.owner.username.substring(0, 4) + 'xxxxx' + artwork.owner.username.slice(artwork.owner.username.length - 4)}} </a>
+                                            <a id="ownerUserName" class="user"> {{contractAddress.substring(0, 4) + 'xxxxx' + contractAddress.slice(contractAddress.length - 4)}} </a>
                                         </div>
                                     </div>
                                     <div class="row">

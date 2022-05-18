@@ -67,6 +67,7 @@ export class MainService {
           id: item.id,
           category: item.category,
           tags: item.tags,
+          auctions: item.auctions,
           owner: {
             id: item.id,
             image: item.media[0]?.media,
@@ -103,7 +104,7 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction === true));
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
 
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
@@ -123,6 +124,7 @@ export class MainService {
             id: item.id,
             category: item.category,
             tags: item.tags,
+            auctions: item.auctions,
             assetType: item.assetType,
             owner: {
               id: item.id,
@@ -164,6 +166,62 @@ export class MainService {
     });
   }
 
+
+  fetchOnlyApproved(page: number, limit: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+      res['data']['items'].forEach((item) => {
+        this.dataStore.artworks.push({
+          id: item.id,
+          category: item.category,
+          tags: item.tags,
+          auctions: item.auctions,
+          owner: {
+            id: item.id,
+            image: item.media[0]?.media,
+            username: item.owner
+          },
+          creator: {
+            id: item.id,
+            image: item.media[0]?.media,
+            username: item.issuer,
+            type: item.type
+          },
+          featuredImage: {
+            media: item.media[0]?.media,
+            mediaType: 0
+          },
+          chain: item.chain,
+          isBidding: item.hasActiveAuction,
+          gallery: item.media,
+          description: item.description,
+          price: 0,
+          currency: item.currency,
+          likes: 0,
+          hasActiveAuction: item.hasActiveAuction,
+          lastAuctionId: item.lastAuctionId,
+          symbol: item.symbol,
+          name: item.name,
+          tokenId: parseInt(item.tokenId),
+          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          sold: item.sold,
+          assetType: item.assetType,
+          type: item.type
+        })
+     });
+      this.subjectNftMeta.next(res['data']['meta']);
+    })).subscribe(data => {
+
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
+
+    },err => {
+      this.subjectNftCard.next(artWorkJson['default']);
+    })
+  }
+
   fetchAssetsByOwnerId(account: string, page, limit) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -174,6 +232,7 @@ export class MainService {
         id: item.id,
         category: item.category,
         tags: item.tags,
+        auctions: item.auctions,
         owner: {
           id: item.id,
           image: item.media[0].media,
