@@ -1,14 +1,14 @@
 [
+  {
+    "name": "Artwork",
+    "value": "artwork"
+    },
     {
-      "name": "Digital and Curated",
-      "value": "artwork"
-      },
-      {
-          "name": "Musical",
-          "value": "musicRight"
-      },
-      {
-          "name": "Movies",
-          "value": "movieRight"
-      }
-  ]
+        "name": "Music",
+        "value": "musicRight"
+    },
+    {
+        "name": "Movies and Animations",
+        "value": "movieRight"
+    }
+]
