@@ -205,7 +205,7 @@ export class MainService {
           symbol: item.symbol,
           name: item.name,
           tokenId: parseInt(item.tokenId),
-          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          dateIssued: new Date(parseInt(item.dateIssued)),
           sold: item.sold,
           assetType: item.assetType,
           type: item.type
@@ -550,7 +550,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
+    return this.httpClient.get(`${baseUrl.mainUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
 
 }

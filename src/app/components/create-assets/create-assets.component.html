@@ -77,7 +77,6 @@
                           <div id="preview" *ngIf="this.preview !== undefined || this.previewMedia !== undefined" style=" margin: 0 auto;">
                             <div class="" *ngIf="this.preview?.type.includes('image') && this.preview?.size/1024/1024 <= 10">
                                 <img id="imagePreview" [ngfSrc]="preview" style="width: 27rem; margin: 0 auto; max-height: 20rem; border-radius: 10px; object-fit: cover;" alt="Preview Image" id="previewImage" class="drop-zoon__preview-image" draggable="false">
-                                <img src="{{thumbnail}}" style="width: 27rem; margin: 0 auto; max-height: 20rem; border-radius: 10px; object-fit: cover;">
                             </div>
                             <div *ngIf="this.previewMedia?.type.includes('audio') && this.previewMedia?.size/1024/1024 <= 10">
                               <audio id="audioPlayer" class="AudioPlayerV1" style="width: 27rem; border-radius: 10px; margin-top: 3rem;"  controls controlsList="nodownload">

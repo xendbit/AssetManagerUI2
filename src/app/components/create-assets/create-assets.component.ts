@@ -92,9 +92,6 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mainService.toggleApproved(304432).subscribe((res:any) => {
-      console.log('response', res)
-    })
     this.ngxService.start()
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
@@ -300,11 +297,11 @@ export class CreateAssetsComponent implements OnInit {
             const image = new Image();
             image.src = e.target.result;
             image.onload = async rs => {
-                // const img_height = rs.currentTarget['height'];
-                // const img_width = rs.currentTarget['width'];
                 this.thumbnail = await this.generateThumbnail(file, [1000, 1000]) 
-                console.log('hey', this.thumbnail)
-                console.log('bin', this.media)
+                if (this.mediaType.includes('image')) {
+                  this.media.push(this.thumbnail);
+                  this.mediaType.push('thumbnail');
+                }
             };
           };
           this.image = true;
@@ -364,7 +361,6 @@ export class CreateAssetsComponent implements OnInit {
 
   handleFile(event) {
     var binaryString = event.target.result;
-    console.log('media', binaryString)
     this.media.push(binaryString);
    }
 
@@ -421,10 +417,8 @@ export class CreateAssetsComponent implements OnInit {
     const mediaIndex = this.media.findIndex((res: any) => res.includes('audio') || res.includes('video'))
     const newArr = [...this.media];
     var tmpOrder = this.media[imageIndex];
-    console.log('this is tmp', tmpOrder)
     this.media.splice(imageIndex, 1);
     this.media.splice(0, 0, tmpOrder);
-    console.log('media', this.media)
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
        this.toast.error('Please make sure you select a category.')
@@ -458,7 +452,6 @@ export class CreateAssetsComponent implements OnInit {
       this.checkConnection();
       this.ngxService.start();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
-        console.log('res', data)
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
@@ -466,12 +459,12 @@ export class CreateAssetsComponent implements OnInit {
                 this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
                 // this.ngOnInit();
-                this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
-                  console.log('response', res)
-                })
-                // this.router.navigateByUrl('/profile').then(() => {
-                //   window.location.reload();
-                // });
+                // this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
+                //   console.log('response', res)
+                // })
+                this.router.navigateByUrl('/profile').then(() => {
+                  window.location.reload();
+                });
               } else {
                 this.ngxService.stop();
                 this.toast.error('Minting failed, please try again.')
