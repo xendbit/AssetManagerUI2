@@ -67,6 +67,7 @@ export class MainService {
           id: item.id,
           category: item.category,
           tags: item.tags,
+          auctions: item.auctions,
           owner: {
             id: item.id,
             image: item.media[0]?.media,
@@ -103,7 +104,7 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction === true));
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
 
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
@@ -123,6 +124,7 @@ export class MainService {
             id: item.id,
             category: item.category,
             tags: item.tags,
+            auctions: item.auctions,
             assetType: item.assetType,
             owner: {
               id: item.id,
@@ -174,6 +176,7 @@ export class MainService {
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
+          auctions: item.auctions,
           tags: item.tags,
           owner: {
             id: item.id,
@@ -228,6 +231,7 @@ export class MainService {
         id: item.id,
         category: item.category,
         tags: item.tags,
+        auctions: item.auctions,
         owner: {
           id: item.id,
           image: item.media[0].media,

@@ -93,31 +93,34 @@
                 <p class="body-sb num" *ngIf="this.likes.likeCount !== 1" >{{this.likes.likeCount }} Likes</p>
             </div>
         </div>
-        <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
+        <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol.substring(0, 25)}}</a>
         <div class="row" class="box-below" (click)="placeBid()">
-            <div *ngIf="auctionTime > currentTime && !sellPriceMet">
+            <div *ngIf="auctionTime > currentTime">
                 <div class="timer-otr" id="countdown nowrap">
-                    <div class="nowrap" >
-                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
+                    <div class="nowrap" *ngIf="this.countdownDay > 0">
+                        {{this.countdownDay}} Days
+                    </div>
+                    <div class="nowrap" *ngIf="this.countdownDay <= 0">
+                      {{this.countdownHours}}hrs : {{this.countdownMinutes}} mins
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false">
+            <div *ngIf="currentTime >  auctionTime || hasActiveAuction === false">
                 <div class="timer-otr nowrap" id="countdown">
                     <div class="body-sb" style="color: #999999; font-style: italic" >
                         Closed
                     </div>
                 </div>
             </div>
-            <div *ngIf="currentTime  < auctionTime && !sellPriceMet" (click)="placeBid()" id="currentBid">
+            <div *ngIf="currentTime  < auctionTime" (click)="placeBid()" id="currentBid">
                 <div class="current-bid-container" >
                     <p class=" bid mr-3 nowrap">Current Bid</p>
                     <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
                 </div>
             </div>
 
-          <div  *ngIf="currentTime >  auctionTime || sellPriceMet || hasActiveAuction === false" (click)="placeBid()" id="currentBid">
+          <div  *ngIf="currentTime >  auctionTime || hasActiveAuction === false" (click)="placeBid()" id="currentBid">
             <div class="current-bid-container" >
               <p class="bid mr-3 nowrap" style="font-style: italic; color: #999999;">Current Bid</p>
               <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
