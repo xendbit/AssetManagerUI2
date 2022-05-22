@@ -29321,11 +29321,15 @@ body.dark-mode .create-pb {
   color: #BBBBBB;
 }
 
-body.dark-mode .auction-main {
+body.dark-mode .auction-main, body.dark-mode .bid-main {
   background-color: grey !important;
 }
-body.dark-mode .minutes-p, body.dark-mode .hours-p {
+body.dark-mode .minutes-p, body.dark-mode .hours-p, body.dark-mode .seconds-main .seconds-p {
   color: #F2F2F2 !important;
+}
+
+body.dark-mode .boxes-main .bid-main .bid-head, body.dark-mode #clock.timer {
+  color: #2d3436 !important;
 }
 
 body.dark-mode #amount {
@@ -29341,7 +29345,7 @@ body.dark-mode .activity-details .place-bid-main, .panel-header {
   background-color: #5A5A5A !important;
 }
 
-body.dark-mode .body-sb, body.dark-mode .body-m, body.dark-mode .p-panel-title, body.dark-mode #contractAddress, body.dark-mode .bid {
+body.dark-mode .body-sb, body.dark-mode .body-m, body.dark-mode .p-panel-title, body.dark-mode #contractAddress, body.dark-mode .bid, body.dark-mode .body-mb.acution {
   color: #f2f2f2 !important;
 }
 
@@ -29399,10 +29403,19 @@ body.dark-mode label input:checked + span, body.dark-mode label input + span:hov
   color: grey;
 }
 
+body.dark-mode .hero-main .container-fluid, body.dark-mode .hero-main .heading {
+  background-color: #444b4c;
+  color: #dfe6e9 !important;
+}
+
 .p-overlaypanel:after, .p-overlaypanel:before {
   left: calc(var(--overlayArrowLeft, 0) + 4.25rem) !important;
   }
 
 p-overlayPanel .connection {
   z-index: 1001; transform-origin: center top; top: 59.8278px; left: 1053.58px !important; --overlayArrowLeft:83.0006px; transform: translateY(0px); opacity: 1
+}
+
+body.dark-mode #hours.heading-h3, body.dark-mode #minutes.heading-h3, body.dark-mode #seconds.heading-h3,{
+  color: white !important;
 }
