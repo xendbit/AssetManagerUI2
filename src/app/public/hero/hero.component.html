@@ -5,7 +5,7 @@
                 [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true">
       <ng-template pTemplate="item" let-item>
     <div class="hero-inr">
-      <div class="row row-custom">
+      <div class="row row-custom pb-5">
         <div class="col-lg-5 col-img-otr">
           <div class="col-img-inr">
             <a routerLink="/marketplace" class="img-otr img-tilt" data-tilt="" aTilt>
@@ -20,8 +20,8 @@
                   </div>
                 </a>
                 <div class="create-content">
-                  <p class="body-s create-p">{{item.owner}}</p>
-                  <a href="" class="body-sb create-pb">item.creator</a>
+                  <p class="body-s create-p">Owner</p>
+                  <a href="" class="body-sb create-pb">{{(item.owner | slice:0:10) + (item.creator.length > 10 ? '...' : '')}}</a>
                 </div>
                 <div class="hover-box">
                   <div class="hover-box-inr">
@@ -55,7 +55,7 @@
                 </a>
                 <div class="create-content">
                   <p class="body-s create-p">Created by</p>
-                  <a href="" class="body-sb create-pb">NFT King</a>
+                  <a href="" class="body-sb create-pb">{{(item.creator | slice:0:10)  + (item.creator.length > 10 ? '...' : '')}}</a>
                 </div>
                 <div class="hover-box">
                   <div class="hover-box-inr">
@@ -90,8 +90,8 @@
             </h1>
             <div class="boxes-main">
               <div class="bid-main" style="border-radius: 16px">
-                <p class="bid body-mb">Current Bid</p>
-                <h3 class="heading-h3 bid-head">0.0245 ETH</h3>
+                <p class="bid body-mb">Current Bid <img class="hero-currency" src="assets/img/coins/{{item.currency}}.svg" alt=""></p>
+                <h3 class="heading-h3 bid-head">{{item.currentBid}} <span style="color: lavender"> {{item.blockchain}} </span></h3>
                 <p class="dollor body-mb">$2,505</p>
               </div>
               <div class="auction-main" style="border-radius: 16px">

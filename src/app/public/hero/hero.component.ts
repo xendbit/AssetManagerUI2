@@ -15,17 +15,42 @@ export class HeroComponent implements OnInit {
       {
         heroImg: 'assets/img/heroes/focus-artwork.jpg',
         creator: 'Unknown Artist',
-        owner: 'Kingsley'
+        owner: 'Kingsley',
+        currentBid: 0.681,
+        currency: 'bsc',
+        blockchain: 'BNB'
       },
       {
         heroImg: 'assets/img/heroes/African-woman.jpg',
-        creator: 'Robert Mawuli',
-        owner: 'Femi Ashiru'
+        creator: '@Peacezogallery',
+        owner: 'Zinolesky',
+        currentBid: 0.201,
+        currency: 'aurora',
+        blockchain: 'AUR'
+      },
+      {
+        heroImg: 'assets/img/heroes/forceofafrica.jpg',
+        creator: '@ForceofAfrica',
+        owner: '@ForceofAfrica',
+        currentBid: 1.61,
+        currency: 'aurora',
+        blockchain: 'AUR'
+      },
+      {
+        heroImg: 'assets/img/heroes/faceofher.jpg',
+        creator: '@m_i_l_k_i____',
+        owner: '@PrinceofAfrica',
+        currentBid: 12.601,
+        currency: 'avalanche',
+        blockchain: 'AVAX'
       },
       {
         heroImg: 'assets/img/heroes/impossible-ninja.jpg',
         creator: 'bad-oats',
-        owner: 'Godzilla'
+        owner: 'Godzilla',
+        currentBid: 2.03,
+        currency: 'polygon',
+        blockchain: 'MATIC'
       }
     ]
   };
