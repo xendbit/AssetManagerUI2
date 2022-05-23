@@ -87,25 +87,34 @@ export class AssetDetailsComponent implements OnInit {
      }
 
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
-    "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
-    "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
+      "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
+      "artwork": {"id": "","category": "","tags": [], "auctions": { "auctionId": "",
+      "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+      "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+      "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+      "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
       "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
-  artwork: IArtwork = {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
+  artwork: IArtwork = {"id": "","category": "","tags": [], "auctions": { "auctionId": "",
+      "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+      "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+      "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+      "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
-    // console.log('try', this.metamaskService.createWalletForBuyer().buyerAddress)
     this.ngxService.start();
+    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.tokenId = this.activatedRoute.snapshot.params.asset;
+    this.getSingleArtworkDetails();
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.auction = JSON.parse(localStorage.getItem('auctionData'));
-    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    // this.auction = JSON.parse(localStorage.getItem('auctionData'));
+  
     this.foundNetwork = (networkChains.find((res: any) => res.systemName === this.artwork.chain)|| 'BNB')
-    // console.log('art', new Date(parseInt(this.artwork.dateIssued) * 1000))
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
@@ -113,12 +122,10 @@ export class AssetDetailsComponent implements OnInit {
         localStorage.setItem('contractAddress', this.contractAddress)
       }
     })
-    this.initialCheck();
+    // this.initialCheck();
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
-    this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.checkConnection();
-    this.getSingleArtworkDetails();
   }
 
   initialCheck() {
@@ -172,6 +179,7 @@ export class AssetDetailsComponent implements OnInit {
           } else {
             this.hasActiveAuction = true;
             this.auction = res;
+            // this.initialCheck();
             this.auctionLength = this.auction.bids.length;
             this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
             this.checkBuyer();

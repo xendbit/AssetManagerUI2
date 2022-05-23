@@ -55,6 +55,8 @@ export class UserDashboardComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.account = localStorage.getItem('account');
+    this.mainService.fetchAssetsByOwnerId(this.account, 1, 16);
     this.ngxService.start();
     this.mainService.getUserInfo().subscribe((data: IUser) => {
       this.user = data;
