@@ -49,6 +49,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ActivitiesComponent } from './pages/asset-details/activities/activities.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import {PublicModule} from './public/public.module';
 
 @NgModule({
   declarations: [

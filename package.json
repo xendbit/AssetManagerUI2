@@ -34,6 +34,7 @@
     "@walletconnect/qrcode-modal": "^1.7.7",
     "@walletconnect/web3-provider": "^1.7.7",
     "angular-dark-mode": "^3.0.2",
+    "angular-tilt": "^1.2.0",
     "assert": "^2.0.0",
     "breakpoint-sass": "^2.7.1",
     "chart.js": "^2.9.4",

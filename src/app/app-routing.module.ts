@@ -77,6 +77,10 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
+    path: 'home',
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
+  },
+  {
     path: 'checkout/:tokenId/:amount',
     component: CheckoutComponent
   },
