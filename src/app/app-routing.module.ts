@@ -27,11 +27,11 @@ const routes: Routes = [
       title: AppController.trans().home
     }
   },
-  {
-    path: 'landing',
-    component: LandingComponent,
-    data: { showHeader: false }
-  },
+  // {
+  //   path: 'landing',
+  //   component: LandingComponent,
+  //   data: { showHeader: false }
+  // },
   {
     path: 'connect-wallet',
     component: ConnectWalletComponent

@@ -32,14 +32,14 @@ export class NFTCardComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  auction: IminiAuctionInfo = { 
+  auction: IminiAuctionInfo = {
     "auctionId": "", "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
     "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
     "startBlock": "", "startDate": "", "started": true, "tokenId": ""}
   today: number;
   notExpired: boolean;
-  auctionTime: number;
-  currentTime: number;
+  auctionTime: any;
+  currentTime: any;
   sellPriceMet: boolean = false;
   isLoaded: boolean = false;
   hideNft: boolean = false;
@@ -97,18 +97,16 @@ export class NFTCardComponent implements OnInit {
 
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date(date)).unix();
-    this.currentTime = moment(new Date()).unix();
-    const diffTime = this.auctionTime - this.currentTime;
-    let duration;
-    duration = moment.duration(diffTime, 'seconds');
+    this.auctionTime =  Math.floor(new Date(date).getTime());
+    this.currentTime = Math.floor(new Date().getTime());
+    let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
+    // console.log('this =>',this.currentTime < this.auctionTime)
     const interval = 1000;
-
     setInterval(() => {
-      this.countdownDay = duration.days();
-      this.countdownHours = duration.hours();
-      this.countdownMinutes = duration.minutes();
-      this.countdownSeconds = duration.seconds();
+      this.countdownDay = this.mainService.getDays(diff);
+      this.countdownHours = this.mainService.getHours(diff);
+      this.countdownMinutes = this.mainService.getMinutes(diff);
+      this.countdownSeconds = this.mainService.getSeconds(diff);
     }, interval);
 
   }
