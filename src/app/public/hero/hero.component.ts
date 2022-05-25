@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import { IPresentation } from 'src/app/core/components/slider/presentation.interface';
 import { MainService } from 'src/app/core/services/main.service';
-import * as moment from 'moment';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -38,7 +39,10 @@ export class HeroComponent implements OnInit {
   countdownMinutes: any;
   countdownSeconds: any;
 
-  constructor( private mainService: MainService, private router: Router) { }
+  constructor( private mainService: MainService, 
+    private router: Router,
+    private clipboard: Clipboard,
+    public userActions: UserActionsService) { }
 
   ngOnInit(): void {
   }
@@ -69,6 +73,11 @@ export class HeroComponent implements OnInit {
     localStorage.setItem('auctionData', JSON.stringify(this.presentation.auctions));
     localStorage.setItem('artworkData', JSON.stringify(this.presentation));
     this.router.navigate(['/details/', this.presentation.tokenId, this.presentation.lastAuctionId]);
+  }
+
+  copyMessage(val){
+    this.clipboard.copy(val);
+    this.userActions.addSingle('global' ,'success', 'Copied', 'Copied to clipboard!');
   }
 
 }

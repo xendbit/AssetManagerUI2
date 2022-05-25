@@ -28,14 +28,13 @@
               </a>
               <a href="" class="btn-outline2 follow-btn">Follow</a>
             </div>
-            <p class="post-title body-lb">The Lucky Being</p>
+            <p class="post-title body-lb">{{presentation.owner.username.substring(0, 8) + 'xxxxx' + presentation.owner.username.slice(presentation.owner.username.length - 8)}}g</p>
             <a href="" class="address-main">
-              <p class="address body-s">0xd07dc4262bcdb...2430</p>
-              <svg class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <p class="address body-s">{{presentation.owner.username.substring(0, 8) + 'xxxxx' + presentation.owner.username.slice(presentation.owner.username.length - 8)}}</p>
+              <svg (click)="copyMessage(presentation.owner.username)" class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </a>
             <p class="post-desc body-s">
-              Vitae ac magna nunc facilisi diam Malesuada aliquam felis
-              facilisis gravida lectus iaculis...
+             {{presentation.description}}
             </p>
           </div>
         </div>
@@ -62,14 +61,13 @@
               </a>
               <a href="" class="btn-outline2 follow-btn">Follow</a>
             </div>
-            <p class="post-title body-lb">The Lucky Being</p>
+            <p class="post-title body-lb">{{presentation.creator.username.substring(0, 8) + 'xxxxx' + presentation.creator.username.slice(presentation.creator.username.length - 8)}}</p>
             <a href="" class="address-main">
-              <p class="address body-s">0xd07dc4262bcdb...2430</p>
-              <svg class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <p class="address body-s">{{presentation.creator.username.substring(0, 8) + 'xxxxx' + presentation.creator.username.slice(presentation.creator.username.length - 8)}}</p>
+              <svg (click)="copyMessage(presentation.creator.username)" class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </a>
             <p class="post-desc body-s">
-              Vitae ac magna nunc facilisi diam Malesuada aliquam felis
-              facilisis gravida lectus iaculis...
+              {{presentation.description}}
             </p>
           </div>
         </div>

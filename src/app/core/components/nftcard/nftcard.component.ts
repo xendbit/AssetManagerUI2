@@ -5,7 +5,6 @@ import { MainService } from '../../services/main.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
-import * as moment from 'moment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
