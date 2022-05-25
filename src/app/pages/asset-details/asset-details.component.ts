@@ -259,22 +259,15 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date(date).getTime()).unix();
-    this.currentTime = moment(new Date().getTime()).unix();
-    if (this.currentTime > this.auctionTime) {
-      console.log('expired')
-    }
-    const diffTime = this.auctionTime - this.currentTime;
-    let duration;
-    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    this.auctionTime =  Math.floor(new Date(date).getTime());
+    this.currentTime = Math.floor(new Date().getTime());
+    let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
     const interval = 1000;
-
     setInterval(() => {
-      duration = moment.duration(duration - interval, 'milliseconds');
-      this.countdownDay = moment.duration(duration).days();
-      this.countdownHours = moment.duration(duration).hours();
-      this.countdownMinutes = moment.duration(duration).minutes();
-      this.countdownSeconds = moment.duration(duration).seconds();
+      this.countdownDay = this.mainService.getDays(diff);
+      this.countdownHours = this.mainService.getHours(diff);
+      this.countdownMinutes = this.mainService.getMinutes(diff);
+      this.countdownSeconds = this.mainService.getSeconds(diff);
     }, interval);
 
   }

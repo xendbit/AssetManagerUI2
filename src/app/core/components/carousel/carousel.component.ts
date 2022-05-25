@@ -27,7 +27,7 @@ export class CarouselComponent implements OnInit {
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   newArtworkArray: IArtwork[] = [];
   categorySelected: any;
-  constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) { 
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) {
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -53,16 +53,16 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['artworkArray']) {
+    if (changes['artworkArray'].currentValue !== undefined) {
         if (this.artworkArray !== null) {
           this.newArtworkArray = this.artworkArray;
-          this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
+          // this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
           this.artworkArray = this.newArtworkArray.slice(0,10);
           this.categories = this.artworkArray.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
         }
     }
-    
+
   }
 
   categoryFilter(category) {
