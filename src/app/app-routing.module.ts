@@ -27,11 +27,11 @@ const routes: Routes = [
       title: AppController.trans().home
     }
   },
-  {
-    path: 'landing',
-    component: LandingComponent,
-    data: { showHeader: false }
-  },
+  // {
+  //   path: 'landing',
+  //   component: LandingComponent,
+  //   data: { showHeader: false }
+  // },
   {
     path: 'connect-wallet',
     component: ConnectWalletComponent
@@ -75,6 +75,10 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FAQComponent
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   {
     path: 'checkout/:tokenId/:amount',

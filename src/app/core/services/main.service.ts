@@ -37,6 +37,7 @@ export class MainService {
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   private ownerDataStore: { ownerArtworks: IArtwork[] } = { ownerArtworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
+  dropsResponse: IPresentation;
   buttonsResponse: INavButton;
   userResponse: IUser;
   creatorResponse: IUser;
@@ -470,11 +471,34 @@ export class MainService {
       if (this.presentationResponse) {
         observer.next(this.presentationResponse);
         observer.complete();
-
       } else {
         this.presentationResponse =  presentationJson['default'][0];
         observer.next(this.presentationResponse);
         observer.complete()
+      }
+    });
+  }
+
+  getDrops() {
+    return new Observable((observer) => {
+      if (this.dropsResponse) {
+        observer.next(this.dropsResponse);
+        observer.complete();
+      } else {
+        this.returnArtwork().subscribe((data: any) => {
+          if (data !== null) {
+            this.dropsResponse = {
+              "slides": data.slice(0, 5),
+              "presentationType": 1
+            };
+            observer.next(this.dropsResponse);
+            observer.complete()
+          }
+        }, err => {
+          this.dropsResponse =  presentationJson['default'][0];
+          observer.next(this.dropsResponse);
+          observer.complete()
+        })
       }
     });
   }
@@ -551,6 +575,37 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${baseUrl.mainUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
+  }
+
+  getDays(t: number){
+    return Math.floor(t / 86400);
+  }
+
+  getHours(t: number){
+    const days = Math.floor(t / 86400);
+    t -= days * 86400;
+    const hours = Math.floor(t / 3600) % 24;
+    return hours;
+  }
+
+  getMinutes(t: number){
+      const days = Math.floor(t / 86400);
+      t -= days * 86400;
+      const hours = Math.floor(t / 3600) % 24;
+      t -= hours * 3600;
+      const minutes = Math.floor(t / 60) % 60;
+      return minutes;
+  }
+
+  getSeconds(t: number){
+    const days = Math.floor(t / 86400);
+    t -= days * 86400;
+    const hours = Math.floor(t / 3600) % 24;
+    t -= hours * 3600;
+    const minutes = Math.floor(t / 60) % 60;
+    t -= minutes * 60;
+    const seconds = t % 60;
+    return seconds;
   }
 
 }

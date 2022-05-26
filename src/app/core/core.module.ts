@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AngularTiltModule} from 'angular-tilt';
+import {HeroComponent} from '../public/hero/hero.component';
+import {PublicModule} from '../public/public.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -48,6 +51,7 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     NgxUiLoaderModule,
     SidebarModule,
     RadioButtonModule,
+    AngularTiltModule,
   ],
   declarations: [
     HeaderComponent,
@@ -61,7 +65,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     BlogComponent,
     AssetsGridComponent,
     ConnectWalletComponent,
-    PaymentComponent
+    PaymentComponent,
+    HeroComponent
   ],
   exports: [
     HeaderComponent,
@@ -74,7 +79,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     BlogComponent,
     AssetsGridComponent,
     ConnectWalletComponent,
-    PaymentComponent
+    PaymentComponent,
+    HeroComponent,
   ],
   providers: [MessageService],
 })

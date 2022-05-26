@@ -60,9 +60,9 @@
         <div class="col-lg-6" id="assetDetails">
             <div class="hero-single-artwork">
                 <div class="container-fluid">
-                    <div class="hero-inr">
+                    <div class="hero-inr"  aTilt data-tilt="">
                         <div [ngSwitch]="artwork.category">
-                            <a class="img-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
+                            <a class="img-otr img-tilt" id="anchorMedia"   *ngSwitchDefault>
                                 <img id="imageDisplay" class="img-artwork img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
                             </a>
                             <a class="img-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">

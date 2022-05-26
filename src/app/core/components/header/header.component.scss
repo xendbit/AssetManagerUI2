@@ -621,3 +621,11 @@ input + label.toggle-label {
   width: 17px;
   //z-index: 5;
 }
+
+.navbar-main .container-fluid .navbar-inr .navigation-otr .navigation-inr .nav-li .nav-a.active {
+  color: #366CE3;
+}
+
+.navbar-main .container-fluid .navbar-inr .navigation-otr .navigation-inr .nav-li:not(:last-child) {
+  margin-right: 30px;
+}

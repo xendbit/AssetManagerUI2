@@ -2,7 +2,18 @@
   <main>
     <!-- <p-toast position="top-center"></p-toast> -->
     <p-messages key="global" position="top-center"></p-messages>
-    <app-slider [slider]="this.slide"></app-slider>
+<!--    <app-slider [slider]="this.slide"></app-slider>-->
+    <div class="hero-main" *ngIf="presentationData !== undefined">
+      <div class="container-fluid">
+        <p-galleria [(value)]="presentationData.slides" [containerStyle]="{'width': '100%'}" [numVisible]="1"
+                    [showThumbnails]="false" [showIndicators]="true" [autoPlay]="true" [transitionInterval]="4500" [circular]="true"
+                    [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true">
+          <ng-template pTemplate="item" let-item>
+            <app-hero [presentation]="item"></app-hero>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </div>
     <app-carousel [artworkArray]="this.artworks" [parentPage]="'home'"></app-carousel>
     <app-assets-grid [artworkArray]="this.artworks" [parentPage]="'home'"></app-assets-grid>
 
