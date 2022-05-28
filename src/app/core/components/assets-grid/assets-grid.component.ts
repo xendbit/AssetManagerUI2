@@ -50,13 +50,9 @@ export class AssetsGridComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['artworkArray'] && this.artworkArray !== null) {
+    if (changes['artworkArray'].currentValue !== undefined && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
         this.newArtworkArray = this.artworkArray;
-        // if (this.newArtworkArray.indexOf(item) === -1) {
-        //   this.item.push(item);
-        // }
-        this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
         this.artworks = this.newArtworkArray;
         this.ngxService.stop();
         this.categories = this.artworks.map(item => item.category)
@@ -73,7 +69,6 @@ export class AssetsGridComponent implements OnInit {
         this.totalPages = res.totalPages
       }
     })
-
   }
 
   categoryFilter(category: string) {
