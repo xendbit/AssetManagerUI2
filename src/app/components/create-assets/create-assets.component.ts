@@ -79,6 +79,7 @@ export class CreateAssetsComponent implements OnInit {
         numVisible: 1
     }
 ];
+  thumbnail: any;
 
   constructor( public mainService: MainService,
     private spinner: NgxSpinnerService,
@@ -290,8 +291,22 @@ export class CreateAssetsComponent implements OnInit {
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+          var imageReader = new FileReader();
+          imageReader.readAsDataURL(file);
+          imageReader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = async rs => {
+                this.thumbnail = await this.generateThumbnail(file, [1000, 1000]) 
+                if (this.mediaType.includes('image')) {
+                  this.media.push(this.thumbnail);
+                  this.mediaType.push('thumbnail');
+                }
+            };
+          };
           this.image = true;
           this.preview = file;
+
           this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
@@ -314,6 +329,34 @@ export class CreateAssetsComponent implements OnInit {
         this.hideBrowse = false;
       }
     }
+  }
+
+  // Creates a thumbnail fitted insize the boundBox (w x h)
+  generateThumbnail(file, boundBox){
+    if (!boundBox || boundBox.length != 2){
+      throw "You need to give the boundBox"
+    }
+    var scaleRatio = Math.min(...boundBox) / Math.max(file.width, file.height)
+    var reader = new FileReader();
+    var canvas = document.createElement("canvas")
+    var ctx = canvas.getContext('2d');
+
+    return new Promise((resolve, reject) => {
+      reader.onload = (e: any) => {
+          var img = new Image();
+          img.onload = function(){
+              var scaleRatio = Math.min(...boundBox) / Math.max(img.width, img.height)
+              let w = img.width*scaleRatio
+              let h = img.height*scaleRatio
+              canvas.width = w;
+              canvas.height = h;
+              ctx.drawImage(img, 0, 0, w, h);
+              return resolve(canvas.toDataURL(file.type))
+          };
+          img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    })
   }
 
   handleFile(event) {
@@ -370,7 +413,6 @@ export class CreateAssetsComponent implements OnInit {
     //   this.displayOverlay = true;
     //   return;
     // }
-    console.log('media', this.media)
     const imageIndex = this.media.findIndex((res: any) => res.includes('image'));
     const mediaIndex = this.media.findIndex((res: any) => res.includes('audio') || res.includes('video'))
     const newArr = [...this.media];
@@ -410,7 +452,6 @@ export class CreateAssetsComponent implements OnInit {
       this.checkConnection();
       this.ngxService.start();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
-        console.log('res', data)
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
@@ -418,6 +459,9 @@ export class CreateAssetsComponent implements OnInit {
                 this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
                 // this.ngOnInit();
+                // this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
+                //   console.log('response', res)
+                // })
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });

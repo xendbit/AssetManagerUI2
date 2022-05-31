@@ -184,6 +184,9 @@
                                         <div id="bidDetails" class="bid-details">
                                             <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
                                             <h6 id="ownerWarning" *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
+                                            <!-- <div id="clock" class="timer" *ngIf="artwork.isApproved === false && owner || artwork.isApproved === undefined && owner">
+                                              <p id="inActive" class="hours-p body-mb"> You cannot start an auction for this artwork until it has been approved by an Admin.</p>
+                                            </div> -->
                                             <div class="minimum-bid-box">
                                               <a id="minimumBid" *ngIf="!this.owner" class="create-pb">
                                                Minimum Bid - {{auction.minimumBid}} {{foundNetwork['currency']}}
@@ -230,45 +233,6 @@
                                                 </div>
                                             </div>
                                             <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
-<!--                                              {{ location.country_name }}-->
-                                              <!-- <p-dialog header="Pre-checkout information" [(visible)]="displayPosition" [position]="top" [modal]="true" [style]="{width: '50vw'}"
-                                                [draggable]="false" [resizable]="false">
-                                                  <div style="width: 100%; margin-top: 3rem; margin-left: 2rem;" *ngIf="!elementsOptions?.clientSecret as clientSecret">
-                                                    <div class="input-otr-2" style="margin-top: 1rem;">
-                                                      <input class="input" style="width: 90%;" [(ngModel)]="fullname" type="text" name="fullname" placeholder="Enter Full Name" required>
-                                                    </div>
-
-                                                    <div class="input-otr" style="margin-top: 1rem;">
-                                                      <input class="input" style="width: 90%;" type="email" name="email" [(ngModel)]="paymentEmail" placeholder=" Enter Email Address " required>
-                                                    </div>
-
-                                                    <div class="input-otr" style="margin-top: 1rem;">
-                                                      <input class="input" style="width: 90%;" type="text" name="billingAddress" [(ngModel)]="billingAddress" placeholder=" Billing/Delivery Address" required>
-                                                    </div>
-
-                                                    <div class="input-otr" style="margin-top: 1rem;">
-                                                      <input class="input" style="width: 90%;" type="number" id="amount" name="paymentAmount" placeholder="Buy-Now Price: {{sellNowValueNGN | number}}" disabled>
-                                                    </div>
-
-                                                    <div class="row input-otr" style="width: 90%; height: 120px; margin-bottom: 3rem; margin-top: 2rem;">
-                                                      <p-dropdown [options]="countriesArray" [(ngModel)]="selectedCountry" (change)="selectedCountry === selectedCountry.name" name="country" optionLabel="name"
-                                                      [virtualScroll]="true" itemSize="30" [style]="{width: '100%'}" placeholder="Select a Country">
-                                                      </p-dropdown>
-                                                    </div>
-                                                  </div>
-
-                                                  <div style="margin-top: 3rem; margin-left: 2rem;" *ngIf="elementsOptions?.clientSecret as clientSecret">
-                                                    <ng-container style="width: 300px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
-                                                      <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
-                                                      </ngx-stripe-payment>
-                                                    </ng-container>
-                                                  </div>
-
-                                                  <ng-template pTemplate="footer">
-                                                      <p-button *ngIf="this.paying === false" icon="pi pi-check" (click)="continuePayment()" label="Pay" styleClass="p-button-text"></p-button>
-                                                      <p-button *ngIf="this.paying" icon="pi pi-check" (click)="pay()" label="Pay with stripe" styleClass="p-button-text"></p-button>
-                                                  </ng-template>
-                                                </p-dialog> -->
 
                                                <div class="current-bid">
                                                 <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
@@ -319,19 +283,8 @@
                                                         <p id="connectWallet" *ngIf="error" class="desc" style="color: red; margin-top: 2rem;"> Connect your wallet to bid on this asset</p>
                                                     </div>
                                                 </div>
-
-                                                <!-- <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital'">
-                                                  <div class="heading-inr error-container">
-                                                       <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>
-                                                       <ng-container style="width: 300px;" *ngIf="elementsOptions?.clientSecret as clientSecret">
-                                                        <ngx-stripe-payment containerClass="example" [options]="cardOptions" [clientSecret]="clientSecret">
-                                                        </ngx-stripe-payment>
-                                                      </ng-container>
-                                                     <span class="desc" style="margin-bottom: 1rem;"> USD </span> <p-inputSwitch (onChange)="switchPay($event)" name="checked" [(ngModel)]="checked"></p-inputSwitch> <span class="desc" style="margin-bottom: 1rem;"> NGN </span>
-                                                  </div>
-                                                </div> -->
                                             </form>
-                                            <form class="bidform" *ngIf="visible && this.owner && artwork.hasActiveAuction === false ||  visible && this.owner && hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
+                                            <form class="bidform" *ngIf="visible && this.owner && artwork.hasActiveAuction === false  ||  visible && this.owner && hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
                                                 <div class="input-main">
                                                     <div class="input-otr-2">
                                                         <div id="startDate" class="input" style="width: 100%;
@@ -344,7 +297,7 @@
                                                         <label class="input col-6" style="color: darkgrey;
                                                         font-size: 20px;
                                                         background-color: white;">Start Date</label>
-                                                        <p-calendar name="startDate" [(ngModel)]="startDate" id="startDate" [minDate]="today" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar name="startDate" [(ngModel)]="startDate" showIcon="true" showTime="true" [hourFormat]="12" id="startDate" [minDate]="today" [maxDate]="maxDate" [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -362,7 +315,9 @@
                                                         <label class="col-6 input" style="color: darkgrey;
                                                         font-size: 20px;
                                                         background-color: white;">End Date</label>
-                                                        <p-calendar name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="today"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        <p-calendar *ngIf="startDate !== undefined" name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="startDate" [maxDate]="maxDate" showTime="true" [hourFormat]="12"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
+                                                        </p-calendar>
+                                                        <p-calendar *ngIf="startDate === undefined" name="endDate" [(ngModel)]="endDate" id="endDate" [minDate]="today" [maxDate]="maxDate" showTime="true" [hourFormat]="12"  [showIcon]="true" inputId="icon" [touchUI]="true" [readonlyInput]="true">
                                                         </p-calendar>
                                                         </div>
                                                     </div>
@@ -477,43 +432,17 @@
                                         <h4 class="heading-h4 activity-head">History</h4>
                                     </ng-template>
                                     <div class="col-right-inr">
-                                        <!-- <div class="activity-details" *ngIf="auctionLength > 0"> -->
-                                            <!-- <h6 class="heading-h4 activity-head">Recent bid history</h6> -->
-                                            <!-- <div class="place-bid-main" *ngFor="let bids of auction.bids"> -->
-                                                <!-- <a  class="img-otr">
-                                                    <img class="img-creator" src="../assets/img/user-Image16.jpg" alt="creator-img">
-                                                </a> -->
-                                                <!-- <div class="bid-content" > -->
-
-                                                    <!-- <div class="content-left" >
-                                                        <p class="body-mb bid-otr">
-                                                            <span class="bid">Bid placed</span>
-                                                            <span class="by body-m"> by</span>
-                                                            <a class="user"> {{bids.bidder.substring(0, 4) + 'xxxxx' + bids.bidder.slice(bids.bidder.length - 4)}} </a>
-                                                        </p> -->
-                                                        <!-- <p class="body-s date">
-                                                            At 2:30 PM on 19th June, 2021
-                                                        </p> -->
-                                                    <!-- </div> -->
-                                                    <!-- <div class="content-right">
-                                                        <p class="eth heading-h5"> {{bids.bid | number: '0.1-4'}} {{foundNetwork['currency']}}</p>
-                                                        <p class="dollor body-sb">$2,505</p>
-                                                    </div> -->
-
-                                                <!-- </div> -->
-                                            <!-- </div> -->
-                                        <!-- </div> -->
-                                        <!-- <div class="activity-details" *ngIf="auctionLength <= 0">
-                                            <div class="place-bid-main">
-                                                <p class="hours-p body-mb" style="text-align: center;"> No Bids Yet.</p>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </p-panel>
+                                <!-- <div style="margin-top: 70px">
+                                  <app-carousel [artworkArray]="this.ownerArtworks" [title]="'From the same creator'"></app-carousel>
+                                </div> -->
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
         </div>
     </div>

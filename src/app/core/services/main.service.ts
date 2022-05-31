@@ -92,6 +92,9 @@ export class MainService {
           currency: item.currency,
           likes: 0,
           hasActiveAuction: item.hasActiveAuction,
+          isApproved: item.isApproved,
+          isInAuction: item.isInAuction,
+          isInSale: item.isInSale,
           lastAuctionId: item.lastAuctionId,
           symbol: item.symbol,
           name: item.name,
@@ -150,6 +153,9 @@ export class MainService {
             likes: 0,
             chain: item.chain,
             hasActiveAuction: item.hasActiveAuction,
+            isApproved: item.isApproved,
+            isInAuction: item.isInAuction,
+            isInSale: item.isInSale,
             lastAuctionId: item.lastAuctionId,
             symbol: item.symbol,
             name: item.name,
@@ -167,7 +173,6 @@ export class MainService {
     });
   }
 
-
   fetchOnlyApproved(page: number, limit: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -178,8 +183,8 @@ export class MainService {
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
-          tags: item.tags,
           auctions: item.auctions,
+          tags: item.tags,
           owner: {
             id: item.id,
             image: item.media[0]?.media,
@@ -203,11 +208,14 @@ export class MainService {
           currency: item.currency,
           likes: 0,
           hasActiveAuction: item.hasActiveAuction,
+          isApproved: item.isApproved,
+          isInAuction: item.isInAuction,
+          isInSale: item.isInSale,
           lastAuctionId: item.lastAuctionId,
           symbol: item.symbol,
           name: item.name,
           tokenId: parseInt(item.tokenId),
-          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          dateIssued: new Date(parseInt(item.dateIssued)),
           sold: item.sold,
           assetType: item.assetType,
           type: item.type
@@ -257,6 +265,9 @@ export class MainService {
         currency: item.currency,
         likes: 0,
         hasActiveAuction: item.hasActiveAuction,
+        isApproved: item.isApproved,
+        isInAuction: item.isInAuction,
+        isInSale: item.isInSale,
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
@@ -281,6 +292,14 @@ export class MainService {
 
   getOwnerAssets() {
      return this.subjectOwnerNFT;
+  }
+
+  toggleApproved(tokenId: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-approved`, {}, {headers})
   }
 
 
@@ -567,7 +586,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
+    return this.httpClient.get(`${baseUrl.mainUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
 
   getDays(t: number){

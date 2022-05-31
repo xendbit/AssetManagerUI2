@@ -21,7 +21,7 @@ import { PaymentComponent } from './core/components/payment/payment.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'marketplace',
     component: HomeComponent,
     data: {
       title: AppController.trans().home
@@ -77,7 +77,7 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   {

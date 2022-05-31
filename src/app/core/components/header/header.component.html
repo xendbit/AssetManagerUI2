@@ -19,9 +19,6 @@
                 <app-search></app-search>
                 <div class="navigation-otr">
                     <ul class="navigation-inr">
-                      <li class="nav-li">
-                        <a routerLink= "/home" class="nav-a body-sb" routerLinkActive="active"> Home </a>
-                      </li>
                         <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                             <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
                             <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
@@ -38,10 +35,10 @@
                             <ul class="dropdown-otr">
                                <!-- <li class="dropdown-li" >
                                   <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
-                                </li>
-                               <li class="dropdown-li" >
-                                   <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
                                 </li> -->
+                                <li class="dropdown-li" >
+                                   <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
+                                </li>
                                 <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                 </li>
@@ -188,10 +185,10 @@
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
                                   <!-- <li class="dropdown-li" >
                                     <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
-                                  </li>
+                                  </li> -->
                                   <li class="dropdown-li" >
                                     <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
-                                  </li> -->
+                                  </li>
                                   <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                   </li>
