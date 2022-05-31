@@ -45,6 +45,9 @@ export interface IPresentation {
     chain?: string;
     lastAuctionId: number;
     hasActiveAuction: boolean;
+    isApproved?: boolean;
+    isInAuction?: boolean;
+    isInSale?: boolean;
     symbol: string;
     name: string;
     tokenId: number;

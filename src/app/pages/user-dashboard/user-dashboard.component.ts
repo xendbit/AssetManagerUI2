@@ -173,4 +173,8 @@ export class UserDashboardComponent implements OnInit {
     this.userActions.addSingle('global','success', 'Copied', 'Copied to clipboard!');
   }
 
+  goToDetails(artwork: any) {
+    localStorage.setItem('artworkData', JSON.stringify(artwork));
+  }
+
 }

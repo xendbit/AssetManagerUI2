@@ -30,7 +30,7 @@ export class SliderComponent implements OnInit {
             "isActive": true,
             "owner": "",
             "sellNowPrice": 0,
-              "title": "The Mystic",
+            "title": "The Mystic",
             "subtitle": "The mystical artworks of the kubembe",
             "bids": [{"bidder": "", "bid": 0, "auctionId": 0}],
             "currentBid": 0,

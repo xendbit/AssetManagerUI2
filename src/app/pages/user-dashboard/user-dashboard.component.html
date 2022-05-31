@@ -144,13 +144,15 @@
 <div class="explore-artwork">
     <div class="container-fluid">
         <div class="explore-artwork-inr">
-            <div class="heading-otr">
+          <span class="line"></span>
+          <app-assets-grid [artworkArray]="this.artworks" [parentPage]="'home'"></app-assets-grid>
+            <!-- <div class="heading-otr">
                 <div class="head-otr">
                     <h3 class="heading heading-h3">Explore Artworks</h3>
                 </div>
                 <p *ngIf="error" class="desc body-sb" style="color: red;">{{error}}</p>
-            </div>
-            <div class="teb-main">
+            </div> -->
+            <!-- <div class="teb-main">
                 <div class="tab-otr">
                     <div class="tab-inr">
                         <ul class="tabs"  >
@@ -164,9 +166,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <span class="line"></span>
-            <div class="row row-custom-main" >
+            </div> -->
+
+            <!-- <div class="row row-custom-main" >
                 <div id="tab-1" class="tab-content active">
                     <div class="row row-custom-inr">
                         <div class="col-otr col-md-3" *ngFor="let item of artworks; trackBy: byId;">
@@ -180,7 +182,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

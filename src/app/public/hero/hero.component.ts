@@ -57,16 +57,12 @@ export class HeroComponent implements OnInit {
     this.auctionTime =  Math.floor(new Date(date).getTime());
     this.currentTime = Math.floor(new Date().getTime());
     let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
-    console.log('this =>',this.currentTime < this.auctionTime)
+    // console.log('this =>',this.currentTime < this.auctionTime)
     const interval = 1000;
     this.countdownDay = this.mainService.getDays(diff);
     this.countdownHours = this.mainService.getHours(diff);
     this.countdownMinutes = this.mainService.getMinutes(diff);
     this.countdownSeconds = this.mainService.getSeconds(diff);
-    // setInterval(() => {
-
-    // }, interval);
-
   }
 
   placeBid() {
