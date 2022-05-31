@@ -15,11 +15,6 @@
           "title": "Explore",
           "menu": [ 
             {
-                "title": "All Creators",
-                "url": "/"
-                
-            },
-            {
               "title": "All Assets",
               "url": "/assets"
             }

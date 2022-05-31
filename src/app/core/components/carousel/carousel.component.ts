@@ -13,7 +13,7 @@ import { AuctionService } from '../../services/auction.service';
 })
 export class CarouselComponent implements OnInit {
   @Input() public artworkArray: IArtwork [];
-  @Input() public parentPage: string;
+  @Input() public title: string;
   artworks: IArtwork [] = [{"id": "","category": "","tags": [], "auctions": { "auctionId": "",
             "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
             "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
@@ -57,7 +57,7 @@ export class CarouselComponent implements OnInit {
         if (this.artworkArray !== null) {
           this.newArtworkArray = this.artworkArray;
           // this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
-          this.artworkArray = this.newArtworkArray.slice(0,10);
+          this.artworkArray = this.newArtworkArray.slice(0,7);
           this.categories = this.artworkArray.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
         }

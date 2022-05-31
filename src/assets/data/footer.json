@@ -6,7 +6,7 @@
                 "menu": [
                     {
                         "title": "Home",
-                        "url": "/"
+                        "url": "/home"
                     },
                     {
                         "title": "About",
@@ -24,20 +24,12 @@
                     {
                         "title": "Explore Artworks",
                         "url": "/assets"
-                    },
-                    {
-                        "title": "Explore Creators",
-                        "url": "/creators"
                     }
                 ]
             },
             {
                 "title": "Community",
                 "menu": [
-                    {
-                        "title": "Blog",
-                        "url": ""
-                    },
                     {
                         "title": "Help center",
                         "url": "/faq"

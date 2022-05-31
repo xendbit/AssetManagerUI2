@@ -60,7 +60,7 @@ export class NFTCardComponent implements OnInit {
       this.isLoaded = false;
       this.auction = this.artwork.auctions;
       // console.log('hey', this.artwork.gallery.find((res: any) => res.mediaKey === 'thumbnail'))
-      if (this.artwork.auctions !== null) {
+      if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
         if (this.auction.cancelled === true || this.auction.finished === true || this.auction.sellNowTriggered === true) {
           this.hasActiveAuction = false;
         } else {

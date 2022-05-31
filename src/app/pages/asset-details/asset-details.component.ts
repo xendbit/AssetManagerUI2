@@ -71,6 +71,7 @@ export class AssetDetailsComponent implements OnInit {
   tokenId: any;
   usdValue: any;
   userWallet: any;
+  maxDate: any;
 
   constructor(private router: Router,
     public activatedRoute: ActivatedRoute,
@@ -85,7 +86,8 @@ export class AssetDetailsComponent implements OnInit {
         this.contractAddress = response['data'];
       });
      }
-
+    
+  ownerArtworks: IArtwork[];
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
     "artwork": {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
@@ -112,6 +114,8 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.mainService.fetchAssetsByOwnerId(this.artwork.creator.username, 1, 16);
+    this.getCreatorArt();
     if (this.artwork.auction !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
@@ -128,6 +132,8 @@ export class AssetDetailsComponent implements OnInit {
     })
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
+    var future = new Date();
+    this.maxDate = new Date(future.setDate(future.getDate() + 30));
   }
 
   initialCheck() {
@@ -167,6 +173,21 @@ export class AssetDetailsComponent implements OnInit {
         }
       })
     }
+  }
+
+  getCreatorArt() {
+    this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+      if (res !== null) {
+        this.ownerArtworks = res.filter((data: any) => data.hasActiveAuction && data.isApproved);
+        // this.categories = this.artworks.map(item => item.category)
+        // .filter((value, index, self) => self.indexOf(value) === index);
+        // this.ngxService.stop();
+      } else {
+        // this.ngxService.stop();
+      }
+    }, err => {
+      this.ngxService.stop();
+    })
   }
 
   getSingleArtworkDetails() {

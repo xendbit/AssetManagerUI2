@@ -3,7 +3,7 @@
         "blogGroup" : [
             {
                 "mainLink": "",
-                "image": "./assets/img/card_holder.png",
+                "image": "./assets/img/card_holder.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -19,7 +19,7 @@
             },
             {
                 "mainLink": "",
-                "image": "./assets/img/nifty_placeholder3.png",
+                "image": "./assets/img/nifty_placeholder3.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
@@ -35,7 +35,7 @@
             },
             {
                 "mainLink": "",
-                "image": "./assets/img/blogs/NIFTYROWplacementholder1.jpg",
+                "image": "./assets/img/card_holder.jpg",
                 "title": "Big Player Enters Market!",
                 "date": "August, 2021",
                 "heading": "Nifty Row is a community led NFT marketplace",
