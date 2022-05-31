@@ -19,9 +19,6 @@
                 <app-search></app-search>
                 <div class="navigation-otr">
                     <ul class="navigation-inr">
-                      <li class="nav-li">
-                        <a routerLink= "/" class="nav-a body-sb" routerLinkActive="active"> Home </a>
-                      </li>
                         <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                             <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
                             <ul class="dropdown-otr" *ngIf="link.menu.length > 0">
@@ -149,11 +146,6 @@
                     <p-sidebar [autoZIndex]="false" [fullScreen]="true" blockScroll="true" [(visible)]="displaySidebar" position="right">
                       <app-search></app-search>
                         <ul class="navigation-inr">
-                          <li class="nav-li" style="margin-bottom: 5px;">
-                            <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
-                              <a (click)="displaySidebar = false" routerLink= "/" >Home</a>
-                            </button>
-                          </li>
                           <li class="nav-li" *ngIf="accountFound" style="margin-bottom: 5px;">
                             <button class="btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                               <a (click)="displaySidebar = false" routerLink= "/profile" >Profile</a>
