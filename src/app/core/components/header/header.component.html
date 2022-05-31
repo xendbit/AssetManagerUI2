@@ -19,9 +19,6 @@
                 <app-search></app-search>
                 <div class="navigation-otr">
                     <ul class="navigation-inr">
-                      <li class="nav-li">
-                        <a routerLink= "/home" class="nav-a body-sb" routerLinkActive="active"> Home </a>
-                      </li>
                         <li class="nav-li" *ngFor="let link of headerData.menuGroup ">
                             <a routerLink= "{{link.path}}" class="nav-a body-sb">{{link.title}} </a>
                             <ul class="dropdown-otr" *ngIf="link.menu.length > 0">

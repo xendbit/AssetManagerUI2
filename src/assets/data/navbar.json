@@ -2,9 +2,14 @@
     {
       "menuGroup": [
         {
+          "title": "Home",
+          "menu": [],
+          "path": "/"
+        },
+        {
             "title": "Marketplace",
             "menu": [],
-            "path": "./"
+            "path": "/marketplace"
         },
         {
             "title": "Profile",
