@@ -5,7 +5,7 @@
 <!--    <app-slider [slider]="this.slide"></app-slider>-->
     <div class="hero-main" *ngIf="presentationData !== undefined">
       <div class="container-fluid">
-        <p-galleria [(value)]="presentationData.slides" [containerStyle]="{'width': '100%'}" [numVisible]="1"
+        <p-galleria [(value)]="presentationData.slides" [containerStyle]="{'width': '100%', 'min-height': '115vh'}" [numVisible]="1"
                     [showThumbnails]="false" [showIndicators]="true" [autoPlay]="true" [transitionInterval]="4500" [circular]="true"
                     [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true">
           <ng-template pTemplate="item" let-item>
