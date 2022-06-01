@@ -49,7 +49,9 @@ export class HeroComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['presentation'].currentValue !== undefined && this.presentation !== null) {
-      this.setCountDown(this.presentation.auctions.endDate)
+      if (this.presentation.auctions !== undefined && this.presentation.auctions !== null ) {
+        this.setCountDown(this.presentation.auctions.endDate)
+      }
     }
   }
 
