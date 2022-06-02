@@ -2,7 +2,7 @@
     {
       "menuGroup": [
         {
-          "title": "Home",
+          "title": "Explore",
           "menu": [],
           "path": "/"
         },
@@ -15,18 +15,7 @@
             "title": "Profile",
             "menu": [],
             "path": "/profile"
-        },
-        {
-          "title": "Explore",
-          "menu": [ 
-            {
-              "title": "All Assets",
-              "url": "/assets"
-            }
-          ],
-          "path": "/assets"
         }
-
     ],
     "logoPath": "/assets/img/NiftyRow-logo.png"
     }

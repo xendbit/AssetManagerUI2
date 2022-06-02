@@ -1,8 +1,10 @@
 {
     "userId": 1,
     "username": "My Profile",
+    "firstName": "first",
+    "lastName": "last",
     "walletAddress": "0xd07dc42622430",
-    "email": "maini2@gmail.com",
+    "email": "testrasgf@gmail.com",
     "socials": {"twitterUrl": "www.twitter.com/xendbit", "facebookUrl": "www.facebook.com/xendbit",
     "youtubeUrl": "www.youtube.com/xendbit", "telegramUrl": "www.telegram.com/xendbit"},
     "followers": [{
@@ -92,7 +94,7 @@
   }],
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": 121266}],
   "isActive": true,
-  "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
+  "about": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
   "displayImage": "./assets/img/nifty_profile.png",
   "coverImage": "./assets/img/profile_holder.jpg",
   "webUrl": {"ur": "www.telegram.com/xendbit", "title": "telegram"},

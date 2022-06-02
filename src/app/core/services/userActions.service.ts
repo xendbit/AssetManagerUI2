@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 import {MessageService} from 'primeng/api';
-import {Message} from 'primeng//api';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IEvents, IFollow, ILikes } from '../components/nftcard/event.interface';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { HotToastService } from '@ngneat/hot-toast';
+import { baseUrl, niftyKey} from '../config/main.config.const';
+import { IUser } from 'src/app/pages/user-dashboard/user.interface';
+import * as userJson from 'src/assets/data/user.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserActionsService {
   protected _eventsSubject = new Subject<IEvents>();
+  userResponse: IUser;
   private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0},
                         follow: <IFollow> { followCount: 0, id: "" } };
   constructor(
@@ -62,6 +65,69 @@ export class UserActionsService {
 
   addSingle(key: string, severity: string, summary: string, detail: string) {
     this.messageService.add({key: key, severity: severity, summary: summary, detail: detail});
+  }
+
+  updateProfile(userData: any, walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    // headers = headers.append('api-key', niftyKey);
+    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, {
+        "firstName": userData.firstName,
+        "lastName": userData.lastName,
+        "userName": userData.userName,
+        "password": userData.password,
+        "email": userData.email,
+        "walletAddress": userData.walletAddress,
+        "about": userData.about,
+        "webUrl": userData.webUrl,
+        "social": userData.social
+    }, {headers});
+  }
+
+  getProfile(walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('walletAddress', walletAddress)
+    return new Observable((observer) => {
+      if (this.userResponse) {
+        observer.next(this.userResponse);
+        observer.complete();
+      } else {
+        this.httpClient.get(`${baseUrl.extraUrl}users/profile`, {headers}).pipe(map((res: any) => {
+          return {
+            "userId": res.data.id,
+            "username": res.data.username,
+            "firstName": res.data.firstName,
+            "lastName": res.data.lastName,
+            "walletAddress": res.data.walletAddress,
+            "email": res.data.email,
+            "socials": res.data.social,
+            "followers": [],
+            "following": [],
+            "likes": [],
+            "createdArtworks": [],
+            "collections": [],
+            "bids": [],
+            "isActive": res.data.isActive,
+            "about": res.data.about,
+            "displayImage": res.data.photo.displayImage,
+            "coverImage": res.data.photo.coverImage,
+            "webUrl": {"url": res.data.webUrl, "title": "website"},
+            "joinDate": res.data.joinDate,
+            "type": res.data.type
+          }
+        })).subscribe((data: any) => {
+          this.userResponse = data;
+          observer.next(this.userResponse);
+          observer.complete();
+        }, err => {
+          this.userResponse =  userJson['default'];
+          observer.next(this.userResponse);
+          observer.complete()
+        })
+      }
+    });
   }
 
  successToast(message: string) {

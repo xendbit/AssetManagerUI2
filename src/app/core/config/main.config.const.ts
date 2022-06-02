@@ -13,7 +13,7 @@ headers = headers.append('api-key', apiKey);
 
 export const baseUrl: IurlConfig = {
         headers:  headers,
-        testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
+        extraUrl: 'https://lb.xendbit.net/yasuke-server/',
         mainUrl: 'https://lb.xendbit.net/api/yasuke/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }

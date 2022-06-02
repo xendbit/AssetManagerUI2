@@ -3,6 +3,8 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
   export interface IUser {
     userId: number;
     username: string;
+    firstName?: string;
+    lastName?: string;
     walletAddress: string;
     email?: string;
     socials?: IUserSocials;
@@ -13,7 +15,8 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     collections?: Array<IArtwork>;
     bids?: Array<IUserBids>;
     isActive: boolean;
-    aboutInfo: string;
+    password?: string,
+    about: string;
     displayImage: string;
     coverImage: string;
     assetTotalValue?: number;
