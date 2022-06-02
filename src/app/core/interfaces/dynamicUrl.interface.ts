@@ -2,7 +2,7 @@ import { Params } from '@angular/router';
 
 export interface IurlConfig {
     headers?: Headers | any;
-    testUrl?: Params | any;
+    extraUrl?: Params | any;
     mainUrl: Params | any;
     icoUrl: Params | any;
 }

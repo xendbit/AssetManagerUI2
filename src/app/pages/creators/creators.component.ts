@@ -21,7 +21,7 @@ export class CreatorsComponent implements OnInit {
   "collections": [],
   "bids": [],
   "isActive": true,
-  "aboutInfo": "",
+  "about": "",
   "displayImage": "",
   "coverImage": "",
   "webUrl": {"url": "", "title": ""},

@@ -1,5 +1,4 @@
 import { countryList } from './countries';
-import {  HttpClient} from '@angular/common/http';
 import { UserActionsService } from './../../core/services/userActions.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,9 +6,7 @@ import { IAuction, IArtwork } from 'src/app/core/components/slider/presentation.
 import { trigger, transition, animate, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
-import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
 import { StripePaymentElementComponent, StripeService } from 'ngx-stripe';
 import { networkChains } from 'src/app/core/config/main.config.const';
@@ -37,7 +34,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class AssetDetailsComponent implements OnInit {
   distance: number; countdownDay: number; countdownHours: number;
   countdownMinutes: number; countdownSeconds: number; visible: boolean = true;
-  account: string; balance: number = 0; amount: number; owner: boolean;
+  account: string; balance: number = 0; amount: number; owner: boolean = false;
   auctionId: number; currentBlock: any; startDate: any; endDate: any; sellNowPrice: number; minimumPrice: number;
   auctionTime: any; currentTime: any; auctionValue: number; response: any; error: any; displayOverlay: boolean = false;
   email: string; firstName: string; lastName: string; middleName: string; phone: number;
@@ -114,15 +111,15 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.checkConnection();
+    this.getSingleArtworkDetails();
     this.mainService.fetchAssetsByOwnerId(this.artwork.creator.username, 1, 16);
     this.getCreatorArt();
     if (this.artwork.auction !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
     }
-    this.checkConnection();
     this.foundNetwork = (networkChains.find((res: any) => res.systemName === this.artwork.chain)|| 'BNB')
-    this.getSingleArtworkDetails();
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         this.contractAddress = data['data'];
@@ -197,6 +194,7 @@ export class AssetDetailsComponent implements OnInit {
       if (this.artwork.lastAuctionId !== 0) {
         this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
           if (res === 'Auction has ended') {
+            console.log('res', res)
             this.hasActiveAuction = false;
             // this.ngxService.stop();
           } else {
@@ -256,9 +254,9 @@ export class AssetDetailsComponent implements OnInit {
             })
             if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
               this.owner = true;
-              if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-                this.visible = true;
-              }
+            }
+            if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+              this.visible = true;
             }
           }
         })
@@ -284,12 +282,13 @@ export class AssetDetailsComponent implements OnInit {
     this.currentTime = Math.floor(new Date().getTime());
     let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
     const interval = 1000;
-    setInterval(() => {
-      this.countdownDay = this.mainService.getDays(diff);
-      this.countdownHours = this.mainService.getHours(diff);
-      this.countdownMinutes = this.mainService.getMinutes(diff);
-      this.countdownSeconds = this.mainService.getSeconds(diff);
-    }, interval);
+    this.countdownDay = this.mainService.getDays(diff);
+    this.countdownHours = this.mainService.getHours(diff);
+    this.countdownMinutes = this.mainService.getMinutes(diff);
+    this.countdownSeconds = this.mainService.getSeconds(diff);
+    // setInterval(() => {
+
+    // }, interval);
     this.ngxService.stop();
   }
 
@@ -364,6 +363,9 @@ export class AssetDetailsComponent implements OnInit {
               this.toast.success('There has been an error, please try again.');
               return;
             })
+          } else {
+            this.ngxService.stop();
+            this.ngOnInit();
           }
         })
       }, 25000);

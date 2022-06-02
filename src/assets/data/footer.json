@@ -22,8 +22,16 @@
                 "title": "Explore",
                 "menu": [
                     {
-                        "title": "Explore Artworks",
-                        "url": "/assets"
+                        "title": "Artworks",
+                        "url": "/"
+                    },
+                    {
+                      "title": "Music",
+                      "url": "/"
+                    },
+                    {
+                      "title": "Movies",
+                      "url": "/"
                     }
                 ]
             },
@@ -33,6 +41,10 @@
                     {
                         "title": "Help center",
                         "url": "/faq"
+                    },
+                    {
+                      "title": "DAO Council",
+                      "url": "/about"
                     }
                 ]
             }
