@@ -6,7 +6,7 @@ import { NgxStripeModule, StripeService } from 'ngx-stripe';
 import { MessageService } from 'primeng/api';
 import { testingRoutes } from 'src/test/mocks/routes.mock';
 import { MetamaskService } from '../../services/metamask.service';
-
+import * as footerJson from 'src/assets/data/footer.json';
 import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
@@ -31,6 +31,7 @@ describe('FooterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
+    component.footerInfo = footerJson['default'][0];
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     fixture.detectChanges();

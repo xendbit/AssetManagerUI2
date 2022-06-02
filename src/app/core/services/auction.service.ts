@@ -28,7 +28,7 @@ export class AuctionService {
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
   }
 
 
@@ -59,6 +59,7 @@ export class AuctionService {
             "title": artwork.symbol,
             "currentBid": item.highestBid, //highest bid is always the current bid, if no bid has been made, it is always set to minimum bid
             "currency": "ETH",
+            "chain": item.chain,
             "endDate": item.endDate,
             "startDate": item.startDate,
             "minimumBid": item.minimumBid,

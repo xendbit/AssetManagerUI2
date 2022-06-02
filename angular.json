@@ -26,6 +26,7 @@
               "src/favicon.ico",
               "src/web.config",
               "src/.htaccess",
+              "./src/assets/img/WalletConnect.svg",
               {
                 "glob": "**/*",
                 "input": "src/assets/",
@@ -44,6 +45,7 @@
               "src/lib/js/modernizr-touch-events.js",
               "node_modules/chart.js/dist/Chart.js"
             ],
+            "allowedCommonJsDependencies": ["crypto"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

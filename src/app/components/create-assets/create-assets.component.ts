@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { timeout } from 'rxjs/operators';
 import {MenuItem} from 'primeng/api';
 import { HotToastService } from '@ngneat/hot-toast';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-create-assets',
@@ -62,6 +63,7 @@ export class CreateAssetsComponent implements OnInit {
   activeIndex: number = 1;
   checked = false;
   currentChain: any;
+  userWallet: any;
 
   responsiveOptions:any[] = [
     {
@@ -77,17 +79,20 @@ export class CreateAssetsComponent implements OnInit {
         numVisible: 1
     }
 ];
+  thumbnail: any;
 
   constructor( public mainService: MainService,
     private spinner: NgxSpinnerService,
     public userActions: UserActionsService,
     public metamaskService: MetamaskService,
     public toast: HotToastService,
-    public router: Router ) {
+    public router: Router,
+    private ngxService: NgxUiLoaderService ) {
 
   }
 
   ngOnInit(): void {
+    this.ngxService.start()
     this.metamaskService.getContractAddress().subscribe(data => {
       if (data['status'] === 'success') {
         localStorage.removeItem('contractAddress');
@@ -98,34 +103,27 @@ export class CreateAssetsComponent implements OnInit {
     this.mediaType = [];
     this.activeIndex = 0;
     this.items = [{
-      label: 'Select media and category ',
+      label: 'Media & Category ',
       command: (event: any) => {
           this.activeIndex = 0;
       }
     },
     {
-        label: 'Enter description',
+        label: 'Enter Description',
         command: (event: any) => {
             this.activeIndex = 1;
         }
     },
     {
-        label: 'Confirm and mint',
+        label: 'Confirm & Mint',
         command: (event: any) => {
             this.activeIndex = 2;
         }
     },
-    // {
-    //     label: 'Confirmation',
-    //     command: (event: any) => {
-    //         this.activeIndex = 3;
-    //     }
-    // }
   ];
 
     this.checkConnection();
     if (this.categories === undefined) {
-      // this.spinner.show();
       this.mainService.getAssetCategories().subscribe((result: IAssetCategory) => {
         if (result !== undefined) {
          this.categories = result;
@@ -135,8 +133,10 @@ export class CreateAssetsComponent implements OnInit {
        if (result !== undefined) {
          this.assetTypes = result;
         }
-      //  this.spinner.hide();
+        this.ngxService.stop();
      })
+    } else {
+      this.ngxService.stop();
     }
 
   }
@@ -183,15 +183,9 @@ export class CreateAssetsComponent implements OnInit {
     } else if (this.activeIndex === 2) {
       this.activeIndex = 2
     }
-    //  else if (this.activeIndex === 3) {
-    //   this.activeIndex = 3
-    // }
   }
 
   Back() {
-    // if (this.activeIndex === 3 ) {
-    //   this.activeIndex = 2;
-    // } else
     if (this.activeIndex === 2) {
       this.activeIndex = 1
     } else if (this.activeIndex === 1) {
@@ -202,17 +196,27 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   checkConnection() {
-    this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.accountFound = false;
-        this.error = 'Please Connect to your Metamask wallet account.'
-        return;
-      } else {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+            this.error = 'Please Connect to your Metamask wallet account.'
+            return;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+            this.checkIssuer()
+          }
+        })
+      }
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
         this.checkIssuer()
       }
-    })
+    }
   }
 
   register(form: NgForm) {
@@ -234,20 +238,20 @@ export class CreateAssetsComponent implements OnInit {
       return false;
     }
     this.checkConnection();
-    this.spinner.show();
+    this.ngxService.start();
     this.mainService.saveIssuer(
       email, phone, firstName, lastName, middleName,
       this.account, bankName, bankAddress, accountName,
       accountNumber, bankCode, iban).subscribe(res => {
       if (res['status'] === 'success') {
-        this.spinner.hide();
+        this.ngxService.stop();
         this.toast.success('Issuer has been registered successfully')
         this.checkIssuer();
       }
     }, err => {
       // console.log(err.error.data.error);
       this.error = err.error.data.error;
-      this.spinner.hide();
+      this.ngxService.stop();
       this.toast.error(this.error);
       this.checkIssuer();
     })
@@ -287,20 +291,32 @@ export class CreateAssetsComponent implements OnInit {
        return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
+          var imageReader = new FileReader();
+          imageReader.readAsDataURL(file);
+          imageReader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = async rs => {
+                this.thumbnail = await this.generateThumbnail(file, [1000, 1000]) 
+                if (this.mediaType.includes('image')) {
+                  this.media.push(this.thumbnail);
+                  this.mediaType.push('thumbnail');
+                }
+            };
+          };
           this.image = true;
           this.preview = file;
+
           this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
         if ( /\.(mp4)$/i.test(file.name) === true  ) {
-          // this.media.push({media: file, mediaType: 1, mediaSizeMB: fileSize});
           this.mp4 = true;
           this.previewMedia = file;
           this.previewArray.push({type: 'mp4', name: file.name, media: file})
           this.mediaType.push('mp4');
         }
         if ( /\.(mp3)$/i.test(file.name) === true  ) {
-          // this.media.push({media: file, mediaType: 2, mediaSizeMB: fileSize});
           this.mp3 = true;
           this.previewMedia = file;
           this.previewArray.push({type: 'mp3', name: file.name, media: file})
@@ -315,24 +331,51 @@ export class CreateAssetsComponent implements OnInit {
     }
   }
 
+  // Creates a thumbnail fitted insize the boundBox (w x h)
+  generateThumbnail(file, boundBox){
+    if (!boundBox || boundBox.length != 2){
+      throw "You need to give the boundBox"
+    }
+    var scaleRatio = Math.min(...boundBox) / Math.max(file.width, file.height)
+    var reader = new FileReader();
+    var canvas = document.createElement("canvas")
+    var ctx = canvas.getContext('2d');
+
+    return new Promise((resolve, reject) => {
+      reader.onload = (e: any) => {
+          var img = new Image();
+          img.onload = function(){
+              var scaleRatio = Math.min(...boundBox) / Math.max(img.width, img.height)
+              let w = img.width*scaleRatio
+              let h = img.height*scaleRatio
+              canvas.width = w;
+              canvas.height = h;
+              ctx.drawImage(img, 0, 0, w, h);
+              return resolve(canvas.toDataURL(file.type))
+          };
+          img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    })
+  }
+
   handleFile(event) {
     var binaryString = event.target.result;
     this.media.push(binaryString);
    }
 
-  remove(index, name) {
+  remove(index, name, type) {
     if (index !== -1) {
       this.media.splice(index, 1);
-      this.previewArray.splice(index, 1)
       this.mediaType.splice(index, 1)
-      this.previewArray.find(item => {
-        if (item.type !== 'image') {
-          this.preview = undefined;
-        } else {
-          this.previewMedia = undefined;
-        }
-        item.type === 'image'
-      })
+      const compareIndex = this.previewArray.findIndex(hey => hey.name === name)
+      if (index === compareIndex && type === 'image') {
+        this.previewArray.splice(index, 1)
+        this.preview = undefined;
+      }  else if (index === compareIndex && type === 'mp3' || index === compareIndex && type === 'mp4') {
+        this.previewArray.splice(index, 1)
+        this.previewMedia = undefined;
+      }
     }
   }
 
@@ -370,7 +413,6 @@ export class CreateAssetsComponent implements OnInit {
     //   this.displayOverlay = true;
     //   return;
     // }
-    console.log('media', this.media)
     const imageIndex = this.media.findIndex((res: any) => res.includes('image'));
     const mediaIndex = this.media.findIndex((res: any) => res.includes('audio') || res.includes('video'))
     const newArr = [...this.media];
@@ -408,36 +450,38 @@ export class CreateAssetsComponent implements OnInit {
       return;
     }else {
       this.checkConnection();
-      this.spinner.show();
+      this.ngxService.start();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
         if (data.status === 'success') {
           setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
               if (data['status'] === 'success') {
-                this.spinner.hide();
+                this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
                 // this.ngOnInit();
+                // this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
+                //   console.log('response', res)
+                // })
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });
               } else {
-                this.spinner.hide();
-                this.toast.error('There has been an error while trying to issue this asset, please try again.')
+                this.ngxService.stop();
+                this.toast.error('Minting failed, please try again.')
               }
             }, err => {
-              this.spinner.hide();
-              this.toast.error('There has been an error while trying to issue this asset, please try again.')
+              this.ngxService.stop();
+              this.toast.error('Minting failed, please try again.')
             })
             form.value.reset;
         }, 15000);
         } else {
-          this.spinner.hide();
+          this.ngxService.stop();
           this.toast.error('There has been an error while trying to issue this asset, please try again.')
         }
       }, err => {
-        console.log(err);
-        this.error = err.error.data.error;
-        this.spinner.hide();
+        this.error = err;
+        this.ngxService.stop();
         this.toast.error(this.error)
         form.value.reset;
       });

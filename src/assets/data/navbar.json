@@ -2,9 +2,14 @@
     {
       "menuGroup": [
         {
+          "title": "Home",
+          "menu": [],
+          "path": "/"
+        },
+        {
             "title": "Marketplace",
             "menu": [],
-            "path": "./"
+            "path": "/marketplace"
         },
         {
             "title": "Profile",
@@ -14,11 +19,6 @@
         {
           "title": "Explore",
           "menu": [ 
-            {
-                "title": "All Creators",
-                "url": "/"
-                
-            },
             {
               "title": "All Assets",
               "url": "/assets"

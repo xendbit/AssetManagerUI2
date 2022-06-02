@@ -1,10 +1,10 @@
 import { MetamaskService } from './core/services/metamask.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { MainService } from './core/services/main.service';
-import {HostListener} from '@angular/core';
+import { NgxUiLoaderService, SPINNER } from 'ngx-ui-loader';
 
 import { AppController } from './app.controller';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,14 +20,18 @@ export class AppComponent extends AppController implements OnInit {
   footerInfo: any;
   showHeader: any;
   account: string;
+  SPINNER: SPINNER = SPINNER.threeBounce
+  @Output() changeNotify: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router,
+              private ngxService: NgxUiLoaderService,
               private route: ActivatedRoute,  private spinner: NgxSpinnerService,
               private titleService: Title, public mainService: MainService, public metamaskService: MetamaskService) {
     super();
   }
 
   ngOnInit(): void {
+    this.ngxService.start()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showHeader = this.route.firstChild.snapshot.data.showHeader;
@@ -45,13 +49,13 @@ export class AppComponent extends AppController implements OnInit {
     this.mainService.getFooter().subscribe(res => {
       this.footerInfo = res;
     })
-    this.account = localStorage.getItem('account');
-    this.mainService.fetchAssetsByOwnerId(this.account, 1, 16);
     // this.spinner.show();
     this.setBrowserTabTitle();
-    this.mainService.fetchArtWorkFromMain(1, 16);
+    this.mainService.fetchOnlyApproved(1, 16);
     this.mainService.fetchBlogPost();
+    this.ngxService.stop();
     // this.spinner.hide();
+    this.changeLogo();
   }
 
   private setBrowserTabTitle(): void {
@@ -79,5 +83,12 @@ export class AppComponent extends AppController implements OnInit {
 
     return this.config.appTitle;
   }
-
+  changeLogo() {
+    const darkState = localStorage.getItem('dark-mode');
+    if (darkState === 	'{"darkMode":false}') {
+      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo.png';
+    } else {
+      this.footerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
+    }
+  }
 }

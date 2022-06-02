@@ -1,11 +1,10 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { IArtwork, IAuction } from '../slider/presentation.interface';
+import { IArtwork, IAuction, IminiAuctionInfo } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
-import * as moment from 'moment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
@@ -32,15 +31,14 @@ export class NFTCardComponent implements OnInit {
     id: "",
     followCount: 0
   }
-  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
-    "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
-    "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
-      "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "", "assetType": "digital",
-      "dateIssued": new Date(),"hasActiveAuction": true,"lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
+  auction: IminiAuctionInfo = {
+    "auctionId": "", "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+    "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+    "startBlock": "", "startDate": "", "started": true, "tokenId": ""}
   today: number;
   notExpired: boolean;
-  auctionTime: number;
-  currentTime: number;
+  auctionTime: any;
+  currentTime: any;
   sellPriceMet: boolean = false;
   isLoaded: boolean = false;
   hideNft: boolean = false;
@@ -60,23 +58,15 @@ export class NFTCardComponent implements OnInit {
       this.today = new Date().getTime();
       this.getLikes(this.artwork.tokenId);
       this.isLoaded = false;
-      this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: any) => {
-        if (data === 'Auction has ended') {
+      this.auction = this.artwork.auctions;
+      // console.log('hey', this.artwork.gallery.find((res: any) => res.mediaKey === 'thumbnail'))
+      if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
+        if (this.auction.cancelled === true || this.auction.finished === true || this.auction.sellNowTriggered === true) {
           this.hasActiveAuction = false;
         } else {
-          this.auction = data;
           this.setCountDown(this.auction.endDate);
-          if (this.auction['bids']?.length > 0) {
-            this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
-            if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
-              this.sellPriceMet = true;
-            } else {
-              this.sellPriceMet = false;
-            }
-          }
         }
-
-      })
+      }
     }
   }
 
@@ -107,18 +97,16 @@ export class NFTCardComponent implements OnInit {
 
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date(date)).unix();
-    this.currentTime = moment(new Date()).unix();
-    const diffTime = this.auctionTime - this.currentTime;
-    let duration;
-    duration = moment.duration(diffTime, 'seconds');
+    this.auctionTime =  Math.floor(new Date(date).getTime());
+    this.currentTime = Math.floor(new Date().getTime());
+    let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
+    // console.log('this =>',this.currentTime < this.auctionTime)
     const interval = 1000;
-
     setInterval(() => {
-      this.countdownDay = duration.days();
-      this.countdownHours = duration.hours();
-      this.countdownMinutes = duration.minutes();
-      this.countdownSeconds = duration.seconds();
+      this.countdownDay = this.mainService.getDays(diff);
+      this.countdownHours = this.mainService.getHours(diff);
+      this.countdownMinutes = this.mainService.getMinutes(diff);
+      this.countdownSeconds = this.mainService.getSeconds(diff);
     }, interval);
 
   }

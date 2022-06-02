@@ -21,17 +21,17 @@ import { PaymentComponent } from './core/components/payment/payment.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'marketplace',
     component: HomeComponent,
     data: {
       title: AppController.trans().home
     }
   },
-  {
-    path: 'landing',
-    component: LandingComponent,
-    data: { showHeader: false }
-  },
+  // {
+  //   path: 'landing',
+  //   component: LandingComponent,
+  //   data: { showHeader: false }
+  // },
   {
     path: 'connect-wallet',
     component: ConnectWalletComponent
@@ -75,6 +75,10 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FAQComponent
+  },
+  {
+    path: '',
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
   },
   {
     path: 'checkout/:tokenId/:amount',

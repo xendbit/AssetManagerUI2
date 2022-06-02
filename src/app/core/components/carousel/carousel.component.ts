@@ -13,8 +13,12 @@ import { AuctionService } from '../../services/auction.service';
 })
 export class CarouselComponent implements OnInit {
   @Input() public artworkArray: IArtwork [];
-  @Input() public parentPage: string;
-  artworks: IArtwork [] = [{"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
+  @Input() public title: string;
+  artworks: IArtwork [] = [{"id": "","category": "","tags": [], "auctions": { "auctionId": "",
+            "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+            "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+            "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+            "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
             "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
             "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "sold": false, "name": "", "tokenId": 0, "symbol": "", "assetType": "digital", "type": ""}]
   unsold: any;
@@ -23,7 +27,7 @@ export class CarouselComponent implements OnInit {
   responsiveOptions: { breakpoint: string; numVisible: number; numScroll: number; }[];
   newArtworkArray: IArtwork[] = [];
   categorySelected: any;
-  constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) { 
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService, public auctionService: AuctionService) {
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -49,16 +53,16 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['artworkArray']) {
+    if (changes['artworkArray'].currentValue !== undefined) {
         if (this.artworkArray !== null) {
           this.newArtworkArray = this.artworkArray;
-          this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
-          this.artworkArray = this.newArtworkArray.slice(0,10);
+          // this.newArtworkArray.sort((a, b) => (a.dateIssued > b.dateIssued ? -1 : 1));
+          this.artworkArray = this.newArtworkArray.slice(0,7);
           this.categories = this.artworkArray.map(item => item.category)
           .filter((value, index, self) => self.indexOf(value) === index);
         }
     }
-    
+
   }
 
   categoryFilter(category) {

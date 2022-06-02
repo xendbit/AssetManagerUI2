@@ -35,6 +35,14 @@ export const networkChains = [ {
                 verifyLink: 'https://testnet.bscscan.com/token/'
         },
         {
+                name: "Binance Smart Chain Testnet",
+                chain: 56,
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                currency: 'BNB',
+                systemName: 'bsc',
+                verifyLink: 'https://testnet.bscscan.com/token/'
+        },
+        {
                 name: "Polygon Testnet",
                 chain: 80001,
                 rpcUrl: 'https://rpc-mumbai.matic.today',
@@ -57,8 +65,24 @@ export const networkChains = [ {
                 currency: 'AVAX',
                 systemName: 'avalanche',
                 verifyLink: 'https://testnet.snowtrace.io/token/'
-        }
+        },
+        {
+          name: "Avalanche Mainnet",
+          chain: 43114,
+          rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+          currency: 'AVAX',
+          systemName: 'avalanche',
+          verifyLink: 'https://testnet.snowtrace.io/token/'
+  }
 ]
+
+export const rpcData = {
+  1666700000: 'https://api.s0.b.hmny.io',
+  97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  80001: 'https://rpc-mumbai.matic.today',
+  1313161555: 'https://testnet.aurora.dev/',
+  43113: 'https://api.avax-test.network/ext/bc/C/rpc'
+}
 
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",

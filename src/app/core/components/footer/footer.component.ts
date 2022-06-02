@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
 import { IMenuGroups } from './footer.interface';
 import { INavButton } from '../header/header.interface';
@@ -17,9 +18,13 @@ export class FooterComponent implements OnInit {
   buttonsData: INavButton = { "create": {"title": "Create", "path": ""}, "wallet": { "title": "Connect Wallet", "path": ""}}
   @Input() public footerInfo: IMenuGroups;
   // @Input() public buttonsInfo: INavButton;
-  constructor(public mainService: MainService, private spinner: NgxSpinnerService) { }
+  darkMode$ = this.darkModeService.darkMode$;
+
+  constructor(public mainService: MainService, private spinner: NgxSpinnerService, private darkModeService: DarkModeService) { }
 
   ngOnInit() {
+    this.changeLogo();
+    this.darkMode$.subscribe(state => state ? this.footerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png' : this.footerInfo.logoPath = './assets/img/Niftylogo2.png');
   }
 
 
@@ -33,8 +38,16 @@ export class FooterComponent implements OnInit {
         //   this.buttonsData = this.buttonsInfo;
         // }
         this.spinner.hide();
-    }   
-   
+    }
+
   }
 
+  changeLogo() {
+    const darkState = localStorage.getItem('dark-mode');
+    if (darkState === 	'{"darkMode":false}') {
+      this.footerInfo.logoPath = './assets/img/Niftylogo2.png';
+    } else {
+      this.footerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png';
+    }
+  }
 }

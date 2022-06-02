@@ -6,7 +6,7 @@ import { NgxStripeModule, StripeService } from 'ngx-stripe';
 import { MessageService } from 'primeng/api';
 import { testingRoutes } from 'src/test/mocks/routes.mock';
 import { MetamaskService } from '../../services/metamask.service';
-
+import * as artWorkJson from 'src/assets/data/artwork.json';
 import { NFTCardComponent } from './nftcard.component';
 
 describe('NFTCardComponent', () => {
@@ -31,6 +31,7 @@ describe('NFTCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NFTCardComponent);
     component = fixture.componentInstance;
+    component.artwork = artWorkJson['default'][0];
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     fixture.detectChanges();
