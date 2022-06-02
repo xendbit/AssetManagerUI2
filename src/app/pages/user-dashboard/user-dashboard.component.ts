@@ -64,16 +64,16 @@ export class UserDashboardComponent implements OnInit {
   showSocialsModal = false;
   constructor(public mainService: MainService, public metamaskService: MetamaskService,
     private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService,
-              public toast: HotToastService) {
+              public toast: HotToastService, private ngxService: NgxUiLoaderService) {}
   userWallet: any;
 
-  constructor(public mainService: MainService,
-    public metamaskService: MetamaskService,
-    private clipboard: Clipboard,
-    public userActions: UserActionsService,
-    public auctionService: AuctionService,
-    private ngxService: NgxUiLoaderService) {
-    }
+  // constructor(public mainService: MainService,
+  //   public metamaskService: MetamaskService,
+  //   private clipboard: Clipboard,
+  //   public userActions: UserActionsService,
+  //   public auctionService: AuctionService,
+  //   private ngxService: NgxUiLoaderService) {
+  //   }
 
   ngOnInit(): void {
     this.account = localStorage.getItem('account');
