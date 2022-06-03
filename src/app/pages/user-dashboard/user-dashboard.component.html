@@ -254,7 +254,7 @@
       <p-dialog header="About Me" [(visible)]="showAboutMeModal" [modal]="true" [style]="{width: '70vw'}" [baseZIndex]="10000"
                 [draggable]="false" [resizable]="false">
         <textarea name="" id="" style="width: 100%" rows="10">
-          {{user.aboutInfo}}
+          {{user.about}}
         </textarea>
         <ng-template pTemplate="footer">
           <p-button icon="pi pi-check" (click)="showAboutMeModal=false" label="Yes" class="p-button-text"></p-button>
