@@ -51,7 +51,7 @@ export class AppComponent extends AppController implements OnInit {
     })
     // this.spinner.show();
     this.setBrowserTabTitle();
-    this.mainService.fetchOnlyApproved(1, 16);
+    this.mainService.fetchOnlyApproved(1, 100);
     this.mainService.fetchBlogPost();
     this.ngxService.stop();
     // this.spinner.hide();

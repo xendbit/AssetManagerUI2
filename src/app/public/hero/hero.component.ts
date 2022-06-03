@@ -2,6 +2,7 @@ import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import { IPresentation } from 'src/app/core/components/slider/presentation.interface';
 import { MainService } from 'src/app/core/services/main.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { AuctionService } from 'src/app/core/services/auction.service';
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { Router } from '@angular/router';
 
@@ -38,9 +39,15 @@ export class HeroComponent implements OnInit {
   countdownHours: any;
   countdownMinutes: any;
   countdownSeconds: any;
+  auctionValue: number;
+  auction: any;
+  sellNowValue: number;
+  sellNowValueNGN: number;
+  ngxService: any;
 
   constructor( private mainService: MainService, 
     private router: Router,
+    private auctionService: AuctionService,
     private clipboard: Clipboard,
     public userActions: UserActionsService) { }
 
@@ -50,6 +57,7 @@ export class HeroComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['presentation'].currentValue !== undefined && this.presentation !== null) {
       if (this.presentation.auctions !== undefined && this.presentation.auctions !== null ) {
+        this.getUsdValue();
         this.setCountDown(this.presentation.auctions.endDate)
       }
     }
@@ -76,6 +84,15 @@ export class HeroComponent implements OnInit {
   copyMessage(val){
     this.clipboard.copy(val);
     this.userActions.addSingle('global' ,'success', 'Copied', 'Copied to clipboard!');
+  }
+
+  getUsdValue() {
+    this.auctionService.getUSDValue().subscribe(res => {
+      this.sellNowValue = res['USD'] * this.presentation.auctions.sellNowPrice;
+      this.auctionValue = res['USD'] * this.presentation.auctions.highestBid;
+    }, err => {
+      this.ngxService.stop();
+    })
   }
 
 }

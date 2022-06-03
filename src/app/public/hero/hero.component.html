@@ -83,8 +83,9 @@
     <div class="boxes-main">
       <div class="bid-main" style="border-radius: 16px">
         <p class="bid body-mb">Current Bid <img class="hero-currency" src="assets/img/coins/{{presentation.chain}}.svg" alt=""></p>
-        <h3 class="heading-h3 bid-head">{{presentation.auctions?.highestBid}} <span style="color: lavender"> {{presentation.chain | uppercase}} </span></h3>
-        <p class="dollor body-mb">$2,505</p>
+        <h3 *ngIf="presentation.chain !== 'avalanche'" class="heading-h3 bid-head">{{presentation.auctions?.highestBid}} <span style="color: lavender"> {{presentation.chain | uppercase}} </span></h3>
+        <h3 *ngIf="presentation.chain === 'avalanche'" class="heading-h3 bid-head">{{presentation.auctions?.highestBid}} <span style="color: lavender"> AVAX </span></h3>
+        <p class="dollor body-mb">{{auctionValue | currency}}</p>
       </div>
       <div class="auction-main" style="border-radius: 16px">
         <p class="body-mb acution">Auction Ending</p>

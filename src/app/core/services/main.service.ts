@@ -224,7 +224,7 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter((res: any) => res.auctions !== null && res.isApproved));
 
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
