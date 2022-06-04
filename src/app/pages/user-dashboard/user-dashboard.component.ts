@@ -43,15 +43,10 @@ export class UserDashboardComponent implements OnInit {
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
   displayImage: string = "/assets/img/user-profile-default-image.png";
   coverImage: string = "/assets/img/profile_holder.jpg";
-  another: any [] = [];
-  error: string;
-  showProfileUpload = false;
-  displayPicture;
-  previewMedia: any;
-  facebook: string;
-  twitter: string;
-  private errorMessage: string;
-  private image: boolean;
+  another: any [] = []; error: string; showProfileUpload = false; showCoverUpload = false;
+  previewMedia: any; facebook: string; twitter: string; telegram: string; discord: string;
+  pinterest: string; youtube: string; about: string; private errorMessage: string;
+  private image: string;
   private previewArray:any = [];
   public preview: any;
   private mediaType: any;
@@ -60,18 +55,16 @@ export class UserDashboardComponent implements OnInit {
   selectedFile: File;
   showAboutMeModal = false;
   showSocialsModal = false;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService,
-    private clipboard: Clipboard, public userActions: UserActionsService, public auctionService: AuctionService,
-              public toast: HotToastService, private ngxService: NgxUiLoaderService) {}
   userWallet: any;
-
-  // constructor(public mainService: MainService,
-  //   public metamaskService: MetamaskService,
-  //   private clipboard: Clipboard,
-  //   public userActions: UserActionsService,
-  //   public auctionService: AuctionService,
-  //   private ngxService: NgxUiLoaderService) {
-  //   }
+  
+  constructor(
+    public mainService: MainService, 
+    public metamaskService: MetamaskService,
+    private clipboard: Clipboard, 
+    public userActions: UserActionsService, 
+    public auctionService: AuctionService,
+    public toast: HotToastService, 
+    private ngxService: NgxUiLoaderService) {}
 
   ngOnInit(): void {
     this.ngxService.start();
@@ -185,9 +178,15 @@ export class UserDashboardComponent implements OnInit {
       }
     }
     this.userActions.updateProfile(userData, this.account).subscribe((res: any) => {
-      console.log('i am here', res);
-      this.ngxService.stop();
+      if (res.status === 'success') {
+        this.toast.success('Profile updated successfully');
+        this.ngxService.stop();
+      } else {
+        this.toast.error('There was an error while updating your profile, please try again later.')
+        this.ngxService.stop()
+      }
     }, err => {
+      this.toast.error('There was an error while updating your profile, please try again later.')
       this.ngxService.stop();
     })
   }
@@ -198,7 +197,12 @@ export class UserDashboardComponent implements OnInit {
       this.user = res;
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
-      console.log('hey', res)
+      this.twitter = this.user.socials.twitterUrl;
+      this.facebook = this.user.socials.facebookUrl;
+      this.telegram = this.user.socials.telegramUrl;
+      this.youtube = this.user.socials.youtubeUrl;
+      this.pinterest = this.user.socials.pinterestUrl
+      this.discord = this.user.socials.discordUrl;
     }, err => {
       console.log('err =>', err)
     })
@@ -206,9 +210,14 @@ export class UserDashboardComponent implements OnInit {
 
 
   follow(username) {
-    this.updateProfile();
-    this.userActions.BroadcastFollowEvent("follow", 1, username);
-    this.getFollowerCount(username);
+    this.userActions.BroadcastFollowEvent("follow", 1, username, this.account).subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.toast.success('Successfully followed this account');
+        this.getFollowerCount(username);
+      }
+    }, err => {
+      console.log('err =>', err)
+    })
   }
 
   getFollowerCount(username) {
@@ -217,19 +226,29 @@ export class UserDashboardComponent implements OnInit {
 
   copyMessage(val){
     this.clipboard.copy(val);
-    this.userActions.addSingle('global','success', 'Copied', 'Copied to clipboard!');
+    this.toast.success('Copied to clipboard!')
   }
 
-  uploadPicture() {
-    this.mainService.postDisplayPicture(this.selectedFile)
-      // .subscribe(response => {
-      //   console.log(response);
-      // });
+  uploadDisplayPicture() {
+    this.displayImage = this.image;
+    this.user.displayImage = this.displayImage;
+    this.updateProfile();
     this.showProfileUpload = false;
   }
 
-  clickedProfile() {
+  uploadCoverPicture() {
+    this.coverImage = this.image;
+    this.user.coverImage = this.coverImage;
+    this.updateProfile();
+    this.showCoverUpload = false;
+  }
+
+  clickedDisplayImage() {
     this.showProfileUpload = true;
+  }
+
+  clickedCoverImage() {
+    this.showCoverUpload = true;
   }
 
   check(event: any) {
@@ -244,31 +263,41 @@ export class UserDashboardComponent implements OnInit {
     } else {
       var reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = this.handleFile.bind(this)
       if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
         this.errorMessage = 'Please select a file type of JPEG, GIF, PNG';
         this.toast.error('Please select a file type of JPEG, GIF, PNG')
         return;
       } else {
         if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
-          this.image = true;
           this.preview = file;
           reader.onload = (event: any) => {
-            this.displayImage = event.target.result;
-            console.log(this.displayImage);
+            this.image = event.target.result;
+            console.log(this.image);
           }
         }
       };
     }
   }
 
-  handleFile(event) {
-    const binaryString = event.target.result;
-    this.media.push(binaryString);
-  }
-
   editAboutMe() {
     this.showAboutMeModal = true;
+  }
+
+  updateAbout() {
+    this.user.about = this.about;
+    this.updateProfile();
+    this.showAboutMeModal = false;
+  }
+
+  updateSocials() {
+    this.user.socials.twitterUrl = this.twitter;
+    this.user.socials.facebookUrl = this.facebook;
+    this.user.socials.telegramUrl = this.telegram;
+    this.user.socials.youtubeUrl = this.youtube;
+    this.user.socials.pinterestUrl = this.pinterest;
+    this.user.socials.discordUrl = this.discord;
+    this.updateProfile();
+    this.showSocialsModal = false;
   }
 
   clickedSocials() {

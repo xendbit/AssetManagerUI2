@@ -44,7 +44,7 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
 
   interface IUserSocials{
     twitterUrl?: string;
-    facebookUrl?: number;
+    facebookUrl?: string;
     telegramUrl?: string;
     youtubeUrl?: string;
     pinterestUrl?: string;
