@@ -334,6 +334,8 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
+        this.metBuyNow = false;
+        this.sellPriceMet = false;
         this.ngxService.stop();
         this.toast.error('Bid cancelled');
         return;
