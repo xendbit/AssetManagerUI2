@@ -912,6 +912,14 @@ html {
     align-items: center;
   }
 
+body.dark-mode .table-striped>tbody>tr:nth-of-type(odd) {
+  color: #f2e7c3;
+}
+
+body.dark-mode .table-striped>tbody>tr:nth-of-type(even) {
+  color: #f2e7c3;
+}
+
   @media (max-width: 1100px) {
     .hero-main .container-fluid .hero-inr .row-custom {
       flex-direction: column;
