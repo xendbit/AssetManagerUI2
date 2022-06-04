@@ -620,4 +620,12 @@ export class MainService {
     return seconds;
   }
 
+  postDisplayPicture(body) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    const formData: any = new FormData();
+    formData.append('image', body)
+    // return this.httpClient.post(`${baseUrl.imgBBUrl}`, body, {headers});
+  }
 }
