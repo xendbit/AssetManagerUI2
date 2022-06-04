@@ -99,7 +99,7 @@ export class MainService {
           symbol: item.symbol,
           name: item.name,
           tokenId: parseInt(item.tokenId),
-          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          dateIssued: item.dateIssued,
           sold: item.sold,
           assetType: item.assetType,
           type: item.type
@@ -224,7 +224,7 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter((res: any) => res.auctions !== null && res.isApproved));
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
 
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
@@ -620,4 +620,12 @@ export class MainService {
     return seconds;
   }
 
+  postDisplayPicture(body) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    const formData: any = new FormData();
+    formData.append('image', body)
+    // return this.httpClient.post(`${baseUrl.imgBBUrl}`, body, {headers});
+  }
 }

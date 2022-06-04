@@ -24,7 +24,9 @@ export class UserActionsService {
     public httpClient: HttpClient,
     public toast: HotToastService) { }
 
-  BroadcastLikes(type: string, data: number, id: number) {
+  BroadcastLikes(type: string, data: number, id: number, walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
     let confirmLikeExists = this.dataStore.likes.tokenId === id;
     if (type === 'likes' && confirmLikeExists) {
       this._eventsSubject.complete();
@@ -32,6 +34,9 @@ export class UserActionsService {
     } else {
       this.dataStore.likes = {tokenId: id, likeCount: data};
       this._eventsSubject.next({ type, data, id })
+      return this.httpClient.post(`${baseUrl.mainUrl}tokens/${id}/like`, {
+        "userAddress": walletAddress
+      }, {headers});
     }
 
   }
@@ -44,13 +49,17 @@ export class UserActionsService {
 
   }
 
-  BroadcastFollowEvent(type: string, data: number, id: string) {
-    let confirmFollow = this.dataStore.follow.id === id;
+  BroadcastFollowEvent(type: string, data: number, walletAddress: string, follower: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('walletAddress', follower)
+    let confirmFollow = this.dataStore.follow.id.toLowerCase() === walletAddress.toLowerCase();
     if (type === 'follow' && confirmFollow) {
       this._eventsSubject.complete();
       return;
     } else {
-      this.dataStore.follow = { followCount: data, id: id };
+      this.dataStore.follow = { followCount: data, id: walletAddress };
+      return this.httpClient.post(`${baseUrl.extraUrl}users/follow/${walletAddress}`, {}, {headers});
     }
 
   }
@@ -71,17 +80,19 @@ export class UserActionsService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     // headers = headers.append('api-key', niftyKey);
-    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, {
-        "firstName": userData.firstName,
-        "lastName": userData.lastName,
-        "userName": userData.userName,
-        "password": userData.password,
-        "email": userData.email,
-        "walletAddress": userData.walletAddress,
-        "about": userData.about,
-        "webUrl": userData.webUrl,
-        "social": userData.social
-    }, {headers});
+    var userUpdate = JSON.stringify({
+      "firstName": userData.firstName,
+      "lastName": userData.lastName,
+      "username": userData.username,
+      "email": userData.email,
+      "password": userData.password,
+      "walletAddress": userData.walletAddress,
+      "about": userData.about,
+      "webUrl": userData.webUrl.url,
+      "social": userData.social,
+      "photo": userData.photo
+    });
+    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
   getProfile(walletAddress: string) {

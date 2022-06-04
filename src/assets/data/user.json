@@ -1,10 +1,10 @@
 {
     "userId": 1,
-    "username": "My Profile",
-    "firstName": "first",
-    "lastName": "last",
+    "username": "My-Prhofile",
+    "firstName": "firklst",
+    "lastName": "laklst",
     "walletAddress": "0xd07dc42622430",
-    "email": "testrasgf@gmail.com",
+    "email": "testraslhgf@gmail.com",
     "socials": {"twitterUrl": "www.twitter.com/xendbit", "facebookUrl": "www.facebook.com/xendbit",
     "youtubeUrl": "www.youtube.com/xendbit", "telegramUrl": "www.telegram.com/xendbit"},
     "followers": [{

@@ -8,3 +8,9 @@
   padding-bottom: 4px;
   padding-left: 4px;
 }
+
+@media (max-width: 767px) {
+  .create-otr {
+    margin-top: 12rem
+  }
+}

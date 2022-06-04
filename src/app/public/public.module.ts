@@ -7,12 +7,14 @@ import { CuratorsOfTheWeekComponent } from './curators-of-the-week/curators-of-t
 import { HeroComponent } from './hero/hero.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { ShoreComponent } from './shore/shore.component';
+import { PopularArtistsComponent } from './popular-artists/popular-artists.component';
 
 
 @NgModule({
   declarations: [
     ShoreComponent,
-    CuratorsOfTheWeekComponent
+    CuratorsOfTheWeekComponent,
+    PopularArtistsComponent
   ],
   imports: [
     CommonModule,

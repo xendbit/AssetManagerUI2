@@ -57,10 +57,11 @@
 
 
     <div class="row">
-        <div class="col-lg-6" id="assetDetails">
+      <div class="col-lg-1"></div>
+        <div class="col-lg-5" id="assetDetails">
             <div class="hero-single-artwork">
                 <div class="container-fluid">
-                    <div class="hero-inr"  aTilt data-tilt="">
+                    <div class="hero-inr">
                         <div [ngSwitch]="artwork.category">
                             <a class="img-otr img-tilt" id="anchorMedia"   *ngSwitchDefault>
                                 <img id="imageDisplay" class="img-artwork img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
@@ -206,7 +207,7 @@
                                                     <p id="noBid" *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
                                                 </div>
-                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime">
+                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="body-mb acution" *ngIf="currentTime  < auctionTime && !sellPriceMet">Auction Ending</p>
                                                     <div id="clock" class="timer" *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                         <div class="hours-main main" *ngIf="countdownDay > 0">
@@ -440,9 +441,9 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
             </div>
         </div>
     </div>
