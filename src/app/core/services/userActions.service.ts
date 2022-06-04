@@ -71,17 +71,19 @@ export class UserActionsService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     // headers = headers.append('api-key', niftyKey);
-    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, {
-        "firstName": userData.firstName,
-        "lastName": userData.lastName,
-        "userName": userData.userName,
-        "password": userData.password,
-        "email": userData.email,
-        "walletAddress": userData.walletAddress,
-        "about": userData.about,
-        "webUrl": userData.webUrl,
-        "social": userData.social
-    }, {headers});
+    var userUpdate = JSON.stringify({
+      "firstName": userData.firstName,
+      "lastName": userData.lastName,
+      "username": userData.username,
+      "email": userData.email,
+      "password": userData.password,
+      "walletAddress": userData.walletAddress,
+      "about": userData.about,
+      "webUrl": userData.webUrl.url,
+      "social": userData.social,
+      "photo": userData.photo
+    });
+    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
   getProfile(walletAddress: string) {

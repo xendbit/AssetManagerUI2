@@ -151,16 +151,21 @@ export class UserDashboardComponent implements OnInit {
     let userData = {
       "firstName": this.user.firstName,
       "lastName": this.user.lastName,
-      "userName": this.user.username,
-      "password": "password",
+      "username": this.user.username,
+      "password": this.user.password || "password",
       "email": this.user.email,
       "walletAddress": this.account,
       "about": this.user.about,
       "webUrl": this.user.webUrl,
-      "social": this.user.socials
+      "social": this.user.socials,
+      "photo": {
+        "displayImage": this.user.displayImage,
+        "coverImage": this.user.coverImage
+      }
     }
     this.userActions.updateProfile(userData, this.account).subscribe((res: any) => {
-      console.log('i am here', res)
+      console.log('i am here', res);
+      this.ngxService.stop();
     }, err => {
       this.ngxService.stop();
     })
