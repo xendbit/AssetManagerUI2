@@ -91,7 +91,7 @@ export class HeroComponent implements OnInit {
       this.sellNowValue = res['USD'] * this.presentation.auctions.sellNowPrice;
       this.auctionValue = res['USD'] * this.presentation.auctions.highestBid;
     }, err => {
-      this.ngxService.stop();
+      // this.ngxService.stop();
     })
   }
 
