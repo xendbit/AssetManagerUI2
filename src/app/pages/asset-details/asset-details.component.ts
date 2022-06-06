@@ -84,7 +84,7 @@ export class AssetDetailsComponent implements OnInit {
         this.contractAddress = response['data'];
       });
      }
-    
+
   ownerArtworks: IArtwork[];
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
@@ -340,6 +340,7 @@ export class AssetDetailsComponent implements OnInit {
       this.metBuyNow = true;
       this.sellPriceMet = true;
     }
+    console.log('hre met', this.sellPriceMet)
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
         this.metBuyNow = false;
@@ -360,18 +361,19 @@ export class AssetDetailsComponent implements OnInit {
           this.toast.success('Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-              if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-                this.owner = true;
-                if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-                  this.visible = true;
-                }
-                this.ngxService.stop();
-                this.router.navigate(['/profile']).then(() => {
-                  window.location.reload();
-                });;
-              }
               this.ngxService.stop();
-              this.ngOnInit();
+              // if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+              //   this.owner = true;
+              //   if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+              //     this.visible = true;
+              //   }
+              //   this.ngxService.stop();
+              //   this.router.navigate(['/profile']).then(() => {
+              //     window.location.reload();
+              //   });;
+              // }
+              this.ngxService.stop();
+              // this.ngOnInit();
             }, err => {
               this.ngxService.stop();
               this.toast.success('There has been an error, please try again.');
