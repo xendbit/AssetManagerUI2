@@ -207,7 +207,7 @@
                                                     <p id="noBid" *ngIf="this.sellNowValue === false">No bids yet</p>
                                                   </div>
                                                 </div>
-                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime">
+                                                <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                     <p class="body-mb acution" *ngIf="currentTime  < auctionTime && !sellPriceMet">Auction Ending</p>
                                                     <div id="clock" class="timer" *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                         <div class="hours-main main" *ngIf="countdownDay > 0">
