@@ -365,6 +365,10 @@ export class AssetDetailsComponent implements OnInit {
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                   this.visible = true;
                 }
+                this.ngxService.stop();
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                });;
               }
               this.ngxService.stop();
               this.ngOnInit();
@@ -384,10 +388,6 @@ export class AssetDetailsComponent implements OnInit {
     })
 
   }
-
-  //if end date elapse and no bid, call cancel endpoint and remove artwork
-  //if there is a bid enable withdraw
-  //if sell now met, enable withdraw
 
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;

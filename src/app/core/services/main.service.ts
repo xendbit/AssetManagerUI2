@@ -187,7 +187,7 @@ export class MainService {
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
-          auctions: item.auctions,
+          auctions: item.auctions[0],
           tags: item.tags,
           owner: {
             id: item.id,

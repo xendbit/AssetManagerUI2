@@ -54,8 +54,8 @@
   </p-dialog>
 
     <p-toast position="top-center"></p-toast>
-    <div class="container-fluid" style="height: 100vh">
-      <h2 id="ownerWarning" style="text-align: center; margin-top: 200px;" *ngIf="tokenFound !== true" class="heading-h4 bid-head">404: Token with id {{artwork.tokenId}} not found.</h2>
+    <div class="container-fluid" style="height: 100vh" *ngIf="tokenFound !== true">
+      <h2 id="ownerWarning" style="text-align: center; margin-top: 200px;" class="heading-h4 bid-head">404: Token with id {{artwork.tokenId}} not found.</h2>
     </div>
 
     <div  *ngIf="tokenFound === true">
