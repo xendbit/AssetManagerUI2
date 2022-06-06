@@ -166,10 +166,14 @@ export class MainService {
         });
           observer.complete();
         }, err => {
+          if (err?.error.data.statusCode === 404) {
+            observer.next(err.error.data);
+            observer.complete()
+          } else {
             observer.next(artWorkJson['default'][0]);
             observer.complete()
+          }
         }); /* make sure to handle http error */
-
     });
   }
 
@@ -183,7 +187,7 @@ export class MainService {
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
-          auctions: item.auctions,
+          auctions: item.auctions[0],
           tags: item.tags,
           owner: {
             id: item.id,
@@ -620,12 +624,4 @@ export class MainService {
     return seconds;
   }
 
-  postDisplayPicture(body) {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('api-key', niftyKey);
-    const formData: any = new FormData();
-    formData.append('image', body)
-    // return this.httpClient.post(`${baseUrl.imgBBUrl}`, body, {headers});
-  }
 }

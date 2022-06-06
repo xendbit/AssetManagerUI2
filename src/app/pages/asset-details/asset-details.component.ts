@@ -47,6 +47,7 @@ export class AssetDetailsComponent implements OnInit {
   lastBidder: boolean;
   contractAddress: any;
   hasActiveAuction: boolean = false;
+  tokenFound: boolean = true;
   metBuyNow: boolean;
   auctionLength: number = 0;
   foundNetwork: {};
@@ -188,52 +189,59 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   getSingleArtworkDetails() {
-    this.mainService.fetchSingleArtwork(this.tokenId).subscribe((res: IArtwork) => {
-      this.artwork = res;
-      this.sellPriceMet = false;
-      if (this.artwork.lastAuctionId !== 0) {
-        this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
-          if (res === 'Auction has ended') {
-            console.log('res', res)
-            this.hasActiveAuction = false;
-            // this.ngxService.stop();
-          } else {
-            this.hasActiveAuction = true;
-            this.auction = res;
-            this.auctionLength = this.auction.bids.length;
-            this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
-            this.checkBuyer();
-            this.auctionService.getUSDValue().subscribe(res => {
-              if (this.auction.bids.length > 0) {
-                this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
-                this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
-                this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
-                if (this.account !== undefined) {
-                  if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
-                    this.lastBidder = true;
-                  }
-                }
-                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-                  this.sellPriceMet = false;
-                } else {
-                  this.sellPriceMet = true;
-                }
-              } else {
-                this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
-                this.auctionValue = res['USD'] * this.auction.highestBid;
-                this.sellPriceMet = false;
-              }
-            }, err => {
-              this.ngxService.stop();
-            })
-            this.setCountDown(this.auction.endDate);
-          }
-        }, err => {
-          console.log('this is error')
-        })
-      } else {
+    this.mainService.fetchSingleArtwork(this.tokenId).subscribe((res: any) => {
+      if (res && res.statusCode === 404) {
+        this.tokenFound = false;
         this.ngxService.stop();
+      } else {
+        this.artwork = res;
+        this.sellPriceMet = false;
+        if (this.artwork.lastAuctionId !== 0) {
+          this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
+            if (res === 'Auction has ended') {
+              this.hasActiveAuction = false;
+              // this.ngxService.stop();
+            } else {
+              this.hasActiveAuction = true;
+              this.auction = res;
+              this.auctionLength = this.auction.bids.length;
+              this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
+              this.checkBuyer();
+              this.auctionService.getUSDValue().subscribe(res => {
+                if (this.auction.bids.length > 0) {
+                  this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
+                  this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                  this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
+                  if (this.account !== undefined) {
+                    if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                      this.lastBidder = true;
+                    }
+                  }
+                  if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                    this.sellPriceMet = false;
+                  } else {
+                    this.sellPriceMet = true;
+                  }
+                } else {
+                  this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                  this.auctionValue = res['USD'] * this.auction.highestBid;
+                  this.sellPriceMet = false;
+                }
+              }, err => {
+                this.ngxService.stop();
+              })
+              this.setCountDown(this.auction.endDate);
+            }
+          }, err => {
+            console.log('this is error')
+          })
+        } else {
+          this.ngxService.stop();
+        }
       }
+    }, err => {
+      this.ngxService.stop();
+      console.log('err', err)
     })
   }
 
@@ -334,6 +342,8 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
+        this.metBuyNow = false;
+        this.sellPriceMet = false;
         this.ngxService.stop();
         this.toast.error('Bid cancelled');
         return;
@@ -355,6 +365,10 @@ export class AssetDetailsComponent implements OnInit {
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                   this.visible = true;
                 }
+                this.ngxService.stop();
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                });;
               }
               this.ngxService.stop();
               this.ngOnInit();
@@ -374,10 +388,6 @@ export class AssetDetailsComponent implements OnInit {
     })
 
   }
-
-  //if end date elapse and no bid, call cancel endpoint and remove artwork
-  //if there is a bid enable withdraw
-  //if sell now met, enable withdraw
 
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;

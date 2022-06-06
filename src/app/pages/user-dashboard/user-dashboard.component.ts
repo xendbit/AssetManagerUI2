@@ -69,8 +69,8 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.ngxService.start();
     this.account = localStorage.getItem('account');
-    this.getProfile();
     this.checkConnection();
+    this.getProfile();
   }
 
   checkConnection() {
@@ -91,7 +91,6 @@ export class UserDashboardComponent implements OnInit {
               if (res !== null) {
                 const expected = new Set();
                 this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-                console.log('art', this.artworks)
                 this.categories = this.artworks.map(item => item.category)
                 .filter((value, index, self) => self.indexOf(value) === index);
                 this.ngxService.stop();
