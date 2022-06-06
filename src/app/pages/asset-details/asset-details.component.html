@@ -64,7 +64,7 @@
           <div class="col-lg-5" id="assetDetails">
               <div class="hero-single-artwork">
                   <div class="container-fluid">
-  
+
                       <div class="hero-inr">
                           <div [ngSwitch]="artwork.category">
                               <a class="img-otr img-tilt" id="anchorMedia"   *ngSwitchDefault>
@@ -201,7 +201,7 @@
                                                 </a>
                                               </div>
                                               <div class="boxes-main" *ngIf="!this.owner">
-  
+
                                                   <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                       <p class="bid p-coin body-mb">Buy-Now Price <img class="coins" src="./assets/img/coins/{{getChain()}}.svg" alt=""></p>
                                                     <div style="display: flex; justify-content: space-between">
@@ -238,7 +238,7 @@
                                                   </div>
                                               </div>
                                               <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
-  
+
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
                                                       <div *ngIf="auction.bids.length <= 0 && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
@@ -259,11 +259,11 @@
                                                           type="text" name="amount" [(ngModel)]="amount" placeholder="Buy Now Price: {{auction.sellNowPrice}} {{foundNetwork['currency']}} "  type="number" id="amount" name="amount"required>
                                                       </div>
                                                   </div>
-  
+
                                                   <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound && artwork.assetType === 'digital'">
                                                       <a id="bid" (click)="bid()" class="btn-fill btn-bid place-a-bid">Place a Bid</a>
                                                   </div>
-  
+
                                                   <div class="action-otr" style="flex: 1" *ngIf="visible && artwork.assetType === 'physical'">
                                                     <a id="physicalCheckout" (click)="goToCheckout()" class="btn-fill btn-bid place-a-bid" style="display: inline-block;">Buy now
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="17px" viewBox="0 0 152.407 108">
@@ -280,7 +280,7 @@
                                                       <img src="/assets/img/visa_logo.svg">
                                                     </a>
                                                   </div>
-  
+
                                                  </div>
                                                   <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'digital'">
                                                       <div class="heading-inr error-container">
@@ -307,7 +307,7 @@
                                                           </div>
                                                       </div>
                                                   </div>
-  
+
                                                   <div class="input-main">
                                                       <div class="input-otr-2">
                                                           <div id="endDate" class="input"  style="width: 100%;
@@ -327,7 +327,7 @@
                                                           </div>
                                                       </div>
                                                   </div>
-  
+
                                                   <div class="input-main">
                                                       <div class="input-otr-2">
                                                           <input id="sellNowPrice" class="input" style="width: 100%;
@@ -344,7 +344,7 @@
                                                           background-color: white;"  type="number" id="minimumPrice" [(ngModel)]="minimumPrice" name="minimumPrice" placeholder="Minimum Price" required>
                                                       </div>
                                                   </div>
-  
+
                                                   <div class="action-otr" *ngIf="visible">
                                                       <a id="startAuction" (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                                   </div>
@@ -445,9 +445,9 @@
                               </div>
                           </div>
                       </div>
-  
+
                   </div>
-  
+
               </div>
           </div>
       </div>
@@ -455,4 +455,3 @@
       <!--=======================================
           Hero Single ArtworK End Here
       ========================================-->
-    
