@@ -73,15 +73,15 @@
                               <a class="img-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
                                   <img id="audioCoverArt" class="img-artwork img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
                                   <audio id="audioPlayer" class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
-                                      <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
-                                      <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
+                                      <source src="{{artwork.gallery[2]['media']}}" type="audio/mp3" />
+                                      <source src=" {{artwork.gallery[2]['media']}} " type="audio/ogg" />
                                   </audio>
                               </a>
                               <a class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
                                   <video id="videoPlayer" class="img-artwork img-fluid" style="object-fit: contain; width: 100%; height: 640px;"   controls controlsList="nodownload">
-                                      <source src=" {{artwork.gallery[1]['media']}}" type="video/mp4" />
-                                      <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
-                                      <source src=" {{artwork.gallery[1]['media']}}" type="video/ogg" />
+                                      <source src=" {{artwork.gallery[2]['media']}}" type="video/mp4" />
+                                      <source src="{{artwork.gallery[2]['media']}}" type="video/webm" />
+                                      <source src=" {{artwork.gallery[2]['media']}}" type="video/ogg" />
                                   </video>
                               </a>
                           </div>
