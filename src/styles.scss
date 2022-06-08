@@ -29452,3 +29452,8 @@ body.dark-mode #hours.heading-h3, body.dark-mode #minutes.heading-h3, body.dark-
 .p-dialog .p-dialog-header {
   justify-content: right;
 }
+
+.p-message .p-message-wrapper {
+  padding: 0.5rem 1rem !important;
+  margin-bottom: -1rem;
+}

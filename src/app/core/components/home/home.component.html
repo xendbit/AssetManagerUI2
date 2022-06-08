@@ -1,7 +1,7 @@
 
   <main>
     <!-- <p-toast position="top-center"></p-toast> -->
-    <p-messages key="global" position="top-center"></p-messages>
+    <p-messages key="global" style="'margin-bottom: -2rem'" position="top-center" [showTransitionOptions]="'2000ms ease-out'" [hideTransitionOptions]="'800ms cubic-bezier(0.86, 0, 0.07, 1)'"></p-messages>
 <!--    <app-slider [slider]="this.slide"></app-slider>-->
     <div class="hero-main" *ngIf="presentationData !== undefined">
       <div class="container-fluid">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <app-assets-grid [artworkArray]="this.artworks" [parentPage]="'home'"></app-assets-grid>
-<!-- 
+<!--
     <app-blog [blog]="blogs"></app-blog> -->
   </main>
 
