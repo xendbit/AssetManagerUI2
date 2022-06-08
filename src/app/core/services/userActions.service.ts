@@ -88,7 +88,7 @@ export class UserActionsService {
       "password": userData.password,
       "walletAddress": userData.walletAddress,
       "about": userData.about,
-      "webUrl": userData.webUrl.url,
+      "webUrl": userData.webUrl,
       "social": userData.social,
       "photo": userData.photo
     });

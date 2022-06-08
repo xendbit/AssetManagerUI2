@@ -45,7 +45,7 @@ export class UserDashboardComponent implements OnInit {
   coverImage: string = "/assets/img/profile_holder.jpg";
   another: any [] = []; error: string; showProfileUpload = false; showCoverUpload = false;
   previewMedia: any; facebook: string; twitter: string; telegram: string; discord: string;
-  pinterest: string; youtube: string; about: string; private errorMessage: string;
+  pinterest: string; youtube: string; about: string; private errorMessage: string; webUrl: string = "";
   private image: string;
   private previewArray:any = [];
   public preview: any;
@@ -56,14 +56,14 @@ export class UserDashboardComponent implements OnInit {
   showAboutMeModal = false;
   showSocialsModal = false;
   userWallet: any;
-  
+
   constructor(
-    public mainService: MainService, 
+    public mainService: MainService,
     public metamaskService: MetamaskService,
-    private clipboard: Clipboard, 
-    public userActions: UserActionsService, 
+    private clipboard: Clipboard,
+    public userActions: UserActionsService,
     public auctionService: AuctionService,
-    public toast: HotToastService, 
+    public toast: HotToastService,
     private ngxService: NgxUiLoaderService) {}
 
   ngOnInit(): void {
@@ -169,13 +169,16 @@ export class UserDashboardComponent implements OnInit {
       "email": this.user.email,
       "walletAddress": this.account,
       "about": this.user.about,
-      "webUrl": this.user.webUrl,
+      "webUrl": this.user.webUrl.url,
       "social": this.user.socials,
       "photo": {
         "displayImage": this.user.displayImage,
         "coverImage": this.user.coverImage
       }
     }
+    // if (!this.webUrl('https://')){
+    //   return this.toast.error('Please Update your profile to include a valid Website URL.')
+    // }
     this.userActions.updateProfile(userData, this.account).subscribe((res: any) => {
       if (res.status === 'success') {
         this.toast.success('Profile updated successfully');
@@ -202,6 +205,7 @@ export class UserDashboardComponent implements OnInit {
       this.youtube = this.user.socials.youtubeUrl;
       this.pinterest = this.user.socials.pinterestUrl
       this.discord = this.user.socials.discordUrl;
+      this.webUrl = this.user.webUrl.url;
     }, err => {
       console.log('err =>', err)
     })

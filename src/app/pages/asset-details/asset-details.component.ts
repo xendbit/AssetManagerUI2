@@ -116,7 +116,7 @@ export class AssetDetailsComponent implements OnInit {
     this.getSingleArtworkDetails();
     this.mainService.fetchAssetsByOwnerId(this.artwork.creator.username, 1, 16);
     this.getCreatorArt();
-    if (this.artwork.auction !== undefined) {
+    if (this.artwork.auctions !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
     }
@@ -336,6 +336,7 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.ngxService.start();
+    const sellNow = parseInt("0.5")
     if (+this.amount >= this.auction.sellNowPrice) {
       this.metBuyNow = true;
       this.sellPriceMet = true;
@@ -361,17 +362,16 @@ export class AssetDetailsComponent implements OnInit {
           this.toast.success('Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-              this.ngxService.stop();
-              // if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-              //   this.owner = true;
-              //   if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-              //     this.visible = true;
-              //   }
-              //   this.ngxService.stop();
-              //   this.router.navigate(['/profile']).then(() => {
-              //     window.location.reload();
-              //   });;
-              // }
+              if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+                this.owner = true;
+                if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                  this.visible = true;
+                }
+                this.ngxService.stop();
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                });;
+              }
               this.ngxService.stop();
               // this.ngOnInit();
             }, err => {
