@@ -458,10 +458,7 @@ export class CreateAssetsComponent implements OnInit {
               if (data['status'] === 'success') {
                 this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
-                // this.ngOnInit();
-                // this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
-                //   console.log('response', res)
-                // })
+
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });
@@ -470,6 +467,7 @@ export class CreateAssetsComponent implements OnInit {
                 this.toast.error('Minting failed, please try again.')
               }
             }, err => {
+              console.log('this is =>', err)
               this.ngxService.stop();
               this.toast.error('Minting failed, please try again.')
             })
