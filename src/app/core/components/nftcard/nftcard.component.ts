@@ -59,7 +59,6 @@ export class NFTCardComponent implements OnInit {
       this.getLikes(this.artwork.tokenId);
       this.isLoaded = false;
       this.auction = this.artwork.auctions;
-      console.log('artwork.', this.artwork)
       // console.log('hey', this.artwork.gallery.find((res: any) => res.mediaKey === 'thumbnail'))
       if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
         if (this.auction.cancelled === true || this.auction.finished === true || this.auction.sellNowTriggered === true) {
@@ -73,7 +72,7 @@ export class NFTCardComponent implements OnInit {
 
   like(tokenId) {
     let account = localStorage.getItem('account');
-    if (localStorage.getItem('account')) { 
+    if (localStorage.getItem('account')) {
       this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
         if (data.status === 'success') {
           this.getLikes(tokenId);

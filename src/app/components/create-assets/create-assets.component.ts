@@ -297,7 +297,7 @@ export class CreateAssetsComponent implements OnInit {
             const image = new Image();
             image.src = e.target.result;
             image.onload = async rs => {
-                this.thumbnail = await this.generateThumbnail(file, [1000, 1000]) 
+                this.thumbnail = await this.generateThumbnail(file, [1000, 1000])
                 if (this.mediaType.includes('image')) {
                   this.media.push(this.thumbnail);
                   this.mediaType.push('thumbnail');
@@ -453,31 +453,36 @@ export class CreateAssetsComponent implements OnInit {
       this.ngxService.start();
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
         if (data.status === 'success') {
-          setTimeout(() => {
+          // setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
               if (data['status'] === 'success') {
                 this.ngxService.stop();
                 this.toast.success('Asset has been issued successfully.')
-                // this.ngOnInit();
-                // this.mainService.toggleApproved(this.tokenId).subscribe((res:any) => {
-                //   console.log('response', res)
-                // })
+
                 this.router.navigateByUrl('/profile').then(() => {
                   window.location.reload();
                 });
               } else {
                 this.ngxService.stop();
-                this.toast.error('Minting failed, please try again.')
+                this.toast.error('There has been an error, please try again.')
               }
             }, err => {
-              this.ngxService.stop();
-              this.toast.error('Minting failed, please try again.')
+              if (err.name === 'TimeoutError') { // fallback to issue-token endpoint timing out without a response
+                this.ngxService.stop();
+                this.toast.success('Asset has been issued successfully.')
+                this.router.navigateByUrl('/profile').then(() => {
+                  window.location.reload();
+                })
+              } else {
+                this.ngxService.stop();
+                this.toast.error('There has been an error, please try again.')
+              }
             })
             form.value.reset;
-        }, 15000);
+        // }, 15000);
         } else {
           this.ngxService.stop();
-          this.toast.error('There has been an error while trying to issue this asset, please try again.')
+          this.toast.error('There has been an error while trying to mint this asset, please try again.')
         }
       }, err => {
         this.error = err;
