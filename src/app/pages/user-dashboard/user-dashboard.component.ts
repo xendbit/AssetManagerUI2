@@ -289,7 +289,6 @@ export class UserDashboardComponent implements OnInit {
           this.preview = file;
           reader.onload = (event: any) => {
             this.image = event.target.result;
-            console.log(this.image);
           }
         }
       };
