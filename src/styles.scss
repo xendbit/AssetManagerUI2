@@ -29416,7 +29416,7 @@ body.dark-mode .upload-area {
 }
 
 body.dark-mode #mediaTable .input-otr, body.dark-mode .heading-h4, body.dark-mode .col-lg-6.col-right-otr, body.dark-mode h3.heading.heading-h3, body.dark-mode h4.head-2.heading-h4, body.dark-mode .num.heading-h5, body.dark-mode .about-head.heading-h5 {
-  color: #F2F2F2 !important;
+  color: #F2F2F2;
 }
 
 body.dark-mode .drop-zoon__paragraph {
@@ -29456,4 +29456,28 @@ body.dark-mode #hours.heading-h3, body.dark-mode #minutes.heading-h3, body.dark-
 .p-message .p-message-wrapper {
   padding: 0.5rem 1rem !important;
   margin-bottom: -1rem;
+}
+
+body.dark-mode .user-profile-otr .container-fluid .wrapper .another-user .another-user-about .another-about-left .about-head {
+  color: #F2F2F2 !important;
+}
+
+body.dark-mode .user-profile-otr .container-fluid .wrapper .another-user .another-user-top .another-user-left .user-main .user-head {
+  color: #F2F2F2 !important;
+}
+
+body.dark-mode .work-main .container-fluid .row-work .tab-content .row-work-inr .col-work-otr .col-work-inr {
+  background-color: #555555;
+}
+
+body.dark-mode .work-main .container-fluid .row-work .tab-content .row-work-inr .col-work-otr .col-work-inr .icon-otr {
+  background-color: #999999;
+}
+
+body.dark-mode .about-main .container-fluid .row-content .col-head-otr .col-head-inr .head {
+ color: #f2f2f2 !important;
+}
+
+body.dark-mode .statistics-main .container-fluid .row-statistics .col-bidth-otr .col-bidth-inr {
+  background-color: #666666 !important;
 }
