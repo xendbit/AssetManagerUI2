@@ -161,6 +161,12 @@ export class UserDashboardComponent implements OnInit {
 
   updateProfile() {
     this.ngxService.start();
+    if (this.user.displayImage === './assets/img/profile_holder.jpg') {
+        this.user.displayImage = '11111111111';
+    } 
+    if (this.user.coverImage === './assets/img/profile_holder.jpg') {
+      this.user.coverImage = '11111111111'
+    }
     let userData = {
       "firstName": this.user.firstName,
       "lastName": this.user.lastName,
@@ -197,6 +203,7 @@ export class UserDashboardComponent implements OnInit {
     this.ngxService.start();
     this.userActions.getProfile(this.account).subscribe((res: any) => {
       this.user = res;
+      console.log('ew', this.user)
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
       this.twitter = this.user.socials.twitterUrl;
