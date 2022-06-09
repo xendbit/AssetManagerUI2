@@ -11,6 +11,7 @@ import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+var randomWords = require('random-words');
 
 @Component({
   selector: 'app-user-dashboard',
@@ -161,7 +162,7 @@ export class UserDashboardComponent implements OnInit {
 
   updateProfile() {
     this.ngxService.start();
-    if (this.user.displayImage === './assets/img/profile_holder.jpg') {
+    if (this.user.displayImage === './assets/img/nifty_profile.png') {
         this.user.displayImage = '11111111111';
     } 
     if (this.user.coverImage === './assets/img/profile_holder.jpg') {
@@ -201,9 +202,15 @@ export class UserDashboardComponent implements OnInit {
 
   getProfile() {
     this.ngxService.start();
-    this.userActions.getProfile(this.account).subscribe((res: any) => {
-      this.user = res;
-      console.log('ew', this.user)
+    this.userActions.getProfile(this.account).subscribe(async (res: any) => {
+      this.user = await res;
+      console.log('ew', res)
+      if (res.username === 'My-Profile') {
+        this.user.username = randomWords();
+      }
+      if (res.email === 'test@niftyrow.com') {
+        this.user.email = this.user.username+'@niftyrow.com'
+      }
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
       this.twitter = this.user.socials.twitterUrl;
