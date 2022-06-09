@@ -204,7 +204,6 @@ export class UserDashboardComponent implements OnInit {
     this.ngxService.start();
     this.userActions.getProfile(this.account).subscribe(async (res: any) => {
       this.user = await res;
-      console.log('ew', res)
       if (res.username === 'My-Profile') {
         this.user.username = randomWords();
       }
