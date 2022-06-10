@@ -1,5 +1,5 @@
 [
-    { 
+    {
         "menuGroup": [
             {
                 "title": "Navigation",
@@ -43,7 +43,7 @@
                         "url": "/faq"
                     },
                     {
-                      "title": "DAO Council",
+                      "title": "DAO",
                       "url": "/about"
                     }
                 ]

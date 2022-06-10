@@ -88,7 +88,7 @@ export class UserActionsService {
       "password": userData.password,
       "walletAddress": userData.walletAddress,
       "about": userData.about,
-      "webUrl": userData.webUrl.url,
+      "webUrl": userData.webUrl,
       "social": userData.social,
       "photo": userData.photo
     });
@@ -122,8 +122,8 @@ export class UserActionsService {
             "bids": [],
             "isActive": res.data.isActive,
             "about": res.data.about,
-            "displayImage": res.data.photo.displayImage,
-            "coverImage": res.data.photo.coverImage,
+            "displayImage": res.data.photo?.displayImage || './assets/img/nifty_profile.png',
+            "coverImage": res.data.photo?.coverImage || './assets/img/profile_holder.jpg',
             "webUrl": {"url": res.data.webUrl, "title": "website"},
             "joinDate": res.data.joinDate,
             "type": res.data.type
@@ -133,6 +133,7 @@ export class UserActionsService {
           observer.next(this.userResponse);
           observer.complete();
         }, err => {
+          console.log('this', err)
           this.userResponse =  userJson['default'];
           observer.next(this.userResponse);
           observer.complete()

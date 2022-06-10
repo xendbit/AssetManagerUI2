@@ -84,7 +84,7 @@ export class AssetDetailsComponent implements OnInit {
         this.contractAddress = response['data'];
       });
      }
-    
+
   ownerArtworks: IArtwork[];
   auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
@@ -116,7 +116,7 @@ export class AssetDetailsComponent implements OnInit {
     this.getSingleArtworkDetails();
     this.mainService.fetchAssetsByOwnerId(this.artwork.creator.username, 1, 16);
     this.getCreatorArt();
-    if (this.artwork.auction !== undefined) {
+    if (this.artwork.auctions !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
     }
@@ -336,10 +336,12 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.ngxService.start();
+    const sellNow = parseInt("0.5")
     if (+this.amount >= this.auction.sellNowPrice) {
       this.metBuyNow = true;
       this.sellPriceMet = true;
     }
+    console.log('hre met', this.sellPriceMet)
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
         this.metBuyNow = false;
@@ -371,7 +373,7 @@ export class AssetDetailsComponent implements OnInit {
                 });;
               }
               this.ngxService.stop();
-              this.ngOnInit();
+              // this.ngOnInit();
             }, err => {
               this.ngxService.stop();
               this.toast.success('There has been an error, please try again.');

@@ -11,6 +11,7 @@ import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+var randomWords = require('random-words');
 
 @Component({
   selector: 'app-user-dashboard',
@@ -45,7 +46,7 @@ export class UserDashboardComponent implements OnInit {
   coverImage: string = "/assets/img/profile_holder.jpg";
   another: any [] = []; error: string; showProfileUpload = false; showCoverUpload = false;
   previewMedia: any; facebook: string; twitter: string; telegram: string; discord: string;
-  pinterest: string; youtube: string; about: string; private errorMessage: string;
+  pinterest: string; youtube: string; about: string; private errorMessage: string; webUrl: string = "";
   private image: string;
   private previewArray:any = [];
   public preview: any;
@@ -56,14 +57,14 @@ export class UserDashboardComponent implements OnInit {
   showAboutMeModal = false;
   showSocialsModal = false;
   userWallet: any;
-  
+
   constructor(
-    public mainService: MainService, 
+    public mainService: MainService,
     public metamaskService: MetamaskService,
-    private clipboard: Clipboard, 
-    public userActions: UserActionsService, 
+    private clipboard: Clipboard,
+    public userActions: UserActionsService,
     public auctionService: AuctionService,
-    public toast: HotToastService, 
+    public toast: HotToastService,
     private ngxService: NgxUiLoaderService) {}
 
   ngOnInit(): void {
@@ -161,6 +162,12 @@ export class UserDashboardComponent implements OnInit {
 
   updateProfile() {
     this.ngxService.start();
+    if (this.user.displayImage === './assets/img/nifty_profile.png') {
+        this.user.displayImage = '11111111111';
+    } 
+    if (this.user.coverImage === './assets/img/profile_holder.jpg') {
+      this.user.coverImage = '11111111111'
+    }
     let userData = {
       "firstName": this.user.firstName,
       "lastName": this.user.lastName,
@@ -169,13 +176,16 @@ export class UserDashboardComponent implements OnInit {
       "email": this.user.email,
       "walletAddress": this.account,
       "about": this.user.about,
-      "webUrl": this.user.webUrl,
+      "webUrl": this.user.webUrl.url,
       "social": this.user.socials,
       "photo": {
         "displayImage": this.user.displayImage,
         "coverImage": this.user.coverImage
       }
     }
+    // if (!this.webUrl('https://')){
+    //   return this.toast.error('Please Update your profile to include a valid Website URL.')
+    // }
     this.userActions.updateProfile(userData, this.account).subscribe((res: any) => {
       if (res.status === 'success') {
         this.toast.success('Profile updated successfully');
@@ -192,8 +202,14 @@ export class UserDashboardComponent implements OnInit {
 
   getProfile() {
     this.ngxService.start();
-    this.userActions.getProfile(this.account).subscribe((res: any) => {
-      this.user = res;
+    this.userActions.getProfile(this.account).subscribe(async (res: any) => {
+      this.user = await res;
+      if (res.username === 'My-Profile') {
+        this.user.username = randomWords();
+      }
+      if (res.email === 'test@niftyrow.com') {
+        this.user.email = this.user.username+'@niftyrow.com'
+      }
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
       this.twitter = this.user.socials.twitterUrl;
@@ -202,6 +218,7 @@ export class UserDashboardComponent implements OnInit {
       this.youtube = this.user.socials.youtubeUrl;
       this.pinterest = this.user.socials.pinterestUrl
       this.discord = this.user.socials.discordUrl;
+      this.webUrl = this.user.webUrl.url;
     }, err => {
       console.log('err =>', err)
     })
@@ -271,7 +288,6 @@ export class UserDashboardComponent implements OnInit {
           this.preview = file;
           reader.onload = (event: any) => {
             this.image = event.target.result;
-            console.log(this.image);
           }
         }
       };
