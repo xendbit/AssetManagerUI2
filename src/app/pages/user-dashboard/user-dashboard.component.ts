@@ -212,6 +212,12 @@ export class UserDashboardComponent implements OnInit {
       if (res.email === 'test@niftyrow.com') {
         this.user.email = this.user.username+'@niftyrow.com'
       }
+      if (this.user.displayImage === 'imageUrl') {
+        this.user.displayImage = './assets/img/nifty_profile.png';
+      } 
+      if (this.user.coverImage === 'imageUrl') {
+        this.user.coverImage = './assets/img/profile_holder.jpg'
+      }
       this.displayImage = this.user.displayImage;
       this.coverImage = this.user.coverImage;
       this.twitter = this.user.socials.twitterUrl;
