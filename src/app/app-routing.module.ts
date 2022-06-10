@@ -87,7 +87,8 @@ const routes: Routes = [
   {
     path: routerConfig.users.base,
     loadChildren: () => import('./lazy/users/users.module').then(mod => mod.UsersModule)
-  }
+  },
+  { path: 'termsAndConditions', loadChildren: () => import('./public/terms-and-conditions/terms-and-conditions.module').then(m => m.TermsAndConditionsModule) }
 ];
 const routerOptions: ExtraOptions = {
     useHash: true,
