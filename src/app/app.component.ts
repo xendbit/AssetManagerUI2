@@ -51,6 +51,10 @@ export class AppComponent extends AppController implements OnInit {
     })
     // this.spinner.show();
     this.setBrowserTabTitle();
+    const account = localStorage.getItem('account');
+    if (account) {
+      this.mainService.fetchAssetsByOwnerId(account, 1, 100);
+    }
     this.mainService.fetchOnlyApproved(1, 100);
     this.mainService.fetchBlogPost();
     this.ngxService.stop();

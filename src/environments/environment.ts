@@ -5,12 +5,12 @@
 import { AppEnvironment } from '../app/core/interfaces/app-environment.interface';
 
 export const environment: AppEnvironment = {
-  production: false,
-  baseApiUrl: 'https://dev.example.com/api/v1',
-  // baseAPI: PROXY_PREFIX_API_URL // using by http proxy,
+  production: true,
+  baseApiUrl: 'https://lb.xendbit.net/api/yasuke/',
+  extraUrl: 'https://lb.xendbit.net/yasuke-server/',
+  icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/',
   security: {
-    allowedOrigins: 'https://dev.example.com',
-    // allowedOrigins: 'https://localhost:4200'
+    allowedOrigins: 'https://niftyrow.io/'
   }
 };
 

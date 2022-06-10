@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl, niftyKey} from '../config/main.config.const';
+import { niftyKey} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { INavButton } from '../components/header/header.interface';
@@ -22,6 +22,7 @@ import { IBlogGroup } from '../components/blog/blog.interfaces';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
 import { ILandingData } from 'src/app/pages/landing/landing.interface';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -62,7 +63,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
           id: item.id,
@@ -122,7 +123,7 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
+      this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
           observer.next({
             id: item.id,
@@ -182,7 +183,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
           id: item.id,
@@ -240,7 +241,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    return this.httpClient.get(`${environment.baseApiUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
         category: item.category,
@@ -283,10 +284,10 @@ export class MainService {
     }
     ));
       this.subjectOwnerNftMeta.next(res['data']['meta']);
-      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
     })).subscribe(data => {
 
-      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
 
     },err => {
       this.subjectOwnerNFT.next(artWorkJson['default']);
@@ -303,7 +304,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-approved`, {}, {headers})
+    return this.httpClient.post(`${environment.baseApiUrl}${tokenId}/toggle-approved`, {}, {headers})
   }
 
 
@@ -312,7 +313,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
+    return this.httpClient.post(`${environment.baseApiUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
       "keys": mediaType,
@@ -324,12 +325,16 @@ export class MainService {
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`,
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
       endDate: endDate
-    },   baseUrl.headers)
+    },   {headers})
   }
 
 
@@ -357,7 +362,7 @@ export class MainService {
         this.footerResponse =  footerJson['default'][0];
         observer.next(this.footerResponse);
         observer.complete()
-        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
+        // this.httpClient.get<IMenuGroups>(`${environment.baseApiUrl}footer`).subscribe((data: IMenuGroups) => {
         //   this.footerResponse = data;
         //   observer.next(this.footerResponse);
         //   observer.complete();
@@ -466,7 +471,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.icoUrl}`, {
+    return this.httpClient.post(`${environment.icoUrl}`, {
       firstName: firstname,
       lastName: lastname,
       email: email,
@@ -539,7 +544,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.mainUrl}save-issuer/`, {
+    return this.httpClient.post(`${environment.baseApiUrl}save-issuer/`, {
       "email": email,
       "phoneNumber": phone,
       "firstName": firstname,
@@ -561,7 +566,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.mainUrl}save-buyer/`, {
+    return this.httpClient.post(`${environment.baseApiUrl}save-buyer/`, {
       "email": email,
       "phoneNumber": phone,
       "firstName": firstname,
@@ -583,14 +588,14 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
+    return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
   }
 
   getBuyerStatus(walletAddress: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
+    return this.httpClient.get(`${environment.baseApiUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
 
   getDays(t: number){

@@ -1,13 +1,14 @@
 import { MainService } from './main.service';
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl, niftyKey, blockchainInfo, cryptocompareInfo, networkChains} from '../config/main.config.const';
+import { niftyKey, blockchainInfo, cryptocompareInfo, networkChains} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, map, scan } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import * as auctionJson from 'src/assets/data/auction.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class AuctionService {
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
-        this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}get-auction-info/${tokenId}/${auctionId}`, {headers}).subscribe(data => {
+        this.httpClient.get<IAuction []>(`${environment.baseApiUrl}get-auction-info/${tokenId}/${auctionId}`, {headers}).subscribe(data => {
           let item = data['data']
           observer.next({
             "auctionId": item.auctionId,
@@ -83,7 +84,7 @@ export class AuctionService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`,
+    return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -96,7 +97,7 @@ export class AuctionService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}change-token-ownership/${tokenId}`, {}, {headers})
+    return this.httpClient.post(`${environment.baseApiUrl}change-token-ownership/${tokenId}`, {}, {headers})
   }
 
   checkIssuer(issuerAddress) {
@@ -105,7 +106,7 @@ export class AuctionService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
+    return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
   }
 
   getUSDValue() {
@@ -120,7 +121,7 @@ export class AuctionService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-sold`, {}, {headers})
+    return this.httpClient.post(`${environment.baseApiUrl}${tokenId}/toggle-sold`, {}, {headers})
   }
 
 }

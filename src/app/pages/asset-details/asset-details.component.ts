@@ -110,11 +110,10 @@ export class AssetDetailsComponent implements OnInit {
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
+    this.checkConnection();
     this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
-    this.checkConnection();
     this.getSingleArtworkDetails();
-    this.mainService.fetchAssetsByOwnerId(this.artwork.creator.username, 1, 16);
     this.getCreatorArt();
     if (this.artwork.auctions !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
