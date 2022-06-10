@@ -52,8 +52,7 @@ export class AssetsGridComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['artworkArray'].currentValue !== undefined && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
-        this.newArtworkArray = this.artworkArray;
-        this.artworks = this.newArtworkArray;
+        this.artworks = this.artworkArray;
         this.ngxService.stop();
         this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);

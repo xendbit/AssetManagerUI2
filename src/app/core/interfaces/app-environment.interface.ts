@@ -1,7 +1,9 @@
 export interface AppEnvironment {
   production: boolean;
   baseApiUrl: string;
-  security: {
+  icoUrl: string;
+  extraUrl: string;
+  security?: {
     allowedOrigins: string;
   };
 }

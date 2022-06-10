@@ -10,6 +10,7 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import { environment } from 'src/environments/environment';
 
 declare const window: any;
 
@@ -392,7 +393,7 @@ export class MetamaskService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}get-contract-address`, {headers})
+    return this.httpClient.get(`${environment.baseApiUrl}get-contract-address`, {headers})
   }
 
 
@@ -588,7 +589,7 @@ export class MetamaskService {
   }
 
   getCurrentBlock()  {
-    return this.httpClient.get(`${baseUrl.mainUrl}/get-block`, baseUrl.headers)
+    return this.httpClient.get(`${environment.baseApiUrl}/get-block`, baseUrl.headers)
   }
 
 

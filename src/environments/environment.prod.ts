@@ -2,8 +2,10 @@ import { AppEnvironment } from '../app/core/interfaces/app-environment.interface
 
 export const environment: AppEnvironment = {
   production: true,
-  baseApiUrl: 'https://example.com/api/v1',
+  baseApiUrl: 'https://app.niftyrow.io/api/yasuke/',
+  extraUrl: 'https://app.niftyrow.io/yasuke-server',
+  icoUrl: 'https://app.niftyrow.io/api/ico',
   security: {
-    allowedOrigins: 'https://example.com'
+    allowedOrigins: 'https://app.niftyrow.io'
   }
 };

@@ -3,7 +3,6 @@ import {HotToastService} from '@ngneat/hot-toast';
 import { IArtwork } from 'src/app/core/components/slider/presentation.interface';
 import { MainService } from 'src/app/core/services/main.service';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
-import {fileURLToPath} from 'url';
 import {ICreatorMedia} from '../../components/createArtwork.interface';
 import { IUser } from './user.interface';
 import { Clipboard } from '@angular/cdk/clipboard';
@@ -11,6 +10,7 @@ import { IFollow, ILikes } from 'src/app/core/components/nftcard/event.interface
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Router } from '@angular/router';
 var randomWords = require('random-words');
 
 @Component({
@@ -39,7 +39,7 @@ export class UserDashboardComponent implements OnInit {
     "joinDate": "",
     "type": ""
   };
-  userView: string; account: string; artworks: IArtwork[] = []; categories: string[];
+  userView: string; account: string; artworks: IArtwork[]; categories: string[];
   currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number;
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
   displayImage: string = "/assets/img/user-profile-default-image.png";
@@ -65,7 +65,9 @@ export class UserDashboardComponent implements OnInit {
     public userActions: UserActionsService,
     public auctionService: AuctionService,
     public toast: HotToastService,
-    private ngxService: NgxUiLoaderService) {}
+    private ngxService: NgxUiLoaderService,
+    private router: Router) {
+    }
 
   ngOnInit(): void {
     this.ngxService.start();
@@ -85,8 +87,6 @@ export class UserDashboardComponent implements OnInit {
             this.ngxService.stop();
             return;
           } else {
-            this.account = localStorage.getItem('account');
-            this.mainService.fetchAssetsByOwnerId(this.account, 1, 16);
             this.getMeta();
             this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
               if (res !== null) {
@@ -110,7 +110,8 @@ export class UserDashboardComponent implements OnInit {
         this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
           if (res !== null) {
             const expected = new Set();
-            this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);;
+            this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
+            console.log('art', this.artworks)
             this.categories = this.artworks.map(item => item.category)
             .filter((value, index, self) => self.indexOf(value) === index);
             this.ngxService.stop();
@@ -133,6 +134,7 @@ export class UserDashboardComponent implements OnInit {
   byId(index, item) {
     return item.id;
   }
+
 
   getMeta() {
     this.mainService.getOwnerMeta().subscribe(res => {

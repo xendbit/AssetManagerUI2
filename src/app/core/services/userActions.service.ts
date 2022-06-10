@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 import {MessageService} from 'primeng/api';
-import { StripeService, StripeCardComponent } from 'ngx-stripe';
+import { StripeService } from 'ngx-stripe';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IEvents, IFollow, ILikes } from '../components/nftcard/event.interface';
-import { map, switchMap } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 import { HotToastService } from '@ngneat/hot-toast';
-import { baseUrl, niftyKey} from '../config/main.config.const';
+import { niftyKey} from '../config/main.config.const';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import * as userJson from 'src/assets/data/user.json';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class UserActionsService {
     } else {
       this.dataStore.likes = {tokenId: id, likeCount: data};
       this._eventsSubject.next({ type, data, id })
-      return this.httpClient.post(`${baseUrl.mainUrl}tokens/${id}/like`, {
+      return this.httpClient.post(`${environment.baseApiUrl}tokens/${id}/like`, {
         "userAddress": walletAddress
       }, {headers});
     }
@@ -59,7 +60,7 @@ export class UserActionsService {
       return;
     } else {
       this.dataStore.follow = { followCount: data, id: walletAddress };
-      return this.httpClient.post(`${baseUrl.extraUrl}users/follow/${walletAddress}`, {}, {headers});
+      return this.httpClient.post(`${environment.extraUrl}users/follow/${walletAddress}`, {}, {headers});
     }
 
   }
@@ -92,7 +93,7 @@ export class UserActionsService {
       "social": userData.social,
       "photo": userData.photo
     });
-    return this.httpClient.put(`${baseUrl.extraUrl}users/${walletAddress}`, userUpdate, {headers});
+    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
   getProfile(walletAddress: string) {
@@ -105,7 +106,7 @@ export class UserActionsService {
         observer.next(this.userResponse);
         observer.complete();
       } else {
-        this.httpClient.get(`${baseUrl.extraUrl}users/profile`, {headers}).pipe(map((res: any) => {
+        this.httpClient.get(`${environment.extraUrl}users/profile`, {headers}).pipe(map((res: any) => {
           return {
             "userId": res.data.id,
             "username": res.data.username,
