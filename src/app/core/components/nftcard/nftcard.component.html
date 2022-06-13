@@ -16,7 +16,7 @@
                 </audio>
             </a>
             <a  class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
-                <video (click)="placeBid()" class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
+                <video (click)="placeBid()" autostart="false" class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
                     <source src=" {{artwork.gallery[2]['media']}}" type="video/mp4" />
                     <source src="{{artwork.gallery[2]['media']}}" type="video/webm" />
                     <source src=" {{artwork.gallery[2]['media']}}" type="video/ogg" />

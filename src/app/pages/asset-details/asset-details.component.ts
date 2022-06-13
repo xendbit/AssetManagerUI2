@@ -199,7 +199,7 @@ export class AssetDetailsComponent implements OnInit {
           this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
             if (res === 'Auction has ended') {
               this.hasActiveAuction = false;
-              // this.ngxService.stop();
+              this.ngxService.stop();
             } else {
               this.hasActiveAuction = true;
               this.auction = res;
@@ -399,7 +399,7 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.ngxService.start();
-    this.metamaskService.getCurrentBlock().subscribe(res => {
+    this.metamaskService.getCurrentBlock().subscribe(async res => {
       this.currentBlock = res['data'];
       let startDate = new Date(auction.value.startDate);
       let endDate = new Date(auction.value.endDate);
@@ -414,19 +414,26 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
-        setTimeout(() => {
-          this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
-            this.toast.success( 'Auction has been started for this asset')
-            this.visible = false;
+      await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+        if (res.status === "success") {
+          setTimeout(() => {
+            this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
+              this.toast.success( 'Auction has been started for this asset')
+              this.visible = false;
+              this.ngxService.stop();
+              this.router.navigate(['/profile']).then(() => {
+                window.location.reload();
+              }, err => {
+                this.ngxService.stop();
+              });;
+          }, err =>  {
             this.ngxService.stop();
-            this.router.navigate(['/profile']).then(() => {
-              window.location.reload();
-            });;
-        }, err =>  {
+            })
+          }, 15000)
+        } else {
           this.ngxService.stop();
-        })
-      }, 15000)
+          this.toast.error('There has been an error while trying to start this auction, please try again.')
+        }
       }, err => {
         this.ngxService.stop()
       })
