@@ -45,7 +45,15 @@
                     {
                       "title": "DAO",
                       "url": "/about"
-                    }
+                    },
+                  {
+                    "title": "Privacy Policy",
+                    "url": "/privacy"
+                  },
+                  {
+                    "title": "Terms and Conditions",
+                    "url": "/terms-and-conditions"
+                  }
                 ]
             }
 

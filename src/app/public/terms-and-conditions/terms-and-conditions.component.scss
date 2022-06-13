@@ -1,0 +1,14 @@
+
+li {
+  list-style: auto;
+  margin-bottom: 1rem;
+}
+
+li ol li {
+  list-style: lower-alpha;
+  margin-bottom: 0.2rem;
+}
+
+a {
+  display: inline;
+}
