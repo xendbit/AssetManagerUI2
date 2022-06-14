@@ -29500,6 +29500,10 @@ body.dark-mode .statistics-main .container-fluid .row-statistics .col-bidth-otr 
   background-color: #666666 !important;
 }
 
-body.dark-mode .btn-outline2 {
+body.dark-mode .btn-outline2, body.dark-mode .statistics-main .container-fluid .wrapper .head, body.dark-mode .work-main .container-fluid .wrapper .head {
   color: #F2F2F2;
+}
+
+body.dark-mode .contact-main .container-fluid .wrapper .heading, body.dark-mode .contact-main .container-fluid .row-contact .col-message-otr .col-message-inr .head {
+  color: #F2F2F2 !important;
 }
