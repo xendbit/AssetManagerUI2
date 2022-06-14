@@ -593,7 +593,7 @@ html {
       position: fixed;
       z-index: 10;
       top: 0;
-      background: white;
+      background: transparent;
       width: 100%;
       left: 0;
       box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
@@ -28943,7 +28943,7 @@ body.dark-mode .hero-main .container-fluid .hero-inr .row-custom .col-content-ot
 
   @media (max-width: 1300px) {
     .container-fluid {
-      padding: 0 15px;
+      padding: 1rem 15px;
     }
   }
 
