@@ -111,7 +111,6 @@ export class UserDashboardComponent implements OnInit {
           if (res !== null) {
             const expected = new Set();
             this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-            console.log('art', this.artworks)
             this.categories = this.artworks.map(item => item.category)
             .filter((value, index, self) => self.indexOf(value) === index);
             this.ngxService.stop();
@@ -207,7 +206,6 @@ export class UserDashboardComponent implements OnInit {
     this.ngxService.start();
     this.userActions.getProfile(this.account).subscribe(async (res: any) => {
       this.user = await res;
-      console.log('this is =>', res)
       if (res.username === 'My-Profile') {
         this.user.username = randomWords();
       }

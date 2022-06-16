@@ -133,17 +133,17 @@ export class MainService {
             assetType: item.assetType,
             owner: {
               id: item.id,
-              image: item.media[0].media,
+              image: item.media[1].media,
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.media[0].media,
+              image: item.media[1].media,
               username: item.issuer,
               type: item.type
             },
             featuredImage: {
-              media: item.media[0].media,
+              media: item.media[1].media,
               mediaType: 0
             },
             isBidding: item.hasActiveAuction,
@@ -192,17 +192,17 @@ export class MainService {
           tags: item.tags,
           owner: {
             id: item.id,
-            image: item.media[0]?.media,
+            image: item.media[1]?.media,
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0]?.media,
+            image: item.media[1]?.media,
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0]?.media,
+            media: item.media[1]?.media,
             mediaType: 0
           },
           chain: item.chain,
@@ -290,6 +290,7 @@ export class MainService {
       this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
 
     },err => {
+      console.log('err', err)
       this.subjectOwnerNFT.next(artWorkJson['default']);
     })
 

@@ -17,7 +17,7 @@ export class AssetsGridComponent implements OnInit {
   // auction: IAuction;
   work: any [];
   @Input() public artworkArray: IArtwork [];
-  @Input() public parentPage: string;
+  @Input() public pageTitle: string;
   currentPage: number;
   itemCount: number;
   itemsPerPage: number;
