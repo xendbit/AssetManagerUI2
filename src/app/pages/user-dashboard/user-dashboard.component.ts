@@ -111,7 +111,6 @@ export class UserDashboardComponent implements OnInit {
           if (res !== null) {
             const expected = new Set();
             this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-            console.log('art', this.artworks)
             this.categories = this.artworks.map(item => item.category)
             .filter((value, index, self) => self.indexOf(value) === index);
             this.ngxService.stop();
@@ -197,6 +196,7 @@ export class UserDashboardComponent implements OnInit {
         this.ngxService.stop()
       }
     }, err => {
+      console.log('err', err)
       this.toast.error('There was an error while updating your profile, please try again later.')
       this.ngxService.stop();
     })
@@ -319,6 +319,7 @@ export class UserDashboardComponent implements OnInit {
     this.user.socials.youtubeUrl = this.youtube;
     this.user.socials.pinterestUrl = this.pinterest;
     this.user.socials.discordUrl = this.discord;
+    this.user.webUrl.url = this.webUrl;
     this.updateProfile();
     this.showSocialsModal = false;
   }
