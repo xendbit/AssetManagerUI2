@@ -208,7 +208,7 @@ $text-color: mix(#000, $primary-color, 64%);
 }
 
 .container-fluid {
-    padding: 0px 42px 0px 42px;
+    padding: 20px 42px 0px 42px;
 }
 
 .no-bids {
@@ -555,7 +555,7 @@ $text-color: mix(#000, $primary-color, 64%);
 
 @media (max-width: 575px) {
     .artwork-body .container-fluid .artwork-body-inr .row-custom .col-right-otr .col-right-inr .activity-details {
-      padding: 0;
+      padding: 10px;
       border-radius: 0;
       background-color: transparent;
     }
