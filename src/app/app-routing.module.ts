@@ -1,7 +1,6 @@
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-
 import { AppController } from './app.controller';
 import { HomeComponent } from './core/components/home/home.component';
 import {CheckoutComponent} from './pages/checkout/checkout.component';
@@ -18,6 +17,7 @@ import { MintComponent } from './pages/mint/mint.component';
 import { FAQComponent } from './pages/faq/faq.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { PaymentComponent } from './core/components/payment/payment.component';
+import { SearchPageComponent } from './pages/search/search.component'
 
 const routes: Routes = [
   {
@@ -27,11 +27,10 @@ const routes: Routes = [
       title: AppController.trans().home
     }
   },
-  // {
-  //   path: 'landing',
-  //   component: LandingComponent,
-  //   data: { showHeader: false }
-  // },
+  {
+    path: 'search',
+    component: SearchPageComponent
+  },
   {
     path: 'connect-wallet',
     component: ConnectWalletComponent
