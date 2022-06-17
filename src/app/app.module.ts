@@ -50,6 +50,7 @@ import { ActivitiesComponent } from './pages/asset-details/activities/activities
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {PublicModule} from './public/public.module';
+import { SearchPageComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {PublicModule} from './public/public.module';
     FAQComponent,
     LandingComponent,
     ActivitiesComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    SearchPageComponent
   ],
   imports: [
     BrowserModule,

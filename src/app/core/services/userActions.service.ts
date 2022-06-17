@@ -10,6 +10,7 @@ import { niftyKey} from '../config/main.config.const';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import * as userJson from 'src/assets/data/user.json';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class UserActionsService {
   protected _eventsSubject = new Subject<IEvents>();
   userResponse: IUser;
+  public searchTerm: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0},
                         follow: <IFollow> { followCount: 0, id: "" } };
   constructor(
