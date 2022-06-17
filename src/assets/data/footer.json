@@ -39,15 +39,15 @@
                 "title": "Community",
                 "menu": [
                     {
-                        "title": "FAQ",
+                        "title": "FAQs",
                         "url": "/faq"
                     },
                   {
-                    "title": "Privacy Policy",
+                    "title": "Privacy policy",
                     "url": "/privacy"
                   },
                   {
-                    "title": "Terms and Conditions",
+                    "title": "Terms of use",
                     "url": "/terms-and-conditions"
                   }
                 ]

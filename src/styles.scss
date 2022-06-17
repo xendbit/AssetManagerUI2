@@ -591,12 +591,16 @@ html {
     .navbar-main .container-fluid .navbar-inr {
       padding: 24px 10px;
       position: fixed;
-      z-index: 10;
+      z-index: 1000;
       top: 0;
-      background: transparent;
+      background: white;
       width: 100%;
       left: 0;
       box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    }
+
+    body.dark-mode .navbar-main .container-fluid .navbar-inr {
+      background-color: #313131;
     }
   }
 
@@ -19168,7 +19172,7 @@ body.dark-mode .hero-main .container-fluid .hero-inr .row-custom .col-content-ot
   }
 
   .contact-main .container-fluid .row-contact .col-contact-box .contact-box-inr .box-address .desc {
-    color: #666666;
+    color: #666666 !important;
   }
 
   .contact-main .container-fluid .row-contact .col-contact-box .contact-box-inr .box-address .icon-otr {
@@ -29385,15 +29389,11 @@ body.dark-mode .activity-details .place-bid-main, .panel-header {
 }
 
 body.dark-mode .body-sb, body.dark-mode .body-m, body.dark-mode .p-panel-title, body.dark-mode #contractAddress, body.dark-mode .bid, body.dark-mode .body-mb.acution {
-  color: #f2f2f2 !important;
+  color: #f2f2f2;
 }
 
 body.dark-mode .letest-blog-main .container-fluid .latest-blog-inr .row-custom .col-otr .col-inr {
   background-color: #666666
-}
-
-body.dark-mode .explore-artwork .container-fluid .explore-artwork-inr .teb-main .tab-otr .tab-inr .tabs .tab-link .tab-p {
-  background-color:  #666 !important;
 }
 
 body.dark-mode .current-bid-container {
@@ -29506,4 +29506,8 @@ body.dark-mode .btn-outline2, body.dark-mode .statistics-main .container-fluid .
 
 body.dark-mode .contact-main .container-fluid .wrapper .heading, body.dark-mode .contact-main .container-fluid .row-contact .col-message-otr .col-message-inr .head {
   color: #F2F2F2 !important;
+}
+
+body.dark-mode input + label span {
+  background-color: #F2F2F2 !important;
 }
