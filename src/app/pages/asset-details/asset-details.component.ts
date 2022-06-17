@@ -113,7 +113,6 @@ export class AssetDetailsComponent implements OnInit {
     this.checkConnection();
     this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
-    console.log('artwork', this.artwork)
     this.getSingleArtworkDetails();
     this.getCreatorArt();
     if (this.artwork.auctions !== undefined) {

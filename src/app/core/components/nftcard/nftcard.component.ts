@@ -57,7 +57,6 @@ export class NFTCardComponent implements OnInit {
       let likesArray: any[] = [];
       likesArray = this.artwork.likes;
       this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
-
       this.isLoaded = false;
       this.auction = this.artwork.auctions;
       if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
