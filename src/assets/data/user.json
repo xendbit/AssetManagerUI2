@@ -85,7 +85,11 @@
     "currency": "ETH",
     "dateIssued": "2021-11-11T14:01:08.000Z",
     "lastAuctionId": 155870,
-    "likes": 34,
+    "likes": {
+      "id": 13,
+      "tokenId": "534210",
+      "userAddress": "0xf0cce76eea51fae3cbbb6d7aad1c74d668f1e0f0"
+    },
     "sold": false,
     "name": "Beautyful",
     "tokenId": 939141,

@@ -68,7 +68,7 @@ export class SliderComponent implements OnInit {
                 "description": "Description",
                 "price": 0,
                 "currency": "ETH",
-                "likes": 0,
+                "likes": [],
                 "type": "Artwork",
                 "lastAuctionId": 0,
                 "hasActiveAuction": true,

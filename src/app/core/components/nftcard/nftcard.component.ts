@@ -23,10 +23,7 @@ export class NFTCardComponent implements OnInit {
   countdownMinutes: number;
   countdownSeconds: number;
   distance: number;
-  likes: ILikes = {
-    tokenId: 0,
-    likeCount: 0
-  };
+  liked: boolean = false;
   followInfo: IFollow = {
     id: "",
     followCount: 0
@@ -56,7 +53,10 @@ export class NFTCardComponent implements OnInit {
     // this.spinner.show();
     if (this.artwork !== null) {
       this.today = new Date().getTime();
-      this.getLikes(this.artwork.tokenId);
+      let account = localStorage.getItem('account');
+      let likesArray: any[] = [];
+      likesArray = this.artwork.likes;
+      this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
       this.isLoaded = false;
       this.auction = this.artwork.auctions;
       if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
@@ -73,8 +73,9 @@ export class NFTCardComponent implements OnInit {
     let account = localStorage.getItem('account');
     if (localStorage.getItem('account')) {
       this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
-        if (data.status === 'success') {
-          this.getLikes(tokenId);
+        if (data.status === 'success' && this.liked === false) {
+          this.liked = true;
+          this.artwork.likes.length + 1;
         }
       }, err => {
         this.userActions.errorToast('We are sorry, there has been an error while trying to like this token, try again later.')
@@ -84,9 +85,9 @@ export class NFTCardComponent implements OnInit {
     }
   }
 
-  getLikes(tokenId) {
-    this.likes.likeCount = this.userActions.getLikes(tokenId);
-  }
+  // getLikes(tokenId) {
+  //   this.likes.likeCount = this.userActions.getLikes(tokenId);
+  // }
 
 
   follow(username) {
