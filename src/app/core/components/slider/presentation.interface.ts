@@ -41,7 +41,7 @@ export interface IPresentation {
     description?:string;
     price:number;
     currency:string;
-    likes: number;
+    likes: [];
     chain?: string;
     lastAuctionId: number;
     hasActiveAuction: boolean;

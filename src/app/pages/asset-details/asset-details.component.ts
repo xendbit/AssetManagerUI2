@@ -94,14 +94,14 @@ export class AssetDetailsComponent implements OnInit {
     "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
     "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
+      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": [],"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
   artwork: IArtwork = {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
   "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
   "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
   "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
       "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
-      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
+      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": [], "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
     // console.log('try', this.metamaskService.createWalletForBuyer().buyerAddress)
@@ -113,6 +113,7 @@ export class AssetDetailsComponent implements OnInit {
     this.checkConnection();
     this.tokenId = this.activatedRoute.snapshot.params.asset;
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    console.log('artwork', this.artwork)
     this.getSingleArtworkDetails();
     this.getCreatorArt();
     if (this.artwork.auctions !== undefined) {

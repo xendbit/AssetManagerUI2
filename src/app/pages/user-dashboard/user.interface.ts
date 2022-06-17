@@ -33,8 +33,9 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     currency?: string;
   }
   interface IUserLikes {
+    id: number
     tokenId: string;
-    type: string;
+    walletAddress: string;
   }
   interface IUserBids{
     tokenId: string;
