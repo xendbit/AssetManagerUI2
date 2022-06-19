@@ -55,7 +55,7 @@ export class NFTCardComponent implements OnInit {
       this.today = new Date().getTime();
       let account = localStorage.getItem('account');
       let likesArray: any[] = [];
-      likesArray = this.artwork.likes;
+      likesArray = this.artwork.likes || [];
       this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
       this.isLoaded = false;
       this.auction = this.artwork.auctions;

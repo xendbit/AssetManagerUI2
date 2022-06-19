@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
+import { UserActionsService } from '../../services/userActions.service';
 import { IMenuGroups } from './footer.interface';
 import { INavButton } from '../header/header.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 
@@ -19,8 +21,14 @@ export class FooterComponent implements OnInit {
   @Input() public footerInfo: IMenuGroups;
   // @Input() public buttonsInfo: INavButton;
   darkMode$ = this.darkModeService.darkMode$;
+  email: string = '';
 
-  constructor(public mainService: MainService, private spinner: NgxSpinnerService, private darkModeService: DarkModeService) { }
+  constructor(
+    public mainService: MainService, 
+    private spinner: NgxSpinnerService, 
+    private darkModeService: DarkModeService,
+    private userAction: UserActionsService,
+    private toast: HotToastService) { }
 
   ngOnInit() {
     this.changeLogo();
@@ -50,4 +58,12 @@ export class FooterComponent implements OnInit {
       this.footerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png';
     }
   }
+
+  subscribe() {
+    // this.spinner.show()
+    this.userAction.subscribeToNewsletter(this.email).subscribe((res: any) => {
+      console.log('sub', res)
+    })
+  }
+
 }

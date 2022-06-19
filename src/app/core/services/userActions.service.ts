@@ -98,6 +98,17 @@ export class UserActionsService {
     return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
+  submitImages(userData: any, walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    var images = JSON.stringify({
+      "displayImage": userData.displayImage,
+      "coverImage": userData.coverImage
+    })
+    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}/profile-pic`, images, {headers});
+  }
+
   getProfile(walletAddress: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -161,6 +172,28 @@ export class UserActionsService {
       padding: '16px',
       color: '#EBA487',
   }})
+ }
+
+ subscribeToNewsletter(email: string) {
+  let headers: HttpHeaders = new HttpHeaders();
+  headers = headers.append('Content-Type', 'application/json');
+  headers = headers.append('api-key', niftyKey);
+  return this.httpClient.post(`${environment.extraUrl}/contact/subscribe-to-newsletter`, {
+    'email': email
+  }, {headers})
+ }
+
+ contactUs(contactUs: any) {
+  let headers: HttpHeaders = new HttpHeaders();
+  headers = headers.append('Content-Type', 'application/json');
+  headers = headers.append('api-key', niftyKey);
+  var contact = JSON.stringify({
+    "fullName": contactUs.fullName,
+    "email": contactUs.email,
+    "subject": contactUs.subject,
+    "message": contactUs.message
+  });
+  return this.httpClient.post(`${environment.extraUrl}/contact/subscribe-to-newsletter`, contact, {headers})
  }
 
  errorToast(message: string) {

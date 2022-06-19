@@ -227,7 +227,9 @@ export class UserDashboardComponent implements OnInit {
       this.pinterest = this.user.socials.pinterestUrl
       this.discord = this.user.socials.discordUrl;
       this.webUrl = this.user.webUrl.url;
+      this.ngxService.stop();
     }, err => {
+      this.ngxService.stop();
       console.log('err =>', err)
     })
   }
@@ -256,14 +258,54 @@ export class UserDashboardComponent implements OnInit {
   uploadDisplayPicture() {
     this.displayImage = this.image;
     this.user.displayImage = this.displayImage;
-    this.updateProfile();
+    this.ngxService.start();
+    if (this.user.coverImage === './assets/img/profile_holder.jpg') {
+      this.user.coverImage = '11111111111'
+    }
+    let userData = {
+      "displayImage": this.user.displayImage,
+      "coverImage": this.user.coverImage
+    }
+    this.userActions.submitImages(userData, this.account).subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.toast.success('Display Picture updated successfully');
+        this.ngxService.stop();
+      } else {
+        this.toast.error('There was an error while updating your display picture, please try again later.')
+        this.ngxService.stop()
+      }
+    }, err => {
+      console.log('err', err)
+      this.toast.error('There was an error while updating your display picture, please try again later.')
+      this.ngxService.stop();
+    })
     this.showProfileUpload = false;
   }
 
   uploadCoverPicture() {
     this.coverImage = this.image;
     this.user.coverImage = this.coverImage;
-    this.updateProfile();
+    this.ngxService.start();
+    if (this.user.displayImage === './assets/img/nifty_profile.png') {
+      this.user.displayImage = '11111111111';
+    } 
+    let userData = {
+      "displayImage": this.user.displayImage,
+      "coverImage": this.user.coverImage
+    }
+    this.userActions.submitImages(userData, this.account).subscribe((res: any) => {
+      if (res.status === 'success') {
+        this.toast.success('Cover Picture updated successfully');
+        this.ngxService.stop();
+      } else {
+        this.toast.error('There was an error while updating your cover picture, please try again later.')
+        this.ngxService.stop()
+      }
+    }, err => {
+      console.log('err', err)
+      this.toast.error('There was an error while updating your cover picture, please try again later.')
+      this.ngxService.stop();
+    })
     this.showCoverUpload = false;
   }
 
