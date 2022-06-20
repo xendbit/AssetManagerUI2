@@ -415,25 +415,27 @@ export class AssetDetailsComponent implements OnInit {
       this.auctionId = rndNo;
 
       await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
-        if (res.status === "success") {
           setTimeout(() => {
-            this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
-              this.toast.success( 'Auction has been started for this asset')
-              this.visible = false;
-              this.ngxService.stop();
-              this.router.navigate(['/profile']).then(() => {
-                window.location.reload();
-              }, err => {
+            this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
+              console.log('data', data)
+              if (data.status === "success") {
+                this.toast.success( 'Auction has been started for this asset')
+                this.visible = false;
                 this.ngxService.stop();
-              });;
-          }, err =>  {
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                }, err => {
+                  this.ngxService.stop();
+                });
+              } else {
+                  this.ngxService.stop();
+                  this.toast.error('There has been an error while trying to start this auction, please try again.')
+              }
+
+            }, err =>  {
             this.ngxService.stop();
             })
           }, 15000)
-        } else {
-          this.ngxService.stop();
-          this.toast.error('There has been an error while trying to start this auction, please try again.')
-        }
       }, err => {
         this.ngxService.stop()
       })
