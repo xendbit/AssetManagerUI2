@@ -85,23 +85,26 @@
                     <div class="col-message-inr">
                         <h3 class="head heading-h3">Drop Us a Message</h3>
                         <p class="desc body-m">Feel free to contact us anytime. We’re available here for you.</p>
-                        <form class="form-main" method="post">
+                        <form class="form-main">
                             <div class="input-otr">
-                                <input class="input" type="text" name="fname" placeholder="Your Full Name" required>
+                                <input class="input" type="text" [(ngModel)]="contactData.fullName" id="fname" name="fname" placeholder="Your Full Name" required>
                             </div>
                             <div class="input-otr">
-                                <input class="input" type="email" name="email" placeholder="Your Email Address" required>
-                            </div>
-
-                            <div class="input-otr">
-                                <input class="input" type="text" name="subject" placeholder="Subject" required>
+                                <input class="input" type="email" [(ngModel)]="contactData.email" id="email" name="email" placeholder="Your Email Address" required>
                             </div>
 
                             <div class="input-otr">
-                                <textarea class="textarea input" name="message" placeholder="Type your message" required></textarea>
+                                <input class="input" type="text" [(ngModel)]="contactData.subject" id="subject" name="subject" placeholder="Subject" required>
+                            </div>
+
+                            <div class="input-otr">
+                                <textarea class="textarea input" [(ngModel)]="contactData.message" name="message" placeholder="Type your message" required></textarea>
                             </div>
                             <div class="action-otr">
-                                <input class="button body-sb" type="submit" value="Send Message">
+                                <input class="button body-sb" (click)="submitContact()" [ngClass]="{'button body-sb': 
+                                contactData.email !== '' && contactData.subject !== '' &&  contactData.fullName !== '' && contactData.message !== '', 
+                                'btn-fill-inactive btn-subscribe': contactData.email === '' || contactData.subject === '' || contactData.fullName === '' || contactData.message === '' }" 
+                                type="submit" value="Send Message">
                             </div>
                         </form>
                     </div>

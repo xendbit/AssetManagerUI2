@@ -40,6 +40,7 @@ export class NFTCardComponent implements OnInit {
   isLoaded: boolean = false;
   hideNft: boolean = false;
   hasActiveAuction: boolean = true;
+  likes: number = 0;
 
   constructor(public mainService: MainService, public auctionService: AuctionService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
@@ -55,8 +56,11 @@ export class NFTCardComponent implements OnInit {
       this.today = new Date().getTime();
       let account = localStorage.getItem('account');
       let likesArray: any[] = [];
-      likesArray = this.artwork.likes;
-      this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
+      if (this.artwork.likes) {
+        likesArray = this.artwork.likes || [];
+        this.likes = this.artwork.likes.length;
+        this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
+      }
       this.isLoaded = false;
       this.auction = this.artwork.auctions;
       if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
@@ -75,7 +79,7 @@ export class NFTCardComponent implements OnInit {
       this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
         if (data.status === 'success' && this.liked === false) {
           this.liked = true;
-          this.artwork.likes.length + 1;
+          this.likes + 1;
         }
       }, err => {
         this.userActions.errorToast('We are sorry, there has been an error while trying to like this token, try again later.')

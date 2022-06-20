@@ -189,7 +189,7 @@
                         margin: 16px 0 40px 0;
                     }
                     .form-main{
-                        width: 50%;
+                        width: 90%;
                         @include breakpoint($secreen-max-xxxl){
                             width: 80%;
                         }
@@ -297,6 +297,32 @@
             }
         }
     }
+}
+
+.btn-fill-inactive {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 32px;
+  font-family: "DMSans-Bold";
+  color: #FFFFFF;
+  background-color: #d8d6ea;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-display: swap;
+}
+
+.btn-fill-inactive:hover {
+  color: #000000;
+  background-color: #e9f1bf;
+  transform: translateY(-5px);
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.btn-fill-inactive:active {
+  transition: 0.5s;
+  transform: scale(0.9);
 }
 
 /*------------------------------------------
