@@ -178,7 +178,7 @@ export class UserActionsService {
   let headers: HttpHeaders = new HttpHeaders();
   headers = headers.append('Content-Type', 'application/json');
   headers = headers.append('api-key', niftyKey);
-  return this.httpClient.post(`${environment.extraUrl}/contact/subscribe-to-newsletter`, {
+  return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, {
     'email': email
   }, {headers})
  }
@@ -193,7 +193,7 @@ export class UserActionsService {
     "subject": contactUs.subject,
     "message": contactUs.message
   });
-  return this.httpClient.post(`${environment.extraUrl}/contact/subscribe-to-newsletter`, contact, {headers})
+  return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, contact, {headers})
  }
 
  errorToast(message: string) {
