@@ -27,6 +27,10 @@ export class SubscribeComponent implements OnInit {
   }
 
   subscribe(subscribeForm: NgForm) {
+    if (this.userActions.validateEmail(this.subscribeData.email) !== true) {
+      this.toast.error('Please make sure you entered a valid email.');
+      return;
+    }
     if (this.subscribeData.email === '') {
       this.toast.warning('Please enter your email address.')
       return;

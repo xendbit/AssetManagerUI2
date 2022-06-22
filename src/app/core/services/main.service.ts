@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { niftyKey} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { INavButton } from '../components/header/header.interface';
@@ -22,7 +21,7 @@ import { IBlogGroup } from '../components/blog/blog.interfaces';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
 import { ILandingData } from 'src/app/pages/landing/landing.interface';
-import { environment } from 'src/environments/environment';
+import { environment, niftyKey } from 'src/environments/environment';
 
 
 @Injectable({
@@ -249,12 +248,12 @@ export class MainService {
         auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.issuer,
           type: item.type
         },

@@ -188,7 +188,6 @@
                                       <div class="col-right-inr">
                                           <div id="bidDetails" class="bid-details">
                                               <h4 *ngIf="!this.owner" class="heading-h4 bid-head">Bid Details</h4>
-                                              <h6 id="ownerWarning" *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction" class="heading-h4 bid-head">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</h6>
                                               <!-- <div id="clock" class="timer" *ngIf="artwork.isApproved === false && owner || artwork.isApproved === undefined && owner">
                                                 <p id="inActive" class="hours-p body-mb"> You cannot start an auction for this artwork until it has been approved by an Admin.</p>
                                               </div> -->
@@ -200,7 +199,7 @@
                                                   {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
                                                 </a>
                                               </div>
-                                              <div class="boxes-main" *ngIf="!this.owner">
+                                              <div class="boxes-main">
 
                                                   <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
                                                       <p class="bid p-coin body-mb">Buy-Now Price <img class="coins" src="./assets/img/coins/{{getChain()}}.svg" alt=""></p>
@@ -237,7 +236,7 @@
                                                     <p id="inActive" class="hours-p body-mb"> Auction Inactive</p>
                                                   </div>
                                               </div>
-                                              <form class="bidform" *ngIf="visible && !this.owner && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
+                                              <form class="bidform" *ngIf="visible && currentTime < auctionTime && !sellPriceMet" [@slideInOut] #buyForm="ngForm" novalidate >
 
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
@@ -260,11 +259,11 @@
                                                       </div>
                                                   </div>
 
-                                                  <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound && artwork.assetType === 'digital'">
+                                                  <div class="action-otr" style="flex: 1" *ngIf="visible && accountFound && !this.owner && artwork.assetType === 'digital'">
                                                       <a id="bid" (click)="bid()" class="btn-fill btn-bid place-a-bid">Place a Bid</a>
                                                   </div>
 
-                                                  <div class="action-otr" style="flex: 1" *ngIf="visible && artwork.assetType === 'physical'">
+                                                  <div class="action-otr" style="flex: 1" *ngIf="visible && !this.owner  && artwork.assetType === 'physical'">
                                                     <a id="physicalCheckout" (click)="goToCheckout()" class="btn-fill btn-bid place-a-bid" style="display: inline-block;">Buy now
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="17px" viewBox="0 0 152.407 108">
                                                         <g>
@@ -287,6 +286,11 @@
   <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
                                                           <p id="connectWallet" *ngIf="error" class="desc" style="color: red; margin-top: 2rem;"> Connect your wallet to bid on this asset</p>
                                                       </div>
+                                                  </div>
+                                                  <div class="action-otr" *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction">
+                                                    <div class="heading-inr error-container">
+                                                      <p id="ownerWarning"  class="desc">Auction currently active, you cannot bid on this auction or withdraw until bid is concluded or won.</p>
+                                                    </div>
                                                   </div>
                                               </form>
                                               <form class="bidform" *ngIf="visible && this.owner && artwork.hasActiveAuction === false  ||  visible && this.owner && hasActiveAuction === false" [@slideInOut] #auctionForm="ngForm" novalidate >
