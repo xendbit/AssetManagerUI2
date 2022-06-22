@@ -1,16 +1,16 @@
 import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
-import { ethers, providers } from "ethers";
-import { baseABI, baseUrl, chainId, niftyKey, networkChains, rpcData} from '../config/main.config.const';
+import { ethers } from "ethers";
+
 import  detectEthereumProvider from '@metamask/detect-provider';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { environment } from 'src/environments/environment';
+import { environment, networkChains, niftyKey, chainId, baseABI } from 'src/environments/environment';
 
 declare const window: any;
 
@@ -589,7 +589,7 @@ export class MetamaskService {
   }
 
   getCurrentBlock()  {
-    return this.httpClient.get(`${environment.baseApiUrl}get-block`, baseUrl.headers)
+    return this.httpClient.get(`${environment.baseApiUrl}get-block`, environment.headers)
   }
 
 

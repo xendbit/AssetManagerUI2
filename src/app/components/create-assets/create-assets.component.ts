@@ -5,7 +5,6 @@ import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.int
 import { Component, OnInit } from '@angular/core';
 import {  NgForm } from '@angular/forms';
 import { ICreatorMedia } from '../createArtwork.interface';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MainService } from 'src/app/core/services/main.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { timeout } from 'rxjs/operators';

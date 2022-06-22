@@ -9,7 +9,7 @@ import { MetamaskService } from 'src/app/core/services/metamask.service';
 import { AuctionService } from 'src/app/core/services/auction.service';
 import { MainService } from 'src/app/core/services/main.service';
 import { StripePaymentElementComponent, StripeService } from 'ngx-stripe';
-import { networkChains } from 'src/app/core/config/main.config.const';
+import { networkChains } from 'src/environments/environment';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { HotToastService } from '@ngneat/hot-toast';

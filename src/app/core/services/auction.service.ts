@@ -1,14 +1,10 @@
 import { MainService } from './main.service';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { niftyKey, blockchainInfo, cryptocompareInfo, networkChains} from '../config/main.config.const';
-import { IMenuGroups } from '../components/footer/footer.interface';
-import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
-import { Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, map, scan } from 'rxjs/operators';
+import {  IArtwork,  IAuction } from '../components/slider/presentation.interface';
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import * as auctionJson from 'src/assets/data/auction.json';
-import { environment } from 'src/environments/environment';
+import { environment, networkChains, cryptocompareInfo, niftyKey } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
