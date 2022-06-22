@@ -589,9 +589,8 @@ export class MetamaskService {
   }
 
   getCurrentBlock()  {
-    return this.httpClient.get(`${environment.baseApiUrl}/get-block`, baseUrl.headers)
+    return this.httpClient.get(`${environment.baseApiUrl}get-block`, baseUrl.headers)
   }
-
 
 
 }
