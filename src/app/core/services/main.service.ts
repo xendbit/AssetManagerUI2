@@ -458,7 +458,7 @@ export class MainService {
   }
 
   fetchBlogPost() {
-    // return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
+    // return this.httpClient.get<IBlogGroup>(`${environment.baseApiUrl}get-blog`).subscribe((data: IBlogGroup) => {
     //   this.subjectBlogPost.next(data);
     // }, err => {
     //     this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);

@@ -231,7 +231,7 @@ export class MetamaskService {
 
   public getBalance() {
     const account = localStorage.getItem('account');
-    return this.httpClient.get(`${baseUrl.mainUrl}get-account-balance/${account}`)
+    return this.httpClient.get(`${environment.baseApiUrl}get-account-balance/${account}`)
   }
 
   public async checkConnection() {
