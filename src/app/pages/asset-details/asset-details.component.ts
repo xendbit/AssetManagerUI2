@@ -335,16 +335,18 @@ export class AssetDetailsComponent implements OnInit {
     }
     this.checkConnection();
     this.ngxService.start();
-    const sellNow = parseInt("0.5")
     if (+this.amount >= this.auction.sellNowPrice) {
       this.metBuyNow = true;
       this.sellPriceMet = true;
+      this.owner = true;
+      this.hasActiveAuction = false;
     }
-    console.log('hre met', this.sellPriceMet)
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
       if (data['code'] === 4001) {
         this.metBuyNow = false;
         this.sellPriceMet = false;
+        this.owner = false;
+        this.hasActiveAuction = true;
         this.ngxService.stop();
         this.toast.error('Bid cancelled');
         return;
@@ -380,7 +382,7 @@ export class AssetDetailsComponent implements OnInit {
             })
           } else {
             this.ngxService.stop();
-            this.ngOnInit();
+            window.location.reload();
           }
         })
       }, 25000);

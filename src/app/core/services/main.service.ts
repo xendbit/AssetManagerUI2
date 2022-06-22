@@ -249,12 +249,12 @@ export class MainService {
         auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.issuer,
           type: item.type
         },

@@ -22,8 +22,8 @@ export class UserActionsService {
   private dataStore = { likes: <ILikes>  {tokenId: 0, likeCount: 0},
                         follow: <IFollow> { followCount: 0, id: "" } };
   constructor(
-    private messageService: MessageService, 
-    private stripeService: StripeService, 
+    private messageService: MessageService,
+    private stripeService: StripeService,
     public httpClient: HttpClient,
     public toast: HotToastService) { }
 
@@ -212,6 +212,21 @@ export class UserActionsService {
     return this.httpClient.post('https://node-stripe-nifty.herokuapp.com/charge', {
       amount: amount
     }, {headers})
+  }
+
+  validateEmail(email: string) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return true;
+    }
+    return false;
+  }
+
+  checkContainsNumber(val: any) {
+    if (/^([^0-9]*)$/.test(val)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
