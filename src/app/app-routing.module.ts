@@ -90,7 +90,7 @@ const routes: Routes = [
   { path: 'termsAndConditions', loadChildren: () => import('./public/terms-and-conditions/terms-and-conditions.module').then(m => m.TermsAndConditionsModule) }
 ];
 const routerOptions: ExtraOptions = {
-    useHash: true,
+    useHash: false,
     scrollPositionRestoration: 'top',
     relativeLinkResolution: 'legacy'
 };

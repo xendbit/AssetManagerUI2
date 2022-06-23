@@ -395,6 +395,10 @@ export class AssetDetailsComponent implements OnInit {
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;
     const sell =  auction.value.sellNowPrice;
+    if (+minBid === 0) {
+      this.toast.error('Please enter a minimum bid price greater than 0')
+      return;
+    }
     if (+sell <  +minBid) {
       this.toast.error('Please enter a sell-now price greater than or equal to your minimum bid')
       return;
