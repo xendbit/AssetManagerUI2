@@ -51,6 +51,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {PublicModule} from './public/public.module';
 import { SearchPageComponent } from './pages/search/search.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import { SearchPageComponent } from './pages/search/search.component';
     NgxStripeModule.forRoot('pk_test_51KP6OgCU7wHmOgIeQ84Kyn1S1CjHuIreTqOZOaoYNcMwndLCx0ghjNBsI7ywyy4hFVZk6QEbTG4kQhY2AklEiGLb00bgQlYxn8'),
     HotToastModule.forRoot(),
   ],
-  providers: [MainService, PaymentService],
+  providers: [MainService, PaymentService, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent],
   exports: [CreateAssetsComponent]
 })
