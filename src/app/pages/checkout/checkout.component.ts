@@ -5,6 +5,8 @@ import { PaymentService } from 'src/app/core/services/payment.service';
 import { countryList } from '../asset-details/countries';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-checkout',
@@ -24,8 +26,13 @@ export class CheckoutComponent implements OnInit {
   securityCode: string;
   countries: any[] = countryList;
   selectedCountry: any;
+  email: string;
   paying = false;
   billingAddress: string;
+  state: string;
+  city: string;
+  street: string;
+  zip: any;
   sellNowValue: number;
   sellNowValueNGN: number;
   fullname: string = "";
@@ -34,6 +41,13 @@ export class CheckoutComponent implements OnInit {
   payId: string = '';
   tokenId: any;
   amount: any;
+  artwork = {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
+  "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+  "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+  "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+      "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
+      "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
+      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": [], "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
   elementsOptions: StripeElementsOptions = {
     locale: 'en'
@@ -62,10 +76,13 @@ export class CheckoutComponent implements OnInit {
     public paymentService: PaymentService,
     public toast: HotToastService,
     private router: Router,
+    private ngxService: NgxUiLoaderService,
     public activatedRoute: ActivatedRoute,
+    private confirmationService: ConfirmationService
     ) { }
 
   ngOnInit(): void {
+    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.tokenId = this.activatedRoute.snapshot.params.tokenId;
     this.amount = this.activatedRoute.snapshot.params.amount;
   }
@@ -75,8 +92,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   continuePayment() {
+    this.ngxService.start();
     this.selectedCountry = this.selectedCountry.name;
-    console.log('sel', this.sellNowValue)
+    this.paymentEmail = this.email;
+    this.billingAddress = this.street + ',' + this.city + ',' + this.state + ',' + this.selectedCountry;
     if (this.billingAddress === undefined || this.billingAddress === '') {
       this.toast.error('Please make sure all fields are completed and correct.')
       return;
@@ -85,17 +104,26 @@ export class CheckoutComponent implements OnInit {
       this.toast.error('Please make sure all fields are completed and correct.')
       return;
     }
-    if (this.selectedCountry === 'Nigeria') {
-      this.payWithRave();
-    }else {
-      this.paymentService.createPaymentIntent(this.sellNowValue * 100, this.paymentEmail)
-      .subscribe(pi => {
-        this.clientSecret = pi.client_secret;
-        this.elementsOptions.clientSecret = pi.client_secret;
-        this.payId = pi.id;
-        this.paying = true;
-      });
-    }
+    this.paymentService.createPaymentIntent(this.amount * 100, this.paymentEmail)
+    .subscribe(pi => {
+      this.clientSecret = pi.client_secret;
+      this.elementsOptions.clientSecret = pi.client_secret;
+      this.payId = pi.id;
+      this.paying = true;
+      this.pay(this.clientSecret);
+    });
+    // if (this.selectedCountry === 'Nigeria') {
+    //   this.payWithRave();
+    // } else {
+    //   this.paymentService.createPaymentIntent(this.amount * 100, this.paymentEmail)
+    //   .subscribe(pi => {
+    //     this.clientSecret = pi.client_secret;
+    //     this.elementsOptions.clientSecret = pi.client_secret;
+    //     this.payId = pi.id;
+    //     this.paying = true;
+    //     this.pay(this.clientSecret);
+    //   });
+    // }
   }
 
   payWithRave() {
@@ -109,30 +137,40 @@ export class CheckoutComponent implements OnInit {
   getCountry(country: any) {
     this.selectedCountry = country;
     this.countryId = country;
-    console.log(country);
   }
 
-  pay() {
-    this.stripeService.confirmCardPayment(this.clientSecret, {
+  pay(clientSecret: any) {
+    this.stripeService.confirmCardPayment(clientSecret, {
       payment_method: {
         card: this.card.element,
         billing_details: {
-          name: this.fullname,
+          name: this.firstName + ' ' + this.lastName,
         },
       }}).subscribe(result => {
         this.paying = false;
-        console.log('Result', result);
         if (result.error) {
-          // Show error to your customer (e.g., insufficient funds)
-          alert({ success: false, error: result.error.message });
+          this.ngxService.stop();
+          this.toast.error(result.error.message)
         } else {
-          // The payment has been processed!
           if (result.paymentIntent.status === 'succeeded') {
-            // Show a success message to your customer
-            alert({ success: true });
+            this.ngxService.stop();
+            this.toast.success('Payment made successfully.')
+            // this.router.navigate(['/profile']).then(() => {
+            //   this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+            //   window.location.reload();
+            // });
           }
         }
       });
-    }
+  }
+
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Please cnfirm that you intend to buy ' + this.artwork.symbol + ' at ' + this.amount,
+        accept: () => {
+            this.continuePayment();
+        }
+    });
+  }
 
 }

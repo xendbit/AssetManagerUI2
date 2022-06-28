@@ -1,0 +1,27 @@
+<p-dialog
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+position="top-right"
+[modal]="true" [baseZIndex]="10000"
+[(visible)]="display" [style]="{width: '30vw'}">
+<form class="login">
+  <h2>Welcome Back!</h2>
+  <p>Please log in</p>
+  <input type="email"
+  id="email"
+  name="email"
+  [(ngModel)]="userData.email"
+  placeholder="Email" />
+
+  <input type="password"
+  id="password"
+  name="password"
+  [(ngModel)]="userData.password"
+  placeholder="Password" />
+
+  <input (click)="login()" type="submit" value="Log In" />
+  <div class="links">
+    <a>Forgot password</a>
+    <a (click)="changeToRegister()">Register</a>
+  </div>
+</form>
+</p-dialog>

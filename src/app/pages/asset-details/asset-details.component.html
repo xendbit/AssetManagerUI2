@@ -2,6 +2,8 @@
     <!--=======================================
             Hero Single ArtworK Start Here
     ========================================-->
+    <app-login (displayRegisterStatus)="listenToRegister($event)" [displayVal]="display"></app-login>
+    <app-register (displayStatus)="listenToLogin($event)" [displayValue]="displayRegister"></app-register>
     <p-dialog id="dialog" [(visible)]="displayOverlay" [modal]="true" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"  [breakpoints]="{'960px': '75vw', '640px': '83vw'}" [style]="{width: '25vw'}">
     <ng-template pTemplate="header">
@@ -201,7 +203,7 @@
                                               </div>
                                               <div class="boxes-main">
 
-                                                  <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
+                                                  <div class="bid-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                       <p class="bid p-coin body-mb">Buy-Now Price <img class="coins" src="./assets/img/coins/{{getChain()}}.svg" alt=""></p>
                                                     <div style="display: flex; justify-content: space-between">
                                                       <h5 class="heading-h3 bid-head" id="buyNowPrice" >{{auction.sellNowPrice}} {{foundNetwork['currency']}}</h5>
@@ -210,7 +212,7 @@
                                                       <p id="noBid" *ngIf="this.sellNowValue === false">No bids yet</p>
                                                     </div>
                                                   </div>
-                                                  <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet || auctionTime < currentTime || sellPriceMet">
+                                                  <div class="auction-main"  *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                       <p class="body-mb acution" *ngIf="currentTime  < auctionTime && !sellPriceMet">Auction Ending</p>
                                                       <div id="clock" class="timer" *ngIf="currentTime  < auctionTime && !sellPriceMet">
                                                           <div class="hours-main main" *ngIf="countdownDay > 0">
@@ -247,15 +249,15 @@
                                                         <input id="currentBid" class="input mb-5" style="width: 100%;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
-                                                        background-color: white;" type="text" disabled name="amount" [(ngModel)]="amount" placeholder="Buy Now Price: {{auction.sellNowPrice}} {{foundNetwork['currency']}}"  type="number" id="amount" name="amount"required>
-                                                    </div>
+                                                        background-color: white;" type="text" disabled name="amount" [(ngModel)]="amount" placeholder="Price: {{auction.sellNowPrice}} {{foundNetwork['currency']}}"  type="number" id="amount" name="amount"required>
+                                                      </div>
                                                       <div *ngIf="auction.bids.length > 0 && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
                                                           <input id="currentBid" class="input current-bid-input"
                                                             type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
                                                       </div>
                                                       <div *ngIf="auction.bids.length > 0 && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input current-bid-input" disabled
-                                                          type="text" name="amount" [(ngModel)]="amount" placeholder="Buy Now Price: {{auction.sellNowPrice}} {{foundNetwork['currency']}} "  type="number" id="amount" name="amount"required>
+                                                          type="text" name="amount" [(ngModel)]="amount" placeholder="Price: {{auction.sellNowPrice}} {{foundNetwork['currency']}} "  type="number" id="amount" name="amount"required>
                                                       </div>
                                                   </div>
 
@@ -286,6 +288,12 @@
   <!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
                                                           <p id="connectWallet" *ngIf="error" class="desc" style="color: red; margin-top: 2rem;"> Connect your wallet to bid on this asset</p>
                                                       </div>
+                                                  </div>
+                                                  <div class="action-otr" *ngIf="visible && !accountFound && artwork.assetType === 'physical'">
+                                                    <div class="heading-inr error-container">
+<!--                                                        <p *ngIf="error" class="desc mb-2" style="text-align: right; font-weight: bold;" > Purchase with fiat currency</p>-->
+                                                        <p id="connectWallet" *ngIf="error" class="desc" style="color: red; margin-top: 2rem;"> Login/Register to purchase this asset</p>
+                                                    </div>
                                                   </div>
                                                   <div class="action-otr" *ngIf="this.owner && currentTime  < auctionTime && !sellPriceMet && hasActiveAuction">
                                                     <div class="heading-inr error-container">
@@ -332,7 +340,7 @@
                                                       </div>
                                                   </div>
 
-                                                  <div class="input-main">
+                                                  <div class="input-main" *ngIf="artwork.assetType === 'digital'">
                                                       <div class="input-otr-2">
                                                           <input id="sellNowPrice" class="input" style="width: 100%;
                                                           margin-bottom: 25px;
@@ -340,7 +348,15 @@
                                                           background-color: white;" type="text" id="sellNowPrice" [(ngModel)]="sellNowPrice" name="sellNowPrice" placeholder="Sell-Now Price"  required>
                                                       </div>
                                                   </div>
-                                                  <div class="input-main">
+                                                  <div class="input-main" *ngIf="artwork.assetType === 'physical'">
+                                                    <div class="input-otr-2">
+                                                        <input id="sellNowPrice" class="input" style="width: 100%;
+                                                        margin-bottom: 25px;
+                                                        font-size: 20px;
+                                                        background-color: white;" type="text" id="sellNowPrice" [(ngModel)]="sellNowPrice" name="sellNowPrice" placeholder="Selling Price"  required>
+                                                    </div>
+                                                  </div>
+                                                  <div class="input-main" *ngIf="artwork.assetType === 'digital'">
                                                       <div class="input-otr-2">
                                                           <input id="minimumPrice" class="input" style="width: 100%;
                                                           margin-bottom: 25px;
