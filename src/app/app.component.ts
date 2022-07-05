@@ -20,6 +20,8 @@ export class AppComponent extends AppController implements OnInit {
   footerInfo: any;
   showHeader: any;
   account: string;
+  display: boolean = false;
+  displayRegister: boolean = false;
   SPINNER: SPINNER = SPINNER.threeBounce
   @Output() changeNotify: EventEmitter<any> = new EventEmitter<any>();
 
@@ -34,7 +36,7 @@ export class AppComponent extends AppController implements OnInit {
     this.ngxService.start()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showHeader = this.route.firstChild.snapshot.data.showHeader;
+        this.showHeader = this.route.firstChild.snapshot.data['showHeader'];
       }
     });
     this.mainService.getLanding().subscribe(res => {
@@ -87,6 +89,7 @@ export class AppComponent extends AppController implements OnInit {
 
     return this.config.appTitle;
   }
+
   changeLogo() {
     const darkState = localStorage.getItem('dark-mode');
     if (darkState === 	'{"darkMode":false}') {
@@ -95,4 +98,33 @@ export class AppComponent extends AppController implements OnInit {
       this.footerInfo.logoPath = '/assets/img/NiftyRow-logo-dark.png';
     }
   }
+
+  listenToToggle(e: any) {
+    if (e === true) {
+      this.display = true;
+      this.displayRegister = false
+    } else {
+      this.display = false
+    }
+  }
+
+  listenToRegister(e: any) {
+    this.displayRegister = true;
+    if (e === true) {
+      this.displayRegister = true;
+      this.display = false;
+    } else {
+      this.displayRegister = false
+    }
+  }
+
+  listenToLogin(e: any) {
+    if (e === true) {
+      this.display = true;
+      this.displayRegister = false
+    } else {
+      this.display = false
+    }
+  }
+
 }

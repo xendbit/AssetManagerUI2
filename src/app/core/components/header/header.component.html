@@ -124,6 +124,7 @@
                     <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
                     <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
                     <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                    <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a> -->
                 </div>
                <input
                  id="darkMode"
@@ -208,10 +209,15 @@
                               <button *ngIf="accountFound && userWallet === 'WalletConnect'" class="btn-outline1 btn-wallet" id="connect-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                 <a id="disconnectWalletConnect" (click)=" disconnectFromWalletConnect()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
-                          </li>
+                            </li>
+                            <!-- <li *ngIf="!accountFound">
+                              <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a id="login" (click)="toggleLogin()"> Login </a>
+                              </button>
+                            </li> -->
                         </ul>
                         <span style="margin-left: 10px;" *ngIf="!accountFound">
-                          <h6 class="head-2 heading-h6" style="margin-left: 10px; padding-bottom: 3px;">connect using any of the following wallets:</h6>
+                          <h6 class="head-2 heading-h6" style="margin-left: 10px; padding-bottom: 3px;"> Or connect using any of the following wallets:</h6>
                           <div class="input-otr-2">
                             <span class="input" style="padding: 10px 16px !important;">
                               <img id="metamask" (click)="connectToMetamask()" class="icon" style="height: 25px;" src="./assets/img/metamask.jpeg" alt="icon">

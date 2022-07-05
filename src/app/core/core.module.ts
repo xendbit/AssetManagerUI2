@@ -32,6 +32,8 @@ import { ConnectWalletComponent } from './components/connect-wallet/connect-wall
 import { PaymentComponent } from './components/payment/payment.component';
 import {SidebarModule} from 'primeng/sidebar';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   imports: [
@@ -68,7 +70,9 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     AssetsGridComponent,
     ConnectWalletComponent,
     PaymentComponent,
-    HeroComponent
+    HeroComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   exports: [
     HeaderComponent,
@@ -82,6 +86,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     AssetsGridComponent,
     ConnectWalletComponent,
     PaymentComponent,
+    LoginComponent,
+    RegisterComponent,
     HeroComponent,
   ],
   providers: [MessageService],
