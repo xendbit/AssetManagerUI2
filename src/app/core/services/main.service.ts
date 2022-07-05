@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl, niftyKey} from '../config/main.config.const';
 import { IMenuGroups } from '../components/footer/footer.interface';
 import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
 import { INavButton } from '../components/header/header.interface';
@@ -22,6 +21,7 @@ import { IBlogGroup } from '../components/blog/blog.interfaces';
 import { IUser } from 'src/app/pages/user-dashboard/user.interface';
 import { IAssetCategory, IAssetType } from 'src/app/components/createArtwork.interface';
 import { ILandingData } from 'src/app/pages/landing/landing.interface';
+import { environment, niftyKey } from 'src/environments/environment';
 
 
 @Injectable({
@@ -37,6 +37,7 @@ export class MainService {
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   private ownerDataStore: { ownerArtworks: IArtwork[] } = { ownerArtworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
+  dropsResponse: IPresentation;
   buttonsResponse: INavButton;
   userResponse: IUser;
   creatorResponse: IUser;
@@ -49,7 +50,7 @@ export class MainService {
 
   constructor(public httpClient: HttpClient) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -58,16 +59,16 @@ export class MainService {
 
   fetchArtWorkFromMain(page: number, limit: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    this.httpClient.get<IArtwork []>(`${baseUrl.mainUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    headers = headers.append('chain', this.chain);
+    this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
           id: item.id,
           category: item.category,
           tags: item.tags,
+          auctions: item.auctions,
           owner: {
             id: item.id,
             image: item.media[0]?.media,
@@ -83,18 +84,22 @@ export class MainService {
             media: item.media[0]?.media,
             mediaType: 0
           },
+          chain: item.chain,
           isBidding: item.hasActiveAuction,
           gallery: item.media,
           description: item.description,
           price: 0,
           currency: item.currency,
-          likes: 0,
+          likes: item.likes,
           hasActiveAuction: item.hasActiveAuction,
+          isApproved: item.isApproved,
+          isInAuction: item.isInAuction,
+          isInSale: item.isInSale,
           lastAuctionId: item.lastAuctionId,
           symbol: item.symbol,
           name: item.name,
           tokenId: parseInt(item.tokenId),
-          dateIssued: new Date(parseInt(item.dateIssued)*1000),
+          dateIssued: item.dateIssued,
           sold: item.sold,
           assetType: item.assetType,
           type: item.type
@@ -103,7 +108,7 @@ export class MainService {
       this.subjectNftMeta.next(res['data']['meta']);
     })).subscribe(data => {
 
-      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks.filter(item => item.hasActiveAuction));
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
 
     },err => {
       this.subjectNftCard.next(artWorkJson['default']);
@@ -113,31 +118,31 @@ export class MainService {
 
   fetchSingleArtwork(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return new Observable((observer) => {/* make http request & process */
-      this.httpClient.get<IArtwork>(`${baseUrl.mainUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
+      this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
           observer.next({
             id: item.id,
             category: item.category,
             tags: item.tags,
+            auctions: item.auctions,
             assetType: item.assetType,
             owner: {
               id: item.id,
-              image: item.media[0].media,
+              image: item.media[1].media,
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.media[0].media,
+              image: item.media[1].media,
               username: item.issuer,
               type: item.type
             },
             featuredImage: {
-              media: item.media[0].media,
+              media: item.media[1].media,
               mediaType: 0
             },
             isBidding: item.hasActiveAuction,
@@ -145,8 +150,12 @@ export class MainService {
             description: item.description,
             price: 0,
             currency: item.currency,
-            likes: 0,
+            likes: item.likes || [],
+            chain: item.chain,
             hasActiveAuction: item.hasActiveAuction,
+            isApproved: item.isApproved,
+            isInAuction: item.isInAuction,
+            isInSale: item.isInSale,
             lastAuctionId: item.lastAuctionId,
             symbol: item.symbol,
             name: item.name,
@@ -157,32 +166,94 @@ export class MainService {
         });
           observer.complete();
         }, err => {
+          if (err?.error.data.statusCode === 404) {
+            observer.next(err.error.data);
+            observer.complete()
+          } else {
             observer.next(artWorkJson['default'][0]);
             observer.complete()
+          }
         }); /* make sure to handle http error */
-
     });
+  }
+
+  fetchOnlyApproved(page: number, limit: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+      res['data']['items'].forEach((item) => {
+        this.dataStore.artworks.push({
+          id: item.id,
+          category: item.category,
+          auctions: item.auctions[0],
+          tags: item.tags,
+          owner: {
+            id: item.id,
+            image: item.media[1]?.media,
+            username: item.owner
+          },
+          creator: {
+            id: item.id,
+            image: item.media[1]?.media,
+            username: item.issuer,
+            type: item.type
+          },
+          featuredImage: {
+            media: item.media[1]?.media,
+            mediaType: 0
+          },
+          chain: item.chain,
+          isBidding: item.hasActiveAuction,
+          gallery: item.media,
+          description: item.description,
+          price: 0,
+          currency: item.currency,
+          likes: item.likes,
+          hasActiveAuction: item.hasActiveAuction,
+          isApproved: item.isApproved,
+          isInAuction: item.isInAuction,
+          isInSale: item.isInSale,
+          lastAuctionId: item.lastAuctionId,
+          symbol: item.symbol,
+          name: item.name,
+          tokenId: parseInt(item.tokenId),
+          dateIssued: new Date(parseInt(item.dateIssued)),
+          sold: item.sold,
+          assetType: item.assetType,
+          type: item.type
+        })
+     });
+      this.subjectNftMeta.next(res['data']['meta']);
+    })).subscribe(data => {
+
+      this.subjectNftCard.next(Object.assign({}, this.dataStore).artworks);
+
+    },err => {
+      this.subjectNftCard.next(artWorkJson['default']);
+    })
   }
 
   fetchAssetsByOwnerId(account: string, page, limit) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get(`${environment.baseApiUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
         category: item.category,
         tags: item.tags,
+        auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media,
+          image: item.media[0].media || '',
           username: item.issuer,
           type: item.type
         },
@@ -194,9 +265,13 @@ export class MainService {
         gallery: item.media,
         description: item.description,
         price: 0,
+        chain: item.chain,
         currency: item.currency,
-        likes: 0,
+        likes: item.likes || [],
         hasActiveAuction: item.hasActiveAuction,
+        isApproved: item.isApproved,
+        isInAuction: item.isInAuction,
+        isInSale: item.isInSale,
         lastAuctionId: item.lastAuctionId,
         symbol: item.symbol,
         name: item.name,
@@ -208,12 +283,13 @@ export class MainService {
     }
     ));
       this.subjectOwnerNftMeta.next(res['data']['meta']);
-      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
     })).subscribe(data => {
 
-      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+      this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
 
     },err => {
+      console.log('err', err)
       this.subjectOwnerNFT.next(artWorkJson['default']);
     })
 
@@ -223,14 +299,21 @@ export class MainService {
      return this.subjectOwnerNFT;
   }
 
+  toggleApproved(tokenId: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}${tokenId}/toggle-approved`, {}, {headers})
+  }
+
 
   issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}issue-token/`, {
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
       "keys": mediaType,
@@ -242,12 +325,16 @@ export class MainService {
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: number, endDate: number) {
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`,
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
       endDate: endDate
-    },   baseUrl.headers)
+    },   {headers})
   }
 
 
@@ -275,7 +362,7 @@ export class MainService {
         this.footerResponse =  footerJson['default'][0];
         observer.next(this.footerResponse);
         observer.complete()
-        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}footer`).subscribe((data: IMenuGroups) => {
+        // this.httpClient.get<IMenuGroups>(`${environment.baseApiUrl}footer`).subscribe((data: IMenuGroups) => {
         //   this.footerResponse = data;
         //   observer.next(this.footerResponse);
         //   observer.complete();
@@ -283,7 +370,7 @@ export class MainService {
         //     this.footerResponse =  footerJson['default'][0];
         //     observer.next(this.footerResponse);
         //     observer.complete()
-        // }); 
+        // });
       }
 
     });
@@ -299,15 +386,6 @@ export class MainService {
         this.headerResponse =  headerJson['default'][0];
         observer.next(this.headerResponse);
         observer.complete()
-        // this.httpClient.get<IMenuGroups>(`${baseUrl.mainUrl}header`).subscribe((data: IMenuGroups) => {
-        //   this.headerResponse = data;
-        //   observer.next(this.headerResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.headerResponse =  headerJson['default'][0];
-        //     observer.next(this.headerResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -321,15 +399,6 @@ export class MainService {
         this.buttonsResponse =  navButtons['default'][0];
         observer.next(this.buttonsResponse);
         observer.complete()
-        // this.httpClient.get<INavButton>(`${baseUrl.mainUrl}navButton`).subscribe((data: INavButton) => {
-        //   this.buttonsResponse = data;
-        //   observer.next(this.buttonsResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.buttonsResponse =  navButtons['default'][0];
-        //     observer.next(this.buttonsResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -343,15 +412,6 @@ export class MainService {
         this.userResponse =  userJson['default'];
         observer.next(this.userResponse);
         observer.complete()
-        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-user`).subscribe((data: IUser) => {
-        //   this.userResponse = data;
-        //   observer.next(this.userResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.userResponse =  userJson['default'];
-        //     observer.next(this.userResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -365,15 +425,6 @@ export class MainService {
         this.creatorResponse =  creatorJson['default'];
         observer.next(this.creatorResponse);
         observer.complete()
-        // this.httpClient.get<IUser>(`${baseUrl.mainUrl}get-creator`).subscribe((data: IUser) => {
-        //   this.creatorResponse = data;
-        //   observer.next(this.creatorResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.creatorResponse =  creatorJson['default'];
-        //     observer.next(this.creatorResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -388,15 +439,6 @@ export class MainService {
         this.categoriesResponse =  categoryJson['default'];
         observer.next(this.categoriesResponse);
         observer.complete()
-        // this.httpClient.get<IAssetCategory>(`${baseUrl.mainUrl}get-category`).subscribe((data: IAssetCategory) => {
-        //   this.categoriesResponse = data;
-        //   observer.next(this.categoriesResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.categoriesResponse =  categoryJson['default'];
-        //     observer.next(this.categoriesResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -410,21 +452,12 @@ export class MainService {
         this.assetTypeResponse =  assetTypeJson['default'];
         observer.next(this.assetTypeResponse);
         observer.complete()
-        // this.httpClient.get<IAssetType>(`${baseUrl.mainUrl}get-asset-type`).subscribe((data: IAssetType) => {
-        //   this.assetTypeResponse = data;
-        //   observer.next(this.assetTypeResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.assetTypeResponse =  assetTypeJson['default'];
-        //     observer.next(this.assetTypeResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
 
   fetchBlogPost() {
-    // return this.httpClient.get<IBlogGroup>(`${baseUrl.mainUrl}get-blog`).subscribe((data: IBlogGroup) => {
+    // return this.httpClient.get<IBlogGroup>(`${environment.baseApiUrl}get-blog`).subscribe((data: IBlogGroup) => {
     //   this.subjectBlogPost.next(data);
     // }, err => {
     //     this.subjectBlogPost.next(blogJson['default'][0]['blogGroup']);
@@ -438,7 +471,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.icoUrl}`, {
+    return this.httpClient.post(`${environment.icoUrl}`, {
       firstName: firstname,
       lastName: lastname,
       email: email,
@@ -459,20 +492,34 @@ export class MainService {
       if (this.presentationResponse) {
         observer.next(this.presentationResponse);
         observer.complete();
-
       } else {
         this.presentationResponse =  presentationJson['default'][0];
         observer.next(this.presentationResponse);
         observer.complete()
-        // this.httpClient.get<IPresentation>(`${baseUrl.mainUrl}get-presentation`).subscribe((data: IPresentation) => {
-        //   this.presentationResponse = data;
-        //   observer.next(this.presentationResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.presentationResponse =  presentationJson['default'][0];
-        //     observer.next(this.presentationResponse);
-        //     observer.complete()
-        // });
+      }
+    });
+  }
+
+  getDrops() {
+    return new Observable((observer) => {
+      if (this.dropsResponse) {
+        observer.next(this.dropsResponse);
+        observer.complete();
+      } else {
+        this.returnArtwork().subscribe((data: any) => {
+          if (data !== null) {
+            this.dropsResponse = {
+              "slides": data.slice(0, 5),
+              "presentationType": 1
+            };
+            observer.next(this.dropsResponse);
+            observer.complete()
+          }
+        }, err => {
+          this.dropsResponse =  presentationJson['default'][0];
+          observer.next(this.dropsResponse);
+          observer.complete()
+        })
       }
     });
   }
@@ -487,15 +534,6 @@ export class MainService {
         this.landingResponse =  landingJson['default'];
         observer.next(this.landingResponse);
         observer.complete()
-        // this.httpClient.get<ILandingData>(`${baseUrl.mainUrl}get-landing`).subscribe((data: ILandingData) => {
-        //   this.landingResponse = data;
-        //   observer.next(this.landingResponse);
-        //   observer.complete();
-        // }, err => {
-        //     this.landingResponse =  landingJson['default'];
-        //     observer.next(this.landingResponse);
-        //     observer.complete()
-        // });
       }
     });
   }
@@ -506,7 +544,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.mainUrl}save-issuer/`, {
+    return this.httpClient.post(`${environment.baseApiUrl}save-issuer/`, {
       "email": email,
       "phoneNumber": phone,
       "firstName": firstname,
@@ -528,7 +566,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.post(`${baseUrl.mainUrl}save-buyer/`, {
+    return this.httpClient.post(`${environment.baseApiUrl}save-buyer/`, {
       "email": email,
       "phoneNumber": phone,
       "firstName": firstname,
@@ -550,17 +588,45 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
+    return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
   }
 
   getBuyerStatus(walletAddress: any) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    return this.httpClient.get(`${baseUrl.mainUrl}/buyer/by-blockchain-address/${walletAddress}`, {headers});
+    return this.httpClient.get(`${environment.baseApiUrl}buyer/by-blockchain-address/${walletAddress}`, {headers});
   }
 
+  getDays(t: number){
+    return Math.floor(t / 86400);
+  }
 
+  getHours(t: number){
+    const days = Math.floor(t / 86400);
+    t -= days * 86400;
+    const hours = Math.floor(t / 3600) % 24;
+    return hours;
+  }
 
+  getMinutes(t: number){
+      const days = Math.floor(t / 86400);
+      t -= days * 86400;
+      const hours = Math.floor(t / 3600) % 24;
+      t -= hours * 3600;
+      const minutes = Math.floor(t / 60) % 60;
+      return minutes;
+  }
+
+  getSeconds(t: number){
+    const days = Math.floor(t / 86400);
+    t -= days * 86400;
+    const hours = Math.floor(t / 3600) % 24;
+    t -= hours * 3600;
+    const minutes = Math.floor(t / 60) % 60;
+    t -= minutes * 60;
+    const seconds = t % 60;
+    return seconds;
+  }
 
 }

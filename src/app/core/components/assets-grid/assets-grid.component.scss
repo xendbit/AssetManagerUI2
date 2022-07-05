@@ -9,9 +9,27 @@
   border-radius: 3px;
 }
 
+// .row-custom-inr {
+//   justify-content: center;
+// }
+
 @media (min-width: 992px){
     .col-lg-3 {
         flex: 0 0 auto;
         width: 33%;
     }
+}
+
+.scroll {
+  scrollbar-width: none;
+}
+
+
+:host {
+  display: block;
+  max-height: 1024px;
+  margin-bottom: 10px;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-behavior: auto;
 }

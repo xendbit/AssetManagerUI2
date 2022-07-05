@@ -1,15 +1,6 @@
     <!--=======================================
             Explore Artworks Start Here
     ========================================-->
-    <!-- <div class="row" *ngIf="!isLoaded">
-        <div class="col-lg-6">
-            <div class="img-otr">
-                <a class="tilt-otr img-tilt" id="anchorMedia" data-tilt>
-                <img class="img-inr img-fluid" style="object-fit: cover;" src="/assets/img/loading.gif" alt="artwork-img">
-                </a>
-            </div>
-        </div>
-    </div> -->
 
     <div class="col-inr box2">
         <div class="img-otr" [ngSwitch]="artwork.category">
@@ -20,15 +11,15 @@
                 <img (click)="placeBid()" class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
 
                 <audio class="AudioPlayerV1" style="width: 100%; margin-top: -7rem;" controls controlsList="nodownload">
-                    <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
-                    <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
+                    <source src="{{artwork.gallery[2]['media']}}" type="audio/mp3" />
+                    <source src=" {{artwork.gallery[2]['media']}} " type="audio/ogg" />
                 </audio>
             </a>
             <a  class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
-                <video class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
-                    <source src=" {{artwork.gallery[1]['media']}}" type="video/mp4" />
-                    <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
-                    <source src=" {{artwork.gallery[1]['media']}}" type="video/ogg" />
+                <video (click)="placeBid()" autostart="false" class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
+                    <source src=" {{artwork.gallery[2]['media']}}" type="video/mp4" />
+                    <source src="{{artwork.gallery[2]['media']}}" type="video/webm" />
+                    <source src=" {{artwork.gallery[2]['media']}}" type="video/ogg" />
                 </video>
             </a>
         </div>
@@ -89,47 +80,52 @@
                     </div>
                 </div>
             </div>
-            <div class="heart-main" *ngIf="this.likes.likeCount === 1">
+            <div class="heart-main" *ngIf="liked === true && artwork.likes !== undefined">
                 <a class="heart-otr">
                     <svg class="heart-icon" width="18" height="17" fill="true" xmlns="http://www.w3.org/2000/svg"><path d="M9 15.08S1 10.6 1 5.16a4.16 4.16 0 018-1.603h0a4.16 4.16 0 018 1.603c0 5.44-8 9.92-8 9.92z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
-                <p class="body-sb num"  >{{this.likes.likeCount }} Like</p>
+                <p class="body-sb num" *ngIf="likes === 1">{{likes }} Like</p>
+                <p class="body-sb num" *ngIf="likes > 1" >{{likes }} Likes</p>
             </div>
-            <div class="heart-main"  *ngIf="this.likes.likeCount !== 1">
+            <div class="heart-main"  *ngIf="liked === false && artwork.likes !== undefined">
                 <a class="heart-otr" (click)="like(artwork.tokenId)">
                     <svg class="heart-icon" width="18" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 15.08S1 10.6 1 5.16a4.16 4.16 0 018-1.603h0a4.16 4.16 0 018 1.603c0 5.44-8 9.92-8 9.92z" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
-                <p class="body-sb num" *ngIf="this.likes.likeCount !== 1" >{{this.likes.likeCount }} Likes</p>
+                <p class="body-sb num"  *ngIf="likes === 1">{{this.likes }} Like</p>
+                <p class="body-sb num" *ngIf="likes > 1" >{{this.likes }} Likes</p>
             </div>
         </div>
-        <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol}}</a>
+        <a (click)="placeBid()" class="body-mb box-head">{{artwork.symbol.substring(0, 25)}}</a>
         <div class="row" class="box-below" (click)="placeBid()">
-            <div *ngIf="auctionTime > currentTime && !sellPriceMet">
-                <div class="timer-otr" id="countdown">
-                    <div class="body-sb" >
-                        {{this.countdownDay}} : {{this.countdownHours}} : {{this.countdownMinutes}} : {{this.countdownSeconds}}
+            <div *ngIf="auctionTime > currentTime">
+                <div class="timer-otr" id="countdown nowrap">
+                    <div class="nowrap" *ngIf="this.countdownDay > 0">
+                        {{this.countdownDay}} Days
+                    </div>
+                    <div class="nowrap" *ngIf="this.countdownDay <= 0">
+                      {{this.countdownHours}}hrs : {{this.countdownMinutes}} mins
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false">
-                <div class="timer-otr" id="countdown">
+            <div *ngIf="currentTime >  auctionTime || hasActiveAuction === false">
+                <div class="timer-otr nowrap" id="countdown">
                     <div class="body-sb" style="color: #999999; font-style: italic" >
                         Closed
                     </div>
                 </div>
             </div>
-            <div *ngIf="auctionTime > currentTime && !sellPriceMet" (click)="placeBid()" id="currentBid">
+            <div *ngIf="currentTime  < auctionTime" (click)="placeBid()" id="currentBid">
                 <div class="current-bid-container" >
-                    <p class="body-sb bid mr-3">Current Bid</p>
-                    <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+                    <p class=" bid mr-3 nowrap">Current Bid</p>
+                    <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
                 </div>
             </div>
 
-          <div  *ngIf="auctionTime < currentTime || sellPriceMet || artwork.hasActiveAuction === false" (click)="placeBid()" id="currentBid">
+          <div  *ngIf="currentTime >  auctionTime || hasActiveAuction === false" (click)="placeBid()" id="currentBid">
             <div class="current-bid-container" >
-              <p class="body-sb bid mr-3" style="font-style: italic; color: #999999">Current Bid</p>
-              <p class="body-mb eth"> {{auction.highestBid}} {{artwork.currency}}</p>
+              <p class="bid mr-3 nowrap" style="font-style: italic; color: #999999;">Current Bid</p>
+              <p class="eth"> {{auction.highestBid}} {{artwork.currency}}</p>
             </div>
           </div>
         </div>

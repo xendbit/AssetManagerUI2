@@ -1,13 +1,10 @@
 import { MainService } from './main.service';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl, niftyKey, blockchainInfo, cryptocompareInfo, networkChains} from '../config/main.config.const';
-import { IMenuGroups } from '../components/footer/footer.interface';
-import { IPresentation, IArtwork, meta, IAuction } from '../components/slider/presentation.interface';
-import { Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, map, scan } from 'rxjs/operators';
+import {  IArtwork,  IAuction } from '../components/slider/presentation.interface';
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import * as auctionJson from 'src/assets/data/auction.json';
+import { environment, networkChains, cryptocompareInfo, niftyKey } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,31 +17,30 @@ export class AuctionService {
 
   constructor(public httpClient: HttpClient, public mainService: MainService) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 1666700000 //defaults to harmony
+      networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
   }
 
 
-  
+
 
   fetchAuctionFromMain(tokenId: number, auctionId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
+    headers = headers.append('chain', this.chain);
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
-        this.httpClient.get<IAuction []>(`${baseUrl.mainUrl}get-auction-info/${tokenId}/${auctionId}`, {headers}).subscribe(data => {
-          let item = data['data'] 
+        this.httpClient.get<IAuction []>(`${environment.baseApiUrl}get-auction-info/${tokenId}/${auctionId}`, {headers}).subscribe(data => {
+          let item = data['data']
           observer.next({
             "auctionId": item.auctionId,
             "cancelled": item.cancelled,
@@ -60,6 +56,7 @@ export class AuctionService {
             "title": artwork.symbol,
             "currentBid": item.highestBid, //highest bid is always the current bid, if no bid has been made, it is always set to minimum bid
             "currency": "ETH",
+            "chain": item.chain,
             "endDate": item.endDate,
             "startDate": item.startDate,
             "minimumBid": item.minimumBid,
@@ -68,23 +65,22 @@ export class AuctionService {
             "type": "Auction"
         });
           observer.complete();
-     
+
         },err => {
             observer.next(err['error']['data']['error']);
             observer.complete();
         })
       })
     });
-   
+
   }
 
   startAuctionNifty(auctionId: number, tokenId: number, startDate: any, endDate: any) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}start-auction`, 
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
       startDate: startDate,
@@ -94,31 +90,22 @@ export class AuctionService {
 
   changeTokenOwnership(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}change-token-ownership/${tokenId}`, {}, {headers})
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}change-token-ownership/${tokenId}`, {}, {headers})
   }
 
   checkIssuer(issuerAddress) {
     let issuer = issuerAddress.toLowerCase();
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.get(`${baseUrl.mainUrl}is-issuer/${issuer}`, {headers})
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
   }
 
-  // getETHtoUSDValue() {
-  //   let headers: HttpHeaders = new HttpHeaders();
-  //   headers = headers.append('Content-Type', 'application/json');
-  //   headers = headers.append('X-API-Token', blockchainInfo.key);
-  //   return this.httpClient.get(`${blockchainInfo.url}/tickers/ETH-USD`, {headers})
-  // }
-
-  getETHtoUSDValue() {
+  getUSDValue() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     // headers = headers.append('X-API-Token', blockchainInfo.key);
@@ -127,11 +114,10 @@ export class AuctionService {
 
   toggleSold(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
-    let chain = localStorage.getItem('currentChain');
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', chain);
-    return this.httpClient.post(`${baseUrl.mainUrl}${tokenId}/toggle-sold`, {}, {headers})
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.post(`${environment.baseApiUrl}${tokenId}/toggle-sold`, {}, {headers})
   }
 
 }

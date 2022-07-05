@@ -20,22 +20,22 @@ export class MyAssetsComponent implements OnInit {
   constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
 
   ngOnInit(): void {
-    this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        return;
-      } else {
-        this.account = localStorage.getItem('account');
-        this.getMeta();
-        this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
-        this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
-          if (res !== null) {
-            this.artworks = res;
-            this.categories = this.artworks.map(item => item.category)
-            .filter((value, index, self) => self.indexOf(value) === index);
-          };
-        })
-      }
-    })
+    // this.metamaskService.checkConnection().then(res => {
+    //   if (res === undefined || !localStorage.getItem('account')) {
+    //     return;
+    //   } else {
+    //     this.account = localStorage.getItem('account');
+    //     this.getMeta();
+    //     this.mainService.fetchAssetsByOwnerId(this.account, 1, 10);
+    //     this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+    //       if (res !== null) {
+    //         this.artworks = res;
+    //         this.categories = this.artworks.map(item => item.category)
+    //         .filter((value, index, self) => self.indexOf(value) === index);
+    //       };
+    //     })
+    //   }
+    // })
   }
 
   byId(index, item) {

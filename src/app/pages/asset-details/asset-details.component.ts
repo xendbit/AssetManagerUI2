@@ -1,5 +1,4 @@
 import { countryList } from './countries';
-import {  HttpClient} from '@angular/common/http';
 import { UserActionsService } from './../../core/services/userActions.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,14 +6,14 @@ import { IAuction, IArtwork } from 'src/app/core/components/slider/presentation.
 import { trigger, transition, animate, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AuctionService } from 'src/app/core/services/auction.service';
-import * as moment from 'moment';
 import { MainService } from 'src/app/core/services/main.service';
 import { StripePaymentElementComponent, StripeService } from 'ngx-stripe';
-import { networkChains } from 'src/app/core/config/main.config.const';
+import { networkChains } from 'src/environments/environment';
 import { StripeElementsOptions } from '@stripe/stripe-js';
 import { PaymentService } from 'src/app/core/services/payment.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -35,7 +34,7 @@ import { PaymentService } from 'src/app/core/services/payment.service';
 export class AssetDetailsComponent implements OnInit {
   distance: number; countdownDay: number; countdownHours: number;
   countdownMinutes: number; countdownSeconds: number; visible: boolean = true;
-  account: string; balance: number = 0; amount: number; owner: boolean;
+  account: string; balance: number = 0; amount: number; owner: boolean = false;
   auctionId: number; currentBlock: any; startDate: any; endDate: any; sellNowPrice: number; minimumPrice: number;
   auctionTime: any; currentTime: any; auctionValue: number; response: any; error: any; displayOverlay: boolean = false;
   email: string; firstName: string; lastName: string; middleName: string; phone: number;
@@ -48,6 +47,7 @@ export class AssetDetailsComponent implements OnInit {
   lastBidder: boolean;
   contractAddress: any;
   hasActiveAuction: boolean = false;
+  tokenFound: boolean = true;
   metBuyNow: boolean;
   auctionLength: number = 0;
   foundNetwork: {};
@@ -66,130 +66,242 @@ export class AssetDetailsComponent implements OnInit {
   payId: string = '';
   displayPosition: boolean;
   selectedCountry: any;
+  tokenId: any;
+  usdValue: any;
+  userWallet: any;
+  maxDate: any;
 
   constructor(private router: Router,
     public activatedRoute: ActivatedRoute,
     public metamaskService: MetamaskService,
     public mainService: MainService,
     public userActions: UserActionsService,
-    private spinner: NgxSpinnerService,
+    private ngxService: NgxUiLoaderService,
     private auctionService: AuctionService,
-    private http: HttpClient,
-    private stripeService: StripeService,
-    public paymentService: PaymentService) { }
+    public toast: HotToastService,
+    public paymentService: PaymentService) {
+      this.metamaskService.getContractAddress().subscribe(response => {
+        this.contractAddress = response['data'];
+      });
+     }
 
-  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
+  ownerArtworks: IArtwork[];
+  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "none", bid: 0, auctionId: 0}],"isActive": true,
     "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
-    "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
+    "artwork": {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
+    "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+    "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+    "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+    "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""},
       "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "",
-      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
-  artwork: IArtwork = {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
+      "dateIssued": new Date(),"hasActiveAuction": true, "lastAuctionId": 0,"likes": [],"sold": false,"name": "","tokenId": 0,"symbol": "", "assetType": "digital", "type": ""},"type": ""};
+  artwork: IArtwork = {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
+  "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+  "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+  "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
+      "owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "",
       "collections": [],"type": ""},"featuredImage": {"media": "","mediaType": 0},"isBidding": true, "gallery": [{ "media": "",
-      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": new Date(), "hasActiveAuction": true, "lastAuctionId": 0, "likes": 0, "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
+      "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": [], "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
-    this.auction = JSON.parse(localStorage.getItem('auctionData'));
-    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    // console.log('try', this.metamaskService.createWalletForBuyer().buyerAddress)
+    this.ngxService.start();
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 1666700000 //defaults to harmony
+      networkChain === 97 //defaults to bsc
     }
-    this.foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
+    this.checkConnection();
+    this.tokenId = this.activatedRoute.snapshot.params.asset;
+    this.artwork = JSON.parse(localStorage.getItem('artworkData'));
+    this.getSingleArtworkDetails();
+    this.getCreatorArt();
+    if (this.artwork.auctions !== undefined) {
+      this.auction = JSON.parse(localStorage.getItem('auctionData'));
+      this.initialCheck();
+    }
+    this.foundNetwork = (networkChains.find((res: any) => res.systemName === this.artwork.chain)|| 'BNB')
+    this.metamaskService.getContractAddress().subscribe(data => {
+      if (data['status'] === 'success') {
+        this.contractAddress = data['data'];
+        localStorage.removeItem('contractAddress');
+        localStorage.setItem('contractAddress', this.contractAddress)
+      }
+    })
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
-    this.metamaskService.getContractAddress().subscribe(response => {
-      this.contractAddress = response['data'];
-    });
-    let tokenId = this.activatedRoute.snapshot.params.asset;
-    this.mainService.fetchSingleArtwork(tokenId).subscribe((res: IArtwork) => {
-      this.artwork = res;
-      this.sellPriceMet = false;
-      this.checkConnection();
-      if (this.artwork.lastAuctionId !== 0) {
-        this.auctionService.fetchAuctionFromMain(tokenId, res.lastAuctionId).subscribe((res: any) => {
-          if (res === 'Auction has ended') {
-            this.hasActiveAuction = false;
-          } else {
-            this.hasActiveAuction = true;
-            this.auction = res;
-            this.auctionLength = this.auction.bids.length;
-            this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1));
-            this.checkBuyer();
-            this.auctionService.getETHtoUSDValue().subscribe(res => {
-              if (this.auction.bids.length > 0) {
-                this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
-                this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
-                this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
-                if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
-                  this.lastBidder = true;
-                }
-                if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
-                  this.sellPriceMet = false;
-                } else {
-                  this.sellPriceMet = true;
-                }
-              } else {
-                this.auctionValue = res['last_trade_price'] * this.auction.highestBid;
-                this.sellPriceMet = false;
-              }
-            })
-            this.setCountDown(this.auction.endDate);
-          }
-        }, err => {
-          console.log('this is error')
-        })
+    var future = new Date();
+    this.maxDate = new Date(future.setDate(future.getDate() + 30));
+  }
+
+  initialCheck() {
+    if (this.artwork.lastAuctionId !== 0) {
+      this.hasActiveAuction = true;
+      if (!this.auction.bids || this.auction.bids?.length < 1) {
+        this.auctionLength = 0
+      } else if (this.auction.bids) {
+        this.auctionLength = this.auction.bids.length;
       }
 
-    } )
+      if (this.auctionLength > 0) {
+        this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
+      }
+      this.auctionService.getUSDValue().subscribe(res => {
+        this.usdValue = res['USD'];
+        if (this.auctionLength > 0) {
+          this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
+          this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+          this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
+          if (this.auction.bids[0].bid !== 0) {
+            if (this.account !== undefined) {
+              if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                this.lastBidder = true;
+              }
+            }
+            if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+              this.sellPriceMet = false;
+            } else {
+              this.sellPriceMet = true;
+            }
+          }
+        } else {
+          this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+          this.auctionValue = res['USD'] * this.auction.minimumBid;
+          this.sellPriceMet = false;
+        }
+      })
+    }
+  }
 
+  getCreatorArt() {
+    this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
+      if (res !== null) {
+        this.ownerArtworks = res.filter((data: any) => data.hasActiveAuction && data.isApproved);
+        // this.categories = this.artworks.map(item => item.category)
+        // .filter((value, index, self) => self.indexOf(value) === index);
+        // this.ngxService.stop();
+      } else {
+        // this.ngxService.stop();
+      }
+    }, err => {
+      this.ngxService.stop();
+    })
+  }
+
+  getSingleArtworkDetails() {
+    this.mainService.fetchSingleArtwork(this.tokenId).subscribe((res: any) => {
+      if (res && res.statusCode === 404) {
+        this.tokenFound = false;
+        this.ngxService.stop();
+      } else {
+        this.artwork = res;
+        this.sellPriceMet = false;
+        if (this.artwork.lastAuctionId !== 0) {
+          this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
+            if (res === 'Auction has ended') {
+              this.hasActiveAuction = false;
+              this.ngxService.stop();
+            } else {
+              this.hasActiveAuction = true;
+              this.auction = res;
+              this.auctionLength = this.auction.bids.length;
+              this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
+              this.checkBuyer();
+              this.auctionService.getUSDValue().subscribe(res => {
+                if (this.auction.bids.length > 0) {
+                  this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
+                  this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                  this.sellNowValueNGN = res['NGN'] * this.auction.sellNowPrice;
+                  if (this.account !== undefined) {
+                    if (this.auction.bids[0]['bidder'].toLowerCase() === this.account.toLowerCase() ) {
+                      this.lastBidder = true;
+                    }
+                  }
+                  if (this.auction.bids[0]['bid'] < this.auction.sellNowPrice) {
+                    this.sellPriceMet = false;
+                  } else {
+                    this.sellPriceMet = true;
+                  }
+                } else {
+                  this.sellNowValue = res['USD'] * this.auction.sellNowPrice;
+                  this.auctionValue = res['USD'] * this.auction.highestBid;
+                  this.sellPriceMet = false;
+                }
+              }, err => {
+                this.ngxService.stop();
+              })
+              this.setCountDown(this.auction.endDate);
+            }
+          }, err => {
+            console.log('this is error')
+          })
+        } else {
+          this.ngxService.stop();
+        }
+      }
+    }, err => {
+      this.ngxService.stop();
+      console.log('err', err)
+    })
   }
 
   checkConnection() {
-    this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.accountFound = false;
-        this.error = 'Please connect your metamask wallet account to bid on this asset.'
-        return;
-      } else {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+            this.error = 'Please Connect to your Metamask wallet account.'
+            return;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+            this.metamaskService.getBalance().subscribe(response => {
+              this.balance = response['data'];
+            })
+            if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
+              this.owner = true;
+            }
+            if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+              this.visible = true;
+            }
+          }
+        })
+      }
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
         this.metamaskService.getBalance().subscribe(response => {
           this.balance = response['data'];
         })
         if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-
           this.owner = true;
           if (this.artwork.lastAuctionId === 0 && this.owner === true) {
             this.visible = true;
           }
         }
       }
-    })
+    }
   }
 
   setCountDown(date) {
-    this.auctionTime =  moment(new Date(date).getTime()).unix();
-    this.currentTime = moment(new Date().getTime()).unix();
-    if (this.currentTime > this.auctionTime) {
-      console.log('expired')
-    }
-    const diffTime = this.auctionTime - this.currentTime;
-    let duration;
-    duration = moment.duration(diffTime * 1000, 'milliseconds');
+    this.auctionTime =  Math.floor(new Date(date).getTime());
+    this.currentTime = Math.floor(new Date().getTime());
+    let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
     const interval = 1000;
+    this.countdownDay = this.mainService.getDays(diff);
+    this.countdownHours = this.mainService.getHours(diff);
+    this.countdownMinutes = this.mainService.getMinutes(diff);
+    this.countdownSeconds = this.mainService.getSeconds(diff);
+    // setInterval(() => {
 
-    setInterval(() => {
-      duration = moment.duration(duration - interval, 'milliseconds');
-      this.countdownDay = moment.duration(duration).days();
-      this.countdownHours = moment.duration(duration).hours();
-      this.countdownMinutes = moment.duration(duration).minutes();
-      this.countdownSeconds = moment.duration(duration).seconds();
-    }, interval);
-
+    // }, interval);
+    this.ngxService.stop();
   }
 
-  showPositionDialog() {
-    this.displayPosition = true;
+  goToCheckout() {
+    // const amount = this.usdValue * this.amount;
+    this.router.navigate(['/checkout/' + this.tokenId + '/' + this.auction.sellNowPrice])
   }
 
   openForm() {
@@ -198,7 +310,7 @@ export class AssetDetailsComponent implements OnInit {
 
   bid() {
     if(this.response === undefined) {
-      this.userActions.addSingle('global', 'error', 'Failed', 'Please confirm that your wallet is connected.');
+      this.toast.error('Please confirm that your wallet is connected.');
       return;
     }
     if (this.response === 404 && this.artwork.assetType === "physical") {
@@ -207,27 +319,38 @@ export class AssetDetailsComponent implements OnInit {
     }
     let currentBid = this.auction.highestBid;
     if (+this.balance < +this.amount ) {
-      this.userActions.addSingle('global', 'error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
+      this.toast.error('You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
     } else if (+this.balance < +currentBid)  {
-      this.userActions.addSingle('global', 'error', 'Failed', 'You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
+      this.toast.error('You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
       return;
     } else if (+this.amount <= +currentBid) {
-      this.userActions.addSingle('global', 'error', 'Failed', 'The bid amount has to be higher than the current bid for this asset.');
+      this.toast.error('The bid amount has to be higher than the current bid for this asset.');
       return;
     }
 
     if (!+this.amount) {
-      this.userActions.addSingle('global', 'error', 'Failed', 'Please confirm you have entered your bidding price for this asset.');
+      this.toast.error('Please confirm you have entered your bidding price for this asset.');
       return;
     }
     this.checkConnection();
-    this.spinner.show();
+    this.ngxService.start();
     if (+this.amount >= this.auction.sellNowPrice) {
       this.metBuyNow = true;
       this.sellPriceMet = true;
+      this.owner = true;
+      this.hasActiveAuction = false;
     }
     this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
+      if (data['code'] === 4001) {
+        this.metBuyNow = false;
+        this.sellPriceMet = false;
+        this.owner = false;
+        this.hasActiveAuction = true;
+        this.ngxService.stop();
+        this.toast.error('Bid cancelled');
+        return;
+      }
       setTimeout(() => {
         this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: any) => {
           if (data !== 'Auction has ended') {
@@ -236,8 +359,8 @@ export class AssetDetailsComponent implements OnInit {
           if (data === 'Auction has ended') {
             this.hasActiveAuction = false;
           }
-          this.spinner.hide();
-          this.userActions.addSingle('global', 'Success', 'Successful', 'Bid placed successfully');
+          this.ngxService.stop();
+          this.toast.success('Bid placed successfully');
           if (this.metBuyNow || this.sellPriceMet){
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
               if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
@@ -245,39 +368,47 @@ export class AssetDetailsComponent implements OnInit {
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                   this.visible = true;
                 }
+                this.ngxService.stop();
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                });;
               }
-              this.spinner.hide();
-              this.ngOnInit();
+              this.ngxService.stop();
+              // this.ngOnInit();
             }, err => {
-              this.userActions.addSingle('global', 'error', 'Failed', 'There has been an error, please try again.');
+              this.ngxService.stop();
+              this.toast.success('There has been an error, please try again.');
               return;
             })
+          } else {
+            this.ngxService.stop();
+            window.location.reload();
           }
         })
       }, 25000);
       }, err => {
-        this.spinner.hide();
+        this.ngxService.stop();
     })
 
   }
 
-  //if end date elapse and no bid, call cancel endpoint and remove artwork
-  //if there is a bid enable withdraw
-  //if sell now met, enable withdraw
-
   async startAuction(auction: NgForm, tokenId) {
     const minBid = auction.value.minimumPrice;
     const sell =  auction.value.sellNowPrice;
-    if (sell < minBid) {
-      this.userActions.addSingle('global', 'error', 'Failed', 'Please enter a sell-now price greater than or equal to your minimum bid');
+    if (+minBid === 0) {
+      this.toast.error('Please enter a minimum bid price greater than 0')
+      return;
+    }
+    if (+sell <  +minBid) {
+      this.toast.error('Please enter a sell-now price greater than or equal to your minimum bid')
       return;
     }
     this.checkConnection();
-    this.spinner.show();
-    this.metamaskService.getCurrentBlock().subscribe(res => {
+    this.ngxService.start();
+    this.metamaskService.getCurrentBlock().subscribe(async res => {
       this.currentBlock = res['data'];
       let startDate = new Date(auction.value.startDate);
-      let endDate = new Date(auction.value.endDate)
+      let endDate = new Date(auction.value.endDate);
       let currentDate = Date.now();
 
       let initialStart: number = Math.abs(Math.floor((currentDate - startDate.getTime()) / 1000 / 60 / 60 / 24));
@@ -289,43 +420,60 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
-        setTimeout(() => {
-          this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe(data => {
-          this.userActions.addSingle('global', 'success', 'successful', 'Auction has been started for this asset');
-          this.visible = false;
-          this.spinner.hide();
-          this.router.navigate(['/profile']).then(() => {
-            window.location.reload();
-          });;
-        }, err =>  {
-          this.spinner.hide();
-        })
-      }, 15000)
+      await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+          setTimeout(() => {
+            this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
+              console.log('data', data)
+              if (data.status === "success") {
+                this.toast.success( 'Auction has been started for this asset')
+                this.visible = false;
+                this.ngxService.stop();
+                this.router.navigate(['/profile']).then(() => {
+                  window.location.reload();
+                }, err => {
+                  this.ngxService.stop();
+                });
+              } else {
+                  this.ngxService.stop();
+                  this.toast.error('There has been an error while trying to start this auction, please try again.')
+              }
+
+            }, err =>  {
+            this.ngxService.stop();
+            })
+          }, 15000)
       }, err => {
-        this.spinner.hide()
+        this.ngxService.stop()
       })
     }, err => {
-      this.spinner.hide()
+      this.ngxService.stop()
     })
   }
 
   withdraw() {
-    this.spinner.show();
+    this.ngxService.start();
     this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
       // console.log('this is res', res)
-      this.spinner.hide();
+      this.ngxService.stop();
+    }, err => {
+      this.ngxService.stop();
     })
   }
 
   checkBuyer() {
-    this.mainService.getBuyerStatus(this.account).subscribe(res => {
-      this.response = res;
-    },
-    error => {
-      this.response = error['error'];
-      this.response = error['error']['data']['statusCode'];
-    })
+    if (!localStorage.getItem('account')) {
+      this.accountFound = false;
+      this.error = 'Please connect your metamask wallet account to bid on this asset.'
+      return;
+    } else {
+      this.mainService.getBuyerStatus(this.account).subscribe(res => {
+        this.response = res;
+      },
+      error => {
+        this.response = error['error'];
+        this.response = error['error']['data']['statusCode'];
+      })
+    }
   }
 
     register(register: NgForm) {
@@ -340,28 +488,31 @@ export class AssetDetailsComponent implements OnInit {
       const city = register.value.city;
       const street = register.value.street;
       const houseNumber = register.value.houseNumber;
-      const blockchainAddress = this.account;
+      let blockchainAddress = this.account;
+      if (this.accountFound !== true) {
+        blockchainAddress = this.metamaskService.createWalletForBuyer().buyerAddress;
+      }
       if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined ||
         lastName === undefined || country === undefined ||
         zipCode === undefined || state === undefined || city === undefined || street === undefined || houseNumber === undefined) {
-          this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
-          this.spinner.hide();
+          this.toast.error('Please make sure all fields are completed and correct.')
+          this.ngxService.stop();
         this.displayOverlay = true;
       }
-      this.spinner.show();
+      this.ngxService.start();
       this.mainService.saveBuyer(email, phone, firstName, lastName, middleName, blockchainAddress,
         country, zipCode, state, city, street, houseNumber).subscribe(res => {
         if (res['status'] === 'success') {
-          this.spinner.hide();
-          this.userActions.addSingle('global', 'success', 'successful', 'Buyer has been registered successfully!');
+          this.ngxService.stop();
+          this.toast.success('Buyer has been registered successfully!');
           this.displayOverlay = false;
           this.checkBuyer();
           this.ngOnInit();
         }
       }, err => {
         this.error = err.error.data.error;
-        this.spinner.hide();
-        this.userActions.addSingle('global', 'error', 'error', this.error);
+        this.ngxService.stop();
+        this.toast.error(this.error);
         this.displayOverlay = false;
         this.checkBuyer();
       })
@@ -369,7 +520,6 @@ export class AssetDetailsComponent implements OnInit {
 
     continuePayment() {
       this.selectedCountry = this.selectedCountry.name;
-      console.log('sel', this.sellNowValue)
       if (this.billingAddress === undefined || this.billingAddress === '') {
         this.userActions.addSingle('global', 'error', 'Error', 'Please make sure all fields are completed and correct.');
         return;
@@ -387,37 +537,12 @@ export class AssetDetailsComponent implements OnInit {
           this.elementsOptions.clientSecret = pi.client_secret;
           this.payId = pi.id;
           this.paying = true;
+        }, err => {
+          console.log('err', err)
         });
       }
     }
 
-    pay() {
-        console.log('th', this.paymentElement)
-          this.stripeService.confirmPayment({
-            elements: this.paymentElement.elements,
-            confirmParams: {
-              payment_method_data: {
-                billing_details: {
-                  name: this.fullname
-                }
-              }
-            },
-            redirect: 'if_required'
-          }).subscribe(result => {
-            this.paying = false;
-            console.log('Result', result);
-            if (result.error) {
-              // Show error to your customer (e.g., insufficient funds)
-              alert({ success: false, error: result.error.message });
-            } else {
-              // The payment has been processed!
-              if (result.paymentIntent.status === 'succeeded') {
-                // Show a success message to your customer
-                alert({ success: true });
-              }
-            }
-          });
-   }
 
    getCountry(country: any) {
      this.selectedCountry = country;
@@ -428,7 +553,12 @@ export class AssetDetailsComponent implements OnInit {
     '090332323323', 'djskd767'
     ).subscribe((res: any) => {
       console.log('res', res)
+    }, err => {
+      console.log(' err', err)
     })
   }
 
+  getChain() {
+    return localStorage.getItem('currentChain');
+  }
 }

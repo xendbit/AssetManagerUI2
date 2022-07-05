@@ -13,7 +13,7 @@ headers = headers.append('api-key', apiKey);
 
 export const baseUrl: IurlConfig = {
         headers:  headers,
-        testUrl: 'http://35.224.252.52:8080/v3/config/getHeader',
+        extraUrl: 'https://lb.xendbit.net/yasuke-server/',
         mainUrl: 'https://lb.xendbit.net/api/yasuke/',
         icoUrl: 'https://lb.xendbit.net/api/ico/whitelist/'
 }
@@ -23,6 +23,7 @@ export const networkChains = [ {
                 chain: 1666700000,
                 rpcUrl: 'https://api.s0.b.hmny.io',
                 currency: 'ONE',
+                systemName: 'harmony',
                 verifyLink: 'https://explorer.testnet.harmony.one/address/'
         },
         {
@@ -30,6 +31,15 @@ export const networkChains = [ {
                 chain: 97,
                 rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
                 currency: 'BNB',
+                systemName: 'bsc',
+                verifyLink: 'https://testnet.bscscan.com/token/'
+        },
+        {
+                name: "Binance Smart Chain Testnet",
+                chain: 56,
+                rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+                currency: 'BNB',
+                systemName: 'bsc',
                 verifyLink: 'https://testnet.bscscan.com/token/'
         },
         {
@@ -37,6 +47,7 @@ export const networkChains = [ {
                 chain: 80001,
                 rpcUrl: 'https://rpc-mumbai.matic.today',
                 currency: 'MATIC',
+                systemName: 'polygon',
                 verifyLink: 'https://mumbai.polygonscan.com/token/'
         },
         {
@@ -44,6 +55,7 @@ export const networkChains = [ {
                 chain: 1313161555,
                 rpcUrl: 'https://testnet.aurora.dev/',
                 currency: 'aETH',
+                systemName: 'aurora',
                 verifyLink: 'https://aurorascan.dev/token/'
         },
         {
@@ -51,9 +63,26 @@ export const networkChains = [ {
                 chain: 43113,
                 rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
                 currency: 'AVAX',
+                systemName: 'avalanche',
                 verifyLink: 'https://testnet.snowtrace.io/token/'
-        }
+        },
+        {
+          name: "Avalanche Mainnet",
+          chain: 43114,
+          rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+          currency: 'AVAX',
+          systemName: 'avalanche',
+          verifyLink: 'https://testnet.snowtrace.io/token/'
+  }
 ]
+
+export const rpcData = {
+  1666700000: 'https://api.s0.b.hmny.io',
+  97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  80001: 'https://rpc-mumbai.matic.today',
+  1313161555: 'https://testnet.aurora.dev/',
+  43113: 'https://api.avax-test.network/ext/bc/C/rpc'
+}
 
 export const baseABI = [
         "function issueToken(uint256,address,string,string,string)",

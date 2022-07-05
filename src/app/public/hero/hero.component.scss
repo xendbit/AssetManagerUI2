@@ -1,0 +1,24 @@
+.hero-main .container-fluid .hero-inr {
+  padding: 35px 0;
+  position: relative;
+}
+
+.backdrop-img {
+  object-fit: cover;
+  position: absolute;
+  height: 100%;
+  transform: scale(1.1);
+  opacity: 0.05;
+}
+
+.hero-currency {
+  width: 28px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
+
+@media (max-width: 767px) {
+  .create-otr {
+    margin-top: 12rem
+  }
+}

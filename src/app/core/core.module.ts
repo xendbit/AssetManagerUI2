@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
+import {HttpClientJsonpModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AngularTiltModule} from 'angular-tilt';
+import {HeroComponent} from '../public/hero/hero.component';
+import {PublicModule} from '../public/public.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,8 +27,11 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import {DialogModule} from 'primeng/dialog';
 import { NgxStripeModule } from 'ngx-stripe';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ConnectWalletComponent } from './components/connect-wallet/connect-wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import {SidebarModule} from 'primeng/sidebar';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 @NgModule({
   imports: [
@@ -37,11 +44,16 @@ import { PaymentComponent } from './components/payment/payment.component';
     ToastModule,
     GalleriaModule,
     OverlayPanelModule,
+    ScrollingModule,
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule,
+    NgxUiLoaderModule,
+    SidebarModule,
     RadioButtonModule,
+    AngularTiltModule,
+    HttpClientJsonpModule
   ],
   declarations: [
     HeaderComponent,
@@ -55,7 +67,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     BlogComponent,
     AssetsGridComponent,
     ConnectWalletComponent,
-    PaymentComponent
+    PaymentComponent,
+    HeroComponent
   ],
   exports: [
     HeaderComponent,
@@ -68,7 +81,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     BlogComponent,
     AssetsGridComponent,
     ConnectWalletComponent,
-    PaymentComponent
+    PaymentComponent,
+    HeroComponent,
   ],
   providers: [MessageService],
 })

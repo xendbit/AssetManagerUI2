@@ -1,5 +1,5 @@
 [
-    { 
+    {
         "menuGroup": [
             {
                 "title": "Navigation",
@@ -22,12 +22,16 @@
                 "title": "Explore",
                 "menu": [
                     {
-                        "title": "Explore Artworks",
-                        "url": "/assets"
+                        "title": "Artworks",
+                        "url": "/"
                     },
                     {
-                        "title": "Explore Creators",
-                        "url": "/creators"
+                      "title": "Music",
+                      "url": "/"
+                    },
+                    {
+                      "title": "Movies",
+                      "url": "/"
                     }
                 ]
             },
@@ -35,13 +39,17 @@
                 "title": "Community",
                 "menu": [
                     {
-                        "title": "Blog",
-                        "url": ""
-                    },
-                    {
-                        "title": "Help center",
+                        "title": "FAQs",
                         "url": "/faq"
-                    }
+                    },
+                  {
+                    "title": "Privacy policy",
+                    "url": "/privacy"
+                  },
+                  {
+                    "title": "Terms of use",
+                    "url": "/terms-and-conditions"
+                  }
                 ]
             }
 

@@ -1,11 +1,10 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { IArtwork, IAuction } from '../slider/presentation.interface';
+import { IArtwork, IAuction, IminiAuctionInfo } from '../slider/presentation.interface';
 import { MainService } from '../../services/main.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
-import * as moment from 'moment';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
@@ -24,32 +23,30 @@ export class NFTCardComponent implements OnInit {
   countdownMinutes: number;
   countdownSeconds: number;
   distance: number;
-  likes: ILikes = {
-    tokenId: 0,
-    likeCount: 0
-  };
+  liked: boolean = false;
   followInfo: IFollow = {
     id: "",
     followCount: 0
   }
-  auction: IAuction = {"auctionId": 0,"cancelled": false,"currentBlock": 0,"startBlock": 0,"endBlock": 0,"highestBid": 0,"highestBidder": "", "bids": [{bidder: "", bid: 0, auctionId: 0}],"isActive": true,
-    "owner": "","sellNowPrice": 0,"title": "","currentBid": 0,"currency": "","endDate": new Date(),"startDate": new Date(),"minimumBid": 0,"tokenId": 0,
-    "artwork": {"id": "","category": "","tags": [],"owner": {"id": "","image": "","username": ""},"creator": {"id": "","image": "","username": "","collections": [],"type": ""}, 
-      "featuredImage": {"media": "","mediaType": 0},"isBidding": true,"gallery": [{"media": "","mediaType": 0}],"description": "","price": 0,"currency": "", "assetType": "digital",
-      "dateIssued": new Date(),"hasActiveAuction": true,"lastAuctionId": 0,"likes": 0,"sold": false,"name": "","tokenId": 0,"symbol": "","type": ""},"type": ""}
+  auction: IminiAuctionInfo = {
+    "auctionId": "", "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+    "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+    "startBlock": "", "startDate": "", "started": true, "tokenId": ""}
   today: number;
   notExpired: boolean;
-  auctionTime: number;
-  currentTime: number;
+  auctionTime: any;
+  currentTime: any;
   sellPriceMet: boolean = false;
   isLoaded: boolean = false;
   hideNft: boolean = false;
+  hasActiveAuction: boolean = true;
+  likes: number = 0;
 
-  constructor(public mainService: MainService, public auctionService: AuctionService, 
+  constructor(public mainService: MainService, public auctionService: AuctionService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
     private clipboard: Clipboard) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.spinner.show('spinner1');
   }
 
@@ -57,36 +54,62 @@ export class NFTCardComponent implements OnInit {
     // this.spinner.show();
     if (this.artwork !== null) {
       this.today = new Date().getTime();
-      this.getLikes(this.artwork.tokenId);
+      let account = localStorage.getItem('account');
+      let likesArray: any[] = [];
+      if (this.artwork.likes) {
+        likesArray = this.artwork.likes || [];
+        this.likes = this.artwork.likes.length;
+        this.liked = likesArray.some((res: any) => res.userAddress.toLowerCase() === account.toLowerCase())
+      }
       this.isLoaded = false;
-      this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: IAuction) => {
-        this.auction = data;
-        this.setCountDown(this.auction.endDate);
-        if (this.auction['bids'].length > 0) {
-          this.auction['bids'].sort((a, b) => (a.bid > b.bid ? -1 : 1)); // sort array of bids from highest downwards
-          if (this.auction.bids[0]['bid'] >= this.auction.sellNowPrice) {
-            this.sellPriceMet = true;
-          } else {
-            this.sellPriceMet = false;
-          }
-        } 
-      })  
-    }  
+      this.auction = this.artwork.auctions;
+      if (this.artwork.auctions !== undefined && this.artwork.auctions !== null) {
+        if (this.auction.cancelled === true || this.auction.finished === true || this.auction.sellNowTriggered === true) {
+          this.hasActiveAuction = false;
+        } else {
+          this.setCountDown(this.auction.endDate);
+        }
+      }
+    }
   }
 
   like(tokenId) {
-    this.userActions.BroadcastLikes("like", 1, tokenId);
-    this.getLikes(tokenId);
+    let account = localStorage.getItem('account');
+    if (localStorage.getItem('account')) {
+      this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
+        if (data.status === 'success' && this.liked === false) {
+          this.liked = true;
+          this.likes + 1;
+        }
+      }, err => {
+        this.userActions.errorToast('We are sorry, there has been an error while trying to like this token, try again later.')
+      })
+    } else {
+      this.userActions.errorToast('You need to login or connect wallet to like this token.')
+    }
   }
 
-  getLikes(tokenId) {
-    this.likes.likeCount = this.userActions.getLikes(tokenId);
-  }
+  // getLikes(tokenId) {
+  //   this.likes.likeCount = this.userActions.getLikes(tokenId);
+  // }
 
 
   follow(username) {
-    this.userActions.BroadcastFollowEvent("follow", 1, username);
-    this.getFollowerCount(username);
+    if (localStorage.getItem('account')) {
+      let account = localStorage.getItem('account');
+      this.userActions.BroadcastFollowEvent("follow", 1, username, account).subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.userActions.successToast('Successfully followed this account');
+          this.getFollowerCount(username);
+        } else {
+          this.userActions.errorToast('We are sorry, there has been an error while trying to follow this account, try again later.')
+        }
+      }, err => {
+        this.userActions.errorToast('We are sorry, there has been an error while trying to follow this account, try again later.')
+      })
+    } else {
+      this.userActions.errorToast('You need to login or connect wallet to follow this account.')
+    }
   }
 
   getFollowerCount(username) {
@@ -101,29 +124,18 @@ export class NFTCardComponent implements OnInit {
 
 
   setCountDown(date) {
-    // this.auctionTime =  moment(new Date('2021-12-31T14:01:08.000Z').getTime()).unix();
-    this.auctionTime =  moment(new Date(date).getTime()).unix();
-    this.currentTime = moment(new Date().getTime()).unix();
-    // console.log('this => ', this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard')
-    // if (this.auctionTime < this.currentTime && this.parentPage !== 'userDashboard' || this.sellPriceMet && this.parentPage !== 'userDashboard'){
-    //   this.hideNft = true;
-    //   this.isLoaded = true;
-    // } else {
-    //   this.hideNft = false;
-    //   this.isLoaded = true;
-    // }
-    const diffTime = this.auctionTime - this.currentTime;
-    let duration;
-    duration = moment.duration(diffTime, 'seconds');
+    this.auctionTime =  Math.floor(new Date(date).getTime());
+    this.currentTime = Math.floor(new Date().getTime());
+    let diff = Math.floor((this.auctionTime - this.currentTime) / 1000);
+    // console.log('this =>',this.currentTime < this.auctionTime)
     const interval = 1000;
-
     setInterval(() => {
-      this.countdownDay = duration.days();
-      this.countdownHours = duration.hours();
-      this.countdownMinutes = duration.minutes();
-      this.countdownSeconds = duration.seconds();
+      this.countdownDay = this.mainService.getDays(diff);
+      this.countdownHours = this.mainService.getHours(diff);
+      this.countdownMinutes = this.mainService.getMinutes(diff);
+      this.countdownSeconds = this.mainService.getSeconds(diff);
     }, interval);
-    
+
   }
 
   placeBid() {

@@ -30,7 +30,7 @@ export class SliderComponent implements OnInit {
             "isActive": true,
             "owner": "",
             "sellNowPrice": 0,
-              "title": "The Mystic",
+            "title": "The Mystic",
             "subtitle": "The mystical artworks of the kubembe",
             "bids": [{"bidder": "", "bid": 0, "auctionId": 0}],
             "currentBid": 0,
@@ -43,6 +43,10 @@ export class SliderComponent implements OnInit {
                 "id": "",
                 "category": "",
                 "tags": [],
+                "auctions": { "auctionId": "",
+                "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
+                "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
+                "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
                 "owner": {
                     "id": "",
                     "image": "",
@@ -64,7 +68,7 @@ export class SliderComponent implements OnInit {
                 "description": "Description",
                 "price": 0,
                 "currency": "ETH",
-                "likes": 0,
+                "likes": [],
                 "type": "Artwork",
                 "lastAuctionId": 0,
                 "hasActiveAuction": true,
@@ -113,15 +117,15 @@ export class SliderComponent implements OnInit {
   ];
 
   constructor(public mainService: MainService, public userActions: UserActionsService, public router: Router,
-    private clipboard: Clipboard, public auctionService: AuctionService) { 
- 
+    private clipboard: Clipboard, public auctionService: AuctionService) {
+
   }
 
    ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-   
+
     if (changes['slider'] && this.slider !== undefined ){
       this.presentationData = this.slider;
       let endDate =   this.presentationData.slides.filter(slide => {
@@ -130,16 +134,26 @@ export class SliderComponent implements OnInit {
           return slide['endDate'];
         }
       })
-      this.auctionService.getETHtoUSDValue().subscribe(res => {
-        this.auctionValue = res['last_trade_price'] * this.currentBid;
+      this.auctionService.getUSDValue().subscribe(res => {
+        this.auctionValue = res['USD'] * this.currentBid;
       })
       this.setCountDown(endDate);
     }
   }
 
   like(tokenId) {
-    this.userActions.BroadcastLikes("like", 1, tokenId);
-    this.getLikes(tokenId);
+    let account = localStorage.getItem('account');
+    if (localStorage.getItem('account')) { 
+      this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
+        if (data.status === 'success') {
+          this.getLikes(tokenId);
+        }
+      }, err => {
+        this.userActions.errorToast('We are sorry, there has been an error while trying to like this token, try again later.')
+      })
+    } else {
+      this.userActions.errorToast('You need to login or connect wallet to like this token.')
+    }
   }
 
   getLikes(tokenId) {
@@ -152,8 +166,21 @@ export class SliderComponent implements OnInit {
   }
 
   follow(username) {
-    this.userActions.BroadcastFollowEvent("follow", 1, username);
-    this.getFollowerCount(username);
+    if (localStorage.getItem('account')) {
+      let account = localStorage.getItem('account');
+      this.userActions.BroadcastFollowEvent("follow", 1, username, account).subscribe((res: any) => {
+        if (res.status === 'success') {
+          this.userActions.successToast('Successfully followed this account');
+          this.getFollowerCount(username);
+        } else {
+          this.userActions.errorToast('We are sorry, there has been an error while trying to follow this account, try again later.')
+        }
+      }, err => {
+        this.userActions.errorToast('We are sorry, there has been an error while trying to follow this account, try again later.')
+      })
+    } else {
+      this.userActions.errorToast('You need to login or connect wallet to follow this account.')
+    }
   }
 
   getFollowerCount(username) {
@@ -187,8 +214,8 @@ export class SliderComponent implements OnInit {
       this.countdownMinutes = moment.duration(duration).minutes();
       this.countdownSeconds = moment.duration(duration).seconds();
     }, interval);
-    
+
   }
-  
+
 
 }

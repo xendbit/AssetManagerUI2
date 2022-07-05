@@ -1,0 +1,8 @@
+<div class="main-content">
+  <div *ngIf="artworks?.length > 0">
+    <app-assets-grid [artworkArray]="this.artworks" [pageTitle]="'Search Result'"></app-assets-grid>
+  </div>
+  <div *ngIf="artworks?.length === 0" >
+    <p class="header-desc" > No results for this search. Try another keyword. </p>
+  </div>
+</div>

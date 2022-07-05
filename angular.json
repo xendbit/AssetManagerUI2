@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "analytics": false
+  },
   "newProjectRoot": "projects",
   "projects": {
     "nifty-row": {
@@ -26,6 +29,7 @@
               "src/favicon.ico",
               "src/web.config",
               "src/.htaccess",
+              "./src/assets/img/WalletConnect.svg",
               {
                 "glob": "**/*",
                 "input": "src/assets/",
@@ -44,6 +48,7 @@
               "src/lib/js/modernizr-touch-events.js",
               "node_modules/chart.js/dist/Chart.js"
             ],
+            "allowedCommonJsDependencies": ["crypto"],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,

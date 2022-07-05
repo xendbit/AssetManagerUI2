@@ -14,6 +14,7 @@ export interface IPresentation {
     bids: [{bidder: string, bid: number, auctionId: number}];
     isActive: boolean;
     owner: string;
+    chain?: string;
     sellNowPrice: number;
     title:string;
     subtitle?: string;
@@ -30,6 +31,7 @@ export interface IPresentation {
     id:string;
     category:string;
     tags?:Array<string>,
+    auctions: IminiAuctionInfo,
     owner:IOwner;
     creator:ICreator;
     featuredImage:IMedia;
@@ -39,13 +41,17 @@ export interface IPresentation {
     description?:string;
     price:number;
     currency:string;
-    likes: number;
+    likes: [];
+    chain?: string;
     lastAuctionId: number;
     hasActiveAuction: boolean;
+    isApproved?: boolean;
+    isInAuction?: boolean;
+    isInSale?: boolean;
     symbol: string;
     name: string;
     tokenId: number;
-    dateIssued: Date;
+    dateIssued?: any;
     sold: boolean;
     assetType: string;
     auction?: IAuction;
@@ -54,6 +60,27 @@ export interface IPresentation {
   export interface IMedia{
     media:string;
     mediaType:MEDIA;
+  }
+
+  export interface IminiAuctionInfo {
+    auctionId: string;
+    cancelled: boolean;
+    chain: string;
+    currentBlock: string;
+    endBlock: string;
+    endDate: string;
+    finished: boolean;
+    highestBid: string;
+    highestBidder: string;
+    id: number;
+    minimumBid: string;
+    owner: string;
+    sellNowPrice: string;
+    sellNowTriggered: boolean;
+    startBlock: string;
+    startDate: string;
+    started: boolean;
+    tokenId: string;
   }
 
   export interface meta {

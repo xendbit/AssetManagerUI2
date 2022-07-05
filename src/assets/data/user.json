@@ -1,19 +1,21 @@
 {
     "userId": 1,
-    "username": "My Profile",
+    "username": "My-Profile",
+    "firstName": "firklst",
+    "lastName": "laklst",
     "walletAddress": "0xd07dc42622430",
-    "email": "maini2@gmail.com",
+    "email": "test@niftyrow.com",
     "socials": {"twitterUrl": "www.twitter.com/xendbit", "facebookUrl": "www.facebook.com/xendbit",
     "youtubeUrl": "www.youtube.com/xendbit", "telegramUrl": "www.telegram.com/xendbit"},
     "followers": [{
-      "walletAddress": "0xd07dc4262...2430", 
-      "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "walletAddress": "0xd07dc4262...2430",
+      "username": "odeny",
+      "displayImage": "./assets/img/nifty_card.png"
     }],
     "following": [{
-      "walletAddress": "0xd07dc4262...2430", 
-      "username": "odeny", 
-      "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8"
+      "walletAddress": "0xd07dc4262...2430",
+      "username": "odeny",
+      "displayImage": "./assets/img/nifty_card.png"
     }],
     "likes": [{"tokenId": "710246", "type": "Auction"}],
     "createdArtworks": [{
@@ -22,23 +24,23 @@
       "tags": ["art", "away"],
       "owner": {
           "id": "OGW",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/nifty_card.png",
           "username": "Ndo"
       },
       "creator": {
           "id": "Rew",
-          "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "image": "./assets/img/nifty_card.png",
           "username": "Ndo",
           "collections": [],
           "type": "Creator"
       },
       "featuredImage": {
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/nifty_card.png",
           "mediaType": 0
       },
       "isBidding": true,
       "gallery": [{
-          "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+          "media": "./assets/img/nifty_card.png",
           "mediaType": 0
       }],
       "description": "Description",
@@ -59,23 +61,23 @@
     "tags": ["art", "away"],
     "owner": {
         "id": "OGW",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/nifty_card.png",
         "username": "Ndo"
     },
     "creator": {
         "id": "Rew",
-        "image": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "image": "./assets/img/nifty_card.png",
         "username": "Ndo",
         "collections": [],
         "type": "Creator"
     },
     "featuredImage": {
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/nifty_card.png",
         "mediaType": 0
     },
     "isBidding": true,
     "gallery": [{
-        "media": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
+        "media": "./assets/img/nifty_card.png",
         "mediaType": 0
     }],
     "description": "Description",
@@ -83,7 +85,11 @@
     "currency": "ETH",
     "dateIssued": "2021-11-11T14:01:08.000Z",
     "lastAuctionId": 155870,
-    "likes": 34,
+    "likes": {
+      "id": 13,
+      "tokenId": "534210",
+      "userAddress": "0xf0cce76eea51fae3cbbb6d7aad1c74d668f1e0f0"
+    },
     "sold": false,
     "name": "Beautyful",
     "tokenId": 939141,
@@ -92,10 +98,10 @@
   }],
   "bids": [{"tokenId": "710246", "bid": 0.2, "auctionId": 121266}],
   "isActive": true,
-  "aboutInfo": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
-  "displayImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "coverImage": "https://res.cloudinary.com/xendbit/raw/upload/v1619698206/i4ue53khqd8jhb6wniw8",
-  "webUrl": {"ur": "www.telegram.com/xendbit", "title": "telegram"},
+  "about": "I am a creative with an eye for contemporary african art, particularly focused on curating indigenous, digital, African art pointing to Africa's rich heritage.",
+  "displayImage": "./assets/img/nifty_profile.png",
+  "coverImage": "./assets/img/profile_holder.jpg",
+  "webUrl": {"url": "www.telegram.com/xendbit", "title": "telegram"},
   "assetTotalValue": 0,
   "joinDate": "2021-11-11T14:01:08.000Z",
   "type": "User"

@@ -1,4 +1,6 @@
+import {HttpClient} from '@angular/common/http';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
@@ -21,23 +23,64 @@ export class HeaderComponent implements OnInit {
   buttonsData: INavButton = { "create": {"title": "Mint", "path": "mint"}, "wallet": { "title": "Connect Wallet", "path": "connect-wallet"}}
   account: string = 'Not connected';
   accountFound = false;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService) { }
+  reduceOpacity = false;
+  userWallet: any;
+  displaySidebar: boolean = false;
+  darkMode$ = this.darkModeService.darkMode$;
+  constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
-     this.metamaskService.checkConnection().then(res => {
-      if (res === undefined || !localStorage.getItem('account')) {
-        this.accountFound = false;
-      } else {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+          }
+        })
+      }
+
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
       }
-    })
- 
+    }
+    this.changeLogo();
   }
 
+  onToggle(): void {
+    this.darkModeService.toggle();
+    this.changeLogo();
+  }
+
+  changeLogo() {
+   const darkState = localStorage.getItem('dark-mode');
+   if (darkState === 	'{"darkMode":false}') {
+     this.headerInfo.logoPath = './assets/img/Niftylogo2.png';
+   } else {
+     this.headerInfo.logoPath = './assets/img/NiftyRow-logo-dark.png';
+   }
+  }
   disconnectFromMetamask() {
+    this.displaySidebar = false;
     this.metamaskService.disconnectFromClient();
+  }
+
+  onCheckboxChange(e) {
+    this.reduceOpacity = !this.reduceOpacity;
+  }
+
+  disconnectFromWalletConnect() {
+    this.displaySidebar = false;
+    this.metamaskService.disconnectFromWalletConnect();
+  }
+
+  connectToWallectConnect() {
+    this.metamaskService.tryWalletConnect();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,7 +94,7 @@ export class HeaderComponent implements OnInit {
         if (this.buttonsInfo !== undefined) {
           this.buttonsData = this.buttonsInfo;
         }
-    }   
+    }
   }
 
   connectToMetamask() {
@@ -60,6 +103,7 @@ export class HeaderComponent implements OnInit {
   }
 
   switchChain(chain: string) {
+    this.displaySidebar = false;
     localStorage.setItem('currentChain', chain);
     window.location.reload();
   }

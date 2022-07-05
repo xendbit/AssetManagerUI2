@@ -13,8 +13,8 @@
             "isActive": true,
             "owner": "0x138eA87255926B6FA5F428079F5266A6693B8738",
             "sellNowPrice": 0.4,
-            "title": "The Mystic",
-            "subtitle": "The mystical artworks of the kubembe",
+            "title": "",
+            "subtitle": "",
             "currentBid": 0.3,
             "currency": "ETH",
             "endDate": "2021-05-09T14:01:08.000Z",
@@ -38,7 +38,7 @@
                     "type": "Creator"
                 },
                 "featuredImage": {
-                    "media": "/assets/img/slide1.jpeg",
+                    "media": "./assets/img/nifty_slider1.jpg",
                     "mediaType": 0
                 },
                 "isBidding": true,
@@ -54,7 +54,7 @@
             },
             "type": "Auction"
         },
-        
+
         {
             "auctionId": "121266",
             "cancelled": false,
@@ -66,8 +66,8 @@
             "isActive": true,
             "owner": "0x138eA87255926B6FA5F428079F5266A6693B8738",
             "sellNowPrice": 0.4,
-            "title": "The Mystic",
-            "subtitle": "The mystical artworks of the kubembe",
+            "title": "",
+            "subtitle": "",
             "currentBid": 0.3,
             "currency": "ETH",
             "endDate": "2021-05-09T14:01:08.000Z",
@@ -91,7 +91,7 @@
                     "type": "Creator"
                 },
                 "featuredImage": {
-                    "media": "/assets/img/slide3.jpeg",
+                    "media": "./assets/img/nifty_slider.jpg",
                     "mediaType": 0
                 },
                 "isBidding": true,
@@ -118,8 +118,8 @@
             "isActive": true,
             "owner": "0x138eA87255926B6FA5F428079F5266A6693B8738",
             "sellNowPrice": 0.4,
-            "title": "The Mystic",
-            "subtitle": "The mystical artworks of the kubembe",
+            "title": "",
+            "subtitle": "",
             "currentBid": 0.3,
             "currency": "ETH",
             "endDate": "2021-05-09T14:01:08.000Z",
@@ -143,7 +143,7 @@
                     "type": "Creator"
                 },
                 "featuredImage": {
-                    "media": "/assets/img/slide5.jpeg",
+                    "media": "./assets/img/nifty_slider2.jpg",
                     "mediaType": 0
                 },
                 "isBidding": true,

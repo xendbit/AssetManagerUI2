@@ -6,11 +6,11 @@
         <div class="hero-main-inr"  *ngSwitchDefault>
             <p-galleria [(value)]="presentationData.slides" *ngIf="presentationData.slides"  [containerStyle]="{'width': '100%'}" [numVisible]="1"
             [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
-            [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true" [circular]="true"> 
+            [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true" [circular]="true">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 600px; object-fit: cover;" />
+                    <img rel="preload" [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 500px; object-fit: cover;" />
                 </ng-template>
-             
+
                 <ng-template pTemplate="caption" let-item style="height: 16rem;">
                     <div class="p-galleria">
                         <div class="p-galleria-caption">
@@ -21,13 +21,35 @@
                                 <a id="slideButton" style="color: black" class="btn-outline2 btn-wallet">View Artwork</a>
                             </div> -->
                         </div>
-                      
+
                     </div>
-                    
+
                 </ng-template>
             </p-galleria>
         </div>
         <div class="hero-main-inr"   *ngSwitchCase="'1'">
+          <p-galleria [(value)]="presentationData.slides" *ngIf="presentationData.slides"  [containerStyle]="{'width': '100%'}" [numVisible]="1"
+          [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
+          [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true" [circular]="true">
+              <ng-template pTemplate="item" let-item>
+                  <img rel="preload" [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 500px; object-fit: cover;" />
+              </ng-template>
+
+              <ng-template pTemplate="caption" let-item style="height: 16rem;">
+                  <div class="p-galleria">
+                      <div class="p-galleria-caption">
+                          <h4 style="margin-bottom: .5rem; color: #ffffff; font-size: 2.5rem;">{{item.title}}</h4>
+                          <p style="font-size: 1.5rem;">{{item.subtitle}}</p>
+                          <!-- <div class="action-otr">
+                              <a id="slideButton" class="btn-fill btn-create">Place a Bid</a>
+                              <a id="slideButton" style="color: black" class="btn-outline2 btn-wallet">View Artwork</a>
+                          </div> -->
+                      </div>
+
+                  </div>
+
+              </ng-template>
+          </p-galleria>
         </div>
         <div class="hero-main-inr"   *ngSwitchCase="'2'">
 
