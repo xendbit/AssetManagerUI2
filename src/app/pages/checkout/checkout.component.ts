@@ -7,6 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MetamaskService } from 'src/app/core/services/metamask.service';
 
 @Component({
   selector: 'app-checkout',
@@ -78,13 +79,14 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private ngxService: NgxUiLoaderService,
     public activatedRoute: ActivatedRoute,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private metamaskService: MetamaskService
     ) { }
 
   ngOnInit(): void {
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
-    this.tokenId = this.activatedRoute.snapshot.params.tokenId;
-    this.amount = this.activatedRoute.snapshot.params.amount;
+    this.tokenId = this.activatedRoute.snapshot.params['tokenId'];
+    this.amount = this.activatedRoute.snapshot.params['amount'];
   }
 
   submit(value) {
@@ -155,10 +157,14 @@ export class CheckoutComponent implements OnInit {
           if (result.paymentIntent.status === 'succeeded') {
             this.ngxService.stop();
             this.toast.success('Payment made successfully.')
-            // this.router.navigate(['/profile']).then(() => {
-            //   this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-            //   window.location.reload();
-            // });
+            this.metamaskService.bought(this.artwork.tokenId).then(res => {
+              this.router.navigate(['/profile']).then(() => {
+                this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+                window.location.reload();
+              });
+            }, err => {
+              console.log('err', err)
+            })
           }
         }
       });

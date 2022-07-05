@@ -113,7 +113,7 @@ export class AssetDetailsComponent implements OnInit {
       networkChain === 97 //defaults to bsc
     }
     this.checkConnection();
-    this.tokenId = this.activatedRoute.snapshot.params.asset;
+    this.tokenId = this.activatedRoute.snapshot.params['asset'];
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.getSingleArtworkDetails();
     this.getCreatorArt();
@@ -433,10 +433,18 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+      if (this.artwork.assetType === 'physical') {
+        await this.metamaskService.sellNow(this.artwork.tokenId, sellNow).then((res: any) => {
+          console.log('physical', res)
+        }, err => {
+          console.log('err', err)
+          this.ngxService.stop()
+        })
+      }
+      if (this.artwork.assetType === 'digital') {
+        await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
           setTimeout(() => {
             this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
-              console.log('data', data)
               if (data.status === "success") {
                 this.toast.success( 'Auction has been started for this asset')
                 this.visible = false;
@@ -455,9 +463,10 @@ export class AssetDetailsComponent implements OnInit {
             this.ngxService.stop();
             })
           }, 15000)
-      }, err => {
-        this.ngxService.stop()
-      })
+        }, err => {
+          this.ngxService.stop();
+        })
+      }
     }, err => {
       this.ngxService.stop()
     })

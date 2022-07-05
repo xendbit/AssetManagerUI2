@@ -36,7 +36,7 @@ export class AppComponent extends AppController implements OnInit {
     this.ngxService.start()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showHeader = this.route.firstChild.snapshot.data.showHeader;
+        this.showHeader = this.route.firstChild.snapshot.data['showHeader'];
       }
     });
     this.mainService.getLanding().subscribe(res => {

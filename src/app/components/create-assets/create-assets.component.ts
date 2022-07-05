@@ -448,9 +448,15 @@ export class CreateAssetsComponent implements OnInit {
       this.toast.error('Please make sure you select a type.')
       return;
     }else {
+      let physical;
+      if (this.typeSelected === 'physical') {
+        physical = true;
+      } else {
+        physical = false;
+      }
       this.checkConnection();
       this.ngxService.start();
-      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( data => {
+      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account, physical).then( data => {
         if (data.status === 'success') {
           // setTimeout(() => {
             this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
