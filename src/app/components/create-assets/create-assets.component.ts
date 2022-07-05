@@ -360,7 +360,6 @@ export class CreateAssetsComponent implements OnInit {
 
   handleFile(event) {
     var binaryString = event.target.result;
-    console.log('ewke')
     this.media.push(binaryString);
    }
 

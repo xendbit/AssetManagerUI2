@@ -110,7 +110,7 @@ export class AssetDetailsComponent implements OnInit {
 
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 97 //defaults to bsc
+      networkChain === 1666700000 //defaults to harmony
     }
     this.checkConnection();
     this.tokenId = this.activatedRoute.snapshot.params['asset'];
