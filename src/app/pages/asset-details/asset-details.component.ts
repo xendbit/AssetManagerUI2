@@ -434,8 +434,13 @@ export class AssetDetailsComponent implements OnInit {
       this.auctionId = rndNo;
 
       if (this.artwork.assetType === 'physical') {
-        await this.metamaskService.sellNow(this.artwork.tokenId, sellNow).then((res: any) => {
-          console.log('physical', res)
+        await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
+          console.log('hew', res)
+          if (res.status === 'success') {
+            console.log('physical', res)
+          } else {
+            this.ngxService.stop()
+          }
         }, err => {
           console.log('err', err)
           this.ngxService.stop()

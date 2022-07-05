@@ -365,10 +365,13 @@
                                                       </div>
                                                   </div>
 
-                                                  <div class="action-otr" *ngIf="visible && this.startDate && this.endDate && this.sellNowPrice && this.minimumPrice">
+                                                  <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital' && this.startDate && this.endDate && this.sellNowPrice && this.minimumPrice">
                                                       <a id="startAuction" (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
                                                   </div>
-                                                  <div class="action-otr" *ngIf="visible && !this.startDate || visible && !this.endDate || visible && !this.sellNowPrice || visible && !this.minimumPrice">
+                                                  <div class="action-otr" *ngIf="visible && artwork.assetType === 'physical' && this.startDate && this.endDate && this.sellNowPrice">
+                                                    <a id="startAuction" (click)="startAuction(auctionForm)" class="btn-fill btn-bid">Start Auction</a>
+                                                  </div>
+                                                  <div class="action-otr" *ngIf="visible && artwork.assetType === 'digital' && !this.startDate && !this.endDate && !this.sellNowPrice && !this.minimumPrice || visible && artwork.assetType === 'physical' && !this.startDate && !this.endDate && !this.sellNowPrice">
                                                     <a id="startAuction" class="btn-fill-inactive btn-bid">Start Auction</a>
                                                   </div>
                                               </form>

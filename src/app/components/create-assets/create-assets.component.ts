@@ -298,6 +298,7 @@ export class CreateAssetsComponent implements OnInit {
             image.onload = async rs => {
                 this.thumbnail = await this.generateThumbnail(file, [1000, 1000])
                 if (this.mediaType.includes('image')) {
+                  console.log('ewe')
                   this.media.push(this.thumbnail);
                   this.mediaType.push('thumbnail');
                 }
@@ -305,7 +306,6 @@ export class CreateAssetsComponent implements OnInit {
           };
           this.image = true;
           this.preview = file;
-
           this.previewArray.push({type: 'image', name: file.name, media: file})
           this.mediaType.push('image');
         }
@@ -360,13 +360,27 @@ export class CreateAssetsComponent implements OnInit {
 
   handleFile(event) {
     var binaryString = event.target.result;
+    console.log('ewke')
     this.media.push(binaryString);
    }
 
   remove(index, name, type) {
     if (index !== -1) {
-      this.media.splice(index, 1);
-      this.mediaType.splice(index, 1)
+      let thumb = this.mediaType.findIndex((el) => el === 'thumbnail');
+      let image = this.mediaType.findIndex((el) => el === 'image');
+      let mp3 = this.mediaType.findIndex((el) => el === 'mp3');
+      let mp4 = this.mediaType.findIndex((el) => el === 'mp4');
+      if (index === image ) {
+        let deleteProp = [index, thumb]
+        deleteProp.forEach(p => this.mediaType.splice(this.mediaType.indexOf(p), 1));
+        deleteProp.forEach(p => this.media.splice(this.media.indexOf(p), 1));
+      } else if (type === 'mp3') {
+        this.mediaType.splice(mp3, 1);
+        this.media.splice(mp3, 1)
+      } else if (type === 'mp4') {
+        this.mediaType.splice(mp4, 1);
+        this.media.splice(mp4, 1)
+      }
       const compareIndex = this.previewArray.findIndex(hey => hey.name === name)
       if (index === compareIndex && type === 'image') {
         this.previewArray.splice(index, 1)

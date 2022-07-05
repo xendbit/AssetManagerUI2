@@ -93,7 +93,7 @@ export const rpcData = {
 }
 
 export const baseABI = [
-  "function issueToken(uint256,address,string,string,string,bool)",
+  "function issueToken(uint256,address,string,string,string)",
   "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
   "function placeBid(uint256,uint256)",
   "function endBid(uint256,uint256)",
@@ -104,16 +104,14 @@ export const baseABI = [
 ]
 
 export const trial = [
-  "function endBid(uint256,uint256)",
-  "function getAuctionInfo(uint256,uint256)",
-  "function getTokenInfo(uint256)",
-  "function issueToken(uint256,address,string,string,string)",
-  "function placeBid(uint256,uint256)",
-  "function setIssuerFeesPercentage(uint256)",
-  "function setXendFeesAddress(address)",
-  "function shouldBeStarted(uint256,uint256) view",
+  "function issueToken(uint256,address,string,string,string, bool)",
   "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
-  "function withdraw(uint256,uint256)"
+  "function placeBid(uint256,uint256)",
+  "function endBid(uint256,uint256)",
+  "function withdraw(uint256,uint256)",
+  "function cancelAuction(uint256,uint256)",
+  "function sellNow(uint256, uint256)",
+  "function bought(uint256)"
 ]
 
 export const chainId = 1666700000;

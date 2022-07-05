@@ -389,9 +389,10 @@ export class MetamaskService {
     }
   }
 
-  async sellNow(tokenId: number, price: string) {
+  async sellNow(tokenId: number, price: number) {
     let yFace = new ethers.utils.Interface(baseABI);
-    price = ethers.utils.parseEther(price).toHexString();
+    console.log('price', price)
+    // price = ethers.utils.parseEther(price).toHexString();
     this.contractAddress = localStorage.getItem('contractAddress');
     const data: string = yFace.encodeFunctionData("sellNow", [tokenId, price ]);
     const ethValue = "0"; // 0 BNB
@@ -501,7 +502,7 @@ export class MetamaskService {
     // console.log('caalled', yFace.format(FormatTypes['minimal']))
     // let iface = new ethers.utils.Interface(lee)
     this.contractAddress = localStorage.getItem('contractAddress')
-    const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol, physical ]);
+    const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
     if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
