@@ -2,9 +2,5 @@
     {
       "name": "Digital",
       "value": "digital"
-      },
-      {
-        "name": "Physical",
-        "value": "physical"
-        }
+      }
   ]
