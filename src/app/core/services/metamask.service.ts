@@ -2,7 +2,7 @@ import { UserActionsService } from 'src/app/core/services/userActions.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable} from '@angular/core';
 import { ethers } from "ethers";
-
+import  abi from 'src/assets/data/Yasuke.json';
 import  detectEthereumProvider from '@metamask/detect-provider';
 import { from } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
@@ -11,6 +11,7 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { environment, networkChains, niftyKey, chainId, baseABI } from 'src/environments/environment';
+import { FormatTypes, ParamType } from 'ethers/lib/utils';
 
 declare const window: any;
 
@@ -295,7 +296,7 @@ export class MetamaskService {
   }
 
   async placeBid(tokenId: number, auctionId: number, bidAmount: any) {
-    let yFace = new ethers.utils.Interface(baseABI);
+    let yFace = new ethers.utils.Interface(abi.abi);
     this.contractAddress = localStorage.getItem('contractAddress');
     const data: string = yFace.encodeFunctionData("placeBid", [tokenId, auctionId ]);
     const ethValue: string = String(bidAmount); // 0 BNB
@@ -388,6 +389,103 @@ export class MetamaskService {
     }
   }
 
+  async sellNow(tokenId: number, price: number) {
+    let yFace = new ethers.utils.Interface(baseABI);
+    console.log('price', price)
+    // price = ethers.utils.parseEther(price).toHexString();
+    this.contractAddress = localStorage.getItem('contractAddress');
+    const data: string = yFace.encodeFunctionData("sellNow", [tokenId, price ]);
+    const ethValue = "0"; // 0 BNB
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.endbidResponse = txHash;
+        }, (error: any) => {
+          this.endbidResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.endbidResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.endbidResponse = data;
+        });
+      }
+      return this.endbidResponse;
+    }
+  }
+
+
+  async bought(tokenId: number) {
+    let yFace = new ethers.utils.Interface(baseABI);
+    this.contractAddress = localStorage.getItem('contractAddress');
+    const data: string = yFace.encodeFunctionData("bought", [tokenId ]);
+    const ethValue = "0"; // 0 BNB
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from: window.ethereum.selectedAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
+          this.endbidResponse = txHash;
+        }, (error: any) => {
+          this.endbidResponse = error;
+        });
+      }
+      if (this.userWallet === 'WalletConnect') {
+        this.walletAddress = localStorage.getItem('account')
+        const transactionParameters = {
+          nonce: '0x00', // ignored by MetaMask
+          to: this.contractAddress, // Required except during contract publications.
+          from:  this.walletAddress, // must match user's active address.
+          value: ethers.utils.parseEther(ethValue).toHexString(),
+          data: data,
+          chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+        };
+        await this.connector.sendTransaction(transactionParameters)
+        .then((result) => {
+          // Returns transaction id (hash)
+          this.endbidResponse = result;
+        }, err => {
+          console.error(err);
+          const data = {
+            status: 'error'
+          }
+          this.endbidResponse = data;
+        });
+      }
+      return this.endbidResponse;
+    }
+  }
+
   getContractAddress() {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -397,9 +495,12 @@ export class MetamaskService {
   }
 
 
-  async issue(tokenId: number, assetName: any, symbol: any, account: string) {
+  async issue(tokenId: number, assetName: any, symbol: any, account: string, physical: boolean) {
     this.userWallet = localStorage.getItem('userWallet');
     let yFace = new ethers.utils.Interface(baseABI);
+    // const lee = yFace.format(FormatTypes['minimal']);
+    // console.log('caalled', yFace.format(FormatTypes['minimal']))
+    // let iface = new ethers.utils.Interface(lee)
     this.contractAddress = localStorage.getItem('contractAddress')
     const data: string = yFace.encodeFunctionData("issueToken", [tokenId, account, 'empty string', assetName, symbol ]);
     const ethValue = "0"; // 0 BNB
@@ -416,6 +517,7 @@ export class MetamaskService {
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters]}).then((txHash: string) => {
           this.issuanceResponse = {status: 'success', response: txHash};
         }, (error: any) => {
+          console.log('here', error)
           this.issuanceResponse = error;
         });
       }

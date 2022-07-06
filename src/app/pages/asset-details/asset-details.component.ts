@@ -60,6 +60,8 @@ export class AssetDetailsComponent implements OnInit {
     locale: 'en'
   };
   paying = false;
+  display: boolean = false;
+  displayRegister: boolean = false;
   fullname: string = "";
   paymentEmail: string;
   paymentAmount: number;
@@ -104,14 +106,14 @@ export class AssetDetailsComponent implements OnInit {
       "mediaType": 0 }], "description": "", "price": 0, "currency": "", "dateIssued": 0, "hasActiveAuction": true, "lastAuctionId": 0, "likes": [], "assetType": "digital", "sold": false, "name": "", "tokenId": 0, "symbol": "", "type": ""};
 
   async ngOnInit(): Promise<void> {
-    // console.log('try', this.metamaskService.createWalletForBuyer().buyerAddress)
     this.ngxService.start();
+
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       networkChain === 97 //defaults to bsc
     }
     this.checkConnection();
-    this.tokenId = this.activatedRoute.snapshot.params.asset;
+    this.tokenId = this.activatedRoute.snapshot.params['asset'];
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.getSingleArtworkDetails();
     this.getCreatorArt();
@@ -293,15 +295,17 @@ export class AssetDetailsComponent implements OnInit {
     this.countdownHours = this.mainService.getHours(diff);
     this.countdownMinutes = this.mainService.getMinutes(diff);
     this.countdownSeconds = this.mainService.getSeconds(diff);
-    // setInterval(() => {
-
-    // }, interval);
     this.ngxService.stop();
   }
 
   goToCheckout() {
     // const amount = this.usdValue * this.amount;
-    this.router.navigate(['/checkout/' + this.tokenId + '/' + this.auction.sellNowPrice])
+    if (this.visible && !this.accountFound) {
+      this.toast.warning('You need to login or sign-up before checkout.');
+      this.display = true;
+    } else {
+      this.router.navigate(['/checkout/' + this.tokenId + '/' + this.sellNowValue])
+    }
   }
 
   openForm() {
@@ -350,28 +354,28 @@ export class AssetDetailsComponent implements OnInit {
         this.ngxService.stop();
         this.toast.error('Bid cancelled');
         return;
-      }
-      setTimeout(() => {
-        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((data: any) => {
-          if (data !== 'Auction has ended') {
-            this.auction = data;
+      } else {
+        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((res: any) => {
+          if (!this.metBuyNow) {
+            this.auction = res;
+            this.toast.success('Bid placed successfully');
+            // window.location.reload();
+            this.ngOnInit();
           }
-          if (data === 'Auction has ended') {
+          if (this.metBuyNow) {
             this.hasActiveAuction = false;
-          }
-          this.ngxService.stop();
-          this.toast.success('Bid placed successfully');
-          if (this.metBuyNow || this.sellPriceMet){
+            this.toast.success('You are the winning bidder for this auction.');
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-              if (this.account.toLowerCase() === this.artwork.owner.username.toLowerCase()){
-                this.owner = true;
+              console.log(this.account.toLowerCase() === this.artwork.owner.username.toLowerCase())
+              if (this.owner === true){
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                   this.visible = true;
                 }
                 this.ngxService.stop();
                 this.router.navigate(['/profile']).then(() => {
+                  this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
                   window.location.reload();
-                });;
+                });
               }
               this.ngxService.stop();
               // this.ngOnInit();
@@ -380,21 +384,30 @@ export class AssetDetailsComponent implements OnInit {
               this.toast.success('There has been an error, please try again.');
               return;
             })
-          } else {
-            this.ngxService.stop();
-            window.location.reload();
           }
-        })
-      }, 25000);
-      }, err => {
+        }, err => {
+          this.ngxService.stop();
+          this.toast.success('There has been an error, please try again.');
+        });
+      }
+
+    }, err => {
         this.ngxService.stop();
     })
 
   }
 
   async startAuction(auction: NgForm, tokenId) {
-    const minBid = auction.value.minimumPrice;
-    const sell =  auction.value.sellNowPrice;
+    let minBid;
+    let sell;
+    if (this.artwork.assetType === 'physical') {
+      minBid = auction.value.sellNowPrice;
+      sell =  auction.value.sellNowPrice;
+    } else {
+      minBid = auction.value.minimumPrice;
+      sell =  auction.value.sellNowPrice;
+    }
+
     if (+minBid === 0) {
       this.toast.error('Please enter a minimum bid price greater than 0')
       return;
@@ -420,10 +433,23 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+      if (this.artwork.assetType === 'physical') {
+        await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
+          console.log('hew', res)
+          if (res.status === 'success') {
+            console.log('physical', res)
+          } else {
+            this.ngxService.stop()
+          }
+        }, err => {
+          console.log('err', err)
+          this.ngxService.stop()
+        })
+      }
+      if (this.artwork.assetType === 'digital') {
+        await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
           setTimeout(() => {
             this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
-              console.log('data', data)
               if (data.status === "success") {
                 this.toast.success( 'Auction has been started for this asset')
                 this.visible = false;
@@ -442,9 +468,10 @@ export class AssetDetailsComponent implements OnInit {
             this.ngxService.stop();
             })
           }, 15000)
-      }, err => {
-        this.ngxService.stop()
-      })
+        }, err => {
+          this.ngxService.stop();
+        })
+      }
     }, err => {
       this.ngxService.stop()
     })
@@ -540,6 +567,28 @@ export class AssetDetailsComponent implements OnInit {
         }, err => {
           console.log('err', err)
         });
+      }
+    }
+
+    listenToRegister(e: any) {
+      console.log('reg', e)
+      if (e === true) {
+        this.displayRegister = true;
+        this.display = false;
+      } else {
+        this.displayRegister = false
+        this.display = false;
+      }
+  }
+
+    listenToLogin(e: any) {
+      console.log('log', e)
+      if (e === true) {
+        this.display = true;
+        this.displayRegister = false
+      } else {
+        this.display = false
+        this.displayRegister = false
       }
     }
 

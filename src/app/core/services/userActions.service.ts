@@ -156,54 +156,84 @@ export class UserActionsService {
     });
   }
 
- successToast(message: string) {
-  this.toast.success(message, { autoClose: false, dismissible: true,
-    style: {
-      border: '1px solid #87ceeb',
-      padding: '16px',
-      color: '#198754',
-  }})
- }
+  successToast(message: string) {
+    this.toast.success(message, { autoClose: false, dismissible: true,
+      style: {
+        border: '1px solid #87ceeb',
+        padding: '16px',
+        color: '#198754',
+    }})
+  }
 
- infoToast(message: string) {
-  this.toast.info(message, { autoClose: false, dismissible: true,
-    style: {
-      border: '1px solid #87ceeb',
-      padding: '16px',
-      color: '#EBA487',
-  }})
- }
+  infoToast(message: string) {
+    this.toast.info(message, { autoClose: false, dismissible: true,
+      style: {
+        border: '1px solid #87ceeb',
+        padding: '16px',
+        color: '#EBA487',
+    }})
+  }
 
- subscribeToNewsletter(email: string) {
-  let headers: HttpHeaders = new HttpHeaders();
-  headers = headers.append('Content-Type', 'application/json');
-  headers = headers.append('api-key', niftyKey);
-  return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, {
-    'email': email
-  }, {headers})
- }
+  subscribeToNewsletter(email: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, {
+      'email': email
+    }, {headers})
+  }
 
- contactUs(contactUs: any) {
-  let headers: HttpHeaders = new HttpHeaders();
-  headers = headers.append('Content-Type', 'application/json');
-  headers = headers.append('api-key', niftyKey);
-  var contact = JSON.stringify({
-    "fullName": contactUs.fullName,
-    "email": contactUs.email,
-    "subject": contactUs.subject,
-    "message": contactUs.message
-  });
-  return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, contact, {headers})
- }
+  contactUs(contactUs: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    var contact = JSON.stringify({
+      "fullName": contactUs.fullName,
+      "email": contactUs.email,
+      "subject": contactUs.subject,
+      "message": contactUs.message
+    });
+    return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, contact, {headers})
+  }
 
- errorToast(message: string) {
-  this.toast.error(message, { autoClose: false, dismissible: true,
-    style: {
-      border: '1px solid #87ceeb',
-      padding: '16px',
-      color: '#713200',
-  }})
- }
+  registerUser(userData: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    var user = JSON.stringify({
+      "firstName": userData.firstName,
+      "lastName": userData.lastName,
+      "username": userData.username,
+      "email": userData.email,
+      "password": userData.password,
+      "walletAddress": userData.walletAddress,
+      "about": userData.about,
+      "webUrl": userData.webUrl,
+      "social": userData.social,
+      "photo": userData.photo
+    });
+    return this.httpClient.post(`${environment.extraUrl}auth/register`, user, {headers})
+  }
+
+  loginUser(userData: any) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    var user = JSON.stringify({
+      "email": userData.email,
+      "password": userData.password
+    });
+    return this.httpClient.post(`${environment.extraUrl}auth/login`, user, {headers})
+  }
+
+  errorToast(message: string) {
+    this.toast.error(message, { autoClose: false, dismissible: true,
+      style: {
+        border: '1px solid #87ceeb',
+        padding: '16px',
+        color: '#713200',
+    }})
+  }
 
   initiateStripePay( amount: number) {
     let headers: HttpHeaders = new HttpHeaders();
