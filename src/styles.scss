@@ -11,6 +11,10 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  user-select: none;
+}
+
 .p-carousel-items-content {
   overflow: hidden;
   width: 100% !important;
@@ -29527,4 +29531,8 @@ body.dark-mode .artwork-body .container-fluid .artwork-body-inr .row-custom .col
 
 body.dark-mode .navbar-main {
   background-color: #2d3436;
+}
+
+body.dark-mode .navbar-main.shadow {
+  box-shadow: 0 .5rem 1rem rgba(255,255,255,.15)!important;
 }
