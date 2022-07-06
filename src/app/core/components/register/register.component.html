@@ -1,0 +1,51 @@
+<p-dialog
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+position="top-right"
+[modal]="true" [baseZIndex]="10000"
+(onHide)="displayStatus.emit(true)"
+[(visible)]="display" [style]="{width: '30vw'}">
+<form class="login">
+  <h2>Create Account</h2>
+  <p>Please fill all fields below</p>
+  <input type="text"
+  id="fname"
+  name="fname"
+  [(ngModel)]="userData.firstName"
+  placeholder="First Name" />
+
+  <input type="text"
+  id="lname"
+  name="lname"
+  [(ngModel)]="userData.lastName"
+  placeholder="Last Name" />
+
+  <input type="text"
+  id="username"
+  name="username"
+  [(ngModel)]="userData.username"
+  placeholder="Username" />
+
+  <input type="email"
+  id="email"
+  name="email"
+  [(ngModel)]="userData.email"
+  placeholder="Email" />
+
+  <input type="password"
+  id="password"
+  name="password"
+  [(ngModel)]="userData.password"
+  placeholder="Password" />
+
+  <input type="text"
+  id="web"
+  name="web"
+  [(ngModel)]="userData.webUrl"
+  placeholder="Web Url (eg: www.facebook.com, www.twitter.com, web.telegram.com etc)" />
+
+  <input type="submit" (click)="registerUser()" value="Create Account" />
+  <div class="links">
+    <a (click)="changeToLogin()">Login</a>
+  </div>
+</form>
+</p-dialog>

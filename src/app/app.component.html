@@ -1,6 +1,8 @@
 
 <div ngxUiLoaderBlurred [blur]="10">
-  <app-header *ngIf="showHeader !== false" [buttonsInfo]="navButtons" [headerInfo]="headerInfo" ></app-header>
+  <app-header (displayStatus)="listenToToggle($event)" *ngIf="showHeader !== false" [buttonsInfo]="navButtons" [headerInfo]="headerInfo" ></app-header>
+  <app-login (displayRegisterStatus)="listenToRegister($event)" [displayVal]="display"></app-login>
+  <app-register (displayStatus)="listenToLogin($event)" [displayValue]="displayRegister"></app-register>
   <div>
     <router-outlet></router-outlet>
     <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > ... </p></ngx-spinner>

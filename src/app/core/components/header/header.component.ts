@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
 import { AppController } from '../../../app.controller';
@@ -19,12 +19,14 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   @Input() public headerInfo: IMenuGroups;
   @Input() public buttonsInfo: INavButton;
+  @Output() displayStatus = new EventEmitter<any>();
   headerData: IMenuGroups = { "menuGroup": [{ "title": "", "menu": []}, { "title": "", "menu": []},{ "title": "", "menu": []}, { "title": "", "menu": []}], "logoPath": ""}
   buttonsData: INavButton = { "create": {"title": "Mint", "path": "mint"}, "wallet": { "title": "Connect Wallet", "path": "connect-wallet"}}
   account: string = 'Not connected';
   accountFound = false;
   reduceOpacity = false;
   userWallet: any;
+  display: boolean = true;
   displaySidebar: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
@@ -55,6 +57,13 @@ export class HeaderComponent implements OnInit {
   onToggle(): void {
     this.darkModeService.toggle();
     this.changeLogo();
+  }
+
+  toggleLogin() {
+    this.displayStatus.emit(this.display = !this.display);
+    if (this.display && this.displaySidebar) {
+      this.displaySidebar = false;
+    }
   }
 
   changeLogo() {
