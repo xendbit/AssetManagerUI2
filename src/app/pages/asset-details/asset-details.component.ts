@@ -435,7 +435,6 @@ export class AssetDetailsComponent implements OnInit {
 
       if (this.artwork.assetType === 'physical') {
         await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
-          console.log('hew', res)
           if (res.status === 'success') {
             console.log('physical', res)
           } else {
