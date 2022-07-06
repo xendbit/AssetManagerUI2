@@ -158,7 +158,7 @@ export const rpcData = {
 }
 
 export const baseABI = [
-  "function issueToken(uint256,address,string,string,string,bool)",
+  "function issueToken(uint256,address,string,string,string)",
   "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
   "function placeBid(uint256,uint256)",
   "function endBid(uint256,uint256)",
@@ -167,6 +167,18 @@ export const baseABI = [
   "function sellNow(uint256, uint256)",
   "function bought(uint256)"
 ]
+
+export const trial = [
+  "function issueToken(uint256,address,string,string,string, bool)",
+  "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
+  "function placeBid(uint256,uint256)",
+  "function endBid(uint256,uint256)",
+  "function withdraw(uint256,uint256)",
+  "function cancelAuction(uint256,uint256)",
+  "function sellNow(uint256, uint256)",
+  "function bought(uint256)"
+]
+
 export const chainId = 1666700000;
 export const niftyKey = apiKey;
 export const ravePublicKey = ravePubKey;
