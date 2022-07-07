@@ -16,10 +16,13 @@ export class LoginComponent implements OnInit {
     email: ''
 
   };
+  userWallet: any;
+  accountFound = false;
+  username: string = '';
   @Input() public displayVal: boolean;
   @Output() displayRegisterStatus = new EventEmitter<any>();
-  constructor( 
-    private userActions: UserActionsService, 
+  constructor(
+    private userActions: UserActionsService,
     private toast: HotToastService,
     private ngxService: NgxUiLoaderService,
     private metamaskService: MetamaskService) { }
@@ -28,13 +31,25 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.userWallet = localStorage.getItem('userWallet');
     if (changes['displayVal'].currentValue !== undefined) {
       this.display = this.displayVal;
+    }
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'fiat' && localStorage.getItem('account')) {
+        this.accountFound = true;
+        this.username = localStorage.getItem('username');
+      }
     }
   }
 
   changeToRegister() {
     this.displayRegisterStatus.emit(true);
+  }
+
+  logOutFiat() {
+    localStorage.clear();
+    window.location.reload();
   }
 
   login() {
@@ -60,8 +75,12 @@ export class LoginComponent implements OnInit {
     this.userActions.loginUser(userData).subscribe((res: any) => {
       if (res.status === 'success') {
         this.ngxService.stop();
+        localStorage.setItem('account', res.data.walletAddress);
+        localStorage.setItem('userWallet', 'fiat');
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('username', res.data.username);
         this.toast.success(res.message)
-        console.log('res', res)
+        window.location.reload();
       } else {
         this.ngxService.stop();
         this.toast.error(res.message);
