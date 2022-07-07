@@ -123,8 +123,9 @@
 
                     <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
                     <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
-                    <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                    <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a> -->
+                    <a *ngIf="accountFound && userWallet !== 'fiat'" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                    <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a>
+                    <a *ngIf="accountFound && userWallet === 'fiat'" (click)="toggleLogin()" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> {{username}} </a> -->
                 </div>
                <input
                  id="darkMode"
@@ -202,7 +203,7 @@
                                 </ul>
                               </label>
                             </li>
-                            <li *ngIf="accountFound">
+                            <li *ngIf="accountFound && userWallet !== 'fiat'">
                               <button *ngIf="accountFound && userWallet === 'Metamask'" class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="disconnectMetamask" (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
@@ -213,6 +214,11 @@
                             <!-- <li *ngIf="!accountFound">
                               <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="login" (click)="toggleLogin()"> Login </a>
+                              </button>
+                            </li>
+                            <li *ngIf="accountFound && userWallet === 'fiat'">
+                              <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a id="login" (click)="toggleLogin()"> {{username}} </a>
                               </button>
                             </li> -->
                         </ul>
