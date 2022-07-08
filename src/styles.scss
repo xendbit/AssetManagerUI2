@@ -1878,7 +1878,7 @@ body.dark-mode .hero-main .container-fluid .hero-inr .row-custom .col-content-ot
 
   .featured-creator .container-fluid .featured-creator-inr .row-custom .creator-otr .create-inr:hover {
     border: 1px solid transparent;
-    background-color: #FFFFFF;
+    background-color: #366CE3;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
   }
 
@@ -29535,4 +29535,8 @@ body.dark-mode .navbar-main {
 
 body.dark-mode .navbar-main.shadow {
   box-shadow: 0 .5rem 1rem rgba(255,255,255,.15)!important;
+}
+
+body.dark-mode .featured-creator .container-fluid .featured-creator-inr .row-custom .creator-otr .create-inr .create-content .create-pb {
+  color: #F2F2F2;
 }

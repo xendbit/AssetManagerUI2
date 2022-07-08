@@ -629,4 +629,19 @@ export class MainService {
     return seconds;
   }
 
+  fetchArtists(artists = 'artists') {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get<any[]>(`${environment.baseApiUrl}get-user-by-type/${artists}`, {headers})
+  //     .subscribe((response: any) => {
+  //       if (response.valid) {
+  //         console.log(response);
+  //       }
+  //     }, err => {
+  //       console.log(err);
+  //     });
+  }
+
 }
