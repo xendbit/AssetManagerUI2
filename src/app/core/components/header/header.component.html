@@ -33,21 +33,21 @@
                         <li class="nav-li">
                             <span  class="nav-a body-sb"> Blockchains </span>
                             <ul class="dropdown-otr">
-                               <!-- <li class="dropdown-li" >
+                                <li class="dropdown-li" >
                                   <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
-                                </li> -->
+                                </li>
                                 <li class="dropdown-li" >
                                    <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
                                 </li>
                                 <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                 </li>
-                               <!-- <li class="dropdown-li" >
-                                   <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
-                               </li>
+                                <!-- <li class="dropdown-li" >
+                                    <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
+                                </li> -->
                                 <li class="dropdown-li" >
                                    <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
-                               </li> -->
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -123,8 +123,9 @@
 
                     <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
                     <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
-                    <a *ngIf="accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
-                    <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a> -->
+                    <a *ngIf="accountFound && userWallet !== 'fiat'" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                    <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a>
+                    <a *ngIf="accountFound && userWallet === 'fiat'" (click)="toggleLogin()" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> {{username}} </a> -->
                 </div>
                <input
                  id="darkMode"
@@ -184,9 +185,9 @@
                                 </div>
                                 <input type="checkbox" class="dd-input" id="chain">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
-                                  <!-- <li class="dropdown-li" >
+                                  <li class="dropdown-li" >
                                     <a (click)="switchChain('aurora')" class="dropdown-a body-sb">Aurora</a>
-                                  </li> -->
+                                  </li>
                                   <li class="dropdown-li" >
                                     <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
                                   </li>
@@ -196,13 +197,13 @@
                                   <!-- <li class="dropdown-li" >
                                       <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
                                   </li> -->
-                                  <!-- <li class="dropdown-li" >
+                                  <li class="dropdown-li" >
                                       <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
-                                  </li> -->
+                                  </li>
                                 </ul>
                               </label>
                             </li>
-                            <li *ngIf="accountFound">
+                            <li *ngIf="accountFound && userWallet !== 'fiat'">
                               <button *ngIf="accountFound && userWallet === 'Metamask'" class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="disconnectMetamask" (click)="disconnectFromMetamask()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
@@ -213,6 +214,11 @@
                             <!-- <li *ngIf="!accountFound">
                               <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="login" (click)="toggleLogin()"> Login </a>
+                              </button>
+                            </li>
+                            <li *ngIf="accountFound && userWallet === 'fiat'">
+                              <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a id="login" (click)="toggleLogin()"> {{username}} </a>
                               </button>
                             </li> -->
                         </ul>
