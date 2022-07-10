@@ -634,7 +634,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.get<any[]>(`${environment.baseApiUrl}get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
+    return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
     // .baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}
   //     .subscribe((response: any) => {
   //       if (response.valid) {
