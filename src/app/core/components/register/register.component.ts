@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['displayValue'].currentValue !== undefined) {
-      console.log('wee', this.displayValue)
       this.display = this.displayValue;
     }
   }
