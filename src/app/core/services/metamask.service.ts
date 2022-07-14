@@ -76,19 +76,20 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+          this.userActions.errorToast("Please make sure you are on 'Harmony' chain ")
+          // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
         } else if (systemChain.name !== foundNetwork.name) {
-          this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
-        }else if (networkChain !== foundNetwork.chain) {
-          this.userActions.addSingle('global', 'error', 'Chain mismatch', "Please make sure your selected chain matches the chain on your wallet.")
+          this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
+        } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
+          this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.addSingle('global','info', foundNetwork.name, "Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.infoToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
         }
 
         window.ethereum.on('chainChanged', (chainId) => {
-          if (networkChain === 1666700000 || networkChain === 97 || networkChain === 80001 || networkChain === 1313161555 || networkChain === 43113) {
+          if (networkChain === foundNetwork.chain) {
           } else {
-            this.userActions.addSingle('global', 'warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+            this.userActions.infoToast("Please make sure you are on: 'Harmony' ")
           }
           window.location.reload();
         })
