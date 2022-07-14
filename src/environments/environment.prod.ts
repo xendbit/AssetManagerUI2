@@ -62,7 +62,7 @@ export const networkChains = [
   "function withdraw(uint256,uint256)",
   "function cancelAuction(uint256,uint256)"
   ]
-  export const chainId = 1666700000;
+  export const chainId = 1666600000;
   export const niftyKey = apiKey;
   export const ravePublicKey = ravePubKey;
   export const blockchainInfo = {

@@ -23,7 +23,11 @@ export class AuctionService {
     }
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 97 //defaults to bsc
+      if (environment.production) {
+        networkChain === 56 //defaults to bsc
+      } else {
+        networkChain === 97 //defaults to bsc
+      }
     }
     this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')
   }
