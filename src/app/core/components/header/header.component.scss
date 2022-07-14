@@ -164,6 +164,13 @@
         width: 160px;
     }
 
+    .navbar-main {
+      position: sticky;
+      z-index: 999;
+      top: 0;
+      background-color: white;
+    }
+
     h1 {
         position: fixed;
         top: -2px;
