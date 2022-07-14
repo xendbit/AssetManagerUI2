@@ -629,4 +629,20 @@ export class MainService {
     return seconds;
   }
 
+  fetchArtists(artists: string, page: number, limit: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
+    // .baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}
+  //     .subscribe((response: any) => {
+  //       if (response.valid) {
+  //         console.log(response);
+  //       }
+  //     }, err => {
+  //       console.log(err);
+  //     });
+  }
+
 }

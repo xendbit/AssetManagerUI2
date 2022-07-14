@@ -231,6 +231,7 @@ export class UserActionsService {
       style: {
         border: '1px solid #87ceeb',
         padding: '16px',
+        'z-index': 999999,
         color: '#713200',
     }})
   }
