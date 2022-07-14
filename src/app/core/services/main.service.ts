@@ -629,7 +629,7 @@ export class MainService {
     return seconds;
   }
 
-  fetchArtists(artists = 'artists', page: number, limit: number) {
+  fetchArtists(artists: string, page: number, limit: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
