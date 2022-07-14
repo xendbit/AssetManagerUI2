@@ -14,6 +14,7 @@ import { StripeElementsOptions } from '@stripe/stripe-js';
 import { PaymentService } from 'src/app/core/services/payment.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -110,7 +111,11 @@ export class AssetDetailsComponent implements OnInit {
 
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
-      networkChain === 1666700000 //defaults to harmony
+      if (environment.production) {
+        networkChain === 1666600000 //defaults to bsc
+      } else {
+        networkChain === 1666700000 //defaults to harmony
+      }
     }
     this.checkConnection();
     this.tokenId = this.activatedRoute.snapshot.params['asset'];
