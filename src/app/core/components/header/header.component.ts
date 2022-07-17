@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   display: boolean = true;
   displaySidebar: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
+  username: string = '';
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
@@ -45,10 +46,14 @@ export class HeaderComponent implements OnInit {
           }
         })
       }
-
       if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
+      }
+      if (this.userWallet === 'fiat' && localStorage.getItem('account')) {
+        this.accountFound = true;
+        this.account = localStorage.getItem('account');
+        this.username = localStorage.getItem('username');
       }
     }
     this.changeLogo();
@@ -64,6 +69,11 @@ export class HeaderComponent implements OnInit {
     if (this.display && this.displaySidebar) {
       this.displaySidebar = false;
     }
+  }
+
+  logOutFiat() {
+    localStorage.clear();
+    window.location.reload();
   }
 
   changeLogo() {
