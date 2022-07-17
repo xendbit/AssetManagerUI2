@@ -11,11 +11,11 @@
         </a>
       </div>
       <span class="line"></span>
-      <div class="row row-custom">
-          <ng-container>
-            <app-curator-card></app-curator-card>
-          </ng-container>
-      </div>
+      <ng-container *ngFor="let item of this.collectors;">
+        <div class="row-custom" >
+          <app-curator-card [collector]="item"></app-curator-card>
+        </div>
+      </ng-container>
       <div class="responsive">
         <a href="./pages/Explore-Creators.html" class="view-all">
           <p class="View-p body-sb">View All Creators</p>

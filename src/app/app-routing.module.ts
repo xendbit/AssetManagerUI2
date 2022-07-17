@@ -1,3 +1,4 @@
+import { ProfileComponent } from './pages/profile/profile.component';
 import { AssetDetailsComponent } from './pages/asset-details/asset-details.component';
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
@@ -54,6 +55,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserDashboardComponent
+  },
+  {
+    path: 'user/:walletId',
+    component: ProfileComponent
   },
   {
     path: 'creators',

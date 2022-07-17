@@ -52,9 +52,10 @@ import { ActivitiesComponent } from './pages/asset-details/activities/activities
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { PublicModule} from './public/public.module';
-import {ConfirmationService} from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { SearchPageComponent } from './pages/search/search.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
     LandingComponent,
     ActivitiesComponent,
     CheckoutComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

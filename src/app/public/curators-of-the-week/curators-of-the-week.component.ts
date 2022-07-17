@@ -7,14 +7,15 @@ import {MainService} from '../../core/services/main.service';
   styleUrls: ['./curators-of-the-week.component.scss']
 })
 export class CuratorsOfTheWeekComponent implements OnInit {
-
+  collectors: [] = [];
   constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
-    this.mainService.fetchArtists('artist', 1, 6)
+    this.mainService.fetchArtists('collector', 1, 6)
       .subscribe((response: any) => {
-        // console.log(response.data?.items);
-        // console.log('ARTISTS', response);
+        console.log(response.data?.items);
+        this.collectors = response.data?.items;
+        console.log('ARTISTS', this.collectors);
       }, error => {
         console.log(error);
       });
