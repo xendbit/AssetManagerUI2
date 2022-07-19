@@ -49,10 +49,15 @@ position="top-right"
   </div>
 </form>
 <div class="login" *ngIf="registered">
-  <p class="address body-s"> {{privateKey}} </p>
-  <div class="copy-icon-otr">
+  <h2>Copy the private Key below</h2>
+  <p>You will need it if you ever lose your account or account details</p>
+  <div style="display: flex;">
+    <input readonly type="text" placeholder="{{privateKey}}">
+    <div class="copy-icon-otr icon-poz">
       <svg (click)="copyMessage(privateKey)"  class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
   </div>
+  
 
 </div>
 </p-dialog>
