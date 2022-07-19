@@ -4,7 +4,7 @@ position="top-right"
 [modal]="true" [baseZIndex]="10000"
 (onHide)="displayStatus.emit(true)"
 [(visible)]="display" [style]="{width: '30vw'}">
-<form class="login">
+<form class="login" *ngIf="!registered">
   <h2>Create Account</h2>
   <p>Please fill all fields below</p>
   <input type="text"
@@ -48,4 +48,11 @@ position="top-right"
     <a (click)="changeToLogin()">Login</a>
   </div>
 </form>
+<div class="login" *ngIf="registered">
+  <p class="address body-s"> {{privateKey}} </p>
+  <div class="copy-icon-otr">
+      <svg (click)="copyMessage(privateKey)"  class="copy-icon" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.636 12.636H15a2 2 0 002-2V3a2 2 0 00-2-2H7.364a2 2 0 00-2 2v2.364" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.636 5.364H3a2 2 0 00-2 2V15a2 2 0 002 2h7.636a2 2 0 002-2V7.364a2 2 0 00-2-2z" stroke="#CFCFCF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+</div>
 </p-dialog>

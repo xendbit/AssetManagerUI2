@@ -61,7 +61,8 @@ export class MetamaskService {
     // console.log('mnemonic:', wallet.mnemonic.phrase)
     // console.log('privateKey:', wallet.privateKey)
     return {
-      'buyerAddress': wallet.address
+      'buyerAddress': wallet.address,
+      'privateKey': wallet.privateKey
     }
   }
 

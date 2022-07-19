@@ -3,6 +3,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UserActionsService } from '../../services/userActions.service';
 import { MetamaskService } from '../../services/metamask.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-register',
@@ -20,17 +21,22 @@ export class RegisterComponent implements OnInit {
     webUrl: ''
 
   };
+  privateKey: string = '';
+  registered: boolean = true;
   @Input() public displayValue: boolean;
   @Output() displayStatus = new EventEmitter<any>();
   constructor(
     private userActions: UserActionsService,
     private toast: HotToastService,
+    private clipboard: Clipboard,
     private ngxService: NgxUiLoaderService,
     private metamaskService: MetamaskService) {
 
     }
 
   ngOnInit(): void {
+    this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -85,8 +91,8 @@ export class RegisterComponent implements OnInit {
     this.userActions.registerUser(userData).subscribe((res: any) => {
       if (res.status === 'success') {
         this.ngxService.stop();
-        this.toast.success(res.message)
-        this.displayStatus.emit(true);
+        this.toast.success(res.message);
+        this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
       } else {
         this.ngxService.stop();
         this.toast.error(res.message[0]);
@@ -95,7 +101,12 @@ export class RegisterComponent implements OnInit {
       this.toast.error('There was an error while trying to create your account, please try again.');
       this.ngxService.stop();
     })
+  }
 
+  copyMessage(val){
+    this.clipboard.copy(val);
+    this.toast.success('Copied to clipboard!')
+    this.displayStatus.emit(true);
   }
 
 }
