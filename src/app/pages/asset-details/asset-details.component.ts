@@ -440,7 +440,6 @@ export class AssetDetailsComponent implements OnInit {
 
       if (this.artwork.assetType === 'physical') {
         await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
-          console.log('hew', res)
           if (res.status === 'success') {
             console.log('physical', res)
           } else {
@@ -452,8 +451,13 @@ export class AssetDetailsComponent implements OnInit {
         })
       }
       if (this.artwork.assetType === 'digital') {
-        await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( res => {
+        await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( (res: any) => {
           setTimeout(() => {
+            if (res['code'] === 4001) {
+              this.ngxService.stop();
+              this.toast.error('Bid cancelled');
+              return;
+            }
             this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
               if (data.status === "success") {
                 this.toast.success( 'Auction has been started for this asset')

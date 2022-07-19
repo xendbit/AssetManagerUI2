@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { UserActionsService } from '../../services/userActions.service';
 import { MetamaskService } from '../../services/metamask.service';
 
@@ -11,6 +12,7 @@ import { MetamaskService } from '../../services/metamask.service';
 })
 export class RegisterComponent implements OnInit {
   display: boolean = false;
+  registered: boolean = true;
   userData: any = <any>{
     firstName: '',
     lastName: '',
@@ -20,22 +22,26 @@ export class RegisterComponent implements OnInit {
     webUrl: ''
 
   };
+  privateKey: string = ''
   @Input() public displayValue: boolean;
   @Output() displayStatus = new EventEmitter<any>();
   constructor(
     private userActions: UserActionsService,
     private toast: HotToastService,
     private ngxService: NgxUiLoaderService,
+    private clipboard: Clipboard,
     private metamaskService: MetamaskService) {
 
     }
 
   ngOnInit(): void {
+    let walletAddress = this.metamaskService.createWalletForBuyer().buyerAddress;
+    this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
+    console.log('priv', this.privateKey)
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['displayValue'].currentValue !== undefined) {
-      console.log('wee', this.displayValue)
       this.display = this.displayValue;
     }
   }
@@ -86,8 +92,8 @@ export class RegisterComponent implements OnInit {
     this.userActions.registerUser(userData).subscribe((res: any) => {
       if (res.status === 'success') {
         this.ngxService.stop();
-        this.toast.success(res.message)
-        this.displayStatus.emit(true);
+        this.toast.success(res.message);
+        this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
       } else {
         this.ngxService.stop();
         this.toast.error(res.message[0]);
@@ -96,7 +102,12 @@ export class RegisterComponent implements OnInit {
       this.toast.error('There was an error while trying to create your account, please try again.');
       this.ngxService.stop();
     })
+  }
 
+  copyMessage(val){
+    this.clipboard.copy(val);
+    this.toast.success('Copied to clipboard!')
+    this.displayStatus.emit(true);
   }
 
 }
