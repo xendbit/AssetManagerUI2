@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
     
   }
 
