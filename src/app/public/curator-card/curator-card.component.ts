@@ -15,7 +15,7 @@ export class CuratorCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['collector'].currentValue !== undefined && this.collector !== null) {
-      console.log('col', this.collector)
+      
     }
   }
 
