@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { UserActionsService } from '../../services/userActions.service';
 import { MetamaskService } from '../../services/metamask.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     webUrl: ''
 
   };
-  privateKey: string = ''
+  privateKey: string = '';
   @Input() public displayValue: boolean;
   @Output() displayStatus = new EventEmitter<any>();
   constructor(
@@ -35,9 +35,7 @@ export class RegisterComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    let walletAddress = this.metamaskService.createWalletForBuyer().buyerAddress;
-    this.privateKey = this.metamaskService.createWalletForBuyer().privateKey;
-    console.log('priv', this.privateKey)
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
