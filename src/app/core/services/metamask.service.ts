@@ -84,7 +84,7 @@ export class MetamaskService {
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.infoToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name)
         }
 
         window.ethereum.on('chainChanged', (chainId) => {

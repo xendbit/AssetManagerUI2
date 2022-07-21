@@ -31,6 +31,7 @@ export class CreateAssetsComponent implements OnInit {
   errorMessage: string;
   categorySelected: string = '';
   description: string;
+  social: string = '';
   symbol: string;
   typeSelected: string;
   title: string;
@@ -469,6 +470,9 @@ export class CreateAssetsComponent implements OnInit {
       }
       this.checkConnection();
       this.ngxService.start();
+      if (this.social !== '') {
+        this.description = this.description + ' '.repeat(10) + 'Social Link: ' + this.social;
+      }
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account, physical).then( data => {
         if (data.status === 'success') {
           // setTimeout(() => {
