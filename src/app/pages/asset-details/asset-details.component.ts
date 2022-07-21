@@ -371,7 +371,25 @@ export class AssetDetailsComponent implements OnInit {
             this.hasActiveAuction = false;
             this.toast.success('You are the winning bidder for this auction.');
             this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-              console.log(this.account.toLowerCase() === this.artwork.owner.username.toLowerCase())
+              this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
+                if (res === 'Auction has ended') {
+                  this.hasActiveAuction = false;
+                  if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                    this.visible = true;
+                  }
+                  this.ngxService.stop();
+                  this.router.navigate(['/profile']).then(() => {
+                    this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+                    window.location.reload();
+                  });
+                } else {
+                    console.log('this is auction', this.auction)
+                }
+              }, err => {
+                console.log('this is error', err)
+                this.ngxService.stop();
+                this.toast.success('There has been an error, please try again.');
+              })
               if (this.owner === true){
                 if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                   this.visible = true;

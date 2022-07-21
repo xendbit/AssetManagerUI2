@@ -71,17 +71,17 @@ export class MainService {
           auctions: item.auctions,
           owner: {
             id: item.id,
-            image: item.media[0]?.media,
+            image: item.media[0]?.media || './assets/img/nifty_profile.png',
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0]?.media,
+            image: item.media[0]?.media || './assets/img/nifty_profile.png',
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0]?.media,
+            media: item.media[0]?.media || './assets/img/nifty_profile.png',
             mediaType: 0
           },
           chain: item.chain,
@@ -132,17 +132,17 @@ export class MainService {
             assetType: item.assetType,
             owner: {
               id: item.id,
-              image: item.media[1].media,
+              image: item.media[1].media || './assets/img/nifty_profile.png',
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.media[1].media,
+              image: item.media[1].media || './assets/img/nifty_profile.png',
               username: item.issuer,
               type: item.type
             },
             featuredImage: {
-              media: item.media[1].media,
+              media: item.media[1].media || './assets/img/nifty_profile.png',
               mediaType: 0
             },
             isBidding: item.hasActiveAuction,
@@ -191,17 +191,17 @@ export class MainService {
           tags: item.tags,
           owner: {
             id: item.id,
-            image: item.ownerPhoto?.displayImage || item.media[1]?.media,
+            image: item.ownerPhoto?.displayImage || item.media[1]?.media || './assets/img/nifty_profile.png',
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.issuerPhoto?.displayImage || item.media[1]?.media,
+            image: item.issuerPhoto?.displayImage || item.media[1]?.media || './assets/img/nifty_profile.png',
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[1]?.media,
+            media: item.media[1]?.media || './assets/img/nifty_profile.png',
             mediaType: 0
           },
           chain: item.chain,
@@ -248,17 +248,17 @@ export class MainService {
         auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media || '',
+          image: item.media[0].media || './assets/img/nifty_profile.png',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media || '',
+          image: item.media[0].media || './assets/img/nifty_profile.png',
           username: item.issuer,
           type: item.type
         },
         featuredImage: {
-          media: item.media[0].media,
+          media: item.media[0].media || './assets/img/nifty_profile.png',
           mediaType: 0
         },
         isBidding: item.hasActiveAuction,
@@ -627,6 +627,22 @@ export class MainService {
     t -= minutes * 60;
     const seconds = t % 60;
     return seconds;
+  }
+
+  fetchArtists(artists: string, page: number, limit: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
+    // .baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}
+  //     .subscribe((response: any) => {
+  //       if (response.valid) {
+  //         console.log(response);
+  //       }
+  //     }, err => {
+  //       console.log(err);
+  //     });
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MainService} from '../../core/services/main.service';
 
 @Component({
   selector: 'app-curators-of-the-week',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CuratorsOfTheWeekComponent implements OnInit {
 
-  constructor() { }
+  constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
+    this.mainService.fetchArtists('artist', 1, 6)
+      .subscribe((response: any) => {
+        // console.log(response.data?.items);
+        // console.log('ARTISTS', response);
+      }, error => {
+        console.log(error);
+      });
   }
 
 }
