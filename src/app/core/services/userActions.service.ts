@@ -161,6 +161,7 @@ export class UserActionsService {
       style: {
         border: '1px solid #87ceeb',
         padding: '16px',
+        'z-index': 999999,
         color: '#198754',
     }})
   }
@@ -170,6 +171,7 @@ export class UserActionsService {
       style: {
         border: '1px solid #87ceeb',
         padding: '16px',
+        'z-index': 999999,
         color: '#EBA487',
     }})
   }
@@ -232,8 +234,7 @@ export class UserActionsService {
         border: '1px solid #87ceeb',
         'z-index': 999999,
         padding: '16px',
-        'z-index': 999999,
-        color: '#713200',
+        color: '#713200'
     }})
   }
 
