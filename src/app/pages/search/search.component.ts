@@ -35,7 +35,7 @@ export class SearchPageComponent implements OnInit {
       this.mainService.returnArtwork().subscribe((data: IArtwork []) => {
         if (this.searchedWord !== '') {
           this.ngxService.stop();
-          this.artworks = data.filter((res: any) => res.symbol.toLowerCase().includes(this.searchedWord).toLowerCase());
+          this.artworks = data.filter((res: any) => res.symbol.toLowerCase().includes(this.searchedWord.toLowerCase()));
         } else if (this.searchedWord === '') {
           this.ngxService.stop();
           this.router.navigate([this.redirect || '/'])
