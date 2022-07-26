@@ -11,6 +11,7 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { environment, networkChains, niftyKey, chainId, baseABI } from 'src/environments/environment';
+import { FormatTypes, ParamType } from 'ethers/lib/utils';
 
 declare const window: any;
 
@@ -47,7 +48,7 @@ export class MetamaskService {
       }
     })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -77,7 +78,7 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Please make sure you are on 'Harmony' chain ")
+          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
         } else if (systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
@@ -90,7 +91,7 @@ export class MetamaskService {
         window.ethereum.on('chainChanged', (chainId) => {
           if (networkChain === foundNetwork.chain) {
           } else {
-            this.userActions.errorToast("Please make sure you are on: 'Harmony' ")
+            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
           }
           window.location.reload();
         })
@@ -138,7 +139,7 @@ export class MetamaskService {
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.successToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
         }
       }
     }
@@ -249,12 +250,12 @@ export class MetamaskService {
               this.blockResponse = {
                 status: 'complete'
               }
+              const txReceipt = await this.provider.getTransactionReceipt(hash);
+              if (txReceipt && txReceipt.blockNumber) {
+                  this.provider.removeAllListeners('block');
+                  // resolve(true);
+              }
               resolve(this.blockResponse)
-          }
-          const txReceipt = await this.provider.getTransactionReceipt(hash);
-          if (txReceipt && txReceipt.blockNumber) {
-              this.provider.removeAllListeners('block');
-              resolve(true);
           }
         });
       } catch (e) {

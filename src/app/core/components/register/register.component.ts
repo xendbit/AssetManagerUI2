@@ -12,7 +12,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class RegisterComponent implements OnInit {
   display: boolean = false;
-  registered: boolean = true;
   userData: any = <any>{
     firstName: '',
     lastName: '',
@@ -23,13 +22,14 @@ export class RegisterComponent implements OnInit {
 
   };
   privateKey: string = '';
+  registered: boolean = true;
   @Input() public displayValue: boolean;
   @Output() displayStatus = new EventEmitter<any>();
   constructor(
     private userActions: UserActionsService,
     private toast: HotToastService,
-    private ngxService: NgxUiLoaderService,
     private clipboard: Clipboard,
+    private ngxService: NgxUiLoaderService,
     private metamaskService: MetamaskService) {
 
     }

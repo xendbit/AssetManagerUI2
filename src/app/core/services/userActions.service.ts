@@ -232,9 +232,9 @@ export class UserActionsService {
     this.toast.error(message, { autoClose: false, dismissible: true,
       style: {
         border: '1px solid #87ceeb',
-        'z-index': 999999,
         padding: '16px',
-        color: '#713200'
+        'z-index': 999999,
+        color: '#713200',
     }})
   }
 
