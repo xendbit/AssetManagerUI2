@@ -360,7 +360,7 @@ export class AssetDetailsComponent implements OnInit {
         this.toast.error('Bid cancelled');
         return;
       } else {
-        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe((res: any) => {
+        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe(async (res: any) => {
           if (!this.metBuyNow) {
             this.auction = res;
             this.toast.success('Bid placed successfully');
@@ -372,42 +372,49 @@ export class AssetDetailsComponent implements OnInit {
           if (this.metBuyNow) {
             this.hasActiveAuction = false;
             this.toast.success('You are the winning bidder for this auction.');
-            this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-              this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
-                if (res === 'Auction has ended') {
-                  this.hasActiveAuction = false;
-                  if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-                    this.visible = true;
+            await this.metamaskService.getBlockCount(data.response).then((response: any) => {
+              if (response.status === 'complete') {
+                this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+                  this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
+                    if (res === 'Auction has ended') {
+                      this.hasActiveAuction = false;
+                      if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                        this.visible = true;
+                      }
+                      this.ngxService.stop();
+                      this.router.navigate(['/profile']).then(() => {
+                        this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+                        window.location.reload();
+                      });
+                    } else {
+                        console.log('this is auction', this.auction)
+                    }
+                  }, err => {
+                    console.log('this is error', err)
+                    this.ngxService.stop();
+                    this.toast.success('There has been an error, please try again.');
+                  })
+                  if (this.owner === true){
+                    if (this.artwork.lastAuctionId === 0 && this.owner === true) {
+                      this.visible = true;
+                    }
+                    this.ngxService.stop();
+                    this.router.navigate(['/profile']).then(() => {
+                      this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+                      window.location.reload();
+                    });
                   }
                   this.ngxService.stop();
-                  this.router.navigate(['/profile']).then(() => {
-                    this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-                    window.location.reload();
-                  });
-                } else {
-                    console.log('this is auction', this.auction)
-                }
-              }, err => {
-                console.log('this is error', err)
+                  // this.ngOnInit();
+                }, err => {
+                  this.ngxService.stop();
+                  this.toast.success('There has been an error, please try again.');
+                  return;
+                })
+              } else {
                 this.ngxService.stop();
                 this.toast.success('There has been an error, please try again.');
-              })
-              if (this.owner === true){
-                if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-                  this.visible = true;
-                }
-                this.ngxService.stop();
-                this.router.navigate(['/profile']).then(() => {
-                  this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-                  window.location.reload();
-                });
               }
-              this.ngxService.stop();
-              // this.ngOnInit();
-            }, err => {
-              this.ngxService.stop();
-              this.toast.success('There has been an error, please try again.');
-              return;
             })
           }
         }, err => {
