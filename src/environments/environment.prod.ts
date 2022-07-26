@@ -19,78 +19,40 @@ export const environment: AppEnvironment = {
   }
 }
 
-export const networkChains = [ 
-  {
-    name: "Binance Smart Chain",
-    chain: 56,
-    rpcUrl: 'https://bsc-dataseed.binance.org/',
-    currency: 'BNB',
-    systemName: 'bsc',
-    verifyLink: 'https://bscscan.com/token/'
-  },
-  {
-    name: "Polygon",
-    chain: 137,
-    rpcUrl: 'https://rpc-mainnet.matic.network ',
-    currency: 'MATIC',
-    systemName: 'polygon',
-    verifyLink: 'https://polygonscan.com/token/'
-  },
-  {
-    name: "Aurora",
-    chain: 1313161554,
-    rpcUrl: 'https://mainnet.aurora.dev',
-    currency: 'aETH',
-    systemName: 'aurora',
-    verifyLink: 'https://aurorascan.dev/token/'
+export const networkChains = [ {
+    name: 'Harmony',
+    chain: 1666600000,
+    rpcUrl: 'https://api.harmony.one',
+    currency: 'ONE',
+    systemName: 'harmony',
+    verifyLink: 'https://explorer.harmony.one/address/'
   }
 ]
 
-  export const rpcData = {
-  1666600000: 'https://api.harmony.one',
-  56: 'https://bsc-dataseed.binance.org/',
-  137: 'https://rpc-mumbai.matic.today',
-  1313161554: 'https://mainnet.aurora.dev/',
-  43114: 'https://api.avax.network/ext/bc/C/rpc'
-  }
+export const rpcData = {
+1666600000: 'https://api.harmony.one'
+}
 
-  export const baseABI = [
-  "function issueToken(uint256,address,string,string,string)",
-  "function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
-  "function placeBid(uint256,uint256)",
-  "function endBid(uint256,uint256)",
-  "function withdraw(uint256,uint256)",
-  "function cancelAuction(uint256,uint256)"
-  ]
-  export const chainId = 1666600000;
-  export const niftyKey = apiKey;
-  export const ravePublicKey = ravePubKey;
-  export const blockchainInfo = {
-  key: demoBlockchainKey,
-  url: "https://api.blockchain.com/v3/exchange"
-  };
+export const baseABI = [
+"function issueToken(uint256,address,string,string,string)",
+"function startAuction(uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
+"function placeBid(uint256,uint256)",
+"function endBid(uint256,uint256)",
+"function withdraw(uint256,uint256)",
+"function cancelAuction(uint256,uint256)"
+]
+export const chainId = 1666600000;
+export const niftyKey = apiKey;
+export const ravePublicKey = ravePubKey;
+export const blockchainInfo = {
+key: demoBlockchainKey,
+url: "https://api.blockchain.com/v3/exchange"
+};
 
-  export const cryptocompareInfo = {
-  url: "https://min-api.cryptocompare.com/data/price?"
-  }
+export const cryptocompareInfo = {
+url: "https://min-api.cryptocompare.com/data/price?"
+}
 
-  // {
-  //   name: "Avalanche",
-  //   chain: 43114,
-  //   rpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
-  //   currency: 'AVAX',
-  //   systemName: 'avalanche',
-  //   verifyLink: 'https://snowtrace.io/token/'
-  //   }
-
-  // {
-  //   name: 'Harmony Testnet',
-  //   chain: 1666600000,
-  //   rpcUrl: 'https://api.harmony.one',
-  //   currency: 'ONE',
-  //   systemName: 'harmony',
-  //   verifyLink: 'https://explorer.harmony.one/address/'
-  // },
 
 
 // export const networkChains = [ {
