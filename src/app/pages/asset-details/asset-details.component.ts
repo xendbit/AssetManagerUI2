@@ -212,7 +212,7 @@ export class AssetDetailsComponent implements OnInit {
               this.auction = res;
               this.auctionLength = this.auction.bids.length;
               this.auction['bids']?.sort((a, b) => (a.bid > b.bid ? -1 : 1));
-              this.checkBuyer();
+              // this.checkBuyer();
               this.auctionService.getUSDValue().subscribe(res => {
                 if (this.auction.bids.length > 0) {
                   this.auctionValue = res['USD'] * this.auction.bids[0]['bid'];
@@ -318,14 +318,14 @@ export class AssetDetailsComponent implements OnInit {
   }
 
   bid() {
-    if(this.response === undefined) {
-      this.toast.error('Please confirm that your wallet is connected.');
-      return;
-    }
-    if (this.response === 404 && this.artwork.assetType === "physical") {
-      this.displayOverlay = true;
-      return;
-    }
+    // if(this.response === undefined) {
+    //   this.toast.error('Please confirm that your wallet is connected.');
+    //   return;
+    // }
+    // if (this.response === 404 && this.artwork.assetType === "physical") {
+    //   this.displayOverlay = true;
+    //   return;
+    // }
     let currentBid = this.auction.highestBid;
     if (+this.balance < +this.amount ) {
       this.toast.error('You currently do not have enough balance to buy at this price, please fund your wallet and try again.');
@@ -364,8 +364,10 @@ export class AssetDetailsComponent implements OnInit {
           if (!this.metBuyNow) {
             this.auction = res;
             this.toast.success('Bid placed successfully');
+            this.amount = this.auction.highestBid;
+            this.getSingleArtworkDetails();
+            // this.ngOnInit();
             // window.location.reload();
-            this.ngOnInit();
           }
           if (this.metBuyNow) {
             this.hasActiveAuction = false;

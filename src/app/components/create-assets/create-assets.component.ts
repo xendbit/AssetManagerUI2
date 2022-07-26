@@ -208,14 +208,14 @@ export class CreateAssetsComponent implements OnInit {
           } else {
             this.accountFound = true;
             this.account = localStorage.getItem('account');
-            this.checkIssuer()
+            // this.checkIssuer()
           }
         })
       }
       if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
-        this.checkIssuer()
+        // this.checkIssuer()
       }
     }
   }
