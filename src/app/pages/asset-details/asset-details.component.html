@@ -242,10 +242,10 @@
 
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
-                                                      <div *ngIf="auction.bids.length <= 0 && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
+                                                      <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'digital' || auction.bids.length === 'undefined' && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
                                                           <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})"  type="number" id="amount" name="amount"required>
                                                       </div>
-                                                      <div *ngIf="auction.bids.length <= 0 && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
+                                                      <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'physical' || auction.bids.length === 'undefined' && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input mb-5" style="width: 100%;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
