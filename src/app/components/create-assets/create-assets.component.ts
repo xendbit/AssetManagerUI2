@@ -418,11 +418,11 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   async mint(form: NgForm) {
-    if (this.response === undefined) {
-      this.toast.error('Please confirm that your wallet address is connected.');
-      this.checkConnection();
-      return;
-    }
+    // if (this.response === undefined) {
+    //   this.toast.error('Please confirm that your wallet address is connected.');
+    //   this.checkConnection();
+    //   return;
+    // }
     // if (this.response.data.error === 'Issuer with blockchain address not found') {
     //   this.displayOverlay = true;
     //   return;
