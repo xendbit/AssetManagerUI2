@@ -31,6 +31,7 @@ export class MetamaskService {
   issuanceResponse: any;
   withdrawResponse: any;
   cancelResponse: any;
+  blockResponse: any;
   chain: string;
   chainId = chainId;
   clickedOnMobile: boolean = false;
@@ -230,6 +231,38 @@ export class MetamaskService {
     } else {
       console.log('Please install MetaMask!');
     }
+  }
+
+  async getBlockCount(hash: any) {
+    const { ethereum } = window;
+    this.provider = new ethers.providers.Web3Provider(ethereum);
+    let blockCount = 0;
+    let numberOfBlocks = 5;
+    this.blockResponse = {
+      status: 'incomplete'
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        this.provider.on('block', async (blockNumber) => {
+          blockCount++;
+          if (blockCount > numberOfBlocks) {
+              this.provider.removeAllListeners('block');
+              this.blockResponse = {
+                status: 'complete'
+              }
+              resolve(this.blockResponse)
+          }
+          const txReceipt = await this.provider.getTransactionReceipt(hash);
+          if (txReceipt && txReceipt.blockNumber) {
+              this.provider.removeAllListeners('block');
+              resolve(true);
+          }
+        });
+      } catch (e) {
+        console.log('error', e)
+        reject(e)
+      }
+    })
   }
 
   public getBalance() {
