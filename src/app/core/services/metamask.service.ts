@@ -85,13 +85,13 @@ export class MetamaskService {
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name)
+          this.userActions.successToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name)
         }
 
         window.ethereum.on('chainChanged', (chainId) => {
           if (networkChain === foundNetwork.chain) {
           } else {
-            this.userActions.infoToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
           }
           window.location.reload();
         })
@@ -139,7 +139,7 @@ export class MetamaskService {
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.successToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
         }
       }
     }
