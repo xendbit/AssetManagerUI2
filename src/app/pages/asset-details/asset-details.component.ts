@@ -506,8 +506,8 @@ export class AssetDetailsComponent implements OnInit {
 
   withdraw() {
     this.ngxService.start();
-    this.metamaskService.withdraw(this.artwork.tokenId, this.auctionId).then( res => {
-      // console.log('this is res', res)
+    this.metamaskService.withdraw(this.artwork.tokenId, this.artwork.lastAuctionId).then( res => {
+      console.log('this is res', res);
       this.ngxService.stop();
     }, err => {
       this.ngxService.stop();
