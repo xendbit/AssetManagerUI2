@@ -250,12 +250,12 @@ export class MetamaskService {
               this.blockResponse = {
                 status: 'complete'
               }
+              const txReceipt = await this.provider.getTransactionReceipt(hash);
+              if (txReceipt && txReceipt.blockNumber) {
+                  this.provider.removeAllListeners('block');
+                  // resolve(true);
+              }
               resolve(this.blockResponse)
-          }
-          const txReceipt = await this.provider.getTransactionReceipt(hash);
-          if (txReceipt && txReceipt.blockNumber) {
-              this.provider.removeAllListeners('block');
-              resolve(true);
           }
         });
       } catch (e) {

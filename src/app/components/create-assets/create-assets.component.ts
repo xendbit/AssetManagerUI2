@@ -475,8 +475,8 @@ export class CreateAssetsComponent implements OnInit {
         this.description = this.description + ' '.repeat(10) + 'Social Link: ' + this.social;
       }
       await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account, physical).then( async data => {
-        await this.metamaskService.getBlockCount(data.response).then((res: any) => {
-          if (res.status === 'complete' && data.status === 'success') {
+        await this.metamaskService.getBlockCount(data.response).then((response: any) => {
+          if (response.status === 'complete' && data.status === 'success') {
             //setTimeout(() => {
               this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
                 if (data['status'] === 'success') {
