@@ -134,6 +134,11 @@ export class AssetDetailsComponent implements OnInit {
         localStorage.setItem('contractAddress', this.contractAddress)
       }
     })
+    this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+      // console.log('res', tokenOwnerResponse)
+    }, err => {
+      console.log('err', err)
+    })
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     var future = new Date();
@@ -350,7 +355,7 @@ export class AssetDetailsComponent implements OnInit {
       this.owner = true;
       this.hasActiveAuction = false;
     }
-    this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(data => {
+    this.metamaskService.placeBid(this.artwork.tokenId, this.auction.auctionId, this.amount).then(async data => {
       if (data['code'] === 4001) {
         this.metBuyNow = false;
         this.sellPriceMet = false;
@@ -360,41 +365,21 @@ export class AssetDetailsComponent implements OnInit {
         this.toast.error('Bid cancelled');
         return;
       } else {
-        this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe(async (res: any) => {
-          if (!this.metBuyNow) {
-            this.auction = res;
-            this.toast.success('Bid placed successfully');
-            this.amount = this.auction.highestBid;
-            this.getSingleArtworkDetails();
-            // this.ngOnInit();
-            // window.location.reload();
-          }
-          if (this.metBuyNow) {
-            this.hasActiveAuction = false;
-            this.toast.success('You are the winning bidder for this auction.');
-            await this.metamaskService.getBlockCount(data.response).then((response: any) => {
-              if (response.status === 'complete') {
-                this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
-                  this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
-                    if (res === 'Auction has ended') {
-                      this.hasActiveAuction = false;
-                      if (this.artwork.lastAuctionId === 0 && this.owner === true) {
-                        this.visible = true;
-                      }
-                      this.ngxService.stop();
-                      this.router.navigate(['/profile']).then(() => {
-                        this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-                        window.location.reload();
-                      });
-                    } else {
-                        console.log('this is auction', this.auction)
-                    }
-                  }, err => {
-                    console.log('this is error', err)
-                    this.ngxService.stop();
-                    this.toast.success('There has been an error, please try again.');
-                  })
-                  if (this.owner === true){
+        await this.metamaskService.getBlockCount(data.response).then((response: any) => {
+          if (response.status === 'complete') {
+            this.auctionService.fetchAuctionFromMain(this.artwork.tokenId, this.artwork.lastAuctionId).subscribe(async (res: any) => {
+              if (!this.metBuyNow) {
+                this.auction = res;
+                this.toast.success('Bid placed successfully');
+                this.amount = this.auction.highestBid;
+                this.getSingleArtworkDetails();
+              }
+              if (this.metBuyNow) {
+                this.hasActiveAuction = false;
+                this.toast.success('You are the winning bidder for this auction.');
+                this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe((tokenOwnerResponse: any) => {
+                  if (tokenOwnerResponse.status === 'success') {
+                    this.hasActiveAuction = false;
                     if (this.artwork.lastAuctionId === 0 && this.owner === true) {
                       this.visible = true;
                     }
@@ -403,6 +388,10 @@ export class AssetDetailsComponent implements OnInit {
                       this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
                       window.location.reload();
                     });
+                  } else {
+                    this.toast.success('There has been an error, please try again.');
+                    this.getSingleArtworkDetails();
+                    this.ngxService.stop();
                   }
                   this.ngxService.stop();
                   // this.ngOnInit();
@@ -410,23 +399,25 @@ export class AssetDetailsComponent implements OnInit {
                   this.ngxService.stop();
                   this.toast.success('There has been an error, please try again.');
                   return;
-                })
-              } else {
-                this.ngxService.stop();
-                this.toast.success('There has been an error, please try again.');
+                })  
               }
-            })
+            }, err => {
+              this.ngxService.stop();
+              this.toast.success('There has been an error, please try again.');
+            });
+          } else {
+            this.ngxService.stop();
+            this.toast.success('There has been an error, please try again.');
           }
         }, err => {
           this.ngxService.stop();
           this.toast.success('There has been an error, please try again.');
-        });
+        })
       }
-
     }, err => {
         this.ngxService.stop();
+        this.toast.success('There has been an error, please try again.');
     })
-
   }
 
   async startAuction(auction: NgForm, tokenId) {
@@ -479,33 +470,44 @@ export class AssetDetailsComponent implements OnInit {
       }
       if (this.artwork.assetType === 'digital') {
         await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( (res: any) => {
-          setTimeout(() => {
+          setTimeout(async () => {
+            console.log('code', res)
             if (res['code'] === 4001) {
               this.ngxService.stop();
               this.toast.error('Bid cancelled');
               return;
-            }
-            this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
-              if (data.status === "success") {
-                this.toast.success( 'Auction has been started for this asset')
-                this.visible = false;
+            } else {
+              await this.metamaskService.getBlockCount(res.response).then((response: any) => {
+                if (response.status === 'complete') {
+                  this.auctionService.startAuctionNifty(this.auctionId, this.artwork.tokenId, startDate, endDate).subscribe((data: any) => {
+                    if (data.status === "success") {
+                      this.toast.success( 'Auction has been started for this asset')
+                      this.visible = false;
+                      this.ngxService.stop();
+                      this.router.navigate(['/profile']).then(() => {
+                        window.location.reload();
+                      }, err => {
+                        this.ngxService.stop();
+                      });
+                    } else {
+                      this.ngxService.stop();
+                      this.toast.error('There has been an error while trying to start this auction, please try again.')
+                    }
+      
+                  }, err =>  {
+                    this.ngxService.stop();
+                    this.toast.error('There has been an error while trying to start this auction, please try again.')
+                  })
+                }
+              }, err => {
                 this.ngxService.stop();
-                this.router.navigate(['/profile']).then(() => {
-                  window.location.reload();
-                }, err => {
-                  this.ngxService.stop();
-                });
-              } else {
-                  this.ngxService.stop();
-                  this.toast.error('There has been an error while trying to start this auction, please try again.')
-              }
-
-            }, err =>  {
-            this.ngxService.stop();
-            })
+                this.toast.error('There has been an error while trying to start this auction, please try again.')
+              })
+            }
           }, 15000)
         }, err => {
           this.ngxService.stop();
+          this.toast.error('There has been an error while trying to start this auction, please try again.')
         })
       }
     }, err => {
