@@ -134,6 +134,9 @@ export class AssetDetailsComponent implements OnInit {
         localStorage.setItem('contractAddress', this.contractAddress)
       }
     })
+    this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+      console.log('res', tokenOwnerResponse)
+    })
     window.onbeforeunload = function() {window.scrollTo(0,0);};
     this.today = new Date();
     var future = new Date();
