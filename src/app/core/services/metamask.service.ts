@@ -346,7 +346,7 @@ export class MetamaskService {
           chainId: this.chainId,
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.bidResponse = txHash;
+          this.bidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.bidResponse = error;
         });
@@ -364,7 +364,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.bidResponse = result;
+          this.bidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -393,7 +393,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -411,7 +411,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -442,7 +442,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -460,7 +460,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -490,7 +490,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -508,7 +508,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -569,7 +569,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.issuanceResponse = result;
+          this.issuanceResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -600,7 +600,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.auctionResponse = txHash;
+          this.auctionResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.auctionResponse = error;
         });
@@ -618,7 +618,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.auctionResponse = result;
+          this.auctionResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -647,7 +647,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.withdrawResponse = txHash;
+          this.withdrawResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.withdrawResponse = error;
         });
@@ -665,7 +665,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.withdrawResponse = result;
+          this.withdrawResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -694,7 +694,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.cancelResponse = txHash;
+          this.cancelResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.cancelResponse = error;
         });
@@ -712,7 +712,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.cancelResponse = result;
+          this.cancelResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
