@@ -11,9 +11,10 @@ export class CuratorsOfTheWeekComponent implements OnInit {
   constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
-    this.mainService.fetchArtists('creator', 1, 6)
+    this.mainService.fetchArtists('collector', 1, 6)
       .subscribe((response: any) => {
         this.collectors = response.data?.items;
+        console.log(this.collectors)
       }, error => {
         console.log(error);
       });
