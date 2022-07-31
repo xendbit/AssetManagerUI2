@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CuratorCardComponent } from './curator-card.component';
+import { CollectorsComponent } from './collectors.component';
 
-describe('CuratorCardComponent', () => {
-  let component: CuratorCardComponent;
-  let fixture: ComponentFixture<CuratorCardComponent>;
+describe('CuratorsOfTheWeekComponent', () => {
+  let component: CollectorsComponent;
+  let fixture: ComponentFixture<CollectorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CuratorCardComponent ]
+      declarations: [ CollectorsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CuratorCardComponent);
+    fixture = TestBed.createComponent(CollectorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

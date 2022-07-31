@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {MainService} from '../../core/services/main.service';
+import myCollectors from './collectors.json';
 
 @Component({
-  selector: 'app-curators-of-the-week',
-  templateUrl: './curators-of-the-week.component.html',
-  styleUrls: ['./curators-of-the-week.component.scss']
+  selector: 'app-collectors',
+  templateUrl: './collectors.component.html',
+  styleUrls: ['./collectors.component.scss']
 })
-export class CuratorsOfTheWeekComponent implements OnInit {
-  collectors: [] = [];
+export class CollectorsComponent implements OnInit {
+  collectors: any[] = [];
   constructor(private mainService: MainService) { }
 
   ngOnInit(): void {
+      this.collectors = myCollectors;
+  }
+
+  getCollectors() {
     this.mainService.fetchArtists('collector', 1, 6)
       .subscribe((response: any) => {
         this.collectors = response.data?.items;
