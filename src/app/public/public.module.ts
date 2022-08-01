@@ -7,6 +7,7 @@ import { PopularArtistsComponent } from './popular-artists/popular-artists.compo
 import { PublicRoutingModule } from './public-routing.module';
 import { ShoreComponent } from './shore/shore.component';
 import { ArtistsComponent } from './artists/artists.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ArtistsComponent } from './artists/artists.component';
     CollectorsComponent,
     PopularArtistsComponent,
     ArtistsComponent,
+    GalleryComponent,
   ],
   imports: [
     CommonModule,
