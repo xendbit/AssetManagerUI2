@@ -10,6 +10,7 @@ import { AllGalleriesComponent } from './all-galleries/all-galleries.component';
   ],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [AllGalleriesComponent]
 })
 export class AllGalleriesModule { }

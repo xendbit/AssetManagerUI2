@@ -8,6 +8,9 @@ import { PublicRoutingModule } from './public-routing.module';
 import { ShoreComponent } from './shore/shore.component';
 import { CreatorsComponent } from './creators/creators.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { AllCreatorsModule } from "./all-creators/all-creators.module";
+import { AllGalleriesModule } from "./all-galleries/all-galleries.module";
+import { AllCollectorsModule } from "./all-collectors/all-collectors.module";
 
 
 @NgModule({
@@ -22,6 +25,9 @@ import { GalleryComponent } from './gallery/gallery.component';
     CommonModule,
     CoreModule,
     PublicRoutingModule,
+    AllCreatorsModule,
+    AllGalleriesModule,
+    AllCollectorsModule
   ],
   exports: [
   ]

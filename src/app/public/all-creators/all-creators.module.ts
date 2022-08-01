@@ -10,6 +10,7 @@ import { AllCreatorsComponent } from './all-creators/all-creators.component';
   ],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [AllCreatorsComponent]
 })
 export class AllCreatorsModule { }

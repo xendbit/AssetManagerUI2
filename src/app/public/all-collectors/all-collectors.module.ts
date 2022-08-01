@@ -10,6 +10,7 @@ import { AllCollectorsComponent } from './all-collectors/all-collectors.componen
   ],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [AllCollectorsComponent]
 })
 export class AllCollectorsModule { }
