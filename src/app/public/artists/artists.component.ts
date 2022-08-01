@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import myArtists from './artists.json';
 
 @Component({
   selector: 'app-artists',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArtistsComponent implements OnInit {
 
+  artists: any[];
+
   constructor() { }
 
   ngOnInit(): void {
+    this.artists = myArtists;
   }
 
 }
