@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AllCreatorsComponent } from './all-creators/all-creators.component';
+import { AllGalleriesComponent } from './all-galleries/all-galleries.component';
 
 
 
 @NgModule({
   declarations: [
-    AllCreatorsComponent
+    AllGalleriesComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class AllCreatorsModule { }
+export class AllGalleriesModule { }
