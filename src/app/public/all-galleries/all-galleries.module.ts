@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AllGalleriesComponent } from './all-galleries/all-galleries.component';
+import { RouterModule } from "@angular/router";
 
 
 
@@ -9,7 +10,8 @@ import { AllGalleriesComponent } from './all-galleries/all-galleries.component';
     AllGalleriesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([{path: '', component: AllGalleriesModule}])
   ],
   exports: [AllGalleriesComponent]
 })
