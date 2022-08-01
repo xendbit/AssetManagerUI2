@@ -6,7 +6,7 @@ import { CollectorsComponent } from './collectors/collectors.component';
 import { PopularArtistsComponent } from './popular-artists/popular-artists.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { ShoreComponent } from './shore/shore.component';
-import { ArtistsComponent } from './artists/artists.component';
+import { CreatorsComponent } from './creators/creators.component';
 import { GalleryComponent } from './gallery/gallery.component';
 
 
@@ -15,7 +15,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     ShoreComponent,
     CollectorsComponent,
     PopularArtistsComponent,
-    ArtistsComponent,
+    CreatorsComponent,
     GalleryComponent,
   ],
   imports: [

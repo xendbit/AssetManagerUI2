@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import gallery from './gallery.json'
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit {
 
+  galleries: any[]
   constructor() { }
 
   ngOnInit(): void {
+    this.galleries = gallery;
   }
 
 }

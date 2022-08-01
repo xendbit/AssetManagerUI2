@@ -3,8 +3,8 @@
     "username": "Anita Ajah",
     "networth": 63,
     "photo": {
-      "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image14.jpg",
-      "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg"
+      "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image1.jpg",
+      "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img3.jpg"
     }
   },
   {
@@ -12,23 +12,15 @@
     "networth": 4.3,
     "photo": {
       "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image16.jpg",
-      "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img1.jpg"
+      "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img5.jpg"
     }
   },
   {
     "username": "Ademola ETH",
     "networth": 5.3,
     "photo": {
-      "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image17.jpg",
+      "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image7.jpg",
       "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img2.jpg"
-    }
-  },
-  {
-    "username": "Ruthie",
-    "networth": 1.3,
-    "photo": {
-      "displayImage": "https://ethoz-light.vistothemes.com/assets/img/user-Image10.jpg",
-      "coverImage": "https://ethoz-light.vistothemes.com/assets/img/cover-img4.jpg"
     }
   }
 ]
