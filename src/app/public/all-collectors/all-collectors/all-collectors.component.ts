@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import collectors from './all-collectors.json';
 
 @Component({
   selector: 'app-all-collectors',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-collectors.component.scss']
 })
 export class AllCollectorsComponent implements OnInit {
+
+  collectors: any[] = collectors;
 
   constructor() { }
 
