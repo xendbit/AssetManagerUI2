@@ -11,7 +11,7 @@ import { RouterModule } from "@angular/router";
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild([{path: '', component: AllGalleriesModule}])
+    RouterModule.forChild([{path: '', component: AllGalleriesComponent}])
   ],
   exports: [AllGalleriesComponent]
 })
