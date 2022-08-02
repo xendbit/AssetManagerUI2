@@ -91,7 +91,7 @@
                     "type": "Creator"
                 },
                 "featuredImage": {
-                    "media": "./assets/img/nifty_slider.jpg",
+                    "media": "./assets/img/slider3.png",
                     "mediaType": 0
                 },
                 "isBidding": true,
@@ -143,7 +143,7 @@
                     "type": "Creator"
                 },
                 "featuredImage": {
-                    "media": "./assets/img/slider3.png",
+                    "media": "./assets/img/nifty_slider2.jpg",
                     "mediaType": 0
                 },
                 "isBidding": true,
