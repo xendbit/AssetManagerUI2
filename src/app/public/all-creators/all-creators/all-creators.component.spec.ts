@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CuratorsOfTheWeekComponent } from './curators-of-the-week.component';
+import { AllCreatorsComponent } from './all-creators.component';
 
-describe('CuratorsOfTheWeekComponent', () => {
-  let component: CuratorsOfTheWeekComponent;
-  let fixture: ComponentFixture<CuratorsOfTheWeekComponent>;
+describe('AllCreatorsComponent', () => {
+  let component: AllCreatorsComponent;
+  let fixture: ComponentFixture<AllCreatorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CuratorsOfTheWeekComponent ]
+      declarations: [ AllCreatorsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CuratorsOfTheWeekComponent);
+    fixture = TestBed.createComponent(AllCreatorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

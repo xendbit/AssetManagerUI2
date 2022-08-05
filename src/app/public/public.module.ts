@@ -2,24 +2,32 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {CoreModule} from '../core/core.module';
 
-import { CuratorsOfTheWeekComponent } from './curators-of-the-week/curators-of-the-week.component';
+import { CollectorsComponent } from './collectors/collectors.component';
 import { PopularArtistsComponent } from './popular-artists/popular-artists.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { ShoreComponent } from './shore/shore.component';
-import { CuratorCardComponent } from './curator-card/curator-card.component';
+import { CreatorsComponent } from './creators/creators.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { AllCreatorsModule } from "./all-creators/all-creators.module";
+import { AllGalleriesModule } from "./all-galleries/all-galleries.module";
+import { AllCollectorsModule } from "./all-collectors/all-collectors.module";
 
 
 @NgModule({
   declarations: [
     ShoreComponent,
-    CuratorsOfTheWeekComponent,
+    CollectorsComponent,
     PopularArtistsComponent,
-    CuratorCardComponent,
+    CreatorsComponent,
+    GalleryComponent,
   ],
   imports: [
     CommonModule,
     CoreModule,
     PublicRoutingModule,
+    AllCreatorsModule,
+    AllGalleriesModule,
+    AllCollectorsModule
   ],
   exports: [
   ]

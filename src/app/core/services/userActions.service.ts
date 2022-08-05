@@ -95,7 +95,7 @@ export class UserActionsService {
       "social": userData.social,
       "photo": userData.photo
     });
-    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
+    return this.httpClient.post(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
   submitImages(userData: any, walletAddress: string) {
@@ -106,7 +106,7 @@ export class UserActionsService {
       "displayImage": userData.displayImage,
       "coverImage": userData.coverImage
     })
-    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}/profile-pic`, images, {headers});
+    return this.httpClient.post(`${environment.extraUrl}users/${walletAddress}/profile-pic`, images, {headers});
   }
 
   getProfile(walletAddress: string) {

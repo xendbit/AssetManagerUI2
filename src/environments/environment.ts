@@ -25,7 +25,6 @@ export const environment: AppEnvironment = {
 
 
 
-
 export const networkChains = [ {
   name: 'Harmony Testnet',
   chain: 1666700000,
