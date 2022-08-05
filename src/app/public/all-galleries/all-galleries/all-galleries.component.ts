@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import galleries from './all-galleries.json';
 
 @Component({
   selector: 'app-all-galleries',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllGalleriesComponent implements OnInit {
 
+  galleries: any[];
+
   constructor() { }
 
   ngOnInit(): void {
+    this.galleries = galleries;
   }
 
 }
