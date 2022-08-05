@@ -19,7 +19,8 @@
               <div class="col-otr">
                 <div class="col-inr">
                   <a href="../pages/Single-Artwork.html" class="img-otr">
-                    <img class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
+                    <img *ngIf="creator.photo.coverImage !== 'imageUrl' && creator.photo.coverImage !== null " class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
+                    <img *ngIf="creator.photo.coverImage === 'imageUrl' || creator.photo.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
                   </a>
                   <div class="user-profile">
                     <a href="../pages/Single-Creator.html" class="user-img-otr">

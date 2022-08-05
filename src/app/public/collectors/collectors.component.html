@@ -14,9 +14,10 @@
       <div class="row row-custom" >
         <ng-container *ngFor="let item of this.collectors;">
           <div class="col-lg-2 col-md-3 col-sm-4 creator-otr">
-            <a href="#" class="create-inr box1">
+            <a href="#" class="create-inr box1" style="height: 217px;">
               <div class="create-img">
-                <img class="img-create" src="{{item.photo.displayImage}}" alt="create-img">
+                <img class="img-create" *ngIf="item.photo !== null" src="{{item.photo.displayImage}}" alt="create-img">
+                <img class="img-create" *ngIf="item.photo === null" src="./assets/img/nifty_profile.png" alt="create-img">
                 <div class="check-otr">
                   <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                 </div>

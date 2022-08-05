@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import myCreators from './creators.json';
+import {MainService} from '../../core/services/main.service';
 
 @Component({
   selector: 'app-creators',
@@ -10,10 +10,23 @@ export class CreatorsComponent implements OnInit {
 
   creators: any[];
 
-  constructor() { }
+  constructor(
+    private mainService: MainService
+  ) { }
 
   ngOnInit(): void {
-    this.creators = myCreators;
+    // this.creators = myCreators;
+    this.getCreators();
+  }
+
+  getCreators() {
+    this.mainService.fetchArtists('creator', 1, 4)
+      .subscribe((response: any) => {
+        this.creators = response.data?.items;
+        // console.log(response.data.items)
+      }, error => {
+        console.log(error);
+    });
   }
 
 }

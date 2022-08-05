@@ -16,7 +16,7 @@ export const environment: AppEnvironment = {
   production: true,
   headers: headers,
   baseApiUrl: 'https://app.niftyrow.io/api/yasuke/',
-  extraUrl: 'https://www.niftyrow.com/yasuke-server/',
+  extraUrl: 'https://app.niftyrow.io/yasuke-server/',
   icoUrl: 'https://app.niftyrow.io/api/ico/whitelist/',
   security: {
     allowedOrigins: 'https://www.niftyrow.com/'

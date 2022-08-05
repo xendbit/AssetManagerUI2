@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import gallery from './gallery.json'
+import {MainService} from '../../core/services/main.service';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -8,10 +8,21 @@ import gallery from './gallery.json'
 export class GalleryComponent implements OnInit {
 
   galleries: any[]
-  constructor() { }
+  constructor(
+    private mainService: MainService
+  ) { }
 
   ngOnInit(): void {
-    this.galleries = gallery;
+    this.getGalleries();
+  }
+
+  getGalleries() {
+    this.mainService.fetchArtists('gallery', 1, 3)
+      .subscribe((response: any) => {
+        this.galleries = response.data?.items;
+      }, error => {
+        console.log(error);
+    });
   }
 
 }
