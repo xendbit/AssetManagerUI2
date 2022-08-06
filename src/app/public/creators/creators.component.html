@@ -27,7 +27,7 @@
                       <img class="user-img-inr" [src]="creator.photo.displayImage" alt="creator-img">
                     </a>
                     <div class="user-content">
-                      <a href="../pages/Single-Creator.html" class="title body-mb">Wow! That Brain is Floating</a>
+                      <a href="../pages/Single-Creator.html" class="title body-mb">{{ creator.about.length > 20 ? (creator.about | slice:0:18 + '...') : (creator.about) }}</a>
                       <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username}}</a></p>
                     </div>
                   </div>
