@@ -18,7 +18,7 @@
         <div class="row row-custom" >
           <ng-container *ngFor="let item of this.collectors;">
             <div class="col-lg-2 col-md-3 col-sm-4 creator-otr">
-              <a href="#" class="create-inr box1">
+              <a routerLink="/user-profile" class="create-inr box1">
                 <div class="create-img">
                   <img class="img-create" *ngIf="item.photo !== null" src="{{item.photo.displayImage}}" alt="create-img">
                   <img class="img-create" *ngIf="item.photo === null" src="./assets/img/nifty_profile.png" alt="create-img">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="create-content">
                   <p class="body-sb create-pb"> {{item.username}} </p>
-                  <p class="body-s create-p">40 ETH</p>
+<!--                  <p class="body-s create-p">40 ETH</p>-->
                   <p class="body-s create-p"> {{item.type}} </p>
                 </div>
               </a>
