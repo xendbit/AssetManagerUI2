@@ -10,7 +10,7 @@ import {UserActionsService} from "../../../core/services/userActions.service";
 import {AuctionService} from "../../../core/services/auction.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {NgxUiLoaderService} from "ngx-ui-loader";
-import {Router} from "@angular/router";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 var randomWords = require('random-words');
 
@@ -59,6 +59,7 @@ export class UserProfileComponent implements OnInit {
   showAboutMeModal = false;
   showSocialsModal = false;
   userWallet: any;
+  walletAddress: string;
 
   constructor(
     public mainService: MainService,
@@ -68,7 +69,8 @@ export class UserProfileComponent implements OnInit {
     public auctionService: AuctionService,
     public toast: HotToastService,
     private ngxService: NgxUiLoaderService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute,) {
   }
 
   ngOnInit(): void {
@@ -76,6 +78,15 @@ export class UserProfileComponent implements OnInit {
     this.account = localStorage.getItem('account');
     this.checkConnection();
     this.getProfile();
+    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
+    this.loadUser(this.walletAddress)
+  }
+
+  loadUser(walletAddress) {
+    this.mainService.loadUser(walletAddress, 1, 10)
+      .subscribe(res => {
+        console.log(res)
+      })
   }
 
   checkConnection() {
