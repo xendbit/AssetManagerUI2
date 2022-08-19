@@ -22,6 +22,7 @@ export class AllGalleriesComponent implements OnInit {
     this.mainService.fetchArtists('gallery', 1, 20)
       .subscribe((response: any) => {
         this.galleries = response.data?.items;
+        console.log(this.galleries);
       }, error => {
         console.log(error);
     });

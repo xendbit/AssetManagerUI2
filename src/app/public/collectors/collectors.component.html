@@ -14,7 +14,7 @@
       <div class="row row-custom" >
         <ng-container *ngFor="let item of this.collectors;">
           <div class="col-lg-2 col-md-3 col-sm-4 creator-otr">
-            <a href="#" class="create-inr box1" style="height: 217px;">
+            <a [routerLink]="['/user-profile/', item.walletAddress]" class="create-inr box1" style="height: 217px;">
               <div class="create-img">
                 <img class="img-create" *ngIf="item.photo !== null" src="{{item.photo.displayImage}}" alt="create-img">
                 <img class="img-create" *ngIf="item.photo === null" src="./assets/img/nifty_profile.png" alt="create-img">
