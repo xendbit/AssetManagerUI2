@@ -262,4 +262,36 @@ export class UserActionsService {
     }
   }
 
+  getUserProfile(walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('walletAddress', walletAddress)
+    return this.httpClient.get(`${environment.extraUrl}users/profile`, {headers}).pipe(map((res: any) => {
+      return {
+        "userId": res.data.id,
+        "username": res.data.username,
+        "firstName": res.data.firstName,
+        "lastName": res.data.lastName,
+        "walletAddress": res.data.walletAddress,
+        "email": res.data.email,
+        "socials": res.data.social,
+        "followers": [],
+        "following": [],
+        "likes": [],
+        "createdArtworks": [],
+        "collections": [],
+        "bids": [],
+        "isActive": res.data.isActive,
+        "about": res.data.about,
+        "displayImage": res.data.photo?.displayImage || './assets/img/nifty_profile.png',
+        "coverImage": res.data.photo?.coverImage || './assets/img/profile_holder.jpg',
+        "webUrl": {"url": res.data.webUrl, "title": "website"},
+        "joinDate": res.data.joinDate,
+        "type": res.data.type
+      }
+    }))
+
+  }
+
 }

@@ -74,19 +74,18 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
     this.ngxService.start();
-    this.account = localStorage.getItem('account');
+    this.account = this.walletAddress;
     this.checkConnection();
     this.getProfile();
-    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
-    this.loadUser(this.walletAddress)
-  }
-
-  loadUser(walletAddress) {
-    this.mainService.loadUser(walletAddress, 1, 10)
+    // this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
+    this.mainService.loadUser(this.walletAddress, 1, 100)
       .subscribe(res => {
-        console.log(res)
-      })
+        if(res) {
+          console.log(res);
+        }
+      });
   }
 
   checkConnection() {
@@ -174,53 +173,13 @@ export class UserProfileComponent implements OnInit {
     this.getMeta();
   }
 
-  updateProfile() {
-    this.ngxService.start();
-    if (this.user.displayImage === './assets/img/nifty_profile.png') {
-      this.user.displayImage = '11111111111';
-    }
-    if (this.user.coverImage === './assets/img/profile_holder.jpg') {
-      this.user.coverImage = '11111111111'
-    }
-    let userData = {
-      "firstName": this.user.firstName,
-      "lastName": this.user.lastName,
-      "username": this.user.username,
-      "password": this.user.password || "password",
-      "email": this.user.email,
-      "walletAddress": this.account,
-      "about": this.user.about,
-      "webUrl": this.user.webUrl.url,
-      "social": this.user.socials,
-      "photo": {
-        "displayImage": this.user.displayImage,
-        "coverImage": this.user.coverImage
-      }
-    }
-    // if (!this.webUrl('https://')){
-    //   return this.toast.error('Please Update your profile to include a valid Website URL.')
-    // }
-    this.userActions.updateProfile(userData, this.account).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.toast.success('Profile updated successfully');
-        this.ngxService.stop();
-      } else {
-        this.toast.error('There was an error while updating your profile, please try again later.')
-        this.ngxService.stop()
-      }
-    }, err => {
-      console.log('err', err)
-      this.toast.error('There was an error while updating your profile, please try again later.')
-      this.ngxService.stop();
-    })
-  }
-
   getProfile() {
     this.ngxService.start();
-    this.userActions.getProfile(this.account).subscribe(async (res: any) => {
-      this.user = await res;
+    this.userActions.getUserProfile(this.account).subscribe( (res: any) => {
+      console.log(res);
+      this.user = res;
       if (res.username === 'My-Profile') {
-        this.user.username = randomWords();
+        this.user.username = 'Unknown';
       }
       if (res.email === 'test@niftyrow.com') {
         this.user.email = this.user.username+'@niftyrow.com'
@@ -355,35 +314,6 @@ export class UserProfileComponent implements OnInit {
         }
       };
     }
-  }
-
-  editAboutMe() {
-    this.showAboutMeModal = true;
-  }
-
-  updateAbout() {
-    this.user.about = this.about;
-    this.updateProfile();
-    this.showAboutMeModal = false;
-  }
-
-  updateSocials() {
-    this.user.socials.twitterUrl = this.twitter;
-    this.user.socials.facebookUrl = this.facebook;
-    this.user.socials.telegramUrl = this.telegram;
-    this.user.socials.youtubeUrl = this.youtube;
-    this.user.socials.pinterestUrl = this.pinterest;
-    this.user.socials.discordUrl = this.discord;
-    this.user.webUrl.url = this.webUrl;
-    this.updateProfile();
-    this.showSocialsModal = false;
-  }
-
-  clickedSocials() {
-    this.showSocialsModal = true;
-  }
-  goToDetails(artwork: any) {
-    localStorage.setItem('artworkData', JSON.stringify(artwork));
   }
 
 

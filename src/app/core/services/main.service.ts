@@ -643,7 +643,7 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
-    return this.httpClient.get<any[]>(`${environment.extraUrl}list-tokens/by-owner/${walletAddress}?page=${page}&limit=${limit}`, {headers});
+    return this.httpClient.get<any[]>(`${environment.baseApiUrl}list-tokens/by-owner/${walletAddress}?page=${page}&limit=${limit}`, {headers});
   }
 
 }
