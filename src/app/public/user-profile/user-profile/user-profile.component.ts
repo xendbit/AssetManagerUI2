@@ -77,15 +77,15 @@ export class UserProfileComponent implements OnInit {
     this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
     this.ngxService.start();
     this.account = this.walletAddress;
-    this.checkConnection();
+    this.loadUser(this.account);
     this.getProfile();
-    // this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
-    this.mainService.loadUser(this.walletAddress, 1, 100)
-      .subscribe(res => {
-        if(res) {
-          console.log(res);
-        }
-      });
+    this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
+    // this.mainService.loadUser(this.walletAddress, 1, 100)
+    //   .subscribe(res => {
+    //     if(res) {
+    //       console.log(res);
+    //     }
+    //   });
   }
 
   checkConnection() {
@@ -176,7 +176,6 @@ export class UserProfileComponent implements OnInit {
   getProfile() {
     this.ngxService.start();
     this.userActions.getUserProfile(this.account).subscribe( (res: any) => {
-      console.log(res);
       this.user = res;
       if (res.username === 'My-Profile') {
         this.user.username = 'Unknown';
@@ -316,5 +315,11 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  loadUser(walletAddress) {
+    this.mainService.loadUser(walletAddress, 1, 100).subscribe((res: any) => {
+      console.log(res);
+      this.artworks = res?.data.items;
+    })
+  }
 
 }
