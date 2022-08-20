@@ -149,8 +149,7 @@
 <div class="explore-artwork">
   <div class="container-fluid">
     <div class="explore-artwork-inr">
-      <span class="line"></span>
-      <app-assets-grid [artworkArray]="this.artworks" [pageTitle]="'My Artworks'"></app-assets-grid>
+      <app-assets-grid [artworkArray]="this.artworks" pageTitle="{{user.username + ' Artworks'}}"></app-assets-grid>
     </div>
   </div>
 </div>

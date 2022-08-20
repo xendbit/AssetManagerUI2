@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {IUser} from "../../../pages/user-dashboard/user.interface";
 import {IArtwork} from "../../../core/components/slider/presentation.interface";
 import {IFollow, ILikes} from "../../../core/components/nftcard/event.interface";
@@ -79,13 +79,8 @@ export class UserProfileComponent implements OnInit {
     this.account = this.walletAddress;
     this.loadUser(this.account);
     this.getProfile();
+    this.checkConnection();
     this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
-    // this.mainService.loadUser(this.walletAddress, 1, 100)
-    //   .subscribe(res => {
-    //     if(res) {
-    //       console.log(res);
-    //     }
-    //   });
   }
 
   checkConnection() {
@@ -135,7 +130,6 @@ export class UserProfileComponent implements OnInit {
       }
     }
   }
-
 
 
   selectView(type) {
