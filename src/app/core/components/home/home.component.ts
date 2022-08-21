@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     }
   ];
   constructor(public mainService: MainService,
-     public auctionService: AuctionService, 
+     public auctionService: AuctionService,
      private ngxService: NgxUiLoaderService) { }
 
   ngOnInit() {
@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
     this.mainService.getDrops().subscribe(async (res: any) => {
       if (res !== null) {
         this.presentationData = await res;
+        console.log(this.presentationData)
       }
     }, err => {
       console.log('Drops error => ', err);

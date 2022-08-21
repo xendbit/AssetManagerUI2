@@ -16,19 +16,19 @@
           <ng-container *ngFor="let gallery of galleries">
             <div class="owl-item" style="width: 30%; margin-right: 24px;"><div class="col-otr">
               <div class="col-inr">
-                <a routerLink="/user-profile" class="img-otr">
+                <a [routerLink]="['/user-profile/', gallery.walletAddress]" class="img-otr">
                   <img *ngIf="gallery.photo && gallery.photo?.coverImage !== 'imageUrl' " class="img-fluid img-artwork" src="{{gallery.photo.coverImage}}" alt="artwork-img">
                   <img *ngIf="gallery.photo?.coverImage === 'imageUrl' || gallery.photo === null " class="img-artwork img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img3.jpg" alt="artwork-img">
                 </a>
                 <div class="content">
-                  <a routerLink="/user-profile" class="create-img">
+                  <a [routerLink]="['/user-profile/', gallery.walletAddress]" class="create-img">
                     <img *ngIf="gallery.photo && gallery.photo?.displayImage !== 'imageUrl' " class="img-create" src="{{gallery.photo.displayImage}}" alt="create-img">
                     <div class="check-otr">
                       <svg class="check-icon" width="10" height="10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.438 2.813L4.061 7.188 1.876 5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                     </div>
                   </a>
-                  <a routerLink="/user-profile" class="art-title body-sb">{{gallery.username}}</a>
-                  <a routerLink="/user-profile" class="by-otr body-sb"> <span class="by body-s">by</span> {{gallery.firstName }}  {{gallery.lastName}}</a>
+                  <a [routerLink]="['/user-profile/', gallery.walletAddress]" class="art-title body-sb">{{gallery.username}}</a>
+                  <a [routerLink]="['/user-profile/', gallery.walletAddress]" class="by-otr body-sb"> <span class="by body-s">by</span> {{gallery.firstName }}  {{gallery.lastName}}</a>
                 </div>
               </div>
             </div></div>
