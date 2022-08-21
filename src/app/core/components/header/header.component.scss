@@ -17,6 +17,12 @@
     font-family: "DMSans-Bold";
 }
 
+:host ::ng-deep .modalHeader .p-dialog {
+  .p-dialog-header  {
+    justify-content: space-between !important;
+  }
+}
+
 .wallet-row {
   display: flex;
   justify-content: space-between;

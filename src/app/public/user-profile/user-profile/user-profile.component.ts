@@ -79,56 +79,7 @@ export class UserProfileComponent implements OnInit {
     this.account = this.walletAddress;
     this.loadUser(this.account);
     this.getProfile();
-    this.checkConnection();
     this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
-  }
-
-  checkConnection() {
-    this.ngxService.start();
-    this.userWallet = localStorage.getItem('userWallet');
-    if (this.userWallet !== null) {
-      if (this.userWallet === 'Metamask') {
-        this.metamaskService.checkConnection().then(res => {
-          if (res === undefined || !localStorage.getItem('account')) {
-            this.error = 'Please Connect to your Metamask wallet account.';
-            this.ngxService.stop();
-            return;
-          } else {
-            this.getMeta();
-            this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
-              if (res !== null) {
-                const expected = new Set();
-                this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-                this.categories = this.artworks.map(item => item.category)
-                  .filter((value, index, self) => self.indexOf(value) === index);
-                this.ngxService.stop();
-              } else {
-                this.ngxService.stop();
-              }
-            }, err => {
-              this.ngxService.stop();
-            })
-          }
-        })
-      }
-      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
-        this.account = localStorage.getItem('account');
-        this.getMeta();
-        this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
-          if (res !== null) {
-            const expected = new Set();
-            this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-            this.categories = this.artworks.map(item => item.category)
-              .filter((value, index, self) => self.indexOf(value) === index);
-            this.ngxService.stop();
-          } else {
-            this.ngxService.stop();
-          }
-        }, err => {
-          this.ngxService.stop();
-        })
-      }
-    }
   }
 
 

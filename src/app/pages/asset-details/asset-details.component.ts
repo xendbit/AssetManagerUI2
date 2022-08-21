@@ -399,7 +399,7 @@ export class AssetDetailsComponent implements OnInit {
                   this.ngxService.stop();
                   this.toast.success('There has been an error, please try again.');
                   return;
-                })  
+                })
               }
             }, err => {
               this.ngxService.stop();
@@ -493,7 +493,7 @@ export class AssetDetailsComponent implements OnInit {
                       this.ngxService.stop();
                       this.toast.error('There has been an error while trying to start this auction, please try again.')
                     }
-      
+
                   }, err =>  {
                     this.ngxService.stop();
                     this.toast.error('There has been an error while trying to start this auction, please try again.')
@@ -518,7 +518,11 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.ngxService.start();
     this.metamaskService.withdraw(this.artwork.tokenId, this.artwork.lastAuctionId).then( res => {
-      console.log('this is res', res);
+      this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+        // console.log('res', tokenOwnerResponse)
+      }, err => {
+        console.log('err', err)
+      })
       this.ngxService.stop();
     }, err => {
       this.ngxService.stop();

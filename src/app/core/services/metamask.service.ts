@@ -78,20 +78,20 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
         } else if (systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.successToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name)
+          this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
         }
 
         window.ethereum.on('chainChanged', (chainId) => {
           if (networkChain === foundNetwork.chain) {
           } else {
-            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+            this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
           }
           window.location.reload();
         })
@@ -118,7 +118,7 @@ export class MetamaskService {
           this.chainId = chainId;
           if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113 ) {
           } else {
-            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+            this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
           }
           window.location.reload();
         });
@@ -133,13 +133,13 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
         } else if (foundNetwork && systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.successToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.successToast("Your wallet is connected to  " + foundNetwork.name)
         }
       }
     }

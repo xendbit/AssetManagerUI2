@@ -246,14 +246,18 @@
                         name="social" [(ngModel)]="social" placeholder="Social Media Link e.g. “ https://www.twitter.com/niftyrow”" required></textarea>
                       </div>
 
-                      <div class="input-main">
+                      <div class="input-otr">
+                        <input class="input" [(ngModel)]="symbol" type="text" id="symbol" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
+                      </div>
+
+                      <!-- <div class="input-main">
                         <div class="input-otr-2">
                             <input class="input" [(ngModel)]="symbol" type="text" id="symbol" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
                         </div>
                         <div class="input-otr-2">
                             <input disabled class="input" type="text" name="text" placeholder="Asset Tag (coming soon) " required>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="row" style="margin-bottom: 20px;">
                         <h4 class="head-2 heading-h4">Properties</h4>
