@@ -418,11 +418,11 @@
                               <div class="col-lg-6 col-right-otr" id="panel">
                                   <p-panel class="heading-h4 activity-head"  styleClass="ark-panel" header="Asset Details" [toggleable]="true">
                                       <div class="row" *ngIf="contractAddress">
-                                          <div class="col-lg-6 col-right-otr">
+                                          <div class="col-lg-4 col-right-otr">
                                               <span id="contractAddress" class="bid">Issuing Contract Address:</span>
                                           </div>
                                           <div class="col-lg-6 col-right-otr">
-                                              <a id="ownerUserName" class="user"> {{contractAddress.substring(0, 4) + 'xxxxx' + contractAddress.slice(contractAddress.length - 4)}} </a>
+                                              <a id="ownerUserName" style="color: black; position: relative;" class="user"> {{contractAddress}} </a>
                                           </div>
                                       </div>
                                       <div class="row">
