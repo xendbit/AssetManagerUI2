@@ -50,7 +50,7 @@ export class AssetsGridComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['artworkArray'].currentValue !== undefined && this.artworkArray !== null) {
+    if (changes['artworkArray']?.currentValue !== undefined && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
         this.artworks = this.artworkArray;
         this.ngxService.stop();
