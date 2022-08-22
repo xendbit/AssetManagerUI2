@@ -1,0 +1,10 @@
+.row-custom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap:wrap;
+}
+
+.img-create {
+  height: 64px;
+  object-fit: cover;
+}

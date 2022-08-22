@@ -95,7 +95,7 @@ export class UserActionsService {
       "social": userData.social,
       "photo": userData.photo
     });
-    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
+    return this.httpClient.post(`${environment.extraUrl}users/${walletAddress}`, userUpdate, {headers});
   }
 
   submitImages(userData: any, walletAddress: string) {
@@ -106,7 +106,7 @@ export class UserActionsService {
       "displayImage": userData.displayImage,
       "coverImage": userData.coverImage
     })
-    return this.httpClient.put(`${environment.extraUrl}users/${walletAddress}/profile-pic`, images, {headers});
+    return this.httpClient.post(`${environment.extraUrl}users/${walletAddress}/profile-pic`, images, {headers});
   }
 
   getProfile(walletAddress: string) {
@@ -161,6 +161,7 @@ export class UserActionsService {
       style: {
         border: '1px solid #87ceeb',
         padding: '16px',
+        'z-index': 999999,
         color: '#198754',
     }})
   }
@@ -170,6 +171,7 @@ export class UserActionsService {
       style: {
         border: '1px solid #87ceeb',
         padding: '16px',
+        'z-index': 999999,
         color: '#EBA487',
     }})
   }
@@ -258,6 +260,38 @@ export class UserActionsService {
     } else {
       return false;
     }
+  }
+
+  getUserProfile(walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('walletAddress', walletAddress)
+    return this.httpClient.get(`${environment.extraUrl}users/profile`, {headers}).pipe(map((res: any) => {
+      return {
+        "userId": res.data.id,
+        "username": res.data.username,
+        "firstName": res.data.firstName,
+        "lastName": res.data.lastName,
+        "walletAddress": res.data.walletAddress,
+        "email": res.data.email,
+        "socials": res.data.social,
+        "followers": [],
+        "following": [],
+        "likes": [],
+        "createdArtworks": [],
+        "collections": [],
+        "bids": [],
+        "isActive": res.data.isActive,
+        "about": res.data.about,
+        "displayImage": res.data.photo?.displayImage || './assets/img/nifty_profile.png',
+        "coverImage": res.data.photo?.coverImage || './assets/img/profile_holder.jpg',
+        "webUrl": {"url": res.data.webUrl, "title": "website"},
+        "joinDate": res.data.joinDate,
+        "type": res.data.type
+      }
+    }))
+
   }
 
 }

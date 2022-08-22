@@ -31,6 +31,7 @@ export class MetamaskService {
   issuanceResponse: any;
   withdrawResponse: any;
   cancelResponse: any;
+  blockResponse: any;
   chain: string;
   chainId = chainId;
   clickedOnMobile: boolean = false;
@@ -61,7 +62,8 @@ export class MetamaskService {
     // console.log('mnemonic:', wallet.mnemonic.phrase)
     // console.log('privateKey:', wallet.privateKey)
     return {
-      'buyerAddress': wallet.address
+      'buyerAddress': wallet.address,
+      'privateKey': wallet.privateKey
     }
   }
 
@@ -76,20 +78,20 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
         } else if (systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast(foundNetwork.name + ": Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
         }
 
         window.ethereum.on('chainChanged', (chainId) => {
           if (networkChain === foundNetwork.chain) {
           } else {
-            this.userActions.infoToast("Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
+            this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
           }
           window.location.reload();
         })
@@ -116,7 +118,7 @@ export class MetamaskService {
           this.chainId = chainId;
           if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113 ) {
           } else {
-            this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet', 'Aurora Testnet' or 'Avalanche Testnet' ")
+            this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
           }
           window.location.reload();
         });
@@ -131,13 +133,13 @@ export class MetamaskService {
         const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
         const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Please make sure you are on either of the following chains: 'Binance Smart Chain Testnet', 'Harmony Testnet Shard 0', 'Polygon Testnet' or 'Aurora Testnet' ")
+          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
         } else if (foundNetwork && systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet. Your wallet is currently connected to " + foundNetwork.name + " , and the current chain on Nifty Row is " + systemChain.name)
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.infoToast("Your wallet is Currently set to  " + foundNetwork.name + ", Rpc Url: " + foundNetwork.rpcUrl + " ")
+          this.userActions.successToast("Your wallet is connected to  " + foundNetwork.name)
         }
       }
     }
@@ -231,6 +233,38 @@ export class MetamaskService {
     }
   }
 
+  async getBlockCount(hash: any) {
+    const { ethereum } = window;
+    this.provider = new ethers.providers.Web3Provider(ethereum);
+    let blockCount = 0;
+    let numberOfBlocks = 5;
+    this.blockResponse = {
+      status: 'incomplete'
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        this.provider.on('block', async (blockNumber) => {
+          blockCount++;
+          if (blockCount > numberOfBlocks) {
+              this.provider.removeAllListeners('block');
+              this.blockResponse = {
+                status: 'complete'
+              }
+              const txReceipt = await this.provider.getTransactionReceipt(hash);
+              if (txReceipt && txReceipt.blockNumber) {
+                  this.provider.removeAllListeners('block');
+                  // resolve(true);
+              }
+              resolve(this.blockResponse)
+          }
+        });
+      } catch (e) {
+        console.log('error', e)
+        reject(e)
+      }
+    })
+  }
+
   public getBalance() {
     const account = localStorage.getItem('account');
     return this.httpClient.get(`${environment.baseApiUrl}get-account-balance/${account}`)
@@ -312,7 +346,7 @@ export class MetamaskService {
           chainId: this.chainId,
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.bidResponse = txHash;
+          this.bidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.bidResponse = error;
         });
@@ -330,7 +364,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.bidResponse = result;
+          this.bidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -359,7 +393,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -377,7 +411,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -408,7 +442,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -426,7 +460,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -456,7 +490,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.endbidResponse = txHash;
+          this.endbidResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.endbidResponse = error;
         });
@@ -474,7 +508,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.endbidResponse = result;
+          this.endbidResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -535,7 +569,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.issuanceResponse = result;
+          this.issuanceResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -566,7 +600,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.auctionResponse = txHash;
+          this.auctionResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.auctionResponse = error;
         });
@@ -584,7 +618,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.auctionResponse = result;
+          this.auctionResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -613,7 +647,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.withdrawResponse = txHash;
+          this.withdrawResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.withdrawResponse = error;
         });
@@ -631,7 +665,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.withdrawResponse = result;
+          this.withdrawResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {
@@ -660,7 +694,7 @@ export class MetamaskService {
           chainId: this.chainId, // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
         };
         await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters], }).then((txHash: string) => {
-          this.cancelResponse = txHash;
+          this.cancelResponse = {status: 'success', response: txHash};
         }, (error: any) => {
           this.cancelResponse = error;
         });
@@ -678,7 +712,7 @@ export class MetamaskService {
         await this.connector.sendTransaction(transactionParameters)
         .then((result) => {
           // Returns transaction id (hash)
-          this.cancelResponse = result;
+          this.cancelResponse = {status: 'success', response: result};
         }, err => {
           console.error(err);
           const data = {

@@ -41,7 +41,7 @@
     <link rel="preload"  href="/assets/css/animate.css" as="style">
     <!-- Core Stylesheet -->
     <link rel="stylesheet"  href="/assets/css/style.min.css">
-  
+
 
 </head>
 
@@ -58,7 +58,7 @@
                     <a href="./" class="logo-inr">
                         <img  class="logo" src="{{this.headerInfo.logoPath}}" alt="Nifty Row">
                     </a>
-                    
+
                 </div>
                 <div class="head-otr" >
                   <h1 id="logoText" class="heading-h1 heading titleGreathorned">
@@ -86,14 +86,14 @@
             </div>
         </div>
     </div>
-  
+
     <section class="welcome_area clearfix dzsparallaxer auto-init none fullwidth" data-options='{direction: "normal"}' id="home" *ngIf="landingData">
-      
-      
+
+
         <div class="divimage" style="width: 101%; height: 130%; background-image: url({{landingData.welcomeArea.backgroundImage}})"></div>
-    
+
         <div class="hero-content transparent">
-    
+
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <!-- Welcome Content -->
@@ -103,23 +103,23 @@
                                 <h1 style="color: white; margin-left: 5%;" class="fadeInUp" data-wow-delay="0.2s"> {{landingData.welcomeArea.title}} </h1>
                                 <p style="color: white !important; margin-left: 5%;" class="w-text fadeInUp" data-wow-delay="0.3s">{{landingData.welcomeArea.subText}}</p>
                             </div>
-    
+
                             <div class="dream-btn-group fadeInUp" data-wow-delay="0.4s">
                                 <!-- <a href="#contact" class="btn dream-btn mr-3">Join Pre-Sale</a> -->
                                 <a href="{{landingData.welcomeArea.pdfLink}}" class="btn dream-btn"> Deck</a>
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
-        
-      
+
+
     </section>
-    
-    
+
+
     <div class="vertical-social" *ngIf="landingData">
         <ul class="icon-ul">
             <li class="icon-li">
@@ -154,7 +154,7 @@
             </li>
         </ul>
     </div>
-    
+
     <!-- Buy/Sell Artworks Section -->
         <section class="demo-video features section-padding-100"  style="background:url('/assets/img/svg/bg_hero.svg') no-repeat center right" *ngIf="landingData">
             <div class="container">
@@ -176,7 +176,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="services-block-four mt-s" *ngFor="let item of landingData.buyOrSellSection.rightBlock">
                             <div class="inner-box">
@@ -185,25 +185,25 @@
                                 </div>
                                 <h3><a href="#">{{item.title}}</a></h3>
                                 <div class="text">{{item.subtitle}}</div>
-        
+
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </section>
-    
+
     <div class="double-bg" *ngIf="landingData">
-    
+
         <section class="features section-padding-100-0" style="padding-bottom:70px">
-    
+
         <div class="section-heading text-center">
             <h2 class="fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">Nifty Row for investors</h2>
             <p class="fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;"></p>
         </div>
-    
+
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-6 col-lg-4" *ngFor="let item of landingData.investorSection">
@@ -221,34 +221,34 @@
         </div>
     </section>
         <!-- ##### About Us Area Start ##### -->
-<!-- 
+<!--
         <section class="about-us-area section-padding-0-0 clearfix" id="about">
             <div class="container">
                 <div class="row align-items-center">
-    
+
                     <div class="col-12 col-lg-6">
                         <div class="welcome-meter fadeInUp" data-wow-delay="0.7s">
                             <img src="/assets/img/bg-img/david.jpeg" class="img-responsive center-block" alt="">
-    
+
                         </div>
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="who-we-contant mt-s">
-                            <h4 class="fadeInUp" data-wow-delay="0.3s">Music NFTs for an emerging genre and new generation of global performing artists.</h4>
+                            <h4 class="fadeInUp" data-wow-delay="0.3s">Music NFTs for an emerging genre and new generation of global performing creators.</h4>
                             <p class="fadeInUp" data-wow-delay="0.4s">Under the Nigerian and African genre, Afrobeat Music has become mainstream around the world and are now a must play in European and American night clubs and radio channels.</p>
                             <p class="fadeInUp" data-wow-delay="0.5s">Genres such as hiplife, jùjú music, highlife and naija beats, which were amalgamated under the 'afrobeats' umbrella now stream on several international streaming platforms like Spotify, iTunes, Amazon music, gbedu.live, Soundcloud and more.</p>
-                          <p class="fadeInUp" data-wow-delay="0.6s">Afrobeats collaborations are becoming a must have for global Hip-hop and RnB artists like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few.</p>
+                          <p class="fadeInUp" data-wow-delay="0.6s">Afrobeats collaborations are becoming a must have for global Hip-hop and RnB creators like Drake and WizKid, 2021 Grammy award winner Burna boy and Chris Martins, Chris Brown and Davido to mention a few.</p>
                             <a class="btn dream-btn mt-30 fadeInUp" data-wow-delay="0.7s" href="/assets/pdf/NiftyRowDeck.pdf">Read More</a>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
         </section>
         <section class="about-us-area section-padding-100 clearfix">
             <div class="container">
                 <div class="row align-items-center">
-    
+
                     <div class="col-12 col-lg-6 ">
                         <div class="who-we-contant">
                             <h4 class="fadeInUp" data-wow-delay="0.3s">NFTs for the Nollywood movie industry.</h4>
@@ -258,7 +258,7 @@
                             <a class="btn dream-btn mt-30 fadeInUp" data-wow-delay="0.7s" href="pdf/NiftyRowDeck.pdf">Read More</a>
                         </div>
                     </div>
-    
+
                     <div class="col-12 col-lg-6">
                         <div class="welcome-meter fadeInUp" data-wow-delay="0.7s">
                             <img src="/assets/img/core-img/about12.png" class="center-block" alt="">
@@ -400,7 +400,7 @@
                 </div>
             </div>
         </div>
-       
+
     </section>
     <!-- ##### Our roadmap Area End ##### -->
 
@@ -423,24 +423,24 @@
                                         <img class="img-fluid img-artwork" src="{{item.image}}" alt="artwork-img">
                                     </a>
                                     <div class="content">
-                                        
+
                                         <h3 class="head heading-h3">{{item.title}}</h3>
                                         <a  class="by-otr body-sb"> <span class="by body-s">by</span> {{item.author}}</a>
                                         <p class="fadeInUp" data-wow-delay="0.4s">{{item.body}}</p>
                                         <a class="btn dream-btn mt-30 fadeInUp" data-wow-delay="0.7s" href="#">Read More</a>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </ng-template>
                 </p-carousel>
-                
+
             </div>
         </div>
     </div>
 
-    
+
 
     <!-- ##### Token counter Start ##### -->
     <div class="faq-timeline-area section-padding-100" style="background:#fff;padding-bottom:70px" *ngIf="landingData">
@@ -472,7 +472,7 @@
 		            </div>
                 </div>
 
-               
+
 
             </div>
         </div>
@@ -494,7 +494,7 @@
 
 		                <div class="col-md-6">
                             The NRT will enable:
-                            
+
                             <ul class="square">
                                 <li>
                                     Early access to presales
@@ -506,7 +506,7 @@
                                     Voting on proposals
                                 </li>
                                 <li>
-                                    Customized rarity 
+                                    Customized rarity
                                 </li>
                                 <li>
                                     Guaranteed royalties
@@ -518,7 +518,7 @@
                                     Discounted Fees
                                 </li>
                                 <li>
-                                    Exclusive Access to Mint 
+                                    Exclusive Access to Mint
                                 </li>
                                 <li>
                                     Funding of Creative Initiatives and Projects
@@ -532,7 +532,7 @@
 		            </div>
                 </div>
 
-               
+
 
             </div>
         </div>
@@ -540,7 +540,7 @@
 
     <!-- ##### token-distribution Area start ##### -->
     <figure id="pie"></figure>
-  
+
     <section class="token-distribution section-padding-100" *ngIf="landingData">
         <div class="container">
 
@@ -558,7 +558,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div echarts [options]="useOfSales" ></div>
             </div>
-           
+
         </div>
 
     </section>
@@ -582,7 +582,7 @@
                         <div class="box-address">
                             <h3 class="head heading-h3">We’d Love to Hear from You!</h3>
                             <p class="desc body-m">Reach out to us through any of our contact channels or visit our office.</p>
-                          
+
                             <div class="icon-main">
                                 <div class="icon-otr-2">
                                     <div class="icon-inr">
@@ -712,8 +712,8 @@
 <!--=======================================
           Contact End Here
 ========================================-->
-            
-                 
+
+
         </div>
         <!-- ##### Contact Area End ##### -->
 
@@ -726,14 +726,14 @@
                     <div class="single" id="mc_embed_signup_scroll">
                         <label for="mce-EMAIL"><h2>Subscribe to Nifty Row</h2></label>
                         <div class="input-group">
-                   
+
                             <input type="email" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Enter your email" required>
                             <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_8dfd1d931f2b0f3e33e53978a_22882c8fde" tabindex="-1" value=""></div>
                             <span class="input-group-btn">
                             <button name="subscribe" id="mc-embedded-subscribe" class="btn btn-theme" type="submit">Subscribe</button>
                             </span>
-                   
-                     
+
+
                         </div>
                     </div>
                 </form>
@@ -748,5 +748,5 @@
 
 
 
-    
+
 </body>

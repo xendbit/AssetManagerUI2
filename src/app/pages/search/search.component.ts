@@ -15,7 +15,7 @@ export class SearchPageComponent implements OnInit {
   artworks: IArtwork [];
   redirect: string | null = window.history.state.redirect;
   constructor(
-    public router: Router, 
+    public router: Router,
     public userActions: UserActionsService,
     private ngxService: NgxUiLoaderService,
     private mainService: MainService) { }
@@ -35,7 +35,7 @@ export class SearchPageComponent implements OnInit {
       this.mainService.returnArtwork().subscribe((data: IArtwork []) => {
         if (this.searchedWord !== '') {
           this.ngxService.stop();
-          this.artworks = data.filter((res: any) => res.symbol.toLowerCase().includes(this.searchedWord));
+          this.artworks = data.filter((res: any) => res.symbol.toLowerCase().includes(this.searchedWord.toLowerCase()));
         } else if (this.searchedWord === '') {
           this.ngxService.stop();
           this.router.navigate([this.redirect || '/'])

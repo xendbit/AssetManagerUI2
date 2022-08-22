@@ -7,7 +7,7 @@
         <div class="container-fluid">
              <div class="navbar-inr">
                 <div class="logo-otr">
-                    <a href="./" class="logo-inr">
+                    <a routerLink="/" class="logo-inr">
                         <img  class="logo" src="{{headerData.logoPath}}">
                     </a>
                 </div>
@@ -122,8 +122,8 @@
                     </p-overlayPanel>
 
                     <a routerLink= "/{{buttonsData.create.path}}" class="btn-fill btn-create">{{buttonsData.create.title}}</a>
-                    <a *ngIf="!accountFound" (click)="op.toggle($event)" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
-                    <a *ngIf="accountFound && userWallet !== 'fiat'" (click)="op.toggle($event)" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
+                    <a *ngIf="!accountFound" (click)="toggleConnect()" class="btn-outline1 btn-wallet">{{buttonsData.wallet.title}}</a>
+                    <a *ngIf="accountFound && userWallet !== 'fiat'" (click)="toggleConnect()" class="btn-outline1 btn-wallet"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                     <!-- <a *ngIf="!accountFound" (click)="this.displayStatus.emit(display = !display);" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> Login </a>
                     <a *ngIf="accountFound && userWallet === 'fiat'" (click)="toggleLogin()" class="btn-outline1 btn-wallet" style="margin-left: 1rem;"> {{username}} </a> -->
                 </div>
@@ -243,6 +243,79 @@
             </div>
         </div>
     </div>
+
+    <p-dialog  styleClass="modalHeader"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+    position="top-right"
+    [modal]="true" [baseZIndex]="10000"
+    (onHide)="displayConnect === false"
+    [(visible)]="displayConnect">
+      <div class="action-otr">
+        <div class="connection">
+          <div class="container" style="margin-top: 1rem;">
+            <div class="col-head-otr" *ngIf="!accountFound">
+              <h6 style="font-size: 16px; line-height: 26px; text-align: center; margin-bottom: 1rem;" class="connect-heading heading-h6">Connect</h6>
+            </div>
+            <div class="col-head-otr" *ngIf="accountFound">
+                <h6 style="font-size: 16px; line-height: 26px; text-align: center; margin-bottom: 1rem;" class="connect-heading heading-h6">Disconnect</h6>
+            </div>
+
+            <span class="line"></span>
+            <div class="col-connect-otr">
+              <div class="col-connect-inr">
+                <!-- <p class="desc"  *ngIf="accountFound">
+                    Click to disconnect your wallet.
+                </p> -->
+                <div class="row row-boxes" *ngIf="!accountFound">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" id="metamask" (click)="connectToMetamask()">
+                      <a class="box-inr box-2" >
+                          <div class="icon-otr">
+                              <img class="icon" style="height: 48px; margin-left: 39%;" src="./assets/img/metamask.jpeg" alt="icon">
+                          </div>
+                          <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
+                      </a>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" id="walletconnect" (click)="connectToWallectConnect()">
+                    <a class="box-inr box-2" >
+                        <div class="icon-otr">
+                          <img class="icon" style="height: 120px; margin-left: 23%;" src="./assets/img/walletconnect.png" alt="walletconnect">
+                        </div>
+                        <!-- <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Connect</h5> -->
+                    </a>
+                  </div>
+                  <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="connectToMetamask()">
+                    <a class="box-inr box-2" >
+                      <div class="icon-otr">
+                        <img class="icon" style="height: 28px; margin-left: 50%;" src="../assets/img/harmony-one-logo.svg" alt="icon">
+                      </div>
+                      <h5 class="head heading-h5" style="font-family: 'DMSans-Regular'">Harmony One</h5>
+                    </a>
+                  </div> -->
+                </div>
+                <div class="row row-boxes" *ngIf="accountFound">
+                  <div *ngIf="accountFound && userWallet === 'Metamask'" id="disconnectMetamask" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)="disconnectFromMetamask()">
+                      <a class="box-inr box-2" >
+                          <div class="icon-otr">
+                              <img class="icon" style="height: 28px; margin-left: 39%;" src="./assets/img/metamask.jpeg" alt="icon">
+                          </div>
+                          <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
+                      </a>
+                  </div>
+                  <div *ngIf="accountFound && userWallet === 'WalletConnect'" id="disconnectWalletConnect" class="col-lg-12 col-md-12 col-sm-12 col-box-otr" (click)=" disconnectFromWalletConnect()">
+                    <a class="box-inr box-2" >
+                        <div class="icon-otr">
+                          <img class="icon" style="height: 88px; margin-left: 20%;" src="./assets/img/walletconnect.png" alt="walletconnect">
+                        </div>
+                        <!-- <h5 class="head heading-h5" style="text-align: center;">Disconnect</h5> -->
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-dialog>
 
 <!--=======================================
           Navbar End Here

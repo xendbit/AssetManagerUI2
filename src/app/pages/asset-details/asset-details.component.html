@@ -242,10 +242,10 @@
 
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
-                                                      <div *ngIf="auction.bids.length <= 0 && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
+                                                      <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'digital' || auction.bids.length === 'undefined' && artwork.assetType === 'digital'" class="input-otr-2" style="flex: 1">
                                                           <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})"  type="number" id="amount" name="amount"required>
                                                       </div>
-                                                      <div *ngIf="auction.bids.length <= 0 && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
+                                                      <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'physical' || auction.bids.length === 'undefined' && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input mb-5" style="width: 100%;
                                                         font-size: 20px;
                                                         text-align: left; border-radius: 8px;
@@ -418,11 +418,11 @@
                               <div class="col-lg-6 col-right-otr" id="panel">
                                   <p-panel class="heading-h4 activity-head"  styleClass="ark-panel" header="Asset Details" [toggleable]="true">
                                       <div class="row" *ngIf="contractAddress">
-                                          <div class="col-lg-6 col-right-otr">
+                                          <div class="col-lg-4 col-right-otr">
                                               <span id="contractAddress" class="bid">Issuing Contract Address:</span>
                                           </div>
                                           <div class="col-lg-6 col-right-otr">
-                                              <a id="ownerUserName" class="user"> {{contractAddress.substring(0, 4) + 'xxxxx' + contractAddress.slice(contractAddress.length - 4)}} </a>
+                                              <a id="ownerUserName" style="color: black; position: relative;" class="user"> {{contractAddress}} </a>
                                           </div>
                                       </div>
                                       <div class="row">
