@@ -25,8 +25,7 @@ export const networkChains = [ {
   rpcUrl: 'https://api.s0.b.hmny.io',
   currency: 'ONE',
   systemName: 'harmony',
-  verifyLink: 'https://explorer.testnet.harmony.one/address/',
-  contractLink: 'https://explorer.testnet.harmony.one/address/'
+  verifyLink: 'https://explorer.testnet.harmony.one/address/'
 },
 {
   name: "Binance Smart Chain Testnet",
@@ -34,8 +33,7 @@ export const networkChains = [ {
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   currency: 'BNB',
   systemName: 'bsc',
-  verifyLink: 'https://testnet.bscscan.com/token/',
-  contractLink: 'https://testnet.bscscan.com/address/'
+  verifyLink: 'https://testnet.bscscan.com/token/'
 },
 {
   name: "Binance Smart Chain Testnet",
@@ -43,8 +41,7 @@ export const networkChains = [ {
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   currency: 'BNB',
   systemName: 'bsc',
-  verifyLink: 'https://testnet.bscscan.com/token/',
-  contractLink: 'https://testnet.bscscan.com/address/'
+  verifyLink: 'https://testnet.bscscan.com/token/'
 },
 {
   name: "Polygon Testnet",
@@ -52,8 +49,7 @@ export const networkChains = [ {
   rpcUrl: 'https://rpc-mumbai.matic.today',
   currency: 'MATIC',
   systemName: 'polygon',
-  verifyLink: 'https://mumbai.polygonscan.com/token/',
-  contractLink: 'https://mumbai.polygonscan.com/address/'
+  verifyLink: 'https://mumbai.polygonscan.com/token/'
 },
 {
   name: "Aurora Testnet",
@@ -61,8 +57,7 @@ export const networkChains = [ {
   rpcUrl: 'https://testnet.aurora.dev/',
   currency: 'aETH',
   systemName: 'aurora',
-  verifyLink: 'https://aurorascan.dev/token/',
-  contractLink: 'https://aurorascan.dev/address/'
+  verifyLink: 'https://aurorascan.dev/token/'
 },
 {
   name: "Avalanche",
@@ -70,8 +65,7 @@ export const networkChains = [ {
   rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
   currency: 'AVAX',
   systemName: 'avalanche',
-  verifyLink: 'https://testnet.snowtrace.io/token/',
-  contractLink: 'https://testnet.snowtrace.io/address/'
+  verifyLink: 'https://testnet.snowtrace.io/token/'
 },
 {
 name: "Avalanche Mainnet",
@@ -79,8 +73,7 @@ chain: 43114,
 rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
 currency: 'AVAX',
 systemName: 'avalanche',
-verifyLink: 'https://testnet.snowtrace.io/token/',
-contractLink: 'https://testnet.snowtrace.io/address/'
+verifyLink: 'https://testnet.snowtrace.io/token/'
 }
 ]
 

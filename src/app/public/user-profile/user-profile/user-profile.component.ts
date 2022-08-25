@@ -71,32 +71,15 @@ export class UserProfileComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private router: Router,
     private route: ActivatedRoute,) {
-      this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
-      this.account = this.walletAddress;
-      this.mainService.loadUser(this.account, 1, 100);
   }
 
   ngOnInit(): void {
+    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
     this.ngxService.start();
+    this.account = this.walletAddress;
+    this.loadUser(this.account);
     this.getProfile();
-    this.getArtworks();
-  }
-
-  getArtworks() {
-    this.getMeta();
-    this.mainService.getUserArtworks().subscribe((res: IArtwork []) => {
-      if (res !== null) {
-        const expected = new Set();
-        this.artworks = res.filter(item => !expected.has(JSON.stringify(item)) ? expected.add(JSON.stringify(item)) : false);
-        this.categories = this.artworks.map(item => item.category)
-        .filter((value, index, self) => self.indexOf(value) === index);
-        this.ngxService.stop();
-      } else {
-        this.ngxService.stop();
-      }
-    }, err => {
-      this.ngxService.stop();
-    })
+    this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
   }
 
 
@@ -110,7 +93,7 @@ export class UserProfileComponent implements OnInit {
 
 
   getMeta() {
-    this.mainService.getUserMeta().subscribe(res => {
+    this.mainService.getOwnerMeta().subscribe(res => {
       if (res !== null) {
         this.currentPage = res.currentPage;
         this.itemCount = res.itemCount;
@@ -131,7 +114,7 @@ export class UserProfileComponent implements OnInit {
 
   loadMore(page?, count?) {
     this.currentPage = this.currentPage + 1;
-    this.mainService.loadUser(this.account, this.currentPage, this.itemCount);
+    this.mainService.fetchAssetsByOwnerId(this.account, this.currentPage, this.itemCount);
     this.getMeta();
   }
 
@@ -275,6 +258,13 @@ export class UserProfileComponent implements OnInit {
         }
       };
     }
+  }
+
+  loadUser(walletAddress) {
+    this.mainService.loadUser(walletAddress, 1, 100).subscribe((res: any) => {
+      console.log(res);
+      this.artworks = res?.data.items;
+    })
   }
 
 }

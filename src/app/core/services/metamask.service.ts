@@ -85,7 +85,7 @@ export class MetamaskService {
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.successToast(foundNetwork.name + " Your wallet is set and connected to  " + foundNetwork.systemName)
+          this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
         }
 
         window.ethereum.on('chainChanged', (chainId) => {
@@ -139,7 +139,7 @@ export class MetamaskService {
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else {
-          this.userActions.successToast(foundNetwork.name + " Your wallet is set and connected to  " + foundNetwork.systemName)
+          this.userActions.successToast("Your wallet is connected to  " + foundNetwork.name)
         }
       }
     }
