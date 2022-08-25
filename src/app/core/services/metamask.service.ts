@@ -530,7 +530,7 @@ export class MetamaskService {
   }
 
 
-  async issue(tokenId: number, assetName: any, symbol: any, account: string, physical: boolean) {
+  async issue(tokenId: number, assetName: any, symbol: any, account: string) {
     this.userWallet = localStorage.getItem('userWallet');
     let yFace = new ethers.utils.Interface(baseABI);
     // const lee = yFace.format(FormatTypes['minimal']);

@@ -35,6 +35,8 @@ export class CreateAssetsComponent implements OnInit {
   social: string = '';
   symbol: string;
   typeSelected: string;
+  physicalLength: string;
+  physicalBreadth: string;
   title: string;
   tokenId: number;
   account: string;
@@ -466,6 +468,7 @@ export class CreateAssetsComponent implements OnInit {
       let physical;
       if (this.typeSelected === 'physical') {
         physical = true;
+        this.description = this.description + ' '.repeat(10) + 'Artwork Length: ' + this.physicalLength + ' '.repeat(10) + 'Artwork Breadth: ' + this.physicalBreadth;
       } else {
         physical = false;
       }
@@ -474,7 +477,7 @@ export class CreateAssetsComponent implements OnInit {
       if (this.social !== '') {
         this.description = this.description + ' '.repeat(10) + 'Social Link: ' + this.social;
       }
-      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account, physical).then( async data => {
+      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( async data => {
         await this.metamaskService.getBlockCount(data.response).then((response: any) => {
           if (response.status === 'complete' && data.status === 'success') {
             //setTimeout(() => {
