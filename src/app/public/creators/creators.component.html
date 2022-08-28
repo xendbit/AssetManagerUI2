@@ -19,12 +19,12 @@
               <div class="col-otr">
                 <div class="col-inr">
                   <a [routerLink]="['/user-profile/', creator.walletAddress]" class="img-otr">
-                    <img *ngIf="creator.photo.coverImage !== 'imageUrl' && creator.photo.coverImage !== null " class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
-                    <img *ngIf="creator.photo.coverImage === 'imageUrl' || creator.photo.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
+                    <img *ngIf="creator.photo?.coverImage !== 'imageUrl' && creator.photo?.coverImage !== null " class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
+                    <img *ngIf="creator.photo?.coverImage === 'imageUrl' || creator.photo?.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
                   </a>
                   <div class="user-profile">
                     <a [routerLink]="['/user-profile/', creator.walletAddress]" class="user-img-otr">
-                      <img class="user-img-inr" [src]="creator.photo.displayImage" alt="creator-img">
+                      <img class="user-img-inr" [src]="creator.photo?.displayImage" alt="creator-img">
                     </a>
                     <div class="user-content">
                       <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? (creator.about | slice:0:18 + '...') : (creator.about) }}</a>
