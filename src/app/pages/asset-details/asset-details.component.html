@@ -61,16 +61,26 @@
     </div>
 
     <div  *ngIf="tokenFound === true">
-      <div class="row">
-        <div class="col-lg-1"></div>
-          <div class="col-lg-5" id="assetDetails">
+      <div class="row mx-auto">
+          <div class="col-lg-6" id="assetDetails">
               <div class="hero-single-artwork">
                   <div class="container-fluid">
 
                       <div class="hero-inr">
                           <div [ngSwitch]="artwork.category">
                               <a class="img-otr img-tilt" id="anchorMedia"   *ngSwitchDefault>
-                                  <img id="imageDisplay" class="img-artwork img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">
+<!--                                      DIGITAL ARTS-->
+<!--                                  <img id="imageDisplay" class="img-artwork img-fluid"  src="{{artwork.featuredImage.media}}" alt="artwork-img">-->
+                                <div class="flip-box">
+                                  <div class="flip-box-inner">
+                                    <div class="flip-box-front">
+                                      <img id="imageDisplay" class="img-artwork img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
+                                    </div>
+                                    <div class="flip-box-back">
+                                      <img id="imageDisplay" class="img-artwork img-fluid" src="./assets/img/no-image.jpg" alt="artwork-img">
+                                    </div>
+                                  </div>
+                                </div>
                               </a>
                               <a class="img-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
                                   <img id="audioCoverArt" class="img-artwork img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
@@ -142,7 +152,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-5">
               <div class="artwork-body">
                   <div class="container-fluid" style="padding-top: 0">
                       <div class="artwork-body-inr">
