@@ -74,12 +74,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
     this.ngxService.start();
-    this.account = this.walletAddress;
-    this.loadUser(this.account);
+    this.walletAddress = this.route.snapshot.paramMap.get('walletAddress');
+    this.mainService.loadUser(this.walletAddress, 1, 100);
+    this.loadUser();
     this.getProfile();
-    this.mainService.fetchAssetsByOwnerId(this.account, 1, 100);
   }
 
 
@@ -114,13 +113,13 @@ export class UserProfileComponent implements OnInit {
 
   loadMore(page?, count?) {
     this.currentPage = this.currentPage + 1;
-    this.mainService.fetchAssetsByOwnerId(this.account, this.currentPage, this.itemCount);
+    this.mainService.fetchAssetsByOwnerId( this.walletAddress, this.currentPage, this.itemCount);
     this.getMeta();
   }
 
   getProfile() {
     this.ngxService.start();
-    this.userActions.getUserProfile(this.account).subscribe( (res: any) => {
+    this.userActions.getUserProfile( this.walletAddress).subscribe( (res: any) => {
       this.user = res;
       if (res.username === 'My-Profile') {
         this.user.username = 'Unknown';
@@ -152,7 +151,7 @@ export class UserProfileComponent implements OnInit {
 
 
   follow(username) {
-    this.userActions.BroadcastFollowEvent("follow", 1, username, this.account).subscribe((res: any) => {
+    this.userActions.BroadcastFollowEvent("follow", 1, username,  this.walletAddress).subscribe((res: any) => {
       if (res.status === 'success') {
         this.toast.success('Successfully followed this account');
         this.getFollowerCount(username);
@@ -182,7 +181,7 @@ export class UserProfileComponent implements OnInit {
       "displayImage": this.user.displayImage,
       "coverImage": this.user.coverImage
     }
-    this.userActions.submitImages(userData, this.account).subscribe((res: any) => {
+    this.userActions.submitImages(userData,  this.walletAddress).subscribe((res: any) => {
       if (res.status === 'success') {
         this.toast.success('Display Picture updated successfully');
         this.ngxService.stop();
@@ -209,7 +208,7 @@ export class UserProfileComponent implements OnInit {
       "displayImage": this.user.displayImage,
       "coverImage": this.user.coverImage
     }
-    this.userActions.submitImages(userData, this.account).subscribe((res: any) => {
+    this.userActions.submitImages(userData,  this.walletAddress).subscribe((res: any) => {
       if (res.status === 'success') {
         this.toast.success('Cover Picture updated successfully');
         this.ngxService.stop();
@@ -260,10 +259,9 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  loadUser(walletAddress) {
-    this.mainService.loadUser(walletAddress, 1, 100).subscribe((res: any) => {
-      console.log(res);
-      this.artworks = res?.data.items;
+  loadUser() {
+    this.mainService.getUserAssets().subscribe((res: any) => {
+      this.artworks = res;
     })
   }
 
