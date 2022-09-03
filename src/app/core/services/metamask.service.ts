@@ -75,8 +75,9 @@ export class MetamaskService {
         let networkChain = parseInt(_chainId, 16);
         this.chainId = networkChain;
         localStorage.setItem('networkChain', networkChain.toString())
-        const foundNetwork = networkChains.find((res: any) => res.chain === networkChain)
-        const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+        const foundNetwork = networkChains.find((res: any) => res.chain === networkChain);
+        const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
+        console.log('found:', localStorage.getItem('account') !== null)
         if (foundNetwork === undefined) {
           this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
@@ -84,7 +85,7 @@ export class MetamaskService {
           this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
-        } else {
+        } else if (foundNetwork && localStorage.getItem('account') === null) {
           this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
         }
 
@@ -107,6 +108,9 @@ export class MetamaskService {
         });
 
         this.chainId = parseInt(localStorage.getItem('currentChainId'));
+        localStorage.setItem('networkChain', this.chainId.toString())
+        const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
+        const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
         this.connector.on("session_update", (error, payload) => {
           if (error) {
             throw error;
@@ -116,7 +120,7 @@ export class MetamaskService {
           const { accounts, chainId } = payload.params[0];
           console.log('acc', accounts)
           this.chainId = chainId;
-          if (this.chainId === 1666700000 || this.chainId === 97 || this.chainId === 80001 || this.chainId === 1313161555 || this.chainId === 43113 ) {
+          if (foundNetwork !== undefined) {
           } else {
             this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
           }
@@ -129,9 +133,7 @@ export class MetamaskService {
           this.disconnectFromWalletConnect();
         })
 
-        localStorage.setItem('networkChain', this.chainId.toString())
-        const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
-        const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+
         if (foundNetwork === undefined) {
           this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
         } else if (foundNetwork && systemChain.name !== foundNetwork.name) {

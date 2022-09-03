@@ -58,6 +58,14 @@ export const networkChains = [ {
   verifyLink: 'https://mumbai.polygonscan.com/token/'
 },
 {
+  name: "Polygon",
+  chain: 137,
+  rpcUrl: 'https://rpc-mainnet.matic.network ',
+  currency: 'MATIC',
+  systemName: 'polygon',
+  verifyLink: 'https://polygonscan.com/token/'
+},
+{
   name: "Aurora Testnet",
   chain: 1313161555,
   rpcUrl: 'https://testnet.aurora.dev/',
