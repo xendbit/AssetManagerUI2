@@ -39,7 +39,8 @@
                 },
                 "featuredImage": {
                     "media": "./assets/img/nifty_slider1.jpg",
-                    "mediaType": 0
+                  "mediaSub": "./assets/img/m-slider-1.png",
+                  "mediaType": 0
                 },
                 "isBidding": true,
                 "gallery": [{
@@ -54,7 +55,6 @@
             },
             "type": "Auction"
         },
-
         {
             "auctionId": "121266",
             "cancelled": false,
@@ -92,7 +92,8 @@
                 },
                 "featuredImage": {
                     "media": "./assets/img/slider3.png",
-                    "mediaType": 0
+                  "mediaSub": "./assets/img/m-slider-3.png",
+                  "mediaType": 0
                 },
                 "isBidding": true,
                 "gallery": [{
@@ -144,6 +145,7 @@
                 },
                 "featuredImage": {
                     "media": "./assets/img/nifty_slider2.jpg",
+                    "mediaSub": "./assets/img/m-slider-2.png",
                     "mediaType": 0
                 },
                 "isBidding": true,

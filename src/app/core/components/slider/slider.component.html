@@ -8,7 +8,8 @@
             [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
             [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [autoPlay]="true" [circular]="true">
                 <ng-template pTemplate="item" let-item>
-                    <img rel="preload" [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 600px; object-fit: cover;" />
+                    <img class="slider-main" rel="preload" [src]="item.artwork.featuredImage.media" style="width: 100%; display: block; height: 600px; object-fit: cover;" />
+                    <img class="slider-sub" rel="preload" [src]="item.artwork.featuredImage.mediaSub" style="width: 100%; display: none; height: 600px; object-fit: cover;" />
                 </ng-template>
 
                 <ng-template pTemplate="caption" let-item style="height: 16rem;">

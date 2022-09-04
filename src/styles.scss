@@ -438,6 +438,13 @@ html {
       max-width: 100%;
       margin: 0;
     }
+
+    .slider-main {
+      display: none !important;
+    }
+    .slider-sub {
+      display: block !important;
+    }
   }
 
   @media (max-width: 767px) {
