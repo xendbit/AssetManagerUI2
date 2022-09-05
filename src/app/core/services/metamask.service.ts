@@ -77,7 +77,6 @@ export class MetamaskService {
         localStorage.setItem('networkChain', networkChain.toString())
         const foundNetwork = networkChains.find((res: any) => res.chain === networkChain);
         const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
-        console.log('found:', localStorage.getItem('account') !== null)
         if (foundNetwork === undefined) {
           this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
