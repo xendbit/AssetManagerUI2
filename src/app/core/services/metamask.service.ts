@@ -75,16 +75,16 @@ export class MetamaskService {
         let networkChain = parseInt(_chainId, 16);
         this.chainId = networkChain;
         localStorage.setItem('networkChain', networkChain.toString())
-        const foundNetwork = networkChains.find((res: any) => res.chain === networkChain);
+        const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId);
         const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
+          this.userActions.errorToast("Your metamask wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
         } else if (systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
-        } else if (foundNetwork && localStorage.getItem('account') === null) {
+        } else if (foundNetwork) {
           this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
         }
 
@@ -121,7 +121,7 @@ export class MetamaskService {
           this.chainId = chainId;
           if (foundNetwork !== undefined) {
           } else {
-            this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
+            this.userActions.errorToast("Your walletConnect wallet is currently set to an unsupported blockchain network ")
           }
           window.location.reload();
         });
@@ -134,7 +134,7 @@ export class MetamaskService {
 
 
         if (foundNetwork === undefined) {
-          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
+          this.userActions.errorToast("Your wallet walletConnect wallet is currently set to an unsupported blockchain network ")
         } else if (foundNetwork && systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
         } else if (foundNetwork && this.chainId !== foundNetwork.chain) {

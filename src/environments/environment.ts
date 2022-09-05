@@ -26,8 +26,8 @@ export const environment: AppEnvironment = {
 
 
 export const networkChains = [ {
-  name: 'Harmony Testnet',
-  chain: 1666700000,
+  name: 'Harmony',
+  chain: 1666600000,
   rpcUrl: 'https://api.s0.b.hmny.io',
   currency: 'ONE',
   systemName: 'harmony',
