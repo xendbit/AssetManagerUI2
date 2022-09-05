@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'all-galleries', loadChildren: () => import('./all-galleries/all-galleries.module').then(m => m.AllGalleriesModule)},
   { path: 'all-collectors', loadChildren: () => import('./all-collectors/all-collectors.module').then(m => m.AllCollectorsModule)},
   { path: 'user-profile/:walletAddress', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule)},
+  { path: 'refund-policy', loadChildren: () => import('./refund-policy/refund-policy.module').then(m => m.RefundPolicyModule)},
 ];
 
 @NgModule({

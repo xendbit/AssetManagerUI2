@@ -650,6 +650,7 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
     return this.httpClient.get<any[]>(`${environment.baseApiUrl}list-tokens/by-owner/${walletAddress}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+      this.userDataStore = { userArtworks: [] };
       res['data']['items'].forEach((item) => this.userDataStore.userArtworks.push({
         id: item.id,
         category: item.category,
