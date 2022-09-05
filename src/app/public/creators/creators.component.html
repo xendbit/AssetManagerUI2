@@ -18,15 +18,16 @@
             <div class="owl-item active" style="width: 294.25px; margin-right: 24px;">
               <div class="col-otr">
                 <div class="col-inr">
-                  <a href="../pages/Single-Artwork.html" class="img-otr">
-                    <img class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
+                  <a [routerLink]="['/user-profile/', creator.walletAddress]" class="img-otr">
+                    <img *ngIf="creator.photo?.coverImage !== 'imageUrl' && creator.photo?.coverImage !== null " class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
+                    <img *ngIf="creator.photo?.coverImage === 'imageUrl' || creator.photo?.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
                   </a>
                   <div class="user-profile">
-                    <a href="../pages/Single-Creator.html" class="user-img-otr">
-                      <img class="user-img-inr" [src]="creator.photo.displayImage" alt="creator-img">
+                    <a [routerLink]="['/user-profile/', creator.walletAddress]" class="user-img-otr">
+                      <img class="user-img-inr" [src]="creator.photo?.displayImage" alt="creator-img">
                     </a>
                     <div class="user-content">
-                      <a href="../pages/Single-Creator.html" class="title body-mb">Wow! That Brain is Floating</a>
+                      <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? (creator.about | slice:0:18 + '...') : (creator.about) }}</a>
                       <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username}}</a></p>
                     </div>
                   </div>
@@ -39,7 +40,7 @@
       </div>
       <div class="responsive">
         <a routerLink="/all-creators" class="view-all">
-          <p class="View-p body-sb">View All Creators</p>
+          <p class="View-p body-sb">View All Creators </p>
           <svg class="arrow-icon" width="18" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8h16M10.455 1.455L17 8l-6.545 6.545" stroke="#366CE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </a>
       </div>

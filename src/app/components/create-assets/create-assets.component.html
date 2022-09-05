@@ -246,22 +246,26 @@
                         name="social" [(ngModel)]="social" placeholder="Social Media Link e.g. “ https://www.twitter.com/niftyrow”" required></textarea>
                       </div>
 
-                      <div class="input-main">
-                        <div class="input-otr-2">
-                            <input class="input" [(ngModel)]="symbol" type="text" id="symbol" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
-                        </div>
-                        <div class="input-otr-2">
-                            <input disabled class="input" type="text" name="text" placeholder="Asset Tag (coming soon) " required>
-                        </div>
+                      <div class="input-otr">
+                        <input class="input" [(ngModel)]="symbol" type="text" id="symbol" name="symbol" placeholder="Asset Symbol e.g. FNR" required>
                       </div>
 
-                      <div class="row" style="margin-bottom: 20px;">
+                      <div class="row">
                         <h4 class="head-2 heading-h4">Properties</h4>
                         <div class="col-xs-4 col-sm-4 col-md-4" *ngFor="let item of assetTypes;">
                           <label>
                             <input id="assetType" [value]="item.name" (change)="getAssetType(item.value)" type="radio" name="radio"/>
                             <span>{{item.name}}</span>
                           </label>
+                        </div>
+                      </div>
+
+                       <div *ngIf="typeSelected === 'physical'" class="input-main" style="margin-bottom: 20px; margin-top: 10px;">
+                        <div class="input-otr-2">
+                            <input class="input" [(ngModel)]="physicalLength" type="text" id="physicalLength" name="physicalLength" placeholder="Length of physical artwork, eg: 20cm" required>
+                        </div>
+                        <div class="input-otr-2">
+                            <input class="input" [(ngModel)]="physicalBreadth" type="text" name="physicalBreadth" id="physicalBreadth" placeholder="Length of physical artwork, eg: 20cm" required>
                         </div>
                       </div>
 

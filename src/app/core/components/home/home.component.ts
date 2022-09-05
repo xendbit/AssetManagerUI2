@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     }
   ];
   constructor(public mainService: MainService,
-     public auctionService: AuctionService, 
+     public auctionService: AuctionService,
      private ngxService: NgxUiLoaderService) { }
 
   ngOnInit() {

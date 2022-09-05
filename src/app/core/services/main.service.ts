@@ -33,9 +33,12 @@ export class MainService {
   private subjectNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
   private subjectOwnerNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
   private subjectOwnerNFT = new BehaviorSubject<IArtwork []>(null);
+  private subjectUserNFT = new BehaviorSubject<IArtwork []>(null);
+  private subjectUserNftMeta: BehaviorSubject<meta> = new BehaviorSubject<meta>(null);
   private subjectBlogPost: BehaviorSubject<IBlogGroup> = new BehaviorSubject<IBlogGroup>(null);
   private dataStore: { artworks: IArtwork[] } = { artworks: [] }; // store our data in memory
   private ownerDataStore: { ownerArtworks: IArtwork[] } = { ownerArtworks: [] }; // store our data in memory
+  private userDataStore: { userArtworks: IArtwork[] } = { userArtworks: [] }; // store our data in memory
   presentationResponse: IPresentation;
   dropsResponse: IPresentation;
   buttonsResponse: INavButton;
@@ -299,6 +302,10 @@ export class MainService {
      return this.subjectOwnerNFT;
   }
 
+  getUserAssets() {
+    return this.subjectUserNFT;
+  }
+
   toggleApproved(tokenId: number) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
@@ -344,6 +351,10 @@ export class MainService {
 
   getOwnerMeta() {
     return this.subjectOwnerNftMeta;
+  }
+
+  getUserMeta() {
+    return this.subjectUserNftMeta;
   }
 
   returnArtwork() {
@@ -635,14 +646,65 @@ export class MainService {
     headers = headers.append('api-key', niftyKey);
     headers = headers.append('chain', this.chain);
     return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
-    // .baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}
-  //     .subscribe((response: any) => {
-  //       if (response.valid) {
-  //         console.log(response);
-  //       }
-  //     }, err => {
-  //       console.log(err);
-  //     });
+  }
+
+  loadUser(walletAddress: string, page:number, limit: number) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    return this.httpClient.get<any[]>(`${environment.baseApiUrl}list-tokens/by-owner/${walletAddress}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
+      this.userDataStore = { userArtworks: [] };
+      res['data']['items'].forEach((item) => this.userDataStore.userArtworks.push({
+        id: item.id,
+        category: item.category,
+        tags: item.tags,
+        auctions: item.auctions,
+        owner: {
+          id: item.id,
+          image: item.media[0].media || './assets/img/nifty_profile.png',
+          username: item.owner
+        },
+        creator: {
+          id: item.id,
+          image: item.media[0].media || './assets/img/nifty_profile.png',
+          username: item.issuer,
+          type: item.type
+        },
+        featuredImage: {
+          media: item.media[0].media || './assets/img/nifty_profile.png',
+          mediaType: 0
+        },
+        isBidding: item.hasActiveAuction,
+        gallery: item.media,
+        description: item.description,
+        price: 0,
+        chain: item.chain,
+        currency: item.currency,
+        likes: item.likes || [],
+        hasActiveAuction: item.hasActiveAuction,
+        isApproved: item.isApproved,
+        isInAuction: item.isInAuction,
+        isInSale: item.isInSale,
+        lastAuctionId: item.lastAuctionId,
+        symbol: item.symbol,
+        name: item.name,
+        tokenId: parseInt(item.tokenId),
+        dateIssued: new Date(parseInt(item.dateIssued)*1000),
+        sold: item.sold,
+        assetType: item.assetType,
+        type: item.type
+    }
+    ));
+      this.subjectUserNftMeta.next(res['data']['meta']);
+      // this.subjectOwnerNFT.next(Object.assign({}, this.ownerDataStore).ownerArtworks);
+    })).subscribe(data => {
+      this.subjectUserNFT.next(Object.assign({}, this.userDataStore).userArtworks);
+
+    },err => {
+      console.log('err', err)
+      this.subjectUserNFT.next(artWorkJson['default']);
+    })
   }
 
 }

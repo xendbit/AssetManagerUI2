@@ -384,10 +384,15 @@ export class AssetDetailsComponent implements OnInit {
                       this.visible = true;
                     }
                     this.ngxService.stop();
-                    this.router.navigate(['/profile']).then(() => {
-                      this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-                      window.location.reload();
-                    });
+                    if (this.artwork.assetType === 'physical') {
+                      this.goToCheckout();
+                    } else {
+                      this.router.navigate(['/profile']).then(() => {
+                        this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+                        window.location.reload();
+                      });
+                    }
+                    
                   } else {
                     this.toast.success('There has been an error, please try again.');
                     this.getSingleArtworkDetails();
@@ -399,7 +404,7 @@ export class AssetDetailsComponent implements OnInit {
                   this.ngxService.stop();
                   this.toast.success('There has been an error, please try again.');
                   return;
-                })  
+                })
               }
             }, err => {
               this.ngxService.stop();
@@ -423,13 +428,15 @@ export class AssetDetailsComponent implements OnInit {
   async startAuction(auction: NgForm, tokenId) {
     let minBid;
     let sell;
-    if (this.artwork.assetType === 'physical') {
-      minBid = auction.value.sellNowPrice;
-      sell =  auction.value.sellNowPrice;
-    } else {
-      minBid = auction.value.minimumPrice;
-      sell =  auction.value.sellNowPrice;
-    }
+    minBid = auction.value.minimumPrice;
+    sell =  auction.value.sellNowPrice;
+    // if (this.artwork.assetType === 'physical') {
+    //   minBid = auction.value.sellNowPrice;
+    //   sell =  auction.value.sellNowPrice;
+    // } else {
+    //   minBid = auction.value.minimumPrice;
+    //   sell =  auction.value.sellNowPrice;
+    // }
 
     if (+minBid === 0) {
       this.toast.error('Please enter a minimum bid price greater than 0')
@@ -456,19 +463,19 @@ export class AssetDetailsComponent implements OnInit {
       var rndNo: number = Math.round((Math.random() * 1000000)) + 1;
       this.auctionId = rndNo;
 
-      if (this.artwork.assetType === 'physical') {
-        await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
-          if (res.status === 'success') {
-            console.log('physical', res)
-          } else {
-            this.ngxService.stop()
-          }
-        }, err => {
-          console.log('err', err)
-          this.ngxService.stop()
-        })
-      }
-      if (this.artwork.assetType === 'digital') {
+      // if (this.artwork.assetType === 'physical') {
+      //   await this.metamaskService.sellNow(this.artwork.tokenId, sell).then((res: any) => {
+      //     if (res.status === 'success') {
+      //       console.log('physical', res)
+      //     } else {
+      //       this.ngxService.stop()
+      //     }
+      //   }, err => {
+      //     console.log('err', err)
+      //     this.ngxService.stop()
+      //   })
+      // }
+      if (this.artwork.assetType) {
         await this.metamaskService.startAuction(this.artwork.tokenId, this.auctionId, startBlock, endBlock, this.currentBlock, sellNow, minimumPrice).then( (res: any) => {
           setTimeout(async () => {
             console.log('code', res)
@@ -493,7 +500,7 @@ export class AssetDetailsComponent implements OnInit {
                       this.ngxService.stop();
                       this.toast.error('There has been an error while trying to start this auction, please try again.')
                     }
-      
+
                   }, err =>  {
                     this.ngxService.stop();
                     this.toast.error('There has been an error while trying to start this auction, please try again.')
@@ -518,7 +525,11 @@ export class AssetDetailsComponent implements OnInit {
   withdraw() {
     this.ngxService.start();
     this.metamaskService.withdraw(this.artwork.tokenId, this.artwork.lastAuctionId).then( res => {
-      console.log('this is res', res);
+      this.auctionService.changeTokenOwnership(this.artwork.tokenId).subscribe(tokenOwnerResponse => {
+        // console.log('res', tokenOwnerResponse)
+      }, err => {
+        console.log('err', err)
+      })
       this.ngxService.stop();
     }, err => {
       this.ngxService.stop();

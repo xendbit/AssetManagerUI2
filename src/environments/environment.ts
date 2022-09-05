@@ -16,7 +16,7 @@ export const environment: AppEnvironment = {
   production: true,
   headers: headers,
   baseApiUrl: 'https://app.niftyrow.io/api/yasuke/',
-  extraUrl: 'https://www.niftyrow.com/yasuke-server/',
+  extraUrl: 'https://app.niftyrow.io/yasuke-server/',
   icoUrl: 'https://app.niftyrow.io/api/ico/whitelist/',
   security: {
     allowedOrigins: 'https://www.niftyrow.com/'
@@ -56,6 +56,14 @@ export const networkChains = [ {
   currency: 'MATIC',
   systemName: 'polygon',
   verifyLink: 'https://mumbai.polygonscan.com/token/'
+},
+{
+  name: "Polygon",
+  chain: 137,
+  rpcUrl: 'https://rpc-mainnet.matic.network ',
+  currency: 'MATIC',
+  systemName: 'polygon',
+  verifyLink: 'https://polygonscan.com/token/'
 },
 {
   name: "Aurora Testnet",

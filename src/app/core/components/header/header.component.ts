@@ -1,12 +1,9 @@
-import {HttpClient} from '@angular/common/http';
 import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import {DarkModeService} from 'angular-dark-mode';
 import { MainService } from '../../services/main.service';
-import { AppController } from '../../../app.controller';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
-import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 
 declare var $: any;
 
@@ -28,6 +25,7 @@ export class HeaderComponent implements OnInit {
   userWallet: any;
   display: boolean = true;
   displaySidebar: boolean = false;
+  displayConnect: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
   username: string = '';
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
@@ -69,6 +67,10 @@ export class HeaderComponent implements OnInit {
     if (this.display && this.displaySidebar) {
       this.displaySidebar = false;
     }
+  }
+
+  toggleConnect() {
+    this.displayConnect = true;
   }
 
   logOutFiat() {

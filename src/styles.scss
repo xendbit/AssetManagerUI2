@@ -13,6 +13,7 @@ html {
 
 :root {
   user-select: none;
+  overflow-x: hidden;
 }
 
 .p-carousel-items-content {
@@ -436,6 +437,13 @@ html {
     .connect-wallet-main .modal .modal-dialog {
       max-width: 100%;
       margin: 0;
+    }
+
+    .slider-main {
+      display: none !important;
+    }
+    .slider-sub {
+      display: block !important;
     }
   }
 
