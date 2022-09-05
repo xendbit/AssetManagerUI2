@@ -112,7 +112,7 @@ export class AssetDetailsComponent implements OnInit {
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       if (environment.production) {
-        networkChain === 1666600000 //defaults to bsc
+        networkChain === 1666600000 //defaults to harmony
       } else {
         networkChain === 1666700000 //defaults to harmony
       }
@@ -392,7 +392,7 @@ export class AssetDetailsComponent implements OnInit {
                         window.location.reload();
                       });
                     }
-                    
+
                   } else {
                     this.toast.success('There has been an error, please try again.');
                     this.getSingleArtworkDetails();
