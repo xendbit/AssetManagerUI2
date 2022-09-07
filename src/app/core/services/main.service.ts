@@ -353,6 +353,10 @@ export class MainService {
     return this.subjectOwnerNftMeta;
   }
 
+  getUserMeta() {
+    return this.subjectUserNftMeta;
+  }
+
   returnArtwork() {
     return this.subjectNftCard;
   }

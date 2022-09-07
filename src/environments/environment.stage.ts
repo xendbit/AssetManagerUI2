@@ -40,7 +40,7 @@ export const networkChains = [ {
   verifyLink: 'https://testnet.bscscan.com/token/'
 },
 {
-  name: "Binance Smart Chain Testnet",
+  name: "Binance Smart Chain",
   chain: 56,
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   currency: 'BNB',

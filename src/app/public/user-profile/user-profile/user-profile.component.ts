@@ -12,8 +12,6 @@ import {HotToastService} from "@ngneat/hot-toast";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-var randomWords = require('random-words');
-
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -92,7 +90,7 @@ export class UserProfileComponent implements OnInit {
 
 
   getMeta() {
-    this.mainService.getOwnerMeta().subscribe(res => {
+    this.mainService.getUserMeta().subscribe(res => {
       if (res !== null) {
         this.currentPage = res.currentPage;
         this.itemCount = res.itemCount;
@@ -113,7 +111,7 @@ export class UserProfileComponent implements OnInit {
 
   loadMore(page?, count?) {
     this.currentPage = this.currentPage + 1;
-    this.mainService.fetchAssetsByOwnerId( this.walletAddress, this.currentPage, this.itemCount);
+    this.mainService.loadUser( this.walletAddress, this.currentPage, this.itemCount);
     this.getMeta();
   }
 
@@ -168,95 +166,6 @@ export class UserProfileComponent implements OnInit {
   copyMessage(val){
     this.clipboard.copy(val);
     this.toast.success('Copied to clipboard!')
-  }
-
-  uploadDisplayPicture() {
-    this.displayImage = this.image;
-    this.user.displayImage = this.displayImage;
-    this.ngxService.start();
-    if (this.user.coverImage === './assets/img/profile_holder.jpg') {
-      this.user.coverImage = '11111111111'
-    }
-    let userData = {
-      "displayImage": this.user.displayImage,
-      "coverImage": this.user.coverImage
-    }
-    this.userActions.submitImages(userData,  this.walletAddress).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.toast.success('Display Picture updated successfully');
-        this.ngxService.stop();
-      } else {
-        this.toast.error('There was an error while updating your display picture, please try again later.')
-        this.ngxService.stop()
-      }
-    }, err => {
-      console.log('err', err)
-      this.toast.error('There was an error while updating your display picture, please try again later.')
-      this.ngxService.stop();
-    })
-    this.showProfileUpload = false;
-  }
-
-  uploadCoverPicture() {
-    this.coverImage = this.image;
-    this.user.coverImage = this.coverImage;
-    this.ngxService.start();
-    if (this.user.displayImage === './assets/img/nifty_profile.png') {
-      this.user.displayImage = '11111111111';
-    }
-    let userData = {
-      "displayImage": this.user.displayImage,
-      "coverImage": this.user.coverImage
-    }
-    this.userActions.submitImages(userData,  this.walletAddress).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.toast.success('Cover Picture updated successfully');
-        this.ngxService.stop();
-      } else {
-        this.toast.error('There was an error while updating your cover picture, please try again later.')
-        this.ngxService.stop()
-      }
-    }, err => {
-      console.log('err', err)
-      this.toast.error('There was an error while updating your cover picture, please try again later.')
-      this.ngxService.stop();
-    })
-    this.showCoverUpload = false;
-  }
-
-  clickedDisplayImage() {
-    this.showProfileUpload = true;
-  }
-
-  clickedCoverImage() {
-    this.showCoverUpload = true;
-  }
-
-  check(event: any) {
-    const file = event.target.files[0]
-    this.selectedFile = file;
-    this.errorMessage = '';
-    this.fileSize = file.size / 1024 / 1024;
-    if (this.fileSize > 10) {
-      this.errorMessage = 'Please Make sure that the file selected is not bigger than 10MB';
-      this.toast.error('Please Make sure that the file selected is not bigger than 10MB')
-      return;
-    } else {
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      if ( /\.(jpe?g|gif|png)$/i.test(file.name) === false  ) {
-        this.errorMessage = 'Please select a file type of JPEG, GIF, PNG';
-        this.toast.error('Please select a file type of JPEG, GIF, PNG')
-        return;
-      } else {
-        if (/\.(jpe?g|gif|png)$/i.test(file.name) === true  ) {
-          this.preview = file;
-          reader.onload = (event: any) => {
-            this.image = event.target.result;
-          }
-        }
-      };
-    }
   }
 
   loadUser() {
