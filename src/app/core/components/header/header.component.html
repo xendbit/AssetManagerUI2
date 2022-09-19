@@ -8,7 +8,7 @@
              <div class="navbar-inr">
                 <div class="logo-otr">
                     <a routerLink="/" class="logo-inr">
-                        <img  class="logo" src="{{headerData.logoPath}}">
+                        <img  class="logo" src="{{headerData.logoPath}}"> <img *ngIf="activeChain !== ''" class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt="">
                     </a>
                 </div>
                 <!-- <div class="head-otr" >
@@ -31,10 +31,11 @@
                           <a routerLink= "/profile" class="nav-a body-sb" routerLinkActive="active"> Profile </a>
                         </li>
                         <li class="nav-li">
-                          <div style="display: flex;">
+                          <span class="nav-a body-sb" >Blockchains</span>
+                          <!-- <div style="display: flex;">
                             <span *ngIf="activeChain === ''" class="nav-a body-sb" >Blockchains</span>
                             <span *ngIf="activeChain !== ''" class="nav-a body-sb"> Blockchain <img class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </span>
-                          </div>
+                          </div> -->
 
                             <ul class="dropdown-otr">
                                 <li class="dropdown-li" >
