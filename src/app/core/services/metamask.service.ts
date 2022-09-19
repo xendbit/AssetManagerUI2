@@ -185,13 +185,26 @@ export class MetamaskService {
           params: [{
               eth_accounts: {}
           }]
-      }).then(() => {
+      }).then(async () => {
         this.provider.request({
           method: 'eth_requestAccounts',
       })
       this.walletAddress = this.provider.selectedAddress;
       localStorage.setItem('account', this.provider.selectedAddress);
       localStorage.setItem('userWallet', 'Metamask');
+      if (environment.production) {
+        const trial = Number(1666600000).toString(16);
+        await this.provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x'+ trial}],
+       })
+      } else {
+        const trial = Number(1666600000).toString(16);
+        await this.provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x'+ trial}],
+       })
+      }
       return {
         account: this.walletAddress
       }
