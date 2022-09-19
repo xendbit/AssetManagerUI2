@@ -28,11 +28,13 @@ export class HeaderComponent implements OnInit {
   displayConnect: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
   username: string = '';
+  activeChain: string = ''; //
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
     this.userWallet = localStorage.getItem('userWallet');
+    this.activeChain = localStorage.getItem('currentChain');
     if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         this.metamaskService.checkConnection().then(res => {
