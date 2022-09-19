@@ -28,6 +28,14 @@ export const networkChains = [ {
   verifyLink: 'https://explorer.testnet.harmony.one/address/'
 },
 {
+  name: 'Harmony',
+  chain: 1666600000,
+  rpcUrl: 'https://api.harmony.one',
+  currency: 'ONE',
+  systemName: 'harmony',
+  verifyLink: 'https://explorer.harmony.one/address/'
+},
+{
   name: "Binance Smart Chain Testnet",
   chain: 97,
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
