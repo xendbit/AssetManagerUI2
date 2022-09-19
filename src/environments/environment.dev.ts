@@ -24,7 +24,7 @@ export const networkChains = [ {
   chain: 1666700000,
   rpcUrl: 'https://api.s0.b.hmny.io',
   currency: 'ONE',
-  systemName: 'harmony',
+  systemName: 'harmony testnet',
   verifyLink: 'https://explorer.testnet.harmony.one/address/'
 },
 {
@@ -32,7 +32,7 @@ export const networkChains = [ {
   chain: 97,
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   currency: 'BNB',
-  systemName: 'bsc',
+  systemName: 'bsc testnet',
   verifyLink: 'https://testnet.bscscan.com/token/'
 },
 {
@@ -48,7 +48,7 @@ export const networkChains = [ {
   chain: 80001,
   rpcUrl: 'https://rpc-mumbai.matic.today',
   currency: 'MATIC',
-  systemName: 'polygon',
+  systemName: 'polygon testnet',
   verifyLink: 'https://mumbai.polygonscan.com/token/'
 },
 {
@@ -64,6 +64,14 @@ export const networkChains = [ {
   chain: 1313161555,
   rpcUrl: 'https://testnet.aurora.dev/',
   currency: 'aETH',
+  systemName: 'aurora testnet',
+  verifyLink: 'https://aurorascan.dev/token/'
+},
+{
+  name: "Aurora",
+  chain: 1313161554,
+  rpcUrl: 'https://mainnet.aurora.dev',
+  currency: 'aETH',
   systemName: 'aurora',
   verifyLink: 'https://aurorascan.dev/token/'
 },
@@ -72,7 +80,7 @@ export const networkChains = [ {
   chain: 43113,
   rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
   currency: 'AVAX',
-  systemName: 'avalanche',
+  systemName: 'avalanche testnet',
   verifyLink: 'https://testnet.snowtrace.io/token/'
 },
 {

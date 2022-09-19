@@ -76,12 +76,17 @@ export class MetamaskService {
         this.chainId = networkChain;
         localStorage.setItem('networkChain', networkChain.toString())
         const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId);
-        const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
+        const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
         if (foundNetwork === undefined) {
           this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
-        } else if (systemChain.name !== foundNetwork.name) {
-          this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
+        } else if (systemChain && systemChain.name !== foundNetwork.name) {
+          this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name);
+            const trial = Number(systemChain.chain).toString(16);
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x'+ trial}],
+           })
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else if (foundNetwork) {
@@ -193,19 +198,12 @@ export class MetamaskService {
 
       localStorage.setItem('account', this.provider.selectedAddress);
       localStorage.setItem('userWallet', 'Metamask');
-      if (environment.production) {
-        const trial = Number(56).toString(16);
-        await this.provider.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x'+ trial}],
-       })
-      } else {
-        const trial = Number(56).toString(16);
-        await this.provider.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x'+ trial}],
-       })
-      }
+      const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
+      const trial = Number(systemChain.chain).toString(16);
+      await this.provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x'+ trial}],
+      })
       return {
         account: this.walletAddress
       }
