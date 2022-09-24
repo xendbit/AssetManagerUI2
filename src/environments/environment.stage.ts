@@ -29,7 +29,8 @@ export const networkChains = [ {
   rpcUrl: 'https://api.s0.b.hmny.io',
   currency: 'ONE',
   systemName: 'harmony testnet',
-  verifyLink: 'https://explorer.testnet.harmony.one/address/'
+  verifyLink: 'https://explorer.testnet.harmony.one/address/',
+  explorer: 'https://explorer.pops.one'
 },
 {
   name: 'Harmony',
@@ -37,7 +38,8 @@ export const networkChains = [ {
   rpcUrl: 'https://api.harmony.one',
   currency: 'ONE',
   systemName: 'harmony',
-  verifyLink: 'https://explorer.harmony.one/address/'
+  verifyLink: 'https://explorer.harmony.one/address/',
+  explorer: 'https://explorer.harmony.one'
 },
 {
   name: "Binance Smart Chain Testnet",
@@ -45,15 +47,26 @@ export const networkChains = [ {
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   currency: 'BNB',
   systemName: 'bsc testnet',
-  verifyLink: 'https://testnet.bscscan.com/token/'
+  verifyLink: 'https://testnet.bscscan.com/token/',
+  explorer: 'https://testnet.bscscan.com'
+},
+{
+  name: "Gnosis",
+  chain: 100,
+  rpcUrl: 'https://rpc.gnosischain.com',
+  currency: 'xDAI',
+  systemName: 'gnosis',
+  verifyLink: 'https://blockscout.com/xdai/mainnet',
+  explorer: 'https://blockscout.com/xdai/mainnet'
 },
 {
   name: "Binance Smart Chain",
   chain: 56,
-  rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  rpcUrl: 'https://bsc-dataseed1.binance.org',
   currency: 'BNB',
   systemName: 'bsc',
-  verifyLink: 'https://testnet.bscscan.com/token/'
+  verifyLink: 'https://testnet.bscscan.com/token/',
+  explorer: 'https://bscscan.com'
 },
 {
   name: "Polygon Testnet",
@@ -61,7 +74,17 @@ export const networkChains = [ {
   rpcUrl: 'https://rpc-mumbai.matic.today',
   currency: 'MATIC',
   systemName: 'polygon testnet',
-  verifyLink: 'https://mumbai.polygonscan.com/token/'
+  verifyLink: 'https://mumbai.polygonscan.com/token/',
+  explorer: 'https://mumbai.polygonscan.com'
+},
+{
+  name: "Polygon",
+  chain: 137,
+  rpcUrl: 'https://polygon-rpc.com',
+  currency: 'MATIC',
+  systemName: 'polygon',
+  verifyLink: 'https://polygonscan.com/token/',
+  explorer: 'https://polygonscan.com'
 },
 {
   name: "Aurora Testnet",
@@ -69,7 +92,8 @@ export const networkChains = [ {
   rpcUrl: 'https://testnet.aurora.dev/',
   currency: 'aETH',
   systemName: 'aurora testnet',
-  verifyLink: 'https://aurorascan.dev/token/'
+  verifyLink: 'https://aurorascan.dev/token/',
+  explorer: ''
 },
 {
   name: "Aurora",
@@ -77,7 +101,8 @@ export const networkChains = [ {
   rpcUrl: 'https://mainnet.aurora.dev',
   currency: 'aETH',
   systemName: 'aurora',
-  verifyLink: 'https://aurorascan.dev/token/'
+  verifyLink: 'https://aurorascan.dev/token/',
+  explorer: 'https://aurorascan.dev'
 },
 {
   name: "Avalanche",
@@ -85,17 +110,20 @@ export const networkChains = [ {
   rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
   currency: 'AVAX',
   systemName: 'avalanche testnet',
-  verifyLink: 'https://testnet.snowtrace.io/token/'
+  verifyLink: 'https://testnet.snowtrace.io/token/',
+  explorer: 'https://testnet.snowtrace.io'
 },
 {
 name: "Avalanche Mainnet",
 chain: 43114,
-rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
+rpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
 currency: 'AVAX',
 systemName: 'avalanche',
-verifyLink: 'https://testnet.snowtrace.io/token/'
+verifyLink: 'https://testnet.snowtrace.io/token/',
+explorer: 'https://snowtrace.io'
 }
 ]
+
 
 export const rpcData = {
 1666700000: 'https://api.s0.b.hmny.io',

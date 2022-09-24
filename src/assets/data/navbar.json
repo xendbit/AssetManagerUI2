@@ -7,11 +7,6 @@
           "path": "/"
         },
         {
-            "title": "Marketplace",
-            "menu": [],
-            "path": "/marketplace"
-        },
-        {
             "title": "Profile",
             "menu": [],
             "path": "/profile"

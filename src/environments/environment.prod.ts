@@ -19,13 +19,15 @@ export const environment: AppEnvironment = {
   }
 }
 
-export const networkChains = [ {
+export const networkChains = [
+  {
     name: 'Harmony',
     chain: 1666600000,
     rpcUrl: 'https://api.harmony.one',
     currency: 'ONE',
     systemName: 'harmony',
-    verifyLink: 'https://explorer.harmony.one/address/'
+    verifyLink: 'https://explorer.harmony.one/address/',
+    explorer: 'https://explorer.harmony.one'
   }
 ]
 
