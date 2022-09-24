@@ -19,22 +19,24 @@ export const environment: AppEnvironment = {
   }
 }
 
-export const networkChains = [ 
+export const networkChains = [
   {
     name: "Binance Smart Chain",
     chain: 56,
-    rpcUrl: 'https://bsc-dataseed.binance.org/',
+    rpcUrl: 'https://bsc-dataseed1.binance.org',
     currency: 'BNB',
     systemName: 'bsc',
-    verifyLink: 'https://bscscan.com/token/'
+    verifyLink: 'https://bscscan.com/token/',
+    explorer: 'https://bscscan.com'
   },
   {
     name: "Polygon",
     chain: 137,
-    rpcUrl: 'https://rpc-mainnet.matic.network ',
+    rpcUrl: 'https://polygon-rpc.com',
     currency: 'MATIC',
     systemName: 'polygon',
-    verifyLink: 'https://polygonscan.com/token/'
+    verifyLink: 'https://polygonscan.com/token/',
+    explorer: 'https://polygonscan.com'
   },
   {
     name: "Aurora",
@@ -42,8 +44,18 @@ export const networkChains = [
     rpcUrl: 'https://mainnet.aurora.dev',
     currency: 'aETH',
     systemName: 'aurora',
-    verifyLink: 'https://aurorascan.dev/token/'
-  }
+    verifyLink: 'https://aurorascan.dev/token/',
+    explorer: 'https://aurorascan.dev'
+  },
+  {
+    name: "Gnosis",
+    chain: 100,
+    rpcUrl: 'https://rpc.gnosischain.com',
+    currency: 'xDAI',
+    systemName: 'gnosis',
+    verifyLink: 'https://blockscout.com/xdai/mainnet',
+    explorer: 'https://blockscout.com/xdai/mainnet'
+  },
 ]
 
   export const rpcData = {

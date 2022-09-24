@@ -27,10 +27,21 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-li">
+                          <span class="nav-a body-sb"> Markets </span>
+                          <ul class="dropdown-otr">
+                              <li class="dropdown-li" >
+                                  <a (click)="switchMarket('digital')" class="dropdown-a body-sb"> Digital Arts </a>
+                              </li>
+                              <li class="dropdown-li" >
+                                <a (click)="switchMarket('physical')" class="dropdown-a body-sb"> Physical Arts </a>
+                            </li>
+                          </ul>
+                        </li>
                         <li class="nav-li" *ngIf="accountFound">
                           <a routerLink= "/profile" class="nav-a body-sb" routerLinkActive="active"> Profile </a>
                         </li>
-                        <li class="nav-li">
+                        <li class="nav-li" *ngIf="showChains">
                           <span class="nav-a body-sb" >Blockchains</span>
                           <!-- <div style="display: flex;">
                             <span *ngIf="activeChain === ''" class="nav-a body-sb" >Blockchains</span>
@@ -181,7 +192,25 @@
                                   <a (click)="displaySidebar = false" routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
                               </button>
                             </li>
-                            <li style="margin-bottom: 5px;" [ngStyle]="{
+                            <li *ngIf="showChains" style="margin-bottom: 5px;" [ngStyle]="{
+                              'opacity': reduceOpacity ? '0%' : '100%'
+                            }">
+                              <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
+                                <div class="dd-button" style="margin-bottom: 5px;">
+                                  <a style="text-align: center;" >Markets</a>
+                                </div>
+                                <input type="checkbox" class="dd-input" id="chain">
+                                <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
+                                  <li class="dropdown-li" >
+                                    <a (click)="switchMarket('digital')" class="dropdown-a body-sb">Digital Arts</a>
+                                  </li>
+                                  <li class="dropdown-li" >
+                                    <a (click)="switchMarket('physical')" class="dropdown-a body-sb">Physical Arts</a>
+                                  </li>
+                                </ul>
+                              </label>
+                            </li>
+                            <li *ngIf="showChains" style="margin-bottom: 5px;" [ngStyle]="{
                               'opacity': reduceOpacity ? '0%' : '100%'
                             }">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
