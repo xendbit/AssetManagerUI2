@@ -138,7 +138,7 @@ export class HeaderComponent implements OnInit {
   switchMarket(market: string) {
     if (market === 'digital') {
       this.showChains = true;
-      this.switchChain('polygon');
+      this.switchChain('harmony');
     } else if   (market === 'physical') {
       this.showChains = false;
       this.switchChain('gnosis');
