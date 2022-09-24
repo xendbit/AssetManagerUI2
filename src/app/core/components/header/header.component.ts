@@ -29,12 +29,16 @@ export class HeaderComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
   username: string = '';
   activeChain: string = ''; //
+  showChains: boolean = true;
   constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
     this.userWallet = localStorage.getItem('userWallet');
     this.activeChain = localStorage.getItem('currentChain');
+    if (this.activeChain === 'gnosis') {
+      this.showChains = false;
+    }
     if (this.userWallet !== null) {
       if (this.userWallet === 'Metamask') {
         this.metamaskService.checkConnection().then(res => {
@@ -129,6 +133,16 @@ export class HeaderComponent implements OnInit {
     this.displaySidebar = false;
     localStorage.setItem('currentChain', chain);
     window.location.reload();
+  }
+
+  switchMarket(market: string) {
+    if (market === 'digital') {
+      this.showChains = true;
+      this.switchChain('polygon');
+    } else if   (market === 'physical') {
+      this.showChains = false;
+      this.switchChain('gnosis');
+    }
   }
 
 }

@@ -80,13 +80,26 @@ export class MetamaskService {
         if (foundNetwork === undefined) {
           this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network")
           // this.userActions.addSingle('global','warn', 'Wrong Chain', "Please make sure you are on either of the following chains: 'Binance Smart Chain', 'Harmony', 'Polygon' or 'Aurora' ")
-        } else if (systemChain && systemChain.name !== foundNetwork.name) {
+        } else if (systemChain.name !== foundNetwork.name) {
           this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name);
-            const trial = Number(systemChain.chain).toString(16);
-            await window.ethereum.request({
-              method: 'wallet_switchEthereumChain',
-              params: [{ chainId: '0x'+ trial}],
-           })
+          const chainIdHex = Number(systemChain.chain).toString(16);
+          const params = [{
+            chainId: '0x' + chainIdHex,
+            chainName: systemChain.name,
+            nativeCurrency: {
+              name: systemChain.name,
+              symbol: systemChain.currency,
+              decimals: 18
+            },
+            rpcUrls: [systemChain.rpcUrl],
+            blockExplorerUrls: [systemChain.explorer]
+          }]
+
+          window.ethereum.request({ method: 'wallet_addEthereumChain', params })
+            .then(() => console.log('Success'))
+            .catch((error: Error) => console.log("Error", error.message)
+            )
+
         } else if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
           this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
         } else if (foundNetwork) {
@@ -199,11 +212,23 @@ export class MetamaskService {
       localStorage.setItem('account', this.provider.selectedAddress);
       localStorage.setItem('userWallet', 'Metamask');
       const systemChain = networkChains.find((res: any) => res.systemName === this.chain);
-      const trial = Number(systemChain.chain).toString(16);
-      await this.provider.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x'+ trial}],
-      })
+      const chainIdHex = Number(systemChain.chain).toString(16);
+      const params = [{
+        chainId: '0x' + chainIdHex,
+        chainName: systemChain.name,
+        nativeCurrency: {
+          name: systemChain.name,
+          symbol: systemChain.currency,
+          decimals: 18
+        },
+        rpcUrls: [systemChain.rpcUrl],
+        blockExplorerUrls: [systemChain.explorer]
+      }]
+
+      window.ethereum.request({ method: 'wallet_addEthereumChain', params })
+        .then(() => console.log('Success'))
+        .catch((error: Error) => console.log("Error", error.message)
+        )
       return {
         account: this.walletAddress
       }
