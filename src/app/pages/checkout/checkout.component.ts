@@ -33,6 +33,7 @@ export class CheckoutComponent implements OnInit {
   state: string;
   city: string;
   street: string;
+  phone: number;
   zip: any;
   sellNowValue: number;
   sellNowValueNGN: number;

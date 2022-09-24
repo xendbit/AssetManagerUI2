@@ -44,12 +44,6 @@
             </div>
             <div class="col-md-12">
               <div class="input-otr">
-                <p class="input-title">Email</p>
-                <input class="input" type="email"[(ngModel)]="email" name="email" placeholder="Email Address" required="">
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="input-otr">
                 <p class="input-title">Country*</p>
                 <div class="select" (click)="active = !active">
                   <select id="year" class="select-hidden" [(ngModel)]="countryId" name="countryId">
@@ -84,6 +78,18 @@
               <div class="input-otr">
               <p class="input-title">Zip Code*</p>
                 <input class="input" type="text" [(ngModel)]="zip" name="zip" placeholder="Zip code" required="">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-otr">
+                <p class="input-title">Email</p>
+                <input class="input" type="email"[(ngModel)]="email" name="email" placeholder="Email Address" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-otr">
+              <p class="input-title">Phone Number*</p>
+                <input class="input" type="number" [(ngModel)]="phone" name="zip" placeholder="Zip code" required="">
               </div>
             </div>
           </div>
