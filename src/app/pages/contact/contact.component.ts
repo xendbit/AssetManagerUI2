@@ -37,7 +37,7 @@ export class ContactComponent implements OnInit {
       const contactUs = {
         "fullName": this.contactData.fullName,
         "email": this.contactData.email,
-        "Subject": this.contactData.subject,
+        "subject": this.contactData.subject.toString(),
         "message": this.contactData.message
       }
       this.userActions.contactUs(contactUs).subscribe((res: any) => {

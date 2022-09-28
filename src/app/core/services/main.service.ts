@@ -571,6 +571,19 @@ export class MainService {
     },  {headers})
   }
 
+  saveBankInfo(walletAddress: string, bankName: string, accountNumber: number, bankCode: string){
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    return this.httpClient.post(`${environment.extraUrl}bank-account/add-bank-info`, {
+      "bankName": bankName,
+      "bankAccountNumber": accountNumber,
+      "bankShortCode": bankCode,
+      "userWalletAddress": walletAddress
+    },  {headers})
+
+  }
+
   saveBuyer(email: string, phone: any, firstname: string, lastname: string,
     middlename: string, blockchainAddress: any, country: string, zipCode: any, state: string,
     city: string, street: string, houseNumber: string) {
@@ -600,6 +613,16 @@ export class MainService {
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
     return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
+  }
+
+  checkPhysicalIssueBankDetails(issuerAddress) {
+
+    let issuer = issuerAddress.toLowerCase();
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('walletAddress', issuerAddress);
+    return this.httpClient.get(`${environment.extraUrl}bank-account/get-bank-info`, {headers})
   }
 
   getBuyerStatus(walletAddress: any) {

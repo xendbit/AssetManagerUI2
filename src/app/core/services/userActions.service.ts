@@ -195,7 +195,7 @@ export class UserActionsService {
       "subject": contactUs.subject,
       "message": contactUs.message
     });
-    return this.httpClient.post(`${environment.extraUrl}contact/subscribe-to-newsletter`, contact, {headers})
+    return this.httpClient.post(`${environment.extraUrl}contact/send-message`, contact, {headers})
   }
 
   registerUser(userData: any) {

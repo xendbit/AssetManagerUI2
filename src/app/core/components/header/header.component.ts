@@ -4,6 +4,7 @@ import { MainService } from '../../services/main.service';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -30,7 +31,11 @@ export class HeaderComponent implements OnInit {
   username: string = '';
   activeChain: string = ''; //
   showChains: boolean = true;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
+  constructor(
+    public mainService: MainService,
+    public metamaskService: MetamaskService,
+    public router: Router,
+    private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
@@ -139,9 +144,15 @@ export class HeaderComponent implements OnInit {
     if (market === 'digital') {
       this.showChains = true;
       this.switchChain('polygon');
+      this.router.navigate(['/marketplace']).then(() => {
+        window.location.reload();
+      });
     } else if   (market === 'physical') {
       this.showChains = false;
       this.switchChain('gnosis');
+      this.router.navigate(['/marketplace']).then(() => {
+        window.location.reload();
+      });
     }
   }
 
