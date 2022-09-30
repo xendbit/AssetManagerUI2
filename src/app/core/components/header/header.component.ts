@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit {
   displayConnect: boolean = false;
   darkMode$ = this.darkModeService.darkMode$;
   username: string = '';
-  activeChain: string = ''; //
-  activeMarket: string = ''; //
+  activeChain: string = '';
+  activeMarket: string = '';
   showChains: boolean = true;
   constructor(
     public mainService: MainService,
