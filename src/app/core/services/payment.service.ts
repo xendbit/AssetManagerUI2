@@ -113,8 +113,7 @@ constructor(public httpClient: HttpClient) {
       headers = headers.append('Content-Type', 'application/json');
       headers = headers.append('api-key', niftyKey);
       headers = headers.append('chain', this.chain);
-      return this.httpClient.post(`${environment.extraUrl}users/add-shipping-info`,
-      {
+      let user = JSON.stringify({
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
@@ -124,7 +123,9 @@ constructor(public httpClient: HttpClient) {
         "zipCode": zipCode,
         "phoneNumber": phoneNumber,
         "userWalletAddress": userWalletAddress
-    },   {headers})
+    })
+      return this.httpClient.post(`${environment.extraUrl}users/add-shipping-info`, user
+      ,   {headers})
 
 
   }

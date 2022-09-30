@@ -225,7 +225,7 @@ export class CheckoutComponent implements OnInit {
     console.log('this is form', city, this.account)
     this.continuePayment();
     this.paymentService.saveShippingInfo(firstName, lastName, email, street, city, country, zipCode, phoneNumber, userWalletAddress).subscribe(res => {
-      // console.log('response', res)
+      console.log('response', res)
       this.toast.success('Shipping Information Has been saved successfully');
       this.router.navigate(['/profile']).then(() => {
         this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
