@@ -7,7 +7,6 @@ import {  NgForm } from '@angular/forms';
 import { ICreatorMedia } from '../createArtwork.interface';
 import { MainService } from 'src/app/core/services/main.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ethers } from "ethers";
 import {MenuItem} from 'primeng/api';
 import { HotToastService } from '@ngneat/hot-toast';
 import { NgxUiLoaderService } from "ngx-ui-loader";
@@ -48,12 +47,12 @@ export class CreateAssetsComponent implements OnInit {
   middleName: string;
   lastName: string;
   phone: string;
-  bankName: string;
-  bankAddress: string;
-  bankCode: string;
-  bankIban: string;
-  accountName: string;
-  accountNumber: string;
+  bankName: string = '';
+  bankAddress: string = '';
+  bankCode: string = '';
+  bankIban: string = '';
+  accountName: string = '';
+  accountNumber:  string = '';
   image: boolean;
   mp3: boolean;
   mp4: boolean;
@@ -85,7 +84,6 @@ export class CreateAssetsComponent implements OnInit {
   thumbnail: any;
 
   constructor( public mainService: MainService,
-    private spinner: NgxSpinnerService,
     public userActions: UserActionsService,
     public metamaskService: MetamaskService,
     public toast: HotToastService,
@@ -105,25 +103,26 @@ export class CreateAssetsComponent implements OnInit {
     this.currentChain = localStorage.getItem('currentChain');
     this.mediaType = [];
     this.activeIndex = 0;
-    this.items = [{
+    this.items = [
+      {
       label: 'Media & Category ',
       command: (event: any) => {
           this.activeIndex = 0;
       }
-    },
-    {
+      },
+      {
         label: 'Enter Description',
         command: (event: any) => {
             this.activeIndex = 1;
         }
-    },
-    {
+      },
+      {
         label: 'Confirm & Mint',
         command: (event: any) => {
             this.activeIndex = 2;
         }
-    },
-  ];
+      },
+    ];
 
     this.checkConnection();
     if (this.categories === undefined) {
@@ -210,59 +209,64 @@ export class CreateAssetsComponent implements OnInit {
           } else {
             this.accountFound = true;
             this.account = localStorage.getItem('account');
-            // this.checkIssuer()
+            this.checkBankInfo();
           }
         })
       }
       if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
         this.accountFound = true;
         this.account = localStorage.getItem('account');
-        // this.checkIssuer()
+        this.checkBankInfo();
       }
     }
   }
 
-  register(form: NgForm) {
+  saveBankInfo(form: NgForm) {
     this.displayOverlay = false;
-    const email = form.value.email;
-    const firstName = form.value.firstName;
-    const middleName = form.value.middleName;
-    const lastName = form.value.lastName;
-    const phone = form.value.phone;
-    const iban = form.value.bankIban;
     const bankCode = form.value.bankCode;
-    const bankAddress = form.value.bankAddress;
-    const accountName = form.value.accountName;
     const accountNumber = form.value.accountNumber;
     const bankName = form.value.bankName;
-    if (email === undefined || phone === undefined  || firstName === undefined || middleName === undefined || lastName === undefined || iban === undefined ) {
+    if (bankName === undefined || accountNumber === undefined  || bankCode === undefined) {
       this.toast.error('Please make sure all fields are completed and correct.')
       this.displayOverlay = true;
       return false;
     }
     this.checkConnection();
     this.ngxService.start();
-    this.mainService.saveIssuer(
-      email, phone, firstName, lastName, middleName,
-      this.account, bankName, bankAddress, accountName,
-      accountNumber, bankCode, iban).subscribe(res => {
+    this.mainService.saveBankInfo(
+      this.account, bankName,
+      accountNumber, bankCode).subscribe(res => {
       if (res['status'] === 'success') {
         this.ngxService.stop();
-        this.toast.success('Issuer has been registered successfully')
-        this.checkIssuer();
+        this.toast.success('Bank Details has been saved successfully')
+        this.checkBankInfo();
       }
     }, err => {
-      // console.log(err.error.data.error);
+      console.log(err);
       this.error = err.error.data.error;
       this.ngxService.stop();
-      this.toast.error(this.error);
-      this.checkIssuer();
+      this.toast.error('There was an error saving the bank information. Please try again later.');
+      this.checkBankInfo();
     })
   }
 
   checkIssuer() {
     this.mainService.checkIssuer(this.account).subscribe(res => {
       this.response = res;
+    },
+    error => {
+      this.response = error['error'];
+    })
+  }
+
+  checkBankInfo() {
+    this.mainService.checkPhysicalIssueBankDetails(this.account).subscribe(res => {
+      if (res['message'] === "User doesn't have any bank information") {
+        this.response = res['message'];
+      } else {
+        this.response = res;
+        console.log('reee', res)
+      }
     },
     error => {
       this.response = error['error'];
@@ -420,15 +424,6 @@ export class CreateAssetsComponent implements OnInit {
   }
 
   async mint(form: NgForm) {
-    // if (this.response === undefined) {
-    //   this.toast.error('Please confirm that your wallet address is connected.');
-    //   this.checkConnection();
-    //   return;
-    // }
-    // if (this.response.data.error === 'Issuer with blockchain address not found') {
-    //   this.displayOverlay = true;
-    //   return;
-    // }
     const imageIndex = this.media.findIndex((res: any) => res.includes('image'));
     const mediaIndex = this.media.findIndex((res: any) => res.includes('audio') || res.includes('video'))
     const newArr = [...this.media];
@@ -466,13 +461,14 @@ export class CreateAssetsComponent implements OnInit {
       return;
     }else {
       let physical;
-      if (this.typeSelected === 'physical') {
-        physical = true;
-        this.description = this.description + ' '.repeat(10) + 'Artwork Length: ' + this.physicalLength + ' '.repeat(10) + 'Artwork Breadth: ' + this.physicalBreadth;
-      } else {
-        physical = false;
-      }
       this.checkConnection();
+      if (this.typeSelected === 'physical' && this.response === "User doesn't have any bank information") {
+        this.displayOverlay = true;
+        return
+        // physical = true;
+      } else if (this.typeSelected === 'physical' && this.response !== "User doesn't have any bank information")  {
+        this.description = this.description + ' '.repeat(10) + 'Artwork Length: ' + this.physicalLength + ' '.repeat(10) + 'Artwork Breadth: ' + this.physicalBreadth;
+      }
       this.ngxService.start();
       if (this.social !== '') {
         this.description = this.description + ' '.repeat(10) + 'Social Link: ' + this.social;

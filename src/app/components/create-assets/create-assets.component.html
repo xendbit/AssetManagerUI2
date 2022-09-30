@@ -3,52 +3,29 @@
 <p-messages key="global" position="top-center"></p-messages>
 <p-dialog id="registrationDialog" [(visible)]="displayOverlay" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false"  [breakpoints]="{'960px': '75vw', '640px': '83vw'}" [style]="{width: '40vw'}">
-    <ng-template pTemplate="header">
-        <h4 class="head-2 heading-h4">Issuer Registration</h4>
-    </ng-template>
-    <form id="issuerRegistrationForm" class="form-main" method="post"  #registerForm="ngForm">
-        <span class="select-none heading-h5">Please complete the form below: </span>
-        <div class="input-otr" id="firstName">
-            <input class="input" style="width: 100%;" type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required>
-        </div>
-        <div class="input-otr" id="middleName">
-            <input class="input" style="width: 100%;" type="text" id="middleName" name="middleName" [(ngModel)]="middleName" placeholder="Middle Name" required>
-        </div>
-        <div class="input-otr" id="lastName">
-            <input class="input" style="width: 100%;" type="text" id="lastName" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" required>
-        </div>
-        <div class="input-otr" id="email">
-            <input class="input" style="width: 100%;" type="text" id="Email" name="email" [(ngModel)]="email" placeholder="Email" required>
-        </div>
-        <div class="input-otr" id="phone">
-            <input class="input" style="width: 100%;" type="phone" id="phone" name="phone" [(ngModel)]="phone" placeholder="Phone Number" required>
-        </div>
-        <div class="input-main">
-            <div class="input-otr-2" id="bankName">
-                <input style="width: 100%;" class="input" [(ngModel)]="bankName" type="text" name="bankName" placeholder="Bank Name" required>
+    <div class="col-lg-12 col-message-otr" style="padding-left: 4rem;">
+      <div class="col-message-inr">
+        <h3 class="head heading-h3">Add Bank Information</h3>
+        <p class="desc body-m">Please complete the form below:</p>
+        <form class="form-main" id="issuerRegistrationForm" #saveBankForm="ngForm">
+            <div class="input-otr" id="bankName">
+              <input class="input" [(ngModel)]="bankName" type="text" name="bankName" placeholder="Bank Name" required>
             </div>
-            <div class="input-otr-2" id="bankAddress">
-                <input style="width: 100%;" [(ngModel)]="bankAddress" class="input" type="text" name="bankAddress" placeholder="Bank Address " required>
+            <div class="input-otr" id="accountNumber">
+              <input class="input" type="number" id="accountNumber" name="accountNumber" [(ngModel)]="accountNumber" placeholder="Account Number" required>
             </div>
-        </div>
-        <div class="input-otr" id="accountName">
-            <input class="input" style="width: 100%;" type="text" id="accountName" name="accountName" [(ngModel)]="accountName" placeholder="Account Name" required>
-        </div>
-        <div class="input-otr" id="accountNumber">
-            <input class="input" style="width: 100%;" type="number" id="accountNumber" name="accountNumber" [(ngModel)]="accountNumber" placeholder="Account Number" required>
-        </div>
-        <div class="input-otr" id="bankCode">
-            <input class="input" style="width: 100%;" type="text" id="bankCode" name="bankCode" [(ngModel)]="bankCode" placeholder="Bank Code" required>
-        </div>
-        <div class="input-otr" id="bankIban">
-            <input class="input" style="width: 100%;" type="number" id="bankIban" name="bankIban" [(ngModel)]="bankIban" placeholder="Bank IBAN" required>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-
-        <p-button icon="pi pi-check" (click)="register(registerForm)" label="Register" class="p-button-text"></p-button>
-        <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
-    </ng-template>
+            <div class="input-otr" id="bankCode">
+              <input class="input" type="text" id="bankCode" name="bankCode" [(ngModel)]="bankCode" placeholder="Bank Code" required>
+            </div>
+            <div class="action-otr">
+                <input (click)="saveBankInfo(saveBankForm)" class="button body-sb"  [ngClass]="{'button body-sb':
+                bankName !== '' && accountNumber !== '' &&  bankCode !== '',
+                'btn-fill-inactive btn-subscribe': bankName === '' || bankCode === '' || accountNumber === '' }"
+                type="submit" value="Submit">
+            </div>
+        </form>
+      </div>
+    </div>
 </p-dialog>
     <!--=======================================
                 Create Start Here

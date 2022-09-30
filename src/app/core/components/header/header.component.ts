@@ -4,6 +4,7 @@ import { MainService } from '../../services/main.service';
 import { IMenuGroups } from '../footer/footer.interface';
 import { INavButton } from './header.interface';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -30,13 +31,17 @@ export class HeaderComponent implements OnInit {
   username: string = '';
   activeChain: string = ''; //
   showChains: boolean = true;
-  constructor(public mainService: MainService, public metamaskService: MetamaskService, private darkModeService: DarkModeService) { }
+  constructor(
+    public mainService: MainService,
+    public metamaskService: MetamaskService,
+    public router: Router,
+    private darkModeService: DarkModeService) { }
 
 
   ngOnInit() {
     this.userWallet = localStorage.getItem('userWallet');
-    this.activeChain = localStorage.getItem('currentChain');
-    if (this.activeChain === 'gnosis') {
+    this.activeChain = localStorage.getItem('currentMarket');
+    if (this.activeChain === 'physical') {
       this.showChains = false;
     }
     if (this.userWallet !== null) {
@@ -138,10 +143,22 @@ export class HeaderComponent implements OnInit {
   switchMarket(market: string) {
     if (market === 'digital') {
       this.showChains = true;
-      this.switchChain('polygon');
+      this.switchChain('aurora');
+      localStorage.setItem('currentChain', 'aurora'); // find a way to remove this and make this dynamic, current chain should only be saved on chain switch, not market switch
+      localStorage.setItem('currentMarket', 'digital');
+      this.router.navigate(['/marketplace']).then(() => {
+        window.location.reload();
+      });
     } else if   (market === 'physical') {
       this.showChains = false;
-      this.switchChain('gnosis');
+      this.switchChain('aurora');
+      localStorage.setItem('currentChain', 'aurora');
+      //this.switchChain('gnosis');
+      // localStorage.setItem('currentChain', 'gnosis'); // find a way to remove this and make this dynamic
+      localStorage.setItem('currentMarket', 'physical');
+      this.router.navigate(['/marketplace']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

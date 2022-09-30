@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MetamaskService } from 'src/app/core/services/metamask.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -42,7 +43,11 @@ export class CheckoutComponent implements OnInit {
   paymentAmount: number;
   payId: string = '';
   tokenId: any;
+  userWallet: any;
   amount: any;
+  accountFound: boolean = false;
+  account: string;
+  error: string;
   artwork = {"id": "","category": "","tags": [],        "auctions": { "auctionId": "",
   "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
   "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
@@ -85,13 +90,10 @@ export class CheckoutComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.checkConnection();
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.tokenId = this.activatedRoute.snapshot.params['tokenId'];
     this.amount = this.activatedRoute.snapshot.params['amount'];
-  }
-
-  submit(value) {
-    console.log(value);
   }
 
   continuePayment() {
@@ -155,29 +157,87 @@ export class CheckoutComponent implements OnInit {
           this.ngxService.stop();
           this.toast.error(result.error.message)
         } else {
+          console.log('err', result.paymentIntent.status)
           if (result.paymentIntent.status === 'succeeded') {
             this.ngxService.stop();
             this.toast.success('Payment made successfully.')
-            this.metamaskService.bought(this.artwork.tokenId).then(res => {
-              this.router.navigate(['/profile']).then(() => {
-                this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
-                window.location.reload();
-              });
-            }, err => {
-              console.log('err', err)
-            })
+            // this.router.navigate(['/profile']).then(() => {
+            //   this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+            //   window.location.reload();
+            // });
+            // this.metamaskService.bought(this.artwork.tokenId).then(res => {
+            //   this.router.navigate(['/profile']).then(() => {
+            //     this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+            //     window.location.reload();
+            //   });
+            // }, err => {
+            //   console.log('err', err)
+            // })
+          } else {
+            this.toast.error('There was an error while trying to purchase this artwork.')
           }
         }
       });
   }
 
-  confirm() {
+  confirm(form: NgForm) {
     this.confirmationService.confirm({
         message: 'Please cnfirm that you intend to buy ' + this.artwork.symbol + ' at ' + this.amount,
         accept: () => {
-            this.continuePayment();
+            // this.continuePayment();
+            this.saveShippingInfo(form);
         }
     });
+  }
+
+  checkConnection() {
+    this.userWallet = localStorage.getItem('userWallet');
+    if (this.userWallet !== null) {
+      if (this.userWallet === 'Metamask') {
+        this.metamaskService.checkConnection().then(res => {
+          if (res === undefined || !localStorage.getItem('account')) {
+            this.accountFound = false;
+            this.error = 'Please Connect to your Metamask wallet account.'
+            return;
+          } else {
+            this.accountFound = true;
+            this.account = localStorage.getItem('account');
+          }
+        })
+      }
+      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
+        this.accountFound = true;
+        this.account = localStorage.getItem('account');
+      }
+    }
+  }
+
+  saveShippingInfo(form: NgForm) {
+    const firstName = form.value.firstName;
+    const lastName = form.value.lastName;
+    const email = form.value.email;
+    const street = form.value.street;
+    const city = form.value.city;
+    const country = this.selectedCountry;
+    const zipCode = form.value.zipCode;
+    const phoneNumber = form.value.phoneNumber;
+    const userWalletAddress = this.account;
+    console.log('this is form', city, this.account)
+    this.continuePayment();
+    this.paymentService.saveShippingInfo(firstName, lastName, email, street, city, country, zipCode, phoneNumber, userWalletAddress).subscribe(res => {
+      // console.log('response', res)
+      this.toast.success('Shipping Information Has been saved successfully');
+      this.router.navigate(['/profile']).then(() => {
+        this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+        window.location.reload();
+      });
+    },
+    error => {
+      console.log('error', error)
+      this.toast.error('there was an error saving the information');
+      // this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
+    })
+
   }
 
 }
