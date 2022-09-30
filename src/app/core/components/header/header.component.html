@@ -8,7 +8,7 @@
              <div class="navbar-inr">
                 <div class="logo-otr">
                     <a routerLink="/" class="logo-inr">
-                        <img  class="logo" src="{{headerData.logoPath}}"> <img *ngIf="activeChain !== ''" class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt="">
+                        <img  class="logo" src="{{headerData.logoPath}}"> <img *ngIf="activeMarket !== ''" class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt="">
                     </a>
                 </div>
                 <!-- <div class="head-otr" >
@@ -44,8 +44,8 @@
                         <li class="nav-li" *ngIf="showChains">
                           <span class="nav-a body-sb" >Blockchains</span>
                           <!-- <div style="display: flex;">
-                            <span *ngIf="activeChain === ''" class="nav-a body-sb" >Blockchains</span>
-                            <span *ngIf="activeChain !== ''" class="nav-a body-sb"> Blockchain <img class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </span>
+                            <span *ngIf="activeMarket === ''" class="nav-a body-sb" >Blockchains</span>
+                            <span *ngIf="activeMarket !== ''" class="nav-a body-sb"> Blockchain <img class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </span>
                           </div> -->
 
                             <ul class="dropdown-otr">
@@ -215,8 +215,8 @@
                             }">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
-                                  <a *ngIf="activeChain === ''" style="text-align: center;" >Blockchains</a>
-                                  <a *ngIf="activeChain !== ''" style="text-align: center;"> Blockchain <img class="hero-currency" style="margin-left: 1rem;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </a>
+                                  <a *ngIf="activeMarket === ''" style="text-align: center;" >Blockchains</a>
+                                  <a *ngIf="activeMarket !== ''" style="text-align: center;"> Blockchain <img class="hero-currency" style="margin-left: 1rem;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </a>
                                 </div>
                                 <input type="checkbox" class="dd-input" id="chain">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
