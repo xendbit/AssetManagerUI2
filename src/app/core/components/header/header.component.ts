@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   darkMode$ = this.darkModeService.darkMode$;
   username: string = '';
   activeChain: string = ''; //
+  activeMarket: string = ''; //
   showChains: boolean = true;
   constructor(
     public mainService: MainService,
@@ -40,8 +41,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userWallet = localStorage.getItem('userWallet');
-    this.activeChain = localStorage.getItem('currentMarket');
-    if (this.activeChain === 'physical') {
+    this.activeChain = localStorage.getItem('currentChain');
+    this.activeMarket = localStorage.getItem('currentMarket');
+    if (this.activeMarket === 'physical') {
       this.showChains = false;
     }
     if (this.userWallet !== null) {
