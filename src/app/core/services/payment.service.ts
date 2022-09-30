@@ -124,7 +124,7 @@ constructor(public httpClient: HttpClient) {
         "phoneNumber": phoneNumber,
         "userWalletAddress": userWalletAddress
     })
-      return this.httpClient.post(`${environment.extraUrl}users/add-shipping-info`, user
+      return this.httpClient.post(`${environment.extraUrl}shipping-info`, user
       ,   {headers})
 
 
