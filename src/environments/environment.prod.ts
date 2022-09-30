@@ -28,6 +28,15 @@ export const networkChains = [
     systemName: 'harmony',
     verifyLink: 'https://explorer.harmony.one/address/',
     explorer: 'https://explorer.harmony.one'
+  },
+  {
+    name: "Aurora",
+    chain: 1313161554,
+    rpcUrl: 'https://mainnet.aurora.dev',
+    currency: 'aETH',
+    systemName: 'aurora',
+    verifyLink: 'https://aurorascan.dev/token/',
+    explorer: 'https://aurorascan.dev'
   }
 ]
 
