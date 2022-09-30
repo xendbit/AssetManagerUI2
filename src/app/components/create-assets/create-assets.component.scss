@@ -527,3 +527,135 @@ label {
   border-bottom: 1px solid #cccccc;
 }
 
+.form-main{
+  width: 90%;
+  @include breakpoint($secreen-max-xxxl){
+      width: 80%;
+  }
+  @include breakpoint($secreen-max-md){
+      width: 100%;
+  }
+  .input-otr{
+      margin: 0 0 30px 0;
+      .input{
+          width: 100%;
+      }
+  }
+  .input-otr{
+      margin: 0 0 24px 0;
+      .textarea{
+          padding: 16px 24px;
+          height: 190px;
+          appearance: none;
+          resize: none;
+      }
+  }
+  .input-otr{
+      .select {
+          cursor: pointer;
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          .select-hidden {
+              display: none;
+              visibility: hidden;
+              padding-right: 10px;
+          }
+          .select-styled {
+              background-color: $Gray-Shade-4;
+              color: $Gray-Shade-2;
+              padding: 10px 24px;
+              border-radius: 16px;
+              font-size: $font-size-bs;
+              line-height: $line-height-bsb;
+              font-family: $font-family-DMSans-Bold;
+              &:after {
+                  content:"";
+                  width: 12px;
+                  height: 10px;
+                  position: absolute;
+                  background-image: url(/assets/img/contact-page-arrow.svg);
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  top: 21px;
+                  right: 24px;
+              }
+              &:active, &.active {
+                  &:after {
+                      top: 21px;
+                      border-color: transparent transparent $Gray-Shade-3 transparent;
+                  }
+              }
+          }
+          .select-options {
+              display: none;
+              position: absolute;
+              top: 130%;
+              width: 100%;
+              z-index: 999;
+              background-color: $Gray-Shade-4;
+              border-radius: 16px;
+              li {
+                  font-size: $font-size-bs;
+                  line-height: $line-height-bsb;
+                  font-family: $font-family-DMSans-Bold;
+                  color: $Gray-Shade-2;
+                  margin: 0;
+                  padding: 10px 24px;
+                  border-radius: 16px;
+                  transition: .3s;
+                  &:hover {
+                      color: $White-Color;
+                      background: $Primary-Color-Home-1;
+                  }
+                  &[rel="hide"] {
+                      display: none;
+                  }
+              }
+          }
+      }
+  }
+  .action-otr{
+      display: flex;
+      .button{
+          background-color: $Primary-Color-Home-1;
+          color: $White-Color;
+          width: 100%;
+          padding: 10px 0;
+          border-radius: 16px;
+          border: none;
+          @include site-transition;
+          &:hover{
+              background-color: $Secondary-Color-Home-1;
+              color: $Black-Color;
+          }
+      }
+  }
+}
+
+.btn-fill-inactive {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 32px;
+  font-family: "DMSans-Bold";
+  color: #FFFFFF;
+  background-color: #d8d6ea;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-display: swap;
+}
+
+.btn-fill-inactive:hover {
+  color: #000000;
+  background-color: #e9f1bf;
+  transform: translateY(-5px);
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.btn-fill-inactive:active {
+  transition: 0.5s;
+  transform: scale(0.9);
+}
+

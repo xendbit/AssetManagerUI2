@@ -1,4 +1,4 @@
-<div class="background">
+<div class="background" *ngIf="accountFound">
   <div class="white-card">
     <div class="row">
       <div class="col-md-6">
@@ -33,13 +33,13 @@
             <div class="col-md-6">
               <div class="input-otr">
                 <p class="input-title">First name*</p>
-                <input class="input" type="text" name="fname" [(ngModel)]="firstName" placeholder="First name" required="">
+                <input class="input" type="text" name="firstName" id="firstName" [(ngModel)]="firstName" placeholder="First name" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
               <p class="input-title">Last name*</p>
-                <input class="input" type="text" [(ngModel)]="lastName" name="lastName" placeholder="Last name" required="">
+                <input class="input" type="text" [(ngModel)]="lastName" name="lastName" id="lastName" placeholder="Last name" required="">
               </div>
             </div>
             <div class="col-md-12">
@@ -59,43 +59,43 @@
             <div class="col-md-6">
               <div class="input-otr">
                 <p class="input-title">State*</p>
-                <input class="input" type="text" name="state" [(ngModel)]="state" placeholder="State" required="">
+                <input class="input" type="text" name="state" id="state" [(ngModel)]="state" placeholder="State" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
               <p class="input-title">City*</p>
-                <input class="input" type="text" [(ngModel)]="city" name="city" placeholder="City" required="">
+                <input class="input" type="text" [(ngModel)]="city" id="city" name="city" placeholder="City" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
                 <p class="input-title">Street*</p>
-                <input class="input" type="text" name="street" [(ngModel)]="street" placeholder="Street" required="">
+                <input class="input" type="text" name="street" id="street" [(ngModel)]="street" placeholder="Street" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
               <p class="input-title">Zip Code*</p>
-                <input class="input" type="text" [(ngModel)]="zip" name="zip" placeholder="Zip code" required="">
+                <input class="input" type="text" [(ngModel)]="zip" id="zipCode" name="zip" placeholder="Zip code" required="">
               </div>
             </div>
             <div class="col-md-12">
               <div class="input-otr">
                 <p class="input-title">Email</p>
-                <input class="input" type="email"[(ngModel)]="email" name="email" placeholder="Email Address" required="">
+                <input class="input" type="email"[(ngModel)]="email" id="email" name="email" placeholder="Email Address" required="">
               </div>
             </div>
             <div class="col-md-6">
               <div class="input-otr">
               <p class="input-title">Phone Number*</p>
-                <input class="input" type="number" [(ngModel)]="phone" name="zip" placeholder="Zip code" required="">
+                <input class="input" type="number" [(ngModel)]="phone" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required="">
               </div>
             </div>
           </div>
-          <!-- <h4>Payment method     <img width="140px" src="assets/img/icons/payments.svg" alt=""></h4>
+          <h4>Payment method     <img width="140px" src="assets/img/icons/payments.svg" alt=""></h4>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-12">
               <div class="input-otr">
                 <p class="input-title">Card holder's name*</p>
@@ -137,13 +137,18 @@
         </div>
         <div class="row mt-5">
           <div class="col-md-6">
-            <button [disabled]="myForm.invalid" class="btn-fill btn-create text-center" (click)="confirm()">Confirm</button>
+            <button [disabled]="myForm.invalid" class="btn-fill btn-create text-center" (click)="confirm(myForm)">Confirm</button>
           </div>
         </div>
         </form>
       </div>
     </div>
   </div>
+</div>
+
+<div class="container-fluid" style="height: 100vh" *ngIf="accountFound !== true">
+  <p id="ownerWarning" style="text-align: center; margin-top: 200px;" class="heading-h4 bid-head">500: Wallet connection not found.</p>
+  <p id="ownerWarning" style="text-align: center; margin-top: 5px;" class="heading-h4 bid-head">Please Connect your wallet and try again.</p>
 </div>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

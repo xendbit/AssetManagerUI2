@@ -4,6 +4,7 @@ import { PaymentIntent } from '@stripe/stripe-js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IRaveParameters } from 'src/app/niftyrow-pay/rave-payment/rave-interface';
 import { ravePublicKey } from '../config/main.config.const';
+import { environment, niftyKey } from 'src/environments/environment';
 declare var getpaidSetup;
 
 @Injectable()
@@ -16,9 +17,15 @@ export class PaymentService {
   options: IRaveParameters;
   raveObject: any;
   raveOptions: any;
+  chain: string;
 constructor(public httpClient: HttpClient) {
   this.loadRave();
   this.raveSubject = new BehaviorSubject<any>(this.raveOptions);
+  if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
+    this.chain = 'bsc';
+  } else {
+    this.chain = localStorage.getItem('currentChain');
+  }
 }
 
 
@@ -90,6 +97,36 @@ constructor(public httpClient: HttpClient) {
       amount: amount,
       email: email
     }, {headers})
+  }
+
+  saveShippingInfo(
+    firstName: string,
+    lastName: string,
+    email: string,
+    street: string,
+    city: string,
+    country: string,
+    zipCode: any,
+    phoneNumber: number,
+    userWalletAddress: string){
+      let headers: HttpHeaders = new HttpHeaders();
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('api-key', niftyKey);
+      headers = headers.append('chain', this.chain);
+      return this.httpClient.post(`${environment.extraUrl}users/add-shipping-info`,
+      {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "street": street,
+        "city": city,
+        "country": country,
+        "zipCode": zipCode,
+        "phoneNumber": phoneNumber,
+        "userWalletAddress": userWalletAddress
+    },   {headers})
+
+
   }
 
 }
