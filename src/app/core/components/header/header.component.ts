@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userWallet = localStorage.getItem('userWallet');
     this.activeChain = localStorage.getItem('currentChain');
-    this.activeMarket = localStorage.getItem('currentMarket');
+    this.activeMarket = localStorage.getItem('currentMarket') || 'digital';
     if (this.activeMarket === 'physical') {
       this.showChains = false;
     }
