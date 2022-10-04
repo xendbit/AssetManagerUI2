@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   account: string = 'Not connected';
   accountFound = false;
   reduceOpacity = false;
+  marketOpacity = false;
   userWallet: any;
   display: boolean = true;
   displaySidebar: boolean = false;
@@ -105,6 +106,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onCheckboxChange(e) {
+    this.marketOpacity = !this.marketOpacity;
     this.reduceOpacity = !this.reduceOpacity;
   }
 

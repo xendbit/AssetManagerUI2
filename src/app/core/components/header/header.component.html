@@ -187,19 +187,12 @@
                                 </ul>
                               </label>
                             </li>
-                            <li>
-                              <button class=" btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
-                                  <a (click)="displaySidebar = false" routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
-                              </button>
-                            </li>
-                            <li *ngIf="showChains" style="margin-bottom: 5px;" [ngStyle]="{
-                              'opacity': reduceOpacity ? '0%' : '100%'
-                            }">
+                            <li style="margin-bottom: 5px;" *ngIf="showChains">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
                                   <a style="text-align: center;" >Markets</a>
                                 </div>
-                                <input type="checkbox" class="dd-input" id="chain">
+                                <input type="checkbox" class="dd-input" id="test" (change)="onCheckboxChange($event)">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
                                   <li class="dropdown-li" >
                                     <a (click)="switchMarket('digital')" class="dropdown-a body-sb">Digital Arts</a>
@@ -210,13 +203,18 @@
                                 </ul>
                               </label>
                             </li>
+                            <li>
+                              <button class=" btn-outline1 btn-wallet" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
+                                  <a (click)="displaySidebar = false" routerLink= "/{{buttonsData.create.path}}">{{buttonsData.create.title}}</a>
+                              </button>
+                            </li>
                             <li *ngIf="showChains" style="margin-bottom: 5px;" [ngStyle]="{
                               'opacity': reduceOpacity ? '0%' : '100%'
                             }">
                               <label class="dropdown btn-outline1 btn-wallet" style="margin-top: 5px; width: 100%;">
                                 <div class="dd-button" style="margin-bottom: 5px;">
                                   <a *ngIf="activeMarket === ''" style="text-align: center;" >Blockchains</a>
-                                  <a *ngIf="activeMarket !== ''" style="text-align: center;"> Blockchain <img class="hero-currency" style="margin-left: 1rem;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </a>
+                                  <a *ngIf="activeMarket !== ''" style="text-align: center;"> Blockchain <img class="hero-currency" style="margin-left: 1rem; width: 16px !important;" src="assets/img/coins/{{activeChain}}.svg" alt=""> </a>
                                 </div>
                                 <input type="checkbox" class="dd-input" id="chain">
                                 <ul class="dd-menu" style="margin-top: 5px; position: absolute;">
