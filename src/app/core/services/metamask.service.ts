@@ -166,6 +166,7 @@ export class MetamaskService {
 
   public openMetamask = async () => {
     if (this.platform.ANDROID) {
+      window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       if (window.ethereum) {
         this.handleEthereum();
       } else {
@@ -175,13 +176,14 @@ export class MetamaskService {
         // If the event is not dispatched by the end of the timeout,
         // the user probably doesn't have MetaMask installed.
         setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://metamask.app.link";
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
 
       // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
+      window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       if (window.ethereum) {
         this.handleEthereum();
       } else {
