@@ -490,9 +490,9 @@ export class CreateAssetsComponent implements OnInit {
                   this.ngxService.stop();
                   this.toast.success('Asset has been issued successfully.')
 
-                  // this.router.navigateByUrl('/profile').then(() => {
-                  //   window.location.reload();
-                  // });
+                  this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                  });
                 } else {
                   this.ngxService.stop();
                   this.toast.error('There has been an error, please try again.')
