@@ -179,8 +179,8 @@ export class MetamaskService {
           setTimeout(this.handleEthereum, 3000); // 3 seconds
         }
       } else {
-        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
         localStorage.setItem('isOnMobileMetamask', 'true');
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
       // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
@@ -196,6 +196,7 @@ export class MetamaskService {
           setTimeout(this.handleEthereum, 3000); // 3 seconds
         }
       } else {
+        localStorage.setItem('isOnMobileMetamask', 'true');
         window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
     }
