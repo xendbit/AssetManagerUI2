@@ -121,6 +121,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
   providers: [MainService, PaymentService, ConfirmationService,
     {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent],
-  exports: [CreateAssetsComponent, HeadComponent]
+  exports: [CreateAssetsComponent]
 })
 export class AppModule { }
