@@ -455,6 +455,38 @@
                                               {{foundNetwork['name']}}
                                           </div>
                                       </div>
+                                      <div class="row" *ngIf="artwork.assetType === 'physical'">
+                                        <div class="col-lg-6 col-right-otr">
+                                          <span class="bid">Artist Name:</span>
+                                        </div>
+                                        <div class="col-lg-6 col-right-otr">
+                                          {{artwork['artistName']}}
+                                        </div>
+                                      </div>
+                                      <div class="row" *ngIf="artwork.assetType === 'physical'">
+                                        <div class="col-lg-6 col-right-otr">
+                                          <span class="bid">Year:</span>
+                                        </div>
+                                        <div class="col-lg-6 col-right-otr">
+                                          {{artwork['year']}}
+                                        </div>
+                                      </div>
+                                      <div class="row" *ngIf="artwork.assetType === 'physical'">
+                                        <div class="col-lg-6 col-right-otr">
+                                          <span class="bid">Medium:</span>
+                                        </div>
+                                        <div class="col-lg-6 col-right-otr">
+                                          {{artwork['medium']}}
+                                        </div>
+                                      </div>
+                                      <div class="row" *ngIf="artwork.assetType === 'physical'">
+                                        <div class="col-lg-6 col-right-otr">
+                                          <span class="bid">Size:</span>
+                                        </div>
+                                        <div class="col-lg-6 col-right-otr">
+                                          {{artwork['size']}}
+                                        </div>
+                                      </div>
                                   </p-panel>
                               </div>
                           </div>

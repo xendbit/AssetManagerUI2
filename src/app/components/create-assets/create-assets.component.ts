@@ -242,6 +242,10 @@ export class CreateAssetsComponent implements OnInit {
         this.ngxService.stop();
         this.toast.success('Bank Details has been saved successfully')
         this.checkBankInfo();
+      } else {
+        this.ngxService.stop();
+        this.toast.error('There was an error saving the bank information. Please make sure your details are correct and try again later.')
+        this.checkBankInfo();
       }
     }, err => {
       console.log(err);

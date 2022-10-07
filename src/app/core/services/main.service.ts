@@ -133,6 +133,10 @@ export class MainService {
             tags: item.tags,
             auctions: item.auctions,
             assetType: item.assetType,
+            artistName: item.artistName,
+            year: item.year,
+            medium: item.medium,
+            size: item.size,
             owner: {
               id: item.id,
               image: item.media[1].media || './assets/img/nifty_profile.png',
