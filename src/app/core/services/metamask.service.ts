@@ -165,33 +165,37 @@ export class MetamaskService {
   }
 
   public openMetamask = async () => {
+    const isOnMobileMetamask = localStorage.getItem("isOnMobileMetamask");
     if (this.platform.ANDROID) {
-      window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
-      if (window.ethereum) {
-        this.handleEthereum();
+      if (isOnMobileMetamask) {
+        if (window.ethereum) {
+          this.handleEthereum();
+        } else {
+          window.addEventListener('ethereum#initialized', this.handleEthereum, {
+            once: true,
+          });
+          // If the event is not dispatched by the end of the timeout,
+          // the user probably doesn't have MetaMask installed.
+          setTimeout(this.handleEthereum, 3000); // 3 seconds
+        }
       } else {
-        window.addEventListener('ethereum#initialized', this.handleEthereum, {
-          once: true,
-        });
-        // If the event is not dispatched by the end of the timeout,
-        // the user probably doesn't have MetaMask installed.
-        setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
+        window.location.href = "https://metamask.app.link/dapp/https://app.niftyrow.io";
       }
-
       // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
-      window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
-      if (window.ethereum) {
-        this.handleEthereum();
+      if (isOnMobileMetamask) {
+        if (window.ethereum) {
+          this.handleEthereum();
+        } else {
+          window.addEventListener('ethereum#initialized', this.handleEthereum, {
+            once: true,
+          });
+          setTimeout(this.handleEthereum, 3000); // 3 seconds
+        }
       } else {
-        window.addEventListener('ethereum#initialized', this.handleEthereum, {
-          once: true,
-        });
-        setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
     }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
