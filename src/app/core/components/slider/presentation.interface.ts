@@ -49,6 +49,10 @@ export interface IPresentation {
     isInAuction?: boolean;
     isInSale?: boolean;
     symbol: string;
+    size?: string;
+    artistName?: string;
+    year?: string;
+    medium?: string;
     name: string;
     tokenId: number;
     dateIssued?: any;

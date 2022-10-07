@@ -34,8 +34,10 @@ export class CreateAssetsComponent implements OnInit {
   social: string = '';
   symbol: string;
   typeSelected: string;
-  physicalLength: string;
-  physicalBreadth: string;
+  size: string;
+  medium: string;
+  artistName: string;
+  year: string;
   title: string;
   tokenId: number;
   account: string;
@@ -239,6 +241,10 @@ export class CreateAssetsComponent implements OnInit {
       if (res['status'] === 'success') {
         this.ngxService.stop();
         this.toast.success('Bank Details has been saved successfully')
+        this.checkBankInfo();
+      } else {
+        this.ngxService.stop();
+        this.toast.error('There was an error saving the bank information. Please make sure your details are correct and try again later.')
         this.checkBankInfo();
       }
     }, err => {
@@ -467,7 +473,7 @@ export class CreateAssetsComponent implements OnInit {
         return
         // physical = true;
       } else if (this.typeSelected === 'physical' && this.response !== "User doesn't have any bank information")  {
-        this.description = this.description + ' '.repeat(10) + 'Artwork Length: ' + this.physicalLength + ' '.repeat(10) + 'Artwork Breadth: ' + this.physicalBreadth;
+        this.description = this.description + ' '.repeat(10)
       }
       this.ngxService.start();
       if (this.social !== '') {
@@ -478,14 +484,15 @@ export class CreateAssetsComponent implements OnInit {
           if (response.status === 'complete' && data.status === 'success') {
             //setTimeout(() => {
               console.log('here')
-              this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected).pipe(timeout(20000)).subscribe(data => {
+              this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected,
+                this.artistName, this.year, this.medium, this.size).pipe(timeout(20000)).subscribe(data => {
                 if (data['status'] === 'success') {
                   this.ngxService.stop();
                   this.toast.success('Asset has been issued successfully.')
 
-                  this.router.navigateByUrl('/profile').then(() => {
-                    window.location.reload();
-                  });
+                  // this.router.navigateByUrl('/profile').then(() => {
+                  //   window.location.reload();
+                  // });
                 } else {
                   this.ngxService.stop();
                   this.toast.error('There has been an error, please try again.')

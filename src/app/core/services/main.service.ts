@@ -133,6 +133,10 @@ export class MainService {
             tags: item.tags,
             auctions: item.auctions,
             assetType: item.assetType,
+            artistName: item.artistName,
+            year: item.year,
+            medium: item.medium,
+            size: item.size,
             owner: {
               id: item.id,
               image: item.media[1].media || './assets/img/nifty_profile.png',
@@ -315,7 +319,12 @@ export class MainService {
   }
 
 
-  issueToken(tokenId: number, medias: any, mediaType: any, dateCreated: any, category: string, description: string, assetType: string) {
+  issueToken(tokenId: number,
+    medias: any, mediaType: any,
+    dateCreated: any, category: string,
+    description: string, assetType: string,
+    artistName: string, year: string,
+    medium: string, size: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
@@ -327,6 +336,10 @@ export class MainService {
       "dateIssued": dateCreated,
       "assetType": assetType,
       "description": description,
+      "artistName": artistName,
+      "year": year,
+      "medium": medium,
+      "size": size,
       "category": category
     },   {headers})
   }

@@ -237,12 +237,18 @@
                         </div>
                       </div>
 
-                       <div *ngIf="typeSelected === 'physical'" class="input-main" style="margin-bottom: 20px; margin-top: 10px;">
+                      <div *ngIf="typeSelected === 'physical'" class="input-main" style="margin-bottom: 20px; margin-top: 10px;">
                         <div class="input-otr-2">
-                            <input class="input" [(ngModel)]="physicalLength" type="text" id="physicalLength" name="physicalLength" placeholder="Length of physical artwork, eg: 20cm" required>
+                          <input class="input" [(ngModel)]="artistName" type="text" id="artistName" name="artistName" placeholder="Artist Name" required>
                         </div>
                         <div class="input-otr-2">
-                            <input class="input" [(ngModel)]="physicalBreadth" type="text" name="physicalBreadth" id="physicalBreadth" placeholder="Length of physical artwork, eg: 20cm" required>
+                            <input class="input" [(ngModel)]="medium" type="text" name="medium" id="medium" placeholder="Medium" required>
+                        </div>
+                        <div class="input-otr-2">
+                            <input class="input" [(ngModel)]="year" type="text" id="year" name="year" placeholder="Year" required>
+                        </div>
+                        <div class="input-otr-2">
+                            <input class="input" [(ngModel)]="size" type="text" name="size" id="size" placeholder="Size" required>
                         </div>
                       </div>
 
@@ -298,6 +304,15 @@
                       <div class="input-main">
                         <div class="input-otr-2">
                             <input disabled class="input" type="text" id="symbolDisabled" name="text" placeholder="{{symbol || 'Eg. AAPL'}}" required>
+                        </div>
+                        <div class="input-otr-2" *ngIf="typeSelected === 'physical'">
+                          <input disabled class="input" type="text" id="symbolDisabled" name="text" placeholder="{{artistName}}" required>
+                        </div>
+                        <div class="input-otr-2" *ngIf="typeSelected === 'physical'">
+                          <input disabled class="input" type="text" id="symbolDisabled" name="text" placeholder="{{medium}}" required>
+                        </div>
+                        <div class="input-otr-2" *ngIf="typeSelected === 'physical'">
+                          <input disabled class="input" type="text" id="symbolDisabled" name="text" placeholder="{{year}}" required>
                         </div>
                       </div>
 
