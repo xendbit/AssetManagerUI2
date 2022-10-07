@@ -167,7 +167,7 @@ export class MetamaskService {
   public openMetamask = async () => {
     const isOnMobileMetamask = localStorage.getItem("isOnMobileMetamask");
     if (this.platform.ANDROID) {
-      if (isOnMobileMetamask) {
+      if (isOnMobileMetamask === "true") {
         if (window.ethereum) {
           this.handleEthereum();
         } else {
@@ -179,13 +179,14 @@ export class MetamaskService {
           setTimeout(this.handleEthereum, 3000); // 3 seconds
         }
       } else {
-        window.location.href = "https://metamask.app.link/dapp/https://app.niftyrow.io";
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
+        localStorage.setItem('isOnMobileMetamask', 'true');
       }
       // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
-      if (isOnMobileMetamask) {
+      if (isOnMobileMetamask === "true") {
         if (window.ethereum) {
           this.handleEthereum();
         } else {
