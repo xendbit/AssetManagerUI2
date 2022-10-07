@@ -122,6 +122,7 @@ export class AssetDetailsComponent implements OnInit {
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.getSingleArtworkDetails();
     this.getCreatorArt();
+    console.log('Artwork', this.artwork.auctions)
     if (this.artwork.auctions !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
@@ -392,7 +393,7 @@ export class AssetDetailsComponent implements OnInit {
                         window.location.reload();
                       });
                     }
-                    
+
                   } else {
                     this.toast.success('There has been an error, please try again.');
                     this.getSingleArtworkDetails();

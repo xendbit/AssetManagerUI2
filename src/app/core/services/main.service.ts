@@ -127,6 +127,7 @@ export class MainService {
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
+          console.log('here', item)
           observer.next({
             id: item.id,
             category: item.category,
@@ -139,12 +140,12 @@ export class MainService {
             size: item.size,
             owner: {
               id: item.id,
-              image: item.media[1].media || './assets/img/nifty_profile.png',
+              image: item.issuerPhoto.displayImage || './assets/img/nifty_profile.png',
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.media[1].media || './assets/img/nifty_profile.png',
+              image: item.ownerPhoto.displayImage || './assets/img/nifty_profile.png',
               username: item.issuer,
               type: item.type
             },
