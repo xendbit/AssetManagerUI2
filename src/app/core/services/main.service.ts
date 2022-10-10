@@ -256,12 +256,12 @@ export class MainService {
         auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media || './assets/img/nifty_profile.png',
+          image: item.ownerPhoto?.displayImage || item.media[1].media || './assets/img/nifty_profile.png',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media || './assets/img/nifty_profile.png',
+          image: item.issuerPhoto?.displayImage || item.media[1].media || './assets/img/nifty_profile.png',
           username: item.issuer,
           type: item.type
         },
