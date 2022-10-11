@@ -20,65 +20,8 @@ export class SliderComponent implements OnInit {
     {
       "slides":  [
         {
-            "auctionId": 0,
-            "cancelled": false,
-            "currentBlock": 0,
-            "startBlock": 0,
-            "endBlock": 0,
-            "highestBid": 0,
-            "highestBidder": "",
-            "isActive": true,
-            "owner": "",
-            "sellNowPrice": 0,
-            "title": "The Mystic",
-            "subtitle": "The mystical artworks of the kubembe",
-            "bids": [{"bidder": "", "bid": 0, "auctionId": 0}],
-            "currentBid": 0,
-            "currency": "",
-            "endDate": new Date(),
-            "startDate": new Date(),
-            "minimumBid": 0,
-            "tokenId": 0,
-            "artwork": {
-                "id": "",
-                "category": "",
-                "tags": [],
-                "auctions": { "auctionId": "",
-                "cancelled": false, "chain": "", "currentBlock": "", "endBlock": "", "endDate": "", "finished": false, "highestBid": "",
-                "highestBidder": "", "id": 0, "minimumBid": "", "owner": "", "sellNowPrice": "", "sellNowTriggered": false,
-                "startBlock": "", "startDate": "", "started": true, "tokenId": ""},
-                "owner": {
-                    "id": "",
-                    "image": "",
-                    "username": ""
-                },
-                "creator": {
-                    "id": "",
-                    "image": "",
-                    "username": "",
-                    "collections": [],
-                    "type": ""
-                },
-                "featuredImage": {
-                    "media": "/assets/img/slide1.jpeg",
-                    "mediaType": 0
-                },
-                "isBidding": true,
-                "gallery": [],
-                "description": "Description",
-                "price": 0,
-                "currency": "ETH",
-                "likes": [],
-                "type": "Artwork",
-                "lastAuctionId": 0,
-                "hasActiveAuction": true,
-                "symbol": "",
-                "tokenId": 0,
-                "name": "",
-                "dateIssued": new Date(),
-                "assetType": "digital",
-                "sold": false
-            },
+            "slider": "",
+            "mobile": "",
             "type": "Auction"
         },
       ],
@@ -128,22 +71,23 @@ export class SliderComponent implements OnInit {
 
     if (changes['slider'] && this.slider !== undefined ){
       this.presentationData = this.slider;
-      let endDate =   this.presentationData.slides.filter(slide => {
-        if (slide['type'] === 'Auction') {
-          this.currentBid = slide['highestBid'];
-          return slide['endDate'];
-        }
-      })
-      this.auctionService.getUSDValue().subscribe(res => {
-        this.auctionValue = res['USD'] * this.currentBid;
-      })
-      this.setCountDown(endDate);
+      console.log('ds',this.presentationData);
+      // let endDate =   this.presentationData.slides.filter(slide => {
+      //   if (slide['type'] === 'Auction') {
+      //     this.currentBid = slide['highestBid'];
+      //     return slide['endDate'];
+      //   }
+      // })
+      // this.auctionService.getUSDValue().subscribe(res => {
+      //   this.auctionValue = res['USD'] * this.currentBid;
+      // })
+      // this.setCountDown(endDate);
     }
   }
 
   like(tokenId) {
     let account = localStorage.getItem('account');
-    if (localStorage.getItem('account')) { 
+    if (localStorage.getItem('account')) {
       this.userActions.BroadcastLikes("like", 1, tokenId, account).subscribe((data: any) => {
         if (data.status === 'success') {
           this.getLikes(tokenId);

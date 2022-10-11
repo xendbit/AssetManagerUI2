@@ -518,11 +518,64 @@ export class MainService {
         observer.next(this.presentationResponse);
         observer.complete();
       } else {
-        this.presentationResponse =  presentationJson['default'][0];
-        observer.next(this.presentationResponse);
-        observer.complete()
+        let headers: HttpHeaders = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        headers = headers.append('api-key', niftyKey);
+        this.httpClient.get(`${environment.extraUrl}images/slider-images`, {headers}).subscribe((res: any) => {
+          console.log('ree', res)
+          if (res.status === 'success') {
+            const data = res.data.images[0]
+            let initalArray = []
+            initalArray.push({
+              "slider": data.firstSlide,
+              "mobile": data.firstSlideMobile || './assets/img/m-slider-1.png',
+              "type": "auction"
+            })
+            console.log(initalArray);
+            initalArray= [
+              {
+                "slides":  [
+                  {
+                      "slider": data.firstSlide,
+                      "mobile": data.firts  || "./assets/img/m-slider-1.png",
+                      "type": "Auction"
+                  },
+                  {
+                    "slider": data.secondSlide,
+                    "mobile": data.secondSlideMobile || './assets/img/m-slider-2.png',
+                    "type": "Auction"
+                  },
+                  {
+
+                      "slider": data.thirdSlide,
+                      "mobile": data.thirdSlideMobile || "./assets/img/m-slider-3.png",
+                      "type": "Auction"
+                  }
+                ],
+              "presentationType": "auction"
+              }
+            ]
+            this.presentationResponse = initalArray[0]
+            observer.next(this.presentationResponse);
+            observer.complete()
+          } else {
+            this.presentationResponse =  presentationJson['default'][0];
+            observer.next(this.presentationResponse);
+            observer.complete()
+          }
+
+        }, err => {
+          this.presentationResponse =  presentationJson['default'][0];
+          observer.next(this.presentationResponse);
+          observer.complete()
+        })
       }
     });
+  }
+
+  getSlider() {
+
+
   }
 
   getDrops() {
