@@ -112,9 +112,9 @@ export class AssetDetailsComponent implements OnInit {
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       if (environment.production) {
-        networkChain === 56 //defaults to bsc
+        networkChain === 1313161554 //defaults to bsc
       } else {
-        networkChain === 97 //defaults to harmony
+        networkChain === 1313161555 //defaults to harmony
       }
     }
     this.checkConnection();

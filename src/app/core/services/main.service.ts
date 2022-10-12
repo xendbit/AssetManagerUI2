@@ -53,7 +53,7 @@ export class MainService {
 
   constructor(public httpClient: HttpClient) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'bsc';
+      this.chain = 'aurora';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -64,7 +64,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -123,7 +123,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
@@ -189,7 +189,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -247,7 +247,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.get(`${environment.baseApiUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
@@ -329,7 +329,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
@@ -349,7 +349,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
@@ -734,7 +734,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
   }
 
