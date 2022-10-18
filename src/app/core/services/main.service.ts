@@ -139,12 +139,12 @@ export class MainService {
             size: item.size,
             owner: {
               id: item.id,
-              image: item.issuerPhoto?.displayImage || item.media[1].media,
+              image: item.ownerPhoto?.displayImage || item.media[1].media,
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.ownerPhoto?.displayImage || item.media[1].media,
+              image: item.issuerPhoto?.displayImage || item.media[1].media,
               username: item.issuer,
               type: item.type
             },
