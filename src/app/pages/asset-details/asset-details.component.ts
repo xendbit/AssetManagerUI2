@@ -122,7 +122,6 @@ export class AssetDetailsComponent implements OnInit {
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.getSingleArtworkDetails();
     this.getCreatorArt();
-    console.log('Artwork', this.artwork.auctions)
     if (this.artwork.auctions !== undefined) {
       this.auction = JSON.parse(localStorage.getItem('auctionData'));
       this.initialCheck();
@@ -185,6 +184,12 @@ export class AssetDetailsComponent implements OnInit {
     }
   }
 
+  getTokenHistory() {
+    this.mainService.getTokenHistory(this.artwork.tokenId).subscribe(data => {
+      console.log('res', data)
+    })
+  }
+
   getCreatorArt() {
     this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
       if (res !== null) {
@@ -208,6 +213,7 @@ export class AssetDetailsComponent implements OnInit {
       } else {
         this.artwork = res;
         this.sellPriceMet = false;
+        this.getTokenHistory();
         if (this.artwork.lastAuctionId !== 0) {
           this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
             if (res === 'Auction has ended') {

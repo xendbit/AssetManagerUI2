@@ -127,7 +127,6 @@ export class MainService {
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
-          console.log('here', item)
           observer.next({
             id: item.id,
             category: item.category,
@@ -522,7 +521,6 @@ export class MainService {
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('api-key', niftyKey);
         this.httpClient.get(`${environment.extraUrl}images/slider-images`, {headers}).subscribe((res: any) => {
-          console.log('ree', res)
           if (res.status === 'success') {
             const data = res.data.images[0]
             let initalArray = []
@@ -648,6 +646,15 @@ export class MainService {
       "bankShortCode": bankCode,
       "userWalletAddress": walletAddress
     },  {headers})
+
+  }
+
+  getTokenHistory(tokenId: number){
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain || 'aurora');
+    return this.httpClient.get(`${environment.baseApiUrl}token-history/${tokenId}`,  {headers})
 
   }
 
