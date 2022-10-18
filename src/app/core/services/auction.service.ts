@@ -17,16 +17,16 @@ export class AuctionService {
 
   constructor(public httpClient: HttpClient, public mainService: MainService) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       if (environment.production) {
-        networkChain === 1666600000 //defaults to harmony
+        networkChain === 56 //defaults to harmony
       } else {
-        networkChain === 1666700000 //defaults to harmony
+        networkChain === 97 //defaults to harmony
       }
     }
     this.foundNetwork = (networkChains.find((res: any) => res.chain === networkChain)|| 'BNB')

@@ -48,7 +48,7 @@ export class MetamaskService {
       }
     })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'harmony';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
