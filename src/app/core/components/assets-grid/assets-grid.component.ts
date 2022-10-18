@@ -23,7 +23,7 @@ export class AssetsGridComponent implements OnInit {
   itemsPerPage: number;
   totalItems: number;
   totalPages: number;
-  categories: string[];
+  categories: any = [];
   isLoaded: boolean = true;
   newArtworkArray: any = [];
   categorySelected: string;
@@ -56,6 +56,9 @@ export class AssetsGridComponent implements OnInit {
         this.ngxService.stop();
         this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
+        const assetType = this.artworks.map(item => item.assetType)
+        .filter((value, index, self) => self.indexOf(value) === index);
+        this.categories = this.categories.concat(assetType);
       }
     }
 
@@ -73,11 +76,19 @@ export class AssetsGridComponent implements OnInit {
   categoryFilter(category: string) {
     this.categorySelected = category;
     if (category === 'all') {
-      this.artworks = this.newArtworkArray;
+      return this.artworks;
     } else {
-      this.artworks = this.newArtworkArray.filter(item => {
-        return item.category === category;
-      });
+      if (category.toLowerCase() === 'physical' || category.toLowerCase() === 'digital') {
+        this.artworkArray = this.artworks.filter(item => {
+          return item.assetType.toLowerCase() === category.toLowerCase();
+        });
+        this.artworks = this.artworkArray;
+      } else  {
+        this.artworkArray = this.artworks.filter(item => {
+          return item.category.toLowerCase()  === category.toLowerCase();
+        });
+        this.artworks = this.artworkArray;
+      }
     }
   }
 

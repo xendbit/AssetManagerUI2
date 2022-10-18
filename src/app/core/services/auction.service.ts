@@ -17,7 +17,7 @@ export class AuctionService {
 
   constructor(public httpClient: HttpClient, public mainService: MainService) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'bsc';
+      this.chain = 'aurora';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -39,7 +39,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return new Observable((observer) => {
       this.mainService.fetchSingleArtwork(tokenId).subscribe((response: IArtwork) => {
         let artwork = response
@@ -83,7 +83,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
@@ -96,7 +96,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}change-token-ownership/${tokenId}`, {}, {headers})
   }
 
@@ -105,7 +105,7 @@ export class AuctionService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.get(`${environment.baseApiUrl}is-issuer/${issuer}`, {headers})
   }
 

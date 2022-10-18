@@ -8,7 +8,7 @@
              <div class="navbar-inr">
                 <div class="logo-otr">
                     <a routerLink="/" class="logo-inr">
-                        <img  class="logo" src="{{headerData.logoPath}}"> <img *ngIf="activeMarket !== ''" class="hero-currency" style="margin-left: 6px;  width: 20px !important;" src="assets/img/coins/{{activeChain}}.svg" alt="">
+                        <img  class="logo" src="{{headerData.logoPath}}"> <img *ngIf="activeMarket !== ''" class="hero-currency" style="margin-left: 6px;  width: 25px !important;" src="assets/img/coins/{{activeChain}}.svg" alt="">
                     </a>
                 </div>
                 <!-- <div class="head-otr" >
@@ -55,13 +55,13 @@
                                 <!-- <li class="dropdown-li" >
                                    <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
                                 </li> -->
-                                <!-- <li class="dropdown-li" >
-                                    <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
-                                </li> -->
                                 <li class="dropdown-li" >
-                                    <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
+                                    <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                 </li>
                                 <!-- <li class="dropdown-li" >
+                                    <a (click)="switchChain('harmony')" class="dropdown-a body-sb">Harmony</a>
+                                </li> -->
+                                <li class="dropdown-li" >
                                    <a (click)="switchChain('polygon')" class="dropdown-a body-sb">Polygon</a>
                                 </li> -->
                             </ul>
@@ -223,6 +223,9 @@
                                   </li> -->
                                   <!-- <li class="dropdown-li" >
                                     <a (click)="switchChain('avalanche')" class="dropdown-a body-sb">Avalanche</a>
+                                  </li>
+                                  <!-- <li class="dropdown-li" >
+                                    <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>
                                   </li> -->
                                   <!-- <li class="dropdown-li" >
                                     <a (click)="switchChain('bsc')" class="dropdown-a body-sb">BSC</a>

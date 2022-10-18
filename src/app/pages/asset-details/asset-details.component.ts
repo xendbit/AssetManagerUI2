@@ -114,7 +114,7 @@ export class AssetDetailsComponent implements OnInit {
       if (environment.production) {
         networkChain === 56 //defaults to harmony
       } else {
-        networkChain === 97 //defaults to harmony
+        networkChain === 1313161555 //defaults to harmony
       }
     }
     this.checkConnection();
@@ -184,6 +184,12 @@ export class AssetDetailsComponent implements OnInit {
     }
   }
 
+  getTokenHistory() {
+    this.mainService.getTokenHistory(this.artwork.tokenId).subscribe(data => {
+      console.log('res', data)
+    })
+  }
+
   getCreatorArt() {
     this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
       if (res !== null) {
@@ -207,6 +213,7 @@ export class AssetDetailsComponent implements OnInit {
       } else {
         this.artwork = res;
         this.sellPriceMet = false;
+        this.getTokenHistory();
         if (this.artwork.lastAuctionId !== 0) {
           this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
             if (res === 'Auction has ended') {
