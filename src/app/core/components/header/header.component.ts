@@ -148,7 +148,7 @@ export class HeaderComponent implements OnInit {
     if (market === 'digital') {
       this.showChains = true;
       this.switchChain('harmony');
-      localStorage.setItem('currentChain', 'harmony'); // find a way to remove this and make this dynamic, current chain should only be saved on chain switch, not market switch
+      localStorage.setItem('currentChain', 'bsc'); // find a way to remove this and make this dynamic, current chain should only be saved on chain switch, not market switch
       localStorage.setItem('currentMarket', 'digital');
       this.router.navigate(['/marketplace']).then(() => {
         window.location.reload();
@@ -156,7 +156,7 @@ export class HeaderComponent implements OnInit {
     } else if   (market === 'physical') {
       this.showChains = false;
       this.switchChain('aurora');
-      localStorage.setItem('currentChain', 'aurora');
+      localStorage.setItem('currentChain', 'bsc');
       //this.switchChain('gnosis');
       // localStorage.setItem('currentChain', 'gnosis'); // find a way to remove this and make this dynamic
       localStorage.setItem('currentMarket', 'physical');
