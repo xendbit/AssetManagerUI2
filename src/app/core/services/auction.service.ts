@@ -17,7 +17,7 @@ export class AuctionService {
 
   constructor(public httpClient: HttpClient, public mainService: MainService) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'aurora';
+      this.chain = 'bsc';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
