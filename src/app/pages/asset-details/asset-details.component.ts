@@ -212,6 +212,7 @@ export class AssetDetailsComponent implements OnInit {
         this.ngxService.stop();
       } else {
         this.artwork = res;
+        console.log('token info', this.artwork)
         this.sellPriceMet = false;
         this.getTokenHistory();
         if (this.artwork.lastAuctionId !== 0) {

@@ -74,17 +74,17 @@ export class MainService {
           auctions: item.auctions,
           owner: {
             id: item.id,
-            image: item.media[0]?.media || './assets/img/nifty_profile.png',
+            image: item.media[0]?.media || item.media[1].media,
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0]?.media || './assets/img/nifty_profile.png',
+            image: item.media[0]?.media || item.media[1].media,
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0]?.media || './assets/img/nifty_profile.png',
+            media: item.media[0]?.media || item.media[1].media,
             mediaType: 0
           },
           chain: item.chain,
@@ -139,12 +139,12 @@ export class MainService {
             size: item.size,
             owner: {
               id: item.id,
-              image: item.issuerPhoto.displayImage || './assets/img/nifty_profile.png',
+              image: item.issuerPhoto?.displayImage || item.media[1].media,
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.ownerPhoto.displayImage || './assets/img/nifty_profile.png',
+              image: item.ownerPhoto?.displayImage || item.media[1].media,
               username: item.issuer,
               type: item.type
             },
