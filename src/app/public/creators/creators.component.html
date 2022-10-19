@@ -28,7 +28,7 @@
                     </a>
                     <div class="user-content">
                       <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? (creator.about | slice:0:18 + '...') : (creator.about) }}</a>
-                      <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username}}</a></p>
+                      <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username | titlecase}}</a></p>
                     </div>
                   </div>
                 </div>
