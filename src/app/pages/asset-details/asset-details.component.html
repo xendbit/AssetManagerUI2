@@ -253,7 +253,7 @@
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
                                                       <div *ngIf="auction.bids.length === 0 || auction.bids.length === 'undefined'" class="input-otr-2" style="flex: 1">
-                                                          <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})"  type="number" id="amount" name="amount"required>
+                                                          <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})" min="0" type="number" id="amount" name="amount"required>
                                                       </div>
                                                       <!-- <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'physical' || auction.bids.length === 'undefined' && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input mb-5" style="width: 100%;
@@ -263,7 +263,7 @@
                                                       </div> -->
                                                       <div *ngIf="auction.bids.length > 0" class="input-otr-2" style="flex: 1">
                                                           <input id="currentBid" class="input current-bid-input"
-                                                            type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                            type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})" min="0" type="number" id="amount" name="amount"required>
                                                       </div>
                                                       <!-- <div *ngIf="auction.bids.length > 0 && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input current-bid-input" disabled
@@ -370,7 +370,7 @@
                                                           <input id="minimumPrice" class="input" style="width: 100%;
                                                           margin-bottom: 25px;
                                                           font-size: 20px;
-                                                          background-color: white;"  type="number" id="minimumPrice" [(ngModel)]="minimumPrice" name="minimumPrice" placeholder="Minimum Price" required>
+                                                          background-color: white;" min="0" type="number" id="minimumPrice" [(ngModel)]="minimumPrice" name="minimumPrice" placeholder="Minimum Price" required>
                                                       </div>
                                                   </div>
 
