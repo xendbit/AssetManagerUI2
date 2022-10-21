@@ -436,8 +436,6 @@ export class CreateAssetsComponent implements OnInit {
     var tmpOrder = this.media[imageIndex];
     this.media.splice(imageIndex, 1);
     this.media.splice(0, 0, tmpOrder);
-    console.log('got here', this.media)
-    console.log('this is media type', this.mediaType)
     if (this.categorySelected === 'artwork' || this.categorySelected === 'movieRight' || this.categorySelected === 'musicRight' || this.categorySelected === 'book' ) {
      } else {
        this.toast.error('Please make sure you select a category.')
@@ -481,55 +479,53 @@ export class CreateAssetsComponent implements OnInit {
       if (this.social !== '') {
         this.description = this.description + ' '.repeat(10) + 'Social Link: ' + this.social;
       }
-      console.log('got here', this.media)
-      console.log('this is media type', this.mediaType)
-      // await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( async data => {
-      //   await this.metamaskService.getBlockCount(data.response).then((response: any) => {
-      //     if (response.status === 'complete' && data.status === 'success') {
-      //       //setTimeout(() => {
-      //         console.log('here')
-      //         this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected,
-      //           this.artistName, this.year, this.medium, this.size).pipe(timeout(20000)).subscribe(data => {
-      //           if (data['status'] === 'success') {
-      //             this.ngxService.stop();
-      //             this.toast.success('Asset has been issued successfully.')
+      await this.metamaskService.issue(this.tokenId, this.title, this.symbol, this.account).then( async data => {
+        await this.metamaskService.getBlockCount(data.response).then((response: any) => {
+          if (response.status === 'complete' && data.status === 'success') {
+            //setTimeout(() => {
+              console.log('here')
+              this.mainService.issueToken(this.tokenId, medias, this.mediaType, dateCreated, this.categorySelected, this.description, this.typeSelected,
+                this.artistName, this.year, this.medium, this.size).pipe(timeout(20000)).subscribe(data => {
+                if (data['status'] === 'success') {
+                  this.ngxService.stop();
+                  this.toast.success('Asset has been issued successfully.')
 
-      //             this.router.navigateByUrl('/profile').then(() => {
-      //               window.location.reload();
-      //             });
-      //           } else {
-      //             this.ngxService.stop();
-      //             this.toast.error('There has been an error, please try again.')
-      //           }
-      //         }, err => {
-      //           if (err.name === 'TimeoutError') { // fallback to issue-token endpoint timing out without a response
-      //             this.ngxService.stop();
-      //             this.toast.success('Asset has been issued successfully.')
-      //             this.router.navigateByUrl('/profile').then(() => {
-      //               window.location.reload();
-      //             })
-      //           } else {
-      //             this.ngxService.stop();
-      //             this.toast.error('There has been an error, please try again.')
-      //           }
-      //         })
-      //       form.value.reset;
-      //      //}, 15000);
-      //     } else {
-      //       this.ngxService.stop();
-      //       this.toast.error('There has been an error while trying to mint this asset, please try again.')
-      //     }
-      //   }, err => {
-      //     console.log('err', err)
-      //     this.ngxService.stop();
-      //     this.toast.error('There has been an error while trying to mint this asset, please try again.')
-      //   })
-      // }, err => {
-      //   this.error = err;
-      //   this.ngxService.stop();
-      //   this.toast.error(this.error)
-      //   form.value.reset;
-      // });
+                  this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                  });
+                } else {
+                  this.ngxService.stop();
+                  this.toast.error('There has been an error, please try again.')
+                }
+              }, err => {
+                if (err.name === 'TimeoutError') { // fallback to issue-token endpoint timing out without a response
+                  this.ngxService.stop();
+                  this.toast.success('Asset has been issued successfully.')
+                  this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                  })
+                } else {
+                  this.ngxService.stop();
+                  this.toast.error('There has been an error, please try again.')
+                }
+              })
+            form.value.reset;
+           //}, 15000);
+          } else {
+            this.ngxService.stop();
+            this.toast.error('There has been an error while trying to mint this asset, please try again.')
+          }
+        }, err => {
+          console.log('err', err)
+          this.ngxService.stop();
+          this.toast.error('There has been an error while trying to mint this asset, please try again.')
+        })
+      }, err => {
+        this.error = err;
+        this.ngxService.stop();
+        this.toast.error(this.error)
+        form.value.reset;
+      });
     }
   }
 }
