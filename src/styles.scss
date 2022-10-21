@@ -24683,6 +24683,7 @@ body.dark-mode .hero-main .container-fluid .hero-inr .row-custom .col-content-ot
     border-radius: 24px;
     border: 1px solid #CFCFCF;
     transition: 0.3s;
+    height: 250px;
   }
 
   .creator-main .container-fluid .creator-main-inr .row-custom .creator-otr .create-inr:hover {
@@ -29551,4 +29552,27 @@ body.dark-mode .featured-creator .container-fluid .featured-creator-inr .row-cus
 
 .p-galleria-item-nav-onhover .p-galleria-item-nav {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(242, 244, 248, 0.5);
+  border-radius: 100vw;
+  margin-block: .5em ;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #366CE3;
+  border-radius: 100vw;
+  border: 1px solid rgba(242, 244, 248, 0.5);
+}
+
+@supports (scrollbar-color: #366CE3 rgba(242, 244, 248, 0.5)) {
+  * {
+    scrollbar-color: #366CE3 rgba(242, 244, 248, 0.5);
+    scrollbar-width: thin;
+  }
 }
