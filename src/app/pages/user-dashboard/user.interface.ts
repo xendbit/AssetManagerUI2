@@ -15,6 +15,7 @@ import { IArtwork } from "src/app/core/components/slider/presentation.interface"
     collections?: Array<IArtwork>;
     bids?: Array<IUserBids>;
     isActive: boolean;
+    phoneNumber?: string;
     password?: string,
     about: string;
     displayImage: string;
