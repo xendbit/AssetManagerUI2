@@ -636,7 +636,8 @@ export class MainService {
     },  {headers})
   }
 
-  saveBankInfo(walletAddress: string, bankName: string, accountNumber: number, bankCode: string){
+  saveBankInfo(walletAddress: string, bankName: string, accountNumber: number,
+     bankCode: string, accountName: string, accountHolderAddress: string){
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
@@ -644,7 +645,9 @@ export class MainService {
       "bankName": bankName,
       "bankAccountNumber": accountNumber,
       "bankShortCode": bankCode,
-      "userWalletAddress": walletAddress
+      "userWalletAddress": walletAddress,
+      "accountName": accountName,
+      "accountHolderAddress": accountHolderAddress
     },  {headers})
 
   }

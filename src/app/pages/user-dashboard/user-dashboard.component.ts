@@ -34,6 +34,7 @@ export class UserDashboardComponent implements OnInit {
     "isActive": true,
     "about": "",
     "displayImage": "",
+    "phoneNumber": "",
     "coverImage": "",
     "webUrl": {"url": "", "title": ""},
     "joinDate": "",
@@ -46,6 +47,7 @@ export class UserDashboardComponent implements OnInit {
   coverImage: string = "/assets/img/profile_holder.jpg";
   another: any [] = []; error: string; showProfileUpload = false; showCoverUpload = false;
   previewMedia: any; facebook: string; twitter: string; telegram: string; discord: string;
+  phoneNumber: string;
   pinterest: string; youtube: string; about: string; private errorMessage: string; webUrl: string = "";
   private image: string;
   private previewArray:any = [];
@@ -165,7 +167,7 @@ export class UserDashboardComponent implements OnInit {
     this.ngxService.start();
     if (this.user.displayImage === './assets/img/nifty_profile.png') {
         this.user.displayImage = '11111111111';
-    } 
+    }
     if (this.user.coverImage === './assets/img/profile_holder.jpg') {
       this.user.coverImage = '11111111111'
     }
@@ -179,11 +181,13 @@ export class UserDashboardComponent implements OnInit {
       "about": this.user.about,
       "webUrl": this.user.webUrl.url,
       "social": this.user.socials,
+      "phoneNumber": this.user.phoneNumber,
       "photo": {
         "displayImage": this.user.displayImage,
         "coverImage": this.user.coverImage
       }
     }
+    console.log('this is userdata', userData)
     // if (!this.webUrl('https://')){
     //   return this.toast.error('Please Update your profile to include a valid Website URL.')
     // }
@@ -214,7 +218,7 @@ export class UserDashboardComponent implements OnInit {
       }
       if (this.user.displayImage === 'imageUrl') {
         this.user.displayImage = './assets/img/nifty_profile.png';
-      } 
+      }
       if (this.user.coverImage === 'imageUrl') {
         this.user.coverImage = './assets/img/profile_holder.jpg'
       }
@@ -227,6 +231,7 @@ export class UserDashboardComponent implements OnInit {
       this.pinterest = this.user.socials.pinterestUrl
       this.discord = this.user.socials.discordUrl;
       this.webUrl = this.user.webUrl.url;
+      this.phoneNumber = this.user.phoneNumber;
       this.ngxService.stop();
     }, err => {
       this.ngxService.stop();
@@ -288,7 +293,7 @@ export class UserDashboardComponent implements OnInit {
     this.ngxService.start();
     if (this.user.displayImage === './assets/img/nifty_profile.png') {
       this.user.displayImage = '11111111111';
-    } 
+    }
     let userData = {
       "displayImage": this.user.displayImage,
       "coverImage": this.user.coverImage
@@ -349,7 +354,8 @@ export class UserDashboardComponent implements OnInit {
   }
 
   updateAbout() {
-    this.user.about = this.about;
+    this.user.about ? this.about !== undefined : this.about ? this.about === undefined : this.user.about;
+    this.user.phoneNumber = this.phoneNumber || this.user.phoneNumber;
     this.updateProfile();
     this.showAboutMeModal = false;
   }

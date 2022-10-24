@@ -17,6 +17,12 @@
             <div class="input-otr" id="bankCode">
               <input class="input" type="text" id="bankCode" name="bankCode" [(ngModel)]="bankCode" placeholder="Bank Code" required>
             </div>
+            <div class="input-otr" id="bankCode">
+              <input class="input" type="text" id="accountName" name="accountName" [(ngModel)]="accountName" placeholder="Account Name" required>
+            </div>
+            <div class="input-otr" id="bankCode">
+              <input class="input" type="text" id="registeredAddress" name="registeredAddress" [(ngModel)]="registeredAddress" placeholder="registeredAddress" required>
+            </div>
             <div class="action-otr">
                 <input (click)="saveBankInfo(saveBankForm)" class="button body-sb"  [ngClass]="{'button body-sb':
                 bankName !== '' && accountNumber !== '' &&  bankCode !== '',
