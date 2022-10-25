@@ -354,7 +354,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   updateAbout() {
-    this.user.about ? this.about !== undefined : this.about ? this.about === undefined : this.user.about;
+    this.user.about = this.about || this.user.about;
     this.user.phoneNumber = this.phoneNumber || this.user.phoneNumber;
     this.updateProfile();
     this.showAboutMeModal = false;

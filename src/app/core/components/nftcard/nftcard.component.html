@@ -17,9 +17,9 @@
             </a>
             <a  class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
                 <video (click)="placeBid()" autostart="false" class="img-inr img-fluid" style="object-fit: cover;" poster="{{artwork.featuredImage.media}}"  controls controlsList="nodownload">
-                    <source src=" {{artwork.gallery[1]['media']}}" type="video/mp4" />
-                    <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
-                    <source src=" {{artwork.gallery[1]['media']}}" type="video/ogg" />
+                    <source src="{{(artwork.gallery[1]['media']).replace('unsafe: ','')}}" type="video/mp4" />
+                    <source src="{{(artwork.gallery[1]['media']).replace('unsafe: ','')}}" type="video/webm" />
+                    <source src="{{(artwork.gallery[1]['media']).replace('unsafe: ','')}}" type="video/ogg" />
                 </video>
             </a>
         </div>

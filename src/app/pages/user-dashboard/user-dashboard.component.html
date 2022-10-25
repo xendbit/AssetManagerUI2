@@ -253,12 +253,12 @@
         <textarea name="" id="" [(ngModel)]="about" name="about" placeholder="{{user.about}}" style="width: 100%" rows="10">
           {{user.about}}
         </textarea>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <div class="input-otr">
             <p class="input-title">Phone Number</p>
             <input class="input" style="width: 100%" type="text" name="phoneNumber" [(ngModel)]="phoneNumber" placeholder="{{user.phoneNumber}}" required="">
           </div>
-        </div>
+        </div> -->
 
         <ng-template pTemplate="footer">
           <p-button icon="pi pi-check" (click)="updateAbout()" label="Update" class="p-button-text"></p-button>

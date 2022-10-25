@@ -143,6 +143,7 @@ export class AssetDetailsComponent implements OnInit {
     this.today = new Date();
     var future = new Date();
     this.maxDate = new Date(future.setDate(future.getDate() + 30));
+    console.log('this is artworkdetails', this.artwork.gallery[1].media)
   }
 
   initialCheck() {
