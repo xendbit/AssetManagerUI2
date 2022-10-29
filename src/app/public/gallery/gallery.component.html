@@ -12,9 +12,9 @@
       </div>
       <span class="line"></span>
       <div class="row-custom owl-carousel owl-theme owl-loaded owl-drag">
-        <div class="owl-stage-outer" style="display: flex; justify-content: center">
+        <div class="owl-stage-outer" style="display: flex; justify-content: center; flex-wrap: wrap">
           <ng-container *ngFor="let gallery of galleries">
-            <div class="owl-item" style="width: 30%; margin-right: 24px;"><div class="col-otr">
+            <div class="owl-item" style="margin-right: 24px; margin-bottom: 1rem;"><div class="col-otr">
               <div class="col-inr">
                 <a [routerLink]="['/user-profile/', gallery.walletAddress]" class="img-otr">
                   <img *ngIf="gallery.photo && gallery.photo?.coverImage !== 'imageUrl' " class="img-fluid img-artwork" src="{{gallery.photo.coverImage}}" alt="artwork-img">
