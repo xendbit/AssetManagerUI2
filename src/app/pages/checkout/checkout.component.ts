@@ -94,6 +94,7 @@ export class CheckoutComponent implements OnInit {
     this.artwork = JSON.parse(localStorage.getItem('artworkData'));
     this.tokenId = this.activatedRoute.snapshot.params['tokenId'];
     this.amount = this.activatedRoute.snapshot.params['amount'];
+    this.getShippingInfo();
   }
 
   continuePayment() {
@@ -238,6 +239,13 @@ export class CheckoutComponent implements OnInit {
       // this.toast.success(this.artwork.symbol + ' Has been added to the list of artworks under your profile.');
     })
 
+  }
+
+  getShippingInfo() {
+    console.log('hot')
+    this.paymentService.getShippingInfo(this.account).subscribe(res => {
+      console.log('this is res ', res);
+    })
   }
 
 }

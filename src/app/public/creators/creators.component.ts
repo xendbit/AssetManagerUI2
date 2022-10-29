@@ -20,7 +20,7 @@ export class CreatorsComponent implements OnInit {
   }
 
   getCreators() {
-    this.mainService.fetchArtists('creator', 1, 100)
+    this.mainService.fetchArtists('creator', 1, 6)
       .subscribe((response: any) => {
         this.creators = response.data?.items;
         // console.log(response.data.items)

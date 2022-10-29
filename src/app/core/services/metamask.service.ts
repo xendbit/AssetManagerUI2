@@ -369,7 +369,6 @@ export class MetamaskService {
       if (error) {
         throw error;
       }
-      console.log('nkea', payload, error)
     })
   }
 
