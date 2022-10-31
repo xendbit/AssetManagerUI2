@@ -17,7 +17,7 @@ export class GalleryComponent implements OnInit {
   }
 
   getGalleries() {
-    this.mainService.fetchArtists('gallery', 1, 3)
+    this.mainService.fetchArtists('gallery', 1, 6)
       .subscribe((response: any) => {
         this.galleries = response.data?.items;
       }, error => {
