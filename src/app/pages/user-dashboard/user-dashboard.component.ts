@@ -181,7 +181,7 @@ export class UserDashboardComponent implements OnInit {
       "about": this.user.about,
       "webUrl": this.user.webUrl.url,
       "social": this.user.socials,
-      "phoneNumber": this.user.phoneNumber,
+      // "phoneNumber": this.user.phoneNumber,
       "photo": {
         "displayImage": this.user.displayImage,
         "coverImage": this.user.coverImage
@@ -231,7 +231,7 @@ export class UserDashboardComponent implements OnInit {
       this.pinterest = this.user.socials.pinterestUrl
       this.discord = this.user.socials.discordUrl;
       this.webUrl = this.user.webUrl.url;
-      this.phoneNumber = this.user.phoneNumber;
+      // this.phoneNumber = this.user.phoneNumber;
       this.ngxService.stop();
     }, err => {
       this.ngxService.stop();
@@ -355,7 +355,7 @@ export class UserDashboardComponent implements OnInit {
 
   updateAbout() {
     this.user.about = this.about || this.user.about;
-    this.user.phoneNumber = this.phoneNumber || this.user.phoneNumber;
+    // this.user.phoneNumber = this.phoneNumber || this.user.phoneNumber;
     this.updateProfile();
     this.showAboutMeModal = false;
   }

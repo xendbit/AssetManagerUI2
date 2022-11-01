@@ -126,8 +126,16 @@ constructor(public httpClient: HttpClient) {
     })
       return this.httpClient.post(`${environment.extraUrl}shipping-info`, user
       ,   {headers})
+  }
 
-
+  getShippingInfo(walletAddress: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain);
+    headers = headers.append('walletAddress', walletAddress.toString());
+    console.log('got herrr', environment.extraUrl)
+    return this.httpClient.get(`${environment.extraUrl}shipping-info`, {headers})
   }
 
 }

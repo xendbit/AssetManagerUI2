@@ -90,7 +90,7 @@ export class UserActionsService {
       "email": userData.email,
       "password": userData.password,
       "walletAddress": userData.walletAddress,
-      "phoneNumber": userData.phoneNumber,
+      // "phoneNumber": userData.phoneNumber,
       "about": userData.about,
       "webUrl": userData.webUrl,
       "social": userData.social,
