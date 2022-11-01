@@ -20,7 +20,7 @@ export class AllCollectorsComponent implements OnInit {
   }
 
   getCollectors() {
-    this.mainService.fetchArtists('collector', 1, 20)
+    this.mainService.fetchArtists('collector', 1, 100)
       .subscribe((response: any) => {
         this.collectors = response.data?.items;
       }, error => {
