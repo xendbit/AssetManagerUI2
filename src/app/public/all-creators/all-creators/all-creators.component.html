@@ -18,9 +18,9 @@
 
       <div class="row row-custom owl-carousel owl-theme owl-loaded owl-drag">
         <div class="owl-stage-outer">
-          <div class="owl-stage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+          <div class="owl-stage" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             <ng-container *ngFor="let creator of creators">
-              <div class="owl-item active" style="width: 294.25px; margin-right: 24px;">
+              <div class="owl-item active" style="width: 294.25px; margin-inline: 12px">
                 <div class="col-otr">
                   <div class="col-inr">
                     <a [routerLink]="['/user-profile/', creator.walletAddress]" class="img-otr">
