@@ -85,19 +85,19 @@
                               <a class="img-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">
                                   <img id="audioCoverArt" class="img-artwork img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
                                   <audio id="audioPlayer" class="AudioPlayerV1" style="width: 100%;"  controls controlsList="nodownload">
-                                      <source src="{{artwork.gallery[2]['media']}}" type="audio/mp3" />
-                                      <source src=" {{artwork.gallery[2]['media']}} " type="audio/ogg" />
+                                      <source src="{{artwork.gallery[1]['media']}}" type="audio/mp3" />
+                                      <source src=" {{artwork.gallery[1]['media']}} " type="audio/ogg" />
                                   </audio>
                               </a>
                               <a class="tilt-otr img-tilt"  id="anchorMedia" data-tilt  *ngSwitchCase="'movieRight'">
                                   <video id="videoPlayer" class="img-artwork img-fluid" style="object-fit: contain; width: 100%; height: 640px;"   controls autostart="false" controlsList="nodownload">
-                                      <source src=" {{artwork.gallery[2]['media']}}" type="video/mp4" />
-                                      <source src="{{artwork.gallery[2]['media']}}" type="video/webm" />
-                                      <source src=" {{artwork.gallery[2]['media']}}" type="video/ogg" />
+                                      <source src=" {{artwork.gallery[1]['media']}}" type="video/mp4" />
+                                      <source src="{{artwork.gallery[1]['media']}}" type="video/webm" />
+                                      <source src=" {{artwork.gallery[1]['media']}}" type="video/ogg" />
                                   </video>
                               </a>
                           </div>
-                          <div class="icons-div">
+                          <!-- <div class="icons-div">
                               <div class="icons-div-inr">
                                   <div id="likes" class="heart-main icon-div">
                                       <a class="heart-otr">
@@ -147,7 +147,7 @@
                                       <svg class="icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.75 20.25V4.5M3.75 15.75c6-4.5 10.5 4.5 16.5 0V4.5c-6 4.5-10.5-4.5-16.5 0" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                   </div>
                               </div>
-                          </div>
+                          </div> -->
                       </div>
                   </div>
               </div>
@@ -208,7 +208,7 @@
                                                  Minimum Bid - {{auction.minimumBid}} {{foundNetwork['currency']}}
                                                 </a>
                                                 <a id="verifyLink" href="{{foundNetwork['verifyLink']}}{{contractAddress}}?a={{artwork.tokenId}}" target="_blank" class="body-sb create-pb" style="margin-top: 10px; margin-left:auto; margin-bottom: 1rem; font-size: 16px; font-style: italic; color: #54BEF2">
-                                                  {{artwork.tokenId}} - Verify Asset <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="#54bef2" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M200,224.00005H55.99219a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8L152,32l56,56v128A8,8,0,0,1,200,224.00005Z" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="148 32 148 92 208.008 92" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><circle cx="123.9941" cy="148" r="24" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="140.96467" y1="164.97053" x2="159.79313" y2="183.79899" fill="none" stroke="#54bef2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                                                  {{artwork.tokenId}} - Verify Asset <img class="coins" width="10" src="./assets/img/magnifier.png" alt="">
                                                 </a>
                                               </div>
                                               <div class="boxes-main">
@@ -253,7 +253,7 @@
                                                  <div class="current-bid">
                                                   <div class="input-main" style="flex: 1.5; display: flex; align-items: center;">
                                                       <div *ngIf="auction.bids.length === 0 || auction.bids.length === 'undefined'" class="input-otr-2" style="flex: 1">
-                                                          <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})"  type="number" id="amount" name="amount"required>
+                                                          <input id="currentBid" class="input mb-5" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.highestBid}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})" min="0" type="number" id="amount" name="amount"required>
                                                       </div>
                                                       <!-- <div *ngIf="auction.bids.length === 0 && artwork.assetType === 'physical' || auction.bids.length === 'undefined' && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input mb-5" style="width: 100%;
@@ -263,7 +263,7 @@
                                                       </div> -->
                                                       <div *ngIf="auction.bids.length > 0" class="input-otr-2" style="flex: 1">
                                                           <input id="currentBid" class="input current-bid-input"
-                                                            type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}}) "  type="number" id="amount" name="amount"required>
+                                                            type="text" name="amount" [(ngModel)]="amount" placeholder="Current Bid: {{auction.bids[0]['bid']}} {{foundNetwork['currency']}} ({{this.auctionValue | currency}})" min="0" type="number" id="amount" name="amount"required>
                                                       </div>
                                                       <!-- <div *ngIf="auction.bids.length > 0 && artwork.assetType === 'physical'" class="input-otr-2" style="flex: 1">
                                                         <input id="currentBid" class="input current-bid-input" disabled
@@ -370,7 +370,7 @@
                                                           <input id="minimumPrice" class="input" style="width: 100%;
                                                           margin-bottom: 25px;
                                                           font-size: 20px;
-                                                          background-color: white;"  type="number" id="minimumPrice" [(ngModel)]="minimumPrice" name="minimumPrice" placeholder="Minimum Price" required>
+                                                          background-color: white;" min="0" type="number" id="minimumPrice" [(ngModel)]="minimumPrice" name="minimumPrice" placeholder="Minimum Price" required>
                                                       </div>
                                                   </div>
 

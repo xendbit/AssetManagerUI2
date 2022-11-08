@@ -44,6 +44,7 @@ export class ProfileComponent implements OnInit {
   facebook: string; twitter: string; telegram: string; discord: string; userWallet: any;
   pinterest: string; youtube: string; about: string; private errorMessage: string; webUrl: string = "";
   currentPage: any; itemCount: number; itemsPerPage: number; totalItems: number; account: string;
+  phoneNumber: any;
   totalPages: number;   likes: ILikes = { tokenId: 0, likeCount: 0}; followInfo: IFollow = { id: "", followCount: 0}
 
   constructor(public mainService: MainService,
@@ -70,7 +71,7 @@ export class ProfileComponent implements OnInit {
       }
       if (this.user.displayImage === 'imageUrl') {
         this.user.displayImage = './assets/img/nifty_profile.png';
-      } 
+      }
       if (this.user.coverImage === 'imageUrl') {
         this.user.coverImage = './assets/img/profile_holder.jpg'
       }

@@ -5,34 +5,35 @@
         <div class="head-otr">
           <h3 class="heading heading-h3">Explore Creators</h3>
         </div>
-        <div class="select"><select id="year" class="select-hidden">
-          <option class="linkk" value="hide">Sort by</option>
-          <option class="linkk" value="2010">All Artworks</option>
-          <option class="linkk" value="2011">Sort by</option>
-          <option class="linkk" value="2012">All Artworks</option>
-          <option class="linkk" value="2013">Sort by</option>
-        </select><div class="select-styled">Sort by</div><ul class="select-options"><li rel="hide">Sort by</li><li rel="2010">All Artworks</li><li rel="2011">Sort by</li><li rel="2012">All Artworks</li><li rel="2013">Sort by</li></ul></div>
+<!--        <div class="select"><select id="year" class="select-hidden">-->
+<!--          <option class="linkk" value="hide">Sort by</option>-->
+<!--          <option class="linkk" value="2010">All Artworks</option>-->
+<!--          <option class="linkk" value="2011">Sort by</option>-->
+<!--          <option class="linkk" value="2012">All Artworks</option>-->
+<!--          <option class="linkk" value="2013">Sort by</option>-->
+<!--        </select><div class="select-styled">Sort by</div><ul class="select-options"><li rel="hide">Sort by</li><li rel="2010">All Artworks</li><li rel="2011">Sort by</li><li rel="2012">All Artworks</li><li rel="2013">Sort by</li></ul>-->
+<!--        </div>-->
       </div>
       <span class="line"></span>
 
       <div class="row row-custom owl-carousel owl-theme owl-loaded owl-drag">
         <div class="owl-stage-outer">
-          <div class="owl-stage" style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap;">
+          <div class="owl-stage" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
             <ng-container *ngFor="let creator of creators">
-              <div class="owl-item active" style="width: 294.25px; margin-right: 24px;">
+              <div class="owl-item active" style="width: 294.25px; margin-inline: 12px">
                 <div class="col-otr">
                   <div class="col-inr">
                     <a [routerLink]="['/user-profile/', creator.walletAddress]" class="img-otr">
-                      <img *ngIf="creator.photo.coverImage !== 'imageUrl' && creator.photo.coverImage !== null " class="img img-fluid" src="{{ creator.photo.coverImage }}" alt="artwork-img">
-                      <img *ngIf="creator.photo.coverImage === 'imageUrl' || creator.photo.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
+                      <img *ngIf="creator.photo?.coverImage !== 'imageUrl' && creator.photo?.coverImage !== null " class="img img-fluid" src="{{ creator.photo?.coverImage }}" alt="artwork-img">
+                      <img *ngIf="creator.photo?.coverImage === 'imageUrl' || creator.photo?.coverImage === null " class="img img-fluid" src="https://ethoz-light.vistothemes.com/assets/img/cover-img15.jpg" alt="artwork-img">
                     </a>
                     <div class="user-profile">
                       <a [routerLink]="['/user-profile/', creator.walletAddress]" class="user-img-otr">
-                        <img class="user-img-inr" [src]="creator.photo.displayImage" alt="creator-img">
+                        <img class="user-img-inr" [src]="creator?.photo?.displayImage" alt="creator-img" style="width: 60px; height: 60px">
                       </a>
                       <div class="user-content">
-                        <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">Wow! That Brain is Floating</a>
-                        <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username}}</a></p>
+                        <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? ((creator.about | slice:0:22) + '...' | titlecase) : (creator.about) | titlecase }} </a>
+                        <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{ creator?.username | titlecase }}</a></p>
                       </div>
                     </div>
                   </div>

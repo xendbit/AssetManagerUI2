@@ -48,7 +48,7 @@ export class MetamaskService {
       }
     })
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'bsc';
+      this.chain = 'aurora';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -115,19 +115,29 @@ export class MetamaskService {
         })
       }
       if (this.userWallet === 'WalletConnect') {
-        // const provider = new WalletConnectProvider({
-        //   // infuraId: "a455af69a64d4b11aa16d37d5769e6a9", // Required
-        //   rpc: rpcData,
-        // });
         this.connector = new WalletConnect({
           bridge: "https://bridge.walletconnect.org", // Required
           qrcodeModal: QRCodeModal,
         });
-
         this.chainId = parseInt(localStorage.getItem('currentChainId'));
         localStorage.setItem('networkChain', this.chainId.toString())
         const foundNetwork = networkChains.find((res: any) => res.chain === this.chainId)
         const systemChain = networkChains.find((res: any) => res.chain === this.chainId);
+        let networkChain = this.chainId;
+        console.log('systemChain', systemChain, foundNetwork, this.chainId)
+        if (foundNetwork === undefined) {
+          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
+          // this.connector.createSession({chainId: 56});
+
+          // window.location.reload();
+        } else if (foundNetwork) {
+          this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
+        }
+        if (foundNetwork && systemChain.name !== foundNetwork.name) {
+          console.log('got hereeee')
+          this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
+        }
+
         this.connector.on("session_update", (error, payload) => {
           if (error) {
             throw error;
@@ -135,11 +145,20 @@ export class MetamaskService {
 
           // Get updated accounts and chainId
           const { accounts, chainId } = payload.params[0];
-          console.log('acc', accounts)
+          let networkChain = parseInt(chainId, 16);
+          console.log('acc', accounts, chainId, foundNetwork, networkChain, systemChain)
           this.chainId = chainId;
-          if (foundNetwork !== undefined) {
-          } else {
+          if (foundNetwork !== undefined && networkChain !== foundNetwork.chain) {
+            this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
+          } else if (foundNetwork) {
+            this.userActions.successToast(" Your wallet is connected to  " + foundNetwork.name)
+          }
+          if (foundNetwork === undefined) {
             this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
+          }
+          if (systemChain.name !== foundNetwork.name) {
+            console.log('got hereeee')
+            this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
           }
           window.location.reload();
         });
@@ -149,47 +168,44 @@ export class MetamaskService {
           }
           this.disconnectFromWalletConnect();
         })
-
-
-        if (foundNetwork === undefined) {
-          this.userActions.errorToast("Your wallet is currently set to an unsupported blockchain network ")
-        } else if (foundNetwork && systemChain.name !== foundNetwork.name) {
-          this.userActions.errorToast("Wrong chain. Your wallet is connected to " + foundNetwork.name)
-        } else if (foundNetwork && this.chainId !== foundNetwork.chain) {
-          this.userActions.errorToast("Please make sure your selected chain matches the chain on your wallet.")
-        } else {
-          this.userActions.successToast("Your wallet is connected to  " + foundNetwork.name)
-        }
       }
     }
   }
 
   public openMetamask = async () => {
+    const isOnMobileMetamask = localStorage.getItem("isOnMobileMetamask");
     if (this.platform.ANDROID) {
-      if (window.ethereum) {
-        this.handleEthereum();
+      if (isOnMobileMetamask === "true") {
+        if (window.ethereum) {
+          this.handleEthereum();
+        } else {
+          window.addEventListener('ethereum#initialized', this.handleEthereum, {
+            once: true,
+          });
+          // If the event is not dispatched by the end of the timeout,
+          // the user probably doesn't have MetaMask installed.
+          setTimeout(this.handleEthereum, 3000); // 3 seconds
+        }
       } else {
-        window.addEventListener('ethereum#initialized', this.handleEthereum, {
-          once: true,
-        });
-        // If the event is not dispatched by the end of the timeout,
-        // the user probably doesn't have MetaMask installed.
-        setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://metamask.app.link";
+        localStorage.setItem('isOnMobileMetamask', 'true');
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
-
       // this.clickedOnMobile = true;
       // window.open("https://metamask.app.link/bxwkE8oF99", '_blank');
     }
     if (this.platform.IOS) {
-      if (window.ethereum) {
-        this.handleEthereum();
+      if (isOnMobileMetamask === "true") {
+        if (window.ethereum) {
+          this.handleEthereum();
+        } else {
+          window.addEventListener('ethereum#initialized', this.handleEthereum, {
+            once: true,
+          });
+          setTimeout(this.handleEthereum, 3000); // 3 seconds
+        }
       } else {
-        window.addEventListener('ethereum#initialized', this.handleEthereum, {
-          once: true,
-        });
-        setTimeout(this.handleEthereum, 3000); // 3 seconds
-        window.location.href = "https://apps.apple.com/us/app/metamask-blockchain-wallet/";
+        localStorage.setItem('isOnMobileMetamask', 'true');
+        window.location.href = "https://metamask.app.link/dapp/app.niftyrow.io";
       }
     }
     return from(detectEthereumProvider()).subscribe(async (provider) => {
@@ -333,6 +349,8 @@ export class MetamaskService {
       this.connector.createSession();
     }
 
+    console.log('connector', this.connector)
+
     this.connector.on("connect", (error, payload) => {
       if (error) {
         throw error;
@@ -346,6 +364,12 @@ export class MetamaskService {
       localStorage.setItem('currentChainId', this.chainId.toString())
       window.location.reload();
     });
+
+    this.connector.on("session_update", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+    })
   }
 
   disconnectFromWalletConnect() {

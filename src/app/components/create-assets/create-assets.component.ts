@@ -68,6 +68,7 @@ export class CreateAssetsComponent implements OnInit {
   checked = false;
   currentChain: any;
   userWallet: any;
+  registeredAddress: string;
 
   responsiveOptions:any[] = [
     {
@@ -228,7 +229,9 @@ export class CreateAssetsComponent implements OnInit {
     const bankCode = form.value.bankCode;
     const accountNumber = form.value.accountNumber;
     const bankName = form.value.bankName;
-    if (bankName === undefined || accountNumber === undefined  || bankCode === undefined) {
+    const accountName = form.value.accountName;
+    const accountHolderAddress = form.value.value.registeredAddress;
+    if (bankName === undefined || accountNumber === undefined  || bankCode === undefined || accountName === undefined || accountHolderAddress === undefined) {
       this.toast.error('Please make sure all fields are completed and correct.')
       this.displayOverlay = true;
       return false;
@@ -237,7 +240,7 @@ export class CreateAssetsComponent implements OnInit {
     this.ngxService.start();
     this.mainService.saveBankInfo(
       this.account, bankName,
-      accountNumber, bankCode).subscribe(res => {
+      accountNumber, bankCode, accountName, accountHolderAddress).subscribe(res => {
       if (res['status'] === 'success') {
         this.ngxService.stop();
         this.toast.success('Bank Details has been saved successfully')
@@ -490,9 +493,9 @@ export class CreateAssetsComponent implements OnInit {
                   this.ngxService.stop();
                   this.toast.success('Asset has been issued successfully.')
 
-                  // this.router.navigateByUrl('/profile').then(() => {
-                  //   window.location.reload();
-                  // });
+                  this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                  });
                 } else {
                   this.ngxService.stop();
                   this.toast.error('There has been an error, please try again.')

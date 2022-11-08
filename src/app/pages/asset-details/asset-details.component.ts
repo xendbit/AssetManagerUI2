@@ -112,9 +112,9 @@ export class AssetDetailsComponent implements OnInit {
     let networkChain = parseInt(localStorage.getItem('networkChain'));
     if (networkChain === undefined || networkChain === null) {
       if (environment.production) {
-        networkChain === 56 //defaults to bsc
+        networkChain === 1313161554 //defaults to bsc
       } else {
-        networkChain === 97 //defaults to harmony
+        networkChain === 1313161555 //defaults to harmony
       }
     }
     this.checkConnection();
@@ -143,6 +143,7 @@ export class AssetDetailsComponent implements OnInit {
     this.today = new Date();
     var future = new Date();
     this.maxDate = new Date(future.setDate(future.getDate() + 30));
+    console.log('this is artworkdetails', this.artwork.gallery[1].media)
   }
 
   initialCheck() {
@@ -184,6 +185,12 @@ export class AssetDetailsComponent implements OnInit {
     }
   }
 
+  getTokenHistory() {
+    this.mainService.getTokenHistory(this.artwork.tokenId).subscribe(data => {
+      console.log('res', data)
+    })
+  }
+
   getCreatorArt() {
     this.mainService.getOwnerAssets().subscribe((res: IArtwork []) => {
       if (res !== null) {
@@ -206,7 +213,9 @@ export class AssetDetailsComponent implements OnInit {
         this.ngxService.stop();
       } else {
         this.artwork = res;
+        console.log('token info', this.artwork)
         this.sellPriceMet = false;
+        this.getTokenHistory();
         if (this.artwork.lastAuctionId !== 0) {
           this.auctionService.fetchAuctionFromMain(this.tokenId, res.lastAuctionId).subscribe((res: any) => {
             if (res === 'Auction has ended') {
@@ -392,7 +401,7 @@ export class AssetDetailsComponent implements OnInit {
                         window.location.reload();
                       });
                     }
-                    
+
                   } else {
                     this.toast.success('There has been an error, please try again.');
                     this.getSingleArtworkDetails();

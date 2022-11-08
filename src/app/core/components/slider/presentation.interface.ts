@@ -1,8 +1,17 @@
 
-export interface IPresentation {
-    slides:Array<IAuction | ICreator | IArtwork | ICollection>;
-    presentationType: presentationType
+  export interface IPresentation {
+    slides:Array<IAuction | ICreator | IArtwork | ICollection | any>;
+    presentationType?: presentationType
   }
+  // export interface IPresentation {
+  //   firstSlide?: string;
+  //   secondSlide?: string;
+  //   thirdSlide?: string;
+  //   firstSlideMobile?: string;
+  //   secondSlideMobile?: string;
+  //   thirdSlideMobile?: string;
+
+  // }
   export interface IAuction {
     auctionId: number;
     cancelled: boolean;

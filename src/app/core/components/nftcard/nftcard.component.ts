@@ -5,6 +5,7 @@ import { MainService } from '../../services/main.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { AuctionService } from '../../services/auction.service';
 import { UserActionsService } from '../../services/userActions.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IEvents, IFollow, ILikes } from './event.interface';
@@ -44,6 +45,7 @@ export class NFTCardComponent implements OnInit {
 
   constructor(public mainService: MainService, public auctionService: AuctionService,
     public userActions: UserActionsService,  private spinner: NgxSpinnerService, public router: Router,
+    private sanitizer:DomSanitizer,
     private clipboard: Clipboard) { }
 
   ngOnInit() {
@@ -73,6 +75,12 @@ export class NFTCardComponent implements OnInit {
         }
       }
     }
+  }
+
+  sanitize(url:string){
+    // return this.sanitizer.bypassSecurityTrustUrl(url);
+    const mu =  url.replace("unsafe: ","");
+    return mu;
   }
 
   like(tokenId) {
@@ -154,4 +162,7 @@ export class NFTCardComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  getChain() {
+    return localStorage.getItem('currentChain');
+  }
 }

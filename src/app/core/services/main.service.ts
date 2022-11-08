@@ -53,7 +53,7 @@ export class MainService {
 
   constructor(public httpClient: HttpClient) {
     if (!localStorage.getItem('currentChain') || localStorage.getItem('currentChain') === undefined || localStorage.getItem('currentChain') === null) {
-      this.chain = 'bsc';
+      this.chain = 'aurora';
     } else {
       this.chain = localStorage.getItem('currentChain');
     }
@@ -64,7 +64,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -74,17 +74,17 @@ export class MainService {
           auctions: item.auctions,
           owner: {
             id: item.id,
-            image: item.media[0]?.media || './assets/img/nifty_profile.png',
+            image: item.media[0]?.media || item.media[1].media,
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.media[0]?.media || './assets/img/nifty_profile.png',
+            image: item.media[0]?.media || item.media[1].media,
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[0]?.media || './assets/img/nifty_profile.png',
+            media: item.media[0]?.media || item.media[1].media,
             mediaType: 0
           },
           chain: item.chain,
@@ -123,7 +123,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return new Observable((observer) => {/* make http request & process */
       this.httpClient.get<IArtwork>(`${environment.baseApiUrl}get-token-info/${tokenId}`, {headers}).subscribe(data => {
           let item = data['data'];
@@ -139,12 +139,12 @@ export class MainService {
             size: item.size,
             owner: {
               id: item.id,
-              image: item.media[1].media || './assets/img/nifty_profile.png',
+              image: item.ownerPhoto?.displayImage || item.media[1].media,
               username: item.owner
             },
             creator: {
               id: item.id,
-              image: item.media[1].media || './assets/img/nifty_profile.png',
+              image: item.issuerPhoto?.displayImage || item.media[1].media,
               username: item.issuer,
               type: item.type
             },
@@ -188,7 +188,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     this.httpClient.get<IArtwork []>(`${environment.baseApiUrl}list-tokens-with-auctions?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => {
         this.dataStore.artworks.push({
@@ -198,17 +198,17 @@ export class MainService {
           tags: item.tags,
           owner: {
             id: item.id,
-            image: item.ownerPhoto?.displayImage || item.media[1]?.media || './assets/img/nifty_profile.png',
+            image: item.ownerPhoto?.displayImage || item.media[0]?.media || './assets/img/nifty_profile.png',
             username: item.owner
           },
           creator: {
             id: item.id,
-            image: item.issuerPhoto?.displayImage || item.media[1]?.media || './assets/img/nifty_profile.png',
+            image: item.issuerPhoto?.displayImage || item.media[0]?.media || './assets/img/nifty_profile.png',
             username: item.issuer,
             type: item.type
           },
           featuredImage: {
-            media: item.media[1]?.media || './assets/img/nifty_profile.png',
+            media: item.media[0]?.media || './assets/img/nifty_profile.png',
             mediaType: 0
           },
           chain: item.chain,
@@ -246,7 +246,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.get(`${environment.baseApiUrl}list-tokens/by-owner/${account}?page=${page}&limit=${limit}`, {headers}).pipe(map(res => {
       res['data']['items'].forEach((item) => this.ownerDataStore.ownerArtworks.push({
         id: item.id,
@@ -255,12 +255,12 @@ export class MainService {
         auctions: item.auctions,
         owner: {
           id: item.id,
-          image: item.media[0].media || './assets/img/nifty_profile.png',
+          image: item.ownerPhoto?.displayImage || item.media[0].media || './assets/img/nifty_profile.png',
           username: item.owner
         },
         creator: {
           id: item.id,
-          image: item.media[0].media || './assets/img/nifty_profile.png',
+          image: item.issuerPhoto?.displayImage || item.media[0].media || './assets/img/nifty_profile.png',
           username: item.issuer,
           type: item.type
         },
@@ -328,7 +328,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}issue-token/`, {
       "tokenId": tokenId,
       "medias": medias,
@@ -348,7 +348,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.post(`${environment.baseApiUrl}start-auction`,
     {tokenId: tokenId,
       auctionId: auctionId,
@@ -517,11 +517,63 @@ export class MainService {
         observer.next(this.presentationResponse);
         observer.complete();
       } else {
-        this.presentationResponse =  presentationJson['default'][0];
-        observer.next(this.presentationResponse);
-        observer.complete()
+        let headers: HttpHeaders = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        headers = headers.append('api-key', niftyKey);
+        this.httpClient.get(`${environment.extraUrl}images/slider-images`, {headers}).subscribe((res: any) => {
+          if (res.status === 'success') {
+            const data = res.data.images[0]
+            let initalArray = []
+            initalArray.push({
+              "slider": data.firstSlide,
+              "mobile": data.firstSlideMobile || './assets/img/m-slider-1.png',
+              "type": "auction"
+            })
+            console.log(initalArray);
+            initalArray= [
+              {
+                "slides":  [
+                  {
+                      "slider": data.firstSlide,
+                      "mobile": data.firts  || "./assets/img/m-slider-1.png",
+                      "type": "Auction"
+                  },
+                  {
+                    "slider": data.secondSlide,
+                    "mobile": data.secondSlideMobile || './assets/img/m-slider-2.png',
+                    "type": "Auction"
+                  },
+                  {
+
+                      "slider": data.thirdSlide,
+                      "mobile": data.thirdSlideMobile || "./assets/img/m-slider-3.png",
+                      "type": "Auction"
+                  }
+                ],
+              "presentationType": "auction"
+              }
+            ]
+            this.presentationResponse = initalArray[0]
+            observer.next(this.presentationResponse);
+            observer.complete()
+          } else {
+            this.presentationResponse =  presentationJson['default'][0];
+            observer.next(this.presentationResponse);
+            observer.complete()
+          }
+
+        }, err => {
+          this.presentationResponse =  presentationJson['default'][0];
+          observer.next(this.presentationResponse);
+          observer.complete()
+        })
       }
     });
+  }
+
+  getSlider() {
+
+
   }
 
   getDrops() {
@@ -584,7 +636,8 @@ export class MainService {
     },  {headers})
   }
 
-  saveBankInfo(walletAddress: string, bankName: string, accountNumber: number, bankCode: string){
+  saveBankInfo(walletAddress: string, bankName: string, accountNumber: number,
+     bankCode: string, accountName: string, accountHolderAddress: string){
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
@@ -592,8 +645,19 @@ export class MainService {
       "bankName": bankName,
       "bankAccountNumber": accountNumber,
       "bankShortCode": bankCode,
-      "userWalletAddress": walletAddress
+      "userWalletAddress": walletAddress,
+      "accountName": accountName,
+      "accountHolderAddress": accountHolderAddress
     },  {headers})
+
+  }
+
+  getTokenHistory(tokenId: number){
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('api-key', niftyKey);
+    headers = headers.append('chain', this.chain || 'aurora');
+    return this.httpClient.get(`${environment.baseApiUrl}token-history/${tokenId}`,  {headers})
 
   }
 
@@ -680,7 +744,7 @@ export class MainService {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('api-key', niftyKey);
-    headers = headers.append('chain', this.chain);
+    headers = headers.append('chain', this.chain || 'aurora');
     return this.httpClient.get<any[]>(`${environment.extraUrl}users/get-user-by-type/${artists}?page=${page}&limit=${limit}`, {headers});
   }
 

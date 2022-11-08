@@ -18,7 +18,7 @@ export class AllCreatorsComponent implements OnInit {
   }
 
   getCreators() {
-    this.mainService.fetchArtists('creator', 1, 20)
+    this.mainService.fetchArtists('creator', 1, 100)
       .subscribe((response: any) => {
         this.creators = response.data?.items;
         // console.log(response.data.items)

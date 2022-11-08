@@ -13,9 +13,9 @@
       <span class="line"></span>
       <div class="row row-custom owl-carousel owl-theme owl-loaded owl-drag">
         <div class="owl-stage-outer">
-          <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2865px;">
+          <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; display: flex; flex-wrap: wrap; justify-content: center;">
             <ng-container *ngFor="let creator of creators">
-            <div class="owl-item active" style="width: 294.25px; margin-right: 24px;">
+            <div class="owl-item active" style="width: 294.25px; margin-right: 24px; margin-bottom: 8rem">
               <div class="col-otr">
                 <div class="col-inr">
                   <a [routerLink]="['/user-profile/', creator.walletAddress]" class="img-otr">
@@ -27,8 +27,8 @@
                       <img class="user-img-inr" [src]="creator.photo?.displayImage" alt="creator-img">
                     </a>
                     <div class="user-content">
-                      <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? (creator.about | slice:0:18 + '...') : (creator.about) }}</a>
-                      <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username}}</a></p>
+                      <a [routerLink]="['/user-profile/', creator.walletAddress]" class="title body-mb">{{ creator.about.length > 20 ? ((creator.about | slice:0:18) + '...' | titlecase) : (creator.about) | titlecase }}</a>
+                      <p class="body-s collect-by"> Collection by <a href="" class="body-sb username">{{creator.username | titlecase}}</a></p>
                     </div>
                   </div>
                 </div>

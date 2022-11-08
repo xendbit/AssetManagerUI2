@@ -39,6 +39,15 @@ export const networkChains = [
     explorer: 'https://polygonscan.com'
   },
   {
+    name: 'Harmony',
+    chain: 1666600000,
+    rpcUrl: 'https://api.harmony.one',
+    currency: 'ONE',
+    systemName: 'harmony',
+    verifyLink: 'https://explorer.harmony.one/address/',
+    explorer: 'https://explorer.harmony.one'
+  },
+  {
     name: "Aurora",
     chain: 1313161554,
     rpcUrl: 'https://mainnet.aurora.dev',
