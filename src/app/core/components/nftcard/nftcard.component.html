@@ -4,7 +4,8 @@
 
     <div class="col-inr box2">
         <div class="img-otr" [ngSwitch]="artwork.category">
-            <a (click)="placeBid()" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
+          <img class="coins" src="./assets/img/coins/{{getChain()}}.svg" alt="">
+          <a (click)="placeBid()" class="tilt-otr img-tilt" id="anchorMedia" data-tilt   *ngSwitchDefault>
                 <img class="img-inr img-fluid" src="{{artwork.featuredImage.media}}" alt="artwork-img">
             </a>
             <a class="tilt-otr img-tilt" data-tilt  *ngSwitchCase="'musicRight'">

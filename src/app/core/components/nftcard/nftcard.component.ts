@@ -164,4 +164,7 @@ export class NFTCardComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  getChain() {
+    return localStorage.getItem('currentChain');
+  }
 }
