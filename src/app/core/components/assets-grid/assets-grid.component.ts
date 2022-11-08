@@ -53,6 +53,7 @@ export class AssetsGridComponent implements OnInit {
     if (changes['artworkArray']?.currentValue !== undefined && this.artworkArray !== null) {
       if (this.artworkArray !== null) {
         this.artworks = this.artworkArray;
+        this.artworkArray = this.artworkArray
         this.ngxService.stop();
         this.categories = this.artworks.map(item => item.category)
         .filter((value, index, self) => self.indexOf(value) === index);
@@ -76,13 +77,13 @@ export class AssetsGridComponent implements OnInit {
   categoryFilter(category: string) {
     this.categorySelected = category;
     if (category === 'all') {
-      return this.artworks;
+      return this.artworkArray = this.artworks;
     } else {
       if (category.toLowerCase() === 'physical' || category.toLowerCase() === 'digital') {
         this.artworkArray = this.artworks.filter(item => {
           return item.assetType.toLowerCase() === category.toLowerCase();
         });
-        this.artworks = this.artworkArray;
+        this.artworkArray = this.artworkArray;
       } else  {
         this.artworkArray = this.artworks.filter(item => {
           return item.category.toLowerCase()  === category.toLowerCase();

@@ -58,7 +58,6 @@ export class NFTCardComponent implements OnInit {
       this.today = new Date().getTime();
       let account = localStorage.getItem('account');
       let likesArray: any[] = [];
-      console.log('this =======>', this.artwork.gallery[1].media)
       if (this.artwork.likes) {
         likesArray = this.artwork.likes || [];
         this.likes = this.artwork.likes.length;
@@ -81,7 +80,6 @@ export class NFTCardComponent implements OnInit {
   sanitize(url:string){
     // return this.sanitizer.bypassSecurityTrustUrl(url);
     const mu =  url.replace("unsafe: ","");
-    console.log("Value of MU",mu)
     return mu;
   }
 
