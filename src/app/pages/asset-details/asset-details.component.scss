@@ -355,7 +355,7 @@ $text-color: mix(#000, $primary-color, 64%);
                             border-radius: 12px;
                             background-color: $Gray-Shade-4;
                             @include breakpoint($secreen-xs){
-                                padding: 0;
+                                padding: 12px;
                                 border-radius: 0;
                                 background-color: transparent;
                             }
@@ -791,7 +791,7 @@ body.dark-mode #bidDetails {
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  min-height: 40rem;
+  min-height: 55rem;
 }
 
 .flip-box:hover .flip-box-inner {
