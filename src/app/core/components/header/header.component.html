@@ -244,7 +244,7 @@
                                 <a id="disconnectWalletConnect" (click)=" disconnectFromWalletConnect()"> {{account.substring(0, 5) + 'xxxxx' + account.slice(account.length - 5)}} </a>
                               </button>
                             </li>
-                            <!-- <li *ngIf="!accountFound">
+                            <li *ngIf="!accountFound">
                               <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="login" (click)="toggleLogin()"> Login </a>
                               </button>
@@ -253,7 +253,7 @@
                               <button  class="btn-outline1 btn-wallet" id="metamask" style="background-color: transparent; margin-bottom: 5px; width: 100%;">
                                   <a id="login" (click)="toggleLogin()"> {{username}} </a>
                               </button>
-                            </li> -->
+                            </li>
                         </ul>
                         <span style="margin-left: 10px;" *ngIf="!accountFound">
                           <h6 class="head-2 heading-h6" style="margin-left: 10px; padding-bottom: 3px;"> Or connect using any of the following wallets:</h6>

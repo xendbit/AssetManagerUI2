@@ -117,6 +117,8 @@ export class CheckoutComponent implements OnInit {
       this.payId = pi.id;
       this.paying = true;
       this.pay(this.clientSecret);
+    }, err => {
+      console.log('this is error', err)
     });
     // if (this.selectedCountry === 'Nigeria') {
     //   this.payWithRave();
@@ -193,23 +195,9 @@ export class CheckoutComponent implements OnInit {
 
   checkConnection() {
     this.userWallet = localStorage.getItem('userWallet');
-    if (this.userWallet !== null) {
-      if (this.userWallet === 'Metamask') {
-        this.metamaskService.checkConnection().then(res => {
-          if (res === undefined || !localStorage.getItem('account')) {
-            this.accountFound = false;
-            this.error = 'Please Connect to your Metamask wallet account.'
-            return;
-          } else {
-            this.accountFound = true;
-            this.account = localStorage.getItem('account');
-          }
-        })
-      }
-      if (this.userWallet === 'WalletConnect' && localStorage.getItem('account')) {
-        this.accountFound = true;
-        this.account = localStorage.getItem('account');
-      }
+    if (localStorage.getItem('account')) {
+      this.accountFound = true;
+      this.account = localStorage.getItem('account');
     }
   }
 
