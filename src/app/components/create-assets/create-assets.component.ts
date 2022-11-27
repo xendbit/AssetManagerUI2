@@ -69,6 +69,7 @@ export class CreateAssetsComponent implements OnInit {
   currentChain: any;
   userWallet: any;
   registeredAddress: string;
+  IBANNumber: string;
 
   responsiveOptions:any[] = [
     {
@@ -230,7 +231,7 @@ export class CreateAssetsComponent implements OnInit {
     const accountNumber = form.value.accountNumber;
     const bankName = form.value.bankName;
     const accountName = form.value.accountName;
-    const accountHolderAddress = form.value.value.registeredAddress;
+    const accountHolderAddress = this.registeredAddress;
     if (bankName === undefined || accountNumber === undefined  || bankCode === undefined || accountName === undefined || accountHolderAddress === undefined) {
       this.toast.error('Please make sure all fields are completed and correct.')
       this.displayOverlay = true;

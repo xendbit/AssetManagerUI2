@@ -644,7 +644,7 @@ export class MainService {
     return this.httpClient.post(`${environment.extraUrl}bank-account/add-bank-info`, {
       "bankName": bankName,
       "bankAccountNumber": accountNumber,
-      "bankShortCode": bankCode,
+      "bankSortCode": bankCode,
       "userWalletAddress": walletAddress,
       "accountName": accountName,
       "accountHolderAddress": accountHolderAddress
